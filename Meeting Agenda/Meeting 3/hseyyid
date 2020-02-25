@@ -8,3 +8,5 @@
 5. Sharing ajendas to everyone before the meeting
 6. Adding a completion time column next to deadline column.
 7. Proje Türkçe açıklama seçeneği getirebiliriz, daha sonra bu projelerden faydalanmak isteyen yabancı dil eğitim görmeyenler için.
+8. Herhangi biri bir düzenleme yaptığı zaman özellikle de herkesin ortak uğraştığı bir alandaysa bu değişiklik, commmit etmeden 
+   önce değişikliğin ne ile ilgili olduğu save changes butonuna basmadan önce yazılabilir.
