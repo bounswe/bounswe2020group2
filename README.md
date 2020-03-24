@@ -3,6 +3,10 @@
 # Welcome 
  
 Welcome to the Github Repository of the second group of CMPE352 - Spring 2020.
+
+# Description
+
+This project aims to provide an online platform that enables people to buy and sell all kinds of products.
  
 Please checkout our [Wiki section](https://github.com/bounswe/bounswe2020group2/wiki) for more information!
  
