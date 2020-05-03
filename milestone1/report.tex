@@ -1,0 +1,1618 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{article}
+\usepackage[margin=1.5in]{geometry}
+% \usepackage{tabu}
+\usepackage{tabulary}
+\usepackage{float}
+\usepackage{centeredline}
+\usepackage{adjustbox}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+\usepackage[]{microtype}
+\usepackage{parskip}
+\usepackage{hyperref}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\hypersetup{
+            pdftitle={CMPE352 - Milestone 1 Report},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{CMPE352 - Milestone 1 Report \\ Group 2}
+\author{A. Furkan Varol \\ Aleyna Kara \\ Aslı Aykan
+    \\ Burak Çetin \\ Furkan Nane \\ Hande Şirikçi
+    \\ Hüseyin Seyyid Kaplan \\ Mehdi Saffar (Communicator) \\ Mehmet Umut Öksüz
+    \\ Ömer Faruk Deniz \\ Özdeniz Dolu} 
+
+\date{03-04-2020}
+
+
+\begin{document}
+\makeatletter
+\begin{titlepage}
+    \begin{center}
+        \includegraphics{logo_circle.png}\\[3ex] \leavevmode \\
+        {\huge \bfseries \@title}\\[2ex] 
+        {\large \@author}\\[2ex]
+        % {\@author}\\[2ex]\\
+        {\large \@date}
+    \end{center}
+\end{titlepage}
+\makeatother
+\thispagestyle{empty}
+\newpage
+% \maketitle
+
+{
+    \setcounter{tocdepth}{2}
+    \tableofcontents
+    \pagebreak
+}
+
+% \begin{figure}
+%     \centering
+%     \includegraphics[height=3in]{./images/0.jpg}
+%     \caption{Logo}
+% \end{figure}
+
+% \begin{figure}
+%     \centering
+%     \includegraphics[height=3in]{./images/2.jpg}
+%     \caption{group2}
+% \end{figure}
+
+\hypertarget{executive-summary}{%
+    \section{Executive Summary}\label{executive-summary}}
+
+\hypertarget{introduction}{%
+    \subsection{Introduction}\label{introduction}}
+
+Getflix is an online commerce platform that helps users find a plethora
+of products they need and purchase them in an easy and straightforward
+way. Getflix removes the friction of the shopping experience by
+providing an easy-to-use interface on all major desktop and mobile
+platforms. Shoppers are able to find products with the means of semantic
+search, view product details and decide whether a product is worth it by
+reading comments by verified buyers. When their shopping cart is
+finalized, they can easily buy their products with debit/credit card.
+Getflix also gives the opportunity for buyers to track price changes so
+that they can strike better deals.
+
+In Getflix there are four types of users: Guest, Customer, Vendor and
+Admins. Guest users are allowed to do basic operations such as searching
+products and viewing their details, as well as add products to their
+shopping cart. Customers are registered users that are allowed to
+continue with checking out process. They can also track their orders,
+ask for support from Admins and comment on products they have purchases.
+Vendors are allowed to setup an online shop where they can present their
+products on our platform. Admins maintain the system and make sure that
+operations go smoothly.
+
+\hypertarget{what-we-have-done-so-far}{%
+    \subsection{What we have done so far}\label{what-we-have-done-so-far}}
+
+The very first thing we did was, naturally, to get to know each other.
+We learned about each other's background, exchanged contact informations
+and started building the infrastructure necessary for future work
+together. During the first week, we setup our Github repo, agreed on a
+communication plan, created a Slack workspace where realtime
+communication could happen. Each one of us researched about how to use
+github, picked a favorite repository and explained what we liked about
+it.
+
+Every week we would meet and discuss the assigned tasks. The major task
+we first accomplished was creating a requirements document based on the
+customer's needs. This required multiple meetings, both within our team,
+as well as with the customer in order to better understand their needs
+and remove any ambiguities from the requirements.
+
+Once the requirements were reviewed and finalized, we started working on
+a more visual documentation. We prepared three scenarios based on three
+personas which describe the archetypes of users we are expecting to see
+on our platform. For each user scenario, we prepared a mockup that shows
+how that user would be able to achieve his/her end goal on our platform.
+Mockups are a series of images, either on our desktop or mobile app,
+that shows how the user interacts with our platform to achieve the
+desired effect.
+
+The next step was to create three detailed diagrams: Use case diagrams,
+Class Diagrams, and Sequence diagrams. These diagrams help clarify the
+technical aspect of the platform. It fleshes out the use cases, the
+potential classes (in the object-oriented sense) we might use during
+implementation. This brings our overview of the system to a more
+concrete level.
+
+In the final week, we took the time to produce a project plan that
+encompasses what we have done so far as well as a best guess estimation
+of the tasks we will have to do in the next course. This is materialized
+in the project plan and the RAM (Responsiblity Assignment Matrix)
+
+\hypertarget{future-work}{%
+    \subsection{Future work}\label{future-work}}
+
+In the next few weeks, we will practicing together as a team by
+implementing an API that could be used on this project. We will learn
+how to use git in a team setting, how to write good tests to make sure
+our code works as expected, and how to use AWS tools (EC2 for instance)
+in order to deploy our app in a production environment. Things take
+time, but we are perseverant and patient.
+
+\hypertarget{list-and-status-of-deliverables}{%
+    \section{List and status of
+      deliverables}\label{list-and-status-of-deliverables}}
+
+\begin{table}[H]
+    \small
+    \makebox[\textwidth]{
+        \begin{tabulary}{1.3\textwidth}{LllL}
+            \textbf{Deliverable} & \textbf{Status} & \textbf{Update frequency} & \textbf{Description}                                                                                          \\ \midrule
+            README               & Complete        & When required             & Github README that contains a welcome message, a member list and a brief description of the project           \\ \midrule
+            Github Wiki          & Complete        & Weekly                    & Github Wiki which contains all project related resource                                                       \\ \midrule
+            Github Issues        & Complete        & When required             & Decide on issue labels and use issues to track lifecycle of action items                                      \\ \midrule
+            Meeting notes        & In Progress     & Weekly                    & Publish meeting notes which contains agenda and action items                                                  \\ \midrule
+            Communication Plan   & Complete        & When required             & Decide on mutiple communication channels. Adapt to COVID-19 situation                                         \\ \midrule
+            Requirements         & Complete        & When required             & Analyze project and meet with customer to define the requirements                                             \\ \midrule
+            User scenarios       & Complete        & When required             & Come up with three different personas with their stories                                                      \\ \midrule
+            Mockups              & Complete        & When required             & Make a visual story out of the user scenarios to show the steps and user interface on the different platforms \\ \midrule
+            Designs              & Complete        & When required             & Create Use case, Class and Sequence diagrams                                                                  \\ \midrule
+            Project Plan         & Complete        & When required             & Publish Gantt chart of project plan for past and future tasks                                                 \\ \midrule
+            RAM                  & Complete        & When required             & Create Responsibility Assignment Matrix for past and future tasks                                             \\ \midrule
+        \end{tabulary}
+    }
+\end{table}
+
+\hypertarget{evaluation-of-the-status-of-deliverables-and-its-impact-on-project}{%
+    \section{Evaluation of the status of deliverables and its impact on
+      project}\label{evaluation-of-the-status-of-deliverables-and-its-impact-on-project}}
+
+\hypertarget{requirements}{%
+    \subsection{Requirements}\label{requirements}}
+
+Requirements is arguably one of the most important parts in the project
+because it defines the project as a whole and it guides the direction a
+group is heading towards with their project. Documents such as class
+diagrams, sequence diagrams and use-case diagrams rely heavily on having
+a well-prepared requirements. As a group requirements was the one of the
+first things we prepared and it turned out to be quite useful in any
+situation where we needed to look up for a functionality of our project.
+Also having requirements is a must in terms of establishing a healthy
+communication with the customer.
+
+\hypertarget{communication-plan}{%
+    \subsection{Communication Plan}\label{communication-plan}}
+
+Communication Plan plays a very crucial part in communication between
+group members. Without a communication plan it is impossible to
+establish healthy interactions between team members because
+communication plan defines the mediums of interaction and guides group
+members to use those mediums according to the written purpose in the
+plan. Moreover communication plan also brings attention to communication
+and forces group members to think and reflect on how to establish
+communication in the group. Therefore communication plan brings full
+attention to communication and thus it maximizes the possibility of
+success. Our group have prepared a communication plan at the beginning
+of the semester and ever since it played a huge role on communication
+between group members and also with customer.
+
+\hypertarget{user-scenarios-and-mockups}{%
+    \subsection{User Scenarios and
+        Mockups}\label{user-scenarios-and-mockups}}
+
+User scenarios should be real-life examples, understandable by everyone
+and show different kinds of people with various wishes in order to prove
+the usability and globality of the platform. We wrote three user
+scenarios which are tracking, purchasing and searching. We clearly
+identified the personal background of different users, what the users
+want, the preconditions, goals and acceptance criterias for these
+scenarios from the requirements. Thinking of the actions step by step
+for the scenarios helped us to come up with new design and feature ideas
+for our platform which will help users to use the platform in a more
+efficient way.
+
+Mockups should be realistic, demonstrate the needed functionalities for
+specific scenarios and show all the steps of the users from the
+scenarios on the platform clearly. We created two web mockups and one
+mobile mockup for three scenarios we wrote. We paid attention to make
+all these three mockups look compatible with each other. Creating
+mockups helped us to test the usability of the platform. Additionally,
+as when writing scenarios, it helped us to come up with new design and
+feature ideas, because it really facilitates to visualize the platform
+and see our abstract ideas in a clear way.
+
+\hypertarget{use-case-diagram}{%
+    \subsection{Use-Case Diagram}\label{use-case-diagram}}
+
+The purpose of the Use-Case Diagram is to show the dynamic view of the
+system that is the users, the cases and the relationships among them. It
+is fundamentally designed considering the requirements of the project.
+In our Use-Case Diagram, we have 4 types of user Guest, namely the
+unregistered user, and Customer, Vendor and Admin which are registered
+users. The basic relationship among them is that registered users can do
+anything the Guest can do other than registering since they already did.
+
+\hypertarget{class-diagram}{%
+    \subsection{Class Diagram}\label{class-diagram}}
+
+A class diagram~identifies the structure of a system by showing the
+system's classes, their attributes, operations, and the relation among
+objects. It models which classes are able to communicate with which and
+how ,what object we must implement, what behaviors an object is able to
+do and what information an object must know and manipulate in both
+convenient and compact way. It can be seen as a visual representation of
+our requirements. Furthermore, the design of a good class diagram also
+affects sequence diagrams. Therefore, we attach an importance of our
+class diagram to be comprehensive in order to not limit our feature
+works. There are 29 classes and 3 enumerations in our class diagram.
+User hierarchy is included and all systems are separated into
+controllers. Authentication and authorization system check permissions
+of end users determined in requirements. Classes called SearchEngine and
+RecommenderSystem implements the current technology to our project.
+
+\hypertarget{sequence-diagram}{%
+    \subsection{Sequence Diagram}\label{sequence-diagram}}
+
+We have created 10 sequence diagrams to show how and which classes
+interact in our application. Use cases to show in sequence diagrams are
+selected carefully considering selecting key use cases of our
+applicaton. All possible outcomes of these use cases are shown with
+detail in sequence diagrams. Our sequence diagrams clearly show
+interaction between various classes in chosen key use cases.
+
+\hypertarget{project-plan}{%
+    \subsection{Project Plan}\label{project-plan}}
+
+Creating a high level project plan that outlines the major activities
+and milestones helps us in a way that tracking our progress with our
+plan. The aim of the plan is to provide the work by estimating the
+effort and resources needed to complete the tasks and to compare the
+execution. Also in this way, we are able to evaluate how we are
+progressing. On the other hand, it helps to answer these kind of
+questions:Where are we now according to plan? Where actually should we
+be in our project according to plan? Is there any difference and if it
+is, how to make up the difference?
+
+\hypertarget{responsibility-assignment-matrix}{%
+    \subsection{Responsibility Assignment
+        Matrix}\label{responsibility-assignment-matrix}}
+
+Responsibility assignment matrix is an efficient way to show all the
+contributions made by each group member on each task of the project. It
+is also very helpful while making new task distributions for next tasks
+by examining the matrix and realizing whether a member took too much or
+too few responsibilities. For a matrix to be well prepared, much
+attention should be paid to identifying and defining the roles well by
+examining the tasks and what is done so far. We created our matrix with
+four roles which are lead, support, reviewer and contributor, and
+defined these roles clearly. We paid attention to make it look
+compatible with project plan and Gantt chart. Since we continue to
+develop our project, our matrix will be also updated with new tasks and
+new responsibilities. Although we also identified future tasks and
+showed them both in Gantt chart and responsibility assignment matrix,
+they are open to change with changes in our task distribution or
+assignments we should do.
+
+\hypertarget{evaluation-of-tools-and-processes}{%
+    \section{Evaluation of Tools and
+      Processes}\label{evaluation-of-tools-and-processes}}
+
+\hypertarget{projectlibre-reviewed-by-mehdi-saffar}{%
+    \subsection{ProjectLibre (Reviewed by Mehdi
+        Saffar)}\label{projectlibre-reviewed-by-mehdi-saffar}}
+
+\begin{figure}
+    \centering
+    \includegraphics[height=0.3in]{./images/3.jpg}
+\end{figure}
+
+\emph{ProjectLibre} is a free open-source project management software
+that helped me prepare the project plan as a Gantt chart. The desktop
+version is unfortunately very dated and buggy. There was no way to
+import the excel data containing the
+\texttt{task\_name,\ start\_date,\ end\_date,\ duration,\ predecessors,\ assignees}
+of the project plan. It was also very finnicky to use, where errors are
+silent, behaviour unpredictable. I tried hacking away around its
+limitations, by for example imitating its copy \& paste of the rows with
+more or less success. It also had nasty bugs where changing a cell of a
+row would for some reason also change the duration of a cell somewhere.
+This had me check each duration, and I found that almost 70\% of them
+had changed value as I was updated the assignees column. The export to
+PDF also had its issues, notably the bad support of Turkish diacritics.
+
+\emph{ProjectLibre} did its job, but gave me headaches personally. I
+wouldn't recommend to use it in the future. Other solutions should be
+researched
+
+\hypertarget{lucidchart-reviewed-by-aleyna-kara}{%
+    \subsection{Lucidchart (Reviewed by Aleyna
+        Kara)}\label{lucidchart-reviewed-by-aleyna-kara}}
+
+\begin{figure}
+    \centering
+    \includegraphics[height=0.3in]{./images/4.jpg}
+\end{figure}
+
+I have used Lucidchart to create the
+design of class diagram which includes functions, variables and classes
+of our project as an object oriented manner. Lucidchart has quick user
+interface and~large amount of shapes and icons to be used in diagrams.
+On the other hand, you can use objects up to 60 and not be able to get
+much space to save documents if you don't upgrade to a paid account.
+
+\hypertarget{balsamiq-reviewed-by-aleyna-kara}{%
+    \subsection{Balsamiq (Reviewed by Aleyna
+        Kara)}\label{balsamiq-reviewed-by-aleyna-kara}}
+
+\begin{figure}
+    \centering
+    \includegraphics[height=0.5in]{./images/5.jpg}
+\end{figure}
+
+I have used Balsamiq to create designs of mockups that share the idea of
+a design to stakeholders without presenting a completed design. It
+supports a wide range of prototypes from web prototyping to mobile UI
+prototyping. Since it is easy to use, one does not need to be a design
+expert to create wireframes using Balsamiq.
+
+\hypertarget{zoom-and-slack-reviewed-by-furkan-nane}{%
+    \subsection{Zoom and Slack (Reviewed by Furkan
+        Nane)}\label{zoom-and-slack-reviewed-by-furkan-nane}}
+
+Zoom and Slack are a part of the communication plan and they have been
+used heavily to communicate by our group members. Zoom is quite useful
+at conducting online meetings and it definitely helped our group to
+communicate faster than texting during covid-19 lockdown. Slack is a
+texting tool that offers a bunch of useful tools and it fits very nicely
+into group projects.
+
+\hypertarget{excel-reviewed-by-aslux131-aykan}{%
+    \subsection{Excel (Reviewed by Aslı
+        Aykan)}\label{excel-reviewed-by-aslux131-aykan}}
+
+\begin{figure}
+    \centering
+    \includegraphics[height=0.5in]{./images/6.jpg}
+\end{figure}
+
+I have used Excel to create the responsibility assignment matrix. Excel
+is a popular spreadsheet program which is developed by Microsoft and
+part of the Microsoft Office. Because it is intended for everyone to
+benefit easily, it's really easy to learn to organize, sort and filter
+data in rows and columns, and also to create charts\&graphs. With the
+help of this program, I have easily divided the tasks into subgroups and
+used different colors for different types of responsibilities. As we
+continue to develop our project, I will continue to use Excel for
+updating the RAM with new tasks and weekly task distribution.
+\hypertarget{individual-contributions-by-each-member}{%
+    \section{Individual contributions by each
+      member}\label{individual-contributions-by-each-member}}
+\begin{table}[H]
+    \small
+    \makebox[\textwidth]{
+        \begin{tabulary}{1.3\textwidth}{LL}
+            \toprule
+            \textbf{Mehdi Saffar}          & Created communication plan, README.md and Wiki's home page. Wrote parts of the user requirement and the glossary, reviewed multiple times. Collected questions for the customer and arranged that meeting with the help of Furkan Nane. Wrote steps of the Search scenario, and reviewed Tracking and Search mockup. Helped with Class diagram and contributed initial draft of Use case diagram. Compiled project plan into a Gantt chart twice. Regularly did house keeping of the wiki and issues. Attended all meetings, lead a few of them. Wrote Executive summary part of the milestone, review of ProjectLibre and list and status of deliverables. Created the scripts necessary to transform this milestone report from markdown to PDF file using imagemagick and pandoc.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   \\ \midrule
+            \textbf{A. Furkan Varol}       & I was assigned to create wiki structure. I have researched markdown and studied wiki pages of popular github repos. Then, Hande and I arranged a meeting and created the wiki structure. I have picked a github repo I like and contributed to Repositories We Liked page. I created User Scenario \#2 Purchase. While preparing the scenario, I reviewed User Requirements and also System Requirements, contributed and modified some. I opened and closed github issues for task that assigned to me or a group I am part of. During lockdown, I couldn't contributed to the project as much, because I had problems. I will start taking my part back again in the project as soon as possible.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \midrule
+            \textbf{Aleyna Kara }          & First week, I have created Wiki home page. I have designed a logo to customize our home page. I have researched Github, markdown syntax and repository,namely Flutter. After my research, I have created my personal wiki page. Since my job was the revision of requirements, I have researched requirement engineering and then written important parts on my own words as a wiki page for better understanding at the second week. Then, I have styled requirements page with HTML. I have both added and changed some parts,e.g. catagory names, definitions in glossary. Then, I have designed searching mock up. After that, I have created tracking mock up due to the feedback and my experience with Balsamiq. Also, I have edited meeting notes like adding numbers of issues after same feedback. I have determined almost all classes, variables and functions of class diagram and then organized into a class diagram using LucidChart. Furthermore, I have contributed the design part of the project as creating four sequence diagrams. I have been contact with Aslı Aykan to help her to integrate our project as a new team member. Then, we created RAM with Aslı Aykan. I have reviewed not only issues but also all commits of my teammates in order to be fair. In addition, I have designed our new logo. Also, I am one of the person who cares the look of our wiki pages. So, I have tried to stay our wiki pages up-to-date adding some gifs etc. Last, I have written not only the evaluation part of class diagram but also review about Balsamiq and Lucidchart in Milestone 1 Report. \\ \midrule
+            \textbf{Aslı Aykan}         & Joined the project group after the first 1.5 months of the spring term. Created my personal wiki page, contributed to Repositories We Liked and Git\&Github pages. Reviewed almost all the works done by my friends before joining the group which are requirements, glossary, scenarios, mockups, and diagrams. Read all the past feedbacks and contributed on the searching scenario accordingly. Created some logos for our e-commerce platform and opened a poll for all logo ideas of the group. Created responsibility assignment matrix with Aleyna Kara by reviewing project plan and Gantt chart, and continued to update it. Recreated the purchasing scenario mockup with Balsamiq to make it compatible with other mockups which are also created with it. Attended all the meetings after joining the group. Wrote the evaluations of scenarios\&mockups and RAM, and also review of Excel for the Milestone 1 Report.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\
+        \end{tabulary}
+    }
+\end{table}
+
+\begin{table}[H]
+    \small
+    \makebox[\textwidth]{
+        \begin{tabulary}{1.3\textwidth}{LL}
+            \textbf{Burak Çetin}        & Attended the physical meetings that happened before the covid-19 lockdown and contributed in the brainstorming sessions. I was assigned the task of visualizing the mockups but in the end Aleyna did them for practical reasons and consistency. Took the role of the moderator when we were deciding the name for our project and provided ideas on the logo as well. After the lockdown I had personal problems with motivation and could not contribute much to the first milestone but I am currently up to date with our project and hoping to accomplish more and take on more tasks.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           \\ \midrule
+            \textbf{Furkan Nane}       & I prepared the communication plan. I attended the customer meeting, created the user requirements part of the requirements and involved in revision of requirements. I created the tracking user scenario. I involved in creation of the class diagram. I involved in creation of the project plan. I attended all of the meeetings, tried to coordinate the group, tried to unfold the assignments by asking questions to the Meriç Turan. I wrote the evaluation of requirements,communication plan, zoom and slack parts of the Milestone 1 report.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 \\
+            \textbf{Hande Şirikçi}         & During the time that we were working on completing Milestone1, approximately whole semester; i attended all meetings and have taken meeting notes in most of them. The first task assigned to me was about Wiki Structure. I tried to classify things in wiki and learned how to use it. I reviewed and corrected project requirements, especially non-functional part of it.I created tracking scenario, by this way we have already prepared the break points of some cases. I attended diagrams ps in order to learn about them and inform other members about diagrams by sending my notes. I was involved in creation of class diagram, tried to decide on class hierarchies and had a meeting about it. I have also been assigned to create our high level project plan, regularly update it.I wrote the evaluation of Project Plan part of Milestone1 Report. I used sharable documents while working, opened issues for each task and created channels on slack for each task that we do together in order to synchronize with my group members, to keep in touch. I was always aware that this class is not just about completing tasks before deadlines but rather about good communication between us.                                                                                                                                                                                                                                                                                                                                                                                                      \\ \midrule
+            \textbf{Hüseyin Seyyid Kaplan} & Determined the tags, labels and colors as 24 labels in addition to 9 default GitHub labels. Prepared my own wiki-page(to includes parts of About, Skills and Contact) on GitHub. Searched for useful Github repositories that most of people benefit from on web and when I skimmed over lists of repo’s I picked one of them that I liked. Created a page for GitHub repositories that I liked. Studied git as a version management system and watched a video that is recommended to us. Analysed the websites about commercial platform like N11, hepsiburada, Amazon, sahibinden. Created purchasing mockup via Mockflow. Created agenda files for adding issues of week on Wiki pages. Worked on designing a logo and searched several sites. Used brandmark.io to create a logo.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 \\ \midrule
+            \textbf{Mehmet Umut Öksüz}     & I have prepared a doodle poll to decide out permanent meeting time in the very first week. I have written non-functional requirements part of requirements. And I also have reviewed functional requirements and given feedback to my team. I have contributed to Purchasing scenario of our project and reviewed mockups. I have also designed some logo ideas for my team and contributed to decision of project name. After we get the feedback of requirements v1.0, I have done some changes on requirements accordingly. I have drawn 4 of our sequence diagrams. I contributed to our project plan using ProjectLibre software. I have written evalution of sequence diagrams. I have attended most of our group meetings.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      \\ \midrule
+            \textbf{Ömer Faruk Deniz}    & To consistently follow the updates, I attended all meetings from the beginning of the semester and tried to take active duties. At the beginning, I researched about the Git as a Version Management System. I created my own Wiki page after learning using Markdown. I researched and examined several repositories to present in our Wiki and then added Scikit-Learn to our Wiki page as an example. I designed our Labels by putting great effort to choosing names, colors and explanations as catchy as possible. I involved in the requirements revision. I designed the user story, preconditions and the acceptance criteria of the Searching Scenario and reviewed the completed versions of Searching, Purchasing and Tracking Scenarios. I also designed the initial draft of the Use-Case diagram with my team, done extensive review and reimplemented it with creately.com from scratch. I also reviewed and implemented new features according to the given feedback. I also designed the paper-version of the Vendor adding a new product to help the Sequence Diagram team. I wrote the Use-Case Diagram related parts of the Milestone Report and my individual contributions. And finally and maybe most importantly, I consistently checked and updated our Wiki page neatness of which is crucial for our team.                                                                                                                                                                                                                                                                                 \\
+        \end{tabulary}
+    }
+\end{table}
+
+\begin{table}[H]
+    \small
+    \makebox[\textwidth]{
+        \begin{tabulary}{1.3\textwidth}{lL}
+            \textbf{Özdeniz Dolu}          & Arranged meeting locations in CmpE building for first 2-3 meetings . Created my personal wiki page. Contributed to the System Requirements and Glossary. I have created a template for a mock-up, which then revised and made into a new mock-up. I have created two sequence diagrams and revised them later on considering the feedbacks. I have taken meeting notes for two meetings. I mainly attended the group meetings. Me and Hande Şirikçi have created the second half of the first part of the project plan \\ \bottomrule
+        \end{tabulary}
+    }
+\end{table}
+
+\hypertarget{communication-plan-1}{%
+    \section{Communication plan}\label{communication-plan-1}}
+
+\begin{table}[H]
+    \small
+    \makebox[\textwidth]{
+        \begin{tabulary}{1.2\textwidth}{LlLl}
+            \toprule
+            \textbf{Communication Channel} & \textbf{Frequency} & \textbf{Purpose}                                                    & \textbf{Participants} \\ \midrule
+            Slack                          & Open Channel       & Will be used as main text and video call communication channel      & Whole Team            \\ \midrule
+            Github                         & Open Channel       & Main channel where the project develops, includes all documentation & Whole Team            \\ \midrule
+            CMPE building                  & Once a week        & Face to face meetings will be held here                             & Whole Team            \\ \midrule
+            Piazza                         & Open Channel       & Communication with the customer will happen here                    & Communicatior         \\ \midrule
+            Zoom                           & Appointed          & Online team communication and online education                      & Whole Team            \\ \bottomrule
+        \end{tabulary}
+    }
+\end{table}
+
+\hypertarget{requirements-1}{%
+    \section{Requirements}\label{requirements-1}}
+
+\hypertarget{functional-requirements}{%
+    \subsection{1. Functional Requirements}\label{functional-requirements}}
+
+1.1. User Requirements
+
+\begin{itemize}
+    \item
+          \textbf{1.1.1 Sign Up}
+
+          \begin{itemize}
+              \item
+                    \textbf{1.1.1.1} Customer, Vendor users shall be able to sign up to
+                    the system via one of the following methods:
+
+                    \begin{itemize}
+                        \tightlist
+                        \item
+                              \textbf{1.1.1.1.1} Regular sign up
+                        \item
+                              \textbf{1.1.1.1.2} Google sign up
+                    \end{itemize}
+              \item
+                    \textbf{1.1.1.2} Customer, Vendor and Admin users shall be able to
+                    use regular sign up by providing the following required information:
+
+                    \begin{itemize}
+                        \tightlist
+                        \item
+                              \textbf{1.1.1.2.1} Username
+                        \item
+                              \textbf{1.1.1.2.2} Password
+                        \item
+                              \textbf{1.1.1.2.3} E-mail
+                        \item
+                              \textbf{1.1.1.2.4} Name
+                        \item
+                              \textbf{1.1.1.2.5} Surname
+                        \item
+                              \textbf{1.1.1.2.6} Location (not mandatory for customers)
+                    \end{itemize}
+              \item
+                    \textbf{1.1.1.3} Vendor users shall enter at least one location,
+                    while Customer shall be able to enter location information if they
+                    wish to
+              \item
+                    \textbf{1.1.1.4} Customer and Vendor users shall verify their
+                    account via a link sent by the system to their e-mail account before
+                    being able to checkout a cart.
+              \item
+                    \textbf{1.1.1.5} Guest users must read and accept the Terms of
+                    Services to be able to sign up.
+          \end{itemize}
+    \item
+          \textbf{1.1.2 Login}
+
+          \begin{itemize}
+              \item
+                    \textbf{1.1.2.1} Registered Users who signed up with their Google
+                    account shall be able to login with their Google account
+              \item
+                    \textbf{1.1.2.2} Registered Users who signed up with a regular
+                    signup shall be able to login by providing the following
+                    information.
+
+                    \begin{itemize}
+                        \tightlist
+                        \item
+                              \textbf{1.1.2.1.1} Username
+                        \item
+                              \textbf{1.1.2.1.2} Password
+                    \end{itemize}
+          \end{itemize}
+    \item
+          \textbf{1.1.3 Search}
+
+          \begin{itemize}
+              \item
+                    \textbf{1.1.3.1} Guest and Registered Users shall be able to perform
+                    a semantic search for a product over:
+
+                    \begin{itemize}
+                        \tightlist
+                        \item
+                              \textbf{1.1.3.1.1} Name of the product
+                        \item
+                              \textbf{1.1.3.1.2} Description of the product
+                        \item
+                              \textbf{1.1.3.1.3} Type of the product
+                        \item
+                              \textbf{1.1.3.1.4} Vendor of the product
+                    \end{itemize}
+              \item
+                    \textbf{1.1.3.2 Filter}
+
+                    \begin{itemize}
+                        \item
+                              \textbf{1.1.3.2.1} Guest and Registered Users shall be able to
+                              filter the products according to:
+
+                              \begin{itemize}
+                                  \tightlist
+                                  \item
+                                        \textbf{1.1.3.2.1.1} Product's Average customer review (Product
+                                        rating)
+                                  \item
+                                        \textbf{1.1.3.2.1.2} Product vendor
+                                  \item
+                                        \textbf{1.1.3.2.1.3} Product brand
+                                  \item
+                                        \textbf{1.1.3.2.1.4} Product price range
+                              \end{itemize}
+                    \end{itemize}
+              \item
+                    \textbf{1.1.3.3 Sort}
+
+                    \begin{itemize}
+                        \item
+                              \textbf{1.1.3.3.1} Guest and Registered Users shall be able to
+                              sort the products according to:
+
+                              \begin{itemize}
+                                  \tightlist
+                                  \item
+                                        \textbf{1.1.3.3.1.1} Best sellers
+                                  \item
+                                        \textbf{1.1.3.3.1.2} Newest arrivals
+                                  \item
+                                        \textbf{1.1.3.3.1.3} Price
+                                  \item
+                                        \textbf{1.1.3.3.1.4} Average customer review (Rating)
+                                  \item
+                                        \textbf{1.1.3.3.1.5} Number of comments
+                              \end{itemize}
+                    \end{itemize}
+              \item
+                    \textbf{1.1.3.4} Guest and Registered Users shall be able to see the
+                    information below about the products they searched:
+
+                    \begin{itemize}
+                        \tightlist
+                        \item
+                              \textbf{1.1.3.4.1} Product type
+                        \item
+                              \textbf{1.1.3.4.2} Product picture
+                        \item
+                              \textbf{1.1.3.4.3} Price
+                        \item
+                              \textbf{1.1.3.4.4} Product vendor
+                        \item
+                              \textbf{1.1.3.4.5} Average Customer Review (Rating)
+                        \item
+                              \textbf{1.1.3.4.6} Comments about the product
+                        \item
+                              \textbf{1.1.3.4.6} Description about the product
+                    \end{itemize}
+              \item
+                    \textbf{1.1.3.5} Guest and Registered Users shall be able to see the
+                    information below about the vendors they searched:
+
+                    \begin{itemize}
+                        \tightlist
+                        \item
+                              \textbf{1.1.3.5.1} Company name or personal name
+                        \item
+                              \textbf{1.1.3.5.2} Company logo picture or personal picture
+                        \item
+                              \textbf{1.1.3.5.3} Average customer review (Rating)
+                        \item
+                              \textbf{1.1.3.5.4} Products of this vendor
+                        \item
+                              \textbf{1.1.3.5.5} Comments about the vendor
+                    \end{itemize}
+              \item
+                    \textbf{1.1.3.6} Guest and Registered Users shall be able to search
+                    a product by entering their name or type.
+              \item
+                    \textbf{1.1.3.7} Guest and Registered Users shall be able to search
+                    a vendor by entering their name.
+          \end{itemize}
+    \item
+          \textbf{1.1.4 Product Details}
+
+          \begin{itemize}
+              \item
+                    \textbf{1.1.4.1} Guest and Customer users shall be able to see a
+                    product's or a vendor's information even if they did not search for
+                    the product. \textbf{1.1.3.4} and \textbf{1.1.3.5} specifies what
+                    information users shall be able to see.
+              \item
+                    \textbf{1.1.4.2} Vendor users shall be able to update the product's
+                    detail information
+              \item
+                    \textbf{1.1.4.3} Vendor users shall specify the stock information of
+                    a product. This requires:
+
+                    \begin{itemize}
+                        \tightlist
+                        \item
+                              Stock status information: \texttt{Available},
+                              \texttt{Out\ of\ Stock}, \texttt{Online\ only}
+                        \item
+                              Locations to which the product is deliverable.
+                    \end{itemize}
+          \end{itemize}
+    \item
+          \textbf{1.1.5 Comment}
+
+          \begin{itemize}
+              \tightlist
+              \item
+                    \textbf{1.1.5.1} Customer users shall be able to comment on a
+                    product only if they have purchased that product.
+              \item
+                    \textbf{1.1.5.1} Customer users shall be able to comment on a vendor
+                    only if they have purchased a product from that vendor.
+              \item
+                    \textbf{1.1.5.2} All users shall be able to see the comments about a
+                    product or a vendor.
+              \item
+                    \textbf{1.1.5.3} Vendor users shall be able to reply to comments.
+              \item
+                    \textbf{1.1.5.4} Customer users shall be able to like or dislike
+                    comments.
+          \end{itemize}
+    \item
+          \textbf{1.1.6 List}
+
+          \begin{itemize}
+              \tightlist
+              \item
+                    \textbf{1.1.6.1} Customer users shall be able to create a list of
+                    products they would like to keep an eye on.
+              \item
+                    \textbf{1.1.6.2} Customer users shall be able to name their lists.
+              \item
+                    \textbf{1.1.6.3} Customer users shall be able to edit their lists.
+              \item
+                    \textbf{1.1.6.4} Customer users shall be able to delete their lists.
+          \end{itemize}
+    \item
+          \textbf{1.1.7 Shopping Cart}
+
+          \begin{itemize}
+              \tightlist
+              \item
+                    \textbf{1.1.7.1} Guest and Customer users shall be able to add
+                    products to their shopping carts.
+              \item
+                    \textbf{1.1.7.2} Guest and Customer users shall be able to edit
+                    their shopping carts.
+              \item
+                    \textbf{1.1.7.3} Guest and Customer users shall be able to view
+                    their shopping carts.
+              \item
+                    \textbf{1.1.7.4} Guest users shall be able to checkout their
+                    shopping cart only after creating a Customer user account with a
+                    Quick registration option.
+              \item
+                    \textbf{1.1.7.5} Customer users shall be able to checkout their
+                    shopping cart only after verifying their account. Please look at
+                    \textbf{1.1.1.4} and the glossary for details about Account
+                    verification.
+          \end{itemize}
+    \item
+          \textbf{1.1.8 Order}
+
+          \begin{itemize}
+              \item
+                    \textbf{1.1.8.1} Customers shall be able to see their active (not
+                    delivered) orders with their status.
+
+                    \begin{itemize}
+                        \tightlist
+                        \item
+                              \textbf{1.1.8.1.1} Status shall be \texttt{At\ store} or
+                              \texttt{At\ cargo}.
+                    \end{itemize}
+              \item
+                    \textbf{1.1.8.2.1} Guest and Customers shall be able to see their
+                    delivered orders with information according to:
+
+                    \begin{itemize}
+                        \tightlist
+                        \item
+                              \textbf{1.1.8.2.1} Order date
+                        \item
+                              \textbf{1.1.8.2.2} Selling price
+                        \item
+                              \textbf{1.1.8.2.3} Cargo tracking ID
+                        \item
+                              \textbf{1.1.8.2.4} Cargo tracking link
+                        \item
+                              \textbf{1.1.8.2.5} Estimated delivery date
+                    \end{itemize}
+              \item
+                    \textbf{1.1.8.3} Customers shall be able to cancel their active
+                    orders that have the \texttt{At\ store} status.
+              \item
+                    \textbf{1.1.8.4} Customers shall be able to return their delivered
+                    orders.
+              \item
+                    \textbf{1.1.8.5} Customers shall be able to see the total amount
+                    they spent on orders.
+              \item
+                    \textbf{1.1.8.6} Vendors shall be able to cancel an order during the
+                    order processing stage when vendors face a problem related to their
+                    order. In such case, the Vendor is required to:
+
+                    \begin{itemize}
+                        \tightlist
+                        \item
+                              specify the reason of the cancellation
+                        \item
+                              specify their refund policy
+                    \end{itemize}
+          \end{itemize}
+    \item
+          \textbf{1.1.9 Direct Messaging}
+
+          \begin{itemize}
+              \tightlist
+              \item
+                    \textbf{1.1.9.1} Customers shall be able to communicate with the
+                    vendors or admins about orders via direct message.
+              \item
+                    \textbf{1.1.9.2} Vendors shall be able to communicate with the
+                    customers or admins about a certain product or order via direct
+                    message.
+          \end{itemize}
+    \item
+          \textbf{1.1.10 Notifications}
+
+          \begin{itemize}
+              \tightlist
+              \item
+                    \textbf{1.1.10.1} Customers shall be able to choose to get notified
+                    whenever the price of any product in their list changes.
+              \item
+                    \textbf{1.1.10.2} Customers shall be able to choose to set an alarm
+                    for a certain price threshold in order to be notified about whether
+                    the price of selected product downs below the threshold price.
+          \end{itemize}
+    \item
+          \textbf{1.1.11 Customer Review}
+
+          \begin{itemize}
+              \tightlist
+              \item
+                    \textbf{1.1.11.1} Customers shall be able to rate a product they
+                    have ``bought and received''.
+              \item
+                    \textbf{1.1.11.2} Customers shall be able to rate a vendor from
+                    which they have ``bought and received'' a product.
+          \end{itemize}
+    \item
+          \textbf{1.1.12 Purchase}
+
+          \begin{itemize}
+              \tightlist
+              \item
+                    \textbf{1.1.12.1} Customer users shall be able to purchase the
+                    products in their shopping cart by using one of the following
+                    payment methods:.
+
+                    \begin{itemize}
+                        \tightlist
+                        \item
+                              \textbf{1.1.12.1.1} Debit card
+                        \item
+                              \textbf{1.1.12.1.2} Credit card
+                    \end{itemize}
+              \item
+                    \textbf{1.1.12.2} Customer users shall agree to the contract of sale
+                    before proceeding with the payment.
+              \item
+                    \textbf{1.1.12.3} Customer users shall be able to see if the payment
+                    is successfully completed or not.
+          \end{itemize}
+    \item
+          \textbf{1.1.11 Online Shop}
+
+          \begin{itemize}
+              \tightlist
+              \item
+                    \textbf{1.1.11.1} Vendor users shall be able to open an online shop
+
+                    \begin{itemize}
+                        \tightlist
+                        \item
+                              \textbf{1.1.11.1.1} Vendor users shall be able to put the
+                              following information in their online shop:
+
+                              \begin{itemize}
+                                  \tightlist
+                                  \item
+                                        \textbf{1.1.11.1.1.1} Vendor information
+                                  \item
+                                        \textbf{1.1.11.1.1.2} Active products
+                                  \item
+                                        \textbf{1.1.11.1.1.3} Location of physical stores (if any)
+                              \end{itemize}
+                        \item
+                              \textbf{1.1.11.1.2} Vendor users should be able to customize the
+                              online shop to their liking.
+                    \end{itemize}
+          \end{itemize}
+\end{itemize}
+
+1.2. System requirements
+
+\begin{itemize}
+    \item
+          \textbf{1.2.1} The system shall have 4 different user types:
+
+          \begin{itemize}
+              \tightlist
+              \item
+                    \textbf{1.2.1.1} Guest
+              \item
+                    \textbf{1.2.1.2} Customer
+              \item
+                    \textbf{1.2.1.3} Vendor
+              \item
+                    \textbf{1.2.1.4} Admin
+          \end{itemize}
+    \item
+          \textbf{1.2.2 Signup Functionality}
+
+          \begin{itemize}
+              \tightlist
+              \item
+                    \textbf{1.2.2.1} The system shall provide Regular signup and Google
+                    signup.
+              \item
+                    \textbf{1.2.2.2} The system shall require acceptance of Terms of
+                    Service by the user before continuing with the signup processing.
+              \item
+                    \textbf{1.2.2.3} The system shall not allow Guest users to checkout
+                    their shopping cart
+              \item
+                    \textbf{1.2.2.4} The system shall confirm the user email by sending
+                    a link to the email account and receiving a confirmation from the
+                    user.
+              \item
+                    \textbf{1.2.2.5} The system shall not allow unverified Customer
+                    account to checkout their shopping cart
+              \item
+                    \textbf{1.2.2.6} The system shall only let confirmed users make
+                    transactions. Confirmation is via Google or e-mail.
+          \end{itemize}
+    \item
+          \textbf{1.2.3 Search Functionality}
+
+          \begin{itemize}
+              \item
+                    \textbf{1.2.4.1} The system shall provide a semantic search
+                    functionality which finds products and vendors based on contextual
+                    information. The information shall be looked for in
+
+                    \begin{itemize}
+                        \tightlist
+                        \item
+                              \textbf{1.2.4.1.1} Product title
+                        \item
+                              \textbf{1.2.4.1.1} Product description
+                        \item
+                              \textbf{1.2.4.1.1} Product details
+                    \end{itemize}
+              \item
+                    \textbf{1.2.3.2} The system shall be able to filter search results
+                    according to:
+
+                    \begin{itemize}
+                        \tightlist
+                        \item
+                              \textbf{1.2.3.2.1} Average customer review of the product
+                        \item
+                              \textbf{1.2.3.2.2} Vendor of the product
+                        \item
+                              \textbf{1.2.3.2.3} Brand of the product
+                        \item
+                              \textbf{1.2.3.2.4} Price range of the product
+                    \end{itemize}
+              \item
+                    \textbf{1.2.3.3} The system shall be able to sort search results
+                    according to:
+
+                    \begin{itemize}
+                        \tightlist
+                        \item
+                              \textbf{1.2.3.3.1} The rate of sale
+                        \item
+                              \textbf{1.2.3.3.2} Arrival time
+                        \item
+                              \textbf{1.2.3.3.3} Price
+                        \item
+                              \textbf{1.2.3.3.4} Average customer review
+                        \item
+                              \textbf{1.2.3.3.5} Number of comments
+                    \end{itemize}
+          \end{itemize}
+    \item
+          \textbf{1.2.3} Products in the system may be discovered in various
+          categories:
+
+          \begin{itemize}
+              \tightlist
+              \item
+                    \textbf{1.2.3.1} Arts \& Crafts
+              \item
+                    \textbf{1.2.3.2} Automotive
+              \item
+                    \textbf{1.2.3.3} Baby
+              \item
+                    \textbf{1.2.3.4} Beauty \& Personal Care
+              \item
+                    \textbf{1.2.3.6} Books
+              \item
+                    \textbf{1.2.3.7} Boys' Fashion
+              \item
+                    \textbf{1.2.3.8} Computers
+              \item
+                    \textbf{1.2.3.9} Camera \& Photo
+              \item
+                    \textbf{1.2.3.10} Cell Phones \& Accessories
+              \item
+                    \textbf{1.2.3.11} Digital Videos
+              \item
+                    \textbf{1.2.3.12} Electronics
+              \item
+                    \textbf{1.2.3.13} Furniture
+              \item
+                    \textbf{1.2.3.14} Girls' Fashion
+              \item
+                    \textbf{1.2.3.15} Health \& Households
+              \item
+                    \textbf{1.2.3.16} Home \& Garden
+              \item
+                    \textbf{1.2.3.17} Industrial \& Scientific
+              \item
+                    \textbf{1.2.3.18} Luggage
+              \item
+                    \textbf{1.2.3.19} Men's Fashion
+              \item
+                    \textbf{1.2.3.20} Movies \& TVs
+              \item
+                    \textbf{1.2.3.21} Music \& CDs
+              \item
+                    \textbf{1.2.3.22} Pet Supplies
+              \item
+                    \textbf{1.2.3.23} Software
+              \item
+                    \textbf{1.2.3.24} Sports \& Outdoor
+              \item
+                    \textbf{1.2.3.25} Toys \& Games
+              \item
+                    \textbf{1.2.3.26} Video Games
+              \item
+                    \textbf{1.2.3.27} Women's Fashion
+          \end{itemize}
+    \item
+          \textbf{1.2.4} The system shall distinguish between same products that
+          are sold by different vendors.
+    \item
+          \textbf{1.2.5 Product List Functionality}
+
+          \begin{itemize}
+              \tightlist
+              \item
+                    \textbf{1.2.5.1} Product Lists created by users shall be private.
+          \end{itemize}
+    \item
+          \textbf{1.2.6} The system shall have a shopping cart functionality.
+    \item
+          \textbf{1.2.7 Order Functionality}
+
+          \begin{itemize}
+              \item
+                    \textbf{1.2.7.1} System shall show the following information about
+                    past orders:
+
+                    \begin{itemize}
+                        \tightlist
+                        \item
+                              \textbf{1.2.7.1.1} Order date
+                        \item
+                              \textbf{1.2.7.1.2} Product price
+                        \item
+                              \textbf{1.2.7.1.3} Cargo information (Cargo tracking ID and a link
+                              to the tracking page)
+                        \item
+                              \textbf{1.2.7.1.4} Delivery date
+                        \item
+                              \textbf{1.2.7.1.5} Order status
+                    \end{itemize}
+              \item
+                    \textbf{1.2.7.2} The system shall accept transactions made only with
+                    Credit Card or Debit Card.
+          \end{itemize}
+    \item
+          \textbf{1.2.8 Price Tracking Functionality}
+
+          \begin{itemize}
+              \tightlist
+              \item
+                    \textbf{1.2.8.1} The system shall track changes in the prices of the
+                    products and alert users if requested.
+          \end{itemize}
+    \item
+          \textbf{1.2.9 Notification Functionality}
+
+          \begin{itemize}
+              \tightlist
+              \item
+                    \textbf{1.2.9.1} The system shall notify users of direct messages.
+              \item
+                    \textbf{1.2.9.2} The system shall -if requested- notify users of
+                    price changes.
+              \item
+                    \textbf{1.2.9.3} The system shall -if it is set- notify users of
+                    price alarms.
+              \item
+                    \textbf{1.2.9.4} The system shall notify users of changes in order
+                    status.
+              \item
+                    \textbf{1.2.9.5} The system shall -if requested- notify users of
+                    sales and campaigns.
+          \end{itemize}
+    \item
+          \textbf{1.2.10 Recommendation Functionality}
+
+          \begin{itemize}
+              \tightlist
+              \item
+                    \textbf{1.2.10.1} The system shall recommend certain products to the
+                    users based on their interactions on the platform.
+          \end{itemize}
+    \item
+          \textbf{1.2.11 Direct Messaging Functionality}
+
+          \begin{itemize}
+              \tightlist
+              \item
+                    \textbf{1.2.11.1} The system shall provide direct messaging
+                    functionality between customers and vendors.
+              \item
+                    \textbf{1.2.11.2} The system shall provide direct messaging
+                    functionality between admin users and registered users for support.
+          \end{itemize}
+    \item
+          \textbf{1.2.12} The system provides a like and comment functionality
+          but only to the users whose products has been delivered.
+    \item
+          \textbf{1.2.13 Product Details Functionality}
+
+          \begin{itemize}
+              \tightlist
+              \item
+                    \textbf{1.2.13.1} The system must keep track of the history of
+                    product information updates made by Vendors to avoid Vendors
+                    changing product information after bad reviews from Customers.
+          \end{itemize}
+\end{itemize}
+
+\hypertarget{non-functional-requirements}{%
+    \subsection{2. Non-Functional
+        requirements}\label{non-functional-requirements}}
+
+2.1. Availability and Accessibility
+
+\begin{itemize}
+    \tightlist
+    \item
+          \textbf{2.1.1} The system should work on wide range of web browsers
+          (Chrome, Firefox, Safari, Microsoft Edge, Opera).
+    \item
+          \textbf{2.1.2} The mobile app shall be developed natively for Android
+          7 and newer versions.
+    \item
+          \textbf{2.1.3} Customer and Vendor users shall be able to verify their
+          account via a link sent by the system to their e-mails.
+\end{itemize}
+
+2.2. Performance
+
+\begin{itemize}
+    \tightlist
+    \item
+          \textbf{2.2.1} System should be responsive (5 seconds in the worst
+          case).
+    \item
+          \textbf{2.2.2} Android application should be optimized well to work
+          smoothly with lower hardware resources.
+\end{itemize}
+
+2.3. Security
+
+\begin{itemize}
+    \tightlist
+    \item
+          \textbf{2.3.1} Authentication and authorization shall always be done
+          in the server side.
+    \item
+          \textbf{2.3.2} Passwords should be hashed and salted to prevent
+          accounts to be stolen in a database injection.
+    \item
+          \textbf{2.3.3} Input to the system shall be properly validated.
+    \item
+          \textbf{2.3.4} Sensitive data (such as passwords) should always be
+          encrypted in requests.
+    \item
+          \textbf{2.3.5} After 3 unsuccessful login attempts, owner of the
+          account shall be informed via e-mail by the system.
+\end{itemize}
+
+2.4. Protocols and Privacy
+
+\begin{itemize}
+    \tightlist
+    \item
+          \textbf{2.4.1} Rules defined by
+          \href{https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679}{GDPR}
+          and \href{https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6698.pdf}{KVKK}
+          and shall be followed strictly when developing the system.
+    \item
+          \textbf{2.4.2} The implementation of the system should follow
+          \href{https://www.w3.org/standards/}{the standards introduced by the
+              World Wide Web Consortium (W3C)}
+    \item
+          \textbf{2.4.3} W3C Activity Streams protocol should be supported by
+          the system.
+    \item
+          \textbf{2.4.4} Privacy policy should be defined exactly and shown to
+          users in registration process and users will be forced to accept it to
+          complete registration.
+    \item
+          \textbf{2.4.5} Distant sales contract should be defined clearly
+          according to regulations, and customers shall be forced to accept it
+          before purchasing any goods.
+\end{itemize}
+
+2.5. Development and Publish
+
+\begin{itemize}
+    \tightlist
+    \item
+          \textbf{2.5.1} System shall be deployed to Amazon EC2 servers or
+          Digital Ocean.
+    \item
+          \textbf{2.5.2} System shall be dockerized to ease development process.
+    \item
+          \textbf{2.5.3} System shall have monthly periodic maintenance
+          operations.
+\end{itemize}
+
+\pagebreak
+
+\hypertarget{mockups}{%
+    \section{Mockups}\label{mockups}}
+
+\hypertarget{user-scenario-1}{%
+    \subsection{\texorpdfstring{\href{https://github.com/bounswe/bounswe2020group2/wiki/User-Scenario-\%231}{User
+                Scenario 1}}{User Scenario 1}}\label{user-scenario-1}}
+
+In this scenario Ergin Özdemir is a 20 years old university student. He
+ordered a guitar and has been waiting for it for 5 days. He gets worried
+and tries to get information.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3in]{./images/11.jpg}
+    \includegraphics[height=3in]{./images/12.jpg}
+    \includegraphics[height=3in]{./images/13.jpg}
+\end{figure}
+
+\hypertarget{ergin-goes-to-orders-page-to-see-his-orders-status.}{%
+    \subsubsection{Ergin goes to orders page to see his order's
+        status.}\label{ergin-goes-to-orders-page-to-see-his-orders-status.}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3in]{./images/14.jpg}
+\end{figure}
+
+\hypertarget{ergin-sees-that-his-orders-status-is-at-cargo-and-then-goes-to-the-page-of-the-vendor-of-the-product.}{%
+    \subsubsection{Ergin sees that his order's status is ``at cargo'' and
+        then goes to the page of the vendor of the
+        product.}\label{ergin-sees-that-his-orders-status-is-at-cargo-and-then-goes-to-the-page-of-the-vendor-of-the-product.}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3in]{./images/15.jpg}
+    \includegraphics[height=3in]{./images/16.jpg}
+\end{figure}
+
+\hypertarget{ergin-goes-to-comment-section-of-the-vendor.}{%
+    \subsubsection{Ergin goes to comment section of the
+        vendor.}\label{ergin-goes-to-comment-section-of-the-vendor.}}
+
+\begin{figure}[H]
+    \makebox[\textwidth] {
+        % \centering
+        \includegraphics[height=3in]{./images/17.jpg}
+        \includegraphics[height=3in]{./images/18.jpg}
+        \includegraphics[height=3in]{./images/19.jpg}
+        \includegraphics[height=3in]{./images/20.jpg}
+    }
+\end{figure}
+
+\hypertarget{ergin-direct-messages-the-vendor-about-the-delivery.}{%
+    \subsubsection{Ergin direct messages the vendor about the
+        delivery.}\label{ergin-direct-messages-the-vendor-about-the-delivery.}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3in]{./images/21.jpg}
+    \includegraphics[height=3in]{./images/22.jpg}
+    \includegraphics[height=3in]{./images/23.jpg}
+\end{figure}
+
+\hypertarget{vendor-responds-back-with-via-direct-message.}{%
+    \subsubsection{Vendor responds back with via direct
+        message.}\label{vendor-responds-back-with-via-direct-message.}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3in]{./images/24.jpg}
+\end{figure}
+
+\pagebreak
+\hypertarget{user-scenario-2}{%
+    \subsection{\texorpdfstring{\href{https://github.com/bounswe/bounswe2020group2/wiki/User-Scenario-\%232---Purchase}{User
+                Scenario 2}}{User Scenario 2}}\label{user-scenario-2}}
+
+In this scenario Alper Keten is a 32 years old architect. He has an old
+PC and architecture design softwares do not run smooth on his current
+PC. He has been saving money to buy a better PC for buying new one.
+
+\hypertarget{alper-is-already-logged-in-and-he-goes-to-electronics---computers---notebooks-page-using-navigation.}{%
+    \subsubsection{1.Alper is already logged in, and he goes to Electronics
+        -\textgreater{} Computers -\textgreater{} Notebooks page using
+        navigation.}\label{alper-is-already-logged-in-and-he-goes-to-electronics---computers---notebooks-page-using-navigation.}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3in]{./images/26.jpg}
+\end{figure}
+
+\hypertarget{alper-filters-products-by-brand.}{%
+    \subsubsection{2.Alper filters products by
+        brand.}\label{alper-filters-products-by-brand.}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3in]{./images/27.jpg}
+\end{figure}
+
+\hypertarget{alper-sorts-by-price-ascending.}{%
+    \subsubsection{3.Alper sorts by price,
+        ascending.}\label{alper-sorts-by-price-ascending.}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3in]{./images/28.jpg}
+\end{figure}
+
+\hypertarget{alper-goes-to-the-page-of-a-specific-computer-he-wants-to-purchase-and-looks-at-the-rating-of-the-product.}{%
+    \subsubsection{4\&5.Alper goes to the page of a specific computer he
+        wants to purchase and looks at the rating of the
+        product.}\label{alper-goes-to-the-page-of-a-specific-computer-he-wants-to-purchase-and-looks-at-the-rating-of-the-product.}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3in]{./images/29.jpg} \includegraphics[height=3in]{./images/30.jpg}
+\end{figure}
+
+\hypertarget{alper-goes-to-the-comments-section-reads-some-comments-and-sees-most-is-satisfied-with-this-product-and-adds-the-product-to-the-shopping-cart.}{%
+    \subsubsection{6\&7.Alper goes to the comments section, reads some
+        comments and sees most is satisfied with this product and adds the
+        product to the shopping
+        cart.}\label{alper-goes-to-the-comments-section-reads-some-comments-and-sees-most-is-satisfied-with-this-product-and-adds-the-product-to-the-shopping-cart.}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3in]{./images/31.jpg}
+\end{figure}
+
+\hypertarget{alper-goes-to-shopping-cart-page-and-gives-his-address-info-for-shipment-and-payment-info-then-completes-the-purchase.}{%
+    \subsubsection{8\&9.Alper goes to shopping cart page and gives his
+        address info for shipment and payment info then completes the
+        purchase.}\label{alper-goes-to-shopping-cart-page-and-gives-his-address-info-for-shipment-and-payment-info-then-completes-the-purchase.}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3in]{./images/32.jpg}
+\end{figure}
+
+\hypertarget{user-scenario-3}{%
+    \subsection{User Scenario 3}\label{user-scenario-3}}
+
+In this scenario, Murat Yılmaz is a 22 years old engineering student. He
+decides to buy a tablet.
+
+\hypertarget{murat-logins-as-a-customer-by-clicking-on-login-button}{%
+    \subsubsection{Murat logins as a customer by clicking on login
+        button}\label{murat-logins-as-a-customer-by-clicking-on-login-button}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3in]{./images/33.jpg}
+\end{figure}
+
+\hypertarget{he-decides-to-login-with-his-google-account-by-clicking-on-login-with-google-button}{%
+    \subsubsection{He decides to login with his Google account by clicking
+        on Login with Google
+        button}\label{he-decides-to-login-with-his-google-account-by-clicking-on-login-with-google-button}}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3in]{./images/34.jpg}
+\end{figure}
+
+\hypertarget{he-gets-transferred-to-the-google-login-ui.-he-enters-his-email-and-password-and-clicks-continue}{%
+    \subsubsection{He gets transferred to the Google login UI. He enters his
+        email and password and clicks
+        continue}\label{he-gets-transferred-to-the-google-login-ui.-he-enters-his-email-and-password-and-clicks-continue}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3in]{./images/35.jpg}
+\end{figure}
+
+\hypertarget{he-gets-transferred-back-to-the-homepage-and-can-verify-that-he-is-logged-in-by-seeing-his-username-and-profile-picture-in-the-top-right-corner-of-the-page}{%
+    \subsubsection{He gets transferred back to the homepage and can verify
+        that he is logged in by seeing his username and profile picture in the
+        top right corner of the
+        page}\label{he-gets-transferred-back-to-the-homepage-and-can-verify-that-he-is-logged-in-by-seeing-his-username-and-profile-picture-in-the-top-right-corner-of-the-page}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3in]{./images/36.jpg}
+\end{figure}
+
+\hypertarget{he-clicks-on-the-search-bar-and-starts-typing}{%
+    \subsubsection{He clicks on the search bar and starts
+        typing}\label{he-clicks-on-the-search-bar-and-starts-typing}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3in]{./images/37.jpg}
+\end{figure}
+
+\hypertarget{as-soon-as-he-starts-typing-the-bottom-half-of-the-page-fades-out-and-gives-semantic-search-suggestions-to-the-user.}{%
+    \subsubsection{As soon as he starts typing, the bottom half of the page
+        fades out and gives ``semantic search'' suggestions to the
+        user.}\label{as-soon-as-he-starts-typing-the-bottom-half-of-the-page-fades-out-and-gives-semantic-search-suggestions-to-the-user.}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=2in]{./images/37.jpg}
+    \includegraphics[height=2in]{./images/38.jpg}
+\end{figure}
+
+\hypertarget{he-presses-enter-to-confirm-his-search-query-and-after-a-moment-the-results-are-listed}{%
+    \subsubsection{He presses enter to confirm his search query and after a
+        moment the results are
+        listed}\label{he-presses-enter-to-confirm-his-search-query-and-after-a-moment-the-results-are-listed}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3in]{./images/39.jpg}
+    \includegraphics[height=3in]{./images/40.jpg}
+\end{figure}
+
+
+\hypertarget{he-cannot-immediately-find-the-result-he-is-looking-for-therefore-he-adds-price-range-as-filter-from-filters}{%
+    \subsubsection{He cannot immediately find the result he is looking for,
+        therefore he adds price range as filter from
+        filters}\label{he-cannot-immediately-find-the-result-he-is-looking-for-therefore-he-adds-price-range-as-filter-from-filters}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=2.2in]{./images/41.jpg}
+    \includegraphics[height=2.2in]{./images/42.jpg}
+    \includegraphics[height=2.2in]{./images/43.jpg}
+\end{figure}
+
+\hypertarget{he-chooses-the-bestseller-for-sorting-from-the-dropdown.}{%
+    \subsubsection{He chooses the bestseller for sorting from the
+        dropdown.}\label{he-chooses-the-bestseller-for-sorting-from-the-dropdown.}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=2.2in]{./images/44.jpg}
+    \includegraphics[height=2.2in]{./images/45.jpg}
+    \includegraphics[height=2.2in]{./images/46.jpg}
+
+\end{figure}
+
+\hypertarget{he-finds-a-product-that-fits-him-in-terms-of-price-in-the-second-result-cell.}{%
+    \subsubsection{He finds a product that fits him in terms of price in the
+        second result
+        cell.}\label{he-finds-a-product-that-fits-him-in-terms-of-price-in-the-second-result-cell.}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3in]{./images/47.jpg}
+\end{figure}
+
+\hypertarget{he-checks-out-the-different-pictures-of-the-product-by-hovering-over-the-image-and-waiting-for-a-few-milliseconds.-when-hovering-long-enough-pictures-start-cycling.}{%
+    \subsubsection{He checks out the different pictures of the product by
+        hovering over the image and waiting for a few milliseconds. When
+        hovering long enough, pictures start
+        cycling.}\label{he-checks-out-the-different-pictures-of-the-product-by-hovering-over-the-image-and-waiting-for-a-few-milliseconds.-when-hovering-long-enough-pictures-start-cycling.}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3in]{./images/48.jpg}
+\end{figure}
+
+\hypertarget{he-clicks-on-the-product-and-is-led-to-the-product-detail-page-where-he-can-analyze-the-product-read-the-comments-and-see-if-it-corresponds-to-what-he-is-looking-for-exactly.}{%
+    \subsubsection{He clicks on the product and is led to the product detail
+        page where he can analyze the product, read the comments and see if it
+        corresponds to what he is looking for
+        exactly.}\label{he-clicks-on-the-product-and-is-led-to-the-product-detail-page-where-he-can-analyze-the-product-read-the-comments-and-see-if-it-corresponds-to-what-he-is-looking-for-exactly.}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3in]{./images/49.jpg}
+\end{figure}
+
+\pagebreak
+\hypertarget{design}{%
+    \section{Design}\label{design}}
+
+\hypertarget{use-case-diagram-1}{%
+    \subsection{Use-Case Diagram}\label{use-case-diagram-1}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=7in]{./images/50.jpg}
+\end{figure}
+
+\hypertarget{class-diagram-1}{%
+    \subsection{Class Diagram}\label{class-diagram-1}}
+
+\begin{figure}[H]
+    \centering
+    \makebox[\textwidth]{
+        \includegraphics[height=12in, width=1.3\textwidth]{./images/51.png}
+    }
+\end{figure}
+
+\hypertarget{sequence-diagrams}{%
+    \subsection{Sequence Diagrams}\label{sequence-diagrams}}
+
+\hypertarget{guest-tries-to-buy-product-in-his-or-her-shopping-cart.}{%
+    \subsubsection{Guest tries to buy product in his or her shopping
+        cart.}\label{guest-tries-to-buy-product-in-his-or-her-shopping-cart.}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=8in]{./images/52.png}
+\end{figure}
+
+\hypertarget{customer-adds-comment-to-his-or-her-delivered-order.}{%
+    \subsubsection{Customer adds comment to his or her delivered
+        order.}\label{customer-adds-comment-to-his-or-her-delivered-order.}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=8in]{./images/53.png}
+
+\end{figure}
+
+\hypertarget{customer-sends-message-to-the-vendor-of-his-or-her-order.}{%
+    \subsubsection{Customer sends message to the vendor of his or her
+        order.}\label{customer-sends-message-to-the-vendor-of-his-or-her-order.}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=8in]{./images/54.png}
+\end{figure}
+
+\hypertarget{customer-checks-out-his-or-her-shopping-cart.}{%
+    \subsubsection{Customer checks out his or her shopping
+        cart.}\label{customer-checks-out-his-or-her-shopping-cart.}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=8in]{./images/55.png}
+\end{figure}
+
+\hypertarget{project-plan-1}{%
+    \section{Project Plan}\label{project-plan-1}}
+
+\begin{figure}[H]
+    \centering
+    \makebox[\textwidth]{
+        \includegraphics[width=1.3\textwidth]{./images/gantt.png}
+    }
+\end{figure}
+
+\hypertarget{responsibility-assignment-matrix-1}{%
+    \section{Responsibility Assignment
+      Matrix}\label{responsibility-assignment-matrix-1}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=7in]{./images/ram-00.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=7in]{./images/ram-01.png}
+    \includegraphics{./images/ram-legend.png}
+\end{figure}
+
+
+\end{document}
