@@ -1,3 +1,16 @@
+# Practice app template
+
+# How to run (for development purposes)
+
+1. First clone the whole repo
+2. `cd` into practice_app
+3. Make sure you have `npm` installed
+4. `npm install` to install the necessary modules 
+5. Wait for the install to finish (might take some time)
+6. `npm run dev` to launch the app in development mode
+7. You app should be available at `http://localhost:3000/`
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
