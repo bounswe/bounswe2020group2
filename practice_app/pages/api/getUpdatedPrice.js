@@ -19,14 +19,14 @@ export default (req, res) => {
         	var geoData = axios.get("https://json.geoiplookup.io/"+clientIP)
 
         	// When you fetch the geoData, use it the update response JSON
-        	geoData.then(response => {
-        		clientCurrency = response.data.currency_code
+        	geoData.then(geoResponse => {
         		res.json({
-        			currency: clientCurrency
+        			currencyType: geoResponse.data.currency_code
         		})
+        		res.statusCode = 200
         	})
             // ...
-            res.statusCode = 200
+
         } break
         default: {
             res.statusCode = 200

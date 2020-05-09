@@ -36,7 +36,7 @@ export default function Home({ context }) {
         const ipinfo = await axios.get("https://json.geoiplookup.io/")
         // Provide client's ip & product ip to our api
         const {data} = await axios.get("api/getUpdatedPrice?pid=23123&ip="+ipinfo.data.ip)
-        setCurrency(data.currency)
+        setCurrency(data.currencyType)
     }
 
     return (
