@@ -19,6 +19,8 @@ export default function Home({ context }) {
     // to know more look at React Hooks documentation
     const [number, setNumber] = useState()
 
+    const [currency, setCurrency] = useState()
+
     // this function is called when the button is clicked
     const onClick = async () => {
         // use axios to get a random number from OUR api at http://......./api/getRandomNumber
@@ -26,6 +28,15 @@ export default function Home({ context }) {
         const {data} = await axios.get("api/getRandomNumber")
         // data contains the number, we set the number using setNumber
         setNumber(data)
+    }
+
+    // This function returns the clicker's location currency
+    const getLocationCurrency = async () => {
+        // Learn client's ip adress using a third party service
+        const ipinfo = await axios.get("https://json.geoiplookup.io/")
+        // Provide client's ip & product ip to our api
+        const {data} = await axios.get("api/getUpdatedPrice?pid=23123&ip="+ipinfo.data.ip)
+        setCurrency(data.currency)
     }
 
     return (
@@ -40,6 +51,10 @@ export default function Home({ context }) {
                 <button onClick={onClick}>Click me to generate a random number</button>
                 {number !== undefined && <p>
                     {number}
+                </p>}
+                <button onClick={getLocationCurrency}>Click me to show currency</button>
+                {currency !== undefined && <p>
+                    {currency}
                 </p>}
             </main>
 
