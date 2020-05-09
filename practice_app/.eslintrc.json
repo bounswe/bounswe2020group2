@@ -1,0 +1,43 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true,
+        "jest/globals": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 11,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "only-warn",
+        "react",
+        "jest"
+    ],
+    "rules": {
+        "declaration-empty-line-before": 0,
+        "no-descending-specificity": 0,
+        "selector-pseudo-class-no-unknown": 0,
+        "selector-pseudo-element-colon-notation": 0,
+        "at-rule-no-unknown": 0,
+        "comment-empty-line-before": 0,
+        "no-empty-source": 0,
+        "function-name-case": 0,
+        "no-lone-blocks": 0,
+        "max-len": [1, {
+            "code": 120
+        }],
+        "no-unused-vars": 1
+    }
+}
