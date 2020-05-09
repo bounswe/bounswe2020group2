@@ -11,25 +11,35 @@ export default (req, res) => {
         	// This is not important for now
         	var productID = query.pid 
         	// Creating a random product price
-        	var productPrice = Math.random(250)
+        	var productPrice = 60
         	// hold client's ip adress
         	var clientIP = query.ip == null ? "" : query.ip
 
-        	// This is a Promise that holds the geographic data such as ip, location, currency code etc.
-        	var geoData = axios.get("https://json.geoiplookup.io/"+clientIP)
+        	//use two apis synchroniously
+	        Promise.all([
+				axios.get("https://json.geoiplookup.io/"+clientIP),
+				axios.get("https://api.exchangeratesapi.io/latest")
+						])
+				.then(function (responses) {
+					// Get a JSON object from each of the responses
+					var takencurrencyType = responses[0].data.currency_code
+					var takencurrencyValue = responses[1].data.rates[takencurrencyType]
+					var totalpricenum = takencurrencyValue*productPrice
+					res.statusCode = 200
 
-        	// When you fetch the geoData, use it the update response JSON
-        	geoData.then(geoResponse => {
-        		res.json({
-        			currencyType: geoResponse.data.currency_code
-        		})
-        		res.statusCode = 200
-        	})
+					//assign them to response JSon object
+					res.json({
+        				currencyType: takencurrencyType,
+        				totalprice: totalpricenum
+        			})
+						}).catch(function (error) {
+						// if there's an error, log it
+					console.log(error);
+							});
             // ...
-
         } break
         default: {
-            res.statusCode = 200
+        	res.statusCode = 200
             res.send('please use GET')
             break
         }
