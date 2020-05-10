@@ -1,49 +1,52 @@
 {
-  "name": "template_next",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "test": "jest --passWithNoTests",
-    "dev:test": "jest --passWithNoTests --watch",
-    "util:prettier": "prettier --write package.json \"./pages/**/*.js\"",
-    "util:lint-staged": "lint-staged",
-    "util:eslint": "eslint --fix ./pages/**/*.js",
-    "util:pre-commit": "npm run util:lint-staged"
-  },
-  "lint-staged": {
-    "*.js": [
-      "npm run util:eslint",
-      "npm run util:prettier",
-      "git add"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run util:pre-commit"
+    "name": "template_next",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "test": "jest --passWithNoTests",
+        "dev:test": "jest --passWithNoTests --watch",
+        "util:prettier": "prettier --write package.json \"./pages/**/*.js\"",
+        "util:lint-staged": "lint-staged",
+        "util:eslint": "eslint --fix ./pages/**/*.js",
+        "util:pre-commit": "npm run util:lint-staged"
+    },
+    "lint-staged": {
+        "*.js": [
+            "npm run util:eslint",
+            "npm run util:prettier",
+            "git add"
+        ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm run util:pre-commit"
+        }
+    },
+    "dependencies": {
+        "axios": "^0.19.2",
+        "deck.gl": "^8.1.5",
+        "next": "9.3.6",
+        "react": "16.13.1",
+        "react-dom": "16.13.1",
+        "react-map-gl": "^5.2.5",
+        "react-yandex-maps": "^4.3.0"
+    },
+    "devDependencies": {
+        "@types/jest": "^25.2.1",
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb": "^18.1.0",
+        "eslint-plugin-import": "^2.20.2",
+        "eslint-plugin-jest": "^23.10.0",
+        "eslint-plugin-jsx-a11y": "^6.2.3",
+        "eslint-plugin-only-warn": "^1.0.2",
+        "eslint-plugin-react": "^7.19.0",
+        "eslint-plugin-react-hooks": "^2.5.1",
+        "husky": "^4.2.5",
+        "jest": "^26.0.1",
+        "lint-staged": "^10.2.2",
+        "prettier": "^2.0.5"
     }
-  },
-  "dependencies": {
-    "axios": "^0.19.2",
-    "next": "9.3.6",
-    "react": "16.13.1",
-    "react-dom": "16.13.1"
-  },
-  "devDependencies": {
-    "@types/jest": "^25.2.1",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-jest": "^23.10.0",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-only-warn": "^1.0.2",
-    "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^2.5.1",
-    "husky": "^4.2.5",
-    "jest": "^26.0.1",
-    "lint-staged": "^10.2.2",
-    "prettier": "^2.0.5"
-  }
 }
