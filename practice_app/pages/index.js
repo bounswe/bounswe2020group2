@@ -2,7 +2,10 @@ import { useState } from 'react'
 import Head from 'next/head'
 
 import axios from 'axios'
-import MapView from '../components/MapView'
+
+import dynamic from 'next/dynamic'
+
+const MapView = dynamic(() => import('../components/MapView'), { ssr: false })
 // axios is a library used to make requests
 
 // THIS CODE IS EXECUTED ON THE ********SERVER******** SIDE
@@ -32,8 +35,8 @@ export default function Home({ context }) {
 
     const [currency, setCurrency] = useState({
         code: 'TRY',
-        display: 'TL',
         symbol: 'TL',
+        name: 'Turkish Lira',
     })
 
     const [language, setLanguage] = useState({
@@ -46,21 +49,26 @@ export default function Home({ context }) {
         name: 'Turkey',
     })
 
-    const onMapClick = async event => {
-        const {
-            lngLat: [longitude, latitude],
-        } = event
+    const onMapClick = async ({ longitude, latitude }) => {
         try {
             const { data } = await axios.get(`api/getLocationInfo?lat=${latitude},lng=${longitude}`)
-            const { currency, language, country } = data
+            const { valid, currency, language, country } = data
 
-            setCountry(country)
-            setLanguage(language)
+            if (!valid) {
+                setCurrency(undefined)
+                setCountry(undefined)
+                return
+            }
+
+            setCountry({ name: country })
+            // setLanguage()
             setCurrency(currency)
-
-            setCoordinates({ longitude, latitude })
         } catch (error) {
             console.error(error)
+            setCurrency(undefined)
+            setCountry(undefined)
+        } finally {
+            setCoordinates({ longitude, latitude })
         }
     }
 
@@ -69,6 +77,12 @@ export default function Home({ context }) {
             <Head>
                 <title>Our example API</title>
                 <link rel="icon" href="/favicon.ico" />
+                <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet" />
+                <link
+                    rel="stylesheet"
+                    href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
+                    type="text/css"
+                />
             </Head>
             <main>
                 <h1>Welcome to our demo website!</h1>
