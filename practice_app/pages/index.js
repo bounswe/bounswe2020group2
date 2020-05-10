@@ -1,12 +1,9 @@
 import { useState } from 'react'
 import Head from 'next/head'
 
-import DeckGL from '@deck.gl/react'
-import { IconLayer } from '@deck.gl/layers'
-import { StaticMap, Marker } from 'react-map-gl'
-
-// axios is a library used to make requests
 import axios from 'axios'
+import MapView from '../components/MapView'
+// axios is a library used to make requests
 
 // THIS CODE IS EXECUTED ON THE ********SERVER******** SIDE
 // You can use this function to receive the request params
@@ -22,28 +19,15 @@ export async function getServerSideProps(ctx) {
     return { props: { context } } // This object called "context" is the same context object in Home
 }
 
-const MAPBOX_ACCESS_TOKEN =
-    'pk.eyJ1IjoibWVoZGlzYWZmYXIiLCJhIjoiY2thMHdldHhoMWNobTN0cGtpN2oyZ2IyMCJ9.Mi8mEiVIRdc-UWTpJxGkRA'
-
 // THIS CODE IS EXECUTED ON THE ********CLIENT******** SIDE
 export default function Home({ context }) {
     // <-- This "context" object is the same object return in getServerSideProps
     // REMEMBER: You can always console.log (either in the server or in the browser, depending on where the code is
     // executed) to see what each object looks like!
 
-    // this contains the number
-    // to know more look at React Hooks documentation
-
     const [coordinates, setCoordinates] = useState({
         longitude: 29.046874,
         latitude: 41.085212,
-    })
-
-    const [viewState, setViewState] = useState({
-        ...coordinates,
-        zoom: 13,
-        pitch: 0,
-        bearing: 0,
     })
 
     const [currency, setCurrency] = useState({
@@ -79,24 +63,6 @@ export default function Home({ context }) {
             console.error(error)
         }
     }
-    const onViewStateChange = ({ viewState }) => setViewState(viewState)
-
-    const iconLayer = new IconLayer({
-        id: 'marker',
-        data: [{ position: [coordinates.longitude, coordinates.latitude, 0], icon: 'marker', size: 30 }],
-        iconAtlas: '/marker.png',
-        getSize: d => d.size,
-        iconMapping: {
-            marker: {
-                x: 0,
-                y: 0,
-                width: 100,
-                height: 121,
-                anchorY: 121,
-                mask: false,
-            },
-        },
-    })
 
     return (
         <div className="container">
@@ -113,31 +79,8 @@ export default function Home({ context }) {
                         {currency.display}
                     </p>
                 )}
-                <div className="map_container">
-                    <DeckGL
-                        width="100%"
-                        height="100%"
-                        initialViewState={viewState}
-                        onViewStateChange={onViewStateChange}
-                        controller
-                        onClick={onMapClick}
-                        layers={[iconLayer]}>
-                        <StaticMap mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN} />
-                    </DeckGL>
-                </div>
+                <MapView onMapClick={onMapClick} coordinates={coordinates} />
             </main>
-            <footer>CMPE 352 - Group 2 - 2020</footer>
-
-            <style jsx>
-                {`
-                    .map_container {
-                        position: relative;
-                        width: 100vw;
-                        height: 300px;
-                    }
-                `}
-            </style>
-
             <style jsx global>
                 {`
                     html,
