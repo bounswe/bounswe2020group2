@@ -15,8 +15,9 @@ export default (req, res) => {
     res.statusCode = 400
     return res.send()
   }
+  const apiKey = 'ae7fc0efbe65c249d2ca580ec51b3fdd'
   const params = `${query.lat},${query.lng}`
-  const uri = `http://api.positionstack.com/v1/reverse?access_key=ae7fc0efbe65c249d2ca580ec51b3fdd&query=${params}&country_module=1`
+  const uri = `http://api.positionstack.com/v1/reverse?access_key=${apiKey}&query=${params}&country_module=1`
   axios
     .get(uri)
     .then(response => {
