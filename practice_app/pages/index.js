@@ -27,6 +27,7 @@ export default function Home({ context }) {
   // this contains the number
   // to know more look at React Hooks documentation
   const [number, setNumber] = useState()
+  const [numb, setNumb] = useState() 
 
   // this function is called when the button is clicked
   const onClick = async () => {
@@ -35,6 +36,23 @@ export default function Home({ context }) {
     const { data } = await axios.get('api/getRandomNumber')
     // data contains the number, we set the number using setNumber
     setNumber(data)
+
+  
+  }
+  const getNumber = async () => {
+      
+    let data1= document.getElementById("myTextBox").value;
+    
+    const {data} = await axios.get("api/getStatistics?country="+data1)
+
+    if(data.answered=="yes")
+    {
+      setNumb("Death Toll:  "+data.deathToll+" Recovered People:  "+data.recovery +" Infected People: "+data.infection)
+    }
+    else
+    {
+      setNumb("No information available about your country")
+    }
   }
 
   return (
@@ -47,6 +65,18 @@ export default function Home({ context }) {
         Main content
         <button onClick={onClick}>Click me to generate a random number</button>
         {number !== undefined && <p>{number}</p>}
+        <button onClick={getNumber}>Click me to get Covid death statistics for your country</button>
+                {numb !== undefined && <p>
+                    {numb}
+                </p>}
+                <form >
+                <textarea id="myTextBox" cols="50" rows="5">
+                  Enter your country. First letter should be capital. Ex: Turkey, United States, France etc.
+                  
+                </textarea>
+                <br />
+                
+                </form>
       </main>
       <footer>CMPE 352 - Group 2 - 2020</footer>
       // These are default styles, you can always change them
