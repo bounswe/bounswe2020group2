@@ -12,7 +12,11 @@ export default (req, res) => {
 
             const countryName = query.country
 
-            let deathToll1 = 'No information available for your country'
+            let deathToll1 
+            let recovered1 
+            let answered1
+            let infected1
+            
 
             axios.get("https://api.apify.com/v2/key-value-stores/tVaYRsPHLjNdNBu7S/records/LATEST?disableRedirect=true")
 
@@ -25,8 +29,11 @@ export default (req, res) => {
                 {
                     if(response.data[i].country==countryName)
                     {
-                        
+                        answered1 = "yes"
                         deathToll1= response.data[i].deceased
+                        recovered1= response.data[i].recovered
+                        infected1= response.data[i].infected
+                        
                         break
 
 
@@ -36,11 +43,15 @@ export default (req, res) => {
                 }
                 
                 res.json({
-                    deathToll: deathToll1
+                    answered: answered1,
+                    deathToll: deathToll1,
+                    recovery: recovered1,
+                    infection:infected1
+                    
                 })
 
               }).catch(function (error) {
-                // if there's an error, log it
+                
             console.log(error);
                     });
 
