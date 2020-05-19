@@ -53,17 +53,18 @@ export default function Home({ context }) {
         try {
             console.log({ longitude, latitude })
             const { data } = await axios.get(`api/getLocationInfo?lat=${latitude}&lng=${longitude}`)
-            const { valid, currency, country } = data
+            const { valid, currency, country, language } = data
             console.log(data)
 
             if (!valid) {
                 setCurrency(undefined)
                 setCountry(undefined)
+                setLanguage(undefined)
                 return
             }
 
             setCountry({ name: country })
-            // setLanguage()
+            setLanguage({ name: language })
             setCurrency(currency)
         } catch (error) {
             console.error(error)
@@ -92,7 +93,7 @@ export default function Home({ context }) {
                     <p>
                         You are a user from {country.name}, you speak
                         {language.name} and you buy in
-                        {currency.display}
+                        {currency.name}
                     </p>
                 )}
                 <MapView onMapClick={onMapClick} coordinates={coordinates} />
