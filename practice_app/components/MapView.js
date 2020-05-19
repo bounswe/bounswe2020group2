@@ -53,8 +53,9 @@ export default function MapView({ coordinates, onMapClick }) {
     }
 
     const _onMapClick = event => {
+        console.log(event)
         const {
-            center: [longitude, latitude],
+            lngLat: [longitude, latitude],
         } = event
         onMapClick({ latitude, longitude })
     }

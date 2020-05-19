@@ -1,4 +1,4 @@
-const LocationInfoService = require('../../services/locationInfo')
+const LocationInfoService = require('../../services/getLocationInfo')
 
 export default async (req, res) => {
     try {

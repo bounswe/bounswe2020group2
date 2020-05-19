@@ -51,8 +51,10 @@ export default function Home({ context }) {
 
     const onMapClick = async ({ longitude, latitude }) => {
         try {
-            const { data } = await axios.get(`api/getLocationInfo?lat=${latitude},lng=${longitude}`)
-            const { valid, currency, language, country } = data
+            console.log({ longitude, latitude })
+            const { data } = await axios.get(`api/getLocationInfo?lat=${latitude}&lng=${longitude}`)
+            const { valid, currency, country } = data
+            console.log(data)
 
             if (!valid) {
                 setCurrency(undefined)

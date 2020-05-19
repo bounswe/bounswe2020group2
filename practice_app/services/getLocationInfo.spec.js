@@ -13,6 +13,9 @@ describe('processLocationInfo', () => {
                         name: 'c',
                     },
                 ],
+                languages: {
+                    tur: 'Turkish',
+                },
             },
         }
 
