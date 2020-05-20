@@ -91,7 +91,9 @@ export default function Home({ context }) {
                 <h1>Welcome to our demo website!</h1>
                 {country && language && currency && (
                     <p>
-                        You are a user from {country.name}, you speak {language.name} and you buy in {currency.name}
+                        You are a user from {country.name}, you speak
+                        {language.name} and you buy in
+                        {currency.name}
                     </p>
                 )}
                 <MapView onMapClick={onMapClick} coordinates={coordinates} />
@@ -101,7 +103,7 @@ export default function Home({ context }) {
                     html,
                     body {
                         padding: 0;
-                        margin: 0;
+                        margin: 1%;
                         font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
                             Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
                     }
