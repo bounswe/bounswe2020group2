@@ -91,9 +91,7 @@ export default function Home({ context }) {
                 <h1>Welcome to our demo website!</h1>
                 {country && language && currency && (
                     <p>
-                        You are a user from {country.name}, you speak
-                        {language.name} and you buy in
-                        {currency.name}
+                        You are a user from {country.name}, you speak {language.name} and you buy in {currency.name}
                     </p>
                 )}
                 <MapView onMapClick={onMapClick} coordinates={coordinates} />
