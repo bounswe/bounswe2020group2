@@ -8,8 +8,12 @@ function getCurrency(data) {
     return data.currency_code
 }
 
-exports.processIPInfo = function (data) {
+function getExchangeRate(data, currencyType) {
+    console.log(currencyType)
+    return data.rates[currencyType]
+}
 
+exports.processIPInfo = function (data) {
     const country = getCountry(data)
     const currency = getCurrency(data)
 
@@ -22,8 +26,24 @@ exports.processIPInfo = function (data) {
     }
 }
 
-exports.getInfoFromIP = async function ({ip}) {
-    console.log('Getting the information of the ip', {ip})
+exports.processCurrencyInfo = function ({ data, srcCurrency, tarCurrency }) {
+    const tarRate = getExchangeRate(data, tarCurrency)
+    const srcRate = getExchangeRate(data, srcCurrency)
+
+    const valid = Boolean(tarRate && srcRate)
+    let ratio = null
+    if (valid) ratio = srcRate / tarRate
+
+    return {
+        valid,
+        tarRate,
+        srcRate,
+        ratio,
+    }
+}
+
+exports.getInfoFromIP = async function ({ ip }) {
+    console.log('Getting the information of the ip', { ip })
 
     const params = `${ip}`
     const uri = `https://json.geoiplookup.io/${ip}`
@@ -33,11 +53,36 @@ exports.getInfoFromIP = async function ({ip}) {
     return exports.processIPInfo(data)
 }
 
-exports.getConvertedPrice = async function ({ip, srcCurrency, price}) {
+exports.getInfoCurrency = async function ({ srcCurrency, tarCurrency }) {
+    console.log('Getting the information of the currency')
 
-    const ipdata = exports.getInfoFromIP({ip})
-    ipdata.then(ipdata => {console.log(ipdata)})
-    
+    const uri = 'https://api.exchangeratesapi.io/latest'
 
-    return {statusCode: 200, body: {}}
+    const { data } = await axios.get(uri)
+
+    return exports.processCurrencyInfo({ data, srcCurrency, tarCurrency })
+}
+
+exports.getConvertedPrice = async function ({ ip, srcCurrency, price }) {
+    const ipData = exports.getInfoFromIP({ ip })
+    const result = ipData.then(ipdata => {
+        const tarCurrency = ipdata.currency
+
+        console.log(tarCurrency)
+
+        const currencyData = exports.getInfoCurrency({ srcCurrency, tarCurrency })
+
+        const { ratio } = currencyData
+
+        const { valid } = currencyData
+
+        console.log(ratio)
+
+        console.log(valid)
+
+        const updatedPrice = ratio * price
+
+        return { statusCode: 200, body: { updatedPrice, currency: tarCurrency } }
+    })
+    return result
 }
