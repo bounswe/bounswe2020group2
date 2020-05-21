@@ -33,6 +33,10 @@ export default function Home({ context }) {
         latitude: 41.085212,
     })
 
+    const [numb, setNumb] = useState()
+
+    const [countr, setCountr] = useState()
+
     const [currency, setCurrency] = useState({
         code: 'TRY',
         symbol: 'TL',
@@ -66,12 +70,29 @@ export default function Home({ context }) {
             setCountry({ name: country })
             setLanguage({ name: language })
             setCurrency(currency)
+            setCountr(country)
         } catch (error) {
             console.error(error)
             setCurrency(undefined)
             setCountry(undefined)
         } finally {
             setCoordinates({ longitude, latitude })
+        }
+    }
+
+    const getNumber = async () => {
+        if (countr == null) {
+            setNumb('Please select a location by clicking on the map')
+            return
+        }
+        const { data } = await axios.get(`api/getStatistics?country=${countr}`)
+
+        if (data.answered == 'yes') {
+            setNumb(
+                `Country: ${countr} Death Toll:  ${data.deathToll} Recovered People:  ${data.recovery} Infected People: ${data.infection}`,
+            )
+        } else {
+            setNumb('No information available about your country')
         }
     }
 
@@ -94,6 +115,11 @@ export default function Home({ context }) {
                 <h1>Welcome to our demo website!</h1>
                 {country && language && currency && <p>{locationGreeting()} </p>}
                 <MapView onMapClick={onMapClick} coordinates={coordinates} />
+
+                <button onClick={getNumber}>
+                    Click me to get Covid death statistics for the country you have chosen on the map
+                </button>
+                {numb !== undefined && <p>{numb}</p>}
             </main>
             <style jsx global>
                 {`
