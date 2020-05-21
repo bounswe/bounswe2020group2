@@ -1,23 +1,23 @@
-const { checking } = require('./getStatisticsModule')
+const { checkApiResponseForCountry } = require('./getStatisticsModule')
 
 describe('checking', () => {
     test('when country is null', () => {
-        const output = checking(null, null)
+        const output = checkApiResponseForCountry(null, null)
         expect(output.isCountryNull).toBe('yes')
     })
 
     test('when country is not null and response is null', () => {
-        const output = checking(null, 'Turkey')
+        const output = checkApiResponseForCountry(null, 'Turkey')
         expect(output.isCountryNull).toBe('no')
     })
 
     test('when country is not null and response is null', () => {
-        const output = checking(null, 'Tunisia')
+        const output = checkApiResponseForCountry(null, 'Tunisia')
         expect(output.answered1).toBe('no')
     })
 
     test('when country is not null and response is not null', () => {
-        const output = checking(
+        const output = checkApiResponseForCountry(
             {
                 data: [
                     {
