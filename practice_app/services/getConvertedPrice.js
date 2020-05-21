@@ -31,7 +31,7 @@ exports.processCurrencyInfo = function (data, srcCurrency, tarCurrency) {
 
     const valid = Boolean(tarRate && srcRate)
     let ratio = null
-    if (valid) ratio = srcRate / tarRate
+    if (valid) ratio = tarRate / srcRate
 
     return {
         valid,
