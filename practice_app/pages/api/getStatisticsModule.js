@@ -1,4 +1,4 @@
-exports.checking = function (response, countryName) {
+exports.checkApiResponseForCountry = function (response, countryName) {
     let isCountryNull = 'no'
     if (countryName == null) {
         isCountryNull = 'yes'
