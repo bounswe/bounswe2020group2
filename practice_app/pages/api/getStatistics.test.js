@@ -1,6 +1,6 @@
 const { checkApiResponseForCountry } = require('./getStatisticsModule')
 
-describe('checking', () => {
+describe('checkApiResponseForCountry', () => {
     test('when country is null', () => {
         const output = checkApiResponseForCountry(null, null)
         expect(output.isCountryNull).toBe('yes')
