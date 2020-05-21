@@ -33,9 +33,7 @@ export default function Home({ context }) {
         latitude: 41.085212,
     })
 
-    const [numb, setNumb] = useState()
-
-    const [countr, setCountr] = useState()
+    const [returnString, setReturnString] = useState()
 
     const [currency, setCurrency] = useState({
         code: 'TRY',
@@ -70,7 +68,6 @@ export default function Home({ context }) {
             setCountry({ name: country })
             setLanguage({ name: language })
             setCurrency(currency)
-            setCountr(country)
         } catch (error) {
             console.error(error)
             setCurrency(undefined)
@@ -80,19 +77,19 @@ export default function Home({ context }) {
         }
     }
 
-    const getNumber = async () => {
-        if (countr == null) {
-            setNumb('Please select a location by clicking on the map')
+    const getCovidStats = async () => {
+        if (country.name == null) {
+            setReturnString('Please select a location by clicking on the map')
             return
         }
-        const { data } = await axios.get(`api/getStatistics?country=${countr}`)
+        const { data } = await axios.get(`api/getStatistics?country=${country.name}`)
 
         if (data.answered == 'yes') {
-            setNumb(
-                `Country: ${countr} Death Toll:  ${data.deathToll} Recovered People:  ${data.recovery} Infected People: ${data.infection}`,
+            setReturnString(
+                `Country: ${country.name} Death Toll:  ${data.deathToll} Recovered People:  ${data.recovery} Infected People: ${data.infection}`,
             )
         } else {
-            setNumb('No information available about your country')
+            setReturnString('No information available about your country')
         }
     }
 
@@ -116,10 +113,10 @@ export default function Home({ context }) {
                 {country && language && currency && <p>{locationGreeting()} </p>}
                 <MapView onMapClick={onMapClick} coordinates={coordinates} />
 
-                <button onClick={getNumber}>
+                <button onClick={getCovidStats}>
                     Click me to get Covid death statistics for the country you have chosen on the map
                 </button>
-                {numb !== undefined && <p>{numb}</p>}
+                {returnString !== undefined && <p>{returnString}</p>}
             </main>
             <style jsx global>
                 {`
