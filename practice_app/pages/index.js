@@ -75,6 +75,9 @@ export default function Home({ context }) {
         }
     }
 
+    const locationGreeting = () =>
+        `You are a user from ${country.name}, you speak ${language.name} and you buy in ${currency.name}`
+
     return (
         <div className="container">
             <Head>
@@ -89,13 +92,7 @@ export default function Home({ context }) {
             </Head>
             <main>
                 <h1>Welcome to our demo website!</h1>
-                {country && language && currency && (
-                    <p>
-                        You are a user from {country.name}, you speak
-                        {language.name} and you buy in
-                        {currency.name}
-                    </p>
-                )}
+                {country && language && currency && <p>{locationGreeting()} </p>}
                 <MapView onMapClick={onMapClick} coordinates={coordinates} />
             </main>
             <style jsx global>
