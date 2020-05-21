@@ -33,7 +33,7 @@ export default function Home({ context }) {
         latitude: 41.085212,
     })
 
-    const [returnString, setReturnString] = useState()
+    const [covidStatsString, setCovidStatsString] = useState()
 
     const [currency, setCurrency] = useState({
         code: 'TRY',
@@ -79,17 +79,17 @@ export default function Home({ context }) {
 
     const getCovidStats = async () => {
         if (country.name == null) {
-            setReturnString('Please select a location by clicking on the map')
+            setCovidStatsString('Please select a location by clicking on the map')
             return
         }
         const { data } = await axios.get(`api/getStatistics?country=${country.name}`)
 
         if (data.answered == 'yes') {
-            setReturnString(
+            setCovidStatsString(
                 `Country: ${country.name} Death Toll:  ${data.deathToll} Recovered People:  ${data.recovery} Infected People: ${data.infection}`,
             )
         } else {
-            setReturnString('No information available about your country')
+            setCovidStatsString('No information available about your country')
         }
     }
 
@@ -116,7 +116,7 @@ export default function Home({ context }) {
                 <button onClick={getCovidStats}>
                     Click me to get Covid death statistics for the country you have chosen on the map
                 </button>
-                {returnString !== undefined && <p>{returnString}</p>}
+                {covidStatsString !== undefined && <p>{covidStatsString}</p>}
             </main>
             <style jsx global>
                 {`
