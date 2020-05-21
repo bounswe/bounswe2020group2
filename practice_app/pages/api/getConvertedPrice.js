@@ -9,14 +9,11 @@ export default async (req, res) => {
             return res.send()
         }
 
-        
         const { statusCode, body } = await PriceConversionService.getConvertedPrice({
             ip: query.ip,
             srcCurrency: query.srcCurrency,
-            price: query.price
+            price: query.price,
         })
-
-        
 
         res.statusCode = statusCode
         res.json(body)
