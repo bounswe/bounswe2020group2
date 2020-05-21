@@ -1,23 +1,35 @@
-const { checking } = require('./getStatisticsModule')
+const {checking} = require('./getStatisticsModule');
 
-describe('getStatistics tests', () => {
-    test('when country is null and answer is not null', () => {
-        const output = checking({ countryN: null, answer: 'asd' })
-        expect(output.cnull).toBe('yes')
+describe('checking', () => {
+    test('when country is null', () => {
+        const output = checking(null,null)
+        expect(output.isCountryNull).toBe("yes");
     })
-
-    test('when country is null and answer is null', () => {
-        const output = checking({ countryN: null, answer: null })
-        expect(output.cnull).toBe('yes')
+    
+     test('when country is not null and response is null', () => {
+        const output = checking(null,"Turkey")
+        expect(output.isCountryNull).toBe("no");
     })
-
-    test('when country is not null and answer is yes', () => {
-        const output = checking({ countryN: 'Turkey', answer: 'yes' })
-        expect(output.ansnull).toBe('yes')
+    
+      test('when country is not null and response is null', () => {
+        const output = checking(null,"Tunisia")
+        expect(output.answered1).toBe("no");
     })
-
-    test('when country is not null and answer is null', () => {
-        const output = checking({ countryN: 'France', answer: null })
-        expect(output.ansnull).toBe('no')
+    
+     test('when country is not null and response is not null', () => {
+        const output = checking({data[{
+    "infected": 7728,
+    "tested": "NA",
+    "recovered": 4062,
+    "deceased": 575,
+    "country": "Algeria",
+    "moreData": "https://api.apify.com/v2/key-value-stores/pp4Wo2slUJ78ZnaAi/records/LATEST?disableRedirect=true",
+    "historyData": "https://api.apify.com/v2/datasets/hi0DJXpcyzDwtg2Fm/items?format=json&clean=1",
+    "sourceUrl": "http://covid19.sante.gov.dz/carte",
+    "lastUpdatedSource": "2020-05-21T00:00:00.000Z",
+    "lastUpdatedApify": "2020-05-21T15:30:00.000Z"
+  }]}, "Algeria")
+        expect(output.answered1).toBe("yes");
     })
+    
 })
