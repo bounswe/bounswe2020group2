@@ -64,25 +64,12 @@ exports.getInfoCurrency = async function ({ srcCurrency, tarCurrency }) {
 }
 
 exports.getConvertedPrice = async function ({ ip, srcCurrency, price }) {
-    const ipData = exports.getInfoFromIP({ ip })
-    const result = ipData.then(ipdata => {
-        const tarCurrency = ipdata.currency
+    const ipData = await exports.getInfoFromIP({ ip })
 
-        console.log(tarCurrency)
+    const tarCurrency = ipData.currency
 
-        const currencyData = exports.getInfoCurrency({ srcCurrency, tarCurrency })
+    const currencyData = await exports.getInfoCurrency({ srcCurrency, tarCurrency })
+    const updatedPrice = currencyData.ratio * price
 
-        const { ratio } = currencyData
-
-        const { valid } = currencyData
-
-        console.log(ratio)
-
-        console.log(valid)
-
-        const updatedPrice = ratio * price
-
-        return { statusCode: 200, body: { updatedPrice, currency: tarCurrency } }
-    })
-    return result
+    return { statusCode: 200, body: {price: updatedPrice, currency: tarCurrency } }
 }
