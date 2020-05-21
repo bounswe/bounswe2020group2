@@ -1,16 +1,33 @@
-exports.checking = function (val) {
-    let cnull = 'no'
-    let ansnull = 'yes'
-
-    if (val.countryN == null) {
-        cnull = 'yes'
-        return { cnull, ansnull }
+exports.checking = function(response, countryName) {
+    
+    let isCountryNull = "no"
+    if(countryName == null)
+    {
+        isCountryNull = "yes"
+        return {isCountryNull:isCountryNull}
     }
-
-    if (val.answer == null) {
-        ansnull = 'no'
-        return { cnull, ansnull }
+    if(response == null)
+    {
+        return {isCountryNull:isCountryNull,answered1:"no"}    
     }
+    let i
+    let deathToll2 
+    let recovered2
+    let answered2
+    let infected2   
 
-    return { cnull, ansnull }
+    for (i = 0; i < response.data.length; i++) 
+    {
+        if(response.data[i].country==countryName)
+        {
+            answered2 = "yes"
+            deathToll2= response.data[i].deceased
+            recovered2= response.data[i].recovered
+            infected2= response.data[i].infected
+                        
+            break
+        }                   
+    }      
+    
+    return {deathToll1:deathToll2,recovered1:recovered2,answered1:answered2,infected1:infected2,isCountryNull:isCountryNull}
 }
