@@ -9,7 +9,6 @@ function getCurrency(data) {
 }
 
 function getExchangeRate(data, currencyType) {
-    console.log(currencyType)
     return data.rates[currencyType]
 }
 
@@ -26,7 +25,7 @@ exports.processIPInfo = function (data) {
     }
 }
 
-exports.processCurrencyInfo = function ({ data, srcCurrency, tarCurrency }) {
+exports.processCurrencyInfo = function (data, srcCurrency, tarCurrency) {
     const tarRate = getExchangeRate(data, tarCurrency)
     const srcRate = getExchangeRate(data, srcCurrency)
 
@@ -60,7 +59,7 @@ exports.getInfoCurrency = async function ({ srcCurrency, tarCurrency }) {
 
     const { data } = await axios.get(uri)
 
-    return exports.processCurrencyInfo({ data, srcCurrency, tarCurrency })
+    return exports.processCurrencyInfo(data, srcCurrency, tarCurrency)
 }
 
 exports.getConvertedPrice = async function ({ ip, srcCurrency, price }) {
