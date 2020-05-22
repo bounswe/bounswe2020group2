@@ -24,5 +24,4 @@ Please checkout our [Wiki section](https://github.com/bounswe/bounswe2020group2/
 - [Hande Şirikçi](https://github.com/bounswe/bounswe2020group2/wiki/hande-sirikci)
 - [Ömer Faruk Deniz](https://github.com/bounswe/bounswe2020group2/wiki/Ömer-Faruk-Deniz)
 - [Özdeniz Dolu](https://github.com/bounswe/bounswe2020group2/wiki/Özdeniz-Dolu)
-- Tuna Çetindamar
 - [Aslı Aykan](https://github.com/bounswe/bounswe2020group2/wiki/Aslı-Aykan)
