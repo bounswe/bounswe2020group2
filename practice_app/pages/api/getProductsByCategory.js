@@ -1,4 +1,4 @@
-const filter = (request,response) => new Promise(
+const getProductsByCategory = (request,response) => new Promise(
  async resolve => { 
    // Imports the Google Cloud client library
    const vision = require('@google-cloud/vision');
@@ -77,5 +77,5 @@ const filter = (request,response) => new Promise(
    });
  })
 
- module.exports = filter;
+ module.exports = getProductsByCategory;
 
