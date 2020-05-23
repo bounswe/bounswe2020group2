@@ -1,4 +1,4 @@
-const getProductSet = (req, res) =>
+const getProductCatalog = (req, res) =>
   new Promise(async (resolve) => {
     const axios = require("axios");
     // Imports the Google Cloud client library
@@ -13,11 +13,24 @@ const getProductSet = (req, res) =>
     const method = req.method;
 
     switch (method) {
+      case 'POST': {
+        // create product function call
+        
+        // create product set function call
 
+        // add reference image function call
+        
+      }
+      case 'PATCH': {
+        // update product function call
+      
+      }
+      case 'DELETE': {
+        // delete product function call
 
-
-
+        // delete product set function call
+      }  
         
     }
   });
-module.exports = getProductSet;
+module.exports = getProductCatalog;
