@@ -91,6 +91,35 @@ const getProductCatalog = (req, res) =>
                     res.on("finish", resolve);
                     return  res;
                 }
+                      // Creates product set
+              else if(requestType=='productSet'){
+                      // Gets body of the request
+                      const productSetId = req.body.id;
+                      const productSetDisplayName = req.body.name;      
+                      // Resource path that represents Google Cloud Platform location.
+                      const locationPath = client.locationPath(projectId, location);
+                      // Initializes the product set object
+                      const productSet = {
+                          displayName: productSetDisplayName,
+                      };
+                      // Determines the request sended to the Google Product Search API
+                      const request = {
+                          parent: locationPath,
+                          productSet: productSet,
+                          productSetId: productSetId,
+                      };
+                      // Async function call to the Google Product Search API via it's function namely 'createProductSet'
+                     const [createdProductSet] = await client.createProductSet(request).catch(err => {
+                      res.statusCode = 400;
+                      res.statusText ='Display name is missing, or is longer than 4096 characters.';
+                      return res;
+                    });
+                      // Initializes both status message and status code of the succesful response
+                      res.statusCode = 200;
+                      res.statusText = 'Product set is created.';
+                      res.on("finish", resolve);
+                      return  res;
+              }
         
         
         
