@@ -241,7 +241,23 @@ const getProductCatalog = (req, res) =>
           res.statusText = "The product is deleted.";
           return res;
         }
-        // delete product set function call
+        // Deletes the product set
+        else if(requestType =='productSet'){
+          // Gets id of the product set from the body of the request
+          const productSetId = req.body.setId;
+          // Resource path that represents Google Cloud Platform location.
+          const formattedName = client.productSetPath(projectId, location, productSetId);
+          // Calls deleteProductSet function of Google Product Search API
+          client.deleteProductSet({name: formattedName}).catch(err => {
+            res.statusCode = 404;
+            res.statusText = 'The product set does not exist.';
+            return res;
+          });
+          // Succesful response
+          res.statusCode = 200;
+          res.statusText = 'The product is deleted.';
+          return  res;
+        }
       }
     }
   });
