@@ -157,10 +157,57 @@ const getProductCatalog = (req, res) =>
                 }   
 
       }
-      case 'PATCH': {
-        // update product function call
-      
-      }
+// Updates labels of the product existing in any one of the product set.
+case 'PATCH':
+  {
+      // Gets the body of the request
+      const productId = req.body.id;
+      const key = req.body.key;
+      const value =req.body.value;
+      // Resource path that represents Google Cloud Platform location.
+      const productPath = client.productPath(projectId, location, productId);
+      // Product object in the form of the Google Product Search API
+      const product = {
+      name: productPath,
+      productLabels: [
+          {
+          key: key,
+          value: value,
+          },
+      ],
+      };
+      // Initializes the product's field which will be updated
+      const updateMask = {
+      paths: ['product_labels'],
+      };
+      // Update request form corresponding function of Google Product Search API
+      const request = {
+      product: product,
+      updateMask: updateMask,
+      };
+      // Async function call to Google Search API via it's function namely 'updateProduct'
+      const [updatedProduct] = await client.updateProduct(request)
+      .catch(
+          err => {
+              // Two types of possible errors, which are NOT_FOUND and NOT_VALID
+              if(err =='NOT_FOUND'){
+                  res.statusCode = 400;
+                  res.statusText = 'The product does not exist.';
+              }
+              else{
+                  res.statusCode = 400;
+                  res.statusText ='display_name or the description is missing from the request or longer than 4096 characters or' +
+                  'category of product does already exist.';     
+              }
+              return res;
+          }
+      );
+      // Succesful response
+      res.on("finish", resolve);
+      res.statusCode = 200;
+      res.statusText = `${updatedProduct.name} is updated.`;
+      return  res;
+  } 
       case 'DELETE': {
         // delete product function call
 
