@@ -117,6 +117,13 @@ export default function Home({ context }) {
                     Click me to get Covid death statistics for the country you have chosen on the map
                 </button>
                 {covidStatsString !== undefined && <p>{covidStatsString}</p>}
+				<button onClick={getPosts}>
+                    Click me to get top posts from the subreddit for the country you have chosen on the map
+                </button>
+				{topPosts !== undefined &&
+				<p>
+				HEHE
+				</p>}
             </main>
             <style jsx global>
                 {`
