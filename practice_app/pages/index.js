@@ -5,7 +5,6 @@ import axios from 'axios'
 
 import dynamic from 'next/dynamic'
 
-
 const MapView = dynamic(() => import('../components/MapView'), { ssr: false })
 // axios is a library used to make requests
 
@@ -52,9 +51,10 @@ export default function Home({ context }) {
         name: 'Turkey',
     })
 
-    // To show visually the price conversion process
-    const [priceConversionText, setPriceConversionText] = useState("Use the button to try price conversion")
+    const [translatedText, setTranslation] = useState()
 
+    // To show visually the price conversion process
+    const [priceConversionText, setPriceConversionText] = useState('Use the button to try price conversion')
 
     const onMapClick = async ({ longitude, latitude }) => {
         try {
@@ -86,33 +86,36 @@ export default function Home({ context }) {
     const onConvertButtonClick = async () => {
         try {
             const ipdata = await getUsersIP()
-            const pricedata = await priceConverter(10, ipdata.query, "USD")
+            const pricedata = await priceConverter(10, ipdata.query, 'USD')
             Promise
-            setPriceConversionText(`Your ip adress is ${ipdata.query} and currency of the country that this IP belongs to is ${pricedata.currency}.
-            If price of a product is 10 USD, then it is equal to ${pricedata.price.toFixed(2)} ${pricedata.currency} in your currency.`)
+            setPriceConversionText(`Your ip adress is ${
+                ipdata.query
+            } and currency of the country that this IP belongs to is ${pricedata.currency}.
+            If price of a product is 10 USD, then it is equal to ${pricedata.price.toFixed(2)} ${
+                pricedata.currency
+            } in your currency.`)
         } catch (error) {
             console.log(error)
-            setPriceConversionText("Sorry, service unavailable at this time.")
+            setPriceConversionText('Sorry, service unavailable at this time.')
         }
     }
 
     // Returns the IP of the user
     const getUsersIP = async () => {
-        const {data} = await axios.get("http://ip-api.com/json/")
+        const { data } = await axios.get('http://ip-api.com/json/')
         return data
     }
 
     // Using the given ip, finds the currency of the country that the given IP belongs to.
-    // Then, converts the given price in srcCurrency to the new currency. 
+    // Then, converts the given price in srcCurrency to the new currency.
     // Returns the result
     const priceConverter = async (pr, ip, srcCurrency) => {
         try {
-            const {data} = await axios.get('api/getConvertedPrice?ip='+ip+'&price='+pr+'&srcCurrency='+srcCurrency)
+            const { data } = await axios.get(`api/getConvertedPrice?ip=${ip}&price=${pr}&srcCurrency=${srcCurrency}`)
             return data
-            
         } catch (error) {
-            console.error(error) 
-        } 
+            console.error(error)
+        }
     }
     const getCovidStats = async () => {
         if (country.name == null) {
@@ -130,9 +133,20 @@ export default function Home({ context }) {
         }
     }
 
+    // This function returns the translated version of the input, to the language spoken in user's location
+    // current functionality : source_lang=english, target_lang=ip_dependent
+    const getTranslation = async () => {
+        // Learn client's ip adress using a third party service
+        const ipinfo = await axios.get('https://json.geoiplookup.io/')
+        // Provide client's ip & original text to our api
+        const oText = document.getElementById('originalText').value
+        console.log(oText)
+        const { data } = await axios.get(`api/getTranslation?countryCode=${ipinfo.data.country_code}&text=${oText}`)
+        setTranslation(data.translation)
+    }
+
     const locationGreeting = () =>
         `You are a user from ${country.name}, you speak ${language.name} and you buy in ${currency.name}`
-
 
     return (
         <div className="container">
@@ -148,7 +162,14 @@ export default function Home({ context }) {
             </Head>
             <main>
                 <h1>Welcome to our demo website!</h1>
-                {priceConversionText && <p>{priceConversionText}</p>}<button variant='primary' onClick={onConvertButtonClick}>Price Conversion</button>
+                <p>Type something and click "Translate"</p>
+                <input type="text" id="originalText" />
+                <button onClick={getTranslation}>Translate</button>
+                {translatedText !== undefined && <p>{translatedText}</p>}
+                {priceConversionText && <p>{priceConversionText}</p>}
+                <button variant="primary" onClick={onConvertButtonClick}>
+                    Price Conversion
+                </button>
                 {country && language && currency && <p>{locationGreeting()} </p>}
                 <MapView onMapClick={onMapClick} coordinates={coordinates} />
 
