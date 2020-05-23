@@ -34,6 +34,8 @@ export default function Home({ context }) {
     })
 
     const [covidStatsString, setCovidStatsString] = useState()
+	
+	const [postsJSON, setPostsJSON] = useState()
 
     const [currency, setCurrency] = useState({
         code: 'TRY',
@@ -92,10 +94,23 @@ export default function Home({ context }) {
             setCovidStatsString('No information available about your country')
         }
     }
-
+	
+	const getPosts = async () => {
+        const { data } = await axios.get(`api/getRedditData?country=${country.name}`)
+		
+        if (data.answered == 'yes') {
+			//console.log(data.posts)
+            setPostsJSON(
+                data.posts
+            )
+        } else {
+            setPostsJSON(undefined)
+        }
+    }
+	
     const locationGreeting = () =>
         `You are a user from ${country.name}, you speak ${language.name} and you buy in ${currency.name}`
-
+	
     return (
         <div className="container">
             <Head>
@@ -117,13 +132,24 @@ export default function Home({ context }) {
                     Click me to get Covid death statistics for the country you have chosen on the map
                 </button>
                 {covidStatsString !== undefined && <p>{covidStatsString}</p>}
+				
 				<button onClick={getPosts}>
                     Click me to get top posts from the subreddit for the country you have chosen on the map
                 </button>
-				{topPosts !== undefined &&
-				<p>
-				HEHE
-				</p>}
+				{postsJSON !== undefined &&
+				<div>
+				<p><a href={'https://www.reddit.com'+ postsJSON[0].permalink}>{postsJSON[0].title} </a></p>
+				<p><a href={'https://www.reddit.com'+ postsJSON[1].permalink}>{postsJSON[1].title} </a></p>
+				<p><a href={'https://www.reddit.com'+ postsJSON[2].permalink}>{postsJSON[2].title} </a></p>
+				<p><a href={'https://www.reddit.com'+ postsJSON[3].permalink}>{postsJSON[3].title} </a></p>
+				<p><a href={'https://www.reddit.com'+ postsJSON[4].permalink}>{postsJSON[4].title} </a></p>
+				<p><a href={'https://www.reddit.com'+ postsJSON[5].permalink}>{postsJSON[5].title} </a></p>
+				<p><a href={'https://www.reddit.com'+ postsJSON[6].permalink}>{postsJSON[6].title} </a></p>
+				<p><a href={'https://www.reddit.com'+ postsJSON[7].permalink}>{postsJSON[7].title} </a></p>
+				<p><a href={'https://www.reddit.com'+ postsJSON[8].permalink}>{postsJSON[8].title} </a></p>
+				<p><a href={'https://www.reddit.com'+ postsJSON[9].permalink}>{postsJSON[9].title} </a></p>
+				</div>
+				}
             </main>
             <style jsx global>
                 {`
