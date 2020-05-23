@@ -1,4 +1,4 @@
-const listSimilarProducts = (req,res) => new Promise(
+const getSimilarProducts = (req,res) => new Promise(
   async resolve => { 
   // Imports the Google Cloud client library
   const vision = require('@google-cloud/vision');
@@ -99,4 +99,4 @@ const request = {
     res.send('<p>' +temp + '</p>');
     return res;
   })
-  module.exports = listSimilarProducts;
+  module.exports = getSimilarProducts;
