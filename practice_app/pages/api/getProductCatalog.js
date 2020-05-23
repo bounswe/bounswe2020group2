@@ -14,7 +14,90 @@ const getProductCatalog = (req, res) =>
 
     switch (method) {
       case 'POST': {
-        // create product function call
+        const requestType = req.body.type;
+          // Creates a product and then adds it to the product set
+          if (requestType=='product') {
+            const productId = req.body.id;
+            // Display name of the product
+            const productDisplayName = req.body.name;
+            // Category of the product
+            const productCategory = req.body.category;
+            // Id of the product set
+            const productSetId = req.body.setId;
+            // Description of the product
+            const productDesc = req.body.description;
+            // Color label of the product
+            const color = req.body.color;
+            // Style label of the product
+            const style = req.body.style;
+            // Resource path that represents Google Cloud Platform location.
+            const locationPath = client.locationPath(projectId, location);
+            // Initializes the product object
+            const product = {
+              displayName: productDisplayName,
+              productCategory: productCategory,
+              description: productDesc,
+              productLabels: [
+              {
+                key: "color",
+                value: color, 
+              }, {
+                key: "style",
+                value: style,    
+              }],
+            };
+             // Initializes the request object
+                const createRequest = {
+                  parent: locationPath,
+                  product: product,
+                  productId: productId,
+                };
+                // Creates the product via 'createProduct' method of the Google Product Search API
+                    client.createProduct(createRequest).catch(err => {
+                        res.status = 400;
+                        res.statusText = 'PossibleErrors\n'+
+                        'display_name is missing or longer than 4096 characters\n' +
+                        'description is longer than 4096 characters\n'+
+                        'product_category is missing or invalid'
+                        return res;
+                      });
+                    // Determines the path of the product via 'productPath' method of the Google Product Search API
+                    const productPath = client.productPath(projectId, location, productId);
+
+                    /* Determines the path of the product set the product will be added
+                        via 'productPath' method of the Google Product Search API*/
+                    const productSetPath = client.productSetPath(
+                    projectId,
+                    location,
+                    productSetId
+                    );
+                    
+                    const addRequest = {
+                    name: productSetPath,
+                    product: productPath,
+                    };
+
+                    // Async function call to Google Product Search API in order to add product to the set
+                    await client.addProductToProductSet(addRequest).catch(err => {
+                        res.data = {}
+                        res.statusCode = 400;
+                        res.statusText = "The product or the product set does not exist.";
+                        return  res;
+
+                    });
+                    // Initializes both status message and status code of the succesful response
+                    res.statusText = 'Product is added to the product set.'
+                    res.status = 200;
+                    res.on("finish", resolve);
+                    return  res;
+                }
+        
+        
+        
+        
+        
+        
+        
         
         // create product set function call
 
