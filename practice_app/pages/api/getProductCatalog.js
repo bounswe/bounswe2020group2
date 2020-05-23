@@ -120,18 +120,42 @@ const getProductCatalog = (req, res) =>
                       res.on("finish", resolve);
                       return  res;
               }
-        
-        
-        
-        
-        
-        
-        
-        
-        // create product set function call
+             // Creates corresponding image of the product
+                else if(requestType == 'refImage'){
+                    // Gets body of the request
+                    const productId = req.body.id;
+                    // Determines the path of the product via 'productPath' function of Google Product Search API
+                    const formattedParent = client.productPath(projectId, location , productId);
+                    // Initializes the object representing image
+                    const referenceImage = {
+                        // Uri of the image in the Google Cloud Storage
+                        uri : req.body.uri,
+                        name : formattedParent
+                    }
+                    // Initializes the id of the image from that of the product
+                    const referenceImageId = productId;
+                    // Creates request object
+                    const request = {
+                    parent: formattedParent,
+                    referenceImage: referenceImage,
+                    referenceImageId: referenceImageId,
+                    };
+                    // Calls the product client of the Google Product Search API via 'createReferenceImage'
+                    client.createReferenceImage(request)
+                    .then(responses =>
+                        {
+                        // Succesful response
+                        res.statusCode = 200;
+                        res.statusText = 'The reference image is created.'
+                          }
+                        )
+                    .catch(err => {
+                        res.statusCode = 400;
+                        res.statusText = 'The image uri or the product does not exist or the product has already image.'
+                    });
+                    return  res;
+                }   
 
-        // add reference image function call
-        
       }
       case 'PATCH': {
         // update product function call
