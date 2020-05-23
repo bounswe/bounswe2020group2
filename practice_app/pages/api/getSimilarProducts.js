@@ -82,10 +82,14 @@ const request = {
     }
     // Contains all products similar to image given by end user
     results = results ['results'];
-    var temp = ['Similar Products:'];
+    var temp = "";
     results.forEach(result => {
-      
-        temp.push(result);
+      temp+= '<h2>Product id:' + result['product'].name.split('/').pop(-1) + '</h2>';
+      temp += '<li>Product name: '+ result['product'].displayName + '</li>';
+      temp += '<li>Product description: '+ result['product'].description + '</li>';
+      temp += '<li>Product category: '+ result['product'].productCategory + '</li>';
+      temp += '<li>Product similarity score: '+ result.score + '</li>';
+       
 
     });
     // Succesful response
