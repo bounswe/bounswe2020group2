@@ -22,6 +22,9 @@ describe('checkTranslationResponse', () => {
         )
         expect(output.isAlternativeSourceExist).toBe(true)
         expect(output.alternativeSourceLangs.length).toBe(2)
+        expect(output.sourceLanguage).toBe('auto')
+        expect(output.sourceLang).toBe('Romanian & Moldavian & Moldovan')
+        expect(output.targetLanguage).toBe('tr')
     })
 
     test('when autodetection is selected and the input is in Slovene, and you are in US', () => {

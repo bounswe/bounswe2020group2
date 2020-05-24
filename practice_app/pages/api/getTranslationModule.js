@@ -597,7 +597,7 @@ var isoLangs = {
         nativeName: 'kiRundi',
     },
     ro: {
-        name: 'Romanian, Moldavian, Moldovan',
+        name: 'Romanian & Moldavian & Moldovan',
         nativeName: 'română',
     },
     ru: {
