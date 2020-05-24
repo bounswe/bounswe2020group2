@@ -5,12 +5,12 @@ describe('checkGetRedditData', () => {
         const data = getPostData(testResponse)
         expect(testResponse.length).toBe(10)
     })
-	test('check title extraction', () => {
+    test('check title extraction', () => {
         const data = getPostData(testResponse)
-        expect(testResponse[0].title).toBe("Hello Ekrem")
+        expect(testResponse[0].title).toBe('Hello Ekrem')
     })
-	test('check permalink extraction', () => {
+    test('check permalink extraction', () => {
         const data = getPostData(testResponse)
-        expect(testResponse[0].permalink).toBe("/r/Turkey/comments/gijpwa/hello_ekrem/")
+        expect(testResponse[0].permalink).toBe('/r/Turkey/comments/gijpwa/hello_ekrem/')
     })
 })
