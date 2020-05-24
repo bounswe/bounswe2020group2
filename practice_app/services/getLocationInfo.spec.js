@@ -1,7 +1,4 @@
-const { processLocationInfo } = require('./getLocationInfo')
-const { getLanguage } = require('./getLocationInfo')
-const { getCurrency } = require('./getLocationInfo')
-const { getCountry } = require('./getLocationInfo')
+const { processLocationInfo, getLanguage, getCurrency, getCountry } = require('./getLocationInfo')
 
 describe('getCountry', () => {
     test('returns country value as expected', () => {
@@ -53,7 +50,7 @@ describe('getCurrency', () => {
         }
 
         const output = getCurrency(input)
-        expect(output).toEqual(expected)
+        expect(output).toStrictEqual(expected)
     })
 
     test('returns nothing when currencies have 0 elements', () => {
@@ -69,7 +66,7 @@ describe('getCurrency', () => {
         }
 
         const output = getCurrency(input)
-        expect(output).toEqual(undefined)
+        expect(output).toStrictEqual(undefined)
     })
 
     test('returns nothing when currencies does not exist', () => {
@@ -84,7 +81,7 @@ describe('getCurrency', () => {
         }
 
         const output = getCurrency(input)
-        expect(output).toEqual(undefined)
+        expect(output).toStrictEqual(undefined)
     })
 
     test('returns nothing when country_module does not exist', () => {
@@ -93,7 +90,7 @@ describe('getCurrency', () => {
         }
 
         const output = getCurrency(input)
-        expect(output).toEqual(undefined)
+        expect(output).toStrictEqual(undefined)
     })
 })
 
@@ -127,10 +124,10 @@ describe('getLanguage', () => {
 
         const output = getLanguage(input)
 
-        expect(output).toBe(undefined)
+        expect(output).toStrictEqual(undefined)
     })
 
-    test('returns nothin when country_module.languages doesnt exist.', () => {
+    test('returns nothing when country_module.languages doesnt exist.', () => {
         const input = {
             country: 'Turkey',
             country_module: {
@@ -146,7 +143,7 @@ describe('getLanguage', () => {
 
         const output = getLanguage(input)
 
-        expect(output).toBe(undefined)
+        expect(output).toStrictEqual(undefined)
     })
 
     test('returns nothin when country_module.languages has 0 elements', () => {
@@ -166,7 +163,7 @@ describe('getLanguage', () => {
 
         const output = getLanguage(input)
 
-        expect(output).toBe(undefined)
+        expect(output).toStrictEqual(undefined)
     })
 })
 
