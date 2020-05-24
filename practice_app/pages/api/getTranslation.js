@@ -1,4 +1,5 @@
 const axios = require('axios')
+const { checkTranslationResponse } = require('./getTranslationModule')
 
 export default async (req, res) => {
     // req object contains whatever information we can get from the request that comes from the client (from the browser)
@@ -19,9 +20,9 @@ export default async (req, res) => {
                         `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${target}&dt=t&q=${text}`,
                     )
                     .then(response => {
-                        const responseText = response.data[0][0][0]
-                        sourceLang =
-                            sourceLang != 'auto' ? getSourceLangName(sourceLang) : getSourceLangName(response.data[2])
+                        const values = checkTranslationResponse(response, sourceLang, text)
+                        const responseText = values.translation
+                        sourceLang = values.sourceLang
                         res.statusCode = 200
                         res.json({
                             answered: 'yes',
@@ -42,39 +43,4 @@ export default async (req, res) => {
             break
         }
     }
-}
-
-const getSourceLangName = sl => {
-    let sourceLangName = 'English'
-    switch (sl) {
-        case 'es': {
-            sourceLangName = 'Spanish'
-            break
-        }
-        case 'tr': {
-            sourceLangName = 'Turkish'
-            break
-        }
-        case 'de': {
-            sourceLangName = 'German'
-            break
-        }
-        case 'fr': {
-            sourceLangName = 'French'
-            break
-        }
-        case 'it': {
-            sourceLangName = 'Italian'
-            break
-        }
-        case 'fi': {
-            sourceLangName = 'Finnish'
-            break
-        }
-        default: {
-            break
-        }
-    }
-
-    return sourceLangName
 }

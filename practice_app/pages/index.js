@@ -145,9 +145,11 @@ export default function Home({ context }) {
         const oText = document.getElementById('originalText').value
         const sourceLang = document.getElementById('sourceLanguage').value
         const { data } = await axios.get(
-            `api/getTranslation?countryCode=${ipinfo.data.country_code}&text=${encodeURIComponent(
-                oText,
-            )}&sl=${sourceLang}`,
+            encodeURI(
+                `api/getTranslation?countryCode=${ipinfo.data.country_code}&text=${encodeURIComponent(
+                    oText,
+                )}&sl=${sourceLang}`,
+            ),
         )
         setTranslation({
             sourceLanguage: data.sourceLanguage,
