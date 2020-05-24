@@ -1,5 +1,6 @@
-const { checkGetRedditData } = require('./getRedditDataModule')
+const { checkGetRedditData,getPostData  } = require('./getRedditDataModule')
 const testResponse = require('./exampleRedditData.json')
+
 describe('checkGetRedditData', () => {
     test('check if there are 10 posts', () => {
         const data = getPostData(testResponse)
