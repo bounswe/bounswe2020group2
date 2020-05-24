@@ -5,7 +5,6 @@ import axios from 'axios'
 
 import dynamic from 'next/dynamic'
 
-
 const MapView = dynamic(() => import('../components/MapView'), { ssr: false })
 // axios is a library used to make requests
 
@@ -35,8 +34,8 @@ export default function Home({ context }) {
     })
 
     const [covidStatsString, setCovidStatsString] = useState()
-	
-	const [postsJSON, setPostsJSON] = useState()
+
+    const [postsJSON, setPostsJSON] = useState()
 
     const [currency, setCurrency] = useState({
         code: 'TRY',
@@ -55,8 +54,7 @@ export default function Home({ context }) {
     })
 
     // To show visually the price conversion process
-    const [priceConversionText, setPriceConversionText] = useState("Use the button to try price conversion")
-
+    const [priceConversionText, setPriceConversionText] = useState('Use the button to try price conversion')
 
     const onMapClick = async ({ longitude, latitude }) => {
         try {
@@ -88,33 +86,38 @@ export default function Home({ context }) {
     const onConvertButtonClick = async () => {
         try {
             const ipdata = await getUsersIP()
-            const pricedata = await priceConverter(10, ipdata.query, "USD")
+            const pricedata = await priceConverter(10, ipdata.query, 'USD')
             Promise
-            setPriceConversionText(`Your ip adress is ${ipdata.query} and currency of the country that this IP belongs to is ${pricedata.currency}.
-            If price of a product is 10 USD, then it is equal to ${pricedata.price.toFixed(2)} ${pricedata.currency} in your currency.`)
+            setPriceConversionText(`Your ip adress is ${
+                ipdata.query
+            } and currency of the country that this IP belongs to is ${pricedata.currency}.
+            If price of a product is 10 USD, then it is equal to ${pricedata.price.toFixed(2)} ${
+                pricedata.currency
+            } in your currency.`)
         } catch (error) {
             console.log(error)
-            setPriceConversionText("Sorry, service unavailable at this time.")
+            setPriceConversionText('Sorry, service unavailable at this time.')
         }
     }
 
     // Returns the IP of the user
     const getUsersIP = async () => {
-        const {data} = await axios.get("http://ip-api.com/json/")
+        const { data } = await axios.get('http://ip-api.com/json/')
         return data
     }
 
     // Using the given ip, finds the currency of the country that the given IP belongs to.
-    // Then, converts the given price in srcCurrency to the new currency. 
+    // Then, converts the given price in srcCurrency to the new currency.
     // Returns the result
     const priceConverter = async (pr, ip, srcCurrency) => {
         try {
-            const {data} = await axios.get('api/getConvertedPrice?ip='+ip+'&price='+pr+'&srcCurrency='+srcCurrency)
+            const { data } = await axios.get(
+                'api/getConvertedPrice?ip=' + ip + '&price=' + pr + '&srcCurrency=' + srcCurrency,
+            )
             return data
-            
         } catch (error) {
-            console.error(error) 
-        } 
+            console.error(error)
+        }
     }
     const getCovidStats = async () => {
         if (country.name == null) {
@@ -131,20 +134,18 @@ export default function Home({ context }) {
             setCovidStatsString('No information available about your country')
         }
     }
-	
-	const getPosts = async () => {
+
+    const getPosts = async () => {
         const { data } = await axios.get(`api/getRedditData?country=${country.name}`)
-		
+
         if (data.answered == 'yes') {
-			//console.log(data.posts)
-            setPostsJSON(
-                data.posts
-            )
+            //console.log(data.posts)
+            setPostsJSON(data.posts)
         } else {
             setPostsJSON(undefined)
         }
     }
-	
+
     const locationGreeting = () =>
         `You are a user from ${country.name}, you speak ${language.name} and you buy in ${currency.name}`
 
@@ -162,7 +163,10 @@ export default function Home({ context }) {
             </Head>
             <main>
                 <h1>Welcome to our demo website!</h1>
-                {priceConversionText && <p>{priceConversionText}</p>}<button variant='primary' onClick={onConvertButtonClick}>Price Conversion</button>
+                {priceConversionText && <p>{priceConversionText}</p>}
+                <button variant="primary" onClick={onConvertButtonClick}>
+                    Price Conversion
+                </button>
                 {country && language && currency && <p>{locationGreeting()} </p>}
                 <MapView onMapClick={onMapClick} coordinates={coordinates} />
 
@@ -170,24 +174,44 @@ export default function Home({ context }) {
                     Click me to get Covid death statistics for the country you have chosen on the map
                 </button>
                 {covidStatsString !== undefined && <p>{covidStatsString}</p>}
-				
-				<button onClick={getPosts}>
+
+                <button onClick={getPosts}>
                     Click me to get top posts from the subreddit for the country you have chosen on the map
                 </button>
-				{postsJSON !== undefined &&
-				<div>
-				<p><a href={'https://www.reddit.com'+ postsJSON[0].permalink}>{postsJSON[0].title} </a></p>
-				<p><a href={'https://www.reddit.com'+ postsJSON[1].permalink}>{postsJSON[1].title} </a></p>
-				<p><a href={'https://www.reddit.com'+ postsJSON[2].permalink}>{postsJSON[2].title} </a></p>
-				<p><a href={'https://www.reddit.com'+ postsJSON[3].permalink}>{postsJSON[3].title} </a></p>
-				<p><a href={'https://www.reddit.com'+ postsJSON[4].permalink}>{postsJSON[4].title} </a></p>
-				<p><a href={'https://www.reddit.com'+ postsJSON[5].permalink}>{postsJSON[5].title} </a></p>
-				<p><a href={'https://www.reddit.com'+ postsJSON[6].permalink}>{postsJSON[6].title} </a></p>
-				<p><a href={'https://www.reddit.com'+ postsJSON[7].permalink}>{postsJSON[7].title} </a></p>
-				<p><a href={'https://www.reddit.com'+ postsJSON[8].permalink}>{postsJSON[8].title} </a></p>
-				<p><a href={'https://www.reddit.com'+ postsJSON[9].permalink}>{postsJSON[9].title} </a></p>
-				</div>
-				}
+                {postsJSON !== undefined && (
+                    <div>
+                        <p>
+                            <a href={'https://www.reddit.com' + postsJSON[0].permalink}>{postsJSON[0].title} </a>
+                        </p>
+                        <p>
+                            <a href={'https://www.reddit.com' + postsJSON[1].permalink}>{postsJSON[1].title} </a>
+                        </p>
+                        <p>
+                            <a href={'https://www.reddit.com' + postsJSON[2].permalink}>{postsJSON[2].title} </a>
+                        </p>
+                        <p>
+                            <a href={'https://www.reddit.com' + postsJSON[3].permalink}>{postsJSON[3].title} </a>
+                        </p>
+                        <p>
+                            <a href={'https://www.reddit.com' + postsJSON[4].permalink}>{postsJSON[4].title} </a>
+                        </p>
+                        <p>
+                            <a href={'https://www.reddit.com' + postsJSON[5].permalink}>{postsJSON[5].title} </a>
+                        </p>
+                        <p>
+                            <a href={'https://www.reddit.com' + postsJSON[6].permalink}>{postsJSON[6].title} </a>
+                        </p>
+                        <p>
+                            <a href={'https://www.reddit.com' + postsJSON[7].permalink}>{postsJSON[7].title} </a>
+                        </p>
+                        <p>
+                            <a href={'https://www.reddit.com' + postsJSON[8].permalink}>{postsJSON[8].title} </a>
+                        </p>
+                        <p>
+                            <a href={'https://www.reddit.com' + postsJSON[9].permalink}>{postsJSON[9].title} </a>
+                        </p>
+                    </div>
+                )}
             </main>
             <style jsx global>
                 {`
