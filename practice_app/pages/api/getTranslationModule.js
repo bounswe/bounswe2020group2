@@ -1,8 +1,8 @@
-exports.checkTranslationResponse = function (response, sourceLanguage, originalText) {
+exports.checkTranslationResponse = function (response, sourceLanguage, targetLanguage, originalText) {
     const translation = response.data[0][0][0]
     const sourceText = response.data[0][0][1]
     const sourceLang = getSourceLangName(response.data[2])
-    const isAlternativeSourceExist = response.data[8][0].length > 1
+    const isAlternativeSourceExist = response.data[8] ? response.data[8][0].length > 1 : false
 
     const alternativeSourceLangs = []
     if (isAlternativeSourceExist) {
@@ -20,6 +20,7 @@ exports.checkTranslationResponse = function (response, sourceLanguage, originalT
         sourceText,
         originalText,
         sourceLanguage,
+        targetLanguage,
     }
 }
 
@@ -59,7 +60,6 @@ var getSourceLangName = (exports.getSourceLangName = function (sl) {
             for (let i = 0; i < keys.length; i++) {
                 if (sl == keys[i]) {
                     sourceLangName = isoLangs[keys[i]].name
-                    console.log(sourceLangName)
                 }
             }
             break

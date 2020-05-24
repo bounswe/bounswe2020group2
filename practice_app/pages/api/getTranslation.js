@@ -20,7 +20,7 @@ export default async (req, res) => {
                         `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${target}&dt=t&q=${text}`,
                     )
                     .then(response => {
-                        const values = checkTranslationResponse(response, sourceLang, text)
+                        const values = checkTranslationResponse(response, sourceLang, target, text)
                         const responseText = values.translation
                         sourceLang = values.sourceLang
                         res.statusCode = 200
