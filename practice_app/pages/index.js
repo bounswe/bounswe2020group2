@@ -193,6 +193,63 @@ export default function Home({ context }) {
     });
   }
 
+  // onclick method for updating a product
+  async function onUpdateClick() {
+    // checks whether all the inputs are given
+    if (
+      document.getElementById("updated-title").value === "" ||
+      document.getElementById("key-title").value === "" ||
+      document.getElementById("value-title").value === ""
+    ) {
+      alert("please fill product id, key and key value");
+      return;
+    }
+
+    // saves the input values
+    updatedId = document.getElementById("updated-title").value;
+    productKey = document.getElementById("key-title").value;
+    productValue = document.getElementById("value-title").value;
+
+    // informs the user
+    alert("product has updated succesfully");
+
+    // sends the input values to getProductSet function by using axios.patch
+    axios.patch("./api/getProductCatalog", {
+      id: updatedId,
+      key: productKey,
+      value: productValue,
+    });
+  }
+
+  // onclick method for deleting a product
+  async function onDeleteProductClick() {
+    // checks whether all the input is given
+    if (document.getElementById("delete-title").value === "") {
+      alert("please fill product id");
+      return;
+    }
+
+    // saves the input value
+    productId = document.getElementById("delete-title").value;
+
+    // informs the user
+    alert("product has deleted succesfully");
+
+    // sends the input value to getProdcutSet function by using axios.delete
+    axios
+      .delete("./api/getProductCatalog", {
+        data: {
+          type: "product",
+          id: productId,
+        },
+      })
+      .then(function (response) {
+        resultData = response.data;
+        resultStatus = response.status;
+        resultStatusText = response.statusText;
+      });
+  }
+
   return (
     <div className="container">
       <Head>
@@ -239,6 +296,127 @@ export default function Home({ context }) {
           />
         </label>
       </form>
+      <form>
+        <label>
+          SetName:
+          <input
+            type="text"
+            placeholder="Add name"
+            id="product-set-display-title"
+            required
+          />
+        </label>
+      </form>
+      <form>
+        <input type="submit" value="Create" onClick={onCreateProductSetClick} />
+      </form>
+      <h2>Aren't you happy with your product? Try to update its labels!</h2>
+      <form>
+        <label>
+          ProductID:
+          <input
+            type="text"
+            placeholder="Add product id"
+            id="updated-title"
+            required
+          />
+        </label>
+      </form>
+      <form>
+        <label>
+          Key:
+          <input type="text" placeholder="Add key" id="key-title" required />
+        </label>
+      </form>
+      <form>
+        <label>
+          KeyValue:
+          <input
+            type="text"
+            placeholder="Add value"
+            id="value-title"
+            required
+          />
+        </label>
+      </form>
+      <form>
+        <input type="submit" value="Update" onClick={onUpdateClick} />
+      </form>
+      <h2>Say goodbye to your product!</h2>
+      <form>
+        <label>
+          ProductID:
+          <input
+            type="text"
+            placeholder="Add product id"
+            id="delete-title"
+            required
+          />
+        </label>
+      </form>
+      <form>
+        <input type="submit" value="Delete" onClick={onDeleteProductClick} />
+      </form>
+      <h1>Are you customer?</h1>
+      <h2>
+        Hmm! There are lots of products in our website! Take a look all of them!
+      </h2>
+      <form target="_blank" action="/api/getAllProducts" method="GET">
+        <input type="submit" value="List" />
+      </form>
+      <h2>
+        Are you interested only in products of your favorite vendor? Really??{" "}
+      </h2>
+      <form target="_blank" action="/api/getProductsInSet" method="GET">
+        <label>
+          SetID:
+          <input type="text" placeholder="Add set id" name="setId" required />
+        </label>
+        <input type="submit" value="List" />
+      </form>
+      <h2 class="special">
+        Let's play a game! You give us an image of a product, we give our
+        products sorted by similarity percentages!
+      </h2>
+      <form target="_blank" action="/api/getSimilarProducts" method="GET">
+        <label>
+          ProductSetID:
+          <input
+            type="text"
+            placeholder="Add product set id"
+            name="setId"
+            required
+          />
+        </label>
+        <label>
+          Category:
+          <input
+            type="text"
+            placeholder="Add category"
+            name="category"
+            required
+          />
+        </label>
+        <label>
+          FilePath:
+          <input
+            type="text"
+            placeholder="Add path of file"
+            name="filePath"
+            required
+          />
+        </label>
+        <label>
+          Filter:
+          <input
+            type="text"
+            placeholder="Add path of file"
+            name="filter"
+            required
+          />
+        </label>
+        <input type="submit" value="List" />
+      </form>
 
       <style jsx global>
         {`
@@ -254,7 +432,10 @@ export default function Home({ context }) {
             color: #f0e68c;
             background-color: black;
           }
-
+          .special {
+            color: brown;
+            font-size: 175%;
+          }
           * {
             box-sizing: border-box;
           }
