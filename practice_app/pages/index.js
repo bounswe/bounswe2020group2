@@ -136,14 +136,19 @@ export default function Home({ context }) {
     }
 
     const getPosts = async () => {
+		if (country == undefined) {
+            setPostsJSON(undefined)
+			return
+        }
         const { data } = await axios.get(`api/getRedditData?country=${country.name}`)
 
-        if (data.answered == 'yes') {
-            //console.log(data.posts)
+        if (data !== undefined) {
             setPostsJSON(data.posts)
-        } else {
-            setPostsJSON(undefined)
         }
+		else
+		{
+			 setPostsJSON(undefined)
+		}
     }
 
     const locationGreeting = () =>
@@ -178,7 +183,7 @@ export default function Home({ context }) {
                 <button onClick={getPosts}>
                     Click me to get top posts from the subreddit for the country you have chosen on the map
                 </button>
-                {postsJSON !== undefined && (
+				{postsJSON != undefined && (
                     <div>
 						{postsJSON.map(post => (
 							<p> <a key={post.permalink} href={'https://www.reddit.com' + post.permalink}>{post.title} </a> </p>

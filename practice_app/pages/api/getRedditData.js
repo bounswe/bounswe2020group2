@@ -29,7 +29,7 @@ export default (req, res) => {
                     .catch(error => {
                         console.log(error)
                         res.statusCode = 500
-                        res.json({})
+                        res.json({answered: 'no'})
                     })
             }
             break
