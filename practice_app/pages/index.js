@@ -180,36 +180,9 @@ export default function Home({ context }) {
                 </button>
                 {postsJSON !== undefined && (
                     <div>
-                        <p>
-                            <a href={'https://www.reddit.com' + postsJSON[0].permalink}>{postsJSON[0].title} </a>
-                        </p>
-                        <p>
-                            <a href={'https://www.reddit.com' + postsJSON[1].permalink}>{postsJSON[1].title} </a>
-                        </p>
-                        <p>
-                            <a href={'https://www.reddit.com' + postsJSON[2].permalink}>{postsJSON[2].title} </a>
-                        </p>
-                        <p>
-                            <a href={'https://www.reddit.com' + postsJSON[3].permalink}>{postsJSON[3].title} </a>
-                        </p>
-                        <p>
-                            <a href={'https://www.reddit.com' + postsJSON[4].permalink}>{postsJSON[4].title} </a>
-                        </p>
-                        <p>
-                            <a href={'https://www.reddit.com' + postsJSON[5].permalink}>{postsJSON[5].title} </a>
-                        </p>
-                        <p>
-                            <a href={'https://www.reddit.com' + postsJSON[6].permalink}>{postsJSON[6].title} </a>
-                        </p>
-                        <p>
-                            <a href={'https://www.reddit.com' + postsJSON[7].permalink}>{postsJSON[7].title} </a>
-                        </p>
-                        <p>
-                            <a href={'https://www.reddit.com' + postsJSON[8].permalink}>{postsJSON[8].title} </a>
-                        </p>
-                        <p>
-                            <a href={'https://www.reddit.com' + postsJSON[9].permalink}>{postsJSON[9].title} </a>
-                        </p>
+						{postsJSON.map(post => (
+							<p> <a key={post.permalink} href={'https://www.reddit.com' + post.permalink}>{post.title} </a> </p>
+						))}
                     </div>
                 )}
             </main>
