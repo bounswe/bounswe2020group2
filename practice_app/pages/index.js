@@ -8,7 +8,7 @@ import dynamic from "next/dynamic";
 const MapView = dynamic(() => import("../components/MapView"), { ssr: false });
 // axios is a library used to make requests
 
-// THIS CODE IS EXECUTED ON THE ********SERVER******** SIDE
+// THIS CODE IS EXECUTED ON THE ***SERVER*** SIDE
 // You can use this function to receive the request params
 // and render something on the server
 // the return of this function is fed into Home component
@@ -22,7 +22,7 @@ export async function getServerSideProps(ctx) {
   return { props: { context } }; // This object called "context" is the same context object in Home
 }
 
-// THIS CODE IS EXECUTED ON THE ********CLIENT******** SIDE
+// THIS CODE IS EXECUTED ON THE ***CLIENT*** SIDE
 export default function Home({ context }) {
   // <-- This "context" object is the same object return in getServerSideProps
   // REMEMBER: You can always console.log (either in the server or in the browser, depending on where the code is
@@ -149,6 +149,8 @@ export default function Home({ context }) {
   const locationGreeting = () =>
     `You are a user from ${country.name}, you speak ${language.name} and you buy in ${currency.name}`;
 
+  
+
   // variables which are used in axios functions
   var productSetId = 0;
   var productSetDisplayName = "";
@@ -190,6 +192,82 @@ export default function Home({ context }) {
       id: productSetId,
       name: productSetDisplayName,
       type: "productSet",
+    });
+  }
+
+  // onclick method for adding a product to a product set
+  async function onCreateProductClick() {
+    // checks whether all the inputs are given
+    if (
+      document.getElementById("product-title").value === "" ||
+      document.getElementById("product-display-title").value === "" ||
+      document.getElementById("category-title").value === "" ||
+      document.getElementById("product-setid-title").value === "" ||
+      document.getElementById("description-title").value === "" ||
+      document.getElementById("color-title").value === "" ||
+      document.getElementById("style-title").value === ""
+    ) {
+      alert(
+        "please fill product set id, product id, name, category, description, color and style"
+      );
+      return;
+    }
+
+    // checks whether the category given by user is valid
+    if (
+      !(
+        document.getElementById("category-title").value == "apparel" ||
+        document.getElementById("category-title").value == "homegoods" ||
+        document.getElementById("category-title").value == "toys" ||
+        document.getElementById("category-title").value == "apparel-v2" ||
+        document.getElementById("category-title").value == "homegoods-v2" ||
+        document.getElementById("category-title").value == "toys-v2" ||
+        document.getElementById("category-title").value == "packagedgoods-v1"
+      )
+    ) {
+      alert(
+        "Invalid category name. Valid ones are: apparel, homegoods, toys, apparel-v2, homegoods-v2, toys-v2 and packagedgood-v1"
+      );
+      return;
+    }
+
+    // checks whether the style given by user is valid
+    if (
+      !(
+        document.getElementById("style-title").value == "women" ||
+        document.getElementById("style-title").value == "men" ||
+        document.getElementById("style-title").value == "children" ||
+        document.getElementById("style-title").value == "home"
+      )
+    ) {
+      alert(
+        "Invalid style name. Valid ones are: women, men, children and home"
+      );
+      return;
+    }
+
+    // saves the input values
+    productId = document.getElementById("product-title").value;
+    productSetId = document.getElementById("product-setid-title").value;
+    productDisplayName = document.getElementById("product-display-title").value;
+    category = document.getElementById("category-title").value;
+    description = document.getElementById("description-title").value;
+    color = document.getElementById("color-title").value;
+    style = document.getElementById("style-title").value;
+
+    // informs the user
+    alert("product has added succesfully");
+
+    // sends the input values to getProductSet function by using axios.post
+    axios.post("./api/getProductCatalog", {
+      id: productId,
+      name: productDisplayName,
+      category: category,
+      type: "product",
+      setId: productSetId,
+      description: description,
+      color: color,
+      style: style,
     });
   }
 
@@ -245,6 +323,66 @@ export default function Home({ context }) {
       })
       .then(function (response) {
         resultData = response.data;
+        resultStatus = response.status;
+        resultStatusText = response.statusText;
+      });
+  }
+
+  // onclick method for deleting a product set
+  async function onDeleteProductSetClick() {
+    // checks whether the input is given
+    if (document.getElementById("delete-set-title").value === "") {
+      alert("please fill product set id");
+      return;
+    }
+
+    // saves the input value
+    productId = document.getElementById("delete-set-title").value;
+
+    // informs the user
+    alert("product set has deleted succesfully");
+
+    // sends the input value to getProdcutSet function by using axios.delete
+    axios
+      .delete("./api/getProductCatalog", {
+        data: {
+          type: "productSet",
+          setId: productId,
+        },
+      })
+      .then(function (response) {
+        resultData = response.data;
+        resultStatus = response.status;
+        resultStatusText = response.statusText;
+      });
+  }
+
+  // onclick method for adding a reference image for a product
+  async function onRefImgClick() {
+    // checks whether all the input values are given
+    if (
+      document.getElementById("img-product-title").value === "" ||
+      document.getElementById("img-uri-title").value === ""
+    ) {
+      alert("please fill product id and reference uri");
+      return;
+    }
+
+    // saves the input values
+    productId = document.getElementById("img-product-title").value;
+    referenceImage = document.getElementById("img-uri-title").value;
+
+    // informs the user
+    alert("product image has added succesfully");
+
+    // sends the input value to getProdcutSet function by using axios.post
+    axios
+      .post("./api/getProductCatalog", {
+        uri: referenceImage,
+        type: "refImage",
+        id: productId,
+      })
+      .then(function (response) {
         resultStatus = response.status;
         resultStatusText = response.statusText;
       });
@@ -310,6 +448,118 @@ export default function Home({ context }) {
       <form>
         <input type="submit" value="Create" onClick={onCreateProductSetClick} />
       </form>
+      <h2 class="vendor">
+        Do you want to add your product into your product set?
+      </h2>
+      <form>
+        <label>
+          ProductID:
+          <input
+            type="text"
+            placeholder="Add product id"
+            id="product-title"
+            required
+          />
+        </label>
+      </form>
+      <form>
+        <label>
+          SetID:
+          <input
+            type="text"
+            placeholder="Add set id"
+            id="product-setid-title"
+            required
+          />
+        </label>
+      </form>
+      <form>
+        <label>
+          ProductName:
+          <input
+            type="text"
+            placeholder="Add name"
+            id="product-display-title"
+            required
+          />
+        </label>
+      </form>
+      <form>
+        <label>
+          Category:
+          <input
+            type="text"
+            placeholder="Add category"
+            id="category-title"
+            required
+          />
+        </label>
+      </form>
+      <form>
+        <label>
+          Description:
+          <input
+            type="text"
+            placeholder="Write description"
+            id="description-title"
+            required
+          />
+        </label>
+      </form>
+      <form>
+        <label>
+          Color:
+          <input
+            type="text"
+            placeholder="Write color"
+            id="color-title"
+            required
+          />
+        </label>
+      </form>
+      <form>
+        <label>
+          Style:
+          <input
+            type="text"
+            placeholder="Write style"
+            id="style-title"
+            required
+          />
+        </label>
+      </form>
+      <form>
+        <input type="submit" value="Add" onClick={onCreateProductClick} />
+      </form>
+      <h2>
+        We are curious about how your product looks like! Do you want to add its
+        image?
+      </h2>
+      <form>
+        <label>
+          ProductID:
+          <input
+            type="text"
+            placeholder="Add product id"
+            id="img-product-title"
+            required
+          />
+        </label>
+      </form>
+      <form>
+        <label>
+          ReferenceUri:
+          <input
+            type="text"
+            placeholder="Add reference image"
+            id="img-uri-title"
+            required
+          />
+        </label>
+      </form>
+      <form>
+        <input type="submit" value="Add" onClick={onRefImgClick} />
+      </form>
       <h2>Aren't you happy with your product? Try to update its labels!</h2>
       <form>
         <label>
@@ -357,7 +607,29 @@ export default function Home({ context }) {
       <form>
         <input type="submit" value="Delete" onClick={onDeleteProductClick} />
       </form>
+      <h2>We will miss you! Are you sure about deleting your product set?</h2>
+      <form>
+        <label>
+          ProductSetID:
+          <input
+            type="text"
+            placeholder="Add product set id"
+            id="delete-set-title"
+            required
+          />
+        </label>
+      </form>
+      <form>
+        <input type="submit" value="Delete" onClick={onDeleteProductSetClick} />
+      </form>
       <h1>Are you customer?</h1>
+      <h2>
+        Do you want to find out which brands are in Getflix? Let's list all
+        product sets!
+      </h2>
+      <form target="_blank" action="/api/getSets" method="GET">
+        <input type="submit" value="List" />
+      </form>
       <h2>
         Hmm! There are lots of products in our website! Take a look all of them!
       </h2>
@@ -373,6 +645,23 @@ export default function Home({ context }) {
           <input type="text" placeholder="Add set id" name="setId" required />
         </label>
         <input type="submit" value="List" />
+      </form>
+      <h2>Do you want to filter them?</h2>
+      <form target="_blank" action="/api/getProductsByCategory" method="GET">
+        <label>
+          SetID:
+          <input type="text" placeholder="Add set id" name="setId" required />
+        </label>
+        <label>
+          Category:
+          <input
+            type="text"
+            placeholder="Add category name"
+            name="category"
+            required
+          />
+        </label>
+        <input type="submit" value="Filter" />
       </form>
       <h2 class="special">
         Let's play a game! You give us an image of a product, we give our
