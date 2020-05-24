@@ -14,8 +14,8 @@ export default (req, res) => {
                 axios
                     .get('http://www.reddit.com/r/' + countryName + '/top/.json?limit=10&t=month')
                     .then(response => {
-                        var extractedData = getPostData(response)
-
+                        var extractedData = getPostData(testResponse)
+						
                         res.statusCode = 200
                         res.json({
                             answered: 'yes',
