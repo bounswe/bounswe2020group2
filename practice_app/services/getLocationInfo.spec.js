@@ -1,6 +1,31 @@
 const { processLocationInfo } = require('./getLocationInfo')
 const { getLanguage } = require('./getLocationInfo')
 const { getCurrency } = require('./getLocationInfo')
+const { getCountry } = require('./getLocationInfo')
+
+describe('getCountry', () => {
+    test('returns country value as expected', () => {
+        const input = {
+            country: 'Turkey',
+            country_module: {
+                currencies: [
+                    {
+                        symbol: 'a',
+                        code: 'b',
+                        name: 'c',
+                    },
+                ],
+                languages: {
+                    tur: 'Turkish',
+                    en: 'English',
+                },
+            },
+        }
+
+        const output = getCountry(input)
+        expect(output).toStrictEqual(input.country)
+    })
+})
 
 describe('getCurrency', () => {
     test('returns expected result on valid input', () => {
