@@ -51,7 +51,10 @@ export default function Home({ context }) {
         name: 'Turkey',
     })
 
-    const [translatedText, setTranslation] = useState()
+    const [translationData, setTranslation] = useState({
+        sourceLanguage: 'en',
+        translatedText: '',
+    })
 
     // To show visually the price conversion process
     const [priceConversionText, setPriceConversionText] = useState('Use the button to try price conversion')
@@ -140,10 +143,20 @@ export default function Home({ context }) {
         const ipinfo = await axios.get('https://json.geoiplookup.io/')
         // Provide client's ip & original text to our api
         const oText = document.getElementById('originalText').value
-        console.log(oText)
-        const { data } = await axios.get(`api/getTranslation?countryCode=${ipinfo.data.country_code}&text=${oText}`)
-        setTranslation(data.translation)
+        const sourceLang = document.getElementById('sourceLanguage').value
+        const { data } = await axios.get(
+            `api/getTranslation?countryCode=${ipinfo.data.country_code}&text=${encodeURIComponent(
+                oText,
+            )}&sl=${sourceLang}`,
+        )
+        setTranslation({
+            sourceLanguage: data.sourceLanguage,
+            translatedText: data.translation,
+        })
     }
+
+    const translationResponse = () =>
+        `The input was in ${translationData.sourceLanguage}, and it means \"${translationData.translatedText}\"`
 
     const locationGreeting = () =>
         `You are a user from ${country.name}, you speak ${language.name} and you buy in ${currency.name}`
@@ -162,10 +175,22 @@ export default function Home({ context }) {
             </Head>
             <main>
                 <h1>Welcome to our demo website!</h1>
-                <p>Type something and click "Translate"</p>
+                <p>Select source language and type something to translate it to your local language</p>
+                <div className="custom-select">
+                    <select id="sourceLanguage">
+                        <option value="auto">Auto-detect</option>
+                        <option value="en">English</option>
+                        <option value="tr">Turkish</option>
+                        <option value="de">German</option>
+                        <option value="es">Spanish</option>
+                        <option value="fr">French</option>
+                        <option value="it">Italian</option>
+                        <option value="fi">Finnish</option>
+                    </select>
+                </div>
                 <input type="text" id="originalText" />
                 <button onClick={getTranslation}>Translate</button>
-                {translatedText !== undefined && <p>{translatedText}</p>}
+                {translationData.translatedText && translationData.sourceLanguage && <p>{translationResponse()}</p>}
                 {priceConversionText && <p>{priceConversionText}</p>}
                 <button variant="primary" onClick={onConvertButtonClick}>
                     Price Conversion
