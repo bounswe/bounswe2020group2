@@ -1,4 +1,149 @@
 const { processLocationInfo } = require('./getLocationInfo')
+const { getLanguage } = require('./getLocationInfo')
+const { getCurrency } = require('./getLocationInfo')
+
+describe('getCurrency', () => {
+    test('returns expected result on valid input', () => {
+        const input = {
+            country: 'Turkey',
+            country_module: {
+                currencies: [
+                    {
+                        symbol: 'a',
+                        code: 'b',
+                        name: 'c',
+                    },
+                ],
+                languages: {
+                    tur: 'Turkish',
+                    en: 'English',
+                },
+            },
+        }
+
+        const expected = {
+            symbol: 'a',
+            code: 'b',
+            name: 'c',
+        }
+
+        const output = getCurrency(input)
+        expect(output).toEqual(expected)
+    })
+
+    test('returns nothing when currencies have 0 elements', () => {
+        const input = {
+            country: 'Turkey',
+            country_module: {
+                currencies: [],
+                languages: {
+                    tur: 'Turkish',
+                    en: 'English',
+                },
+            },
+        }
+
+        const output = getCurrency(input)
+        expect(output).toEqual(undefined)
+    })
+
+    test('returns nothing when currencies does not exist', () => {
+        const input = {
+            country: 'Turkey',
+            country_module: {
+                languages: {
+                    tur: 'Turkish',
+                    en: 'English',
+                },
+            },
+        }
+
+        const output = getCurrency(input)
+        expect(output).toEqual(undefined)
+    })
+
+    test('returns nothing when country_module does not exist', () => {
+        const input = {
+            country: 'Turkey',
+        }
+
+        const output = getCurrency(input)
+        expect(output).toEqual(undefined)
+    })
+})
+
+describe('getLanguage', () => {
+    test('returns expected language on valid input', () => {
+        const input = {
+            country: 'Turkey',
+            country_module: {
+                currencies: [
+                    {
+                        symbol: 'a',
+                        code: 'b',
+                        name: 'c',
+                    },
+                ],
+                languages: {
+                    tur: 'Turkish',
+                    en: 'English',
+                },
+            },
+        }
+
+        const output = getLanguage(input)
+        expect(output).toStrictEqual(input.country_module.languages.tur)
+    })
+
+    test('returns nothing when country_module does not exist.', () => {
+        const input = {
+            country: 'Turkey',
+        }
+
+        const output = getLanguage(input)
+
+        expect(output).toBe(undefined)
+    })
+
+    test('returns nothin when country_module.languages doesnt exist.', () => {
+        const input = {
+            country: 'Turkey',
+            country_module: {
+                currencies: [
+                    {
+                        symbol: 'a',
+                        code: 'b',
+                        name: 'c',
+                    },
+                ],
+            },
+        }
+
+        const output = getLanguage(input)
+
+        expect(output).toBe(undefined)
+    })
+
+    test('returns nothin when country_module.languages has 0 elements', () => {
+        const input = {
+            country: 'Turkey',
+            country_module: {
+                currencies: [
+                    {
+                        symbol: 'a',
+                        code: 'b',
+                        name: 'c',
+                    },
+                ],
+                languages: {},
+            },
+        }
+
+        const output = getLanguage(input)
+
+        expect(output).toBe(undefined)
+    })
+})
 
 // describe, test and expect functions are globals defined by Jest framework inside test files
 describe('processLocationInfo', () => {
