@@ -1,11 +1,11 @@
 const axios = require('axios')
 const Config = require('../config')
 
-function getCountry(values) {
+exports.getCountry = function (values) {
     return values.country
 }
 
-function getCurrency(values) {
+exports.getCurrency = function (values) {
     if (!values.country_module) return
     if (!values.country_module.currencies) return
     if (!values.country_module.currencies.length) return
@@ -18,7 +18,7 @@ function getCurrency(values) {
     }
 }
 
-function getLanguage(values) {
+exports.getLanguage = function (values) {
     if (!values.country_module) return
     if (!values.country_module.languages) return
 
@@ -36,9 +36,9 @@ exports.processLocationInfo = function (values) {
         }
     }
 
-    const country = getCountry(values)
-    const currency = getCurrency(values)
-    const language = getLanguage(values)
+    const country = exports.getCountry(values)
+    const currency = exports.getCurrency(values)
+    const language = exports.getLanguage(values)
 
     const valid = Boolean(country && currency && language)
 
