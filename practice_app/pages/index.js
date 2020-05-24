@@ -115,7 +115,63 @@ export default function Home({ context }) {
             console.error(error)
         }
     }
+    // This function returns the top 10 countries with maximum number of deaths and their death statistics
+    const getCountriesWithMaxDeaths = async () => {
+        // Get the data from our api
+        const { data } = await axios.get('api/getCountriesWithMaxDeaths')
+        // Print to the front-end
+        const ctx = document.getElementById('bar_deaths')
+        ctx.style.visibility = 'visible'
+        const chart = new Chart(ctx, {
+            // We are creating a bar chart for death statistics of top 10 countries
+            type: 'bar',
+            data: {
+                labels: data.keys,
+                datasets: [
+                    {
+                        label: 'Number of Deaths',
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(130, 50, 86, 0.2)',
+                            'rgba(140, 60, 240, 0.2)',
+                            'rgba(230, 99, 132, 0.2)',
+                            'rgba(243, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(130, 50, 86, 1)',
+                            'rgba(140, 60, 240, 1)',
+                            'rgba(230, 99, 132, 1)',
+                            'rgba(243, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                        ],
+                        borderWidth: 1,
+                        data: data.values,
+                    },
+                ],
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Death Numbers of Top 10 Countries',
+                },
+            },
+        })
+    }
     const getCovidStats = async () => {
+        if (typeof country === 'undefined') {
+            setCovidStatsString('Please select a country by clicking on the map')
+            return
+        }
         if (country.name == null) {
             setCovidStatsString('Please select a location by clicking on the map')
             return
@@ -124,7 +180,7 @@ export default function Home({ context }) {
 
         if (data.answered == 'yes') {
             setCovidStatsString(
-                `Country: ${country.name} Death Toll:  ${data.deathToll} Recovered People:  ${data.recovery} Infected People: ${data.infection}`,
+                `Country: ${country.name}, Death Toll:  ${data.deathToll}, Recovered People:  ${data.recovery}, Infected People: ${data.infection}`,
             )
         } else {
             setCovidStatsString('No information available about your country')
@@ -154,11 +210,14 @@ export default function Home({ context }) {
                 </button>
                 {country && language && currency && <p>{locationGreeting()} </p>}
                 <MapView onMapClick={onMapClick} coordinates={coordinates} />
-
                 <button onClick={getCovidStats}>
                     Click me to get Covid death statistics for the country you have chosen on the map
                 </button>
                 {covidStatsString !== undefined && <p>{covidStatsString}</p>}
+                <p>Use the button to see the Death Statistics of Top 10 Countries in a Bar Chart</p>
+                <button onClick={getCountriesWithMaxDeaths}>Death Statistics of Top 10 Countries</button>
+                <canvas id="bar_deaths" />
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js" />
             </main>
             <style jsx global>
                 {`
@@ -169,7 +228,6 @@ export default function Home({ context }) {
                         font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
                             Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
                     }
-
                     * {
                         box-sizing: border-box;
                     }
