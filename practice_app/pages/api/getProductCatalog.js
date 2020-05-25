@@ -1,8 +1,8 @@
-const getProductCatalog = (req, res) =>
-  new Promise(async (resolve) => {
-    const axios = require("axios");
-    // Imports the Google Cloud client library
-    const vision = require("@google-cloud/vision");
+const axios = require("axios");
+// Imports the Google Cloud client library
+const vision = require("@google-cloud/vision");
+
+module.exports = async function (req, res) {
     // Creates a client
     const client = new vision.ProductSearchClient();
     // Id of the getflix in google cloud storage
@@ -56,13 +56,10 @@ const getProductCatalog = (req, res) =>
           };
           // Creates the product via 'createProduct' method of the Google Product Search API
           client.createProduct(createRequest).catch((err) => {
-            res.status = 400;
-            res.statusText =
-              "PossibleErrors\n" +
-              "display_name is missing or longer than 4096 characters\n" +
-              "description is longer than 4096 characters\n" +
-              "product_category is missing or invalid";
-            return res;
+            res.json({ statusCode: 400, statusText: "PossibleErrors\n" +
+            "display_name is missing or longer than 4096 characters\n" +
+            "description is longer than 4096 characters\n" +
+            "product_category is missing or invalid" });
           });
           // Determines the path of the product via 'productPath' method of the Google Product Search API
           const productPath = client.productPath(
@@ -86,16 +83,10 @@ const getProductCatalog = (req, res) =>
 
           // Async function call to Google Product Search API in order to add product to the set
           await client.addProductToProductSet(addRequest).catch((err) => {
-            res.data = {};
-            res.statusCode = 400;
-            res.statusText = "The product or the product set does not exist.";
-            return res;
+            res.json({ statusCode: 400,  statusText: "The product or the product set does not exist." });
           });
           // Initializes both status message and status code of the succesful response
-          res.statusText = "Product is added to the product set.";
-          res.status = 200;
-          res.on("finish", resolve);
-          return res;
+          res.json({ statusCode:200 , statusText: "Product is added to the product set."} );
         }
         // Creates product set
         else if (requestType == "productSet") {
@@ -158,13 +149,10 @@ const getProductCatalog = (req, res) =>
             .createReferenceImage(request)
             .then((responses) => {
               // Succesful response
-              res.statusCode = 200;
-              res.statusText = "The reference image is created.";
+              res.json({statusCode : 200, statusText : "The reference image is created."});
             })
             .catch((err) => {
-              res.statusCode = 400;
-              res.statusText =
-                "The image uri or the product does not exist or the product has already image.";
+              res.json({statusCode : 400, statusText : "The image uri or the product does not exist or the product has already image."});
             });
           return res;
         }
@@ -249,16 +237,12 @@ const getProductCatalog = (req, res) =>
           const formattedName = client.productSetPath(projectId, location, productSetId);
           // Calls deleteProductSet function of Google Product Search API
           client.deleteProductSet({name: formattedName}).catch(err => {
-            res.statusCode = 404;
-            res.statusText = 'The product set does not exist.';
-            return res;
+            res.json({statusCode:404,statusText:'The product set does not exist.'})
           });
           // Succesful response
-          res.statusCode = 200;
-          res.statusText = 'The product is deleted.';
-          return  res;
+          res.json({statusCode:200,statusText:'The product set is deleted.'})
         }
       }
     }
-  });
-module.exports = getProductCatalog;
+  };
+
