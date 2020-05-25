@@ -1,0 +1,12 @@
+{
+    "type": "service_account",
+    "project_id": "brilliant-era-276800",
+    "private_key_id": "b79ea50af6a658b594d7cc6bc857a3ca84ca1f74",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCcR82ybCKiBs3b\n/Tyl5gmrTBOe9WD2G3imxtAXgNDE0jfdBUGQbkaE48doW/iCqsfkWGlRd3jfPG+l\nZRnMuWAsvmBWZ+nrcygSj6ZkqSRijUNte2eyDRaKRDGppowZYEnBnqAegblU3FEt\nJwFRndxJbsV1/1KQ5n05YYmUwga4L7s/MkQVhq0jekYKXHLUogJK3CKjmVIBdgnc\nOLG7SqvQrTEZJ2Z8uBnfsS+Zn0tsRaSJfo0e5JmlYblY+2yKTnxMY1rvzYvll1ai\njhakC1UPDMsq/pjUjc4rZOaTUkrs+HUTrzJVVl7/ysLTwjAHkBWjtShFVpfX8NjK\nEhvrycStAgMBAAECggEAAWkJeMB5OzPrWX6fyecj87KITnaBlT76uACSd1UqLSMw\n2LMCht/j4tueXKP7KmIJqJceqNr2kYcoAnABi1jUlBrKCkWToBRmNRgBmlDHcLHn\nJ56wjnQH8x/56xbDFrszzIZBWifKs8gYMxuHa283V3H4i1/OOjCw9RqwT+dvVuv9\nvLOxVWaLLB4bR5AX9C/t/dyybpofCXS3FJ6+NcDuj3yAOWXAguzCE2En78q6rd9l\nw7AcdvN2hX9ZJGPFcj9Kj45zpkKVvmWiwYAbkB+m/zA7DPAXjk30wO/+I0t3m6hE\n1sYSM+on99O0s8NI8vJUtuOgLlFSkTxcYEp9XYVMIQKBgQDNH1IwiFOhFMjPaWeN\nYvIRvDtnlNpjmrxwSmyPH6iFPPEXP2zKuCU2UirIkiNkHqMZpRNy/BQoRHupQzgo\nxXxmOGvck8sCd0VrrjrEhMr00C5+0kHyQwfNKkpo8IQRbANtPGSW9QMwJDEBSrge\nr/V7oH2gu1RPODI6m3nQk05aDQKBgQDDCyodrvGCclizHpzf1vRct71ssFwI899H\nZctX0KIfeGbqv7tMFNMYlzM6k1V2t0Fg524aJSd1nbMa+91hH4KPMzxD3im1e24Y\nfWukQ+EPC5WVLKG+dOCgaiU+WaSaoG3Dif4ucj3OqYe1I+ZyDt7jNvoIe8JXrTr6\n9uwhELONIQKBgQCRxUZ1cwxrlwe2TqPmmICLFgfpbqFc06RC8MEBXXA3b72t1ccM\nsZzQY8g/zYsVJainGucdegMhMrnm6fxJDT+ArWwJz4Yf9H8DLUhaTDyniiLgwa9X\n6UbsCLfkp7hTYT12LcsWdHyVg8LHtj/unwGHn+Bnj3k06yzW9ZK2JVkzKQKBgDB+\nyyb8Q5JiqglHWEwTn0iaat/mbcvQDzkqZ0fbWSQoBLbjm0dMejxIA/XRglN1Ny1H\n/clEaa5F2q2f6Cho9EZ0v8xEJey41uQB80yxj/j0sWmY4lJ/rwZTvhTlpxbHQuN2\noRudTh7fah2w4nCDoAmwtrR7SRQRv3N9B7Mk+u/hAoGAKDpLZRpsJRlTpt5osPb0\nzf2f7bkGSXCoPtTfoWtWg8tids67BtN85WvKQGB6nspak0rFzIg88oe7QlWp5R3g\nIalDiY2cHtqOAgxphfjntJoniZc+wvhDh8T4BHi45kdZHAZUDtCnlTR5W1B2yvjh\n3+65+VYUCTlLdK4bEbjcBmg=\n-----END PRIVATE KEY-----\n",
+    "client_email": "getflix@brilliant-era-276800.iam.gserviceaccount.com",
+    "client_id": "103138751711188193791",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/getflix%40brilliant-era-276800.iam.gserviceaccount.com"
+}
