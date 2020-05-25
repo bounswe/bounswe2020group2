@@ -195,22 +195,28 @@ export default function Home({ context }) {
     // This function returns the translated version of the input, to the language spoken in user's location
     // current functionality : source_lang=english, target_lang=ip_dependent
     const getTranslation = async () => {
-        // Learn client's ip adress using a third party service
-        const ipinfo = await axios.get('https://json.geoiplookup.io/')
-        // Provide client's ip & original text to our api
-        const oText = document.getElementById('originalText').value
-        const sourceLang = document.getElementById('sourceLanguage').value
-        const { data } = await axios.get(
-            encodeURI(
-                `api/getTranslation?countryCode=${ipinfo.data.country_code}&text=${encodeURIComponent(
-                    oText,
-                )}&sl=${sourceLang}`,
-            ),
-        )
-        setTranslation({
-            sourceLanguage: data.sourceLanguage,
-            translatedText: data.translation,
-        })
+        try {
+            // Learn client's ip adress using a third party service
+            const ipInfo = await axios.get('https://json.geoiplookup.io/')
+            // Provide client's ip & original text to our api
+            const originalText = document.getElementById('originalText').value
+            const sourceLang = document.getElementById('sourceLanguage').value
+            const { data } = await axios.get(
+                encodeURI(
+                    `api/getTranslation?countryCode=${ipInfo.data.country_code}&text=${encodeURIComponent(
+                        originalText,
+                    )}&sl=${sourceLang}`,
+                ),
+            )
+            if (data.answered) {
+                setTranslation({
+                    sourceLanguage: data.sourceLanguage,
+                    translatedText: data.translation,
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const translationResponse = () =>

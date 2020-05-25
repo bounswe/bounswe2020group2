@@ -10,10 +10,16 @@ export default async (req, res) => {
         case 'GET':
             {
                 console.log(query)
-                let target = query.countryCode == null ? '' : query.countryCode
+                if (!query.text || !query.sl || !query.countryCode) {
+                    res.json({
+                        answered: false,
+                    })
+                    return
+                }
+                let target = query.countryCode
                 target = target.toLowerCase()
-                const text = query.text == null ? '' : query.text
-                let sourceLang = query.sl == null ? '' : query.sl
+                const { text } = query
+                let sourceLang = query.sl
 
                 await axios
                     .get(
@@ -25,7 +31,7 @@ export default async (req, res) => {
                         sourceLang = values.sourceLang
                         res.statusCode = 200
                         res.json({
-                            answered: 'yes',
+                            answered: true,
                             sourceLanguage: sourceLang,
                             translation: responseText,
                         })
