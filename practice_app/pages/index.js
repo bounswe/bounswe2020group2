@@ -71,7 +71,7 @@ export default function Home({ context }) {
             }
 
             setCountry({ name: country })
-            setLanguage({ name: language })
+            setLanguage(language)
             setCurrency(currency)
         } catch (error) {
             console.error(error)
@@ -111,9 +111,7 @@ export default function Home({ context }) {
     // Returns the result
     const priceConverter = async (pr, ip, srcCurrency) => {
         try {
-            const { data } = await axios.get(
-                'api/getConvertedPrice?ip=' + ip + '&price=' + pr + '&srcCurrency=' + srcCurrency,
-            )
+            const { data } = await axios.get(`api/getConvertedPrice?ip=${ip}&price=${pr}&srcCurrency=${srcCurrency}`)
             return data
         } catch (error) {
             console.error(error)
@@ -186,7 +184,7 @@ export default function Home({ context }) {
                         {postsJSON.map(post => (
                             <p>
                                 {' '}
-                                <a key={post.permalink} href={'https://www.reddit.com' + post.permalink}>
+                                <a key={post.permalink} href={`https://www.reddit.com${post.permalink}`}>
                                     {post.title}{' '}
                                 </a>{' '}
                             </p>

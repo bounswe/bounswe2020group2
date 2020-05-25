@@ -22,10 +22,11 @@ exports.getLanguage = function (values) {
     if (!values.country_module) return
     if (!values.country_module.languages) return
 
-    const languages = Object.values(values.country_module.languages)
+    const languages = Object.entries(values.country_module.languages)
     if (!languages.length) return
+    const [code, name] = languages[0]
 
-    return languages[0]
+    return { code, name }
 }
 
 exports.processLocationInfo = function (values) {
@@ -56,8 +57,12 @@ exports.getLocationInfo = async function ({ lat, lng }) {
     const params = `${lat},${lng}`
     const uri = `http://api.positionstack.com/v1/reverse?access_key=${Config.positionStack.apiKey}&query=${params}&country_module=1`
 
-    const { data } = await axios.get(uri)
-    const values = data.data[0]
-
-    return { statusCode: 200, body: exports.processLocationInfo(values) }
+    try {
+        const { data } = await axios.get(uri)
+        const values = data.data[0]
+        return { statusCode: 200, body: exports.processLocationInfo(values) }
+    } catch (error) {
+        console.error(error)
+        return { statusCode: 400, body: 'An error occured while requesting location info' }
+    }
 }

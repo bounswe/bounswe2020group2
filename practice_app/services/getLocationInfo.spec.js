@@ -114,7 +114,7 @@ describe('getLanguage', () => {
         }
 
         const output = getLanguage(input)
-        expect(output).toStrictEqual(input.country_module.languages.tur)
+        expect(output).toMatchObject({ code: 'tur', name: 'Turkish' })
     })
 
     test('returns nothing when country_module does not exist.', () => {

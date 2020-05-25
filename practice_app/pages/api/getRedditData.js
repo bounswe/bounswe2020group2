@@ -10,12 +10,12 @@ export default (req, res) => {
         case 'GET':
             {
                 const countryName = query.country
-                //const countryName = query.count For number of posts
+                // const countryName = query.count For number of posts
                 axios
-                    .get('http://www.reddit.com/r/' + countryName + '/top/.json?limit=10&t=month')
+                    .get(`http://www.reddit.com/r/${countryName}/top/.json?limit=10&t=month`)
                     .then(response => {
-                        var extractedData = getPostData(response.data)
-						
+                        const extractedData = getPostData(response.data)
+
                         res.statusCode = 200
                         res.json({
                             answered: 'yes',

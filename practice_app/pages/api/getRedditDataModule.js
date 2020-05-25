@@ -1,8 +1,8 @@
 exports.getPostData = function (response) {
     const values = response.data.children
-    var outJSON = []
+    const outJSON = []
     for (let i = 0; i < values.length; i++) {
-        var tmp = { title: values[i].data.title, permalink: values[i].data.permalink }
+        const tmp = { title: values[i].data.title, permalink: values[i].data.permalink }
         outJSON.push(tmp)
     }
     return outJSON
