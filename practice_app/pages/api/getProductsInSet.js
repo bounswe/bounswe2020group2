@@ -1,4 +1,4 @@
-export default (request, response) =>
+const getProductsInSet = (request, response) =>
   new Promise(async (resolve) => {
     // Imports the Google Cloud client library
     const vision = require("@google-cloud/vision");
@@ -6,19 +6,18 @@ export default (request, response) =>
     // Creates a client
     const client = new vision.ProductSearchClient();
 
-    // The id of the project in Google Cloud Storage
+    // Google cloud project id and region name
     const projectId = "brilliant-era-276800";
-    // The location of the project in Google Cloud Storage
     const location = "europe-west1";
 
-    // Takes the productSetId from the url of request
+    // takes the productSetId from the url of request
     var str = request.url;
     var n = str.indexOf("=");
     var n1 = str.indexOf("&");
     var first = str.substring(n + 1, str.length);
     const productSetId = first;
 
-    // Gets the product set path
+    // gets the product set path
     const productSetPath = client.productSetPath(
       projectId,
       location,
@@ -28,19 +27,19 @@ export default (request, response) =>
     // HTML Text
     var mytext = "<h1> Products </h1>";
 
-    // Function for listing products in a product set
+    // function for listing products in a product set
     client
       .listProductsInProductSet({ name: productSetPath })
       .then((responses) => {
         const productsOfSet = responses[0];
-        // Checks whether there is a product in the set
+        // checks whether there is a product in the set
         if (productsOfSet.length == 0) {
           response.on("finish", resolve);
-          response.send("<p>There is no product in " + productSetId + "</p>");
+          response.send({ text: "empty set" });
           return;
         }
         for (const product of productsOfSet) {
-          // Adds each product in product set as a list element to the HTML text
+          // adds each product in product set as a list element to the HTML text
           mytext += "<li>" + "Product name: " + product.name + ", ";
           mytext += "Product id: " + product.name.split("/").pop() + ", ";
           mytext += "Product display name: " + product.displayName + ", ";
@@ -55,15 +54,26 @@ export default (request, response) =>
           }
           mytext += "</li>";
 
-          // Sends response text to HTML page
-          if (mytext !== "<h1> Products </h1>") {
-            response.on("finish", resolve);
-            response.send("<p>" + mytext + "</p>");
-          }
+          /*const formattedParent = client.productPath(projectId, location, product.name.split('/').pop());
+          client.listReferenceImages({parent: formattedParent}).then(responses => {
+            const images = responses[0];
+          for (const image of images) {
+           console.log(product.name);   
+           console.log(image.uri); 
+          
+          }).catch(err => {
+            console.error(err);
+          }); */
+        }
+
+        // sends response text to HTML page
+        if (mytext !== "<h1> Products </h1>") {
+          response.on("finish", resolve);
+          response.send("<p>" + mytext + "</p>");
         }
       })
       .catch((err) => {
-        response.on("finish", resolve);
-        response.send("<p>There is no product in " + productSetId + "</p>");
+        console.error(err);
       });
   });
+module.exports = getProductsInSet;
