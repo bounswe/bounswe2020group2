@@ -10,7 +10,7 @@ export default async (req, res) => {
         case 'GET':
             {
                 console.log(query)
-                if (!query.text || !query.sl || !query.countryCode) {
+                if (!query.sl || !query.countryCode) {
                     res.json({
                         answered: false,
                     })
@@ -27,6 +27,12 @@ export default async (req, res) => {
                     )
                     .then(response => {
                         const values = checkTranslationResponse(response, sourceLang, target, text)
+                        if (!values.isInputValid) {
+                            res.json({
+                                answered: false,
+                            })
+                            return
+                        }
                         const responseText = values.translation
                         sourceLang = values.sourceLang
                         res.statusCode = 200

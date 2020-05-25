@@ -1,6 +1,11 @@
 const isoLanguages = require('./isoLanguages.json')
 
 exports.checkTranslationResponse = function (response, sourceLanguage, targetLanguage, originalText) {
+    if (!originalText) {
+        return {
+            isInputValid: false,
+        }
+    }
     const translation = response.data[0][0][0]
     const sourceText = response.data[0][0][1]
     const sourceLang = exports.getSourceLangName(response.data[2])
@@ -14,6 +19,7 @@ exports.checkTranslationResponse = function (response, sourceLanguage, targetLan
     }
 
     return {
+        isInputValid: true,
         translation,
         sourceLang,
         isAlternativeSourceExist,
