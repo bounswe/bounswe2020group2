@@ -729,5 +729,9 @@
     "za": {
         "name": "Zhuang, Chuang",
         "nativeName": "Saɯ cueŋƅ, Saw cuengh"
+    },
+    "zh-CN": {
+        "name": "Chinese",
+        "nativeName": "Chinese"
     }
 }
