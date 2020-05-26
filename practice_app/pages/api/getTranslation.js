@@ -1,4 +1,5 @@
 const axios = require('axios')
+const isoConv = require('iso-language-converter')
 const { checkTranslationResponse } = require('./getTranslationModule')
 
 export default async (req, res) => {
@@ -16,7 +17,7 @@ export default async (req, res) => {
                     })
                     return
                 }
-                let target = query.countryCode
+                let target = isoConv(query.countryCode, { from: 2, to: 1 })
                 target = target.toLowerCase()
                 const { text } = query
                 let sourceLang = query.sl

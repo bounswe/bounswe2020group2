@@ -195,17 +195,14 @@ export default function Home({ context }) {
         }
     }
 
-    // This function returns the translated version of the input, to the language spoken in user's location
-    // current functionality : source_lang=english, target_lang=ip_dependent
+    // This function returns the translated version of the input, to the language of the country selected on the map
     const getTranslation = async () => {
         try {
-            const isoConv = require('iso-language-converter')
             const originalText = document.getElementById('originalText').value
             const sourceLang = document.getElementById('sourceLanguage').value
-            const targetLang = isoConv(language.code.toLowerCase(), { from: 2, to: 1 })
             const { data } = await axios.get(
                 encodeURI(
-                    `api/getTranslation?countryCode=${targetLang}&text=${encodeURIComponent(
+                    `api/getTranslation?countryCode=${language.code.toLowerCase()}&text=${encodeURIComponent(
                         originalText,
                     )}&sl=${sourceLang}`,
                 ),
