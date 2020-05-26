@@ -36,11 +36,11 @@ describe('checkTranslationResponse', () => {
         expect(output.isAlternativeSourceExist).toBe(true)
         expect(output.alternativeSourceLangs.length).toBe(2)
         expect(output.sourceLanguage).toBe('auto')
-        expect(output.sourceLang).toBe('Romanian & Moldavian & Moldovan')
+        expect(output.sourceLang).toBe('Romanian')
         expect(output.targetLanguage).toBe('tr')
     })
 
-    test('when autodetection is selected and the input is in Slovene, and you are in US', () => {
+    test('when autodetection is selected and the input is in Slovenian, and you are in US', () => {
         const output = checkTranslationResponse(
             {
                 data: [
@@ -73,7 +73,7 @@ describe('checkTranslationResponse', () => {
         )
         expect(output.isInputValid).toBe(true)
         expect(output.sourceLanguage).toBe('auto')
-        expect(output.sourceLang).toBe('Slovene')
+        expect(output.sourceLang).toBe('Slovenian')
         expect(output.isAlternativeSourceExist).toBe(false)
         expect(output.targetLanguage).toBe('en')
     })
@@ -124,36 +124,36 @@ describe('checkTranslationResponse', () => {
                 data: [
                     [
                         [
-                            'Where the heart is, the home is there',
-                            '心在哪裡家就在那裡',
+                            'home is where your heart is',
+                            'дом там, где твое сердце',
                             null,
                             null,
                             3,
                             null,
                             null,
                             [[]],
-                            [[['a4d282a45d13700592d66344000f4b69', 'zh_en_2020q1.md']]],
+                            [[['8caa42f5a9df53968033bf99609e44f6', 'tea_ru_en_2019q2.md']]],
                         ],
                     ],
                     null,
-                    'zh-CN',
+                    'ru',
                     null,
                     null,
                     null,
                     1.0,
                     [],
-                    [['zh-CN'], null, [1.0], ['zh-TW']],
+                    [['ru'], null, [1.0], ['ru']],
                 ],
             },
             'auto',
             'en',
-            '心在哪裡家就在那裡',
+            'дом там, где твое сердце',
         )
         expect(output.isInputValid).toBe(true)
         expect(output.sourceLanguage).toBe('auto')
-        expect(output.sourceLang).toBe('Chinese')
+        expect(output.sourceLang).toBe('Russian')
         expect(output.targetLanguage).toBe('en')
         expect(output.isAlternativeSourceExist).toBe(false)
-        expect(output.originalText).toBe('心在哪裡家就在那裡')
+        expect(output.originalText).toBe('дом там, где твое сердце')
     })
 })
