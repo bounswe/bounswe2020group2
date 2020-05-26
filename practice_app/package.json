@@ -29,6 +29,7 @@
         "axios": "^0.19.2",
         "check-node-version": "^4.0.3",
         "deck.gl": "^8.1.5",
+        "iso-language-converter": "^1.1.0",
         "next": "9.3.6",
         "react": "16.13.1",
         "react-dom": "16.13.1",

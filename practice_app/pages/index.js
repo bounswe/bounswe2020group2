@@ -44,7 +44,7 @@ export default function Home({ context }) {
     })
 
     const [language, setLanguage] = useState({
-        code: 'TUR',
+        code: 'tur',
         name: 'Turkish',
     })
 
@@ -54,8 +54,9 @@ export default function Home({ context }) {
     })
 
     const [translationData, setTranslation] = useState({
-        sourceLanguage: 'en',
+        sourceLanguage: '',
         translatedText: '',
+        targetLanguage: 'Turkish',
     })
 
     // To show visually the price conversion process
@@ -198,14 +199,13 @@ export default function Home({ context }) {
     // current functionality : source_lang=english, target_lang=ip_dependent
     const getTranslation = async () => {
         try {
-            // Learn client's ip adress using a third party service
-            const ipInfo = await axios.get('https://json.geoiplookup.io/')
-            // Provide client's ip & original text to our api
+            const isoConv = require('iso-language-converter')
             const originalText = document.getElementById('originalText').value
             const sourceLang = document.getElementById('sourceLanguage').value
+            const targetLang = isoConv(language.code.toLowerCase(), { from: 2, to: 1 })
             const { data } = await axios.get(
                 encodeURI(
-                    `api/getTranslation?countryCode=${ipInfo.data.country_code}&text=${encodeURIComponent(
+                    `api/getTranslation?countryCode=${targetLang}&text=${encodeURIComponent(
                         originalText,
                     )}&sl=${sourceLang}`,
                 ),
@@ -214,6 +214,7 @@ export default function Home({ context }) {
                 setTranslation({
                     sourceLanguage: data.sourceLanguage,
                     translatedText: data.translation,
+                    targetLanguage: language.name,
                 })
             }
         } catch (error) {
@@ -222,7 +223,8 @@ export default function Home({ context }) {
     }
 
     const translationResponse = () =>
-        `The input was in ${translationData.sourceLanguage}, and it means \"${translationData.translatedText}\"`
+        `The input was in ${translationData.sourceLanguage}, and it means \"${translationData.translatedText}\" in ${translationData.targetLanguage}.`
+
     const getPosts = async () => {
         if (country == undefined) {
             setPostsJSON(undefined)
@@ -254,7 +256,10 @@ export default function Home({ context }) {
             </Head>
             <main>
                 <h1>Welcome to our demo website!</h1>
-                <p>Select source language and type something to translate it to your local language</p>
+                <p>
+                    Select source language and type something to translate it to the language of the country you
+                    selected on the map.
+                </p>
                 <div className="custom-select">
                     <select id="sourceLanguage">
                         <option value="auto">Auto-detect</option>
