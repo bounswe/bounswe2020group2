@@ -4,8 +4,6 @@ const vision = require('@google-cloud/vision')
 const projectId = 'brilliant-era-276800'
 // Location of the getflix in Google Cloud Storage
 const location = 'europe-west1'
-// Imports file system module to read images
-const fs = require('fs')
 
 function decodeBase64Image(dataString) {
     const matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/)
@@ -31,12 +29,10 @@ module.exports = async function (req, res) {
 
     // Determines the path of the product set via 'productSetPath' function of Google Product Search API
     const productSetPath = productSearchClient.productSetPath(projectId, location, productSetId)
+
     // The image data as base64-encoded text
     const content = decodeBase64Image(imageBase64).data
 
-    // fs.writeFileSync('./image.jpg', content)
-
-    // const content = fs.readFileSync(filePath, 'base64')
     // Initializes the request object with the corresponding form.
     const request = {
         image: { content },
@@ -69,14 +65,15 @@ module.exports = async function (req, res) {
         // Contains all products similar to image given by end user
         results = results.results
 
-        const json = results.map(result => ({
-            id: result.product.name.split('/').pop(-1),
-            name: result.product.displayName,
-            description: result.product.description,
-            category: result.product.productCategory,
-            score: result.score,
-        }))
-        res.json(json)
+        res.json(
+            results.map(result => ({
+                id: result.product.name.split('/').pop(-1),
+                name: result.product.displayName,
+                description: result.product.description,
+                category: result.product.productCategory,
+                score: result.score,
+            })),
+        )
     } catch (err) {
         console.log(err)
         res.json({
