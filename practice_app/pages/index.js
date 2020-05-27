@@ -5,6 +5,7 @@ import axios from 'axios'
 
 import dynamic from 'next/dynamic'
 
+const SimilarProduct = dynamic(() => import('../components/SimilarProduct'), { ssr: false })
 const MapView = dynamic(() => import('../components/MapView'), { ssr: false })
 // axios is a library used to make requests
 
@@ -305,7 +306,7 @@ export default function Home({ context }) {
                     </div>
                 )}
             </main>
-            <SimilarProduct></SimilarProduct>
+            <SimilarProduct />
 
             <style jsx global>
                 {`
