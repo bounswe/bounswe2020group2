@@ -1,14 +1,14 @@
-import { useState } from "react";
-import Head from "next/head";
+import { useState } from 'react'
+import Head from 'next/head'
 
-import axios from "axios";
+import axios from 'axios'
 
-import dynamic from "next/dynamic";
+import dynamic from 'next/dynamic'
 
-const MapView = dynamic(() => import("../components/MapView"), { ssr: false });
+const MapView = dynamic(() => import('../components/MapView'), { ssr: false })
 // axios is a library used to make requests
 
-// THIS CODE IS EXECUTED ON THE ***SERVER*** SIDE
+// THIS CODE IS EXECUTED ON THE ********SERVER******** SIDE
 // You can use this function to receive the request params
 // and render something on the server
 // the return of this function is fed into Home component
@@ -16,433 +16,311 @@ const MapView = dynamic(() => import("../components/MapView"), { ssr: false });
 // REMEMBER: You can always console.log (either in the server or in the browser, depending on where the code is
 // executed) to see what each object looks like!
 export async function getServerSideProps(ctx) {
-  const { req, query } = ctx;
-  const { url, method, headers } = req;
-  const context = { query, url, method };
-  return { props: { context } }; // This object called "context" is the same context object in Home
+    const { req, query } = ctx
+    const { url, method, headers } = req
+    const context = { query, url, method }
+    return { props: { context } } // This object called "context" is the same context object in Home
 }
 
-// THIS CODE IS EXECUTED ON THE ***CLIENT*** SIDE
+// THIS CODE IS EXECUTED ON THE ********CLIENT******** SIDE
 export default function Home({ context }) {
-  // <-- This "context" object is the same object return in getServerSideProps
-  // REMEMBER: You can always console.log (either in the server or in the browser, depending on where the code is
-  // executed) to see what each object looks like!
+    // <-- This "context" object is the same object return in getServerSideProps
+    // REMEMBER: You can always console.log (either in the server or in the browser, depending on where the code is
+    // executed) to see what each object looks like!
 
-  const [coordinates, setCoordinates] = useState({
-    longitude: 29.046874,
-    latitude: 41.085212,
-  });
+    const [coordinates, setCoordinates] = useState({
+        longitude: 29.046874,
+        latitude: 41.085212,
+    })
 
-  const [covidStatsString, setCovidStatsString] = useState();
+    const [covidStatsString, setCovidStatsString] = useState()
 
-  const [currency, setCurrency] = useState({
-    code: "TRY",
-    symbol: "TL",
-    name: "Turkish Lira",
-  });
+    const [postsJSON, setPostsJSON] = useState()
 
-  const [language, setLanguage] = useState({
-    code: "TUR",
-    name: "Turkish",
-  });
+    const [currency, setCurrency] = useState({
+        code: 'TRY',
+        symbol: 'TL',
+        name: 'Turkish Lira',
+    })
 
-  const [country, setCountry] = useState({
-    code: "TR",
-    name: "Turkey",
-  });
+    const [language, setLanguage] = useState({
+        code: 'tur',
+        name: 'Turkish',
+    })
 
-  // To show visually the price conversion process
-  const [priceConversionText, setPriceConversionText] = useState(
-    "Use the button to try price conversion"
-  );
+    const [country, setCountry] = useState({
+        code: 'TR',
+        name: 'Turkey',
+    })
 
-  const onMapClick = async ({ longitude, latitude }) => {
-    try {
-      console.log({ longitude, latitude });
-      const { data } = await axios.get(
-        `api/getLocationInfo?lat=${latitude}&lng=${longitude}`
-      );
-      const { valid, currency, country, language } = data;
-      console.log(data);
+    const [translationData, setTranslation] = useState({
+        sourceLanguage: '',
+        translatedText: '',
+        targetLanguage: 'Turkish',
+    })
 
-      if (!valid) {
-        setCurrency(undefined);
-        setCountry(undefined);
-        setLanguage(undefined);
-        return;
-      }
+    // To show visually the price conversion process
+    const [priceConversionText, setPriceConversionText] = useState('Use the button to try price conversion')
 
-      setCountry({ name: country });
-      setLanguage({ name: language });
-      setCurrency(currency);
-    } catch (error) {
-      console.error(error);
-      setCurrency(undefined);
-      setCountry(undefined);
-    } finally {
-      setCoordinates({ longitude, latitude });
-    }
-  };
+    const onMapClick = async ({ longitude, latitude }) => {
+        try {
+            console.log({ longitude, latitude })
+            const { data } = await axios.get(`api/getLocationInfo?lat=${latitude}&lng=${longitude}`)
+            const { valid, currency, country, language } = data
+            console.log(data)
 
-  // When the button is clicked, makes a price conversion demonstration.
-  const onConvertButtonClick = async () => {
-    try {
-      const ipdata = await getUsersIP();
-      const pricedata = await priceConverter(10, ipdata.query, "USD");
-      Promise;
-      setPriceConversionText(`Your ip adress is ${
-        ipdata.query
-      } and currency of the country that this IP belongs to is ${
-        pricedata.currency
-      }.
-            If price of a product is 10 USD, then it is equal to ${pricedata.price.toFixed(
-              2
-            )} ${pricedata.currency} in your currency.`);
-    } catch (error) {
-      console.log(error);
-      setPriceConversionText("Sorry, service unavailable at this time.");
-    }
-  };
+            if (!valid) {
+                setCurrency(undefined)
+                setCountry(undefined)
+                setLanguage(undefined)
+                return
+            }
 
-  // Returns the IP of the user
-  const getUsersIP = async () => {
-    const { data } = await axios.get("http://ip-api.com/json/");
-    return data;
-  };
-
-  // Using the given ip, finds the currency of the country that the given IP belongs to.
-  // Then, converts the given price in srcCurrency to the new currency.
-  // Returns the result
-  const priceConverter = async (pr, ip, srcCurrency) => {
-    try {
-      const { data } = await axios.get(
-        "api/getConvertedPrice?ip=" +
-          ip +
-          "&price=" +
-          pr +
-          "&srcCurrency=" +
-          srcCurrency
-      );
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const getCovidStats = async () => {
-    if (country.name == null) {
-      setCovidStatsString("Please select a location by clicking on the map");
-      return;
-    }
-    const { data } = await axios.get(
-      `api/getStatistics?country=${country.name}`
-    );
-
-    if (data.answered == "yes") {
-      setCovidStatsString(
-        `Country: ${country.name} Death Toll:  ${data.deathToll} Recovered People:  ${data.recovery} Infected People: ${data.infection}`
-      );
-    } else {
-      setCovidStatsString("No information available about your country");
-    }
-  };
-
-  const locationGreeting = () =>
-    `You are a user from ${country.name}, you speak ${language.name} and you buy in ${currency.name}`;
-
-  
-
-  // variables which are used in axios functions
-  var productSetId = 0;
-  var productSetDisplayName = "";
-
-  var productId = 0;
-  var productDisplayName = "";
-  var category = "";
-  var description = "";
-  var color = "";
-  var style = "";
-
-  var updatedId = "";
-  var productKey = "";
-  var productValue = "";
-
-  var referenceImage = "";
-
-  // onclick method for creating a product set
-  async function onCreateProductSetClick() {
-    // checks whether all the inputs are given
-    if (
-      document.getElementById("product-set-title").value === "" ||
-      document.getElementById("product-set-display-title").value === ""
-    ) {
-      alert("please fill set id and name");
-      return;
+            setCountry({ name: country })
+            setLanguage(language)
+            setCurrency(currency)
+        } catch (error) {
+            console.error(error)
+            setCurrency(undefined)
+            setCountry(undefined)
+        } finally {
+            setCoordinates({ longitude, latitude })
+        }
     }
 
-    // saves the input values
-    productSetId = document.getElementById("product-set-title").value;
-    productSetDisplayName = document.getElementById("product-set-display-title")
-      .value;
-
-    // informs the user
-    alert("product set has created successfully");
-
-    // sends the input values to getProductSet function by using axios.post
-    axios.post("./api/getProductCatalog", {
-      id: productSetId,
-      name: productSetDisplayName,
-      type: "productSet",
-    });
-  }
-
-  // onclick method for adding a product to a product set
-  async function onCreateProductClick() {
-    // checks whether all the inputs are given
-    if (
-      document.getElementById("product-title").value === "" ||
-      document.getElementById("product-display-title").value === "" ||
-      document.getElementById("category-title").value === "" ||
-      document.getElementById("product-setid-title").value === "" ||
-      document.getElementById("description-title").value === "" ||
-      document.getElementById("color-title").value === "" ||
-      document.getElementById("style-title").value === ""
-    ) {
-      alert(
-        "please fill product set id, product id, name, category, description, color and style"
-      );
-      return;
+    // When the button is clicked, makes a price conversion demonstration.
+    const onConvertButtonClick = async () => {
+        try {
+            const ipdata = await getUsersIP()
+            const pricedata = await priceConverter(10, ipdata.query, 'USD')
+            Promise
+            setPriceConversionText(`Your ip adress is ${
+                ipdata.query
+            } and currency of the country that this IP belongs to is ${pricedata.currency}.
+            If price of a product is 10 USD, then it is equal to ${pricedata.price.toFixed(2)} ${
+                pricedata.currency
+            } in your currency.`)
+        } catch (error) {
+            console.log(error)
+            setPriceConversionText('Sorry, service unavailable at this time.')
+        }
     }
 
-    // checks whether the category given by user is valid
-    if (
-      !(
-        document.getElementById("category-title").value == "apparel" ||
-        document.getElementById("category-title").value == "homegoods" ||
-        document.getElementById("category-title").value == "toys" ||
-        document.getElementById("category-title").value == "apparel-v2" ||
-        document.getElementById("category-title").value == "homegoods-v2" ||
-        document.getElementById("category-title").value == "toys-v2" ||
-        document.getElementById("category-title").value == "packagedgoods-v1"
-      )
-    ) {
-      alert(
-        "Invalid category name. Valid ones are: apparel, homegoods, toys, apparel-v2, homegoods-v2, toys-v2 and packagedgood-v1"
-      );
-      return;
+    // Returns the IP of the user
+    const getUsersIP = async () => {
+        const { data } = await axios.get('http://ip-api.com/json/')
+        return data
     }
 
-    // checks whether the style given by user is valid
-    if (
-      !(
-        document.getElementById("style-title").value == "women" ||
-        document.getElementById("style-title").value == "men" ||
-        document.getElementById("style-title").value == "children" ||
-        document.getElementById("style-title").value == "home"
-      )
-    ) {
-      alert(
-        "Invalid style name. Valid ones are: women, men, children and home"
-      );
-      return;
+    // Using the given ip, finds the currency of the country that the given IP belongs to.
+    // Then, converts the given price in srcCurrency to the new currency.
+    // Returns the result
+    const priceConverter = async (pr, ip, srcCurrency) => {
+        try {
+            const { data } = await axios.get(`api/getConvertedPrice?ip=${ip}&price=${pr}&srcCurrency=${srcCurrency}`)
+            return data
+        } catch (error) {
+            console.error(error)
+        }
+    }
+    // This function returns the top 10 countries with maximum number of deaths and their death statistics
+    const getCountriesWithMaxDeaths = async () => {
+        // Get the data from our api
+        const { data } = await axios.get('api/getCountriesWithMaxDeaths')
+        // Print to the front-end
+        const ctx = document.getElementById('bar_deaths')
+        ctx.style.visibility = 'visible'
+        const chart = new Chart(ctx, {
+            // We are creating a bar chart for death statistics of top 10 countries
+            type: 'bar',
+            data: {
+                labels: data.keys,
+                datasets: [
+                    {
+                        label: 'Number of Deaths',
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(130, 50, 86, 0.2)',
+                            'rgba(140, 60, 240, 0.2)',
+                            'rgba(230, 99, 132, 0.2)',
+                            'rgba(243, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255,99,132,1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(130, 50, 86, 1)',
+                            'rgba(140, 60, 240, 1)',
+                            'rgba(230, 99, 132, 1)',
+                            'rgba(243, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                        ],
+                        borderWidth: 1,
+                        data: data.values,
+                    },
+                ],
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Death Numbers of Top 10 Countries',
+                },
+            },
+        })
+    }
+    const getCovidStats = async () => {
+        if (typeof country === 'undefined') {
+            setCovidStatsString('Please select a country by clicking on the map')
+            return
+        }
+        if (country.name == null) {
+            setCovidStatsString('Please select a location by clicking on the map')
+            return
+        }
+        const { data } = await axios.get(`api/getStatistics?country=${country.name}`)
+
+        if (data.answered == 'yes') {
+            setCovidStatsString(
+                `Country: ${country.name}, Death Toll:  ${data.deathToll}, Recovered People:  ${data.recovery}, Infected People: ${data.infection}`,
+            )
+        } else {
+            setCovidStatsString('No information available about your country')
+        }
     }
 
-    // saves the input values
-    productId = document.getElementById("product-title").value;
-    productSetId = document.getElementById("product-setid-title").value;
-    productDisplayName = document.getElementById("product-display-title").value;
-    category = document.getElementById("category-title").value;
-    description = document.getElementById("description-title").value;
-    color = document.getElementById("color-title").value;
-    style = document.getElementById("style-title").value;
-
-    // informs the user
-    alert("product has added succesfully");
-
-    // sends the input values to getProductSet function by using axios.post
-    axios.post("./api/getProductCatalog", {
-      id: productId,
-      name: productDisplayName,
-      category: category,
-      type: "product",
-      setId: productSetId,
-      description: description,
-      color: color,
-      style: style,
-    });
-  }
-
-  // onclick method for updating a product
-  async function onUpdateClick() {
-    // checks whether all the inputs are given
-    if (
-      document.getElementById("updated-title").value === "" ||
-      document.getElementById("key-title").value === "" ||
-      document.getElementById("value-title").value === ""
-    ) {
-      alert("please fill product id, key and key value");
-      return;
+    // This function returns the translated version of the input, to the language of the country selected on the map
+    const getTranslation = async () => {
+        try {
+            const originalText = document.getElementById('originalText').value
+            const sourceLang = document.getElementById('sourceLanguage').value
+            const { data } = await axios.get(
+                encodeURI(
+                    `api/getTranslation?countryCode=${language.code.toLowerCase()}&text=${encodeURIComponent(
+                        originalText,
+                    )}&sl=${sourceLang}`,
+                ),
+            )
+            if (data.answered) {
+                setTranslation({
+                    sourceLanguage: data.sourceLanguage,
+                    translatedText: data.translation,
+                    targetLanguage: language.name,
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    // saves the input values
-    updatedId = document.getElementById("updated-title").value;
-    productKey = document.getElementById("key-title").value;
-    productValue = document.getElementById("value-title").value;
+    const translationResponse = () =>
+        `The input was in ${translationData.sourceLanguage}, and it means \"${translationData.translatedText}\" in ${translationData.targetLanguage}.`
 
-    // informs the user
-    alert("product has updated succesfully");
+    const getPosts = async () => {
+        if (country == undefined) {
+            setPostsJSON(undefined)
+            return
+        }
+        const { data } = await axios.get(`api/getRedditData?country=${country.name}`)
 
-    // sends the input values to getProductSet function by using axios.patch
-    axios.patch("./api/getProductCatalog", {
-      id: updatedId,
-      key: productKey,
-      value: productValue,
-    });
-  }
-
-  // onclick method for deleting a product
-  async function onDeleteProductClick() {
-    // checks whether all the input is given
-    if (document.getElementById("delete-title").value === "") {
-      alert("please fill product id");
-      return;
+        if (data !== undefined) {
+            setPostsJSON(data.posts)
+        } else {
+            setPostsJSON(undefined)
+        }
     }
 
-    // saves the input value
-    productId = document.getElementById("delete-title").value;
+    const locationGreeting = () =>
+        `You are a user from ${country.name}, you speak ${language.name} and you buy in ${currency.name}`
 
-    // informs the user
-    alert("product has deleted succesfully");
+    return (
+        <div className="container">
+            <Head>
+                <title>Our example API</title>
+                <link rel="icon" href="/favicon.ico" />
+                <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet" />
+                <link
+                    rel="stylesheet"
+                    href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
+                    type="text/css"
+                />
+            </Head>
+            <main>
+                <h1>Welcome to our demo website!</h1>
+                <p>
+                    Select source language and type something to translate it to the language of the country you
+                    selected on the map.
+                </p>
+                <div className="custom-select">
+                    <select id="sourceLanguage">
+                        <option value="auto">Auto-detect</option>
+                        <option value="en">English</option>
+                        <option value="tr">Turkish</option>
+                        <option value="de">German</option>
+                        <option value="es">Spanish</option>
+                        <option value="fr">French</option>
+                        <option value="it">Italian</option>
+                        <option value="fi">Finnish</option>
+                    </select>
+                </div>
+                <input type="text" id="originalText" />
+                <button onClick={getTranslation}>Translate</button>
+                {translationData.translatedText && translationData.sourceLanguage && <p>{translationResponse()}</p>}
+                {priceConversionText && <p>{priceConversionText}</p>}
+                <button variant="primary" onClick={onConvertButtonClick}>
+                    Price Conversion
+                </button>
+                {country && language && currency && <p>{locationGreeting()} </p>}
+                <MapView onMapClick={onMapClick} coordinates={coordinates} />
 
-    // sends the input value to getProdcutSet function by using axios.delete
-    axios
-      .delete("./api/getProductCatalog", {
-        data: {
-          type: "product",
-          id: productId,
-        },
-      })
-      .then(function (response) {
-        resultData = response.data;
-        resultStatus = response.status;
-        resultStatusText = response.statusText;
-      });
-  }
+                <button onClick={getCovidStats}>
+                    Click me to get Covid death statistics for the country you have chosen on the map
+                </button>
+                {covidStatsString !== undefined && <p>{covidStatsString}</p>}
 
-  // onclick method for deleting a product set
-  async function onDeleteProductSetClick() {
-    // checks whether the input is given
-    if (document.getElementById("delete-set-title").value === "") {
-      alert("please fill product set id");
-      return;
-    }
+                <p>Use the button to see the Death Statistics of Top 10 Countries in a Bar Chart</p>
+                <button onClick={getCountriesWithMaxDeaths}>Death Statistics of Top 10 Countries</button>
+                <canvas id="bar_deaths" />
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js" />
 
-    // saves the input value
-    productId = document.getElementById("delete-set-title").value;
+                <button onClick={getPosts}>
+                    Click me to get top posts from the subreddit for the country you have chosen on the map
+                </button>
+                {postsJSON != undefined && (
+                    <div>
+                        {postsJSON.map(post => (
+                            <p>
+                                {' '}
+                                <a key={post.permalink} href={`https://www.reddit.com${post.permalink}`}>
+                                    {post.title}{' '}
+                                </a>{' '}
+                            </p>
+                        ))}
+                    </div>
+                )}
+            </main>
+            <SimilarProduct></SimilarProduct>
 
-    // informs the user
-    alert("product set has deleted succesfully");
-
-    // sends the input value to getProdcutSet function by using axios.delete
-    axios
-      .delete("./api/getProductCatalog", {
-        data: {
-          type: "productSet",
-          setId: productId,
-        },
-      })
-      .then(function (response) {
-        resultData = response.data;
-        resultStatus = response.status;
-        resultStatusText = response.statusText;
-      });
-  }
-
-  // onclick method for adding a reference image for a product
-  async function onRefImgClick() {
-    // checks whether all the input values are given
-    if (
-      document.getElementById("img-product-title").value === "" ||
-      document.getElementById("img-uri-title").value === ""
-    ) {
-      alert("please fill product id and reference uri");
-      return;
-    }
-
-    // saves the input values
-    productId = document.getElementById("img-product-title").value;
-    referenceImage = document.getElementById("img-uri-title").value;
-
-    // informs the user
-    alert("product image has added succesfully");
-
-    // sends the input value to getProdcutSet function by using axios.post
-    axios
-      .post("./api/getProductCatalog", {
-        uri: referenceImage,
-        type: "refImage",
-        id: productId,
-      })
-      .then(function (response) {
-        resultStatus = response.status;
-        resultStatusText = response.statusText;
-      });
-  }
-
-  return (
-    <div className="container">
-      <Head>
-        <title>Our example API</title>
-        <link rel="icon" href="/favicon.ico" />
-        <link
-          href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css"
-          rel="stylesheet"
-        />
-        <link
-          rel="stylesheet"
-          href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
-          type="text/css"
-        />
-      </Head>
-      <main>
-        <h1>Welcome to our demo website!</h1>
-        {priceConversionText && <p>{priceConversionText}</p>}
-        <button variant="primary" onClick={onConvertButtonClick}>
-          Price Conversion
-        </button>
-        {country && language && currency && <p>{locationGreeting()} </p>}
-        <MapView onMapClick={onMapClick} coordinates={coordinates} />
-
-        <button onClick={getCovidStats}>
-          Click me to get Covid death statistics for the country you have chosen
-          on the map
-        </button>
-        {covidStatsString !== undefined && <p>{covidStatsString}</p>}
-      </main>
-      <SimilarProduct></SimilarProduct>
-
-      <style jsx global>
-        {`
-          html,
-          body {
-            padding: 0;
-            margin: 1%;
-            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-              Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-              sans-serif;
-          }
-          h1 {
-            color: #f0e68c;
-            background-color: black;
-          }
-          .special {
-            color: brown;
-            font-size: 175%;
-          }
-          * {
-            box-sizing: border-box;
-          }
-        `}
-      </style>
-    </div>
-  );
+            <style jsx global>
+                {`
+                    html,
+                    body {
+                        padding: 0;
+                        margin: 1%;
+                        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+                            Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+                    }
+                    * {
+                        box-sizing: border-box;
+                    }
+                `}
+            </style>
+        </div>
+    )
 }
