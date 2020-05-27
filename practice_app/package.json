@@ -8,10 +8,13 @@
         "start": "next start",
         "test": "jest --passWithNoTests",
         "dev:test": "jest --passWithNoTests --watch",
-        "util:prettier": "prettier --write package.json \"./pages/**/*.js\"",
+        "util:prettier": "prettier --write package.json \"./{pages,services,components}/**/*.js\"",
         "util:lint-staged": "lint-staged",
         "util:eslint": "eslint --fix ./pages/**/*.js",
         "util:pre-commit": "npm run util:lint-staged"
+    },
+    "jest": {
+        "testEnvironment": "node"
     },
     "lint-staged": {
         "*.js": [
@@ -26,12 +29,15 @@
         }
     },
     "dependencies": {
+        "@google-cloud/vision": "^1.11.0",
         "axios": "^0.19.2",
         "check-node-version": "^4.0.3",
+        "chart.js": "^2.9.3",
         "deck.gl": "^8.1.5",
         "iso-language-converter": "^1.1.0",
         "next": "9.3.6",
         "react": "16.13.1",
+        "react-chartjs-2": "^2.9.0",
         "react-dom": "16.13.1",
         "react-map-gl": "^5.2.5",
         "react-map-gl-geocoder": "^2.0.11",
