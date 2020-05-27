@@ -4,6 +4,7 @@ import Head from 'next/head'
 import axios from 'axios'
 
 import dynamic from 'next/dynamic'
+import { Bar } from 'react-chartjs-2'
 import SimilarProduct from '../components/SimilarProduct'
 
 // const SimilarProduct = dynamic(() => import('../components/SimilarProduct'), { ssr: false })
@@ -29,6 +30,7 @@ export default function Home({ context }) {
     // <-- This "context" object is the same object return in getServerSideProps
     // REMEMBER: You can always console.log (either in the server or in the browser, depending on where the code is
     // executed) to see what each object looks like!
+    const [chart, setChart] = useState()
 
     const [coordinates, setCoordinates] = useState({
         longitude: 29.046874,
@@ -83,8 +85,6 @@ export default function Home({ context }) {
             setCurrency(currency)
         } catch (error) {
             console.error(error)
-            setCurrency(undefined)
-            setCountry(undefined)
         } finally {
             setCoordinates({ longitude, latitude })
         }
@@ -130,9 +130,9 @@ export default function Home({ context }) {
         // Get the data from our api
         const { data } = await axios.get('api/getCountriesWithMaxDeaths')
         // Print to the front-end
-        const ctx = document.getElementById('bar_deaths')
-        ctx.style.visibility = 'visible'
-        const chart = new Chart(ctx, {
+        // const ctx = document.getElementById('bar_deaths')
+        // ctx.style.visibility = 'visible'
+        setChart({
             // We are creating a bar chart for death statistics of top 10 countries
             type: 'bar',
             data: {
@@ -177,6 +177,7 @@ export default function Home({ context }) {
             },
         })
     }
+
     const getCovidStats = async () => {
         if (typeof country === 'undefined') {
             setCovidStatsString('Please select a country by clicking on the map')
@@ -288,8 +289,7 @@ export default function Home({ context }) {
 
                 <p>Use the button to see the Death Statistics of Top 10 Countries in a Bar Chart</p>
                 <button onClick={getCountriesWithMaxDeaths}>Death Statistics of Top 10 Countries</button>
-                {/* <canvas id="bar_deaths" /> */}
-                {/* <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js" /> */}
+                {chart && <Bar data={chart.data} options={chart.options} />}
 
                 <button onClick={getPosts}>
                     Click me to get top posts from the subreddit for the country you have chosen on the map
@@ -297,11 +297,8 @@ export default function Home({ context }) {
                 {postsJSON != undefined && (
                     <div>
                         {postsJSON.map(post => (
-                            <p>
-                                {' '}
-                                <a key={post.permalink} href={`https://www.reddit.com${post.permalink}`}>
-                                    {post.title}{' '}
-                                </a>{' '}
+                            <p key={post.permalink}>
+                                <a href={`https://www.reddit.com${post.permalink}`}>{post.title}</a>
                             </p>
                         ))}
                     </div>

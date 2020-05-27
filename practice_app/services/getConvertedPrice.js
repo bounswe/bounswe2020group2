@@ -69,8 +69,8 @@ exports.getConvertedPrice = async function ({ ip, srcCurrency, price }) {
 
     const currencyData = await exports.getInfoCurrency({ srcCurrency, tarCurrency })
     const updatedPrice = currencyData.ratio * price
-    
-    const validity = currencyData.valid&&ipData.valid
 
-    return { statusCode: 200, body: {valid: validity, price: updatedPrice, currency: tarCurrency } }
+    const validity = currencyData.valid && ipData.valid
+
+    return { statusCode: 200, body: { valid: validity, price: updatedPrice, currency: tarCurrency } }
 }
