@@ -4,8 +4,9 @@ import Head from 'next/head'
 import axios from 'axios'
 
 import dynamic from 'next/dynamic'
+import SimilarProduct from '../components/SimilarProduct'
 
-const SimilarProduct = dynamic(() => import('../components/SimilarProduct'), { ssr: false })
+// const SimilarProduct = dynamic(() => import('../components/SimilarProduct'), { ssr: false })
 const MapView = dynamic(() => import('../components/MapView'), { ssr: false })
 // axios is a library used to make requests
 
@@ -287,8 +288,8 @@ export default function Home({ context }) {
 
                 <p>Use the button to see the Death Statistics of Top 10 Countries in a Bar Chart</p>
                 <button onClick={getCountriesWithMaxDeaths}>Death Statistics of Top 10 Countries</button>
-                <canvas id="bar_deaths" />
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js" />
+                {/* <canvas id="bar_deaths" /> */}
+                {/* <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js" /> */}
 
                 <button onClick={getPosts}>
                     Click me to get top posts from the subreddit for the country you have chosen on the map
