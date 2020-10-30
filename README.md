@@ -25,3 +25,4 @@ Please checkout our [Wiki section](https://github.com/bounswe/bounswe2020group2/
 - [Ömer Faruk Deniz](https://github.com/bounswe/bounswe2020group2/wiki/Ömer-Faruk-Deniz)
 - [Özdeniz Dolu](https://github.com/bounswe/bounswe2020group2/wiki/Özdeniz-Dolu)
 - [Aslı Aykan](https://github.com/bounswe/bounswe2020group2/wiki/Aslı-Aykan)
+- [Murat Can Bayraktar](https://github.com/bounswe/bounswe2020group2/wiki/Murat-Can-Bayraktar)
