@@ -1,10 +1,9 @@
 ### BOUN CMPE352 - Spring 2020 - Group 2
- 
-# Welcome 
- 
 <p align="center"> 
 <img width="400" src="https://github.com/bounswe/bounswe2020group2/blob/master/milestone1/logo_circle.png">
 </p>
+
+# Welcome 
 
 Welcome to the Github Repository of the second group of CMPE352 - Spring 2020.
 
