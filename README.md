@@ -18,7 +18,7 @@ Please checkout our [Wiki section](https://github.com/bounswe/bounswe2020group2/
 - [Burak Çetin](https://github.com/bounswe/bounswe2020group2/wiki/Burak-Çetin)
 - [Furkan Nane](https://github.com/bounswe/bounswe2020group2/wiki/Furkan-Nane)
 - [Furkan Varol](https://github.com/bounswe/bounswe2020group2/wiki/Furkan-Varol)
-- [Hüseyyin Seyyid Kaplan](https://github.com/bounswe/bounswe2020group2/wiki/Hüseyin-Seyyid-Kaplan)
+- [Hüseyyin Seyyid Kaplan](https://github.com/bounswe/bounswe2020group2/wiki/Hüseyin-Seyyid-Kaplan) (no longer with us)
 - [Mehdi Saffar](https://github.com/bounswe/bounswe2020group2/wiki/Mehdi-Saffar) (communicator)
 - [Mehmet Umut Öksüz](https://github.com/bounswe/bounswe2020group2/wiki/Mehmet-Umut-Öksüz)
 - [Hande Şirikçi](https://github.com/bounswe/bounswe2020group2/wiki/hande-sirikci)
