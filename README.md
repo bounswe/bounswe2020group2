@@ -4,10 +4,9 @@
  
 <p align="center"> 
 <img width="400" src="https://github.com/bounswe/bounswe2020group2/blob/master/milestone1/logo_circle.png">
-Welcome to the Github Repository of the second group of CMPE352 - Spring 2020.
 </p>
 
-
+Welcome to the Github Repository of the second group of CMPE352 - Spring 2020.
 
 This project aims to provide an online platform that enables people to buy and sell all kinds of products.
  
