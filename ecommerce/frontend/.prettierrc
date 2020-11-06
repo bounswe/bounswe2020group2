@@ -1,0 +1,16 @@
+{
+  "singleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 120,
+  "tabWidth": 4,
+  "semi": false,
+  "arrowParens": "avoid",
+  "jsxBracketSameLine": true,
+  "jsxSingleQuote": false,
+  "overrides": [
+    {
+      "files": ".prettierrc",
+      "options": { "parser": "babylon" }
+    }
+  ]
+}
