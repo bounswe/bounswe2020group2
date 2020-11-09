@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Getflix</string>
+    <string name="hello_blank_fragment">Empty Fragment</string>
+    <string name="login">Login</string>
+    <string name="home">Home</string>
+    <string name="categories">Categories</string>
+    <string name="profile">Profile</string>
+    <string name="cart">Cart</string>
+</resources>

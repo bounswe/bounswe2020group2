@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Getflix</string>
+    <string name="hello_blank_fragment">Boş</string>
+    <string name="login">Oturum Aç</string>
+    <string name="home">Anasayfa</string>
+    <string name="categories">Kategoriler</string>
+    <string name="profile">Profil</string>
+    <string name="cart">Sepet</string>
+</resources>
