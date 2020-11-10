@@ -1,0 +1,2 @@
+def funciton(self):
+    return 2
