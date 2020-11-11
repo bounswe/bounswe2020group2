@@ -1,4 +1,4 @@
-package com.example.getflix.model
+package com.example.getflix.models
 
 data class ProductModel(
     var id: Double,
