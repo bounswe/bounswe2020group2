@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.ProductCardBinding
 import com.example.getflix.model.ProductModel
 
-class SubcategoryAdapter: ListAdapter<ProductModel, SubcategoryAdapter.ViewHolder>(ProductDiffCallback()){
+class SubcategoryAdapter :
+    ListAdapter<ProductModel, SubcategoryAdapter.ViewHolder>(ProductDiffCallback()) {
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -26,11 +27,12 @@ class SubcategoryAdapter: ListAdapter<ProductModel, SubcategoryAdapter.ViewHolde
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: ProductCardBinding) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder private constructor(val binding: ProductCardBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ProductCardBinding.inflate(layoutInflater,parent,false)
+                val binding = ProductCardBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }
@@ -38,9 +40,9 @@ class SubcategoryAdapter: ListAdapter<ProductModel, SubcategoryAdapter.ViewHolde
     }
 }
 
-class ProductDiffCallback : DiffUtil.ItemCallback<ProductModel>(){
+class ProductDiffCallback : DiffUtil.ItemCallback<ProductModel>() {
     override fun areItemsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
-        return oldItem  === newItem
+        return oldItem === newItem
     }
 
     override fun areContentsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
