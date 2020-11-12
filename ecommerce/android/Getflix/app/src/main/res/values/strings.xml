@@ -6,4 +6,14 @@
     <string name="categories">Kategoriler</string>
     <string name="profile">Profil</string>
     <string name="cart">Sepet</string>
+    <string name="category_woman">Woman</string>
+    <string name="category_man">Man</string>
+    <string name="category_toys">Toys</string>
+    <string name="category_electronics">Electronis</string>
+    <string name="category_movies">Movies</string>
+    <string name="category_cosmetics">Cosmetics</string>
+    <string name="category_furniture">Home</string>
+    <string name="category_music">Music</string>
+    <string name="category_pet">Pet Suppliances</string>
+    <string name="category_sports">Sports</string>
 </resources>
