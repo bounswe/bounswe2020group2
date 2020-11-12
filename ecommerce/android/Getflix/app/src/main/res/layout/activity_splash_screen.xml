@@ -4,10 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashScreenActivity"
-    android:background="@drawable/splash_gradient">
+    tools:context=".SplashScreenActivity">
+
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/main_background"></pl.droidsonroids.gif.GifImageView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#5E424040"
+        android:orientation="horizontal"></LinearLayout>
 
     <ImageView
+        android:id="@+id/logo_getflix"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:src="@drawable/logo_circular"
