@@ -13,7 +13,7 @@ Please checkout our [Wiki section](https://github.com/bounswe/bounswe2020group2/
  
 # The team
 
-| <img src="https://github.com/bounswe/bounswe2020group2/blob/master/images/aleyna-kara.jpg" width="200px;"/> | <img src="https://github.com/bounswe/bounswe2020group2/blob/master/images/getflix-logo.png" width="200px;"/> | <img src="https://github.com/bounswe/bounswe2020group2/blob/master/images/getflix-logo.png" width="200px;"/> | <img src="https://github.com/bounswe/bounswe2020group2/blob/master/images/getflix-logo.png" width="200px;"/>  |
+| <img src="https://github.com/bounswe/bounswe2020group2/blob/master/images/aleyna-kara.jpg" width="200px;"/> | <img src="https://github.com/bounswe/bounswe2020group2/blob/master/images/getflix-logo.png" width="200px;"/> | <img src="https://github.com/bounswe/bounswe2020group2/blob/master/images/furkan-nane.jpg" width="200px;"/> | <img src="https://github.com/bounswe/bounswe2020group2/blob/master/images/getflix-logo.png" width="200px;"/>  |
 |---|---|---|---|
 | [Aleyna Kara](https://github.com/bounswe/bounswe2020group2/wiki/Aleyna-Kara) |[Burak Çetin](https://github.com/bounswe/bounswe2020group2/wiki/Burak-Çetin) |[Furkan Nane](https://github.com/bounswe/bounswe2020group2/wiki/Furkan-Nane) |[Furkan Varol](https://github.com/bounswe/bounswe2020group2/wiki/Furkan-Varol) |
 | <img src="https://github.com/bounswe/bounswe2020group2/blob/master/images/MehdiSaffar.jpg" width="200px;"/> |<img src="https://github.com/bounswe/bounswe2020group2/blob/master/images/getflix-logo.png" width="200px;"/> |<img src="https://github.com/bounswe/bounswe2020group2/blob/master/images/getflix-logo.png" width="200px;"/> |<img src="https://github.com/bounswe/bounswe2020group2/blob/master/images/getflix-logo.png" width="200px;"/> | 
