@@ -3,6 +3,7 @@ import './App.less'
 import config from './config.js'
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 import { Layout, Menu, Row, Col } from 'antd'
+import getflixLogo from './assets/logo.png'
 
 const CategoryBar = ({ categories = [] }) => {
     return (
@@ -40,7 +41,15 @@ const Header = () => {
 }
 
 const HomePage_Splash = () => {
-    return <div style={{ height: 400 }}></div>
+    return (
+        <div className="splash">
+            <img src={getflixLogo} className="splash-logo"></img>
+            <div className="splash__slogan">
+                <h1>The biggest marketplace in the world</h1>
+                <h2>Any product you want, at your doorstep</h2>
+            </div>
+        </div>
+    )
 }
 
 const HomePage_MainContent = () => {
