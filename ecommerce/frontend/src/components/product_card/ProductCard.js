@@ -18,7 +18,7 @@ export const ProductCard = ({ product, onAddToCart }) => {
                     <Rate allowHalf defaultValue={rating}></Rate>
                 </div>
                 <div className="right">
-                    <Button type="primary" icon={<PlusCircleOutlined />} onClick={onAddToCart(productId)}>
+                    <Button type="primary" icon={<PlusCircleOutlined />} onClick={b => onAddToCart(productId)}>
                         Add to Cart
                     </Button>
                 </div>
