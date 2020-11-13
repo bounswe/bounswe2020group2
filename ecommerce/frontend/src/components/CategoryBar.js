@@ -1,5 +1,6 @@
 import { Menu } from 'antd'
 import { Link } from 'react-router-dom'
+import './CategoryBar.less'
 
 export const CategoryBar = ({ categories = [] }) => {
     return (
