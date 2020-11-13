@@ -4,7 +4,7 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { ProductCard } from './components/product_card/ProductCard'
-import { Card, Avatar } from 'antd'
+import { Card } from 'antd'
 
 const { Meta } = Card
 const products = [
@@ -32,6 +32,7 @@ ReactDOM.render(
     <div style={{ display: 'flex' }}>
         {products.map(product => (
             <ProductCard
+                key={product.productId}
                 product={product}
                 onAddToCart={productId => {
                     console.log('Card clicked! ' + productId)
