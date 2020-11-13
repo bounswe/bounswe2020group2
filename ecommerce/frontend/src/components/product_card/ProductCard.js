@@ -10,19 +10,20 @@ export const ProductCard = ({ product, onAddToCart }) => {
     const { title, rating, width = 350, price, currency, imageUrl, productId } = product
 
     return (
-        // <Link to={`/products/${productId}`}>,
-        <Card style={{ width: width }} cover={<img alt={title} src={imageUrl} />}>
-            <Meta description={price + ' ' + currency} title={title} />
-            <div className="rate-and-addCart">
-                <div className="left">
-                    <Rate allowHalf defaultValue={rating}></Rate>
+        <Link to={`/products/${productId}`}>
+            <Card style={{ width: width }} cover={<img alt={title} src={imageUrl} />}>
+                <Meta description={price + ' ' + currency} title={title} />
+                <div className="rate-and-addCart">
+                    <div className="left">
+                        <Rate allowHalf defaultValue={rating}></Rate>
+                    </div>
+                    <div className="right">
+                        <Button type="primary" icon={<PlusCircleOutlined />} onClick={b => onAddToCart(productId)}>
+                            Add to Cart
+                        </Button>
+                    </div>
                 </div>
-                <div className="right">
-                    <Button type="primary" icon={<PlusCircleOutlined />} onClick={b => onAddToCart(productId)}>
-                        Add to Cart
-                    </Button>
-                </div>
-            </div>
-        </Card>
+            </Card>
+        </Link>
     )
 }
