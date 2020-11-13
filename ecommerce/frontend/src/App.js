@@ -1,20 +1,21 @@
-import logo from './logo.svg'
 import './App.less'
-import config from './config.js'
+
+import { BrowserRouter as Router } from 'react-router-dom'
+
+import { AppContextProvider } from './context/AppContext'
+import { MainLayout } from './components/layout/MainLayout'
+import { Helmet } from 'react-helmet'
 
 function App() {
     return (
-        <div className="App">
-            <header className="App-header">
-                Backend API URL: {config.apiUrl ?? 'null'} <br />
-                Environment: {process.env.NODE_ENV ?? 'null'} <br />
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer"></a>
-            </header>
-        </div>
+        <AppContextProvider>
+            <Helmet>
+                <title>Getflix - Get all you want</title>
+            </Helmet>
+            <Router>
+                <MainLayout />
+            </Router>
+        </AppContextProvider>
     )
 }
 
