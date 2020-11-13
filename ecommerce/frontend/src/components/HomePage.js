@@ -1,7 +1,11 @@
 import { CategoryBar } from './CategoryBar'
 import getflixLogo from '../assets/logo.png'
+import { useAppContext } from '../context/AppContext'
 
 export const HomePage = () => {
+    // example usage
+    const { user, setUser } = useAppContext()
+
     const categories = [
         { key: 'electronics', title: 'Electronics' },
         { key: 'home_and_garden', title: 'Home & Garden' },
