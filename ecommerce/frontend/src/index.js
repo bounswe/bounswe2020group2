@@ -29,9 +29,13 @@ const products = [
 ]
 
 ReactDOM.render(
-    <div>
+    <div style={{ display: 'flex' }}>
         {products.map(product => (
-            <ProductCard product={product} onAddToCart={() => {}}></ProductCard>
+            <ProductCard
+                product={product}
+                onAddToCart={productId => {
+                    console.log('Card clicked! ' + productId)
+                }}></ProductCard>
         ))}
     </div>,
     document.getElementById('root'),
