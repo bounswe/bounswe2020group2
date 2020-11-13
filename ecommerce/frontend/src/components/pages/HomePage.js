@@ -1,3 +1,4 @@
+import './HomePage.less'
 import { CategoryBar } from '../CategoryBar'
 import getflixLogo from '../../assets/logo.png'
 import { useAppContext } from '../../context/AppContext'
@@ -28,7 +29,7 @@ const HomePage_Splash = () => {
     return (
         <div className="splash">
             <img src={getflixLogo} className="splash-logo"></img>
-            <div className="splash__slogan">
+            <div className="splash-slogan">
                 <h1>The biggest marketplace in the world</h1>
                 <h2>Any product you want, at your doorstep</h2>
             </div>

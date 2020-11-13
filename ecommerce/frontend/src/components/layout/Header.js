@@ -1,3 +1,4 @@
+import './Layout_common.less'
 import { Layout, Menu } from 'antd'
 import { Link } from 'react-router-dom'
 

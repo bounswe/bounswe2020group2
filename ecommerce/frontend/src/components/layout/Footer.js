@@ -1,3 +1,4 @@
+import './Layout_common.less'
 import { Layout, Menu } from 'antd'
 
 export const Footer = () => {

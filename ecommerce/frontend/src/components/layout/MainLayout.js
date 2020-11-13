@@ -1,3 +1,4 @@
+import './Layout_common.less'
 import { Layout } from 'antd'
 import { Header } from './Header'
 import { Content } from './Content'

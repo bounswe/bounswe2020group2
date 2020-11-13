@@ -1,3 +1,4 @@
+import './Layout_common.less'
 import { Route, Switch, Link } from 'react-router-dom'
 import { Layout } from 'antd'
 import { LoginPage } from '../pages/LoginPage'
