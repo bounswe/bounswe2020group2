@@ -3,15 +3,37 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+import { ProductCard } from './components/product_card/ProductCard'
+import { Card, Avatar } from 'antd'
+
+const { Meta } = Card
+const products = [
+    {
+        title: 'Yellow Flowers',
+        price: '14.99',
+        currency: '₺',
+        productId: 1,
+        rating: 4.5,
+        imageUrl:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS9I14rV_Z52uoBWHbruHsl84HI13mv66EW8A&usqp=CAU',
+    },
+    {
+        title: 'Blue Toy Car',
+        price: '23.99',
+        currency: '€',
+        productId: 2,
+        rating: 3.5,
+        width: 400,
+        imageUrl: 'https://i.ebayimg.com/images/g/2GgAAOSw~PVcpcby/s-l400.jpg',
+    },
+]
 
 ReactDOM.render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>,
+    <div>
+        {products.map(product => (
+            <ProductCard product={product} onAddToCart={() => {}}></ProductCard>
+        ))}
+    </div>,
     document.getElementById('root'),
 )
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals()
