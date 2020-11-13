@@ -1,6 +1,6 @@
-import { CategoryBar } from './CategoryBar'
-import getflixLogo from '../assets/logo.png'
-import { useAppContext } from '../context/AppContext'
+import { CategoryBar } from '../CategoryBar'
+import getflixLogo from '../../assets/logo.png'
+import { useAppContext } from '../../context/AppContext'
 
 export const HomePage = () => {
     // example usage
