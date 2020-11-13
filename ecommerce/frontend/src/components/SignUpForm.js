@@ -172,7 +172,7 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
 
             {/* Zip code input */}
             <Form.Item
-                name={['address', 'zipcode']}
+                name={['address', 'zipCode']}
                 label="Zip Code"
                 rules={[
                     {
@@ -186,7 +186,7 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
             
             {/* Main address input */}
             <Form.Item
-                name={['address', 'mainaddress']}
+                name={['address', 'mainAddress']}
                 label="Main Address"
                 rules={[
                     {
@@ -205,7 +205,7 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
             >
                 <Input.Group compact >
                     <Form.Item
-                        name={['phone', 'countrycode']}
+                        name={['phone', 'countryCode']}
                         noStyle
                         rules={[{ required: true, message: 'Please enter your country code!' }]}
                     >
@@ -247,7 +247,7 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
 
             {/* User type selection */}
             <Form.Item
-                name="usertype"
+                name="userType"
                 rules={[
                     {
                         required: true,
