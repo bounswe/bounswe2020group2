@@ -13,7 +13,7 @@ const products = [
         price: '14.99',
         currency: '₺',
         productId: 1,
-        rating: 4.5,
+        rating: 0.5,
         imageUrl:
             'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS9I14rV_Z52uoBWHbruHsl84HI13mv66EW8A&usqp=CAU',
     },
@@ -22,7 +22,7 @@ const products = [
         price: '23.99',
         currency: '€',
         productId: 2,
-        rating: 3.5,
+        rating: 5,
         width: 400,
         imageUrl: 'https://i.ebayimg.com/images/g/2GgAAOSw~PVcpcby/s-l400.jpg',
     },
