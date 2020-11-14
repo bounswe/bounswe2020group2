@@ -10,6 +10,7 @@ import {
     Radio,
 } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import { useState } from 'react'
 
 // Constants for layout
 const formItemLayout = {
@@ -45,6 +46,7 @@ const tailFormItemLayout = {
 
 export const SignUpForm = ({ onSubmit = () => { } }) => {
     const [form] = Form.useForm();
+    const [addressEnabled, setAddressEnabled] = useState(true)
 
     /* SignUpForm sends all of the data it has received from the user to the onSubmit function 
     as a single properly labeled JSON object */
@@ -52,6 +54,14 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
         onSubmit(values);
         console.log('Received values of form: ', values);
     };
+
+    const onUserTypeChange = ({target: {value: userType}}) => {
+        if(userType==='vendor') {
+            setAddressEnabled(true);
+        } else {
+            setAddressEnabled(false);
+        }
+    }
 
     return (
         <Form
@@ -62,6 +72,24 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
             scrollToFirstError
         >
 
+            {/* User type selection */}
+            <Form.Item
+                name="userType"
+                label="User type:"
+                rules={[
+                    {
+                        required: true,
+                        message: "Please select your user type!"
+                    },
+                ]}
+                
+            >
+                <Radio.Group onChange={onUserTypeChange}>
+                    <Radio value="customer">Register as customer</Radio>
+                    <Radio value="vendor">Register as vendor</Radio>
+                </Radio.Group>
+            </Form.Item>
+ 
             {/* Username input */}
             <Form.Item
                 name="username"
@@ -85,7 +113,7 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
             </Form.Item>
 
             {/* Email input */}
-            <Form.Item
+            {/* <Form.Item
                 name="email"
                 label="E-mail"
                 rules={[
@@ -100,10 +128,10 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
                 ]}
             >
                 <Input />
-            </Form.Item>
+            </Form.Item> */}
 
             {/* Password input */}
-            <Form.Item
+            {/* <Form.Item
                 name="password"
                 label="Password"
                 rules={[
@@ -115,10 +143,10 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
                 hasFeedback
             >
                 <Input.Password />
-            </Form.Item>
+            </Form.Item> */}
             
             {/* Password confirmation input */}
-            <Form.Item
+            {/* <Form.Item
                 name="confirm"
                 label="Confirm Password"
                 dependencies={['password']}
@@ -140,43 +168,51 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
                 ]}
             >
                 <Input.Password />
-            </Form.Item>
+            </Form.Item> */}
 
             {/* City input */}
-            <Form.Item
+            {/* <Form.Item
+                id="cityInput"
+                hidden={!addressEnabled}
                 name={['address', 'city']}
                 label="City"
-                rules={[
+                rules={ addressEnabled ?  
+                [
                     {
                         required: true,
                         message: 'Please select your city!',
                     },
-                ]}
+                ] : null}
             >
                 <Input />
-            </Form.Item>
+            </Form.Item> */}
             
             {/* State input */}
-            <Form.Item
+            {/* <Form.Item
+                id="stateInput"
+                hidden={!addressEnabled}
                 name={['address', 'state']}
                 label="State"
-                rules={[
+                rules={ addressEnabled ?
+                [
                     {
                         required: true,
                         message: 'Please select your state!',
                     },
-                ]}
+                ] : null}
             >
                 <Input />
-            </Form.Item>
+            </Form.Item> */}
 
-            {/* Zip code input */}
+            {/* Zip code input */} 
             <Form.Item
+                id="zipCodeInput"
+                // hidden={!addressEnabled}
                 name={['address', 'zipCode']}
                 label="Zip Code"
                 rules={[
                     {
-                        required: true,
+                        required: addressEnabled,
                         message: 'Please enter your zip code!',
                     },
                 ]}
@@ -185,21 +221,24 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
             </Form.Item>
             
             {/* Main address input */}
-            <Form.Item
+            {/* <Form.Item
+                id="mainAddressInput"
+                hidden={!addressEnabled}
                 name={['address', 'mainAddress']}
                 label="Main Address"
-                rules={[
+                rules={addressEnabled ?
+                [
                     {
                         required: true,
                         message: 'Please enter your address!',
                     },
-                ]}
+                ] : null}
             >
                 <Input />
-            </Form.Item>
+            </Form.Item> */}
 
             {/* Phone number input */}
-            <Form.Item
+            {/* <Form.Item
                 name="phone"
                 label="Phone Number"
             >
@@ -219,11 +258,11 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
                         <Input style={{ width: '80%' }} />
                     </Form.Item>
                 </Input.Group>
-            </Form.Item>
+            </Form.Item> */}
 
             {/* Captcha input
             TODO: This input is non-functional */}
-            <Form.Item label="Captcha" extra="We must make sure that your are a human.">
+            {/* <Form.Item label="Captcha" extra="We must make sure that your are a human.">
                 <Row gutter={8}>
                     <Col span={12}>
                         <Form.Item
@@ -243,27 +282,10 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
                         <Button>Get captcha</Button>
                     </Col>
                 </Row>
-            </Form.Item>
-
-            {/* User type selection */}
-            <Form.Item
-                name="userType"
-                rules={[
-                    {
-                        required: true,
-                        message: "Please select your user type!"
-                    },
-                ]}
-                {...tailFormItemLayout}
-            >
-                <Radio.Group>
-                    <Radio value="customer">Register as customer</Radio>
-                    <Radio value="vendor">Register as vendor</Radio>
-                </Radio.Group>
-            </Form.Item>
+            </Form.Item> */}
 
             {/* Checkbox for the user agreement */}
-            <Form.Item
+            {/* <Form.Item
                 name="agreement"
                 valuePropName="checked"
                 rules={[
@@ -277,7 +299,7 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
                 <Checkbox>
                     I have read the <a href="">agreement</a>
                 </Checkbox>
-            </Form.Item>
+            </Form.Item> */}
 
             <Form.Item {...tailFormItemLayout}>
                 <Button type="primary" htmlType="submit">
