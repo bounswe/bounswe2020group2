@@ -6,4 +6,5 @@
     <string name="categories">Kategoriler</string>
     <string name="profile">Profil</string>
     <string name="cart">Sepet</string>
+    <string name="favorites">Favoriler</string>
 </resources>
