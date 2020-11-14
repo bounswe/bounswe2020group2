@@ -1,12 +1,13 @@
 import {
     loadCaptchaEnginge,
     LoadCanvasTemplate,
-    LoadCanvasTemplateNoReload,
     validateCaptcha,
 } from 'react-simple-captcha'
-import { Form, Input, Button, Radio, Tooltip, Row, Col, Checkbox, InputNumber } from 'antd'
+import { Form, Input, Button, Radio, Tooltip, Row, Col, Checkbox, InputNumber, Modal,} from 'antd'
 import { useEffect, useState } from 'react'
 import { QuestionCircleOutlined } from '@ant-design/icons'
+import { TermsAndConditions } from './TermsAndConditions'
+
 
 // Constants for layout
 const formItemLayout = {
@@ -40,10 +41,13 @@ const tailFormItemLayout = {
     },
 }
 
-export const SignUpForm = ({ onSubmit = () => {} }) => {
+export const SignUpForm = ({ onSubmit = () => { } }) => {
     const [form] = Form.useForm()
-    const initialValues = { userType: 'customer' }
+    const initialValues = { userType: 'customer',}
     const [isVendor, setIsVendor] = useState(initialValues.userType === 'vendor')
+    const [userAgreementVisible, setUserAgreementVisible] = useState(false)
+    const [userAgreementAccepted, setUserAgreementAccepted] = useState(false)
+
     useEffect(() => {
         loadCaptchaEnginge(6)
     }, [])
@@ -59,8 +63,18 @@ export const SignUpForm = ({ onSubmit = () => {} }) => {
         console.log('Finish failed: ', errors)
     }
 
-    const onUserTypeChange = ({ target: { value: userType } }) => setIsVendor(userType === 'vendor')
+    const onModalAgreementAccept = () => {
+        setUserAgreementVisible(false); 
+        form.setFieldsValue({agreement: true})
+        setUserAgreementAccepted(true)
+    }
+    const onModalAgreementReject = () => {
+        setUserAgreementVisible(false);
+        form.setFieldsValue({agreement: false})
+        setUserAgreementAccepted(false)
 
+    }
+    const onUserTypeChange = ({ target: { value: userType } }) => setIsVendor(userType === 'vendor')
     return (
         <Form
             {...formItemLayout}
@@ -70,6 +84,7 @@ export const SignUpForm = ({ onSubmit = () => {} }) => {
             onFinishFailed={onFinishFailed}
             initialValues={initialValues}
             scrollToFirstError>
+
             {/* User type selection */}
             <Form.Item
                 name="userType"
@@ -173,7 +188,7 @@ export const SignUpForm = ({ onSubmit = () => {} }) => {
                             message: 'Please enter your zip code!',
                         },
                     ]}>
-                    <Input />
+                    <InputNumber style={{ width: '100%' }} />
                 </Form.Item>
             )}
 
@@ -236,7 +251,7 @@ export const SignUpForm = ({ onSubmit = () => {} }) => {
                             {
                                 message: 'Wrong country code format',
                                 validator: (rule, val) =>
-                                    /\+\d{1,3}/.test(val) ? Promise.resolve(true) : Promise.reject(),
+                                    /\+\d{1,3}/.test(val) ? Promise.resolve(true) : Promise.reject("Country code format is incorrect!"),
                             },
                         ]}>
                         <Input style={{ width: '20%' }} placeholder="+90" />
@@ -249,7 +264,7 @@ export const SignUpForm = ({ onSubmit = () => {} }) => {
                             {
                                 message: 'Wrong phone number format',
                                 validator: (rule, val) =>
-                                    /\d{4,}/.test(val) ? Promise.resolve(true) : Promise.reject(),
+                                    /\d{4,}/.test(val) ? Promise.resolve(true) : Promise.reject("Phone number format is incorrect!"),
                             },
                         ]}>
                         <InputNumber style={{ width: '80%' }} />
@@ -257,9 +272,8 @@ export const SignUpForm = ({ onSubmit = () => {} }) => {
                 </Input.Group>
             </Form.Item>
 
-            {/* Captcha input 
-            TODO: This input is non-functional */}
-            <Form.Item label="Captcha" extra="We must make sure that your are a human.">
+            {/* Captcha input */}
+            <Form.Item label="Captcha" extra="We must make sure that you are a human.">
                 <Row gutter={8}>
                     <Col span={12}>
                         <Form.Item
@@ -271,7 +285,7 @@ export const SignUpForm = ({ onSubmit = () => {} }) => {
                                 },
                                 {
                                     validator: (rule, val) =>
-                                        validateCaptcha(val, false) ? Promise.resolve(true) : Promise.reject(),
+                                        validateCaptcha(val, false) ? Promise.resolve(true) : Promise.reject("Captcha is incorrect!"),
                                     message: 'Wrong captcha',
                                 },
                             ]}
@@ -287,18 +301,42 @@ export const SignUpForm = ({ onSubmit = () => {} }) => {
 
             {/* Checkbox for the user agreement */}
             <Form.Item
-                name="agreement"
-                valuePropName="checked"
-                rules={[
-                    {
-                        validator: (_, value) =>
-                            value ? Promise.resolve() : Promise.reject('Should accept agreement'),
-                    },
-                ]}
                 {...tailFormItemLayout}>
-                <Checkbox>
-                    I have read the <a href="">agreement</a>
-                </Checkbox>
+                <Form.Item
+                    name="agreement"
+                    valuePropName="checked"
+                    rules={[
+                        {
+                            validator: (_, value) =>
+                                value ? Promise.resolve() : Promise.reject('Should accept agreement.'),
+                        },
+                    ]}>
+                    <Checkbox checked={userAgreementAccepted}>
+                        I have read the &nbsp;
+                        <Button type="dashed"  onClick={() => setUserAgreementVisible(true)}> 
+                            User Agreement
+                        </Button>   
+                    </Checkbox>
+                </Form.Item>
+                
+                
+                <Modal
+                    visible={userAgreementVisible}
+                    title="User Agreement"
+                    onOk={onModalAgreementAccept}
+                    onCancel={onModalAgreementReject}
+                    bodyStyle={{height: 500}}
+                    footer={[
+                <Button key="back" type="primary" onClick={onModalAgreementReject}>
+                    I reject
+                </Button>,
+                <Button key="submit" type="primary" onClick={onModalAgreementAccept}>
+                    I accept
+                </Button>,
+                ]}
+                >
+                <TermsAndConditions />
+                </Modal>
             </Form.Item>
 
             <Form.Item {...tailFormItemLayout}>
@@ -306,6 +344,10 @@ export const SignUpForm = ({ onSubmit = () => {} }) => {
                     Register
                 </Button>
             </Form.Item>
-        </Form>
+            
+        </Form> 
+    
+
+
     )
 }
