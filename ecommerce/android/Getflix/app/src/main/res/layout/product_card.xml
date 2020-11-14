@@ -33,15 +33,16 @@
 
                 <ImageView
                     android:id="@+id/productImage"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_gravity="center"
+                    android:src="@drawable/ic_baseline_extension_24"
                     android:padding="1dp"/>
                 <TextView
                     android:textColor="@color/colorPrimaryDark"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                     android:id="@+id/price"
-                    android:textSize="0.07in"
+                    android:textSize="0.15in"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
