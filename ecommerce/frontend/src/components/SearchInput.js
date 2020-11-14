@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './SearchInput.less'
-import { Select } from 'antd'
-import Search from 'antd/lib/input/Search'
+import { Select, Input } from 'antd'
+
+const { Option } = Select
+const { Search } = Input
 
 // TODO - Fetch from a common file or backend
 const categories = [
@@ -14,35 +16,38 @@ const categories = [
     { key: 'womens_fashion', title: "Women's Fashion" },
 ]
 
-const { Option } = Select
+export const SearchInput = (width = 120, onSearch) => {
+    const [category, setCategory] = useState('Electronics')
 
-function handleCategoryChange(value) {
-    console.log(`selected ${value}`)
-}
-
-const categoryDropdown = (
-    <Select defaultValue="Electronics" style={{ width: 120 }} onChange={handleCategoryChange}>
-        {categories.map(category => (
-            <Option value={category.title}>
-                {category.title} key = {category.key}
-            </Option>
-        ))}
-    </Select>
-)
-
-const onSearchInput = value => {
-    if (value === '') {
-        return
+    function handleCategoryChange(value) {
+        setCategory(value)
     }
-    // Trigger products page
-    console.log(value)
-}
 
-export const SearchInput = () => {
+    const categoryDropdown = (
+        <Select defaultValue={category} style={{ width: { width } }} onChange={handleCategoryChange}>
+            {categories.map(category => (
+                <Option value={category.title} key={category.key}>
+                    {category.title}
+                </Option>
+            ))}
+        </Select>
+    )
+
+    const onSearchInput = value => {}
+
     return (
         <div className="search-input">
             {categoryDropdown}
-            <Search placeholder="Ürün, kategori veya marka ara" onSearch={onSearchInput} enterButton />
+            <Search
+                placeholder="Search for products, categories and brands"
+                onSearch={value => {
+                    if (value.trim() === '') {
+                        return
+                    }
+                    onSearch(value)
+                }}
+                enterButton
+            />
         </div>
     )
 }
