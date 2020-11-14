@@ -17,7 +17,7 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder
 
     class CategoriesAdapter(groups: List<ExpandableGroup<*>>?) :
         ExpandableRecyclerViewAdapter<CategoryViewHolder, SubCategoryViewHolder>(
-            groups
+                groups
         ) {
 
 
@@ -36,19 +36,19 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder
 
 
         override fun onBindChildViewHolder(
-            holder: SubCategoryViewHolder?,
-            flatPosition: Int,
-            group: ExpandableGroup<*>?,
-            childIndex: Int
+                holder: SubCategoryViewHolder?,
+                flatPosition: Int,
+                group: ExpandableGroup<*>?,
+                childIndex: Int
         ) {
             val subCat: SubcategoryModel = group?.items?.get(childIndex) as SubcategoryModel
             holder?.bind(subCat)
         }
 
         override fun onBindGroupViewHolder(
-            holder: CategoryViewHolder?,
-            flatPosition: Int,
-            group: ExpandableGroup<*>?
+                holder: CategoryViewHolder?,
+                flatPosition: Int,
+                group: ExpandableGroup<*>?
         ) {
             val continent: CategoryModel = group as CategoryModel
             holder?.bind(continent)
@@ -66,7 +66,6 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder
     class CategoryViewHolder(itemView: View) : GroupViewHolder(itemView) {
         val catName = itemView.findViewById<TextView>(R.id.cat_name)
         val arrow = itemView.findViewById<ImageView>(R.id.arrow)
-        //val arrow = itemView.findViewById<ImageView>(R.id.arrow)
 
         fun bind(category: CategoryModel) {
             catName.text = category.name
@@ -74,28 +73,14 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder
 
         override fun expand() {
             super.expand()
-            animateExpand()
+            arrow.animate().rotation(90F).duration = 0
         }
 
         override fun collapse() {
             super.collapse()
-            animateCollapse()
+            arrow.animate().rotation(0F).duration = 0
         }
 
-        private fun animateExpand() {
-            var rotate = RotateAnimation(360F, 180F, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
-            println("expanddesinn")
-            rotate.duration = 300
-            rotate.fillAfter = true
-            arrow.animation = rotate
-        }
-
-        private fun animateCollapse() {
-            var rotate = RotateAnimation(180F, 360F, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
-            rotate.duration = 300
-            rotate.fillAfter = true
-            arrow.animation = rotate
-        }
     }
 
 

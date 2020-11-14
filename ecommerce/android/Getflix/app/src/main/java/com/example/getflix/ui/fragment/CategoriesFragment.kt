@@ -33,7 +33,11 @@ class CategoriesFragment : Fragment() {
                 listOf(SubcategoryModel(2, 1, "Furniture"))
             ), CategoryModel(
                 2, "Electronics",
-                listOf(SubcategoryModel(2, 2, "Computers"))
+                listOf(SubcategoryModel(2, 2, "Computers"),
+                    SubcategoryModel(3, 2, "Mobile Phones"))
+            ), CategoryModel(
+                3, "Baby",
+                listOf(SubcategoryModel(2, 2, "Baby Food"))
             )
         )
         //var catss = listOf(CategoryModel(1,cats[0].name, cats[0].subCats))
