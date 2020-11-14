@@ -27,8 +27,6 @@ import kotlinx.android.synthetic.main.activity_main.view.* */
 
 
 class CategoriesFragment : Fragment() {
-    private lateinit var categoriesViewModel: CategoriesViewModel
-
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -69,6 +67,8 @@ class CategoriesFragment : Fragment() {
                 adapter.submitList(it["woman"])
             }
         })
+
+
         return binding.root
     }
 
