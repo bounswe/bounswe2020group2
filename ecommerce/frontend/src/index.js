@@ -6,9 +6,9 @@ import reportWebVitals from './reportWebVitals'
 import { SignUpForm } from './components/SignUpForm'
 
 ReactDOM.render(
-    <React.StrictMode>
-        <SignUpForm />
-    </React.StrictMode>,
+    // <React.StrictMode>
+    <SignUpForm />,
+    // </React.StrictMode>,
     document.getElementById('root'),
 )
 
