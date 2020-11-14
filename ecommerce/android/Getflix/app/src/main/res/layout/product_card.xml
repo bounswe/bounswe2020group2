@@ -8,7 +8,7 @@
 
         <variable
             name="product"
-            type="com.example.getflix.model.ProductModel" />
+            type="com.example.getflix.models.ProductModel" />
     </data>
 
     <LinearLayout
