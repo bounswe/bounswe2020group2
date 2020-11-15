@@ -7,4 +7,10 @@
     <string name="categories">Categories</string>
     <string name="profile">Profile</string>
     <string name="cart">Cart</string>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
+    <string name="or_login">Or login with</string>
+    <string name="not_member">Not a member?</string>
+    <string name="register">Sign Up</string>
+    <string name="visitor">Continue as visitor</string>
 </resources>
