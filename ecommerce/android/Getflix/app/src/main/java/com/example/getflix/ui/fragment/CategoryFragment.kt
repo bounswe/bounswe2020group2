@@ -38,6 +38,7 @@ class CategoryFragment : Fragment() {
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         binding.categoryList.layoutManager = layoutManager
         categoryViewModel.setCategory(1)
+
         return binding.root
     }
 }
