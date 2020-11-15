@@ -22,6 +22,7 @@ class SubcategoryAdapter(private var context: Context) :
 
     private fun ViewHolder.bind(subcategoryModel: SubcategoryModel) {
         val productAdapter = ProductAdapter()
+        binding.subcategory = subcategoryModel
         binding.productList.adapter = productAdapter
         binding.productList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         productAdapter.submitList(subcategoryModel.products)
