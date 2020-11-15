@@ -16,7 +16,7 @@ const categories = [
     { key: 'womens_fashion', title: "Women's Fashion" },
 ]
 
-export const SearchInput = (width = 120, onSearch) => {
+export const SearchInput = ({ width = 120, onSearch = () => {} }) => {
     const [category, setCategory] = useState('Electronics')
 
     function handleCategoryChange(value) {
@@ -24,7 +24,7 @@ export const SearchInput = (width = 120, onSearch) => {
     }
 
     const categoryDropdown = (
-        <Select defaultValue={category} style={{ width: { width } }} onChange={handleCategoryChange}>
+        <Select defaultValue={category} style={{ width }} onChange={handleCategoryChange}>
             {categories.map(category => (
                 <Option value={category.title} key={category.key}>
                     {category.title}
@@ -32,8 +32,6 @@ export const SearchInput = (width = 120, onSearch) => {
             ))}
         </Select>
     )
-
-    const onSearchInput = value => {}
 
     return (
         <div className="search-input">
@@ -44,7 +42,7 @@ export const SearchInput = (width = 120, onSearch) => {
                     if (value.trim() === '') {
                         return
                     }
-                    onSearch(value)
+                    onSearch(value.trim())
                 }}
                 enterButton
             />
