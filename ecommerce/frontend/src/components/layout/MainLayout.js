@@ -9,7 +9,7 @@ export const MainLayout = () => {
         <Layout>
             <Header />
             <Content />
-            <Footer />
+            
         </Layout>
     )
 }
