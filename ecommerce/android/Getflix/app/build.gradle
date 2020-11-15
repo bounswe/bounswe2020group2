@@ -53,6 +53,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation 'com.google.android.material:material:1.1.0'
+    
+    // Gif
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
 
     kapt "com.android.databinding:compiler:3.4.0"
 
