@@ -25,7 +25,8 @@ class FavoritesFragment : Fragment() {
         )
 
         val recView = binding?.favoritesList as RecyclerView
-        val products = arrayListOf(ProductModel(1,"a phone","Electronics"))
+        val products = arrayListOf(ProductModel(1,"iPhone","Electronics"),
+            ProductModel(1,"Bag","Electronics"))
         val productListAdapter = FavoritesAdapter(products)
         recView.adapter = productListAdapter
         recView.setHasFixedSize(true)

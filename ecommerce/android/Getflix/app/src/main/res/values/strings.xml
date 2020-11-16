@@ -7,4 +7,5 @@
     <string name="profile">Profil</string>
     <string name="cart">Sepet</string>
     <string name="favorites">Favoriler</string>
+    <string name="add_to_cart">Sepete Ekle</string>
 </resources>
