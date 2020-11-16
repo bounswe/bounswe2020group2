@@ -21,11 +21,13 @@ class CategoryFragment : Fragment() {
 
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentCategoryBinding>(inflater, R.layout.fragment_category,
-                container, false)
+        val binding = DataBindingUtil.inflate<FragmentCategoryBinding>(
+            inflater, R.layout.fragment_category,
+            container, false
+        )
         categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
         val adapter = SubcategoryAdapter(requireContext())
         categoryViewModel.displayedCategory.observe(viewLifecycleOwner, Observer {
@@ -37,8 +39,8 @@ class CategoryFragment : Fragment() {
         binding.categoryList.adapter = adapter
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         binding.categoryList.layoutManager = layoutManager
-        categoryViewModel.setCategory(1)
-
+        val categoryId = CategoryFragmentArgs.fromBundle(requireArguments()).categoryId
+        categoryViewModel.setCategory(categoryId)
         return binding.root
     }
 }
