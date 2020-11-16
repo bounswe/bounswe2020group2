@@ -1,13 +1,10 @@
 package com.example.getflix.ui.adapter
 
+
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation.RELATIVE_TO_SELF
-import android.view.animation.RotateAnimation
-import android.widget.ImageView
-import android.widget.TextView
-import com.example.getflix.R
+import com.example.getflix.databinding.ListCategoryBinding
+import com.example.getflix.databinding.ListSubcategoryBinding
 import com.example.getflix.model.CategoryModel
 import com.example.getflix.model.SubcategoryModel
 import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter
@@ -20,20 +17,13 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder
                 groups
         ) {
 
-
         override fun onCreateGroupViewHolder(parent: ViewGroup?, viewType: Int): CategoryViewHolder {
-            val itemView =
-                LayoutInflater.from(parent?.context).inflate(R.layout.list_category, parent, false)
-            return CategoryViewHolder(itemView)
+            return CategoryViewHolder.from(parent!!)
         }
 
         override fun onCreateChildViewHolder(parent: ViewGroup?, viewType: Int): SubCategoryViewHolder {
-            val itemView =
-                LayoutInflater.from(parent?.context).inflate(R.layout.list_subcategory, parent, false)
-            return SubCategoryViewHolder(itemView)
+            return SubCategoryViewHolder.from(parent!!)
         }
-
-
 
         override fun onBindChildViewHolder(
                 holder: SubCategoryViewHolder?,
@@ -55,32 +45,46 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder
         }
     }
 
-    class SubCategoryViewHolder(itemView: View) : ChildViewHolder(itemView) {
-        val subCatName = itemView.findViewById<TextView>(R.id.subcat_name)
+    class SubCategoryViewHolder(val binding: ListSubcategoryBinding) : ChildViewHolder(binding.root) {
 
         fun bind(subCategory: SubcategoryModel) {
-            subCatName.text = subCategory.name
+            binding.subCategory = subCategory
+        }
+
+        companion object {
+            fun from(parent: ViewGroup): SubCategoryViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ListSubcategoryBinding.inflate(layoutInflater, parent, false)
+                return SubCategoryViewHolder(binding)
+            }
         }
     }
 
-    class CategoryViewHolder(itemView: View) : GroupViewHolder(itemView) {
-        val catName = itemView.findViewById<TextView>(R.id.cat_name)
-        val arrow = itemView.findViewById<ImageView>(R.id.arrow)
+    class CategoryViewHolder(val binding: ListCategoryBinding) : GroupViewHolder(binding.root) {
 
         fun bind(category: CategoryModel) {
-            catName.text = category.name
+            binding.category = category
         }
 
         override fun expand() {
             super.expand()
-            arrow.animate().rotation(90F).duration = 0
+            binding.arrow.animate().rotation(90F).duration = 0
         }
 
         override fun collapse() {
             super.collapse()
-            arrow.animate().rotation(0F).duration = 0
+            binding.arrow.animate().rotation(0F).duration = 0
+        }
+
+        companion object {
+            fun from(parent: ViewGroup): CategoryViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ListCategoryBinding.inflate(layoutInflater, parent, false)
+                return CategoryViewHolder(binding)
+            }
         }
 
     }
+
 
 
