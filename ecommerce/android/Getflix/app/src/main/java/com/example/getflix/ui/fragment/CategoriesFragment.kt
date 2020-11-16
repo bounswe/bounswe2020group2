@@ -13,6 +13,8 @@ import com.example.getflix.model.CategoryModel
 import com.example.getflix.model.SubcategoryModel
 import com.example.getflix.ui.adapter.CategoriesAdapter
 import com.thoughtbot.expandablerecyclerview.listeners.OnGroupClickListener
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 
 class CategoriesFragment : Fragment() {
@@ -26,6 +28,8 @@ class CategoriesFragment : Fragment() {
             inflater, R.layout.fragment_categories,
             container, false
         )
+
+        activity?.toolbar!!.toolbar_title.text = getString(R.string.categories)
 
         var cats = listOf<CategoryModel>(
             CategoryModel(
