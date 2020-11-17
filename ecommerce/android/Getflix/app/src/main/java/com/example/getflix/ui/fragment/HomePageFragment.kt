@@ -24,6 +24,7 @@ class HomePageFragment : Fragment() {
             container,false)
 
         activity?.bottom_nav!!.visibility = View.VISIBLE
+        activity?.toolbar!!.visibility = View.VISIBLE
         activity?.toolbar!!.toolbar_title.text = getString(R.string.home)
         activity?.toolbar!!.btn_notification.visibility = View.VISIBLE
 
