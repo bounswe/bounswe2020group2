@@ -10,6 +10,7 @@ import com.example.getflix.R
 import com.example.getflix.databinding.FragmentHomePageBinding
 import com.example.getflix.databinding.FragmentLoginBinding
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 
 class HomePageFragment : Fragment() {
@@ -23,9 +24,16 @@ class HomePageFragment : Fragment() {
             container,false)
 
         activity?.bottom_nav!!.visibility = View.VISIBLE
+        activity?.toolbar!!.visibility = View.VISIBLE
+        activity?.toolbar!!.toolbar_title.text = getString(R.string.home)
+        activity?.toolbar!!.btn_notification.visibility = View.VISIBLE
+
 
         return binding.root
     }
 
-
+    override fun onStop() {
+        super.onStop()
+        activity?.toolbar!!.btn_notification.visibility = View.GONE
+    }
 }
