@@ -67,11 +67,13 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
         setUserAgreementVisible(false); 
         form.setFieldsValue({agreement: true})
         setUserAgreementAccepted(true)
+        console.log("accept")
     }
     const onModalAgreementReject = () => {
         setUserAgreementVisible(false);
         form.setFieldsValue({agreement: false})
         setUserAgreementAccepted(false)
+        console.log("reject")
 
     }
     const onUserTypeChange = ({ target: { value: userType } }) => setIsVendor(userType === 'vendor')
@@ -99,6 +101,34 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
                     <Radio value="customer">Register as customer</Radio>
                     <Radio value="vendor">Register as vendor</Radio>
                 </Radio.Group>
+            </Form.Item>
+
+            {/* Name input */}
+            <Form.Item
+                name="name"
+                label="Name"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your name!',
+                    },
+                ]}
+                hasFeedback>
+                <Input.Password />
+            </Form.Item>
+
+            {/* Surname input */}
+            <Form.Item
+                name="surname"
+                label="Surname"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your surname!',
+                    },
+                ]}
+                hasFeedback>
+                <Input.Password />
             </Form.Item>
 
             {/* Username input */}
@@ -250,8 +280,10 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
                             },
                             {
                                 message: 'Wrong country code format',
-                                validator: (rule, val) =>
-                                    /\+\d{1,3}/.test(val) ? Promise.resolve(true) : Promise.reject("Country code format is incorrect!"),
+                                validator: (rule, val) => {
+                                    if(!val) return Promise.resolve(true)
+                                    return /\+\d{1,3}/.test(val) ? Promise.resolve(true) : Promise.reject("Country code format is incorrect!")
+                                }
                             },
                         ]}>
                         <Input style={{ width: '20%' }} placeholder="+90" />
@@ -263,8 +295,11 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
                             { required: true, message: 'Please enter your phone number!' },
                             {
                                 message: 'Wrong phone number format',
-                                validator: (rule, val) =>
-                                    /\d{4,}/.test(val) ? Promise.resolve(true) : Promise.reject("Phone number format is incorrect!"),
+                                validator: (rule, val) => {
+                                    if(!val) return Promise.resolve(true)
+                                    return /\d{4,}/.test(val) ? Promise.resolve(true) : Promise.reject("Phone number format is incorrect!")
+                                }
+                                    
                             },
                         ]}>
                         <InputNumber style={{ width: '80%' }} />
@@ -284,9 +319,12 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
                                     message: 'Please input the captcha you got!',
                                 },
                                 {
-                                    validator: (rule, val) =>
-                                        validateCaptcha(val, false) ? Promise.resolve(true) : Promise.reject("Captcha is incorrect!"),
-                                    message: 'Wrong captcha',
+                                    message: 'Wrong captcha', 
+                                    validator: (rule, val) => {
+                                        if(!val) return Promise.resolve(true)
+                                        return validateCaptcha(val, false) ? Promise.resolve(true) : Promise.reject("Captcha is incorrect!")
+                                        
+                                    }
                                 },
                             ]}
                             hasFeedback>
