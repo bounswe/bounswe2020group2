@@ -9,12 +9,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentCategoriesBinding
-import com.example.getflix.model.CategoryModel
+import com.thoughtbot.expandablerecyclerview.listeners.OnGroupClickListener
+/* import com.example.getflix.model.CategoryModel
 import com.example.getflix.model.SubcategoryModel
 import com.example.getflix.ui.adapter.CategoriesAdapter
 import com.thoughtbot.expandablerecyclerview.listeners.OnGroupClickListener
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.activity_main.view.* */
 
 
 class CategoriesFragment : Fragment() {
@@ -29,7 +30,7 @@ class CategoriesFragment : Fragment() {
             container, false
         )
 
-        activity?.toolbar!!.toolbar_title.text = getString(R.string.categories)
+      /*  activity?.toolbar!!.toolbar_title.text = getString(R.string.categories)
 
         var cats = listOf<CategoryModel>(
             CategoryModel(
@@ -46,8 +47,7 @@ class CategoriesFragment : Fragment() {
         )
         //var catss = listOf(CategoryModel(1,cats[0].name, cats[0].subCats))
         val adapter = CategoriesAdapter(cats)
-        binding.catRec.adapter = adapter
-
+        binding.catRec.adapter = adapter */
 
 
         return binding.root
