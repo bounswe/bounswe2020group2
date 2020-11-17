@@ -1,7 +1,7 @@
 import './SearchPage.less'
 import { CategoryBar } from '../CategoryBar'
 import { useAppContext } from '../../context/AppContext'
-import { Button, Form, Select, Slider, Rate } from 'antd'
+import { Button, Form, Select, Slider, Rate, Pagination } from 'antd'
 import { categories, productSortBy, subcategories, brands, vendors } from '../../utils'
 import { useState } from 'react'
 import { ProductCard } from '../product_card/ProductCard'
@@ -38,19 +38,6 @@ const tailFormItemLayout = {
 }
 
 export const SearchPage = () => {
-    return (
-        <div className={'search-page'}>
-            <div className="search-page-side-panel">
-                <SearchSidePanel />
-            </div>
-            <div className="search-page-results">
-                <SearchResults />
-            </div>
-        </div>
-    )
-}
-
-export const SearchResults = () => {
     const p = {
         title: 'Title',
         rating: '5',
@@ -61,18 +48,31 @@ export const SearchResults = () => {
         productId: 'product-id',
     }
     return (
-        <div className="product-grid">
-            <ProductCard product={p} />
-            <ProductCard product={p} />
-            <ProductCard product={p} />
-            <ProductCard product={p} />
-            <ProductCard product={p} />
-            <ProductCard product={p} />
-            <ProductCard product={p} />
-            <ProductCard product={p} />
-            <ProductCard product={p} />
-            <ProductCard product={p} />
-            <ProductCard product={p} />
+        <div className={'search-page'}>
+            <div className="search-page-side-panel">
+                <SearchSidePanel />
+            </div>
+            <div className="search-page-results">
+                <SearchResults
+                    products={[p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p].map((x, ix) => ({
+                        ...x,
+                        id: ix,
+                    }))}
+                />
+            </div>
+        </div>
+    )
+}
+
+export const SearchResults = ({ products, pagination, onPaginationChanged }) => {
+    return (
+        <div>
+            <div className="product-grid">
+                {products.map(product => (
+                    <ProductCard key={product.id} product={product} />
+                ))}
+            </div>
+            <Pagination pagination={pagination} onChange={onPaginationChanged} hideOnSinglePage />
         </div>
     )
 }
