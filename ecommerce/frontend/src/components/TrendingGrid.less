@@ -10,11 +10,20 @@
     margin-bottom: 32px;
 }
 
+.gallery__item {
+    overflow: hidden;
+}
+
 .gallery__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+.gallery__img:hover {
+    -webkit-transform: scale(1.5,1.5);
+    -webkit-transition: all 0.3s ease-in-out;
 }
 
 .gallery__item--1 {
