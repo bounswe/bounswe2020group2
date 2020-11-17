@@ -9,8 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentFavoritesBinding
-import com.example.getflix.model.ProductModel
-import com.example.getflix.ui.adapter.FavoritesAdapter
+import com.example.getflix.models.ProductModel
+import com.example.getflix.ui.adapters.FavoritesAdapter
 
 
 class FavoritesFragment : Fragment() {
@@ -25,8 +25,8 @@ class FavoritesFragment : Fragment() {
         )
 
         val recView = binding?.favoritesList as RecyclerView
-        val products = arrayListOf(ProductModel(1,"iPhone","Electronics"),
-            ProductModel(1,"Bag","Electronics"))
+        val products = arrayListOf(ProductModel(1,"iPhone","Electronics",null,null,null),
+            ProductModel(1,"Bag","Electronics",null,null,null))
         val productListAdapter = FavoritesAdapter(products)
         recView.adapter = productListAdapter
         recView.setHasFixedSize(true)

@@ -17,7 +17,7 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
         get() = _displayedCategory
 
     fun setCategory(categoryId: Int) {
-        var b = ProductModel(1.toDouble(), "jn", "km", 22.toFloat(), "skds", "lkslkd")
+        var b = ProductModel(1, "jn", "km", 22.toFloat(), "skds", "lkslkd")
         var a = listOf<ProductModel>(b)
         var subcategoryModel1 = SubcategoryModel(1, 2, "Computers", a)
         var subcategoryModel2 = SubcategoryModel(2, 2, "Mobile Phones", a)

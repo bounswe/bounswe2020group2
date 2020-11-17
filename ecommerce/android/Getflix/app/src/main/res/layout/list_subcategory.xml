@@ -6,7 +6,7 @@
     <data>
         <variable
             name="subCategory"
-            type="com.example.getflix.model.SubcategoryModel" />
+            type="com.example.getflix.models.SubcategoryModel" />
     </data>
 
     <androidx.cardview.widget.CardView

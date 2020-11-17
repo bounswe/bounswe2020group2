@@ -1,4 +1,4 @@
-package com.example.getflix.model
+package com.example.getflix.models
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -27,6 +27,10 @@ data class CategoryModel(
 
     override fun describeContents(): Int {
         return 0
+    }
+
+    operator fun get(s: String): MutableList<SubcategoryModel>? {
+        return null
     }
 
     companion object CREATOR : Parcelable.Creator<CategoryModel> {

@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
-import com.example.getflix.adapters.SubcategoryAdapter
+import com.example.getflix.ui.adapters.SubcategoryAdapter
 import com.example.getflix.databinding.FragmentCategoryBinding
 
 

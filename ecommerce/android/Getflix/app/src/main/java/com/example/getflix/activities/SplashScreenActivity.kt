@@ -1,11 +1,10 @@
-package com.example.getflix.acitivities
+package com.example.getflix.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.example.getflix.R
-import com.example.getflix.acitivities.MainActivity
 
 class SplashScreenActivity : AppCompatActivity() {
     lateinit var handler: Handler

@@ -1,4 +1,4 @@
-package com.example.getflix.adapters
+package com.example.getflix.ui.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
