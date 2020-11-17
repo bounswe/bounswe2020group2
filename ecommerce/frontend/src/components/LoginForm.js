@@ -2,7 +2,7 @@ import './LoginForm.less'
 import { Form, Input, Button } from 'antd'
 import { Link } from 'react-router-dom'
 
-export const LoginForm = ({ onSubmit = () => { } }) => {
+export const LoginForm = ({ onSubmit = () => {} }) => {
     const [form] = Form.useForm()
 
     const onFinish = values => {
@@ -31,14 +31,14 @@ export const LoginForm = ({ onSubmit = () => { } }) => {
         },
         wrapperCol: {
             span: 16,
-        }
-    };
+        },
+    }
     const tailLayout = {
         wrapperCol: {
             offset: 8,
             span: 16,
-        }
-    };
+        },
+    }
 
     // TO DO ln: 96
     // Implement Google Login
@@ -52,7 +52,6 @@ export const LoginForm = ({ onSubmit = () => { } }) => {
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 scrollToFirstError>
-
                 {/* Email input */}
                 <Form.Item
                     name="email"
