@@ -2,6 +2,7 @@ package com.example.getflix.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.example.getflix.models.SubcategoryModel
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup
 
 
