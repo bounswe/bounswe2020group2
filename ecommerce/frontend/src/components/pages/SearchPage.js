@@ -4,6 +4,7 @@ import { useAppContext } from '../../context/AppContext'
 import { Button, Form, Select, Slider, Rate } from 'antd'
 import { categories, productSortBy, subcategories, brands, vendors } from '../../utils'
 import { useState } from 'react'
+import { ProductCard } from '../product_card/ProductCard'
 
 const formItemLayout = {
     labelCol: {
@@ -42,7 +43,36 @@ export const SearchPage = () => {
             <div className="search-page-side-panel">
                 <SearchSidePanel />
             </div>
-            <div>there</div>
+            <div className="search-page-results">
+                <SearchResults />
+            </div>
+        </div>
+    )
+}
+
+export const SearchResults = () => {
+    const p = {
+        title: 'Title',
+        rating: '5',
+        price: '30.00',
+        currency: 'TL',
+        imageUrl: 'https://picsum.photos/300',
+        width: 300,
+        productId: 'product-id',
+    }
+    return (
+        <div className="product-grid">
+            <ProductCard product={p} />
+            <ProductCard product={p} />
+            <ProductCard product={p} />
+            <ProductCard product={p} />
+            <ProductCard product={p} />
+            <ProductCard product={p} />
+            <ProductCard product={p} />
+            <ProductCard product={p} />
+            <ProductCard product={p} />
+            <ProductCard product={p} />
+            <ProductCard product={p} />
         </div>
     )
 }
