@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentFavoritesBinding
 import com.example.getflix.model.ProductModel
-import com.example.getflix.ui.adapter.FavoritesAdapter
+import com.example.getflix.ui.adapters.FavoritesAdapter
 
 
 class FavoritesFragment : Fragment() {

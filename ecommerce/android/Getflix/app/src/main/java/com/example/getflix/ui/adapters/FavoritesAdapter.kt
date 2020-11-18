@@ -1,13 +1,10 @@
-package com.example.getflix.ui.adapter
+package com.example.getflix.ui.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.getflix.R
 import com.example.getflix.databinding.FavproductLayoutBinding
-import com.example.getflix.model.ProductModel
-import kotlinx.android.synthetic.main.favproduct_layout.view.*
+import com.example.getflix.models.ProductModel
 
 class FavoritesAdapter(
     private val productList: ArrayList<ProductModel>?,

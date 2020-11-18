@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.activities.productDetailActivity
 
-class cartFragmentAdapter : RecyclerView.Adapter<cartFragmentAdapter.ViewHolder>() {
+class CartAdapter : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
     private val name = arrayOf("T-Shirt",
         "Skirt", "Sweater", "Jean",

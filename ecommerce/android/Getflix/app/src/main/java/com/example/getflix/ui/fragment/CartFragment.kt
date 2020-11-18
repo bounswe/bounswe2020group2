@@ -9,8 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentCartBinding
-import com.example.getflix.databinding.FragmentCategoriesBinding
-import com.example.getflix.ui.adapters.cartFragmentAdapter
+import com.example.getflix.ui.adapters.CartAdapter
 import kotlinx.android.synthetic.main.fragment_cart.*
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -39,7 +38,7 @@ class CartFragment : Fragment() {
             // RecyclerView behavior
             layoutManager = LinearLayoutManager(activity)
             // set the custom adapter to the RecyclerView
-            adapter = cartFragmentAdapter()
+            adapter = CartAdapter()
         }
     }
 
