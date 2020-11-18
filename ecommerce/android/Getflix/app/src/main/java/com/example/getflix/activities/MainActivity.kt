@@ -13,6 +13,16 @@ import com.example.getflix.ui.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    // static boolean variable to check the type of the user
+    // can be accessed like StaticData.isVisitor, can be used in other classes
+    object StaticData {
+        var isVisitor = false
+        var isCustomer = false
+        var isVendor = false
+        var isAdmin = false
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
