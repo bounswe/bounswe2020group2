@@ -18,11 +18,11 @@ class ProductAdapter :
     }
 
     private fun ViewHolder.bind(product: ProductModel) {
-        System.out.println(product.name)
+       // System.out.println(product.name)
 
         binding.product = product
-        binding.brand.text = product.brandId.toString()
-        binding.price.text = product.price.toString()
+       // binding.brand.text = product.brandId.toString()
+       // binding.price.text = product.price.toString()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

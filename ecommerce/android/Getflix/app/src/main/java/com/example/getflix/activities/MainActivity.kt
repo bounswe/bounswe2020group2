@@ -12,11 +12,6 @@ import com.example.getflix.ui.fragment.ProfileFragment
 
 import com.example.getflix.ui.fragment.*
 
-import com.example.getflix.R
-import com.example.getflix.ui.fragment.CartFragment
-import com.example.getflix.ui.fragment.CategoriesFragment
-import com.example.getflix.ui.fragment.HomePageFragment
-import com.example.getflix.ui.fragment.ProfileFragment
 
 import kotlinx.android.synthetic.main.activity_main.*
 
