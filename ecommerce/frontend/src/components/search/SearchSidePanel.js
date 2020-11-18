@@ -91,7 +91,7 @@ export const SearchSidePanel = ({ initialValues = {}, onSubmit = () => {} }) => 
             <Form.Item name="priceRange" label="Price range">
                 <Slider range />
             </Form.Item>
-            <Form.Item name="avgCustomerReview" label="Rating">
+            <Form.Item name="rating" label="Rating">
                 <Rate allowHalf allowClear />
             </Form.Item>
 

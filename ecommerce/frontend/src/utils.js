@@ -65,3 +65,7 @@ export const brands = {
     nike: 'Nike',
     polar: 'Polar',
 }
+
+export function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+}
