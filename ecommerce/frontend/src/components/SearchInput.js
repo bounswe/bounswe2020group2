@@ -16,7 +16,7 @@ const categories = [
     { key: 'womens_fashion', title: "Women's Fashion" },
 ]
 
-export const SearchInput = ({ width = 120, onSearch = () => {} }) => {
+export const SearchInput = ({ width = 120, initialValue, onSearch = () => {} }) => {
     const [category, setCategory] = useState('Electronics')
 
     function handleCategoryChange(value) {
@@ -38,6 +38,7 @@ export const SearchInput = ({ width = 120, onSearch = () => {} }) => {
             {categoryDropdown}
             <Search
                 placeholder="Search for products, categories and brands"
+                defaultValue={initialValue}
                 onSearch={value => {
                     if (value.trim() === '') {
                         return
