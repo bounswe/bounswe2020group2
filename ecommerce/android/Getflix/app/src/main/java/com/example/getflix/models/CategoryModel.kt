@@ -1,4 +1,4 @@
-package com.example.getflix.model
+package com.example.getflix.models
 
 import android.os.Parcel
 import android.os.Parcelable
