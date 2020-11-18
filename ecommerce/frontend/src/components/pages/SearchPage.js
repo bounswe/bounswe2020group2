@@ -36,7 +36,7 @@ export const _SearchPage = ({ initialValues = {} }) => {
 
     const history = useHistory()
 
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     const [products, setProducts] = useState([])
 
     useEffect(() => {
