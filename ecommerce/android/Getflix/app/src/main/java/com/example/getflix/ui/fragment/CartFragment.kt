@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentCartBinding
+import com.example.getflix.models.ProductModel
 import com.example.getflix.ui.adapters.CartAdapter
+import com.example.getflix.ui.adapters.FavoritesAdapter
 import kotlinx.android.synthetic.main.fragment_cart.*
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -28,19 +31,19 @@ class CartFragment : Fragment() {
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.cart)
 
+        val recView = binding?.cartList as RecyclerView
+        val products = arrayListOf(
+            ProductModel(1,"iPhone","Electronics",null,null,null),
+            ProductModel(1,"Bag","Electronics",null,null,null)
+        )
+        val productListAdapter = CartAdapter(products)
+        recView.adapter = productListAdapter
+        recView.setHasFixedSize(true)
+
         return binding.root
     }
 
-    override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(itemView, savedInstanceState)
-        recycler_view.apply {
-            // set a LinearLayoutManager to handle Android
-            // RecyclerView behavior
-            layoutManager = LinearLayoutManager(activity)
-            // set the custom adapter to the RecyclerView
-            adapter = CartAdapter()
-        }
-    }
+
 
 
 }
