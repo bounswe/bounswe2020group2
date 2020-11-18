@@ -26,19 +26,19 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder
         }
 
         override fun onBindChildViewHolder(
-                holder: SubCategoryViewHolder?,
-                flatPosition: Int,
-                group: ExpandableGroup<*>?,
-                childIndex: Int
+            holder: SubCategoryViewHolder?,
+            flatPosition: Int,
+            group: ExpandableGroup<*>?,
+            childIndex: Int
         ) {
             val subCat: SubcategoryModel = group?.items?.get(childIndex) as SubcategoryModel
             holder?.bind(subCat)
         }
 
         override fun onBindGroupViewHolder(
-                holder: CategoryViewHolder?,
-                flatPosition: Int,
-                group: ExpandableGroup<*>?
+            holder: CategoryViewHolder?,
+            flatPosition: Int,
+            group: ExpandableGroup<*>?
         ) {
             val continent: CategoryModel = group as CategoryModel
             holder?.bind(continent)

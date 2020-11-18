@@ -1,5 +1,6 @@
 package com.example.getflix.models
 
+
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
@@ -13,3 +14,4 @@ data class ProductModel(
     var brandId: String?,
     var description: String?
 ) : Parcelable
+
