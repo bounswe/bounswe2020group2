@@ -52,13 +52,14 @@ export const subcategories = {
     },
 }
 
-// TODO: stupid names of vendors, wont be used
+// TODO: stupid names of vendors, wont be used, only for testing
 export const vendors = {
     mavi: 'Mavi',
     hi5: 'Hi5',
     mosaic: 'Mosaic',
 }
 
+// TODO: stupid names of brands, wont be used, only for testing
 export const brands = {
     adidas: 'Adidas',
     nike: 'Nike',
