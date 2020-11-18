@@ -12,10 +12,9 @@ import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder
 import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder
 
-    class CategoriesAdapter(groups: List<ExpandableGroup<*>>?) :
-        ExpandableRecyclerViewAdapter<CategoryViewHolder, SubCategoryViewHolder>(
-                groups
-        ) {
+class CategoriesAdapter(groups: List<ExpandableGroup<*>>?) :
+        ExpandableRecyclerViewAdapter<CategoryViewHolder, SubCategoryViewHolder>(groups) {
+
 
         override fun onCreateGroupViewHolder(parent: ViewGroup?, viewType: Int): CategoryViewHolder {
             return CategoryViewHolder.from(parent!!)
@@ -85,6 +84,8 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder
         }
 
     }
+
+
 
 
 
