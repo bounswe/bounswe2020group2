@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentLoginBinding
 import com.example.getflix.ui.fragment.LoginFragmentDirections.Companion.actionLoginFragmentToHomePageFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class LoginFragment : Fragment() {
@@ -20,7 +21,9 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentLoginBinding>(inflater,R.layout.fragment_login,
-        container,false)
+            container,false)
+
+        activity?.toolbar!!.visibility = View.GONE
 
         binding.loginButton.setOnClickListener {
             view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
@@ -31,4 +34,3 @@ class LoginFragment : Fragment() {
 
 
 }
-

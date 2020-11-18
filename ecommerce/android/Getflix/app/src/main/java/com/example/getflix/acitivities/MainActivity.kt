@@ -8,6 +8,8 @@ import com.example.getflix.ui.fragment.CartFragment
 import com.example.getflix.ui.fragment.CategoriesFragment
 import com.example.getflix.ui.fragment.HomePageFragment
 import com.example.getflix.ui.fragment.ProfileFragment
+
+import com.example.getflix.ui.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         val profileFragment = ProfileFragment()
         val categoriesFragment = CategoriesFragment()
         val cartFragment = CartFragment()
+        val favoritesFragment = FavoritesFragment()
 
         bottom_nav.setOnNavigationItemSelectedListener {
             when(it.itemId) {
@@ -26,6 +29,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.ic_profile -> makeCurrentFragment(profileFragment)
                 R.id.ic_categories -> makeCurrentFragment(categoriesFragment)
                 R.id.ic_cart -> makeCurrentFragment(cartFragment)
+                R.id.ic_favorites -> makeCurrentFragment(favoritesFragment)
             }
             true
         }

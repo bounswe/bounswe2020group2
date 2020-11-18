@@ -13,6 +13,9 @@ import com.example.getflix.databinding.FragmentCategoriesBinding
 import com.example.getflix.ui.adapters.cartFragmentAdapter
 import kotlinx.android.synthetic.main.fragment_cart.*
 
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
+
 
 class CartFragment : Fragment() {
 
@@ -23,6 +26,8 @@ class CartFragment : Fragment() {
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentCartBinding>(inflater,R.layout.fragment_cart,
             container,false)
+
+        activity?.toolbar!!.toolbar_title.text = getString(R.string.cart)
 
         return binding.root
     }
