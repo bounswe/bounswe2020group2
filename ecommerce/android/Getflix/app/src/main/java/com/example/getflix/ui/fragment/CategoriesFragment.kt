@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentCategoriesBinding
 import com.thoughtbot.expandablerecyclerview.listeners.OnGroupClickListener
-/* import com.example.getflix.model.CategoryModel
-import com.example.getflix.model.SubcategoryModel
+/* import com.example.getflix.models.CategoryModel
+import com.example.getflix.models.SubcategoryModel
 import com.example.getflix.ui.adapter.CategoriesAdapter
 import com.thoughtbot.expandablerecyclerview.listeners.OnGroupClickListener
 import kotlinx.android.synthetic.main.activity_main.*

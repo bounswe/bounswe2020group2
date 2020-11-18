@@ -1,4 +1,4 @@
-package com.example.getflix.acitivities
+package com.example.getflix.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

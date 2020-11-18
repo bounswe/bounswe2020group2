@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
-import com.example.getflix.acitivities.productDetailActivity
+import com.example.getflix.activities.productDetailActivity
 
 class cartFragmentAdapter : RecyclerView.Adapter<cartFragmentAdapter.ViewHolder>() {
 
