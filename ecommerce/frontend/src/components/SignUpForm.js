@@ -1,13 +1,8 @@
-import {
-    loadCaptchaEnginge,
-    LoadCanvasTemplate,
-    validateCaptcha,
-} from 'react-simple-captcha'
-import { Form, Input, Button, Radio, Tooltip, Row, Col, Checkbox, InputNumber, Modal,} from 'antd'
+import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha'
+import { Form, Input, Button, Radio, Tooltip, Row, Col, Checkbox, InputNumber, Modal } from 'antd'
 import { useEffect, useState } from 'react'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 import { TermsAndConditions } from './TermsAndConditions'
-
 
 // Constants for layout
 const formItemLayout = {
@@ -41,9 +36,9 @@ const tailFormItemLayout = {
     },
 }
 
-export const SignUpForm = ({ onSubmit = () => { } }) => {
+export const SignUpForm = ({ onSubmit = () => {} }) => {
     const [form] = Form.useForm()
-    const initialValues = { userType: 'customer',}
+    const initialValues = { userType: 'customer' }
     const [isVendor, setIsVendor] = useState(initialValues.userType === 'vendor')
     const [userAgreementVisible, setUserAgreementVisible] = useState(false)
     const [userAgreementAccepted, setUserAgreementAccepted] = useState(false)
@@ -64,17 +59,16 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
     }
 
     const onModalAgreementAccept = () => {
-        setUserAgreementVisible(false); 
-        form.setFieldsValue({agreement: true})
+        setUserAgreementVisible(false)
+        form.setFieldsValue({ agreement: true })
         setUserAgreementAccepted(true)
-        console.log("accept")
+        console.log('accept')
     }
     const onModalAgreementReject = () => {
-        setUserAgreementVisible(false);
-        form.setFieldsValue({agreement: false})
+        setUserAgreementVisible(false)
+        form.setFieldsValue({ agreement: false })
         setUserAgreementAccepted(false)
-        console.log("reject")
-
+        console.log('reject')
     }
     const onUserTypeChange = ({ target: { value: userType } }) => setIsVendor(userType === 'vendor')
     return (
@@ -86,7 +80,6 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
             onFinishFailed={onFinishFailed}
             initialValues={initialValues}
             scrollToFirstError>
-
             {/* User type selection */}
             <Form.Item
                 name="userType"
@@ -281,9 +274,11 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
                             {
                                 message: 'Wrong country code format',
                                 validator: (rule, val) => {
-                                    if(!val) return Promise.resolve(true)
-                                    return /\+\d{1,3}/.test(val) ? Promise.resolve(true) : Promise.reject("Country code format is incorrect!")
-                                }
+                                    if (!val) return Promise.resolve(true)
+                                    return /\+\d{1,3}/.test(val)
+                                        ? Promise.resolve(true)
+                                        : Promise.reject('Country code format is incorrect!')
+                                },
                             },
                         ]}>
                         <Input style={{ width: '20%' }} placeholder="+90" />
@@ -296,10 +291,11 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
                             {
                                 message: 'Wrong phone number format',
                                 validator: (rule, val) => {
-                                    if(!val) return Promise.resolve(true)
-                                    return /\d{4,}/.test(val) ? Promise.resolve(true) : Promise.reject("Phone number format is incorrect!")
-                                }
-                                    
+                                    if (!val) return Promise.resolve(true)
+                                    return /\d{4,}/.test(val)
+                                        ? Promise.resolve(true)
+                                        : Promise.reject('Phone number format is incorrect!')
+                                },
                             },
                         ]}>
                         <InputNumber style={{ width: '80%' }} />
@@ -319,12 +315,13 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
                                     message: 'Please input the captcha you got!',
                                 },
                                 {
-                                    message: 'Wrong captcha', 
+                                    message: 'Wrong captcha',
                                     validator: (rule, val) => {
-                                        if(!val) return Promise.resolve(true)
-                                        return validateCaptcha(val, false) ? Promise.resolve(true) : Promise.reject("Captcha is incorrect!")
-                                        
-                                    }
+                                        if (!val) return Promise.resolve(true)
+                                        return validateCaptcha(val, false)
+                                            ? Promise.resolve(true)
+                                            : Promise.reject('Captcha is incorrect!')
+                                    },
                                 },
                             ]}
                             hasFeedback>
@@ -338,8 +335,7 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
             </Form.Item>
 
             {/* Checkbox for the user agreement */}
-            <Form.Item
-                {...tailFormItemLayout}>
+            <Form.Item {...tailFormItemLayout}>
                 <Form.Item
                     name="agreement"
                     valuePropName="checked"
@@ -351,29 +347,27 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
                     ]}>
                     <Checkbox checked={userAgreementAccepted}>
                         I have read the &nbsp;
-                        <Button type="dashed"  onClick={() => setUserAgreementVisible(true)}> 
+                        <Button type="dashed" onClick={() => setUserAgreementVisible(true)}>
                             User Agreement
-                        </Button>   
+                        </Button>
                     </Checkbox>
                 </Form.Item>
-                
-                
+
                 <Modal
                     visible={userAgreementVisible}
                     title="User Agreement"
                     onOk={onModalAgreementAccept}
                     onCancel={onModalAgreementReject}
-                    bodyStyle={{height: 500}}
+                    bodyStyle={{ height: 500 }}
                     footer={[
-                <Button key="back" type="primary" onClick={onModalAgreementReject}>
-                    I reject
-                </Button>,
-                <Button key="submit" type="primary" onClick={onModalAgreementAccept}>
-                    I accept
-                </Button>,
-                ]}
-                >
-                <TermsAndConditions />
+                        <Button key="back" type="primary" onClick={onModalAgreementReject}>
+                            I reject
+                        </Button>,
+                        <Button key="submit" type="primary" onClick={onModalAgreementAccept}>
+                            I accept
+                        </Button>,
+                    ]}>
+                    <TermsAndConditions />
                 </Modal>
             </Form.Item>
 
@@ -382,10 +376,6 @@ export const SignUpForm = ({ onSubmit = () => { } }) => {
                     Register
                 </Button>
             </Form.Item>
-            
-        </Form> 
-    
-
-
+        </Form>
     )
 }
