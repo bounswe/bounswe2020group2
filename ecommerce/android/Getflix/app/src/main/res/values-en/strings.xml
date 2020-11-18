@@ -7,6 +7,8 @@
     <string name="categories">Categories</string>
     <string name="profile">Profile</string>
     <string name="cart">Cart</string>
+    <string name="favorites">Favorites</string>
+    <string name="add_to_cart">Add to Cart</string>
     <string name="category_pet">Pet Suppliances</string>
     <string name="category_woman">Woman</string>
     <string name="category_man">Man</string>
