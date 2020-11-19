@@ -19,4 +19,16 @@
             android:id="@+id/action_loginFragment_to_homePageFragment"
             app:destination="@id/homePageFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.example.getflix.ui.fragment.CategoriesFragment"
+        android:label="CategoriesFragment" >
+        <action
+            android:id="@+id/action_categoriesFragment_to_subcategoryFragment"
+            app:destination="@id/subcategoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/subcategoryFragment"
+        android:name="com.example.getflix.ui.fragment.SubcategoryFragment"
+        android:label="SubcategoryFragment" />
 </navigation>

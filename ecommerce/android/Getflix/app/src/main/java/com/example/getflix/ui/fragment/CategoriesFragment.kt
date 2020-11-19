@@ -7,14 +7,16 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentCategoriesBinding
 import com.example.getflix.models.CategoryModel
 import com.example.getflix.models.SubcategoryModel
 import com.example.getflix.ui.adapters.CategoriesAdapter
-import com.example.getflix.ui.viewmodels.CartViewModel
+import com.example.getflix.ui.fragment.CategoriesFragmentDirections.Companion.actionCategoriesFragmentToSubcategoryFragment
 import com.example.getflix.ui.viewmodels.CategoriesViewModel
-import com.example.getflix.ui.viewmodels.FavoritesViewModel
+
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
@@ -58,15 +60,27 @@ class CategoriesFragment : Fragment() {
 
         viewModel.categoriesList.observe(viewLifecycleOwner, {
             it?.let {
-                adapter = CategoriesAdapter(it)
+                adapter = CategoriesAdapter(it, this)
                 binding.catRec.adapter = adapter
             }
         })
 
 
+
+
         return binding.root
     }
 
+    fun navigateSub() {
+        val subf = SubcategoryFragment()
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            replace(R.id.my_nav_host_fragment,subf)
+            addToBackStack("")
+            commit()
+        }
+        //view?.findNavController()?.navigate(actionCategoriesFragmentToSubcategoryFragment())
+        //NavHostFragment.findNavController(this).navigate(R.id.action_categoriesFragment_to_subcategoryFragment)
+    }
 
 
 
