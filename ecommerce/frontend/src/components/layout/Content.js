@@ -16,8 +16,8 @@ export const Content = () => {
                 <Route path="/signup">
                     <SignupPage />
                 </Route>
-                <Route path="/search">
-                    <SearchPage />
+                <Route path="/search/product">
+                    <SearchPage type={'product'} />
                 </Route>
                 <Route path="/">
                     <HomePage />

@@ -30,7 +30,11 @@ export const SearchPage = () => {
     return <_SearchPage key={location.search} initialValues={initialValues} />
 }
 
-export const _SearchPage = ({ initialValues = {} }) => {
+export const _SearchPage = ({ type = 'product', initialValues = {} }) => {
+    if (type !== 'product') {
+        throw Error('Search page for other than /search/products is NOT implemented!')
+    }
+
     const defaultPageSize = 10
     const values = {
         query: initialValues.query,
