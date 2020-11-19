@@ -17,12 +17,18 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
         get() = _displayedCategory
 
     fun setCategory(categoryId: Int) {
-        var b = ProductModel(1, "jn", "km", 22.toFloat(), "skds", "lkslkd")
-        var a = listOf<ProductModel>(b)
-        var subcategoryModel1 = SubcategoryModel(1, 2, "Computers", a)
-        var subcategoryModel2 = SubcategoryModel(2, 2, "Mobile Phones", a)
+        var zaraJacket1 = ProductModel(1, "Jacket", "Woman", 322.99.toFloat(), "Zara", "Beige jacket")
+        var zaraJacket2 = ProductModel(2, "Jacket", "Woman", 322.99.toFloat(), "Zara", "White jacket")
+        var zaraJacket3 = ProductModel(3, "Jacket", "Woman", 322.99.toFloat(), "Zara", "Black jacket")
+        var jackets = listOf<ProductModel>(zaraJacket1, zaraJacket2, zaraJacket3)
+        var subcategoryModel2 = SubcategoryModel(1, 1, "Jackets", jackets)
+        var zaraSkirt1 = ProductModel(4, "Skirt", "Woman", 322.99.toFloat(), "Zara", "Leather skirt")
+        var zaraSkirt2 = ProductModel(5, "Skirt", "Woman", 322.99.toFloat(), "Zara", "Mini skirt in gray")
+        var zaraSkirt3 = ProductModel(6, "Skirt", "Woman", 322.99.toFloat(), "Zara", "Mini skirt in mono")
+        var skirts = listOf<ProductModel>(zaraSkirt1, zaraSkirt2, zaraSkirt3)
+        var subcategoryModel1 = SubcategoryModel(2, 1, "Skirts", skirts)
         var subcategories = listOf<SubcategoryModel>(subcategoryModel1, subcategoryModel2)
-        var categoryModel = CategoryModel(1, "Electronics", subcategories)
+        var categoryModel = CategoryModel(1, "Woman", subcategories)
         _displayedCategory.value = categoryModel
     }
 
