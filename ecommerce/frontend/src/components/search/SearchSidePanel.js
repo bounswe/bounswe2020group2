@@ -4,6 +4,7 @@ import { Button, Form, Rate, Select, Slider } from 'antd'
 import { useState } from 'react'
 
 import { brands, categories, productSortBy, subcategories, vendors } from '../../utils'
+import ButtonGroup from 'antd/lib/button/button-group'
 
 const formItemLayout = {
     labelCol: {
@@ -48,6 +49,9 @@ export const SearchSidePanel = ({ initialValues = {}, onSubmit = () => {} }) => 
     const onFinish = values => {
         console.log('Search side panel form:', values)
         onSubmit(values)
+    }
+    const onResetClick = () => {
+        form.resetFields()
     }
 
     return (
@@ -105,9 +109,14 @@ export const SearchSidePanel = ({ initialValues = {}, onSubmit = () => {} }) => 
                 </Select>
             </Form.Item>
             <Form.Item {...tailFormItemLayout}>
-                <Button type="primary" htmlType="submit">
-                    Submit
-                </Button>
+                <ButtonGroup>
+                    <Button type="link" htmlType="button" onClick={onResetClick}>
+                        Reset
+                    </Button>
+                    <Button type="primary" htmlType="submit">
+                        Submit
+                    </Button>
+                </ButtonGroup>
             </Form.Item>
         </Form>
     )
