@@ -1,4 +1,4 @@
-package com.example.getflix.ui.adapters
+package com.example.getflix.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -21,7 +21,7 @@ class ProductAdapter :
     private fun ViewHolder.bind(product: ProductModel) {
         System.out.println(product.name)
         binding.product = product
-        binding.productPrice.text = product.price.toString()
+        binding.productPrice.text = product.price.toString() + "$"
         binding.productImage.setImageResource(getProductImage(product.id))
     }
 
