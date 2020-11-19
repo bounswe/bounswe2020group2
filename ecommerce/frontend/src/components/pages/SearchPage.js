@@ -36,9 +36,10 @@ export const _SearchPage = ({ type = 'product', initialValues = {} }) => {
     }
 
     const defaultPageSize = 10
+    
     const values = {
         query: initialValues.query,
-        filters: R.omit('query', initialValues),
+        filters: R.omit(['query', 'current', 'pageSize'], initialValues),
         pagination: {
             pageSize: defaultPageSize,
             ...R.pick(['current', 'pageSize'], initialValues),
@@ -87,7 +88,7 @@ export const _SearchPage = ({ type = 'product', initialValues = {} }) => {
 
     const refreshSearchWith = queryParams => {
         history.push({
-            pathname: '/search',
+            pathname: history.location.pathname,
             search:
                 '?' +
                 qs.stringify(
@@ -98,34 +99,32 @@ export const _SearchPage = ({ type = 'product', initialValues = {} }) => {
     }
 
     const onSubmitFilters = filters => refreshSearchWith({ ...values, filters })
-    const onSearch = query => refreshSearchWith({ ...values, query })
+    const onSearch = query => refreshSearchWith({query, filters: {}, pagination: {pageSize: values.pagination.pageSize}})
     const onPaginationChanged = (current, pageSize) =>
         refreshSearchWith({ ...values, pagination: { ...values.pagination, current, pageSize } })
 
     return (
-        <Form.Provider onFormFinish={console.log}>
-            <div className={'search-page'}>
-                <div className="search-page-bar">
-                    <SearchInput initialValue={values.query} onSearch={onSearch} />
+        <div className={'search-page'}>
+            <div className="search-page-bar">
+                <SearchInput initialValue={values.query} onSearch={onSearch} />
+            </div>
+            <div className="search-page-main">
+                <div className="search-page-side-panel">
+                    <SearchSidePanel initialValues={values.filters} onSubmit={onSubmitFilters} />
                 </div>
-                <div className="search-page-main">
-                    <div className="search-page-side-panel">
-                        <SearchSidePanel initialValues={values.filters} onSubmit={onSubmitFilters} />
-                    </div>
-                    <div className="search-page-results">
-                        <Spin spinning={isLoading}>
-                            <SearchResults
-                                products={products}
-                                pagination={{
-                                    ...values.pagination,
-                                    total,
-                                }}
-                                onPaginationChanged={onPaginationChanged}
-                            />
-                        </Spin>
-                    </div>
+                <div className="search-page-results">
+                    <Spin spinning={isLoading}>
+                        <SearchResults
+                            products={products}
+                            pagination={{
+                                ...values.pagination,
+                                total,
+                            }}
+                            onPaginationChanged={onPaginationChanged}
+                        />
+                    </Spin>
                 </div>
             </div>
-        </Form.Provider>
+        </div>
     )
 }
