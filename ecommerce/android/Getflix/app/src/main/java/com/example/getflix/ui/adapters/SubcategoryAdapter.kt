@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.getflix.adapters.ProductAdapter
 import com.example.getflix.databinding.FragmentSubcategoryBinding
 import com.example.getflix.models.SubcategoryModel
 
 class SubcategoryAdapter(private var context: Context) :
-        ListAdapter<SubcategoryModel, SubcategoryAdapter.ViewHolder>(SubcategoryDiffCallback()) {
+    ListAdapter<SubcategoryModel, SubcategoryAdapter.ViewHolder>(SubcategoryDiffCallback()) {
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -24,7 +25,8 @@ class SubcategoryAdapter(private var context: Context) :
         val productAdapter = ProductAdapter()
         binding.subcategory = subcategoryModel
         binding.productList.adapter = productAdapter
-        binding.productList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.productList.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         productAdapter.submitList(subcategoryModel.products)
     }
 
@@ -33,7 +35,7 @@ class SubcategoryAdapter(private var context: Context) :
     }
 
     class ViewHolder private constructor(val binding: FragmentSubcategoryBinding) :
-            RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root) {
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
