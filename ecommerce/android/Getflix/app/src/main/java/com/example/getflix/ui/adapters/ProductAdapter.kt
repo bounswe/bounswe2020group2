@@ -5,7 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.getflix.databinding.ProductCardBinding
+import com.example.getflix.databinding.CardProductBinding
+import com.example.getflix.getProductImage
 import com.example.getflix.models.ProductModel
 
 class ProductAdapter :
@@ -18,23 +19,22 @@ class ProductAdapter :
     }
 
     private fun ViewHolder.bind(product: ProductModel) {
-       // System.out.println(product.name)
-
+        System.out.println(product.name)
         binding.product = product
-       // binding.brand.text = product.brandId.toString()
-       // binding.price.text = product.price.toString()
+        binding.productPrice.text = product.price.toString()
+        binding.productImage.setImageResource(getProductImage(product.id))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: ProductCardBinding) :
+    class ViewHolder private constructor(val binding: CardProductBinding) :
             RecyclerView.ViewHolder(binding.root) {
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ProductCardBinding.inflate(layoutInflater, parent, false)
+                val binding = CardProductBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }
