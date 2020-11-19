@@ -6,11 +6,12 @@ import { SearchResults } from '../search/SearchResults'
 import { useHistory, useLocation } from 'react-router-dom'
 import qs from 'query-string'
 import { useEffect, useState } from 'react'
-import { sleep } from '../../utils'
+import { subcategories, categories, sleep } from '../../utils'
 import Axios from 'axios'
 import { notification, Spin, Form } from 'antd'
 import uuidv4 from 'uuid/dist/v4'
 import * as R from 'ramda'
+import { Helmet } from 'react-helmet'
 
 /**
  * This is a wrapper around the real _SearchPage component
@@ -36,7 +37,7 @@ export const _SearchPage = ({ type = 'product', initialValues = {} }) => {
     }
 
     const defaultPageSize = 10
-    
+
     const values = {
         query: initialValues.query,
         filters: R.omit(['query', 'current', 'pageSize'], initialValues),
@@ -99,32 +100,51 @@ export const _SearchPage = ({ type = 'product', initialValues = {} }) => {
     }
 
     const onSubmitFilters = filters => refreshSearchWith({ ...values, filters })
-    const onSearch = query => refreshSearchWith({query, filters: {}, pagination: {pageSize: values.pagination.pageSize}})
+    const onSearch = query =>
+        refreshSearchWith({ query, filters: {}, pagination: { pageSize: values.pagination.pageSize } })
     const onPaginationChanged = (current, pageSize) =>
         refreshSearchWith({ ...values, pagination: { ...values.pagination, current, pageSize } })
 
+    const getTitle = values => {
+        const query = values.query
+        const category = values.filters.category && categories[values.filters.category]
+        const subcategory =
+            values.filters.category &&
+            values.filters.subcategory &&
+            subcategories[values.filters.category][values.filters.subcategory]
+
+        const prefix = query ?? subcategory ?? category ?? 'All'
+
+        return `${prefix} ${type}s - Getflix`
+    }
+
     return (
-        <div className={'search-page'}>
-            <div className="search-page-bar">
-                <SearchInput initialValue={values.query} onSearch={onSearch} />
-            </div>
-            <div className="search-page-main">
-                <div className="search-page-side-panel">
-                    <SearchSidePanel initialValues={values.filters} onSubmit={onSubmitFilters} />
+        <>
+            <Helmet>
+                <title>{getTitle(values)}</title>
+            </Helmet>
+            <div className={'search-page'}>
+                <div className="search-page-bar">
+                    <SearchInput initialValue={values.query} onSearch={onSearch} />
                 </div>
-                <div className="search-page-results">
-                    <Spin spinning={isLoading}>
-                        <SearchResults
-                            products={products}
-                            pagination={{
-                                ...values.pagination,
-                                total,
-                            }}
-                            onPaginationChanged={onPaginationChanged}
-                        />
-                    </Spin>
+                <div className="search-page-main">
+                    <div className="search-page-side-panel">
+                        <SearchSidePanel initialValues={values.filters} onSubmit={onSubmitFilters} />
+                    </div>
+                    <div className="search-page-results">
+                        <Spin spinning={isLoading}>
+                            <SearchResults
+                                products={products}
+                                pagination={{
+                                    ...values.pagination,
+                                    total,
+                                }}
+                                onPaginationChanged={onPaginationChanged}
+                            />
+                        </Spin>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
