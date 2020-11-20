@@ -46,5 +46,9 @@ const HomePage_MainContent = () => {
         "https://images.unsplash.com/photo-1526947425960-945c6e72858f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
         "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQwCP24CO6WEGAUhkfVg4ozqfeve3pvkhEEZg&usqp=CAU"
     ]
-    return <TrendingGrid imageUrls={images} />
+    return ( 
+        <div className="trending-grid-wrapper">
+            <TrendingGrid imageUrls={images} />
+        </div>
+    )
 }
