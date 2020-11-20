@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 import { TermsAndConditions } from './TermsAndConditions'
 
-// Constants for layout
 const formItemLayout = {
     labelCol: {
         xs: {

@@ -4,6 +4,7 @@ import { Layout } from 'antd'
 import { LoginPage } from '../pages/LoginPage'
 import { SignupPage } from '../pages/SignupPage'
 import { HomePage } from '../pages/HomePage'
+import { ShoppingCart } from '../ShoppingCart/ShoppingCart'
 
 export const Content = () => {
     return (
@@ -14,6 +15,9 @@ export const Content = () => {
                 </Route>
                 <Route path="/signup">
                     <SignupPage />
+                </Route>
+                <Route path="/shopping">
+                    <ShoppingCart />
                 </Route>
                 <Route path="/">
                     <HomePage />
