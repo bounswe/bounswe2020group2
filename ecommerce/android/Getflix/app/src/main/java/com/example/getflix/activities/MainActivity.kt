@@ -9,7 +9,10 @@ import com.example.getflix.ui.fragment.CategoriesFragment
 import com.example.getflix.ui.fragment.HomePageFragment
 import com.example.getflix.ui.fragment.ProfileFragment
 
+
 import com.example.getflix.ui.fragment.*
+
+
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
