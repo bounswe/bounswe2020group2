@@ -23,6 +23,9 @@ def add_shopping_cart_item(request, id):
     #     return Response("Invalid user")
 
     user = User.objects.filter(pk=int(id)).first()
+    if user is None:
+        return Response("Invalid user")
+    
     amount = serializer.validated_data.get("amount")
     productId = serializer.validated_data.get("productId")
     product = Product.objects.filter(pk=productId).first()
