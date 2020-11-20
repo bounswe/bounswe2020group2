@@ -13,6 +13,7 @@ export const ShoppingCart = ({ currency = 'TL', price = 5, cart }) => {
         setItemCount(newCount)
     }
 
+    // husky test change
     const tempProduct = {
         id: 1,
         title: 'Product Title',
