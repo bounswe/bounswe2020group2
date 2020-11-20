@@ -45,18 +45,18 @@ export const UpdateProfileForm = ({ onSubmit = () => {} }) => {
         email: 'furkan.varol@gmail.com',
         phone: {
             countryCode: '+4',
-            number: '8452391058'
-        }
+            number: '8452391058',
+        },
     }
 
     const onFinish = values => {
         values.userType = initialValues.userType
         if (isUpdateRequired(values)) {
             console.log('Received values of form: ', values)
-            console.log("Initial Values: ", initialValues)
+            console.log('Initial Values: ', initialValues)
             onSubmit(values)
         } else {
-            console.log("Nothing is changed")
+            console.log('Nothing is changed')
         }
     }
 
@@ -64,22 +64,23 @@ export const UpdateProfileForm = ({ onSubmit = () => {} }) => {
         console.log('Finish failed: ', errors)
     }
 
-    const isUpdateRequired = (newValues) => {
-        const keys = Object.keys(initialValues);
+    const isUpdateRequired = newValues => {
+        const keys = Object.keys(initialValues)
 
         for (let key of keys) {
-            if(key === 'phone') {
-                if (initialValues[key]['countryCode'] != newValues[key]['countryCode'] ||
-                    initialValues[key]['number'] != newValues[key]['number']) {
-                        return true
+            if (key === 'phone') {
+                if (
+                    initialValues[key]['countryCode'] != newValues[key]['countryCode'] ||
+                    initialValues[key]['number'] != newValues[key]['number']
+                ) {
+                    return true
                 }
                 continue
-            }
-            else if (initialValues[key] !== newValues[key]) {
-                return true;
+            } else if (initialValues[key] !== newValues[key]) {
+                return true
             }
         }
-        return false;
+        return false
     }
 
     return (
@@ -94,10 +95,9 @@ export const UpdateProfileForm = ({ onSubmit = () => {} }) => {
                 surname: initialValues.surname,
                 username: initialValues.username,
                 email: initialValues.email,
-                phone: initialValues.phone
+                phone: initialValues.phone,
             }}
             scrollToFirstError>
-
             {/* Name input */}
             <Form.Item
                 name="name"
@@ -165,7 +165,7 @@ export const UpdateProfileForm = ({ onSubmit = () => {} }) => {
             </Form.Item>
 
             {/* Zip code input */}
-            {initialValues.userType === "vendor" && (
+            {initialValues.userType === 'vendor' && (
                 <Form.Item
                     name={['address', 'zipCode']}
                     label="Zip Code"
@@ -180,7 +180,7 @@ export const UpdateProfileForm = ({ onSubmit = () => {} }) => {
             )}
 
             {/* City input */}
-            {initialValues.userType === "vendor" && (
+            {initialValues.userType === 'vendor' && (
                 <Form.Item
                     name={['address', 'city']}
                     label="City"
@@ -195,7 +195,7 @@ export const UpdateProfileForm = ({ onSubmit = () => {} }) => {
             )}
 
             {/* State input */}
-            {initialValues.userType === "vendor" && (
+            {initialValues.userType === 'vendor' && (
                 <Form.Item
                     name={['address', 'state']}
                     label="State"
@@ -210,7 +210,7 @@ export const UpdateProfileForm = ({ onSubmit = () => {} }) => {
             )}
 
             {/* Main address input */}
-            {initialValues.userType === "vendor" && (
+            {initialValues.userType === 'vendor' && (
                 <Form.Item
                     name={['address', 'mainAddress']}
                     label="Main Address"

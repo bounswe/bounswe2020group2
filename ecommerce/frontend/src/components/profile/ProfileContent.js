@@ -3,7 +3,5 @@ import { UpdateProfileForm } from '../UpdateProfileForm'
 import './ProfileContent.less'
 
 export const ProfileContent = () => {
-    return (
-        <UpdateProfileForm />
-    )
+    return <UpdateProfileForm />
 }

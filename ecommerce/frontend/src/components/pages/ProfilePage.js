@@ -15,15 +15,17 @@ export const ProfilePage = () => {
         email: 'furkan.varol@gmail.com',
         phone: {
             countryCode: '+4',
-            number: '8452391058'
-        }
+            number: '8452391058',
+        },
     }
     return (
         <div>
             <div className="logo-name-splash">
                 <img src={getflixLogo} className="splash-logo"></img>
                 <div className="splash-slogan">
-                    <h1>{user.name}&nbsp;&nbsp;{user.surname}</h1>
+                    <h1>
+                        {user.name}&nbsp;&nbsp;{user.surname}
+                    </h1>
                 </div>
             </div>
             <div className="profile-page-wrapper">
@@ -34,6 +36,6 @@ export const ProfilePage = () => {
                     <ProfileContent />
                 </div>
             </div>
-        </div> 
+        </div>
     )
 }
