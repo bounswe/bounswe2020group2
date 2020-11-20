@@ -1,23 +1,24 @@
 import './TrendingGrid.less'
+import { Link } from 'react-router-dom'
 
-export const TrendingGrid = ({ imageUrls = [] }) => {
+export const TrendingGrid = (trendingProducts) => {
+    var gallerytItemNumber = 0
+    function gallerytItemNo() {
+        gallerytItemNumber += 1
+        return gallerytItemNumber
+    }
+    const products = trendingProducts.trendingProducts
+    console.log(products)
+
     return (
         <div className="gallery">
-            <figure className="gallery__item gallery__item--1">
-                <img src={imageUrls[0]} className="gallery__img" alt="Image 1" />
-            </figure>
-            <figure className="gallery__item gallery__item--2">
-                <img src={imageUrls[1]} className="gallery__img" alt="Image 2" />
-            </figure>
-            <figure className="gallery__item gallery__item--3">
-                <img src={imageUrls[2]} className="gallery__img" alt="Image 3" />
-            </figure>
-            <figure className="gallery__item gallery__item--4">
-                <img src={imageUrls[3]} className="gallery__img" alt="Image 4" />
-            </figure>
-            <figure className="gallery__item gallery__item--5">
-                <img src={imageUrls[4]} className="gallery__img" alt="Image 5" />
-            </figure>
+            {products.map(product => (
+                    <figure className={"gallery__item gallery__item--".concat(gallerytItemNo())}>
+                        <Link to={"/product/" + product.productId}>
+                            <img src={product.imageUrl} className="gallery__img" alt="" />
+                        </Link>
+                    </figure>
+            ))}
         </div>
     )
 }
