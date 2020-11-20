@@ -39,7 +39,6 @@ const HomePage_Splash = () => {
 }
 
 const HomePage_MainContent = () => {
-
     const products = [
         {
             title: 'Purse',
@@ -73,15 +72,18 @@ const HomePage_MainContent = () => {
             rating: '5',
             price: '45.00',
             currency: 'TL',
-            imageUrl: 'https://images.unsplash.com/photo-1526947425960-945c6e72858f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
+            imageUrl:
+                'https://images.unsplash.com/photo-1526947425960-945c6e72858f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
             width: 300,
             productId: 4435,
-        },{
+        },
+        {
             title: 'onlar iyi',
             rating: '5',
             price: '96.00',
             currency: 'TL',
-            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQwCP24CO6WEGAUhkfVg4ozqfeve3pvkhEEZg&usqp=CAU',
+            imageUrl:
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQwCP24CO6WEGAUhkfVg4ozqfeve3pvkhEEZg&usqp=CAU',
             width: 300,
             productId: 5678,
         },

@@ -1,7 +1,7 @@
 import './TrendingGrid.less'
 import { Link } from 'react-router-dom'
 
-export const TrendingGrid = (trendingProducts) => {
+export const TrendingGrid = trendingProducts => {
     var gallerytItemNumber = 0
     function gallerytItemNo() {
         gallerytItemNumber += 1
@@ -13,11 +13,11 @@ export const TrendingGrid = (trendingProducts) => {
     return (
         <div className="gallery">
             {products.map(product => (
-                    <figure className={"gallery__item gallery__item--".concat(gallerytItemNo())}>
-                        <Link to={"/product/" + product.productId}>
-                            <img src={product.imageUrl} className="gallery__img" alt="" />
-                        </Link>
-                    </figure>
+                <figure className={'gallery__item gallery__item--'.concat(gallerytItemNo())}>
+                    <Link to={'/product/' + product.productId}>
+                        <img src={product.imageUrl} className="gallery__img" alt="" />
+                    </Link>
+                </figure>
             ))}
         </div>
     )
