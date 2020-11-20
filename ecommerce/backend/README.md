@@ -7,6 +7,8 @@
 3. If you see the screenshot below, it is working correctly.
 
     ![SS about Docker](ss.png)
+    
+## Without Dockerize
 
 To setup your development environment:
 
