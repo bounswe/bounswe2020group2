@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', views.account.apiOverview),
     path('register/', views.account.register),
-    path('login/', views.account.login)
+    path('login/', views.account.login),
+    path('user/<int:id>/shoppingCart/', views.shopping_cart.add_shopping_cart_item)
 ]
