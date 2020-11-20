@@ -8,6 +8,8 @@
 
     ![SS about Docker](ss.png)
     
+4. You can use Postman with `http://127.0.0.1:8020/endpoint`
+    
 ## Without Dockerize
 
 To setup your development environment:
