@@ -2,7 +2,7 @@
 
 1. In the secrets.json file, you should set `HOST` value by `db`
 
-2. Start server by `docker-compose up`
+2. Start server with run command `docker-compose up`
 
 3. If you see the screenshot below, it is working correctly.
 
