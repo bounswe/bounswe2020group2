@@ -1,3 +1,12 @@
+## Dockerize
+
+1. In the secrets.json file, you should set `HOST` value by `db`
+
+2. Start server by `docker-compose up`
+
+3. If you see the screenshot below, it is working correctly.
+
+    ![SS about Docker](ss.png)
 
 To setup your development environment:
 
