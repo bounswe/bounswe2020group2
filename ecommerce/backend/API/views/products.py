@@ -7,9 +7,9 @@ from API.model_serializers import ProductSerializer
 
 @api_view(['GET'])
 @permission_classes([permissions.AllowAnonymous])
-def homepage_products(request):
+def homepage_products(request,no):
 
-    products = Product.objects.all()[:10]
+    products = Product.objects.all()[:no]
     serializer = ProductSerializer(products, many=True)
 
     return Response(serializer.data)
