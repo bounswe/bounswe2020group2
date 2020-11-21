@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 export const ProfileDetails = () => {
     return (
         <div className="profile-details">
-            <ul>
+            <ul className="profile-details-action-list">
                 <li>
                     {' '}
                     <Link to="/profile/change-password">Change Password</Link>{' '}

@@ -34,26 +34,14 @@ const tailFormItemLayout = {
     },
 }
 
-export const UpdateProfileForm = ({ onSubmit = () => {} }) => {
+export const UpdateProfileForm = ({ onSubmit = () => {}, user }) => {
     const [form] = Form.useForm()
 
-    const initialValues = {
-        userType: 'customer',
-        name: 'Furkan',
-        surname: 'Varol',
-        username: 'vaveyla',
-        email: 'furkan.varol@gmail.com',
-        phone: {
-            countryCode: '+4',
-            number: '8452391058',
-        },
-    }
-
     const onFinish = values => {
-        values.userType = initialValues.userType
+        values.userType = user.userType
         if (isUpdateRequired(values)) {
             console.log('Received values of form: ', values)
-            console.log('Initial Values: ', initialValues)
+            console.log('Initial Values: ', user)
             onSubmit(values)
         } else {
             console.log('Nothing is changed')
@@ -65,18 +53,18 @@ export const UpdateProfileForm = ({ onSubmit = () => {} }) => {
     }
 
     const isUpdateRequired = newValues => {
-        const keys = Object.keys(initialValues)
+        const keys = Object.keys(user)
 
         for (let key of keys) {
             if (key === 'phone') {
                 if (
-                    initialValues[key]['countryCode'] != newValues[key]['countryCode'] ||
-                    initialValues[key]['number'] != newValues[key]['number']
+                    user[key]['countryCode'] != newValues[key]['countryCode'] ||
+                    user[key]['number'] != newValues[key]['number']
                 ) {
                     return true
                 }
                 continue
-            } else if (initialValues[key] !== newValues[key]) {
+            } else if (user[key] !== newValues[key]) {
                 return true
             }
         }
@@ -87,15 +75,15 @@ export const UpdateProfileForm = ({ onSubmit = () => {} }) => {
         <Form
             {...formItemLayout}
             form={form}
-            name="register"
+            name="update-profile"
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             initialValues={{
-                name: initialValues.name,
-                surname: initialValues.surname,
-                username: initialValues.username,
-                email: initialValues.email,
-                phone: initialValues.phone,
+                name: user.name,
+                surname: user.surname,
+                username: user.username,
+                email: user.email,
+                phone: user.phone,
             }}
             scrollToFirstError>
             {/* Name input */}
@@ -165,7 +153,7 @@ export const UpdateProfileForm = ({ onSubmit = () => {} }) => {
             </Form.Item>
 
             {/* Zip code input */}
-            {initialValues.userType === 'vendor' && (
+            {user.userType === 'vendor' && (
                 <Form.Item
                     name={['address', 'zipCode']}
                     label="Zip Code"
@@ -180,7 +168,7 @@ export const UpdateProfileForm = ({ onSubmit = () => {} }) => {
             )}
 
             {/* City input */}
-            {initialValues.userType === 'vendor' && (
+            {user.userType === 'vendor' && (
                 <Form.Item
                     name={['address', 'city']}
                     label="City"
@@ -195,7 +183,7 @@ export const UpdateProfileForm = ({ onSubmit = () => {} }) => {
             )}
 
             {/* State input */}
-            {initialValues.userType === 'vendor' && (
+            {user.userType === 'vendor' && (
                 <Form.Item
                     name={['address', 'state']}
                     label="State"
@@ -210,7 +198,7 @@ export const UpdateProfileForm = ({ onSubmit = () => {} }) => {
             )}
 
             {/* Main address input */}
-            {initialValues.userType === 'vendor' && (
+            {user.userType === 'vendor' && (
                 <Form.Item
                     name={['address', 'mainAddress']}
                     label="Main Address"

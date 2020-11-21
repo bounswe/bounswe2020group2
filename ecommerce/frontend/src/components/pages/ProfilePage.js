@@ -33,7 +33,7 @@ export const ProfilePage = () => {
                     <ProfileDetails />
                 </div>
                 <div className="right-bar-profile-content">
-                    <ProfileContent />
+                    <ProfileContent user={user} />
                 </div>
             </div>
         </div>
