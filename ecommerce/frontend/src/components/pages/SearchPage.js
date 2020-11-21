@@ -1,17 +1,17 @@
 import './SearchPage.less'
 
-import { SearchInput } from '../SearchInput'
-import { SearchSidePanel } from '../search/SearchSidePanel'
-import { SearchResults } from '../search/SearchResults'
-import { useHistory, useLocation } from 'react-router-dom'
+import { notification, Spin } from 'antd'
 import qs from 'query-string'
-import { useEffect, useState } from 'react'
-import { subcategories, categories, sleep } from '../../utils'
-import Axios from 'axios'
-import { notification, Spin, Form } from 'antd'
-import uuidv4 from 'uuid/dist/v4'
 import * as R from 'ramda'
+import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
+import { useHistory } from 'react-router-dom'
+import uuidv4 from 'uuid/dist/v4'
+
+import { categories, sleep, subcategories } from '../../utils'
+import { SearchResults } from '../search/SearchResults'
+import { SearchSidePanel } from '../search/SearchSidePanel'
+import { SearchInput } from '../SearchInput'
 
 /**
  * This is a wrapper around the real _SearchPage component
@@ -19,28 +19,25 @@ import { Helmet } from 'react-helmet'
  * It makes it easier to reason about
  * It is achieved by setting location.search as a key to _SearchPage, which invalidates on every history.push for example
  */
-export const SearchPage = () => {
-    const location = useLocation()
-
-    const initialValues = qs.parse(location.search, {
-        arrayFormat: 'comma',
-        parseNumbers: true,
-        parseBooleans: true,
-    })
+export const SearchPage = ({ location, match }) => {
+    const initialValues = {
+        ...qs.parse(location.search, {
+            arrayFormat: 'comma',
+            parseNumbers: true,
+            parseBooleans: true,
+        }),
+        type: match.params.type,
+    }
 
     return <_SearchPage key={location.search} initialValues={initialValues} />
 }
 
-export const _SearchPage = ({ type = 'product', initialValues = {} }) => {
-    if (type !== 'product') {
-        throw Error('Search page for other than /search/products is NOT implemented!')
-    }
-
+export const _SearchPage = ({ initialValues = {} }) => {
     const defaultPageSize = 10
 
     const values = {
-        query: initialValues.query,
-        filters: R.omit(['query', 'current', 'pageSize'], initialValues),
+        search: { query: initialValues.query, type: initialValues.type },
+        filters: R.omit(['query', 'type', 'current', 'pageSize'], initialValues),
         pagination: {
             pageSize: defaultPageSize,
             ...R.pick(['current', 'pageSize'], initialValues),
@@ -89,24 +86,32 @@ export const _SearchPage = ({ type = 'product', initialValues = {} }) => {
 
     const refreshSearchWith = queryParams => {
         history.push({
-            pathname: history.location.pathname,
+            pathname: `/search/${queryParams.search.type}`,
             search:
                 '?' +
                 qs.stringify(
-                    { ...queryParams.filters, query: queryParams.query, ...queryParams.pagination },
-                    { arrayFormat: 'comma' },
+                    { ...queryParams.search, ...queryParams.filters, ...queryParams.pagination },
+                    { arrayFormat: 'comma', skipNull: true, skipEmptyString: true },
                 ),
         })
     }
 
     const onSubmitFilters = filters => refreshSearchWith({ ...values, filters })
-    const onSearch = query =>
-        refreshSearchWith({ query, filters: {}, pagination: { pageSize: values.pagination.pageSize } })
+
+    const onSearch = search =>
+        refreshSearchWith({
+            search,
+            filters: {},
+            pagination: { pageSize: values.pagination.pageSize },
+        })
+
     const onPaginationChanged = (current, pageSize) =>
         refreshSearchWith({ ...values, pagination: { ...values.pagination, current, pageSize } })
 
     const getTitle = values => {
-        const query = values.query
+        const type = values.search.type
+
+        const query = values.search.query
         const category = values.filters.category && categories[values.filters.category]
         const subcategory =
             values.filters.category &&
@@ -125,7 +130,7 @@ export const _SearchPage = ({ type = 'product', initialValues = {} }) => {
             </Helmet>
             <div className={'search-page'}>
                 <div className="search-page-bar">
-                    <SearchInput initialValue={values.query} onSearch={onSearch} />
+                    <SearchInput initialValues={values.search} onSearch={onSearch} />
                 </div>
                 <div className="search-page-main">
                     <div className="search-page-side-panel">

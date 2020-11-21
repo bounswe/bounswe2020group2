@@ -1,10 +1,11 @@
 import './SearchSidePanel.less'
 
-import { Button, Form, Rate, Select, Slider } from 'antd'
+import { Button, Form, InputNumber, Rate, Select, Slider } from 'antd'
 import { useState } from 'react'
 
 import { brands, categories, productSortBy, subcategories, vendors } from '../../utils'
 import ButtonGroup from 'antd/lib/button/button-group'
+import { intersection } from 'ramda'
 
 const formItemLayout = {
     labelCol: {
@@ -92,8 +93,8 @@ export const SearchSidePanel = ({ initialValues = {}, onSubmit = () => {} }) => 
                     ))}
                 </Select>
             </Form.Item>
-            <Form.Item name="priceRange" label="Price range">
-                <Slider range />
+            <Form.Item name="maxPrice" label="Max price">
+                <InputNumber min={1} max={10_000_000} step={5} />
             </Form.Item>
             <Form.Item name="rating" label="Rating">
                 <Rate allowHalf allowClear />

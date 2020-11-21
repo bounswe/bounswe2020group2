@@ -10,18 +10,10 @@ export const Content = () => {
     return (
         <Layout.Content className="content">
             <Switch>
-                <Route path="/login">
-                    <LoginPage />
-                </Route>
-                <Route path="/signup">
-                    <SignupPage />
-                </Route>
-                <Route path="/search/product">
-                    <SearchPage type={'product'} />
-                </Route>
-                <Route path="/">
-                    <HomePage />
-                </Route>
+                <Route path="/login" component={LoginPage} />
+                <Route path="/signup" component={SignupPage} />
+                <Route path="/search/:type" component={SearchPage} />
+                <Route path="/" component={HomePage} />
             </Switch>
         </Layout.Content>
     )

@@ -5,46 +5,29 @@ import { Select, Input } from 'antd'
 const { Option } = Select
 const { Search } = Input
 
-// TODO - Fetch from a common file or backend
-const categories = [
-    { key: 'electronics', title: 'Electronics' },
-    { key: 'home_and_garden', title: 'Home & Garden' },
-    { key: 'personal_care', title: 'Personal Care' },
-    { key: 'furniture', title: 'Furniture' },
-    { key: 'pet_supplies', title: 'Pet Supplies' },
-    { key: 'mens_fashion', title: "Men's Fashion" },
-    { key: 'womens_fashion', title: "Women's Fashion" },
-]
+export const SearchInput = ({ width = 120, initialValues, onSearch = () => {} }) => {
+    const [type, setType] = useState(initialValues.type ?? 'products')
+    const [query, setQuery] = useState(initialValues.query)
 
-export const SearchInput = ({ width = 120, initialValue, onSearch = () => {} }) => {
-    const [category, setCategory] = useState('Electronics')
+    const onTypeChange = value => setType(value)
+    const onQueryChange = value => setQuery(value.target.value)
 
-    function handleCategoryChange(value) {
-        setCategory(value)
+    const _onSearch = () => {
+        if (!query || !query.trim()) return
+        onSearch({ type, query })
     }
-
-    const categoryDropdown = (
-        <Select defaultValue={category} style={{ width }} onChange={handleCategoryChange}>
-            {categories.map(category => (
-                <Option value={category.title} key={category.key}>
-                    {category.title}
-                </Option>
-            ))}
-        </Select>
-    )
 
     return (
         <div className="search-input">
-            {categoryDropdown}
+            <Select style={{ width }} value={type} onChange={onTypeChange}>
+                <Option value={'products'}>Products</Option>
+                <Option value={'vendors'}>Vendors</Option>
+            </Select>
             <Search
-                placeholder="Search for products, categories and brands"
-                defaultValue={initialValue}
-                onSearch={value => {
-                    if (value.trim() === '') {
-                        return
-                    }
-                    onSearch(value.trim())
-                }}
+                placeholder={`Search for ${type}`}
+                value={query}
+                onChange={onQueryChange}
+                onSearch={_onSearch}
                 enterButton
             />
         </div>
