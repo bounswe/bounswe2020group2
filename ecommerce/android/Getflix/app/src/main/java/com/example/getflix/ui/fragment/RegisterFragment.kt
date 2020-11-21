@@ -38,6 +38,7 @@ class RegisterFragment : Fragment() {
                         binding.addressZip.visibility = View.GONE
                         binding.cityState.visibility = View.GONE
                         customer = true
+
                     }
                 }
             })
@@ -103,7 +104,6 @@ class RegisterFragment : Fragment() {
                 var mail = binding.mail.text.toString()
                 var password = binding.password.text.toString()
                 var phone = binding.phone.text.toString()
-
 
                 view?.findNavController()
                     ?.navigate(RegisterFragmentDirections.actionRegisterFragmentToHomePageFragment())

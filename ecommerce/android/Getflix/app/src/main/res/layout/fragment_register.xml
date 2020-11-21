@@ -193,6 +193,7 @@
                     app:boxStrokeColor="@color/black"
                     app:hintTextColor="@color/black">
 
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/phone"
                         android:layout_width="match_parent"
