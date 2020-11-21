@@ -24,6 +24,14 @@
             app:destination="@id/homePageFragment" />
     </fragment>
     <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.getflix.ui.fragment.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+  <fragment
         android:id="@+id/categoryFragment"
         android:name="com.example.getflix.ui.fragment.CategoryFragment"
         android:label="CategoryFragment">

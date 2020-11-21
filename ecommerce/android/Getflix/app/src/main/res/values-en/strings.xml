@@ -25,4 +25,7 @@
     <string name="category_furniture">Home</string>
     <string name="category_music">Music</string>
     <string name="category_sports">Sports</string>
+    <string name="points">Points</string>
+    <string name="products">Products</string>
+    <string name="logout">LOG OUT</string>
 </resources>
