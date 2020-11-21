@@ -16,3 +16,10 @@ def product_detail(request, productId):
     product = Product.objects.filter(id=productId)
     serializer = ProductSerializer(product, many=True)
     return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([permissions.AllowAnonymous])
+def homepage_products(request,no):
+    products = Product.objects.all()[:no]
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
