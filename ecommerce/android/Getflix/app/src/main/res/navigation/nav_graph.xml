@@ -50,4 +50,6 @@
             android:id="@+id/action_registerFragment_to_homePageFragment"
             app:destination="@id/homePageFragment" />
     </fragment>
+
 </navigation>
+
