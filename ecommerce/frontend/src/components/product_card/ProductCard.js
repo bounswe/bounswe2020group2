@@ -10,7 +10,7 @@ export const ProductCard = ({ product, onAddToCart, width = 350 }) => {
     const { title, rating, price, currency, imageUrl, productId } = product
 
     return (
-        <div style={{ minWidth: width, minHeight: width }}>
+        <div style={{ minWidth: width, minHeight: width, maxWidth: width }}>
             <Link to={`/products/${productId}`}>
                 <Card
                     style={{ width: width, minWidth: width, minHeight: width }}
