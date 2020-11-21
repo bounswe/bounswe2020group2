@@ -28,4 +28,18 @@
     <string name="points">Points</string>
     <string name="products">Products</string>
     <string name="logout">LOG OUT</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="mail">Email</string>
+    <string name="confirm_pass">Confirm Password</string>
+    <string name="phone_num">Phone Number</string>
+    <string name="customer">Customer</string>
+    <string name="vendor">Vendor</string>
+    <string name="address">Address</string>
+    <string name="zip">Zip Code</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
+    <string name="reg_error">This field cannot be empty.</string>
+    <string name="reg_agree">I have read the agreement.</string>
+    <string name="reg_agree_err">Please confirm that you have read the agreement.</string>
 </resources>
