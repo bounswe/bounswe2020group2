@@ -12,15 +12,97 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.LoginFragment">
 
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@color/initGold"
+        android:padding="20dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:textColor="@color/colorPrimary"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:padding="30dp"
+            android:text="@string/login"/>
+        <EditText
+            android:id="@+id/et_user_name"
+            android:hint="@string/user_name"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/et_password"
+            android:hint="@string/password"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
+            android:textAlignment="center"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="25dp"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/btn_login"
+                android:text="@string/login"
+                android:textAllCaps="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:textColor="@color/colorPrimary"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:padding="20dp"
+                android:text="@string/or_login"/>
+            <Button
+                android:id="@+id/btn_submit"
+                android:text="Google"
+                android:drawableLeft="@android:drawable/ic_menu_search"
+                android:textAllCaps="false"
+                android:textSize="15dp"
+                android:background="#FFFFFF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_marginTop="50dp"
+                android:textColor="@color/colorPrimary"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:padding="15dp"
+                android:text="@string/not_member"/>
+            <Button
+                android:id="@+id/btn_register"
+                android:text="@string/register"
+                android:textAllCaps="false"
+                android:background="@color/black"
+                android:textSize="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_visitor"
+                android:background="@color/black"
+                android:text="@string/visitor"
+                android:textAllCaps="false"
+                android:layout_marginTop="80dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

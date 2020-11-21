@@ -2,5 +2,6 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/shadows_into_light_two</item>
+        <item>@font/open_sans_semibold</item>
     </array>
 </resources>
