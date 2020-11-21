@@ -22,5 +22,5 @@ urlpatterns = [
     path('api/', views.account.apiOverview),
     path('register/', views.account.register),
     path('login/', views.account.login),
-    path('products/homepage/<int:no>', views.products.homepage_products)
+    path('products/homepage/<int:no>', views.product.homepage_products)
 ]
