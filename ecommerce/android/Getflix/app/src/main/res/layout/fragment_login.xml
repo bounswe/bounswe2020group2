@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -153,7 +152,7 @@
             app:layout_constraintTop_toBottomOf="@+id/login" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/sign_up_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="#001E1E1E"
