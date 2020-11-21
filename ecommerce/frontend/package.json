@@ -21,7 +21,8 @@
         "react-router-dom": "^5.2.0",
         "react-scripts": "4.0.0",
         "react-simple-captcha": "^6.1.5",
-        "web-vitals": "^0.2.4"
+        "web-vitals": "^0.2.4",
+        "ramda": "^0.27.1"
     },
     "scripts": {
         "start": "cross-env PORT=5000 craco start",

@@ -3,41 +3,9 @@ import './ShoppingCart.less'
 import { Button, Spin, Statistic, Row, Col, notification } from 'antd'
 import uuidv4 from 'uuid/dist/v4'
 import { useAppContext } from '../../context/AppContext'
+import { ShoppingCartItems } from './ShoppingCartItems'
 
 export const ShoppingCart = ({ currency = 'TL' }) => {
-    useEffect(() => {
-        const total = 10
-        const cart = [...Array(total)].map(x => {
-            return {
-                product: {
-                    title: 'Title',
-                    rating: '5',
-                    price: 30,
-                    currency: 'TL',
-                    description: 'description',
-                    imageUrl: `https://picsum.photos/300?q=${uuidv4()}`,
-                    width: 300,
-                    productId: uuidv4(),
-                },
-                amount: 1,
-            }
-        })
-        async function fetch() {
-            try {
-                setIsLoading(true)
-            } catch {
-                notification.error({ description: 'Failed to get shopping cart from backend' })
-            } finally {
-                setIsLoading(false)
-            }
-            fetch(`localhost:4000/user/${'userId'}/shoppingCart`).then(res => onChangeCart(res))
-        }
-        // fetch()
-
-        onChangeCart(cart)
-        setIsLoading(false)
-    })
-
     const [isLoading, setIsLoading] = useState(true)
     const [totalPrice, setTotalPrice] = useState(0)
     const [itemCount, setItemCount] = useState(0)
@@ -53,6 +21,39 @@ export const ShoppingCart = ({ currency = 'TL' }) => {
         setItemCount(amountSum)
     }
 
+    const total = 3
+    const cart = [...Array(total)].map(x => {
+        return {
+            product: {
+                title: 'Title',
+                rating: '5',
+                price: 30,
+                currency: 'TL',
+                description: 'description',
+                imageUrl: `https://picsum.photos/300?q=${uuidv4()}`,
+                width: 300,
+                productId: uuidv4(),
+            },
+            amount: 1,
+        }
+    })
+
+    useEffect(() => {
+        async function fetch() {
+            try {
+                setIsLoading(true)
+            } catch {
+                notification.error({ description: 'Failed to get shopping cart from backend' })
+            } finally {
+                setIsLoading(false)
+            }
+            fetch(`localhost:4000/user/${'userId'}/shoppingCart`).then(res => onChangeCart(res))
+        }
+        // fetch()
+        onChangeCart(cart)
+        setIsLoading(false)
+    }, [])
+
     const onCheckout = () => {
         if (itemCount == 0) {
             alert('Empty cart')
@@ -64,8 +65,8 @@ export const ShoppingCart = ({ currency = 'TL' }) => {
     return (
         <div className="shopping-master">
             <div className="shopping-left">
-                {/* {<ShoppingCartItems onChangeCart={onChangeCart}></ShoppingCartItems>} */}
-                <p>Left part will come here</p>
+                <h2>Your shopping cart</h2>
+                {<ShoppingCartItems onChangeCart={onChangeCart} cart={cart}></ShoppingCartItems>}
             </div>
             <div className="shopping-right">
                 <div className="shopping-price">

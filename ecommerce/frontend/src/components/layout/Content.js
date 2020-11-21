@@ -12,7 +12,7 @@ export const Content = () => {
         <Layout.Content className="content">
             <Switch>
                 <Route path="/login" component={LoginPage} />
-                <Route path="/shoppingCart" component={ShoppingCart}/>
+                <Route path="/shoppingCart" component={ShoppingCart} />
                 <Route path="/signup" component={SignupPage} />
                 <Route path="/search/:type" component={SearchPage} />
                 <Route path="/" component={HomePage} />
