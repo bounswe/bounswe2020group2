@@ -37,6 +37,8 @@ class RegisterFragment : Fragment() {
                     R.id.customer -> {
                         binding.addressZip.visibility = View.GONE
                         binding.cityState.visibility = View.GONE
+                        customer = true
+
                     }
                 }
             })
@@ -103,7 +105,6 @@ class RegisterFragment : Fragment() {
                 var password = binding.password.text.toString()
                 var phone = binding.phone.text.toString()
 
-                //  var user = ProductModel(name,uprice,unit,kdv,amount,code,otv,discinc)
                 view?.findNavController()
                     ?.navigate(RegisterFragmentDirections.actionRegisterFragmentToHomePageFragment())
             }
