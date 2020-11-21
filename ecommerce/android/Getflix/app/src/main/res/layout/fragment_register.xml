@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/register_gradient"
+        android:background="#52EBD494"
         tools:context=".view.MainActivity">
 
         <LinearLayout
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:text="@string/register"
-                android:textColor="@color/initPurple"
+                android:textColor="@color/black"
                 android:fontFamily="@font/shadows_into_light_two"
                 android:textSize="30sp"
                 android:textStyle="bold"/>
@@ -56,19 +56,20 @@
                     <RadioButton
                         android:id="@+id/customer"
                         android:layout_width="0dp"
-                        android:buttonTint="@color/initPurple"
+                        android:buttonTint="@color/black"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:checked="true"
+                        android:textColor="@color/black"
                         android:text="@string/customer" />
 
                     <RadioButton
                         android:id="@+id/vendor"
                         android:layout_width="0dp"
-                        android:buttonTint="@color/initPurple"
+                        android:buttonTint="@color/black"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/initPurple"
+                        android:textColor="@color/black"
                         android:text="@string/vendor" />
                 </RadioGroup>
 
@@ -77,9 +78,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/name"
-                    android:textColorHint="@color/initPurple"
-                    app:boxStrokeColor="@color/initPurple"
-                    app:hintTextColor="@color/initPurple">
+                    android:textColorHint="@color/black"
+                    app:boxStrokeColor="@color/black"
+                    app:hintTextColor="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/name"
@@ -94,9 +95,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/surname"
-                    android:textColorHint="@color/initPurple"
-                    app:boxStrokeColor="@color/initPurple"
-                    app:hintTextColor="@color/initPurple">
+                    android:textColorHint="@color/black"
+                    app:boxStrokeColor="@color/black"
+                    app:hintTextColor="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/surname"
@@ -111,9 +112,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/user_name"
-                    android:textColorHint="@color/initPurple"
-                    app:boxStrokeColor="@color/initPurple"
-                    app:hintTextColor="@color/initPurple">
+                    android:textColorHint="@color/black"
+                    app:boxStrokeColor="@color/black"
+                    app:hintTextColor="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/username"
@@ -128,9 +129,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/mail"
-                    android:textColorHint="@color/initPurple"
-                    app:boxStrokeColor="@color/initPurple"
-                    app:hintTextColor="@color/initPurple">
+                    android:textColorHint="@color/black"
+                    app:boxStrokeColor="@color/black"
+                    app:hintTextColor="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/mail"
@@ -148,9 +149,9 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:hint="@string/password"
-                    android:textColorHint="@color/initPurple"
-                    app:boxStrokeColor="@color/initPurple"
-                    app:hintTextColor="@color/initPurple">
+                    android:textColorHint="@color/black"
+                    app:boxStrokeColor="@color/black"
+                    app:hintTextColor="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/password"
@@ -168,9 +169,9 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:hint="@string/confirm_pass"
-                    android:textColorHint="@color/initPurple"
-                    app:boxStrokeColor="@color/initPurple"
-                    app:hintTextColor="@color/initPurple">
+                    android:textColorHint="@color/black"
+                    app:boxStrokeColor="@color/black"
+                    app:hintTextColor="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/con_password"
@@ -188,9 +189,9 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:hint="@string/phone_num"
-                    android:textColorHint="@color/initPurple"
-                    app:boxStrokeColor="@color/initPurple"
-                    app:hintTextColor="@color/initPurple">
+                    android:textColorHint="@color/black"
+                    app:boxStrokeColor="@color/black"
+                    app:hintTextColor="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/phone"
@@ -220,9 +221,9 @@
                         android:focusableInTouchMode="true"
                         android:hint="@string/city"
                         android:layout_weight="1"
-                        android:textColorHint="@color/initPurple"
-                        app:boxStrokeColor="@color/initPurple"
-                        app:hintTextColor="@color/initPurple">
+                        android:textColorHint="@color/black"
+                        app:boxStrokeColor="@color/black"
+                        app:hintTextColor="@color/black">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/city"
@@ -243,9 +244,9 @@
                         android:focusableInTouchMode="true"
                         android:hint="@string/state"
                         android:layout_weight="1"
-                        android:textColorHint="@color/initPurple"
-                        app:boxStrokeColor="@color/initPurple"
-                        app:hintTextColor="@color/initPurple">
+                        android:textColorHint="@color/black"
+                        app:boxStrokeColor="@color/black"
+                        app:hintTextColor="@color/black">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/state"
@@ -276,9 +277,9 @@
                     android:focusableInTouchMode="true"
                     android:hint="@string/address"
                     android:layout_weight="2"
-                    android:textColorHint="@color/initPurple"
-                    app:boxStrokeColor="@color/initPurple"
-                    app:hintTextColor="@color/initPurple">
+                    android:textColorHint="@color/black"
+                    app:boxStrokeColor="@color/black"
+                    app:hintTextColor="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/maddress"
@@ -298,9 +299,9 @@
                 android:layout_weight="3"
                 android:focusableInTouchMode="true"
                 android:hint="@string/zip"
-                android:textColorHint="@color/initPurple"
-                app:boxStrokeColor="@color/initPurple"
-                app:hintTextColor="@color/initPurple">
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/black"
+                app:hintTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/zipCode"
@@ -315,7 +316,7 @@
 
                 <CheckBox
                     android:layout_margin="5dp"
-                    android:buttonTint="@color/initPurple"
+                    android:buttonTint="@color/black"
                     android:id="@+id/check"
                     android:textColor="@color/initPurple"
                     android:layout_width="match_parent"
@@ -327,7 +328,7 @@
 
                 <Button
                     android:id="@+id/btn_register"
-                    android:background="@color/initPurple"
+                    android:background="@color/black"
                     android:textColor="@color/initGold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
