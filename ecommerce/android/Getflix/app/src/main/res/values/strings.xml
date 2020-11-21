@@ -6,4 +6,18 @@
     <string name="categories">Kategoriler</string>
     <string name="profile">Profil</string>
     <string name="cart">Sepet</string>
+    <string name="favorites">Favoriler</string>
+    <string name="add_to_cart">Sepete Ekle</string>
+    <string name="category_woman">Kadın</string>
+    <string name="category_man">Erkek</string>
+    <string name="category_toys">Oyuncaklar</string>
+    <string name="category_electronics">Elektronik</string>
+    <string name="category_movies">Filmler</string>
+    <string name="category_cosmetics">Kozmetik</string>
+    <string name="category_furniture">Ev</string>
+    <string name="category_music">Müzik</string>
+    <string name="category_pet">Evcil Hayvan Malzemeleri</string>
+    <string name="category_sports">Spor</string>
 </resources>
+
+
