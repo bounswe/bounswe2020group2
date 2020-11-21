@@ -14,7 +14,6 @@ import com.example.getflix.databinding.ListSubcategoryBinding
 import com.example.getflix.models.CategoryModel
 import com.example.getflix.models.SubcategoryModel
 import com.example.getflix.ui.fragment.CategoriesFragment
-import com.example.getflix.ui.fragment.CategoriesFragmentDirections.Companion.actionCategoriesFragmentToSubcategoryFragment
 import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder
@@ -43,7 +42,7 @@ class CategoriesAdapter(groups: List<ExpandableGroup<*>>?, fragment: CategoriesF
             val subCat: SubcategoryModel = group?.items?.get(childIndex) as SubcategoryModel
             holder?.bind(subCat)
             holder?.itemView!!.setOnClickListener {
-                fragment.navigateSub()
+             //   fragment.navigateSub()
                 //fragment.findNavController().navigate(actionCategoriesFragmentToSubcategoryFragment())
             }
 
@@ -67,8 +66,7 @@ class CategoriesAdapter(groups: List<ExpandableGroup<*>>?, fragment: CategoriesF
         fun bind(subCategory: SubcategoryModel) {
             binding.subCategory = subCategory
             binding.root.setOnClickListener {v ->
-                println("burad mısın")
-                v.findNavController().navigate(actionCategoriesFragmentToSubcategoryFragment())
+              //  v.findNavController().navigate(actionCategoriesFragmentToSubcategoryFragment())
             }
         }
 
