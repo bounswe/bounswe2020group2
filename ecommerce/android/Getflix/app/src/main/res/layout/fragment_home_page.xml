@@ -5,9 +5,13 @@
 
     <data>
 
+        <variable
+            name="homeViewModel"
+            type="com.example.getflix.viewmodels.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#171717"
@@ -34,10 +38,12 @@
                     android:padding="10dp">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/woman"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
+                        android:onClick="@{()->homeViewModel.setOnCategoryClick(1)}"
                         android:shape="ring"
                         app:cardCornerRadius="75dp"
                         app:cardElevation="8dp">
@@ -57,7 +63,6 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_fashion"
                                 tools:ignore="VectorDrawableCompat" />
 
                             <TextView
@@ -75,10 +80,12 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/man"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
+                        android:onClick="@{()->homeViewModel.setOnCategoryClick(2)}"
                         android:shape="ring"
                         app:cardCornerRadius="75dp"
                         app:cardElevation="8dp">
@@ -97,7 +104,6 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_man"
                                 tools:ignore="VectorDrawableCompat" />
 
                             <TextView
@@ -122,10 +128,12 @@
                     android:padding="10dp">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/toys"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
+                        android:onClick="@{()->homeViewModel.setOnCategoryClick(3)}"
                         android:shape="ring"
                         app:cardCornerRadius="75dp"
                         app:cardElevation="8dp">
@@ -144,7 +152,6 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_toys"
                                 tools:ignore="VectorDrawableCompat" />
 
                             <TextView
@@ -161,10 +168,12 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cosmetics"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
+                        android:onClick="@{()->homeViewModel.setOnCategoryClick(4)}"
                         android:shape="ring"
                         app:cardCornerRadius="75dp"
                         app:cardElevation="8dp">
@@ -183,7 +192,6 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_cosmetics"
                                 tools:ignore="VectorDrawableCompat" />
 
                             <TextView
@@ -207,10 +215,12 @@
                     android:padding="10dp">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/home"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
+                        android:onClick="@{()->homeViewModel.setOnCategoryClick(5)}"
                         android:shape="ring"
                         app:cardCornerRadius="75dp"
                         app:cardElevation="8dp">
@@ -229,7 +239,6 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_furniture"
                                 tools:ignore="VectorDrawableCompat" />
 
                             <TextView
@@ -247,10 +256,12 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/electronics"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
+                        android:onClick="@{()->homeViewModel.setOnCategoryClick(6)}"
                         android:shape="ring"
                         app:cardCornerRadius="75dp"
                         app:cardElevation="8dp">
@@ -269,7 +280,6 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_electronics"
                                 tools:ignore="VectorDrawableCompat" />
 
                             <TextView
@@ -293,10 +303,12 @@
                     android:padding="10dp">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/movies"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
+                        android:onClick="@{()->homeViewModel.setOnCategoryClick(7)}"
                         android:shape="ring"
                         app:cardCornerRadius="75dp"
                         app:cardElevation="8dp">
@@ -315,7 +327,6 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_movie"
                                 tools:ignore="VectorDrawableCompat" />
 
                             <TextView
@@ -332,10 +343,12 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/music"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
+                        android:onClick="@{()->homeViewModel.setOnCategoryClick(8)}"
                         android:shape="ring"
                         app:cardCornerRadius="75dp"
                         app:cardElevation="8dp">
@@ -354,7 +367,6 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_music"
                                 tools:ignore="VectorDrawableCompat" />
 
                             <TextView
@@ -378,10 +390,12 @@
                     android:padding="10dp">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/pet"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
+                        android:onClick="@{()->homeViewModel.setOnCategoryClick(9)}"
                         android:shape="ring"
                         app:cardCornerRadius="75dp"
                         app:cardElevation="8dp">
@@ -400,7 +414,6 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_dog_food"
                                 tools:ignore="VectorDrawableCompat" />
 
                             <TextView
@@ -417,10 +430,12 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/sports"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
+                        android:onClick="@{()->homeViewModel.setOnCategoryClick(10)}"
                         android:shape="ring"
                         app:cardCornerRadius="75dp"
                         app:cardElevation="8dp">
@@ -439,7 +454,6 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_tennis_racket"
                                 tools:ignore="VectorDrawableCompat" />
 
                             <TextView
