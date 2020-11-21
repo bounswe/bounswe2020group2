@@ -11,9 +11,14 @@
         android:icon="@drawable/menu_category"/>
 
     <item
+        android:id="@+id/ic_favorites"
+        android:title="@string/favorites"
+        android:icon="@drawable/menu_favorite"/>
+
+    <item
         android:id="@+id/ic_cart"
         android:title="@string/cart"
-        android:icon="@drawable/menu_basket"/>
+        android:icon="@drawable/menu_cart"/>
 
     <item
         android:id="@+id/ic_profile"
