@@ -3,8 +3,7 @@
     <style name="AppTheme" parent="Theme.MaterialComponents">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/initPurple</item>
-        <item name="colorAccent">@color/initGold</item>
+
     </style>
 
 </resources>

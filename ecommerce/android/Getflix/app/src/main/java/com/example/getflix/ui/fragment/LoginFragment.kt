@@ -19,15 +19,17 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentLoginBinding>(inflater,R.layout.fragment_login,
             container,false)
 
         activity?.toolbar!!.visibility = View.GONE
 
-        binding.loginButton.setOnClickListener {
+        binding.btnLogin.setOnClickListener() {
             view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
         }
+
 
         return binding.root
     }

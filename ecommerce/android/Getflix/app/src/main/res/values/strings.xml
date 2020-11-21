@@ -6,6 +6,12 @@
     <string name="categories">Kategoriler</string>
     <string name="profile">Profil</string>
     <string name="cart">Sepet</string>
+    <string name="user_name">Kullanici Ismi</string>
+    <string name="password">Parola</string>
+    <string name="or_login">Ya da Google hesabinizla giris yapin</string>
+    <string name="not_member">Hala uye degil misiniz?</string>
+    <string name="register">Kayit Ol</string>
+    <string name="visitor">Ziyaretci olarak devam et</string>
     <string name="favorites">Favoriler</string>
     <string name="add_to_cart">Sepete Ekle</string>
     <string name="category_woman">Kadın</string>
