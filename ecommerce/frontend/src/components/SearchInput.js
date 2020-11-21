@@ -19,7 +19,7 @@ export const SearchInput = ({ width = 120, initialValues, onSearch = () => {} })
 
     return (
         <div className="search-input">
-            <Select style={{ width }} value={type} onChange={onTypeChange}>
+            <Select style={{ width }} value={type} onChange={onTypeChange} bordered={false}>
                 <Option value={'products'}>Products</Option>
                 <Option value={'vendors'}>Vendors</Option>
             </Select>
