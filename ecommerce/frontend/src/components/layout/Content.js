@@ -4,20 +4,16 @@ import { Layout } from 'antd'
 import { LoginPage } from '../pages/LoginPage'
 import { SignupPage } from '../pages/SignupPage'
 import { HomePage } from '../pages/HomePage'
+import { SearchPage } from '../pages/SearchPage'
 
 export const Content = () => {
     return (
         <Layout.Content className="content">
             <Switch>
-                <Route path="/login">
-                    <LoginPage />
-                </Route>
-                <Route path="/signup">
-                    <SignupPage />
-                </Route>
-                <Route path="/">
-                    <HomePage />
-                </Route>
+                <Route path="/login" component={LoginPage} />
+                <Route path="/signup" component={SignupPage} />
+                <Route path="/search/:type" component={SearchPage} />
+                <Route path="/" component={HomePage} />
             </Switch>
         </Layout.Content>
     )
