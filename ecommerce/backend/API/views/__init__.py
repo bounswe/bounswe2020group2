@@ -1,2 +1,2 @@
 from .account import *
-from .products import *
+from .product import *
