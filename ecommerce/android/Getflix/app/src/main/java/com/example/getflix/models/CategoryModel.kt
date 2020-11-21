@@ -2,6 +2,7 @@ package com.example.getflix.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.example.getflix.models.SubcategoryModel
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup
 
 
@@ -26,6 +27,10 @@ data class CategoryModel(
 
     override fun describeContents(): Int {
         return 0
+    }
+
+    operator fun get(s: String): MutableList<SubcategoryModel>? {
+        return null
     }
 
     companion object CREATOR : Parcelable.Creator<CategoryModel> {
