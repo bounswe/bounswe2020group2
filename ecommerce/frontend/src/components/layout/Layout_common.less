@@ -22,8 +22,6 @@
 }
 
 .footer {
-    position: sticky;
-    bottom: 0;
     display: flex;
     background: black;
     color: white;
@@ -31,4 +29,35 @@
 
 .footer-col {
     flex: 1 0 auto;
+}
+
+.header-customer-info {
+    // float: right;
+    display: flex;
+    line-height: normal;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.header-customer-info-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.header-customer-info-details-name {
+    font-weight: bold;
+}
+
+.header-customer-info-details-email {
+    font-style: italic;
+}
+
+.header-customer {
+    display: flex;
+    padding: 5px;
+    height: 100%;
+    float: right;
 }
