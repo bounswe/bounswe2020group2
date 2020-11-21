@@ -1,7 +1,7 @@
 import './TrendingGrid.less'
 import { Link } from 'react-router-dom'
 
-export const TrendingGrid = ({trendingProducts}) => {
+export const TrendingGrid = ({ trendingProducts }) => {
     return (
         <div className="gallery">
             {trendingProducts.map((product, index) => (
