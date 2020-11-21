@@ -30,8 +30,14 @@
     <string name="name">Ad</string>
     <string name="surname">Soyad</string>
     <string name="mail">Email</string>
+    <string name="address">Adres</string>
+    <string name="zip">Posta Kodu</string>
+    <string name="city">Şehir</string>
+    <string name="state">Bölge</string>
     <string name="confirm_pass">Şifre (tekrar)</string>
     <string name="phone_num">Telefon No.</string>
+    <string name="customer">Müşteri</string>
+    <string name="vendor">Satıcı</string>
     <string name="reg_error">Bu alan boş bırakılamaz.</string>
     <string name="reg_agree">Kullanıcı sözleşmesini okudum.</string>
     <string name="reg_agree_err">Kullanıcı sözleşmesini okuduğunuzu onaylayınız.</string>

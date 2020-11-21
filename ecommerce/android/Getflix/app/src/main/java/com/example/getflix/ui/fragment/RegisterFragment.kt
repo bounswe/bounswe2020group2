@@ -24,12 +24,15 @@ class RegisterFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentRegisterBinding>(inflater, R.layout.fragment_register,
             container, false)
 
+        var customer = true
+
         binding.radioGroup.setOnCheckedChangeListener(
             RadioGroup.OnCheckedChangeListener { group, checkedId ->
                 when(checkedId) {
                     R.id.vendor -> {
                         binding.addressZip.visibility = View.VISIBLE
                         binding.cityState.visibility = View.VISIBLE
+                        customer = false
                     }
                     R.id.customer -> {
                         binding.addressZip.visibility = View.GONE
@@ -70,9 +73,28 @@ class RegisterFragment : Fragment() {
                 canSubmit = false
             }
             if(!binding.check.isChecked) {
-                binding.check.error = "you should check"
+                binding.check.error = getString(R.string.reg_agree_err)
                 canSubmit = false
             }
+            if(!customer) {
+                if(!binding.maddress.text.toString().isEmpty()) {
+                    binding.maddress.error = getString(R.string.reg_error)
+                    canSubmit = false
+                }
+                if(!binding.zipCode.text.toString().isEmpty()) {
+                    binding.maddress.error = getString(R.string.reg_error)
+                    canSubmit = false
+                }
+                if(!binding.city.text.toString().isEmpty()) {
+                    binding.city.error = getString(R.string.reg_error)
+                    canSubmit = false
+                }
+                if(!binding.state.text.toString().isEmpty()) {
+                    binding.state.error = getString(R.string.reg_error)
+                    canSubmit = false
+                }
+            }
+
             if (canSubmit) {
                 var name = binding.name.text.toString()
                 var surname = binding.surname.text.toString()

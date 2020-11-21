@@ -56,18 +56,20 @@
                     <RadioButton
                         android:id="@+id/customer"
                         android:layout_width="0dp"
+                        android:buttonTint="@color/initPurple"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:checked="true"
-                        android:text="Customer" />
+                        android:text="@string/customer" />
 
                     <RadioButton
                         android:id="@+id/vendor"
                         android:layout_width="0dp"
+                        android:buttonTint="@color/initPurple"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:textColor="@color/initPurple"
-                        android:text="Vendor" />
+                        android:text="@string/vendor" />
                 </RadioGroup>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -216,7 +218,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
-                        android:hint="city"
+                        android:hint="@string/city"
                         android:layout_weight="1"
                         android:textColorHint="@color/initPurple"
                         app:boxStrokeColor="@color/initPurple"
@@ -239,7 +241,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
-                        android:hint="state"
+                        android:hint="@string/state"
                         android:layout_weight="1"
                         android:textColorHint="@color/initPurple"
                         app:boxStrokeColor="@color/initPurple"
@@ -272,7 +274,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:hint="address"
+                    android:hint="@string/address"
                     android:layout_weight="2"
                     android:textColorHint="@color/initPurple"
                     app:boxStrokeColor="@color/initPurple"
@@ -295,7 +297,7 @@
                 android:focusable="true"
                 android:layout_weight="3"
                 android:focusableInTouchMode="true"
-                android:hint="zipcode"
+                android:hint="@string/zip"
                 android:textColorHint="@color/initPurple"
                 app:boxStrokeColor="@color/initPurple"
                 app:hintTextColor="@color/initPurple">
@@ -313,6 +315,7 @@
 
                 <CheckBox
                     android:layout_margin="5dp"
+                    android:buttonTint="@color/initPurple"
                     android:id="@+id/check"
                     android:textColor="@color/initPurple"
                     android:layout_width="match_parent"
