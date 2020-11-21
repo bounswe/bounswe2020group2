@@ -89,7 +89,6 @@ const HomePage_MainContent = () => {
         },
     ]
 
-    console.log(products)
     return (
         <div className="trending-grid-wrapper">
             <TrendingGrid trendingProducts={products} />
