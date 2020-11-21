@@ -23,6 +23,6 @@ urlpatterns = [
     path('register/', views.account.register),
     path('login/', views.account.login),
     path('products/homepage/<int:no>', views.product.homepage_products),
-    path('user/<int:id>/listShoppingCart/', list_shopping_cart),
-    path('product/<int:productId>/', product_detail)
+    path('user/<int:id>/listShoppingCart/', views.shopping_cart.list_shopping_cart),
+    path('product/<int:productId>/', views.product.product_detail)
 ]
