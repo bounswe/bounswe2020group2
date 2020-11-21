@@ -22,5 +22,7 @@ urlpatterns = [
     path('api/', views.account.apiOverview, name="api"),
     path('register/', views.account.register, name="register"),
     path('login/', views.account.login, name="login"),
-    path('init/', views.account.init, name="init")
+    path('init/', views.account.init, name="init"),
+    path('products/homepage/<int:no>', views.products.homepage_products)
+
 ]

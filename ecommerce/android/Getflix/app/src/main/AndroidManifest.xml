@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.getflix.activities.MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge"
+            android:windowSoftInputMode="stateHidden|adjustPan">
 
         </activity>
 
