@@ -22,5 +22,7 @@ urlpatterns = [
     path('api/', views.account.apiOverview),
     path('register/', views.account.register),
     path('login/', views.account.login),
-    path('products/homepage/<int:no>', views.product.homepage_products)
+    path('products/homepage/<int:no>', views.product.homepage_products),
+    path('user/<int:id>/listShoppingCart/', list_shopping_cart),
+    path('product/<int:productId>/', product_detail)
 ]
