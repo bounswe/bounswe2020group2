@@ -27,14 +27,11 @@ class ProfileFragment : Fragment() {
             container,false)
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.profile)
-<<<<<<< HEAD
-=======
 
          if(MainActivity.StaticData.isVisitor) {
             view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
           }
 
->>>>>>> c775039672914dcdb4976e41b38f1345e4870c06
         return binding.root
     }
 

@@ -24,13 +24,7 @@
     <string name="category_music">Müzik</string>
     <string name="category_pet">Evcil Hayvan Malzemeleri</string>
     <string name="category_sports">Spor</string>
-<<<<<<< HEAD
-</resources>
-
-
-=======
     <string name="points">Puanlar</string>
     <string name="products">Urunler</string>
     <string name="logout">CIKIS YAP</string>
 </resources>
->>>>>>> c775039672914dcdb4976e41b38f1345e4870c06
