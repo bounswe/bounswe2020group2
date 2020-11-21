@@ -6,16 +6,14 @@ from rest_framework.parsers import JSONParser
 from API.utils import permissions, Role
 from API.utils.jwttoken import generate_access_token
 from API.utils.crypto import Crypto
-from API.models import Product
-from API.serializers import account_serializer
-
-from API.serializers import ProductSerializer 
+from API.models.product import Product
+from API.my_serializers import ProductSerializer
 
 @api_view(['GET'])
 @permission_classes([permissions.AllowAnonymous])
 def homepage_products(request):
 
-    products = Product.objects.all()[:20]
+    products = Product.objects.all()[:10]
     serializer = ProductSerializer(products, many=True)
 
     return Response(serializer.data)
