@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:background="@color/initGold"
-        android:padding="25dp"
+        android:padding="20dp"
         android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
@@ -32,8 +32,8 @@
             android:id="@+id/et_user_name"
             android:hint="@string/user_name"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:textColor="@color/colorPrimaryDark"
-            android:textColorHint="@color/colorAccent"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
             android:textAlignment="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -41,8 +41,8 @@
             android:id="@+id/et_password"
             android:hint="@string/password"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:textColor="@color/colorPrimaryDark"
-            android:textColorHint="@color/colorAccent"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
             android:textAlignment="center"
             android:inputType="textPassword"
             android:layout_width="match_parent"
@@ -89,11 +89,13 @@
                 android:id="@+id/btn_register"
                 android:text="@string/register"
                 android:textAllCaps="false"
+                android:background="@color/black"
                 android:textSize="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <Button
                 android:id="@+id/btn_visitor"
+                android:background="@color/black"
                 android:text="@string/visitor"
                 android:textAllCaps="false"
                 android:layout_marginTop="80dp"

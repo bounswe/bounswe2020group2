@@ -26,7 +26,7 @@ class LoginFragment : Fragment() {
 
         activity?.toolbar!!.visibility = View.GONE
 
-        binding.btnVisitor.setOnClickListener() {
+        binding.btnLogin.setOnClickListener() {
             view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
         }
 
