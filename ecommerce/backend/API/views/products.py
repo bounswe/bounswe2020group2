@@ -7,7 +7,7 @@ from API.utils import permissions, Role
 from API.utils.jwttoken import generate_access_token
 from API.utils.crypto import Crypto
 from API.models.product import Product
-from API.my_serializers import ProductSerializer
+from API.model_serializers import ProductSerializer
 
 @api_view(['GET'])
 @permission_classes([permissions.AllowAnonymous])
