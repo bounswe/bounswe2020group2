@@ -3,11 +3,12 @@ import { useState } from 'react'
 import "./ShoppingCartItem.less"
 import { DeleteOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
+
 export const ShoppingCartItem = ({cartItem = {}, onChangeItem = () => {}}) => {
     const [product, setProduct] = useState(cartItem?.product)
 
     const [amount, setAmount] = useState(cartItem?.amount)
-
+    
 
 
     const onClickDelete = () => {
