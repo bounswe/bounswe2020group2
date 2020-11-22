@@ -12,7 +12,7 @@
         android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.getflix.ui.fragment.ProfileFragment"
+        tools:context="com.example.getflix.ui.fragments.ProfileFragment"
         android:background="@color/initPurple"
         android:orientation="vertical">
 
@@ -34,6 +34,7 @@
                     android:src="@drawable/ic_baseline_face_24" />
 
                 <TextView
+                    android:id="@+id/name"
                     android:layout_marginTop="10dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
@@ -72,6 +73,7 @@
                             android:textSize="20sp" />
 
                         <TextView
+                            android:id="@+id/points"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="125"
@@ -96,6 +98,7 @@
                             android:textSize="20sp" />
 
                         <TextView
+                            android:id="@+id/products"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="32"
@@ -127,6 +130,7 @@
                     android:src="@drawable/ic_baseline_mail_24" />
 
                 <TextView
+                    android:id="@+id/mail"
                     android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
@@ -137,7 +141,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
                 android:paddingLeft="25dp"
                 android:layout_width="match_parent"
@@ -149,6 +153,7 @@
                     android:src="@drawable/ic_baseline_phone_24" />
 
                 <TextView
+                    android:id="@+id/tel"
                     android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
@@ -160,9 +165,10 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/btn_logout"
             android:textColor="@color/initPurple"
-            android:layout_marginTop="45dp"
-            android:background="@color/initGold"
+            android:layout_marginTop="30dp"
+            android:background="@color/colorPrimary"
             android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

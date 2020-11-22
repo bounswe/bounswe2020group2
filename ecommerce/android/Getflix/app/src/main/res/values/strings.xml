@@ -41,9 +41,11 @@
     <string name="reg_error">Bu alan boş bırakılamaz.</string>
     <string name="reg_agree">Kullanıcı sözleşmesini okudum.</string>
     <string name="reg_agree_err">Kullanıcı sözleşmesini okuduğunuzu onaylayınız.</string>
-    <string name="forgot_password">Forgot password?</string>
-    <string name="or">OR</string>
-    <string name="sign_up">Don\'t have an account? Sign up.</string>
+    <string name="forgot_password">Şifremi unuttum</string>
+    <string name="or">VEYA</string>
+    <string name="sign_up">Hesabın yok mu? Kaydol</string>
+    <string name="guest">Misafir</string>
+    <string name="guest_cont">Misafir olarak devam et</string>
 
 
 </resources>

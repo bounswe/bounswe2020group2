@@ -53,8 +53,9 @@
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
-            app:navGraph="@navigation/nav_graph" />
+            app:navGraph="@navigation/nav_graph"
+            app:defaultNavHost="true"
+            />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav"

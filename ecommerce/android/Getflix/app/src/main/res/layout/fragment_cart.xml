@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
         android:layout_height="match_parent"
-        tools:context=".ui.fragment.CartFragment">
+        tools:context=".ui.fragments.CartFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cart_list"

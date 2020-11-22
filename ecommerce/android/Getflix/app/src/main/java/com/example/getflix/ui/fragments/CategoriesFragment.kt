@@ -1,4 +1,4 @@
-package com.example.getflix.ui.fragment
+package com.example.getflix.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 
 import androidx.fragment.app.Fragment
-
-import androidx.navigation.findNavController
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,11 +17,10 @@ import com.example.getflix.models.CategoryModel
 import com.example.getflix.models.SubcategoryModel
 import com.example.getflix.ui.adapters.CategoriesAdapter
 import com.example.getflix.ui.viewmodels.CategoriesViewModel
+import com.example.getflix.ui.viewmodels.CategoryViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
-
-
 
 
     private lateinit var viewModel: CategoriesViewModel
