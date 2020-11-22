@@ -35,6 +35,20 @@ class LoginFragment : Fragment() {
         activity?.toolbar_lay!!.visibility = View.GONE
         println(activity?.toolbar_lay!!.visibility.toString())
 
+        binding.login.setOnClickListener {
+            var canSubmit = true
+            if (binding.username.text.toString().isEmpty()) {
+                binding.username.error = getString(R.string.reg_error)
+                canSubmit = false
+            }
+            if (binding.password.text.toString().isEmpty()) {
+                binding.password.error = getString(R.string.reg_error)
+                canSubmit = false
+            }
+            if(canSubmit)
+            view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
+        }
+
         binding.signUpButton.setOnClickListener {
             view?.findNavController()?.navigate(actionLoginFragmentToRegisterFragment())
         }
