@@ -45,6 +45,5 @@ class ProductListItem (models.Model):
 #shoppingcartitem
 class ShoppingCartItem (models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
     product_id = models.IntegerField()
     amount = models.IntegerField()
