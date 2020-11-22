@@ -6,7 +6,7 @@ export const SignupPage = () => {
             <div className="signup-header">
                 <h1>Signup to Getflix!</h1>
             </div>  
-            <SignUpForm className="signup-form" />
+            <SignUpForm />
         </div>
     </>
 }
