@@ -1,4 +1,4 @@
-package com.example.getflix.ui.fragment
+package com.example.getflix.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.ui.adapters.SubcategoryAdapter
 import com.example.getflix.databinding.FragmentCategoryBinding
+import com.example.getflix.ui.viewmodels.CategoryViewModel
 
 
 class CategoryFragment : Fragment() {

@@ -1,4 +1,4 @@
-package com.example.getflix.ui.fragment
+package com.example.getflix.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,7 +10,6 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.getflix.R
-import com.example.getflix.databinding.FragmentFavoritesBinding
 import com.example.getflix.databinding.FragmentSubcategoryBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*

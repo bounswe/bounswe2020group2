@@ -10,7 +10,7 @@ const formItemLayout = {
             span: 24,
         },
         sm: {
-            span: 8,
+            span: 6,
         },
     },
     wrapperCol: {
@@ -18,7 +18,7 @@ const formItemLayout = {
             span: 24,
         },
         sm: {
-            span: 16,
+            span: 18,
         },
     },
 }
@@ -29,8 +29,8 @@ const tailFormItemLayout = {
             offset: 0,
         },
         sm: {
-            span: 16,
-            offset: 8,
+            span: 18,
+            offset: 6,
         },
     },
 }
@@ -104,9 +104,8 @@ export const SignUpForm = ({ onSubmit = () => {} }) => {
                         required: true,
                         message: 'Please input your name!',
                     },
-                ]}
-                hasFeedback>
-                <Input.Password />
+                ]}>
+                <Input />
             </Form.Item>
 
             {/* Surname input */}
@@ -118,9 +117,8 @@ export const SignUpForm = ({ onSubmit = () => {} }) => {
                         required: true,
                         message: 'Please input your surname!',
                     },
-                ]}
-                hasFeedback>
-                <Input.Password />
+                ]}>
+                <Input />
             </Form.Item>
 
             {/* Username input */}

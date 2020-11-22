@@ -1,4 +1,4 @@
-package com.example.getflix.ui.fragment
+package com.example.getflix.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,9 +9,7 @@ import android.widget.RadioGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.getflix.R
-import com.example.getflix.databinding.FragmentHomePageBinding
 import com.example.getflix.databinding.FragmentRegisterBinding
-import com.example.getflix.models.ProductModel
 
 
 class RegisterFragment : Fragment() {
@@ -108,6 +106,10 @@ class RegisterFragment : Fragment() {
                 view?.findNavController()
                     ?.navigate(RegisterFragmentDirections.actionRegisterFragmentToHomePageFragment())
             }
+        }
+
+        binding.btnBack.setOnClickListener {
+            view?.findNavController()!!.popBackStack()
         }
 
 

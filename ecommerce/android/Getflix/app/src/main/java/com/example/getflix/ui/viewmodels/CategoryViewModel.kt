@@ -1,4 +1,4 @@
-package com.example.getflix.ui.fragment
+package com.example.getflix.ui.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
