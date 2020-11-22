@@ -16,11 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from API import views
+from API.views.shopping_cart import list_shopping_cart
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', views.account.apiOverview),
-    path('register/', views.account.register),
-    path('login/', views.account.login),
-    path('user/<int:id>/shoppingCart/', views.shopping_cart.add_shopping_cart_item)
+    path('api/', views.account.apiOverview, name="api"),
+    path('register/', views.account.register, name="register"),
+    path('login/', views.account.login, name="login"),
+    path('init/', views.account.init, name="init"),
+    path('products/homepage/<int:no>', views.product.homepage_products),
+    path('user/<int:id>/listShoppingCart/', list_shopping_cart),
+    path('product/<int:productId>/', views.product.product_detail)
 ]

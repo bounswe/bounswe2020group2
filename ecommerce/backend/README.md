@@ -22,7 +22,9 @@ To setup your development environment:
 
 4. "secrets.json" file will be provided, place it into folder containing manage.py
 
-5. Handle database migrations if any `python manage.py migrate`
+5. Create migration files `python manage.py makemigrations`
 
-6. Run development server `python manage.py runserver`
+6. Handle database migrations if any `python manage.py migrate`
+
+7. Run development server `python manage.py runserver`
 
