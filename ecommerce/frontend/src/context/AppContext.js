@@ -18,6 +18,11 @@ function useApp() {
     }
 
     const init = async () => {
+        if (!localStorage.getItem('token')) {
+            console.log('no token in local storage, not attempting init')
+            return
+        }
+
         try {
             const { data } = await api.post('/init', null, {
                 headers: {
