@@ -1,19 +1,16 @@
-package com.example.getflix.ui.fragment
+package com.example.getflix.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentLoginBinding
-import com.example.getflix.ui.fragment.LoginFragmentDirections.Companion.actionLoginFragmentToHomePageFragment
-import com.example.getflix.ui.fragment.LoginFragmentDirections.Companion.actionLoginFragmentToRegisterFragment
-
-import com.google.android.material.appbar.AppBarLayout
+import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToHomePageFragment
+import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToRegisterFragment
 
 import kotlinx.android.synthetic.main.activity_main.*
 

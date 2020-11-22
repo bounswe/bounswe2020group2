@@ -12,7 +12,7 @@
         android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.getflix.ui.fragment.ProfileFragment"
+        tools:context="com.example.getflix.ui.fragments.ProfileFragment"
         android:background="@color/initPurple"
         android:orientation="vertical">
 

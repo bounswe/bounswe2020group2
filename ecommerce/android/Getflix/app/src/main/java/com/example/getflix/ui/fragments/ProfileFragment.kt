@@ -1,6 +1,5 @@
-package com.example.getflix.ui.fragment
+package com.example.getflix.ui.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,7 +11,7 @@ import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentHomePageBinding
 import com.example.getflix.databinding.FragmentProfileBinding
-import com.example.getflix.ui.fragment.ProfileFragmentDirections.Companion.actionProfileFragmentToLoginFragment
+import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToLoginFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 

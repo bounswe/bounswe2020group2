@@ -1,4 +1,4 @@
-package com.example.getflix.ui.fragment
+package com.example.getflix.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,7 +11,6 @@ import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentHomePageBinding
 import com.example.getflix.databinding.FragmentRegisterBinding
-import com.example.getflix.models.ProductModel
 
 
 class RegisterFragment : Fragment() {

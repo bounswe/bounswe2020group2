@@ -1,19 +1,13 @@
 package com.example.getflix.ui.adapters
 
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import com.example.getflix.R
 import com.example.getflix.databinding.ListCategoryBinding
 import com.example.getflix.databinding.ListSubcategoryBinding
 import com.example.getflix.models.CategoryModel
 import com.example.getflix.models.SubcategoryModel
-import com.example.getflix.ui.fragment.CategoriesFragment
+import com.example.getflix.ui.fragments.CategoriesFragment
 import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder
