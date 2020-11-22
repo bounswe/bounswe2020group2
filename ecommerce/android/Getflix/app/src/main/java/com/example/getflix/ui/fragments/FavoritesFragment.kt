@@ -1,4 +1,4 @@
-package com.example.getflix.ui.fragment
+package com.example.getflix.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,7 +12,6 @@ import com.example.getflix.R
 import com.example.getflix.databinding.FragmentFavoritesBinding
 import com.example.getflix.models.ProductModel
 import com.example.getflix.ui.adapters.FavoritesAdapter
-import com.example.getflix.ui.viewmodels.CartViewModel
 import com.example.getflix.ui.viewmodels.FavoritesViewModel
 
 

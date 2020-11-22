@@ -7,7 +7,7 @@
 
         <variable
             name="homeViewModel"
-            type="com.example.getflix.viewmodels.HomeViewModel" />
+            type="com.example.getflix.ui.viewmodels.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#171717"
-        tools:context=".ui.fragment.LoginFragment">
+        tools:context=".ui.fragments.LoginFragment">
 
         <ScrollView
             android:layout_width="match_parent"

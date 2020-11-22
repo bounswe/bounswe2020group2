@@ -1,4 +1,4 @@
-package com.example.getflix.viewmodels
+package com.example.getflix.ui.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*

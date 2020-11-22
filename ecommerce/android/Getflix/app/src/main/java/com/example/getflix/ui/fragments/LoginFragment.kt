@@ -1,19 +1,15 @@
-package com.example.getflix.ui.fragment
+package com.example.getflix.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.getflix.R
+import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentLoginBinding
-import com.example.getflix.ui.fragment.LoginFragmentDirections.Companion.actionLoginFragmentToHomePageFragment
-import com.example.getflix.ui.fragment.LoginFragmentDirections.Companion.actionLoginFragmentToRegisterFragment
-
-import com.google.android.material.appbar.AppBarLayout
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -36,10 +32,25 @@ class LoginFragment : Fragment() {
 
         println(activity?.toolbar_lay!!.visibility.toString())
         activity?.toolbar_lay!!.visibility = View.GONE
+        activity?.bottom_nav!!.visibility = View.GONE
         println(activity?.toolbar_lay!!.visibility.toString())
 
+        binding.login.setOnClickListener {
+            var canSubmit = true
+            if (binding.username.text.toString().isEmpty()) {
+                binding.username.error = getString(R.string.reg_error)
+                canSubmit = false
+            }
+            if (binding.password.text.toString().isEmpty()) {
+                binding.password.error = getString(R.string.reg_error)
+                canSubmit = false
+            }
+            if(canSubmit)
+            view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
+        }
+
         binding.signUpButton.setOnClickListener {
-            view?.findNavController()?.navigate(actionLoginFragmentToRegisterFragment())
+            view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
         }
 /*
        val gso =
@@ -54,9 +65,16 @@ class LoginFragment : Fragment() {
             view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
         }*/
         binding.signInButton.setOnClickListener {
-            view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
+            view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
 
         }
+
+        binding.guestButton.setOnClickListener {
+            MainActivity.StaticData.isVisitor = true
+            view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
+
+        }
+
         return binding.root
     }
 /*

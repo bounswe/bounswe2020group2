@@ -1,7 +1,7 @@
 from rest_framework.test import APIClient
 from django.test import TestCase
 from django.urls import reverse
-from API.models import user
+from ..models import user
 
 class TestAccount(TestCase):
     def setUp(self):

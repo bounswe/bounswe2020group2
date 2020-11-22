@@ -5,9 +5,10 @@
     android:id="@+id/nav_graph.xml"
     app:startDestination="@id/loginFragment">
 
+
     <fragment
         android:id="@+id/homePageFragment"
-        android:name="com.example.getflix.ui.fragment.HomePageFragment"
+        android:name="com.example.getflix.ui.fragments.HomePageFragment"
         android:label="HomePageFragment"
         tools:layout="@layout/fragment_home_page">
         <action
@@ -16,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.getflix.ui.fragment.LoginFragment"
+        android:name="com.example.getflix.ui.fragments.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
@@ -28,28 +29,43 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.getflix.ui.fragment.ProfileFragment"
-        android:label="ProfileFragment" >
+        android:name="com.example.getflix.ui.fragments.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
   <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.example.getflix.ui.fragment.CategoryFragment"
-        android:label="CategoryFragment">
+        android:name="com.example.getflix.ui.fragments.CategoryFragment"
+        android:label="CategoryFragment"
+      tools:layout="@layout/fragment_category">
         <argument
             android:name="categoryId"
             app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.getflix.ui.fragment.RegisterFragment"
+        android:name="com.example.getflix.ui.fragments.RegisterFragment"
         android:label="RegisterFragment" >
         <action
             android:id="@+id/action_registerFragment_to_homePageFragment"
             app:destination="@id/homePageFragment" />
     </fragment>
+    <action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment" />
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.getflix.ui.fragments.CartFragment"
+        android:label="CartFragment" />
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.example.getflix.ui.fragments.CategoriesFragment"
+        android:label="CategoriesFragment" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.getflix.ui.fragments.FavoritesFragment"
+        android:label="FavoritesFragment" />
 
 </navigation>
 
