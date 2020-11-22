@@ -2,13 +2,15 @@ package com.example.getflix.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.FavproductLayoutBinding
 import com.example.getflix.models.ProductModel
 
 class FavoritesAdapter(
     private val productList: ArrayList<ProductModel>?,
-) : RecyclerView.Adapter<FavoritesAdapter.RowHolder>() {
+) : ListAdapter<ProductModel, FavoritesAdapter.RowHolder>(FavoritesDiffCallback()) {
 
     class RowHolder(val binding: FavproductLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -31,17 +33,28 @@ class FavoritesAdapter(
         return RowHolder.from(parent)
     }
 
-    override fun getItemCount(): Int {
+    /*override fun getItemCount(): Int {
         if (productList != null) {
             return productList.count()
         }
         return 0;
-    }
+    }*/
 
 
     override fun onBindViewHolder(holder: RowHolder, position: Int) {
         productList?.get(position)?.let { holder.bind(it, position) }
     }
 
+
+}
+
+class FavoritesDiffCallback: DiffUtil.ItemCallback<ProductModel>() {
+    override fun areItemsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
+        return oldItem == newItem
+    }
 
 }
