@@ -19,7 +19,7 @@ const formItemLayout = {
             span: 24,
         },
         sm: {
-            span: 16,
+            span: 8,
         },
     },
 }
