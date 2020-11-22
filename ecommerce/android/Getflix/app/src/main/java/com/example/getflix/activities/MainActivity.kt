@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     // static boolean variable to check the type of the user
     // can be accessed like StaticData.isVisitor, can be used in other classes
     object StaticData {
+        const val BASE_URL = "http://10.0.2.2:8000/"
         var isVisitor = false
         var isCustomer = false
         var isVendor = false

@@ -10,13 +10,24 @@ import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentLoginBinding
+import com.example.getflix.models.PModel
+import com.example.getflix.models.ProductModel
+import com.example.getflix.services.ProductsAPI
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.*
+import okhttp3.Dispatcher
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class LoginFragment : Fragment() {
 
     // private var account : GoogleSignInAccount? = null
+    private var job: Job? = null
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        println("Error ${throwable.localizedMessage}")
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -30,10 +41,37 @@ class LoginFragment : Fragment() {
         )
 
 
-        println(activity?.toolbar_lay!!.visibility.toString())
+
         activity?.toolbar_lay!!.visibility = View.GONE
         activity?.bottom_nav!!.visibility = View.GONE
-        println(activity?.toolbar_lay!!.visibility.toString())
+
+        val retrofit = Retrofit.Builder().baseUrl(MainActivity.StaticData.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ProductsAPI::class.java)
+
+        var productsdata = listOf<PModel>() ?: null
+
+        println("joba girecek")
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = retrofit.getProducts()
+            println("burdaa")
+            withContext(Dispatchers.Main + exceptionHandler) {
+                println(response.isSuccessful)
+                println(response.code())
+                println(response.message())
+                println(response.errorBody())
+                println(response.body().toString())
+                if(response.isSuccessful) {
+                    response.body().let {
+                        productsdata = it
+                        println(productsdata!!.size)
+                        println("heyyyy")
+                    }
+                }
+            }
+        }
+
 
         binding.login.setOnClickListener {
             var canSubmit = true
