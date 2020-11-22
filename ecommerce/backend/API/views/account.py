@@ -46,7 +46,6 @@ def register(request):
 @api_view(['POST'])
 @permission_classes([permissions.AllowAnonymous])
 def login(request):
-    
     data = JSONParser().parse(request)
     serializer = account_serializer.LoginRequestSerializer(data=data)
     if not serializer.is_valid():
@@ -54,7 +53,6 @@ def login(request):
     crypto = Crypto()
     username = serializer.validated_data.get("username")
     password = serializer.validated_data.get("password")
-
     user = User.objects.filter(username=username).first()
     if user is None:
         user_serializer = account_serializer.LoginResponseSerializer(

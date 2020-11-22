@@ -24,7 +24,6 @@ class UserSerializer(serializers.ModelSerializer):
             return ""
 
     def get_lastname(self, obj):
-        print(obj.role)
         if obj.role == Role.CUSTOMER.value:
             customer = user_model.Customer.objects.filter(user=obj).first()
             return customer.last_name

@@ -1,3 +1,4 @@
+from django.http.response import HttpResponseForbidden, HttpResponseNotAllowed
 from rest_framework import exceptions
     
 from rest_framework.response import Response
@@ -21,15 +22,17 @@ def list_shopping_cart(request, id): #userId
 
 
 @api_view(['POST'])
-@permission_classes([permissions.AllowAnonymous])
+@permission_classes([permissions.IsCustomerUser])
 def add_shopping_cart_item(request, id):
+    if request.user.pk != id:
+        return Response(status=status.HTTP_403_FORBIDDEN)
+
     serializer = shopping_cart_serializer.ShoppingCartRequestSerializer(data=request.data)
     if not serializer.is_valid():
-        return Response("Invalid input")
-
-    # userId = serializer.validated_data.get("userId")
-    # if userId != int(id):
-    #     return Response("Invalid user")
+        context = { 'succesful': False,
+                    'message': "Invalid input"
+        }
+        return Response(context)
 
     user = User.objects.filter(pk=int(id)).first()
     amount = serializer.validated_data.get("amount")
@@ -43,10 +46,20 @@ def add_shopping_cart_item(request, id):
     else:
         shopping_cart.amount+=amount
         
+    
     if shopping_cart.amount > stock_amount:
-            return Response("Stock Amount is reached")
+        context = { 'succesful': False,
+                    'message': "Stock Amount is reached"
+        }
+        return Response(context)
     elif shopping_cart.amount < 0:
-        return Response("Amount cannot be negative")
+        context = { 'succesful': False,
+                    'message': "Amount cannot be negative"
+        }
+        return Response(context)
     shopping_cart.save()
 
-    return Response("Success")
+    context = { 'succesful': True,
+                'message': "Product is added to the cart succesfully."
+    }
+    return Response(context)
