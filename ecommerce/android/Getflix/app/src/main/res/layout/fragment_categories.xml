@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
-        tools:context=".ui.fragment.CategoriesFragment">
+        tools:context=".ui.fragments.CategoriesFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
