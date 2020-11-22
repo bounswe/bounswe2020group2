@@ -1,6 +1,6 @@
 import './Layout_common.less'
 import { Layout, Menu, Avatar, Dropdown, Button } from 'antd'
-import { UserOutlined, LogoutOutlined } from '@ant-design/icons'
+import { UserOutlined, LogoutOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { useContext } from 'react'
 import { useAppContext } from '../../context/AppContext'
@@ -39,6 +39,14 @@ export const CustomerHeaderContent = () => {
 
     return (
         <div className="header-customer">
+            <Link to="/shoppingCart" className="header-customer-cart">
+                <Button
+                    className="header-customer-cart"
+                    icon={<ShoppingCartOutlined className="header-customer-cart-icon" />}
+                    ghost>
+                    My Cart
+                </Button>
+            </Link>
             <Dropdown overlay={dropdownMenu()} placement={'bottomRight'} trigger="click">
                 <Button className="header-customer-info" ghost>
                     <Avatar shape="square" size="large" icon={<UserOutlined />} />
