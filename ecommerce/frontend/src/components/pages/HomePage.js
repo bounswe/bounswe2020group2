@@ -17,6 +17,7 @@ export const HomePage = () => {
         { key: 'mens_fashion', title: "Men's Fashion" },
         { key: 'womens_fashion', title: "Women's Fashion" },
     ]
+
     return (
         <div>
             <HomePage_Splash />
