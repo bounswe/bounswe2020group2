@@ -68,7 +68,7 @@ export const Header = () => {
     return (
         <Layout.Header className="header">
             <div className="header-logo">
-                <Link to="/">GETFLIX</Link>
+                <Link to="/">getflix</Link>
             </div>
             {user.type === 'guest' ? <GuestHeaderContent /> : <CustomerHeaderContent />}
         </Layout.Header>

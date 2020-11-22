@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react'
 import { Spin } from 'antd'
 import { formatProduct, productSortBy, sleep } from '../../utils'
 import { api } from '../../api'
+import { SearchInput } from '../SearchInput'
+import { SearchInputWrapper } from '../search/SearchInputWrapper'
 
 export const HomePage = () => {
     // example usage
@@ -22,10 +24,15 @@ export const HomePage = () => {
 const HomePage_Splash = () => {
     return (
         <div className="splash">
-            <img src={getflixLogo} className="splash-logo"></img>
-            <div className="splash-slogan">
-                <h1>The biggest marketplace in the world</h1>
-                <h2>Any product you want, at your doorstep</h2>
+            <div className="splash-text">
+                <img src={getflixLogo} className="splash-logo"></img>
+                <div className="splash-slogan">
+                    <h1 className="splash-slogan-first">The biggest marketplace in the world</h1>
+                    <h3 className="splash-slogan-second">Any product you want, right at your doorstep</h3>
+                </div>
+            </div>
+            <div className="splash-search">
+                <SearchInputWrapper />
             </div>
         </div>
     )
