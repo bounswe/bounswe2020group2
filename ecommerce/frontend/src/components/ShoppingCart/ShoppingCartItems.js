@@ -20,7 +20,7 @@ export const ShoppingCartItems = ({ cart = [], onChangeCart = () => {} }) => {
         <div>
             {currentCart.map(item => {
                 return (
-                    <div key={item.product.productId} style={{ 'margin-bottom': '15px' }}>
+                    <div key={item.product.productId} style={{ marginBottom: '15px' }}>
                         <ShoppingCartItem
                             onChangeItem={onChangeItem}
                             key={item.product.productId}
