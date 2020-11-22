@@ -9,7 +9,6 @@ import android.widget.RadioGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.getflix.R
-import com.example.getflix.databinding.FragmentHomePageBinding
 import com.example.getflix.databinding.FragmentRegisterBinding
 
 
@@ -107,6 +106,10 @@ class RegisterFragment : Fragment() {
                 view?.findNavController()
                     ?.navigate(RegisterFragmentDirections.actionRegisterFragmentToHomePageFragment())
             }
+        }
+
+        binding.btnBack.setOnClickListener {
+            view?.findNavController()!!.popBackStack()
         }
 
 

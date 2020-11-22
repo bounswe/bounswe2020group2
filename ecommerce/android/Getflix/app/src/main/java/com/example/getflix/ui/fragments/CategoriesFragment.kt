@@ -23,8 +23,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 
-
-
     private lateinit var viewModel: CategoriesViewModel
     private lateinit var adapter: CategoriesAdapter
 

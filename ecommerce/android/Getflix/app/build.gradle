@@ -82,4 +82,6 @@ dependencies {
     // Annotation processor
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.0-beta01"
+
 }

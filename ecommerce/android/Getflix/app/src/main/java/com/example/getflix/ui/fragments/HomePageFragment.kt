@@ -37,7 +37,11 @@ class HomePageFragment() : Fragment() {
         binding.homeViewModel = homeViewModel
         binding.lifecycleOwner = this
         homeViewModel.onCategoryClick.observe(viewLifecycleOwner, Observer {
-            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionHomePageFragmentToCategoryFragment(it!!))
+            /*val transaction = activity?.supportFragmentManager!!.beginTransaction()
+            transaction.replace(R.id.my_nav_host_fragment, CategoryFragment())
+            transaction.disallowAddToBackStack()
+            transaction.commit() */
+            //NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionHomePageFragmentToCategoryFragment(it!!))
         })
 
         return binding.root

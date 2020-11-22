@@ -5,6 +5,7 @@
     android:id="@+id/nav_graph.xml"
     app:startDestination="@id/loginFragment">
 
+
     <fragment
         android:id="@+id/homePageFragment"
         android:name="com.example.getflix.ui.fragments.HomePageFragment"
@@ -29,7 +30,8 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.getflix.ui.fragments.ProfileFragment"
-        android:label="ProfileFragment" >
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -37,7 +39,8 @@
   <fragment
         android:id="@+id/categoryFragment"
         android:name="com.example.getflix.ui.fragments.CategoryFragment"
-        android:label="CategoryFragment">
+        android:label="CategoryFragment"
+      tools:layout="@layout/fragment_category">
         <argument
             android:name="categoryId"
             app:argType="integer" />
@@ -50,6 +53,19 @@
             android:id="@+id/action_registerFragment_to_homePageFragment"
             app:destination="@id/homePageFragment" />
     </fragment>
+    <action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment" />
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.getflix.ui.fragments.CartFragment"
+        android:label="CartFragment" />
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.example.getflix.ui.fragments.CategoriesFragment"
+        android:label="CategoriesFragment" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.getflix.ui.fragments.FavoritesFragment"
+        android:label="FavoritesFragment" />
 
 </navigation>
 
