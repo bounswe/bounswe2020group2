@@ -1,14 +1,14 @@
 <resources>
-    <string name="app_name">Getflix</string>
+    <string name="app_name">getflix</string>
     <string name="hello_blank_fragment">Boş</string>
     <string name="login">Oturum Aç</string>
     <string name="home">Anasayfa</string>
     <string name="categories">Kategoriler</string>
     <string name="profile">Profil</string>
     <string name="cart">Sepet</string>
-    <string name="user_name">Kullanici Ismi</string>
-    <string name="password">Parola</string>
-    <string name="or_login">Ya da Google hesabinizla giris yapin</string>
+    <string name="user_name">Kullanıcı Adı</string>
+    <string name="password">Şifre</string>
+    <string name="or_login">Ya da Google hesabınzla giriş yapın</string>
     <string name="not_member">Hala uye degil misiniz?</string>
     <string name="register">Kayit Ol</string>
     <string name="visitor">Ziyaretci olarak devam et</string>
@@ -27,4 +27,23 @@
     <string name="points">Puanlar</string>
     <string name="products">Urunler</string>
     <string name="logout">CIKIS YAP</string>
+    <string name="name">Ad</string>
+    <string name="surname">Soyad</string>
+    <string name="mail">Email</string>
+    <string name="address">Adres</string>
+    <string name="zip">Posta Kodu</string>
+    <string name="city">Şehir</string>
+    <string name="state">Bölge</string>
+    <string name="confirm_pass">Şifre (tekrar)</string>
+    <string name="phone_num">Telefon No.</string>
+    <string name="customer">Müşteri</string>
+    <string name="vendor">Satıcı</string>
+    <string name="reg_error">Bu alan boş bırakılamaz.</string>
+    <string name="reg_agree">Kullanıcı sözleşmesini okudum.</string>
+    <string name="reg_agree_err">Kullanıcı sözleşmesini okuduğunuzu onaylayınız.</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="or">OR</string>
+    <string name="sign_up">Don\'t have an account? Sign up.</string>
+
+
 </resources>

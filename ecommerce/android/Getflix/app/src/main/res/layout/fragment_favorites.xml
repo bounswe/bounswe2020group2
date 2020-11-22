@@ -5,12 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewmodel"
+            type="com.example.getflix.ui.viewmodels.FavoritesViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragment.LoginFragment">
+        tools:context=".ui.fragment.LoginFragment"
+        android:layout_marginTop="?attr/actionBarSize">
 
 
         <androidx.recyclerview.widget.RecyclerView

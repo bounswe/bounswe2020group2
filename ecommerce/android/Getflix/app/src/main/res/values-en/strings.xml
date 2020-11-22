@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Getflix</string>
+    <string name="app_name">getflix</string>
     <string name="hello_blank_fragment">Empty Fragment</string>
     <string name="login">Login</string>
     <string name="home">Home</string>
@@ -9,7 +9,6 @@
     <string name="cart">Cart</string>
     <string name="user_name">User Name</string>
     <string name="password">Password</string>
-    <string name="or_login">Or login with</string>
     <string name="not_member">Not a member?</string>
     <string name="register">Sign Up</string>
     <string name="visitor">Continue as visitor</string>
@@ -28,4 +27,21 @@
     <string name="points">Points</string>
     <string name="products">Products</string>
     <string name="logout">LOG OUT</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="mail">Email</string>
+    <string name="confirm_pass">Confirm Password</string>
+    <string name="phone_num">Phone Number</string>
+    <string name="customer">Customer</string>
+    <string name="vendor">Vendor</string>
+    <string name="address">Address</string>
+    <string name="zip">Zip Code</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
+    <string name="reg_error">This field cannot be empty.</string>
+    <string name="reg_agree">I have read the agreement.</string>
+    <string name="reg_agree_err">Please confirm that you have read the agreement.</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="or">OR</string>
+    <string name="sign_up">Don\'t have an account? Sign up.</string>
 </resources>
