@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from API.models import user as user_model
-from API.utils.jwttoken import generate_access_token
-from API.utils import Role
+from ..models import user as user_model
+from ..utils.jwttoken import generate_access_token
+from ..utils import Role
 
-from API.models import product as product_model
-from API.models import interactions as interactions_model
+from ..models import product as product_model
+from ..models import interactions as interactions_model
 
 class LoginRequestSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=32)

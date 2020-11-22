@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from API.models import ShoppingCartItem, Product, Subcategory, Category, Brand, Vendor
-from API.serializers.product_serializer import ProductSerializer
+from ..models import ShoppingCartItem, Product, Subcategory, Category, Brand, Vendor
+from ..serializers.product_serializer import ProductSerializer
 
 class ShoppingCartItemSerializer(serializers.ModelSerializer):
     product = serializers.SerializerMethodField('get_product')
