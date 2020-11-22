@@ -13,7 +13,7 @@ function useApp() {
     const [requestInterceptorId, setRequestInterceptorId] = useState(null)
 
     const requestInterceptor = request => {
-        request.headers.authorization = localStorage.getItem('token')
+        request.headers.authorization = `Bearer ${localStorage.getItem('token')}`
         return request
     }
 
