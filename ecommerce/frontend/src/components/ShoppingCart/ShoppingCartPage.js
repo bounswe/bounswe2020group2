@@ -1,64 +1,36 @@
+import './ShoppingCartPage.less'
+
+import { Button, Col, Row, Spin, Statistic } from 'antd'
 import React, { Component, useEffect, useState } from 'react'
-import './ShoppingCart.less'
-import { Button, Spin, Statistic, Row, Col, notification } from 'antd'
-import uuidv4 from 'uuid/dist/v4'
+
 import { useAppContext } from '../../context/AppContext'
 import { ShoppingCartItems } from './ShoppingCartItems'
 
-export const ShoppingCart = ({ currency = 'TL' }) => {
+export const ShoppingCartPage = ({ currency = 'TL' }) => {
     const [isLoading, setIsLoading] = useState(true)
-    const [totalPrice, setTotalPrice] = useState(0)
-    const [itemCount, setItemCount] = useState(0)
+    const { shoppingCart, shoppingCartRefreshId, getShoppingCart, checkoutShoppingCart } = useAppContext()
 
-    const onChangeCart = newCart => {
-        let priceSum = 0
-        let amountSum = 0
-        for (let item of newCart) {
-            priceSum += item.product.price * item.amount
-            amountSum += item.amount
-        }
-        setTotalPrice(priceSum)
-        setItemCount(amountSum)
-    }
-
-    const total = 3
-    const cart = [...Array(total)].map(x => {
-        return {
-            product: {
-                title: 'Title',
-                rating: '5',
-                price: 30,
-                currency: 'TL',
-                description: 'description',
-                imageUrl: `https://picsum.photos/300?q=${uuidv4()}`,
-                width: 300,
-                productId: uuidv4(),
-            },
-            amount: 1,
-        }
-    })
+    const totalPrice = shoppingCart.reduce((total, item) => total + item.product.price * item.amount, 0)
+    const itemCount = shoppingCart.reduce((count, item) => count + item.amount, 0)
 
     useEffect(() => {
         async function fetch() {
             try {
                 setIsLoading(true)
-            } catch {
-                notification.error({ description: 'Failed to get shopping cart from backend' })
+                await getShoppingCart()
             } finally {
                 setIsLoading(false)
             }
-            fetch(`localhost:4000/user/${'userId'}/shoppingCart`).then(res => onChangeCart(res))
         }
-        // fetch()
-        onChangeCart(cart)
-        setIsLoading(false)
-    }, [])
+        fetch()
+    }, [shoppingCartRefreshId])
 
     const onCheckout = () => {
         if (itemCount == 0) {
             alert('Empty cart')
         } else {
             alert('Total price: ' + totalPrice)
+            checkoutShoppingCart(shoppingCart)
         }
     }
 
@@ -66,7 +38,7 @@ export const ShoppingCart = ({ currency = 'TL' }) => {
         <div className="shopping-master">
             <div className="shopping-left">
                 <h2>Your shopping cart</h2>
-                {<ShoppingCartItems onChangeCart={onChangeCart} cart={cart}></ShoppingCartItems>}
+                <ShoppingCartItems cart={shoppingCart} />
             </div>
             <div className="shopping-right">
                 <div className="shopping-price">
