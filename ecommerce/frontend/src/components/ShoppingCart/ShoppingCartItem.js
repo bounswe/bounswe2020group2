@@ -34,7 +34,7 @@ export const ShoppingCartItem = ({ cartItem = {}, onChangeItem = () => {} }) => 
             <div className="single-cart-item">
                 <Row gutter={16} className="cart-item-header">
                     <Col className="cart-item-title" span={24}>
-                        {product.title}
+                        <Link to={`/products/${product.productId}`}>{product.title}</Link>
                     </Col>
                 </Row>
                 <Row gutter={16} className="cart-item-content">
