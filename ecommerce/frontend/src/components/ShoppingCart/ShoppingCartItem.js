@@ -44,7 +44,10 @@ export const ShoppingCartItem = ({ cartItem = {}, onChangeItem = () => {} }) => 
                     <Col span={9} className="cart-item-description">
                         {product.description}
                         <p className="cart-item-vendor">
-                            by <Link to={`/vendor`}> vendor</Link>
+                            by{' '}
+                            <Link to={`/vendors/${product.vendor ?? 'some_vendor_id'}`}>
+                                {product.vendor ?? 'vendor'}
+                            </Link>
                         </p>
                     </Col>
                     <Col span={2} className="cart-item-amount-text">
