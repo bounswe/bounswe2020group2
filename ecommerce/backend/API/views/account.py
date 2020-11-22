@@ -6,6 +6,7 @@ from rest_framework.renderers import JSONRenderer
 
 from API.utils import permissions, Role
 from API.utils.jwttoken import generate_access_token
+from API.utils.validators import validate_register_request
 from API.utils.crypto import Crypto
 from API.models import User, Customer
 from API.serializers import account_serializer
@@ -30,18 +31,34 @@ def apiOverview(request):
 @api_view(['POST'])
 @permission_classes([permissions.AllowAnonymous])
 def register(request):
+    validation_result = validate_register_request(request)
+    if validation_result[0] is False:
+        context = {
+            'successful': False,
+            'message': validation_result[1]
+        }
+        return Response(context)
+    
     crypto = Crypto()
     username = request.data["username"]
     salt = crypto.getSalt()
     password_hash = crypto.getHashedPassword(request.data["password"], salt)
     existing_user = User.objects.filter(username=username).first()
     if existing_user is not None:
-        return Response("Username is already in use")
+        context = {
+            'successful': False,
+            'message': 'Username is already in use'
+        }
+        return Response(context)
     user = User(username=request.data["username"], email=request.data["email"], password_salt=salt, password_hash=password_hash, role = Role.CUSTOMER.value)
     user.save()
     customer = Customer(first_name=request.data["firstname"], last_name=request.data["lastname"], user=user)
     customer.save()
-    return Response("Success")
+    context = {
+            'successful': True,
+            'message': 'Signup succeeded'
+    }
+    return Response(context)
 
 @api_view(['POST'])
 @permission_classes([permissions.AllowAnonymous])

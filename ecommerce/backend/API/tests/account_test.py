@@ -11,6 +11,17 @@ class TestAccount(TestCase):
         response = self.client.get(reverse('login'))
         self.assertEqual(response.status_code, 405)
 
+    def test_invalid_register(self):
+        body = {
+            'username': 'testuser',
+            'email': 'test@mail.com',
+            'password': '1234567',
+            'firstname': 'test',
+            'lastname': 'user'
+        }
+        response = self.client.post(reverse('register'), body, 'json')
+        self.assertEquals(response.data["successful"], False)
+
     def test_register(self):
         body = {
             'username': 'testuser',
@@ -40,6 +51,10 @@ class TestAccount(TestCase):
         response = self.client.post(reverse('login'), body, 'json')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["status"]["success"], True)
+        token = response.data["user"]["token"]
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + token)
+        response = self.client.get(reverse('init'))
+        self.assertEquals(response.status_code, 200)
 
     def test_response(self):
         body = {
