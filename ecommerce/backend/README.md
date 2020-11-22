@@ -1,4 +1,3 @@
-
 To setup your development environment:
 
 1. Create virtual environment `python -m venv djangoenv`
@@ -26,5 +25,3 @@ To setup your test database:
 4. Download the `dump.sql` file and run the following command `psql testdb < dump.sql` on your terminal if you are MacOS user or run `psql -U postgres -d testdb -f dump.sql` in the Windows Powershell
 
 5. Make sure that name is written as `'NAME': 'testdb'` in the DATABASES variable in the `settings.py`, otherwise Django will not connect to the database
-
-

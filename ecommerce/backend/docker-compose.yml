@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    command: ./run-docker.sh
+    volumes:
+      - .:/code
+    ports:
+      - 8020:8080
+    depends_on:
+      - db
+  postgres:
+    image: db
+    environment:
+      - BACKEND_DEBUG=True
+      - BACKEND_ENVIRONMENT=getflix

@@ -2,9 +2,9 @@ import json
 from rest_framework import status
 from django.test import TestCase, Client
 from django.urls import reverse
-from API.models import Product, Category, Subcategory, User, Vendor, Brand
-from API.serializers.product_serializer import ProductSerializer
-from API.views.product import product_detail
+from ..models import Product, Category, Subcategory, User, Vendor, Brand
+from ..serializers.product_serializer import ProductSerializer
+from ..views.product import product_detail
 
 client = Client()
 product_id_for_test = 1

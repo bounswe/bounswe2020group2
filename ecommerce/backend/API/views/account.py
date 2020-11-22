@@ -4,11 +4,11 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 
-from API.utils import permissions, Role
-from API.utils.jwttoken import generate_access_token
-from API.utils.crypto import Crypto
-from API.models import User, Customer
-from API.serializers import account_serializer
+from ..utils import permissions, Role
+from ..utils.jwttoken import generate_access_token
+from ..utils.crypto import Crypto
+from ..models import User, Customer
+from ..serializers import account_serializer
 
 # Create your views here.
 
@@ -46,7 +46,6 @@ def register(request):
 @api_view(['POST'])
 @permission_classes([permissions.AllowAnonymous])
 def login(request):
-    
     data = JSONParser().parse(request)
     serializer = account_serializer.LoginRequestSerializer(data=data)
     if not serializer.is_valid():
@@ -54,7 +53,6 @@ def login(request):
     crypto = Crypto()
     username = serializer.validated_data.get("username")
     password = serializer.validated_data.get("password")
-
     user = User.objects.filter(username=username).first()
     if user is None:
         user_serializer = account_serializer.LoginResponseSerializer(
