@@ -8,20 +8,10 @@ export const HomePage = () => {
     // example usage
     const { user, setUser } = useAppContext()
 
-    const categories = [
-        { key: 'electronics', title: 'Electronics' },
-        { key: 'home_and_garden', title: 'Home & Garden' },
-        { key: 'personal_care', title: 'Personal Care' },
-        { key: 'furniture', title: 'Furniture' },
-        { key: 'pet_supplies', title: 'Pet Supplies' },
-        { key: 'mens_fashion', title: "Men's Fashion" },
-        { key: 'womens_fashion', title: "Women's Fashion" },
-    ]
-
     return (
         <div>
             <HomePage_Splash />
-            <CategoryBar categories={categories} />
+            <CategoryBar />
             <HomePage_MainContent />
         </div>
     )

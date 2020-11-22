@@ -1,2 +1,3 @@
 from .account import *
-from .products import *
+from .product import *
+from .shopping_cart import * 
