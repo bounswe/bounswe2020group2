@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import ReactDOM from 'react-dom'
-import { Link, useRouteMatch, useParams } from 'react-router-dom'
-import { Rate, Spin } from 'antd'
+import { Link, useParams } from 'react-router-dom'
+import { useHistory } from 'react-router'
+import { createBrowserHistory } from 'history'
+import { Rate } from 'antd'
 import { sleep } from '../../utils'
 import './ProductPage.less'
+import { match } from 'ramda'
 
-export const ProductPage = () => {
+export const ProductPage = props => {
     const [product, setProduct] = useState({})
     const [isLoading, setIsLoading] = useState(true)
-    const { productId } = useParams()
+    const { productId } = props.match.params.productId
 
     console.log(productId)
     useEffect(() => {
@@ -16,7 +18,7 @@ export const ProductPage = () => {
             try {
                 setIsLoading(true)
 
-                // const { product } = await api.get(`/products/${productId}`)
+                // const { product } = await api.get(`/product/${productId}`)
                 const tempProduct = {
                     id: 1,
                     name: 'Mavi T-shirt',
@@ -26,7 +28,8 @@ export const ProductPage = () => {
                     total_rating: 4,
                     rating_count: 20,
                     stock_amount: 10,
-                    description: 'yaza özel',
+                    description:
+                        'yaza özel çok güzel bir ürünyaza özel çok güzel bir ürünyaza özel çok güzel bir ürünyaza özel çok güzel bir ürünyaza özel çok güzel bir ürünyaza özel çok güzel bir ürünyaza özel çok güzel bir ürünyaza özel çok güzel bir ürünyaza özel çok güzel bir ürünyaza özel çok güzel bir ürün   ',
                     subcategory: "Men's Fashion",
                     category: 'Clothing',
                     brand: 'Mavi',
@@ -50,37 +53,53 @@ export const ProductPage = () => {
                     <img src={product.image_url} className="gallery-img" alt={product.name} />
                 </Link>
             </div>
-            <div className="product-info-detail">
+            <div className="product-info-props">
                 <h1>{product.name}</h1>
-                <p>
-                    {' '}
-                    <strong>Category: </strong>
-                    {product.category}
-                </p>
-                <p>
-                    {' '}
-                    <strong>Price: </strong>
-                    {product.price + ' ₺'}
-                </p>
-                <p>
-                    {' '}
-                    <strong>Subcategory: </strong>
-                    {product.subcategory}
-                </p>
-                <p>
-                    {' '}
-                    <strong>Vendor: </strong>
-                    {product.vendor}
-                </p>
-                <p>
-                    <strong>Brand: </strong>
-                    {product.brand}
-                </p>
-                <div className="rating">
-                    <h3>Rating: </h3>
-                    {'  ' + product.total_rating + ' (' + product.rating_count + ')'}
+
+                <div className="product-info-description">
+                    <p>{product.description}</p>
                 </div>
-                <Rate allowHalf defaultValue={product.total_rating}></Rate>
+                <div className="product-info-detail">
+                    <p>
+                        {' '}
+                        <strong>Price: </strong>
+                        {product.price + ' ₺'}
+                    </p>
+
+                    <p>
+                        <strong>Brand: </strong>
+                        {product.brand}
+                    </p>
+                    <p>
+                        {' '}
+                        <strong>Category: </strong>
+                        {product.category}
+                    </p>
+
+                    <p>
+                        {' '}
+                        <strong>Subcategory: </strong>
+                        {product.subcategory}
+                    </p>
+                    <p>
+                        <strong>Rating: </strong>
+                        {'  ' + product.total_rating + ' (' + product.rating_count + ')'}
+                    </p>
+
+                    <p>
+                        <strong>Stock: </strong>
+                        {product.stock_amount}
+                    </p>
+                    <p>
+                        {' '}
+                        <strong>Vendor: </strong>
+                        {product.vendor}
+                    </p>
+                    <p>
+                        <strong>Creation Date: </strong>
+                        {product.creation_date}
+                    </p>
+                </div>
             </div>
         </div>
     )
