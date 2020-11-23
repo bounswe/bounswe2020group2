@@ -20,13 +20,13 @@ from API.views.shopping_cart import list_shopping_cart
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', views.account.apiOverview, name="api"),
-    path('regularsignup/', views.account.register, name="register"),
-    path('regularlogin/', views.account.login, name="login"),
-    path('init/', views.account.init, name="init"),
+    path('admin', admin.site.urls),
+    path('api', views.account.apiOverview, name="api"),
+    path('regularsignup', views.account.register, name="register"),
+    path('regularlogin', views.account.login, name="login"),
+    path('init', views.account.init, name="init"),
     path('products/homepage/<int:no>', views.product.homepage_products),
-    path('user/<int:id>/listShoppingCart/', list_shopping_cart),
-    path('user/<int:id>/shoppingCart/', views.shopping_cart.add_shopping_cart_item),
-    path('product/<int:productId>/', views.product.product_detail)
+    path('user/<int:id>/listShoppingCart', list_shopping_cart),
+    path('user/<int:id>/shoppingCart', views.shopping_cart.add_shopping_cart_item),
+    path('product/<int:productId>', views.product.product_detail)
 ]
