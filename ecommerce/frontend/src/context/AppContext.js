@@ -53,7 +53,7 @@ function useApp() {
 
     const regularLogin = async (userType, username, password) => {
         try {
-            const { data } = await api.post("/regularlogin/", { username, password })
+            const { data } = await api.post('/regularlogin/', { username, password })
             console.log(data)
             const { token, id, email, firstname, surname } = data.user
             console.log('data.status.success: ', data.status.success)

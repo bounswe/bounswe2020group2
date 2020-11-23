@@ -9,7 +9,7 @@ export const LoginForm = ({ onSubmit = () => {} }) => {
         console.log('Received values of form: ', values)
         const valuesToSend = {
             username: values.username,
-            password: values.password
+            password: values.password,
         }
         onSubmit(valuesToSend, 'customer')
     }
@@ -24,7 +24,7 @@ export const LoginForm = ({ onSubmit = () => {} }) => {
                 console.log('Received values of form: ', values)
                 const valuesToSend = {
                     username: values.username,
-                    password: values.password
+                    password: values.password,
                 }
                 onSubmit(valuesToSend, 'vendor')
             })
