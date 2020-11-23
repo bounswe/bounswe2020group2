@@ -33,19 +33,34 @@ export const LoginForm = ({ onSubmit = () => {} }) => {
             })
     }
 
-    // Constants for layout
-    const layout = {
+    const formItemLayout = {
         labelCol: {
-            span: 8,
+            xs: {
+                span: 24,
+            },
+            sm: {
+                span: 6,
+            },
         },
         wrapperCol: {
-            span: 16,
+            xs: {
+                span: 24,
+            },
+            sm: {
+                span: 18,
+            },
         },
     }
-    const tailLayout = {
+    const tailFormItemLayout = {
         wrapperCol: {
-            offset: 8,
-            span: 16,
+            xs: {
+                span: 24,
+                offset: 0,
+            },
+            sm: {
+                span: 18,
+                offset: 6,
+            },
         },
     }
 
@@ -54,7 +69,7 @@ export const LoginForm = ({ onSubmit = () => {} }) => {
     return (
         <div className="login-form">
             <Form
-                {...layout}
+                {...formItemLayout}
                 layout="horizontal"
                 form={form}
                 name="loginForm"
@@ -88,7 +103,7 @@ export const LoginForm = ({ onSubmit = () => {} }) => {
                 </Form.Item>
 
                 <div className="login-buttons">
-                    <Form.Item {...tailLayout}>
+                    <Form.Item {...tailFormItemLayout}>
                         <Button className="login-button" type="primary" htmlType="submit">
                             Login as Customer
                         </Button>

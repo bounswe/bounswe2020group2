@@ -55,19 +55,19 @@ function useApp() {
         try {
             const { data } = await api.post('/regularlogin/', { username, password })
             console.log(data)
+            const { success, message } = data.status
             const { token, id, email, firstname, surname } = data.user
-            console.log('data.status.success: ', data.status.success)
 
-            localStorage.setItem('token', token)
+            if (success) {
+                localStorage.setItem('token', token)
 
-            setUser({ id, email, name: firstname, surname })
-            setRequestInterceptorId(api.interceptors.request.use(requestInterceptor))
-
-            if (data.status.success) {
+                setUser({ id, email, name: firstname, surname })
+                setRequestInterceptorId(api.interceptors.request.use(requestInterceptor))
                 notification.success({ message: `Welcome back, ${firstname}!` })
+
                 return true
             } else {
-                notification.error({ message: data.status.message })
+                notification.error({ message: message })
                 return false
             }
         } catch (error) {

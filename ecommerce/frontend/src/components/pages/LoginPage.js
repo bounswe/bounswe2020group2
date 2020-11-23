@@ -36,8 +36,8 @@ export const LoginPage = () => {
 
     return (
         <Spin spinning={isLoading}>
-            <div className="signup-container">
-                <div className="signup-header">
+            <div className="login-container">
+                <div className="login-header">
                     <h1>Login to Getflix!</h1>
                 </div>
                 <LoginForm onSubmit={onSubmit} />
