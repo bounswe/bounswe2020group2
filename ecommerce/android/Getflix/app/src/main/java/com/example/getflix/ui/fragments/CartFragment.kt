@@ -34,8 +34,8 @@ class CartFragment : Fragment() {
         binding.viewmodel = CartViewModel()
         val recView = binding?.cartList as RecyclerView
         val products = arrayListOf(
-            ProductModel(1,"iPhone","Electronics",null,null,null),
-            ProductModel(1,"Bag","Electronics",null,null,null)
+            ProductModel(1,"Bag",3,null,null),
+            ProductModel(1,"Bag",3,null,null)
         )
         val productListAdapter = CartAdapter(products)
         recView.adapter = productListAdapter

@@ -6,8 +6,11 @@ export const LoginForm = ({ onSubmit = () => {} }) => {
     const [form] = Form.useForm()
 
     const onFinish = values => {
-        console.log('Received values of form: ', values)
-        onSubmit(values)
+        const valuesToSend = {
+            username: values.username,
+            password: values.password,
+        }
+        onSubmit(valuesToSend, 'customer')
     }
 
     const onFinishFailed = errors => {
@@ -17,26 +20,45 @@ export const LoginForm = ({ onSubmit = () => {} }) => {
     const onLoginAsVendor = async () => {
         form.validateFields()
             .then(values => {
-                console.log(values)
+                const valuesToSend = {
+                    username: values.username,
+                    password: values.password,
+                }
+                onSubmit(valuesToSend, 'vendor')
             })
             .catch(errorInfo => {
                 console.log(errorInfo)
             })
     }
 
-    // Constants for layout
-    const layout = {
+    const formItemLayout = {
         labelCol: {
-            span: 8,
+            xs: {
+                span: 24,
+            },
+            sm: {
+                span: 6,
+            },
         },
         wrapperCol: {
-            span: 16,
+            xs: {
+                span: 24,
+            },
+            sm: {
+                span: 18,
+            },
         },
     }
-    const tailLayout = {
+    const tailFormItemLayout = {
         wrapperCol: {
-            offset: 8,
-            span: 16,
+            xs: {
+                span: 24,
+                offset: 0,
+            },
+            sm: {
+                span: 24,
+                offset: 0,
+            },
         },
     }
 
@@ -45,25 +67,21 @@ export const LoginForm = ({ onSubmit = () => {} }) => {
     return (
         <div className="login-form">
             <Form
-                {...layout}
+                {...formItemLayout}
                 layout="horizontal"
                 form={form}
                 name="loginForm"
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 scrollToFirstError>
-                {/* Email input */}
+                {/* Username input */}
                 <Form.Item
-                    name="email"
-                    label="E-mail"
+                    name="username"
+                    label="Username"
                     rules={[
                         {
-                            type: 'email',
-                            message: 'The input is not valid E-mail!',
-                        },
-                        {
                             required: true,
-                            message: 'Please input your E-mail!',
+                            message: 'Please input your username!',
                         },
                     ]}>
                     <Input />
@@ -83,21 +101,20 @@ export const LoginForm = ({ onSubmit = () => {} }) => {
                 </Form.Item>
 
                 <div className="login-buttons">
-                    <Form.Item {...tailLayout}>
+                    <Form.Item {...tailFormItemLayout}>
                         <Button className="login-button" type="primary" htmlType="submit">
                             Login as Customer
                         </Button>
                         <Button className="login-button" type="primary" htmlType="button" onClick={onLoginAsVendor}>
                             Login as Vendor
                         </Button>
+                        <Button className="google-login-button">
+                            <Link to="/">Google Login</Link>
+                        </Button>
                     </Form.Item>
                 </div>
             </Form>
             <div className="router-buttons">
-                <Button className="google-login-button">
-                    <Link to="/">Google Login</Link>
-                </Button>
-                <br></br>
                 <Button className="signup-button">
                     <Link to="/signup">Already have an account? Sign Up</Link>
                 </Button>

@@ -79,9 +79,9 @@ function useApp() {
                 },
             })
 
-            const { token, id, email, firstname, surname } = data
+            const { token, id, email, firstname, lastname } = data
 
-            setUser({ id, email, name: firstname, surname })
+            setUser({ id, email, name: firstname, lastname })
 
             setRequestInterceptorId(api.interceptors.request.use(requestInterceptor))
 
@@ -100,20 +100,28 @@ function useApp() {
         }
     }
 
-    const regularLogin = async ({ userType, username, password }) => {
+    const regularLogin = async (userType, username, password) => {
         try {
-            const { data } = await api.post('/regularlogin', { username, password })
-            const { token, id, email, firstname, surname } = data
+            const { data } = await api.post('/regularlogin/', { username, password })
+            const { success, message } = data.status
+            const { token, id, email, firstname, lastname } = data.user
 
-            localStorage.setItem('token', token)
+            if (success) {
+                localStorage.setItem('token', token)
 
-            setUser({ id, email, name: firstname, surname })
-            setRequestInterceptorId(api.interceptors.request.use(requestInterceptor))
+                setUser({ id, email, name: firstname, lastname })
+                setRequestInterceptorId(api.interceptors.request.use(requestInterceptor))
+                notification.success({ message: `Welcome back, ${firstname}!` })
 
-            notification.success({ message: `Welcome back, ${firstname}!` })
+                return true
+            } else {
+                notification.error({ message: message })
+                return false
+            }
         } catch (error) {
             notification.error({ message: 'Failed to login' })
             console.error(error)
+            return false
         }
     }
 
