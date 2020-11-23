@@ -50,7 +50,7 @@ jobs:
               run: chmod 400 CMPE451.pem
 
             - name: Build the Docker image
-              run: docker build ecommerce/frontend -t frontend --build-arg REACT_APP_API_URL=$AWS_BACKEND_INSTANCE_IP:8000
+              run: docker build ecommerce/frontend -t frontend --build-arg REACT_APP_API_URL="http://${AWS_BACKEND_INSTANCE_IP}:8000"
 
             - name: Save Docker image
               run: docker save frontend | gzip > frontend.tar.gz
