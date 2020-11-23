@@ -6,4 +6,5 @@ RUN pip install -r requirements.txt
 COPY . /code/
 RUN rm -rf ./venv
 EXPOSE 8000
-CMD ["./docker_entrypoint.sh"]
+RUN chmod +x docker_entrypoint.sh
+ENTRYPOINT ["./docker_entrypoint.sh"]
