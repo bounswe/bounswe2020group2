@@ -20,8 +20,11 @@ import json
 import os
 from django.core.exceptions import ImproperlyConfigured
 
-with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
-    secrets = json.load(secrets_file)
+secrets = {
+    'HOST': os.environ.get('DB_HOST'),
+    'USER': os.environ.get('DB_USER'),
+    'PASSWORD': os.environ.get('DB_PASSWORD')
+}
 
 def get_secret(setting, secrets=secrets):
     """Get secret setting or fail with ImproperlyConfigured"""
@@ -105,7 +108,7 @@ WSGI_APPLICATION = 'getflix.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mytestdb',
+        'NAME': 'testdb',
         'USER': get_secret('USER'),
         'PASSWORD': get_secret('PASSWORD'),
         'HOST': get_secret("HOST"),
