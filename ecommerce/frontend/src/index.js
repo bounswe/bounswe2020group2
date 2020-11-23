@@ -5,11 +5,23 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 
 import { AppContextProvider } from './context/AppContext'
+import { GoogleLogin } from 'react-google-login'
+
+const onSuccess = (...x) => console.log('success', ...x)
+const onFailure = (...x) => console.log('failure', ...x)
 
 ReactDOM.render(
     // <React.StrictMode>
     <AppContextProvider>
-        <App />
+        {/* <App /> */}
+        <GoogleLogin
+            clientId="780650655620-8qi5er6094ouirlb66b2c0hm6hlfo9s8.apps.googleusercontent.com"
+            buttonText="CLICK ME!!! GOOGLE!!!"
+            onSuccess={onSuccess}
+            onFailure={onFailure}
+            cookiePolicy={'single_host_origin'}
+        />
+        ,
     </AppContextProvider>,
     // </React.StrictMode>,
     document.getElementById('root'),
