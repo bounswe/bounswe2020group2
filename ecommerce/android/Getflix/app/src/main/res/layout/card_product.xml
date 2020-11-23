@@ -8,7 +8,7 @@
 
         <variable
             name="product"
-            type="com.example.getflix.models.ProductModel" />
+            type="com.example.getflix.models.PModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
