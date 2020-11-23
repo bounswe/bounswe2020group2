@@ -7,7 +7,11 @@ export const LoginForm = ({ onSubmit = () => {} }) => {
 
     const onFinish = values => {
         console.log('Received values of form: ', values)
-        onSubmit(values)
+        const valuesToSend = {
+            username: values.username,
+            password: values.password
+        }
+        onSubmit(valuesToSend, 'customer')
     }
 
     const onFinishFailed = errors => {
@@ -17,7 +21,12 @@ export const LoginForm = ({ onSubmit = () => {} }) => {
     const onLoginAsVendor = async () => {
         form.validateFields()
             .then(values => {
-                console.log(values)
+                console.log('Received values of form: ', values)
+                const valuesToSend = {
+                    username: values.username,
+                    password: values.password
+                }
+                onSubmit(valuesToSend, 'vendor')
             })
             .catch(errorInfo => {
                 console.log(errorInfo)
@@ -52,18 +61,14 @@ export const LoginForm = ({ onSubmit = () => {} }) => {
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 scrollToFirstError>
-                {/* Email input */}
+                {/* Username input */}
                 <Form.Item
-                    name="email"
-                    label="E-mail"
+                    name="username"
+                    label="Username"
                     rules={[
                         {
-                            type: 'email',
-                            message: 'The input is not valid E-mail!',
-                        },
-                        {
                             required: true,
-                            message: 'Please input your E-mail!',
+                            message: 'Please input your username!',
                         },
                     ]}>
                     <Input />

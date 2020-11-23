@@ -51,20 +51,29 @@ function useApp() {
         }
     }
 
-    const regularLogin = async ({ userType, username, password }) => {
+    const regularLogin = async (userType, username, password) => {
         try {
-            const { data } = await api.post('/regularlogin', { username, password })
-            const { token, id, email, firstname, surname } = data
+            const { data } = await api.post("/regularlogin/", { username, password })
+            console.log(data)
+            const { token, id, email, firstname, surname } = data.user
+            console.log('data.status.success: ', data.status.success)
 
             localStorage.setItem('token', token)
 
             setUser({ id, email, name: firstname, surname })
             setRequestInterceptorId(api.interceptors.request.use(requestInterceptor))
 
-            notification.success({ message: `Welcome back, ${firstname}!` })
+            if (data.status.success) {
+                notification.success({ message: `Welcome back, ${firstname}!` })
+                return true
+            } else {
+                notification.error({ message: data.status.message })
+                return false
+            }
         } catch (error) {
             notification.error({ message: 'Failed to login' })
             console.error(error)
+            return false
         }
     }
 
