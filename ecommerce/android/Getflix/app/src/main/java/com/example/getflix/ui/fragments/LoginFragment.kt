@@ -12,11 +12,17 @@ import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentLoginBinding
 import com.example.getflix.models.PModel
 import com.example.getflix.models.ProductModel
+import com.example.getflix.services.DefaultResponse
+import com.example.getflix.services.LoginAPI
 import com.example.getflix.services.ProductsAPI
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.*
 import okhttp3.Dispatcher
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -24,10 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class LoginFragment : Fragment() {
 
     // private var account : GoogleSignInAccount? = null
-    private var job: Job? = null
-    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        println("Error ${throwable.localizedMessage}")
-    }
+
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -45,32 +48,9 @@ class LoginFragment : Fragment() {
         activity?.toolbar_lay!!.visibility = View.GONE
         activity?.bottom_nav!!.visibility = View.GONE
 
-        val retrofit = Retrofit.Builder().baseUrl(MainActivity.StaticData.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ProductsAPI::class.java)
 
-        var productsdata = listOf<PModel>() ?: null
 
-        println("joba girecek")
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val response = retrofit.getProducts()
-            println("burdaa")
-            withContext(Dispatchers.Main + exceptionHandler) {
-                println(response.isSuccessful)
-                println(response.code())
-                println(response.message())
-                println(response.errorBody())
-                println(response.body().toString())
-                if(response.isSuccessful) {
-                    response.body().let {
-                        productsdata = it
-                        println(productsdata!!.size)
-                        println("heyyyy")
-                    }
-                }
-            }
-        }
+
 
 
         binding.login.setOnClickListener {
@@ -83,8 +63,30 @@ class LoginFragment : Fragment() {
                 binding.password.error = getString(R.string.reg_error)
                 canSubmit = false
             }
-            if(canSubmit)
-            view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
+            if(canSubmit) {
+                val retrofit = Retrofit.Builder().baseUrl(MainActivity.StaticData.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+                    .create(LoginAPI::class.java)
+
+
+                retrofit.logUser(binding.username.text.toString(),
+                    binding.password.text.toString()).enqueue(
+                    object : Callback<DefaultResponse> {
+                        override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
+                        }
+                        override fun onResponse( call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
+                          if(!response.body()?.error!!) {
+                              println("geçti")
+
+                          } else {
+                              println(response.body()?.message)
+                          }
+                        }
+                    }
+                )
+            }
+            //view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
         }
 
         binding.signUpButton.setOnClickListener {

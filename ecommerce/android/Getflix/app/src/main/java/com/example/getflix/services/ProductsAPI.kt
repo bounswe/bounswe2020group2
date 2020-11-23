@@ -7,7 +7,7 @@ import retrofit2.http.GET
 
 interface ProductsAPI {
 
-     @GET("products/homepage/3?format=json")
+     @GET("products/homepage/3")
      suspend fun getProducts(): Response<List<PModel>>
 
 

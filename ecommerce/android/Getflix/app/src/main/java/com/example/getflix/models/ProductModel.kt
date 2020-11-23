@@ -14,8 +14,8 @@ data class ProductModel(
     val name : String?,
     @SerializedName("price")
     val price : Int?,
-    @SerializedName("brand")
-    val brand : String?,
+    @SerializedName("category")
+    val category : String?,
     @SerializedName("description")
     val description : String?) : Parcelable {
 
