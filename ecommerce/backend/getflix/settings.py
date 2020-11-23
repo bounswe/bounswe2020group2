@@ -19,7 +19,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 import json
 import os
 from django.core.exceptions import ImproperlyConfigured
-
 secrets = {
     'HOST': os.environ.get('DB_HOST'),
     'USER': os.environ.get('DB_USER'),
