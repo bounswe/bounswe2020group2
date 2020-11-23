@@ -5,11 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewmodel"
+            type="com.example.getflix.ui.viewmodels.CategoriesViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
         tools:context=".ui.fragment.CategoriesFragment">
 
         <androidx.recyclerview.widget.RecyclerView

@@ -1,17 +1,20 @@
 package com.example.getflix.models
 
+
 import android.os.Parcel
 import android.os.Parcelable
 
 data class SubcategoryModel(
     var id: Int,
     var catId: Int,
-    var name: String?
+    var name: String?,
+    var products: List<ProductModel>?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readInt(),
-        parcel.readString()
+        parcel.readString(),
+        TODO("products")
     ) {
     }
 
@@ -34,4 +37,5 @@ data class SubcategoryModel(
             return arrayOfNulls(size)
         }
     }
+
 }
