@@ -16,24 +16,25 @@ function useApp() {
     const getShoppingCart = async () => {
         try {
             await sleep(1000)
-            console.log('getting shopping cart')
 
-            const total = 5
-            const cart = [...Array(total)].map(x => {
-                return {
-                    product: {
-                        title: 'Title',
-                        rating: '5',
-                        price: 30,
-                        currency: 'TL',
-                        description: 'description',
-                        imageUrl: `https://picsum.photos/300?q=${uuidv4()}`,
-                        width: 300,
-                        productId: uuidv4(),
-                    },
-                    amount: 1,
-                }
-            })
+            const { cart } = await api.get(`/user/${user.id}/shoppingCart`)
+
+            // const total = 5
+            // const cart = [...Array(total)].map(x => {
+            //     return {
+            //         product: {
+            //             title: 'Title',
+            //             rating: '5',
+            //             price: 30,
+            //             currency: 'TL',
+            //             description: 'description',
+            //             imageUrl: `https://picsum.photos/300?q=${uuidv4()}`,
+            //             width: 300,
+            //             productId: uuidv4(),
+            //         },
+            //         amount: 1,
+            //     }
+            // })
 
             setShoppingCart(cart)
         } catch {
@@ -44,7 +45,11 @@ function useApp() {
 
     const addShoppingCartItem = async ({ product, amount }) => {
         try {
-            // lfjdskjlfds
+            const { data } = await api.post('/regularlogin', {
+                userId: user.id,
+                body: { amount: amount, productId: product.id },
+            })
+
             console.log('add shopping cart item ', { product, amount })
             setShoppingCartRefreshId(i => i + 1)
         } catch {
