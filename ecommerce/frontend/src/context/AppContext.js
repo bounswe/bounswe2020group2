@@ -34,18 +34,20 @@ function useApp() {
     const addShoppingCartItem = async (product, amount) => {
         try {
             console.log('Add item: ', product, amount)
-            // const { data } = await api.post(`/user/${user.id}/shoppingCart`, {
-            //     productId: product.id,
-            //     amount: amount,
-            // })
-            // if (data.successful == true) {
-            //     notification.success({ description: 'Added item to shopping cart' })
-            // } else {
-            //     notification.error({ description: 'Failed to add item to shopping cart' })
-            // }
+            const { data } = await api.post(`/user/${user.id}/shoppingCart`, {
+                productId: product.id,
+                amount: amount,
+            })
 
+            if (data.successful) {
+                notification.success({ description: 'Added item to shopping cart' })
+            } else {
+                notification.error({ description: 'Failed to update shopping cart item' })
+            }
             setShoppingCartRefreshId(i => i + 1)
-        } catch {
+        } catch (error) {
+            notification.error({ description: 'Failed to update shopping cart item' })
+            console.error(error)
         } finally {
         }
     }
@@ -102,7 +104,7 @@ function useApp() {
 
     const regularLogin = async (userType, username, password) => {
         try {
-            const { data } = await api.post('/regularlogin/', { username, password })
+            const { data } = await api.post('/regularlogin', { username, password })
             const { success, message } = data.status
             const { token, id, email, firstname, lastname } = data.user
 

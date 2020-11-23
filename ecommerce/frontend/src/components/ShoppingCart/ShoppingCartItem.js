@@ -1,10 +1,12 @@
-import { Col, InputNumber, Popconfirm, Row } from 'antd'
+import { Button, Col, InputNumber, Popconfirm, Row } from 'antd'
 import './ShoppingCartItem.less'
 import { DeleteOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { useAppContext } from '../../context/AppContext'
+import { useState } from 'react'
 
 export const ShoppingCartItem = ({ cartItem: { amount, product } }) => {
+    const [tmpAmount, setTmpAmount] = useState(amount)
     const { addShoppingCartItem } = useAppContext()
 
     const onClickDelete = () => {
@@ -12,9 +14,9 @@ export const ShoppingCartItem = ({ cartItem: { amount, product } }) => {
         addShoppingCartItem(product, -amount)
     }
 
-    const onAmountChange = value => {
-        addShoppingCartItem(product, value - amount)
-    }
+    const onAmountChange = value => setTmpAmount(value)
+
+    const onPressEnterAmount = () => addShoppingCartItem(product, tmpAmount - amount)
 
     return (
         <div className="single-cart-item">
@@ -38,7 +40,13 @@ export const ShoppingCartItem = ({ cartItem: { amount, product } }) => {
                     Amount:
                 </Col>
                 <Col span={3} className="cart-item-amount-input">
-                    <InputNumber min={1} onChange={onAmountChange} className="amount-counter" defaultValue={amount} />
+                    <InputNumber
+                        min={1}
+                        onChange={onAmountChange}
+                        className="amount-counter"
+                        defaultValue={amount}
+                        onPressEnter={onPressEnterAmount}
+                    />
                 </Col>
                 <Col span={3} className="cart-item-price">
                     {product.price}&nbsp;{product.currency}
