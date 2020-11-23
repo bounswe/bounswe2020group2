@@ -491,6 +491,5 @@ dmypy.json
 .history
 
 # End of https://www.gitignore.io/api/node,latex,python,visualstudiocode
-
 unencrypted-secrets
 encrypt_secrets.sh
