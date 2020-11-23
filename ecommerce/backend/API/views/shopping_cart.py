@@ -34,15 +34,26 @@ def add_shopping_cart_item(request, id):
         }
         return Response(context)
 
-    user = User.objects.filter(pk=int(id)).first()
+    user = User.objects.get(pk=int(id))
+    if user is None:
+        context = { 'succesful': False,
+                    'message': "Invalid user"
+        }
+        return Response(context)
     amount = serializer.validated_data.get("amount")
     product_id = serializer.validated_data.get("productId")
-    product = Product.objects.filter(pk=product_id).first()
+    product = Product.objects.get(pk=int(product_id))
+    if product is None:
+        context = { 'succesful': False,
+                    'message': "Invalid products"
+        }
+        return Response(context)
+
     stock_amount = product.stock_amount
-    shopping_cart = ShoppingCartItem.objects.filter(customer_id=user.pk).filter(product_id=product_id).first()
+    shopping_cart = ShoppingCartItem.objects.filter(customer_id=user.pk).filter(product_id=product.pk).first()
 
     if shopping_cart is None:
-        shopping_cart = ShoppingCartItem(customer=user, product_id=product_id, amount=amount)
+        shopping_cart = ShoppingCartItem(customer=user, product=product, amount=amount)
     else:
         shopping_cart.amount+=amount
         
