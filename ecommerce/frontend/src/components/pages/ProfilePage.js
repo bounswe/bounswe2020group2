@@ -6,18 +6,8 @@ import { useAppContext } from '../../context/AppContext'
 
 export const ProfilePage = () => {
     // future version
-    // const { user, setUser } = useAppContext()
-    const user = {
-        userType: 'customer',
-        name: 'Furkan',
-        surname: 'Varol',
-        username: 'vaveyla',
-        email: 'furkan.varol@gmail.com',
-        phone: {
-            countryCode: '+4',
-            number: '8452391058',
-        },
-    }
+    const { user } = useAppContext()
+    console.log(user)
     return (
         <div>
             <div className="logo-name-splash">
