@@ -6,7 +6,7 @@ import uuidv4 from 'uuid/dist/v4'
 import { api } from '../api'
 
 const guestUser = { type: 'guest' }
-const customerUser = { type: 'customer', id: 'fldsflksd', name: 'Mehdi', surname: 'Saffar', email: 'example@gmail.com' }
+const customerUser = { type: 'customer', id: '2', name: 'Mehdi', surname: 'Saffar', email: 'example@gmail.com' }
 
 function useApp() {
     const [user, setUser] = useState(customerUser)
@@ -16,25 +16,7 @@ function useApp() {
     const getShoppingCart = async () => {
         try {
             await sleep(1000)
-
-            const { cart } = await api.get(`/user/${user.id}/shoppingCart`)
-
-            // const total = 5
-            // const cart = [...Array(total)].map(x => {
-            //     return {
-            //         product: {
-            //             title: 'Title',
-            //             rating: '5',
-            //             price: 30,
-            //             currency: 'TL',
-            //             description: 'description',
-            //             imageUrl: `https://picsum.photos/300?q=${uuidv4()}`,
-            //             width: 300,
-            //             productId: uuidv4(),
-            //         },
-            //         amount: 1,
-            //     }
-            // })
+            const { cart } = await api.get(`/user/${user.id}/listShoppingCart`)
 
             setShoppingCart(cart)
         } catch {
