@@ -6,28 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentLoginBinding
-import com.example.getflix.models.PModel
-import com.example.getflix.models.ProductModel
-import com.example.getflix.services.*
+import com.example.getflix.ui.viewmodels.LoginViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.coroutines.*
-import okhttp3.Dispatcher
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 class LoginFragment : Fragment() {
 
     // private var account : GoogleSignInAccount? = null
+
+    private lateinit var loginViewModel: LoginViewModel
 
 
     override fun onCreateView(
@@ -37,8 +31,8 @@ class LoginFragment : Fragment() {
     ): View? {
 
         val binding = DataBindingUtil.inflate<FragmentLoginBinding>(
-            inflater, R.layout.fragment_login,
-            container, false
+                inflater, R.layout.fragment_login,
+                container, false
         )
 
 
@@ -48,29 +42,32 @@ class LoginFragment : Fragment() {
 
 
 
+        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        binding.loginViewModel = loginViewModel
+        binding.lifecycleOwner = this
 
 
 
         binding.login.setOnClickListener {
-            var canSubmit = true
+
             if (binding.username.text.toString().isEmpty()) {
                 binding.username.error = getString(R.string.reg_error)
-                canSubmit = false
+                loginViewModel.setOnLogin(false)
             }
             if (binding.password.text.toString().isEmpty()) {
                 binding.password.error = getString(R.string.reg_error)
-                canSubmit = false
+                loginViewModel.setOnLogin(false)
             }
-            if(canSubmit) {
-                val userData = LogReq(binding.username.text.toString(),
-                    binding.password.text.toString())
-                var service = APIService()
-                service.tryLogin(userData) {
-                    userData
-                }
+            if (binding.password.text.toString().isNotEmpty() && binding.username.text.toString().isNotEmpty()) {
+                loginViewModel.setUser(binding.username.text.toString(), binding.password.text.toString())
             }
-            //view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
         }
+
+        loginViewModel.onLogin.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
+            }
+        })
 
         binding.signUpButton.setOnClickListener {
             view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
@@ -88,7 +85,7 @@ class LoginFragment : Fragment() {
             view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
         }*/
         binding.signInButton.setOnClickListener {
-           // view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
+            // view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
             val transaction = activity?.supportFragmentManager!!.beginTransaction()
             transaction.replace(R.id.my_nav_host_fragment, HomePageFragment())
             transaction.disallowAddToBackStack()
@@ -123,7 +120,6 @@ class LoginFragment : Fragment() {
             Log.w(TAG, "signInResult:failed code=" + e.statusCode)
         }
     }*/
-
 
 
 }
