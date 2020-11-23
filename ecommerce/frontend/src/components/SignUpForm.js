@@ -51,7 +51,15 @@ export const SignUpForm = ({ onSubmit = () => {} }) => {
     as a single properly labeled JSON object */
     const onFinish = values => {
         console.log('Received values of form: ', values)
-        onSubmit(values)
+        const valuesToSend = {
+            username: values.username,
+            password: values.password,
+            email: values.email,
+            firstname: values.name,
+            lastname: values.surname,
+            phonenumber: values.phone.countryCode + values.phone.number,
+        }
+        onSubmit(valuesToSend, values.userType)
     }
 
     const onFinishFailed = errors => {

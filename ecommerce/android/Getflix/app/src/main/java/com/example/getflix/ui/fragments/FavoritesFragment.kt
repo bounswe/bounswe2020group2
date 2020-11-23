@@ -31,8 +31,8 @@ class FavoritesFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
         binding.viewmodel = FavoritesViewModel()
         val recView = binding?.favoritesList as RecyclerView
-        val products = arrayListOf(ProductModel(1,"iPhone","Electronics",null,null,null),
-            ProductModel(1,"Bag","Electronics",null,null,null))
+        val products = arrayListOf(ProductModel(1,"iPhone",2,null,null),
+            ProductModel(1,"Bag",2,null,null))
         val productListAdapter = FavoritesAdapter(products)
         recView.adapter = productListAdapter
         recView.setHasFixedSize(true)
