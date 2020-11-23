@@ -56,6 +56,7 @@ class HomePageFragment() : Fragment() {
             })
             val transaction = activity?.supportFragmentManager!!.beginTransaction()
             val f = CategoryFragment()
+            println(products.toString())
             var bundle = Bundle()
             bundle.putParcelableArrayList("Product", products as ArrayList<ProductModel>)
             f.arguments = bundle

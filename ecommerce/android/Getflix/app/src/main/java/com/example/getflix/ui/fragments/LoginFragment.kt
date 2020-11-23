@@ -88,14 +88,20 @@ class LoginFragment : Fragment() {
             view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
         }*/
         binding.signInButton.setOnClickListener {
-            view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
-
+           // view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
+            val transaction = activity?.supportFragmentManager!!.beginTransaction()
+            transaction.replace(R.id.my_nav_host_fragment, HomePageFragment())
+            transaction.disallowAddToBackStack()
+            transaction.commit()
         }
 
         binding.guestButton.setOnClickListener {
             MainActivity.StaticData.isVisitor = true
-            view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
-
+            //view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
+            val transaction = activity?.supportFragmentManager!!.beginTransaction()
+            transaction.replace(R.id.my_nav_host_fragment, HomePageFragment())
+            transaction.disallowAddToBackStack()
+            transaction.commit()
         }
 
         return binding.root

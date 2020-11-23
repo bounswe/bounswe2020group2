@@ -23,6 +23,9 @@ class APIService {
                 override fun onResponse(call: Call<LogReq>, response: Response<LogReq>) {
                     val addedUser = response.body()
                     onResult(addedUser)
+                    if(response.isSuccessful) {
+                        println(response.body())
+                    }
                 }
             }
         )
