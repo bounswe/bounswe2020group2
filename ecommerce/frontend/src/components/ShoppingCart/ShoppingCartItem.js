@@ -20,47 +20,49 @@ export const ShoppingCartItem = ({ cartItem: { amount, product } }) => {
 
     return (
         <div className="single-cart-item">
-            <Row gutter={16} className="cart-item-header">
-                <Col className="cart-item-title" span={24}>
-                    <Link to={`/products/${product.productId}`}>{product.title}</Link>
-                </Col>
-            </Row>
-            <Row gutter={16} className="cart-item-content">
-                <Col span={5} className="cart-item-picture">
-                    <img alt={product.title} width={'100%'} src={product.imageUrl}></img>
-                </Col>
-                <Col span={9} className="cart-item-description">
+            <div className="cart-item-header">
+                <div className="cart-item-title">
+                    <Link to={`/products/${product.productId}`}>{product.name ?? 'title'}</Link>
+                </div>
+            </div>
+            <div className="cart-item-content">
+                <div className="cart-item-picture">
+                    <img alt={product.title} width={'100%'} src={product.imageUrl ?? 'https://picsum.photos/300'}></img>
+                </div>
+                <div className="cart-item-description">
                     {product.description}
                     <p className="cart-item-vendor">
                         by{' '}
                         <Link to={`/vendors/${product.vendor ?? 'some_vendor_id'}`}>{product.vendor ?? 'vendor'}</Link>
                     </p>
-                </Col>
-                <Col span={2} className="cart-item-amount-text">
-                    Amount:
-                </Col>
-                <Col span={3} className="cart-item-amount-input">
-                    <InputNumber
-                        min={1}
-                        onChange={onAmountChange}
-                        className="amount-counter"
-                        defaultValue={amount}
-                        onPressEnter={onPressEnterAmount}
-                    />
-                </Col>
-                <Col span={3} className="cart-item-price">
-                    {product.price}&nbsp;{product.currency}
-                </Col>
-                <Col span={2} className="cart-item-delete">
-                    <Popconfirm
-                        title="Are you sure to delete this product from your cart?"
-                        onConfirm={onClickDelete}
-                        okText="Yes"
-                        cancelText="No">
-                        <DeleteOutlined />
-                    </Popconfirm>
-                </Col>
-            </Row>
+                </div>
+                <div className="cart-item-controls">
+                    <div className="cart-item-amount">
+                        <div className="cart-item-amount-text">Amount:</div>
+                        <div className="cart-item-amount-input">
+                            <InputNumber
+                                min={1}
+                                onChange={onAmountChange}
+                                className="amount-counter"
+                                defaultValue={amount}
+                                onPressEnter={onPressEnterAmount}
+                            />
+                        </div>
+                    </div>
+                    <div className="cart-item-price">
+                        {product.price}&nbsp;{product.currency ?? 'TL'}
+                    </div>
+                    <div className="cart-item-delete">
+                        <Popconfirm
+                            title="Are you sure to delete this product from your cart?"
+                            onConfirm={onClickDelete}
+                            okText="Yes"
+                            cancelText="No">
+                            <DeleteOutlined />
+                        </Popconfirm>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
