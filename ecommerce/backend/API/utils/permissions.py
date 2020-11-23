@@ -3,7 +3,7 @@ from .roles import Role
 
 class IsAuthenticated(BasePermission):
     def has_permission(self, request, view):
-        return request.user is not None
+        return request.user is not None and request.user.role != 0
 
 class IsCustomerUser(BasePermission):
     def has_permission(self, request, view):

@@ -3,9 +3,9 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 
-from API.utils import permissions, Role
-from API.models import Product
-from API.serializers.product_serializer import ProductSerializer
+from ..utils import permissions, Role
+from ..models import Product
+from ..serializers.product_serializer import ProductSerializer
 
 @api_view(['GET'])
 @permission_classes([permissions.AllowAnonymous])

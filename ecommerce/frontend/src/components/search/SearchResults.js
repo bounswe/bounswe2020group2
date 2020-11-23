@@ -10,7 +10,7 @@ export const SearchResults = ({ products, pagination, onPaginationChanged }) => 
         <div className="search-results">
             <div className="search-results-product-grid">
                 {products.map(product => (
-                    <ProductCard key={product.productId} product={product} />
+                    <ProductCard key={product.id} product={product} />
                 ))}
             </div>
             <Pagination
