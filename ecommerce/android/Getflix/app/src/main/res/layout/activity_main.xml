@@ -9,16 +9,17 @@
         android:orientation="vertical"
         >
 
+
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:id="@+id/toolbar_lay"
             >
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:background="@color/initGold"
-                android:elevation="5dp"
                 android:theme="?attr/actionBarTheme"
                 android:minHeight="?attr/actionBarSize"
                 android:layout_height="wrap_content">
@@ -46,13 +47,15 @@
         </com.google.android.material.appbar.AppBarLayout>
 
 
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/my_nav_host_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"
-            app:navGraph="@navigation/nav_graph" />
+            app:navGraph="@navigation/nav_graph"
+            app:defaultNavHost="true"
+            />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav"

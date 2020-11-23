@@ -2,9 +2,10 @@
 
 .header-logo {
     float: left;
-    margin-left: 10px;
-    margin-right: 10px;
-    font-size: 2em;
+    margin-left: 20px;
+    font-size: 1.9em;
+    line-height: 2.1em;
+    font-family: Pacifico;
 }
 
 .header {
@@ -29,4 +30,49 @@
 
 .footer-col {
     flex: 1 0 auto;
+}
+
+.header-customer-info {
+    // float: right;
+    display: flex;
+    line-height: normal;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.header-customer-info-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.header-customer-info-details-name {
+    font-weight: bold;
+}
+
+.header-customer-info-details-email {
+    font-style: italic;
+}
+
+.header-customer {
+    display: flex;
+    padding: 5px;
+    height: 100%;
+    float: right;
+    gap: 10px;
+    align-items: center;
+}
+
+.header-customer-cart {
+    color: white;
+    display: flex;
+    line-height: normal;
+    align-items: center;
+    height: 100%;
+}
+
+.header-customer-cart-icon {
+    font-size: 1.5em;
 }

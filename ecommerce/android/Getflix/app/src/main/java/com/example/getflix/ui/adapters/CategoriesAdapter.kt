@@ -7,15 +7,17 @@ import com.example.getflix.databinding.ListCategoryBinding
 import com.example.getflix.databinding.ListSubcategoryBinding
 import com.example.getflix.models.CategoryModel
 import com.example.getflix.models.SubcategoryModel
+import com.example.getflix.ui.fragments.CategoriesFragment
 import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder
 import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder
 
-    class CategoriesAdapter(groups: List<ExpandableGroup<*>>?) :
-        ExpandableRecyclerViewAdapter<CategoryViewHolder, SubCategoryViewHolder>(
-                groups
-        ) {
+class CategoriesAdapter(groups: List<ExpandableGroup<*>>?, fragment: CategoriesFragment) :
+        ExpandableRecyclerViewAdapter<CategoryViewHolder, SubCategoryViewHolder>(groups) {
+
+    val fragment = fragment
+
 
         override fun onCreateGroupViewHolder(parent: ViewGroup?, viewType: Int): CategoryViewHolder {
             return CategoryViewHolder.from(parent!!)
@@ -33,7 +35,15 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder
         ) {
             val subCat: SubcategoryModel = group?.items?.get(childIndex) as SubcategoryModel
             holder?.bind(subCat)
+            holder?.itemView!!.setOnClickListener {
+             //   fragment.navigateSub()
+                //fragment.findNavController().navigate(actionCategoriesFragmentToSubcategoryFragment())
+            }
+
+
         }
+
+
 
         override fun onBindGroupViewHolder(
             holder: CategoryViewHolder?,
@@ -49,7 +59,13 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder
 
         fun bind(subCategory: SubcategoryModel) {
             binding.subCategory = subCategory
+            binding.root.setOnClickListener {v ->
+              //  v.findNavController().navigate(actionCategoriesFragmentToSubcategoryFragment())
+            }
         }
+
+
+
 
         companion object {
             fun from(parent: ViewGroup): SubCategoryViewHolder {
@@ -58,6 +74,7 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder
                 return SubCategoryViewHolder(binding)
             }
         }
+
     }
 
     class CategoryViewHolder(val binding: ListCategoryBinding) : GroupViewHolder(binding.root) {
@@ -85,6 +102,8 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder
         }
 
     }
+
+
 
 
 

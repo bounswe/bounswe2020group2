@@ -11,7 +11,7 @@ const formItemLayout = {
             span: 24,
         },
         sm: {
-            span: 8,
+            span: 6,
         },
     },
     wrapperCol: {
@@ -19,7 +19,7 @@ const formItemLayout = {
             span: 24,
         },
         sm: {
-            span: 16,
+            span: 18,
         },
     },
 }
@@ -30,8 +30,8 @@ const tailFormItemLayout = {
             offset: 0,
         },
         sm: {
-            span: 16,
-            offset: 8,
+            span: 18,
+            offset: 6,
         },
     },
 }
@@ -51,7 +51,15 @@ export const SignUpForm = ({ onSubmit = () => {} }) => {
     as a single properly labeled JSON object */
     const onFinish = values => {
         console.log('Received values of form: ', values)
-        onSubmit(values)
+        const valuesToSend = {
+            username: values.username,
+            password: values.password,
+            email: values.email,
+            firstname: values.name,
+            lastname: values.surname,
+            phonenumber: values.phone.countryCode + values.phone.number,
+        }
+        onSubmit(valuesToSend, values.userType)
     }
 
     const onFinishFailed = errors => {
@@ -105,9 +113,8 @@ export const SignUpForm = ({ onSubmit = () => {} }) => {
                         required: true,
                         message: 'Please input your name!',
                     },
-                ]}
-                hasFeedback>
-                <Input.Password />
+                ]}>
+                <Input />
             </Form.Item>
 
             {/* Surname input */}
@@ -119,9 +126,8 @@ export const SignUpForm = ({ onSubmit = () => {} }) => {
                         required: true,
                         message: 'Please input your surname!',
                     },
-                ]}
-                hasFeedback>
-                <Input.Password />
+                ]}>
+                <Input />
             </Form.Item>
 
             {/* Username input */}
