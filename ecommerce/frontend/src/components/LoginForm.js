@@ -58,8 +58,8 @@ export const LoginForm = ({ onSubmit = () => {} }) => {
                 offset: 0,
             },
             sm: {
-                span: 18,
-                offset: 6,
+                span: 24,
+                offset: 0,
             },
         },
     }
@@ -110,14 +110,13 @@ export const LoginForm = ({ onSubmit = () => {} }) => {
                         <Button className="login-button" type="primary" htmlType="button" onClick={onLoginAsVendor}>
                             Login as Vendor
                         </Button>
+                        <Button className="google-login-button">
+                            <Link to="/">Google Login</Link>
+                        </Button>
                     </Form.Item>
                 </div>
             </Form>
             <div className="router-buttons">
-                <Button className="google-login-button">
-                    <Link to="/">Google Login</Link>
-                </Button>
-                <br></br>
                 <Button className="signup-button">
                     <Link to="/signup">Already have an account? Sign Up</Link>
                 </Button>
