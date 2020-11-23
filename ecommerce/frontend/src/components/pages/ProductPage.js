@@ -1,41 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import { useHistory } from 'react-router'
-import { createBrowserHistory } from 'history'
-import { Rate } from 'antd'
+import { Link } from 'react-router-dom'
 import { sleep } from '../../utils'
 import './ProductPage.less'
-import { match } from 'ramda'
+import { api } from '../../api'
 
 export const ProductPage = props => {
     const [product, setProduct] = useState({})
     const [isLoading, setIsLoading] = useState(true)
-    const { productId } = props.match.params.productId
+    const { productId } = props.match.params
 
-    console.log(productId)
     useEffect(() => {
         async function fetch() {
             try {
                 setIsLoading(true)
-
-                // const { product } = await api.get(`/product/${productId}`)
-                const tempProduct = {
-                    id: 1,
-                    name: 'Mavi T-shirt',
-                    price: 100,
-                    creation_date: '2019-08-20T07:22:34Z',
-                    image_url: 'https://picsum.photos/300/300',
-                    total_rating: 4,
-                    rating_count: 20,
-                    stock_amount: 10,
-                    description:
-                        'yaza özel çok güzel bir ürünyaza özel çok güzel bir ürünyaza özel çok güzel bir ürünyaza özel çok güzel bir ürünyaza özel çok güzel bir ürünyaza özel çok güzel bir ürünyaza özel çok güzel bir ürünyaza özel çok güzel bir ürünyaza özel çok güzel bir ürünyaza özel çok güzel bir ürün   ',
-                    subcategory: "Men's Fashion",
-                    category: 'Clothing',
-                    brand: 'Mavi',
-                    vendor: 'omerfaruk deniz',
-                }
-                setProduct(tempProduct)
+                const { data } = await api.get(`/product/${productId}`)
+                console.log(data)
+                setProduct(data[0]) // Returns as an array of items. Take the first
                 await sleep(1000)
             } catch (error) {
                 console.error('failed to load trending products', error)
@@ -43,13 +23,13 @@ export const ProductPage = props => {
                 setIsLoading(false)
             }
         }
-
         fetch()
     }, [])
+
     return (
         <div className="product-info">
             <div className="product-image">
-                <Link to={'/product/' + product.id}>
+                <Link to={'/product/' + product.productId}>
                     <img src={product.image_url} className="gallery-img" alt={product.name} />
                 </Link>
             </div>
@@ -63,7 +43,7 @@ export const ProductPage = props => {
                     <p>
                         {' '}
                         <strong>Price: </strong>
-                        {product.price + ' ₺'}
+                        {product.price ?? '' + ' ₺'}
                     </p>
 
                     <p>
