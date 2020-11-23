@@ -5,7 +5,7 @@ import { sleep } from '../utils'
 import uuidv4 from 'uuid/dist/v4'
 import { api } from '../api'
 
-const guestUser = { type: 'guest', id: '0' }
+const guestUser = { type: 'guest' }
 const customerUser = {
     type: 'customer',
     id: '3',
@@ -22,32 +22,28 @@ function useApp() {
 
     const getShoppingCart = async () => {
         try {
-            await sleep(1000)
-            console.log(`/user/${user.id}/listShoppingCart`)
-
-            const { cart } = await api.get(`/user/${user.id}/listShoppingCart/`)
-            setShoppingCart(cart)
-        } catch {
-            notification.error({ description: 'Failed to get shopping cart' })
+            const { data } = await api.get(`/user/${user.id}/listShoppingCart`)
+            setShoppingCart(data)
+        } catch (error) {
+            notification.error({ description: 'Failed to add item to shopping cart' })
+            console.error(error)
         } finally {
         }
     }
 
     const addShoppingCartItem = async (product, amount) => {
-        console.log(product + ' click ' + amount)
         try {
-            const { data } = await api.post(`/user/${user.id}/shoppingCart/`, {
-                productId: product.id,
-                amount: amount,
-            })
-            if (data.successful == true) {
-                notification.success({ description: 'Added item to shopping cart' })
-            } else {
-                console.log(data)
-                notification.error({ description: 'Failed to add item to shopping cart' })
-            }
+            console.log('Add item: ', product, amount)
+            // const { data } = await api.post(`/user/${user.id}/shoppingCart`, {
+            //     productId: product.id,
+            //     amount: amount,
+            // })
+            // if (data.successful == true) {
+            //     notification.success({ description: 'Added item to shopping cart' })
+            // } else {
+            //     notification.error({ description: 'Failed to add item to shopping cart' })
+            // }
 
-            console.log('add shopping cart item ', { product, amount })
             setShoppingCartRefreshId(i => i + 1)
         } catch {
         } finally {
@@ -56,7 +52,6 @@ function useApp() {
 
     const checkoutShoppingCart = async cart => {
         try {
-            // lfjdskjlfds
             console.log('checkout shopping cart item ', cart)
             setShoppingCartRefreshId(i => i + 1)
         } catch {

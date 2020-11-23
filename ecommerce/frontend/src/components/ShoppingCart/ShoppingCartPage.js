@@ -22,6 +22,7 @@ export const ShoppingCartPage = ({ currency = 'TL' }) => {
                 setIsLoading(false)
             }
         }
+        console.log('refresh: ', shoppingCartRefreshId)
         fetch()
     }, [shoppingCartRefreshId])
 
@@ -38,7 +39,9 @@ export const ShoppingCartPage = ({ currency = 'TL' }) => {
         <div className="shopping-master">
             <div className="shopping-left">
                 <h2>Your shopping cart</h2>
-                <ShoppingCartItems cart={shoppingCart} />
+                <Spin spinning={isLoading}>
+                    <ShoppingCartItems cart={shoppingCart} />
+                </Spin>
             </div>
             <div className="shopping-right">
                 <div className="shopping-price">

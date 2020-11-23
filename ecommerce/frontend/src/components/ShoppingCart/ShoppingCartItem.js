@@ -8,17 +8,12 @@ export const ShoppingCartItem = ({ cartItem: { amount, product } }) => {
     const { addShoppingCartItem } = useAppContext()
 
     const onClickDelete = () => {
-        addShoppingCartItem({
-            product,
-            amount: -amount,
-        })
+        console.log(product, -amount)
+        addShoppingCartItem(product, -amount)
     }
 
     const onAmountChange = value => {
-        addShoppingCartItem({
-            product,
-            amount: value - amount,
-        })
+        addShoppingCartItem(product, value - amount)
     }
 
     return (
@@ -43,12 +38,7 @@ export const ShoppingCartItem = ({ cartItem: { amount, product } }) => {
                     Amount:
                 </Col>
                 <Col span={3} className="cart-item-amount-input">
-                    <InputNumber
-                        min={1}
-                        onPressEnter={onAmountChange}
-                        className="amount-counter"
-                        defaultValue={amount}
-                    />
+                    <InputNumber min={1} onChange={onAmountChange} className="amount-counter" defaultValue={amount} />
                 </Col>
                 <Col span={3} className="cart-item-price">
                     {product.price}&nbsp;{product.currency}
