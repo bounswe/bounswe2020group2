@@ -6,9 +6,7 @@ import retrofit2.http.*
 interface LoginAPI {
 
     @Headers("Content-Type: application/json")
-    @FormUrlEncoded
-    @POST( "login/")
-    fun logUser(@Field(value = "email") email: String,
-                @Field(value = "password") password: String): Call<DefaultResponse>
+    @POST( "regularlogin/")
+    fun logUser(@Body userData: LogReq): Call<LogReq>
 
 }

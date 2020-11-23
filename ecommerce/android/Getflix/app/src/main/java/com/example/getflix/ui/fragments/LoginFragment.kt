@@ -12,9 +12,7 @@ import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentLoginBinding
 import com.example.getflix.models.PModel
 import com.example.getflix.models.ProductModel
-import com.example.getflix.services.DefaultResponse
-import com.example.getflix.services.LoginAPI
-import com.example.getflix.services.ProductsAPI
+import com.example.getflix.services.*
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -64,27 +62,12 @@ class LoginFragment : Fragment() {
                 canSubmit = false
             }
             if(canSubmit) {
-                val retrofit = Retrofit.Builder().baseUrl(MainActivity.StaticData.BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-                    .create(LoginAPI::class.java)
-
-
-                retrofit.logUser(binding.username.text.toString(),
-                    binding.password.text.toString()).enqueue(
-                    object : Callback<DefaultResponse> {
-                        override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
-                        }
-                        override fun onResponse( call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
-                          if(!response.body()?.error!!) {
-                              println("geçti")
-
-                          } else {
-                              println(response.body()?.message)
-                          }
-                        }
-                    }
-                )
+                val userData = LogReq(binding.username.text.toString(),
+                    binding.password.text.toString())
+                var service = APIService()
+                service.tryLogin(userData) {
+                    userData
+                }
             }
             //view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
         }
@@ -135,4 +118,8 @@ class LoginFragment : Fragment() {
         }
     }*/
 
+
+
 }
+
+
