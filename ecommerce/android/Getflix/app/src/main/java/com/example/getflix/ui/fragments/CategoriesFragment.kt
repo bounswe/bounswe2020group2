@@ -1,4 +1,4 @@
-package com.example.getflix.ui.fragment
+package com.example.getflix.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,22 +8,23 @@ import androidx.databinding.DataBindingUtil
 
 import androidx.fragment.app.Fragment
 
-import androidx.navigation.findNavController
-
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.ui.adapters.SubcategoryAdapter
 import com.example.getflix.databinding.FragmentCategoriesBinding
 import com.example.getflix.models.CategoryModel
+import com.example.getflix.models.PModel
 import com.example.getflix.models.SubcategoryModel
 import com.example.getflix.ui.adapters.CategoriesAdapter
 import com.example.getflix.ui.viewmodels.CategoriesViewModel
+import com.example.getflix.ui.viewmodels.CategoryViewModel
+import com.example.getflix.ui.viewmodels.HomeViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
-
-
 
 
     private lateinit var viewModel: CategoriesViewModel
@@ -46,9 +47,31 @@ class CategoriesFragment : Fragment() {
         activity?.toolbar!!.toolbar_title.text = getString(R.string.categories)
         viewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
         binding.viewmodel = CategoriesViewModel()
+        binding.lifecycleOwner=this
+
+        var catsL = mutableListOf<CategoryModel>()
+        adapter = CategoriesAdapter(catsL, this)
+        binding.catRec.adapter = adapter
+
+        viewModel.products?.observe(viewLifecycleOwner, {products ->
+            products?.let {
+               viewModel.setCategories(it as MutableList<PModel>)
+                viewModel.categoriesList?.observe(viewLifecycleOwner, {cats ->
+                    cats?.let {
+                        catsL = cats
+                        println(catsL.size)
+                        adapter.notifyDataSetChanged()
+                    }
+            }
+                )
+            }})
+
+        val cat = viewModel.categories
 
 
-        var cats = listOf<CategoryModel>(
+
+
+        /*var cats = listOf<CategoryModel>(
             CategoryModel(
                 1, "Home",
                 listOf(SubcategoryModel(2, 1, "Furniture",null))
@@ -84,22 +107,13 @@ class CategoriesFragment : Fragment() {
             it.let {
                 adapter.submitList(it["woman"])
             }
-        })
+        })   */
 
 
         return binding.root
     }
 
-    fun navigateSub() {
-        val subf = SubcategoryFragment()
-        requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(R.id.my_nav_host_fragment,subf)
-            addToBackStack("")
-            commit()
-        }
-        //view?.findNavController()?.navigate(actionCategoriesFragmentToSubcategoryFragment())
-        //NavHostFragment.findNavController(this).navigate(R.id.action_categoriesFragment_to_subcategoryFragment)
-    }
+
 
 }
 

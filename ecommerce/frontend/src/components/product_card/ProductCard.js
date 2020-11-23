@@ -7,11 +7,11 @@ import './ProductCard.less'
 const { Meta } = Card
 
 export const ProductCard = ({ product, onAddToCart, width = 350 }) => {
-    const { title, rating, price, currency, imageUrl, productId } = product
+    const { title, rating, price, currency, imageUrl, id } = product
 
     return (
         <div style={{ minWidth: width, minHeight: width, maxWidth: width }}>
-            <Link to={`/products/${productId}`}>
+            <Link to={`/products/${id}`}>
                 <Card
                     style={{ width: width, minWidth: width, minHeight: width }}
                     cover={<img alt={title} src={imageUrl} />}>
@@ -23,7 +23,7 @@ export const ProductCard = ({ product, onAddToCart, width = 350 }) => {
                     <Rate allowHalf defaultValue={rating}></Rate>
                 </div>
                 <div className="right">
-                    <Button type="primary" icon={<PlusCircleOutlined />} onClick={() => onAddToCart(productId)}>
+                    <Button type="primary" icon={<PlusCircleOutlined />} onClick={() => onAddToCart(id)}>
                         Add
                     </Button>
                 </div>

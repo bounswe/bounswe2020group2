@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.adapters.ProductAdapter
 import com.example.getflix.databinding.FragmentSubcategoryBinding
+import com.example.getflix.models.ProductModel
 import com.example.getflix.models.SubcategoryModel
 
 class SubcategoryAdapter(private var context: Context) :

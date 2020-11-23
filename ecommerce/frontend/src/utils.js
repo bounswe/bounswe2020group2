@@ -69,3 +69,39 @@ export const brands = {
 export function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
+
+/**
+ * Product from backend format to frontend format
+ */
+export function formatProduct({
+    id,
+    name,
+    price,
+    creation_date,
+    total_rating,
+    rating_count,
+    stock_amount,
+    description,
+    image_url,
+    subcategory,
+    category,
+    vendor,
+    brand,
+}) {
+    return {
+        id,
+        name,
+        price,
+        currency: 'TL', // TODO: Backend is not returning currency so as a quick fix we set it as TL
+        creationDate: creation_date,
+        rating: total_rating,
+        ratingCount: rating_count,
+        stockAmount: stock_amount,
+        description,
+        imageUrl: image_url,
+        subcategory,
+        category,
+        vendor,
+        brand,
+    }
+}
