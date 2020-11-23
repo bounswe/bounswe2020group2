@@ -1,0 +1,101 @@
+name: Deploy backend
+
+on:
+    push:
+        branches: [deploy-backend]
+    pull_request:
+        branches: [deploy-backend]
+
+jobs:
+    deploy-frontend:
+        name: Build Backend
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v1
+              with:
+                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  aws-region: us-east-2
+
+            - name: Get public ip of database instance
+              run: echo "AWS_DATABASE_INSTANCE_IP=$(aws ec2 describe-instances --filters 'Name=tag:Name,Values=database' --query 'Reservations[0].Instances[0].PublicDnsName' --output text)" >> $GITHUB_ENV
+
+            - name: Get public ip of Backend instance
+              run: echo "AWS_BACKEND_INSTANCE_IP=$(aws ec2 describe-instances --filters 'Name=tag:Name,Values=backend' --query 'Reservations[0].Instances[0].PublicDnsName' --output text)" >> $GITHUB_ENV
+
+            - name: Echo Database public ip
+              run: echo "database $AWS_DATABASE_INSTANCE_IP"
+
+            - name: Echo Backend public ip
+              run: echo "backend $AWS_BACKEND_INSTANCE_IP"
+
+            - name: Decrypt Key pair
+              run: gpg --batch --yes --decrypt --passphrase="$GPG_PASSWORD" --output CMPE451.pem ./secrets/CMPE451.pem.gpg
+              env:
+                  GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
+
+            - name: Decrypt Slack webhook
+              run: gpg --batch --yes --decrypt --passphrase="$GPG_PASSWORD" --output slack_webhook.txt ./secrets/slack_webhook.txt.gpg
+              env:
+                  GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
+
+            - name: Set slack webhook as env
+              run: echo "SLACK_WEBHOOK_URL=$(cat slack_webhook.txt)" >> $GITHUB_ENV
+
+            - name: chmod 400 to the keypair
+              run: chmod 400 CMPE451.pem
+
+            - name: Build the Docker image
+              run: docker build ecommerce/backend -t backend
+
+            - name: Save Docker image
+              run: docker save backend | gzip > backend.tar.gz
+
+            - name: Check Docker image size
+              run: du -h backend.tar.gz
+
+            - name: Reset state
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ env.AWS_BACKEND_INSTANCE_IP }}
+                  username: ubuntu
+                  key_path: CMPE451.pem
+                  script_stop: true
+                  script: |
+                      sudo rm -rf application || true
+                      mkdir application
+                      sudo docker container stop $(sudo docker container ls -aq) || true
+                      sudo docker container rm $(sudo docker container ls -aq) || true
+
+            - name: Push Docker to EC2 - with action
+              uses: appleboy/scp-action@master
+              with:
+                  host: ${{ env.AWS_BACKEND_INSTANCE_IP }}
+                  username: ubuntu
+                  key_path: CMPE451.pem
+                  source: backend.tar.gz
+                  target: ~/application/
+
+            - name: Run docker
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ env.AWS_BACKEND_INSTANCE_IP }}
+                  username: ubuntu
+                  key_path: CMPE451.pem
+                  script_stop: true
+                  script: |
+                      cd application
+                      sudo docker load -i backend.tar.gz
+                      sudo docker run --name backend -p 8000:8000 -e DB_HOST=$AWS_DATABASE_INSTANCE_IP -e DB_USER=postgres -e DB_PASSWORD=admin -d backend
+
+            - name: Notify slack!
+              uses: rtCamp/action-slack-notify@v2
+              env:
+                SLACK_USERNAME: Deploy Guy
+                SLACK_WEBHOOK: ${{ env.SLACK_WEBHOOK_URL }}
+                SLACK_TITLE: 'Backend deployed! :rocket:'
+                SLACK_MESSAGE: ${{ env.AWS_BACKEND_INSTANCE_IP }}
