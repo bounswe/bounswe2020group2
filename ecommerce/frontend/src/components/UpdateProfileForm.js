@@ -40,8 +40,6 @@ export const UpdateProfileForm = ({ onSubmit = () => {}, user }) => {
     const onFinish = values => {
         values.userType = user.userType
         if (isUpdateRequired(values)) {
-            console.log('Received values of form: ', values)
-            console.log('Initial Values: ', user)
             onSubmit(values)
         } else {
             console.log('Nothing is changed')
@@ -80,7 +78,7 @@ export const UpdateProfileForm = ({ onSubmit = () => {}, user }) => {
             onFinishFailed={onFinishFailed}
             initialValues={{
                 name: user.name,
-                surname: user.surname,
+                surname: user.lastname,
                 username: user.username,
                 email: user.email,
                 phone: user.phone,

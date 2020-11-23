@@ -30,9 +30,9 @@ function useApp() {
                 },
             })
 
-            const { token, id, email, firstname, surname } = data
+            const { token, id, email, firstname, lastname } = data
 
-            setUser({ id, email, name: firstname, surname })
+            setUser({ id, email, name: firstname, lastname })
 
             setRequestInterceptorId(api.interceptors.request.use(requestInterceptor))
 
@@ -54,14 +54,13 @@ function useApp() {
     const regularLogin = async (userType, username, password) => {
         try {
             const { data } = await api.post('/regularlogin/', { username, password })
-            console.log(data)
             const { success, message } = data.status
-            const { token, id, email, firstname, surname } = data.user
+            const { token, id, email, firstname, lastname } = data.user
 
             if (success) {
                 localStorage.setItem('token', token)
 
-                setUser({ id, email, name: firstname, surname })
+                setUser({ id, email, name: firstname, lastname })
                 setRequestInterceptorId(api.interceptors.request.use(requestInterceptor))
                 notification.success({ message: `Welcome back, ${firstname}!` })
 

@@ -7,7 +7,6 @@ import { useAppContext } from '../../context/AppContext'
 export const ProfilePage = () => {
     // future version
     const { user } = useAppContext()
-    console.log(user)
     return (
         <div>
             <div className="logo-name-splash">

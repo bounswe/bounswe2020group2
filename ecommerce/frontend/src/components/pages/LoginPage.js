@@ -22,7 +22,6 @@ export const LoginPage = () => {
                     setIsLoading(true)
                     await sleep(2000)
                     setIsLoading(false)
-                    console.log(user)
                     history.push({
                         pathname: '/',
                     })
