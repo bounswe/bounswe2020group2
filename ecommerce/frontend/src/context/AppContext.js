@@ -5,8 +5,15 @@ import { sleep } from '../utils'
 import uuidv4 from 'uuid/dist/v4'
 import { api } from '../api'
 
-const guestUser = { type: 'guest' }
-const customerUser = { type: 'customer', id: '2', name: 'Mehdi', surname: 'Saffar', email: 'example@gmail.com' }
+const guestUser = { type: 'guest', id: '0' }
+const customerUser = {
+    type: 'customer',
+    id: '3',
+    name: 'Mehdi',
+    surname: 'Saffar',
+    email: 'example@gmail.com',
+    role: '1',
+}
 
 function useApp() {
     const [user, setUser] = useState(customerUser)
@@ -16,8 +23,9 @@ function useApp() {
     const getShoppingCart = async () => {
         try {
             await sleep(1000)
-            const { cart } = await api.get(`/user/${user.id}/listShoppingCart`)
+            console.log(`/user/${user.id}/listShoppingCart`)
 
+            const { cart } = await api.get(`/user/${user.id}/listShoppingCart/`)
             setShoppingCart(cart)
         } catch {
             notification.error({ description: 'Failed to get shopping cart' })
@@ -25,12 +33,19 @@ function useApp() {
         }
     }
 
-    const addShoppingCartItem = async ({ product, amount }) => {
+    const addShoppingCartItem = async (product, amount) => {
+        console.log(product + ' click ' + amount)
         try {
-            const { data } = await api.post('/regularlogin', {
-                userId: user.id,
-                body: { amount: amount, productId: product.id },
+            const { data } = await api.post(`/user/${user.id}/shoppingCart/`, {
+                productId: product.id,
+                amount: amount,
             })
+            if (data.successful == true) {
+                notification.success({ description: 'Added item to shopping cart' })
+            } else {
+                console.log(data)
+                notification.error({ description: 'Failed to add item to shopping cart' })
+            }
 
             console.log('add shopping cart item ', { product, amount })
             setShoppingCartRefreshId(i => i + 1)

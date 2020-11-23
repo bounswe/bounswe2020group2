@@ -58,15 +58,17 @@ export const _SearchPage = ({ initialValues = {} }) => {
                 setIsLoading(true)
                 await sleep(1000)
                 const total = 50
+                let i = 0
                 setProducts(
                     [...Array(total)].map(x => {
+                        i = i + 1
                         return {
                             title: 'Title',
                             rating: '5',
                             price: '30.00',
                             currency: 'TL',
                             imageUrl: `https://picsum.photos/300?q=${uuidv4()}`,
-                            id: uuidv4(),
+                            id: i,
                         }
                     }),
                 )

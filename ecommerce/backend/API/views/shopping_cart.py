@@ -22,10 +22,10 @@ def list_shopping_cart(request, id): #userId
 
 
 @api_view(['POST'])
-@permission_classes([permissions.IsCustomerUser])
+@permission_classes([permissions.AllowAnonymous])
 def add_shopping_cart_item(request, id):
-    if request.user.pk != id:
-        return Response(status=status.HTTP_403_FORBIDDEN)
+    # if request.user.pk != id:
+    #     return Response(status=status.HTTP_403_FORBIDDEN)
 
     serializer = shopping_cart_serializer.ShoppingCartRequestSerializer(data=request.data)
     if not serializer.is_valid():
