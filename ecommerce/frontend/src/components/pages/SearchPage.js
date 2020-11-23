@@ -66,8 +66,7 @@ export const _SearchPage = ({ initialValues = {} }) => {
                             price: '30.00',
                             currency: 'TL',
                             imageUrl: `https://picsum.photos/300?q=${uuidv4()}`,
-                            width: 300,
-                            productId: uuidv4(),
+                            id: uuidv4(),
                         }
                     }),
                 )

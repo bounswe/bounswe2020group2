@@ -2,9 +2,9 @@ import json
 from rest_framework import status
 from django.test import TestCase, Client
 from django.urls import reverse
-from API.models import Product, Category, Subcategory, User, Vendor, Brand, ShoppingCartItem, Customer
-from API.serializers.shopping_cart_item_serializer import ShoppingCartItemSerializer
-from API.views.shopping_cart import list_shopping_cart
+from ..models import Product, Category, Subcategory, User, Vendor, Brand, ShoppingCartItem, Customer
+from ..serializers.shopping_cart_item_serializer import ShoppingCartItemSerializer
+from ..views.shopping_cart import list_shopping_cart
 
 client = Client()
 product_id_for_test = 1
