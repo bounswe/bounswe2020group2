@@ -66,12 +66,22 @@ class LoginFragment : Fragment() {
         loginViewModel.onLogin.observe(viewLifecycleOwner, Observer {
             if (it) {
                 MainActivity.StaticData.name = binding.username.text.toString()
-                view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
+                val transaction = activity?.supportFragmentManager!!.beginTransaction()
+                transaction.replace(R.id.my_nav_host_fragment, HomePageFragment())
+                transaction.disallowAddToBackStack()
+                transaction.commit()
+               // view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
+            } else {
+
             }
         })
 
         binding.signUpButton.setOnClickListener {
-            view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+            val transaction = activity?.supportFragmentManager!!.beginTransaction()
+            transaction.replace(R.id.my_nav_host_fragment, RegisterFragment())
+            transaction.disallowAddToBackStack()
+            transaction.commit()
+            // view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
         }
 /*
        val gso =
