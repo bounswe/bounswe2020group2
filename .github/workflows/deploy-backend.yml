@@ -90,7 +90,7 @@ jobs:
                   script: |
                       cd application
                       sudo docker load -i backend.tar.gz
-                      sudo docker run --name backend -p 8000:8000 -e DB_HOST=${{ env.AWS_DATABASE_INSTANCE_IP }} -e DB_USER=postgres -e DB_PASSWORD=admin -d backend
+                      sudo docker run --name backend -p 8000:8000 -e DEBUG=False -e DB_HOST=${{ env.AWS_DATABASE_INSTANCE_IP }} -e DB_USER=postgres -e DB_PASSWORD=admin -d backend
 
             - name: Notify slack!
               uses: rtCamp/action-slack-notify@v2

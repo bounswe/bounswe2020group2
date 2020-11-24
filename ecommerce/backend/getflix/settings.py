@@ -22,11 +22,20 @@ from django.core.exceptions import ImproperlyConfigured
 secrets = {
     'HOST': os.environ.get('DB_HOST'),
     'USER': os.environ.get('DB_USER'),
-    'PASSWORD': os.environ.get('DB_PASSWORD')
+    'PASSWORD': os.environ.get('DB_PASSWORD'),
 }
 
 '''with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
     secrets = json.load(secrets_file)'''
+
+def get_debug():
+    debug = os.environ.get("DEBUG")
+    if debug is None:
+        return True
+    else:
+        if debug == "False":
+            return False
+        return True
 
 def get_secret(setting, secrets=secrets):
     """Get secret setting or fail with ImproperlyConfigured"""
@@ -42,7 +51,7 @@ def get_secret(setting, secrets=secrets):
 SECRET_KEY = 'wc$0ekguzl&$5gaotf)0!-#znaitq%5jafib)yh494s2a-a5ic'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = get_debug()
 
 ALLOWED_HOSTS = ['*']
 

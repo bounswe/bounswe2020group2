@@ -1,15 +1,69 @@
 import { notification } from 'antd'
 import constate from 'constate'
 import { useState } from 'react'
+import { sleep } from '../utils'
+import uuidv4 from 'uuid/dist/v4'
 import { api } from '../api'
 
 const guestUser = { type: 'guest' }
-
-// for testing purposes only
-const customerUser = { type: 'customer', name: 'Mehdi', surname: 'Saffar', email: 'example@gmail.com' }
+const customerUser = {
+    type: 'customer',
+    id: '3',
+    name: 'Mehdi',
+    surname: 'Saffar',
+    email: 'example@gmail.com',
+    role: '1',
+}
 
 function useApp() {
     const [user, setUser] = useState(guestUser)
+    const [shoppingCart, setShoppingCart] = useState([])
+    const [shoppingCartRefreshId, setShoppingCartRefreshId] = useState(0)
+
+    const getShoppingCart = async () => {
+        try {
+            const { data } = await api.get(`/user/${user.id}/listShoppingCart`)
+            const tmp = data.filter(item => {
+                return item.amount > 0
+            })
+            setShoppingCart(tmp)
+        } catch (error) {
+            notification.error({ description: 'Failed to add item to shopping cart' })
+            console.error(error)
+        } finally {
+        }
+    }
+
+    const addShoppingCartItem = async (product, amount) => {
+        try {
+            console.log('Add item: ', product, amount)
+            const { data } = await api.post(`/user/${user.id}/shoppingCart`, {
+                productId: product.id,
+                amount: amount,
+            })
+            console.log(data)
+            if (data.succesful) {
+                notification.success({ description: 'Succesfully updated shopping cart' })
+            } else {
+                notification.error({ description: 'Failed to update shopping cart item' })
+            }
+            setShoppingCartRefreshId(i => i + 1)
+        } catch (error) {
+            notification.error({ description: 'Failed to update shopping cart item' })
+            console.error(error)
+        } finally {
+        }
+    }
+
+    const checkoutShoppingCart = async cart => {
+        try {
+            console.log('checkout shopping cart item ', cart)
+            setShoppingCartRefreshId(i => i + 1)
+        } catch {
+        } finally {
+        }
+    }
+
     const [requestInterceptorId, setRequestInterceptorId] = useState(null)
 
     const requestInterceptor = request => {
@@ -32,7 +86,8 @@ function useApp() {
 
             const { token, id, email, firstname, lastname } = data
 
-            setUser({ id, email, name: firstname, lastname })
+            // TODO: get type from backend
+            setUser({ id, type: 'customer', email, name: firstname, lastname })
 
             setRequestInterceptorId(api.interceptors.request.use(requestInterceptor))
 
@@ -94,6 +149,12 @@ function useApp() {
         init,
         regularLogin,
         logout,
+        setUser,
+        shoppingCart,
+        shoppingCartRefreshId,
+        checkoutShoppingCart,
+        getShoppingCart,
+        addShoppingCartItem,
     }
 }
 
