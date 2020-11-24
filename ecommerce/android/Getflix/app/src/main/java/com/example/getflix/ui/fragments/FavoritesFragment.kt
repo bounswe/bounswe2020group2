@@ -34,8 +34,16 @@ class FavoritesFragment : Fragment() {
         binding.viewmodel = FavoritesViewModel()
         activity?.toolbar!!.toolbar_title.text = getString(R.string.favorites)
         val recView = binding?.favoritesList as RecyclerView
-        val products = arrayListOf(ProductModel(1,"iPhone",2,null,null),
-            ProductModel(1,"Bag",2,null,null))
+        val products = arrayListOf( ProductModel(1,"Bag","100 TL",null,"Vıntage Bag"),
+                ProductModel(1,"iPhone 7","4815 TL",null,"Best Phone"),
+                ProductModel(1,"Pullover","36 TL",null,"Black Pullover"),
+                ProductModel(1,"Notebook","32 TL",null,"Spiral Notebook"),
+                ProductModel(1,"Pencil","13 TL",null,"Black Pencil"),
+                ProductModel(1,"Skirt","30 TL",null,"Vıntage Skirt"),
+                ProductModel(1,"T-Shirt","23 TL",null,"Vıntage T-Shirt"),
+                ProductModel(1,"Book","20 TL",null,"Bestseller Book")   ,
+                ProductModel(1,"T-Shirt","23 TL",null,"Black T-Shirt"),
+                ProductModel(1,"Book","20 TL",null,"Bestseller Book"))
         val productListAdapter = FavoritesAdapter(products)
         recView.adapter = productListAdapter
         recView.setHasFixedSize(true)
