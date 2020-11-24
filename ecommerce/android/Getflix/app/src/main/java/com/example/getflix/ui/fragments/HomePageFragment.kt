@@ -23,11 +23,13 @@ class HomePageFragment() : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentHomePageBinding>(inflater, R.layout.fragment_home_page,
-                container, false)
+        val binding = DataBindingUtil.inflate<FragmentHomePageBinding>(
+            inflater, R.layout.fragment_home_page,
+            container, false
+        )
 
 
 
@@ -41,15 +43,13 @@ class HomePageFragment() : Fragment() {
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         binding.homeViewModel = homeViewModel
         binding.lifecycleOwner = this
-        homeViewModel.getProducts()
-        homeViewModel.onCategoryClick.observe(viewLifecycleOwner, Observer {id ->
+        homeViewModel.onCategoryClick.observe(viewLifecycleOwner, Observer { id ->
             homeViewModel.products?.observe(viewLifecycleOwner, Observer { plist ->
 
-                for(pro in plist) {
-                    if(id==1 && pro.category=="Clothing") {
+                for (pro in plist) {
+                    if (id == 1 && pro.category == "Clothing") {
                         products.add(pro)
-                    }
-                    else if(id==2 && pro.category=="Electronics") {
+                    } else if (id == 2 && pro.category == "Electronics") {
                         products.add(pro)
                     }
                 }
@@ -64,7 +64,7 @@ class HomePageFragment() : Fragment() {
 
             transaction.disallowAddToBackStack()
             transaction.commit()
-           // NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionHomePageFragmentToCategoryFragment(it!!))
+            // NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionHomePageFragmentToCategoryFragment(it!!))
         })
 
         return binding.root
