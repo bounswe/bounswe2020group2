@@ -1,18 +1,22 @@
 import './Layout_common.less'
-import { Route, Switch, Link } from 'react-router-dom'
+
 import { Layout } from 'antd'
-import { LoginPage } from '../pages/LoginPage'
-import { SignupPage } from '../pages/SignupPage'
+import { Route, Switch } from 'react-router-dom'
+
 import { HomePage } from '../pages/HomePage'
+import { LoginPage } from '../pages/LoginPage'
+import { ProductPage } from '../pages/ProductPage'
 import { ProfilePage } from '../pages/ProfilePage'
 import { SearchPage } from '../pages/SearchPage'
-import { ProductPage } from '../pages/ProductPage'
+import { SignupPage } from '../pages/SignupPage'
+import { ShoppingCartPage } from '../ShoppingCart/ShoppingCartPage'
 
 export const Content = () => {
     return (
         <Layout.Content className="content">
             <Switch>
                 <Route path="/login" component={LoginPage} />
+                <Route path="/shoppingCart" component={ShoppingCartPage} />
                 <Route path="/signup" component={SignupPage} />
                 <Route path="/profile" component={ProfilePage} />
                 <Route path="/search/:type" component={SearchPage} />
