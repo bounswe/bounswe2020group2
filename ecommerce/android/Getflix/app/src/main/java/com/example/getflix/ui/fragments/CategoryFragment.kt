@@ -36,8 +36,7 @@ class CategoryFragment : Fragment() {
         var myList : ArrayList<PModel> = args!!.getParcelableArrayList<PModel>("Product") as ArrayList<PModel>
         categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
         val adapter = SubcategoryAdapter(requireContext())
-        categoryViewModel.setCategory(myList[0].category, myList)
-
+        categoryViewModel.setCategory(savedInstanceState[id])
 
         binding.lifecycleOwner = this
         binding.categoryList.adapter = adapter
