@@ -13,6 +13,8 @@ import com.example.getflix.databinding.FragmentFavoritesBinding
 import com.example.getflix.models.ProductModel
 import com.example.getflix.ui.adapters.FavoritesAdapter
 import com.example.getflix.ui.viewmodels.FavoritesViewModel
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 
 class FavoritesFragment : Fragment() {
@@ -30,6 +32,7 @@ class FavoritesFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
         binding.viewmodel = FavoritesViewModel()
+        activity?.toolbar!!.toolbar_title.text = getString(R.string.favorites)
         val recView = binding?.favoritesList as RecyclerView
         val products = arrayListOf(ProductModel(1,"iPhone",2,null,null),
             ProductModel(1,"Bag",2,null,null))
