@@ -1,6 +1,4 @@
 import { Form, Input, Button, Tooltip, InputNumber } from 'antd'
-import { QuestionCircleOutlined } from '@ant-design/icons'
-import { useState } from 'react'
 
 // Constants for layout
 const formItemLayout = {

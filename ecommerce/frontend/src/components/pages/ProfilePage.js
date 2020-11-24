@@ -22,7 +22,7 @@ export const ProfilePage = () => {
                     <ProfileDetails />
                 </div>
                 <div className="right-bar-profile-content">
-                    <ProfileContent user={user} />
+                    <ProfileContent key={user.id} user={user} />
                 </div>
             </div>
         </div>
