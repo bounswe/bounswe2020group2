@@ -31,12 +31,14 @@ class CategoryFragment : Fragment() {
             inflater, R.layout.fragment_category,
             container, false
         )
+        val categoryId = CategoryFragmentArgs.fromBundle(requireArguments()).categoryId
 
         val args = arguments
-        var myList : ArrayList<PModel> = args!!.getParcelableArrayList<PModel>("Product") as ArrayList<PModel>
+        var myList: ArrayList<PModel> =
+            args!!.getParcelableArrayList<PModel>("Product") as ArrayList<PModel>
         categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
         val adapter = SubcategoryAdapter(requireContext())
-        categoryViewModel.setCategory(savedInstanceState[id])
+        categoryViewModel.setCategory(categoryId)
 
         binding.lifecycleOwner = this
         binding.categoryList.adapter = adapter
@@ -50,8 +52,8 @@ class CategoryFragment : Fragment() {
             }
         })
 
-       // val categoryId = CategoryFragmentArgs.fromBundle(requireArguments()).categoryId
-       // categoryViewModel.setCategory(categoryId)
+        // val categoryId = CategoryFragmentArgs.fromBundle(requireArguments()).categoryId
+        // categoryViewModel.setCategory(categoryId)
         return binding.root
     }
 }
