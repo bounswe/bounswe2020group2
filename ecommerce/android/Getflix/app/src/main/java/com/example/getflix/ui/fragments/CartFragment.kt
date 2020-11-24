@@ -53,7 +53,7 @@ class CartFragment : Fragment() {
             viewModel.addProduct(product)
         }
 
-        viewModel.productList.observe(viewLifecycleOwner, {
+        viewModel.productList.observe(viewLifecycleOwner, Observer{
             it?.let {
                 productListAdapter.submitList(it)
             }
