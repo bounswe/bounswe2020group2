@@ -36,10 +36,16 @@ class ProfileFragment : Fragment() {
             binding.products.text = "---"
             binding.mail.text = "---"
             binding.tel.text = "---"
+         } else {
+             binding.name.text = MainActivity.StaticData.name
          }
 
 
         binding.btnLogout.setOnClickListener {
+                 MainActivity.StaticData.isVisitor = false
+                 MainActivity.StaticData.isCustomer = false
+                 MainActivity.StaticData.isAdmin = false
+                 MainActivity.StaticData.isVendor = false
                  val transaction = activity?.supportFragmentManager!!.beginTransaction()
                  transaction.replace(R.id.my_nav_host_fragment, LoginFragment())
                  transaction.disallowAddToBackStack()

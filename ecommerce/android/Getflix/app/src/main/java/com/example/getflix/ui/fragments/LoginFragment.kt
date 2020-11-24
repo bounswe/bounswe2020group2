@@ -65,6 +65,7 @@ class LoginFragment : Fragment() {
 
         loginViewModel.onLogin.observe(viewLifecycleOwner, Observer {
             if (it) {
+                MainActivity.StaticData.name = binding.username.text.toString()
                 view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
             }
         })

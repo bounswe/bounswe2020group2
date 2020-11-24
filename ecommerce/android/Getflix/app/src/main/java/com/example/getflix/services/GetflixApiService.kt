@@ -2,7 +2,7 @@ package com.example.getflix.services
 
 import com.example.getflix.models.LoginRequest
 import com.example.getflix.models.LoginResponse
-import com.example.getflix.models.ProductResponse
+import com.example.getflix.models.PModel
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -48,7 +48,7 @@ interface GetflixApiService {
     fun getUserInformation(@Body userData: LoginRequest): Call<LoginResponse>
 
     @GET("products/homepage/3")
-    fun getProducts(page: Int): Call<List<ProductResponse>>
+    fun getProducts(page: Int): Call<List<PModel>>
 
 }
 
