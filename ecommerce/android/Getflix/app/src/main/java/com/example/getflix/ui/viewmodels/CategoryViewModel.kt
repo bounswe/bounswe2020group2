@@ -22,7 +22,7 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
     val displayedCategory: LiveData<CategoryModel>
         get() = _displayedCategory
     
-    fun setCategory(id: Int?) {
+    fun setCategory(id: Int) {
         if (id == 1) {
             var zaraJacket1 = ProductModel(1, "Jacket", 222, null, "Zara")
             var zaraJacket2 = ProductModel(2, "Jacket", 231, null, "Zara")
