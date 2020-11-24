@@ -103,13 +103,20 @@ class RegisterFragment : Fragment() {
                 var password = binding.password.text.toString()
                 var phone = binding.phone.text.toString()
 
-                view?.findNavController()
-                    ?.navigate(RegisterFragmentDirections.actionRegisterFragmentToHomePageFragment())
+                //view?.findNavController()
+                val transaction = activity?.supportFragmentManager!!.beginTransaction()
+                transaction.replace(R.id.my_nav_host_fragment, HomePageFragment())
+                transaction.disallowAddToBackStack()
+                transaction.commit()
+                //    ?.navigate(RegisterFragmentDirections.actionRegisterFragmentToHomePageFragment())
             }
         }
 
         binding.btnBack.setOnClickListener {
-            view?.findNavController()!!.popBackStack()
+            val transaction = activity?.supportFragmentManager!!.beginTransaction()
+            transaction.replace(R.id.my_nav_host_fragment, LoginFragment())
+            transaction.disallowAddToBackStack()
+            transaction.commit()
         }
 
 

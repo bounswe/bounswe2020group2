@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="loginViewModel"
+            type="com.example.getflix.ui.viewmodels.LoginViewModel" />
     </data>
 
 
@@ -108,6 +111,8 @@
             android:id="@+id/guest_button"
             android:layout_width="wrap_content"
             android:layout_height="18dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="42dp"
             android:background="#001E1E1E"
             android:fontFamily="@font/open_sans_semibold"
@@ -116,8 +121,6 @@
             android:textColor="@color/initGold"
             app:layout_constraintBottom_toTopOf="@+id/textView4"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="1dp"
             app:layout_constraintHorizontal_bias="0.06"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login"

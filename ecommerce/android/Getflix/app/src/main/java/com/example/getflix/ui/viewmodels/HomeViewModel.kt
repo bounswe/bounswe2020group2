@@ -25,28 +25,5 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         _onCategoryClick.value = id
     }
 
-    private var job: Job? = null
-    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        println("Error ${throwable.localizedMessage}")
-    }
-
-    fun getProducts() {
-        val retrofit = Retrofit.Builder().baseUrl(MainActivity.StaticData.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ProductsAPI::class.java)
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val response = retrofit.getProducts()
-            withContext(Dispatchers.Main + exceptionHandler) {
-                if (response.isSuccessful) {
-                    response.body().let { it ->
-                        _products.value = it
-                    }
-                }
-            }
-        }
-    }
-
-
 
 }
