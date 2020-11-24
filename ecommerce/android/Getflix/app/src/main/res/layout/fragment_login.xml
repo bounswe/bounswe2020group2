@@ -4,9 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="loginViewModel"
-            type="com.example.getflix.ui.viewmodels.LoginViewModel" />
 
         <variable
             name="loginViewModel"

@@ -50,10 +50,23 @@ class CategoriesFragment : Fragment() {
         binding.lifecycleOwner=this
 
         var catsL = mutableListOf<CategoryModel>()
-        adapter = CategoriesAdapter(catsL, this)
+        var cats = listOf<CategoryModel>(
+                CategoryModel(
+                        "Home",
+                        listOf(SubcategoryModel("Furniture", null)) as MutableList<SubcategoryModel>
+                ), CategoryModel(
+                "Electronics",
+                listOf(SubcategoryModel( "Computers",null),
+                        SubcategoryModel("Mobile Phones",null)) as MutableList<SubcategoryModel>
+        ), CategoryModel(
+                "Baby",
+                listOf(SubcategoryModel("Baby Food", null)) as MutableList<SubcategoryModel>
+        )
+        )
+        adapter = CategoriesAdapter(cats, this)
         binding.catRec.adapter = adapter
 
-        viewModel.products?.observe(viewLifecycleOwner, {products ->
+        /*viewModel.products?.observe(viewLifecycleOwner, {products ->
             products?.let {
                viewModel.setCategories(it as MutableList<PModel>)
                 viewModel.categoriesList?.observe(viewLifecycleOwner, {cats ->
@@ -64,26 +77,14 @@ class CategoriesFragment : Fragment() {
                     }
             }
                 )
-            }})
+            }}) */
 
         val cat = viewModel.categories
 
 
 
 
-        /*var cats = listOf<CategoryModel>(
-            CategoryModel(
-                1, "Home",
-                listOf(SubcategoryModel(2, 1, "Furniture",null))
-            ), CategoryModel(
-                2, "Electronics",
-                listOf(SubcategoryModel(2, 2, "Computers",null),
-                    SubcategoryModel(3, 2, "Mobile Phones",null))
-            ), CategoryModel(
-                3, "Baby",
-                listOf(SubcategoryModel(2, 2, "Baby Food",null))
-            )
-        )
+
 
 
         for(category in cats) {
@@ -107,7 +108,7 @@ class CategoriesFragment : Fragment() {
             it.let {
                 adapter.submitList(it["woman"])
             }
-        })   */
+        })
 
 
         return binding.root
