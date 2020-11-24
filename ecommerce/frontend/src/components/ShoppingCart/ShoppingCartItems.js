@@ -5,7 +5,7 @@ export const ShoppingCartItems = ({ cart = [] }) => {
         <div>
             {cart.map(cartItem => {
                 return (
-                    <div key={cartItem.product.productId} style={{ marginBottom: '15px' }}>
+                    <div key={cartItem.product.id} style={{ marginBottom: '15px' }}>
                         <ShoppingCartItem cartItem={cartItem} />
                     </div>
                 )

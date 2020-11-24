@@ -27,7 +27,10 @@ export const ShoppingCartItem = ({ cartItem: { amount, product } }) => {
             </div>
             <div className="cart-item-content">
                 <div className="cart-item-picture">
-                    <img alt={product.title} width={'100%'} src={product.imageUrl ?? 'https://picsum.photos/300'}></img>
+                    <img
+                        alt={product.title}
+                        width={'100%'}
+                        src={product.image_url ?? 'https://picsum.photos/300'}></img>
                 </div>
                 <div className="cart-item-description">
                     {product.description}

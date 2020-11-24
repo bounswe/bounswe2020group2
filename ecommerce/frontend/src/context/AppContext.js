@@ -16,7 +16,7 @@ const customerUser = {
 }
 
 function useApp() {
-    const [user, setUser] = useState(customerUser)
+    const [user, setUser] = useState(guestUser)
     const [shoppingCart, setShoppingCart] = useState([])
     const [shoppingCartRefreshId, setShoppingCartRefreshId] = useState(0)
 
@@ -78,15 +78,16 @@ function useApp() {
         }
 
         try {
-            const { data } = await api.post('/init', null, {
+            const { data } = await api.get('/init', {
                 headers: {
-                    authorization: localStorage.getItem('token'),
+                    authorization: 'Bearer ' + localStorage.getItem('token'),
                 },
             })
 
             const { token, id, email, firstname, lastname } = data
 
-            setUser({ id, email, name: firstname, lastname })
+            // TODO: get type from backend
+            setUser({ id, type: 'customer', email, name: firstname, lastname })
 
             setRequestInterceptorId(api.interceptors.request.use(requestInterceptor))
 

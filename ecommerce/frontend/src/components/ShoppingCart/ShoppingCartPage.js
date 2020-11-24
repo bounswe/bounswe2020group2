@@ -8,7 +8,7 @@ import { ShoppingCartItems } from './ShoppingCartItems'
 
 export const ShoppingCartPage = ({ currency = 'TL' }) => {
     const [isLoading, setIsLoading] = useState(true)
-    const { shoppingCart, shoppingCartRefreshId, getShoppingCart, checkoutShoppingCart } = useAppContext()
+    const { shoppingCart, shoppingCartRefreshId, getShoppingCart, checkoutShoppingCart, user } = useAppContext()
 
     const totalPrice = shoppingCart.reduce((total, item) => total + item.product.price * item.amount, 0)
     const itemCount = shoppingCart.reduce((count, item) => count + item.amount, 0)
@@ -22,9 +22,12 @@ export const ShoppingCartPage = ({ currency = 'TL' }) => {
                 setIsLoading(false)
             }
         }
-        console.log('refresh: ', shoppingCartRefreshId)
-        fetch()
-    }, [shoppingCartRefreshId])
+        console.log(user)
+        if (user.type === 'customer') {
+            console.log('refresh: ', shoppingCartRefreshId)
+            fetch()
+        }
+    }, [shoppingCartRefreshId, user])
 
     const onCheckout = () => {
         if (itemCount == 0) {
