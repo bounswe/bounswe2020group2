@@ -6,7 +6,6 @@ export const LoginForm = ({ onSubmit = () => {} }) => {
     const [form] = Form.useForm()
 
     const onFinish = values => {
-        console.log('Received values of form: ', values)
         const valuesToSend = {
             username: values.username,
             password: values.password,
@@ -21,7 +20,6 @@ export const LoginForm = ({ onSubmit = () => {} }) => {
     const onLoginAsVendor = async () => {
         form.validateFields()
             .then(values => {
-                console.log('Received values of form: ', values)
                 const valuesToSend = {
                     username: values.username,
                     password: values.password,
@@ -118,7 +116,7 @@ export const LoginForm = ({ onSubmit = () => {} }) => {
             </Form>
             <div className="router-buttons">
                 <Button className="signup-button">
-                    <Link to="/signup">Already have an account? Sign Up</Link>
+                    <Link to="/signup">New to Getflix? Sign Up</Link>
                 </Button>
             </div>
         </div>

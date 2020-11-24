@@ -6,6 +6,7 @@ import { SignupPage } from '../pages/SignupPage'
 import { HomePage } from '../pages/HomePage'
 import { ProfilePage } from '../pages/ProfilePage'
 import { SearchPage } from '../pages/SearchPage'
+import { ProductPage } from '../pages/ProductPage'
 
 export const Content = () => {
     return (
@@ -15,6 +16,7 @@ export const Content = () => {
                 <Route path="/signup" component={SignupPage} />
                 <Route path="/profile" component={ProfilePage} />
                 <Route path="/search/:type" component={SearchPage} />
+                <Route path="/product/:productId" component={ProductPage} />
                 <Route path="/" component={HomePage} />
             </Switch>
         </Layout.Content>

@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom'
 import { sleep } from '../../utils'
 import { notification, Spin } from 'antd'
 import { useState } from 'react'
+
 export const SignupPage = () => {
     const [isLoading, setIsLoading] = useState(false)
 

@@ -26,7 +26,7 @@ function useApp() {
         try {
             const { data } = await api.post('/init', null, {
                 headers: {
-                    authorization: localStorage.getItem('token'),
+                    authorization: 'Bearer ' + localStorage.getItem('token'),
                 },
             })
 
