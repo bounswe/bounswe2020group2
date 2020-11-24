@@ -1,7 +1,8 @@
 import './Layout_common.less'
 import { Layout, Menu, Avatar, Dropdown, Button } from 'antd'
-import { UserOutlined, LogoutOutlined, ShoppingCartOutlined } from '@ant-design/icons'
+import { UserOutlined, LogoutOutlined, ProfileOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useContext } from 'react'
 import { useAppContext } from '../../context/AppContext'
 
@@ -20,16 +21,24 @@ export const GuestHeaderContent = () => {
 
 export const CustomerHeaderContent = () => {
     const { user, logout } = useAppContext()
+    const history = useHistory()
 
     const onMenuItemClick = ({ key }) => {
         if (key === 'logout') {
             logout()
+        } else if (key === 'profile') {
+            history.push({
+                pathname: '/profile',
+            })
         }
     }
 
     const dropdownMenu = () => {
         return (
             <Menu onClick={onMenuItemClick}>
+                <Menu.Item key="profile" icon={<ProfileOutlined />}>
+                    Profile
+                </Menu.Item>
                 <Menu.Item key="logout" icon={<LogoutOutlined />}>
                     Logout
                 </Menu.Item>
