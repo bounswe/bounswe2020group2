@@ -2,9 +2,9 @@ name: Deploy backend
 
 on:
     push:
-        branches: [deploy-backend]
+        branches: [deploy]
     pull_request:
-        branches: [deploy-backend]
+        branches: [deploy]
 
 jobs:
     deploy-frontend:
