@@ -116,7 +116,7 @@ export const LoginForm = ({ onSubmit = () => {} }) => {
             </Form>
             <div className="router-buttons">
                 <Button className="signup-button">
-                    <Link to="/signup">Already have an account? Sign Up</Link>
+                    <Link to="/signup">New to Getflix? Sign Up</Link>
                 </Button>
             </div>
         </div>
