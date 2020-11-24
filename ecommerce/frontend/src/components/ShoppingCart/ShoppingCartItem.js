@@ -22,7 +22,7 @@ export const ShoppingCartItem = ({ cartItem: { amount, product } }) => {
         <div className="single-cart-item">
             <div className="cart-item-header">
                 <div className="cart-item-title">
-                    <Link to={`/products/${product.productId}`}>{product.name ?? 'title'}</Link>
+                    <Link to={`/product/${product.id}`}>{product.name ?? 'title'}</Link>
                 </div>
             </div>
             <div className="cart-item-content">

@@ -22,12 +22,12 @@ export const ShoppingCartPage = ({ currency = 'TL' }) => {
                 setIsLoading(false)
             }
         }
-        console.log(user)
+
         if (user.type === 'customer') {
             console.log('refresh: ', shoppingCartRefreshId)
             fetch()
         }
-    }, [shoppingCartRefreshId, user])
+    }, [shoppingCartRefreshId, user.id])
 
     const onCheckout = () => {
         if (itemCount == 0) {

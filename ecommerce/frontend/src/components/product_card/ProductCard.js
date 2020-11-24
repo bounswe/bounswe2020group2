@@ -18,7 +18,7 @@ export const ProductCard = ({ product, width = 350 }) => {
 
     return (
         <div style={{ minWidth: width, minHeight: width, maxWidth: width }}>
-            <Link to={`/products/${id}`}>
+            <Link to={`/product/${id}`}>
                 <Card
                     style={{ width: width, minWidth: width, minHeight: width, padding: 16 }}
                     cover={<img className="product-card-img" alt={title} src={imageUrl} />}>

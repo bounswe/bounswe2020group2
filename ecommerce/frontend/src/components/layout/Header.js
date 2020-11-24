@@ -26,6 +26,7 @@ export const CustomerHeaderContent = () => {
     const onMenuItemClick = ({ key }) => {
         if (key === 'logout') {
             logout()
+            history.push('/')
         } else if (key === 'profile') {
             history.push({
                 pathname: '/profile',
