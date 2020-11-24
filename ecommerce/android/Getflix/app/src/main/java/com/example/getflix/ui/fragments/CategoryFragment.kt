@@ -1,4 +1,4 @@
-package com.example.getflix.ui.fragments
+package com.example.getflix.ui.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.ui.adapters.SubcategoryAdapter
 import com.example.getflix.databinding.FragmentCategoryBinding
-import com.example.getflix.models.PModel
-import com.example.getflix.models.ProductModel
 import com.example.getflix.ui.viewmodels.CategoryViewModel
 
 
@@ -24,36 +22,30 @@ class CategoryFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentCategoryBinding>(
-            inflater, R.layout.fragment_category,
-            container, false
+                inflater, R.layout.fragment_category,
+                container, false
         )
-        val categoryId = CategoryFragmentArgs.fromBundle(requireArguments()).categoryId
 
-        val args = arguments
-        var myList: ArrayList<PModel> =
-            args!!.getParcelableArrayList<PModel>("Product") as ArrayList<PModel>
+        println("category e girdi")
         categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
         val adapter = SubcategoryAdapter(requireContext())
-        categoryViewModel.setCategory(categoryId)
-
+        categoryViewModel.displayedCategory.observe(viewLifecycleOwner, Observer {
+            it.let {
+                adapter.submitList(it.subCats)
+            }
+        })
         binding.lifecycleOwner = this
         binding.categoryList.adapter = adapter
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         binding.categoryList.layoutManager = layoutManager
-
-        categoryViewModel.displayedCategory.observe(viewLifecycleOwner, Observer {
-            it.let {
-                println(it.subCats.size)
-                adapter.submitList(it.subCats)
-            }
-        })
-
-        // val categoryId = CategoryFragmentArgs.fromBundle(requireArguments()).categoryId
-        // categoryViewModel.setCategory(categoryId)
+        val args = arguments
+        var categoryId : Int = args!!.getInt("categoryId")
+        println("" + categoryId + "BURDASINNNN")
+        categoryViewModel.setCategory(categoryId)
         return binding.root
     }
 }
