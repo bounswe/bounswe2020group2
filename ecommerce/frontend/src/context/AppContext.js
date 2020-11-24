@@ -23,7 +23,10 @@ function useApp() {
     const getShoppingCart = async () => {
         try {
             const { data } = await api.get(`/user/${user.id}/listShoppingCart`)
-            setShoppingCart(data)
+            const tmp = data.filter(item => {
+                return item.amount > 0
+            })
+            setShoppingCart(tmp)
         } catch (error) {
             notification.error({ description: 'Failed to add item to shopping cart' })
             console.error(error)
@@ -38,9 +41,9 @@ function useApp() {
                 productId: product.id,
                 amount: amount,
             })
-
-            if (data.successful) {
-                notification.success({ description: 'Added item to shopping cart' })
+            console.log(data)
+            if (data.succesful) {
+                notification.success({ description: 'Succesfully updated shopping cart' })
             } else {
                 notification.error({ description: 'Failed to update shopping cart item' })
             }

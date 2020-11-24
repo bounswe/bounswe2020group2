@@ -10,8 +10,8 @@ export const ShoppingCartItem = ({ cartItem: { amount, product } }) => {
     const { addShoppingCartItem } = useAppContext()
 
     const onClickDelete = () => {
-        console.log(product, -amount)
-        addShoppingCartItem(product, -amount)
+        console.log(product, -tmpAmount)
+        addShoppingCartItem(product, -tmpAmount)
     }
 
     const onAmountChange = value => setTmpAmount(value)
