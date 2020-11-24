@@ -14,7 +14,7 @@ export const SignupPage = () => {
     const onSubmit = async (values, userType) => {
         if (userType === 'customer') {
             try {
-                const { data } = await api.post('/regularsignup/', values)
+                const { data } = await api.post('/regularsignup', values)
                 if (data.successful) {
                     notification.success({ message: 'You have successfully signed up!' })
                     setIsLoading(true)
