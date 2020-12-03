@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.adapters.ProductAdapter
 import com.example.getflix.databinding.FragmentSubcategoryBinding
+import com.example.getflix.databinding.ListHorizontalsubsBinding
 import com.example.getflix.models.ProductModel
 import com.example.getflix.models.SubcategoryModel
 
@@ -35,12 +36,12 @@ class SubcategoryAdapter(private var context: Context) :
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: FragmentSubcategoryBinding) :
+    class ViewHolder private constructor(val binding: ListHorizontalsubsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = FragmentSubcategoryBinding.inflate(layoutInflater, parent, false)
+                val binding = ListHorizontalsubsBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }

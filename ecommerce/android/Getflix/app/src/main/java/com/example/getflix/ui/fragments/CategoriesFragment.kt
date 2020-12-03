@@ -79,7 +79,7 @@ class CategoriesFragment : Fragment() {
                 )
             }}) */
 
-        val cat = viewModel.categories
+        //val cat = viewModel.categories
 
 
 
@@ -87,16 +87,16 @@ class CategoriesFragment : Fragment() {
 
 
 
-        for(category in cats) {
+        /*for(category in cats) {
             viewModel.addCategory(category)
-        }
+        } */
 
-        viewModel.categoriesList.observe(viewLifecycleOwner, {
+        /*viewModel.categoriesList.observe(viewLifecycleOwner, {
             it?.let {
                 adapter = CategoriesAdapter(it, this)
                 binding.catRec.adapter = adapter
             }
-        })
+        }) */
 
 
 

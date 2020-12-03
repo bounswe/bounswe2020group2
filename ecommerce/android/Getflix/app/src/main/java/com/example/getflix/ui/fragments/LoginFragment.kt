@@ -12,6 +12,8 @@ import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentLoginBinding
+import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToHomePageFragment
+import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToRegisterFragment
 import com.example.getflix.ui.viewmodels.LoginViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -66,22 +68,14 @@ class LoginFragment : Fragment() {
         loginViewModel.onLogin.observe(viewLifecycleOwner, Observer {
             if (it) {
                 MainActivity.StaticData.name = binding.username.text.toString()
-                val transaction = activity?.supportFragmentManager!!.beginTransaction()
-                transaction.replace(R.id.my_nav_host_fragment, HomePageFragment())
-                transaction.disallowAddToBackStack()
-                transaction.commit()
-               // view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
+                view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
             } else {
 
             }
         })
 
         binding.signUpButton.setOnClickListener {
-            val transaction = activity?.supportFragmentManager!!.beginTransaction()
-            transaction.replace(R.id.my_nav_host_fragment, RegisterFragment())
-            transaction.disallowAddToBackStack()
-            transaction.commit()
-            // view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+            view?.findNavController()?.navigate(actionLoginFragmentToRegisterFragment())
         }
 /*
        val gso =
@@ -96,20 +90,12 @@ class LoginFragment : Fragment() {
             view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
         }*/
         binding.signInButton.setOnClickListener {
-            // view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
-            val transaction = activity?.supportFragmentManager!!.beginTransaction()
-            transaction.replace(R.id.my_nav_host_fragment, HomePageFragment())
-            transaction.disallowAddToBackStack()
-            transaction.commit()
+            view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
         }
 
         binding.guestButton.setOnClickListener {
             MainActivity.StaticData.isVisitor = true
-            //view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToHomePageFragment())
-            val transaction = activity?.supportFragmentManager!!.beginTransaction()
-            transaction.replace(R.id.my_nav_host_fragment, HomePageFragment())
-            transaction.disallowAddToBackStack()
-            transaction.commit()
+            view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
         }
 
         return binding.root

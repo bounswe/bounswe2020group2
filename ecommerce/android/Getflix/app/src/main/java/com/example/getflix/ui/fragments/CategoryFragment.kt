@@ -1,4 +1,4 @@
-package com.example.getflix.ui.fragment
+package com.example.getflix.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,12 +8,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.ui.adapters.SubcategoryAdapter
 import com.example.getflix.databinding.FragmentCategoryBinding
+import com.example.getflix.ui.fragments.CategoryFragmentArgs
 import com.example.getflix.ui.viewmodels.CategoryViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class CategoryFragment : Fragment() {
@@ -30,7 +35,14 @@ class CategoryFragment : Fragment() {
                 container, false
         )
 
-        println("category e girdi")
+        activity?.toolbar!!.visibility = View.GONE
+        val navController =
+                Navigation.findNavController(requireActivity(), R.id.my_nav_host_fragment)
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+        binding.toolbar.title = ""
+        binding.toolbarTitle.text = "Category"
+
         categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
         val adapter = SubcategoryAdapter(requireContext())
         categoryViewModel.displayedCategory.observe(viewLifecycleOwner, Observer {
@@ -42,10 +54,14 @@ class CategoryFragment : Fragment() {
         binding.categoryList.adapter = adapter
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         binding.categoryList.layoutManager = layoutManager
-        val args = arguments
-        var categoryId : Int = args!!.getInt("categoryId")
-        println("" + categoryId + "BURDASINNNN")
+        val args = CategoryFragmentArgs.fromBundle(requireArguments())
+        var categoryId : Int = args.categoryId
         categoryViewModel.setCategory(categoryId)
         return binding.root
+    }
+
+    override fun onPause() {
+        super.onPause()
+        activity?.toolbar!!.visibility = View.VISIBLE
     }
 }

@@ -3,11 +3,13 @@ package com.example.getflix.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.getflix.databinding.ListCategoryBinding
 import com.example.getflix.databinding.ListSubcategoryBinding
 import com.example.getflix.models.CategoryModel
 import com.example.getflix.models.SubcategoryModel
 import com.example.getflix.ui.fragments.CategoriesFragment
+import com.example.getflix.ui.fragments.CategoriesFragmentDirections.Companion.actionCategoriesFragmentToSubcategoryFragment
 import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder
@@ -36,8 +38,8 @@ class CategoriesAdapter(groups: List<ExpandableGroup<*>>?, fragment: CategoriesF
             val subCat: SubcategoryModel = group?.items?.get(childIndex) as SubcategoryModel
             holder?.bind(subCat)
             holder?.itemView!!.setOnClickListener {
-             //   fragment.navigateSub()
-                //fragment.findNavController().navigate(actionCategoriesFragmentToSubcategoryFragment())
+                var subName = subCat.name
+                fragment.findNavController().navigate(actionCategoriesFragmentToSubcategoryFragment(subName!!))
             }
 
 

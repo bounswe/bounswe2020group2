@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentRegisterBinding
+import com.example.getflix.ui.fragments.RegisterFragmentDirections.Companion.actionRegisterFragmentToHomePageFragment
 
 
 class RegisterFragment : Fragment() {
@@ -103,20 +104,12 @@ class RegisterFragment : Fragment() {
                 var password = binding.password.text.toString()
                 var phone = binding.phone.text.toString()
 
-                //view?.findNavController()
-                val transaction = activity?.supportFragmentManager!!.beginTransaction()
-                transaction.replace(R.id.my_nav_host_fragment, HomePageFragment())
-                transaction.disallowAddToBackStack()
-                transaction.commit()
-                //    ?.navigate(RegisterFragmentDirections.actionRegisterFragmentToHomePageFragment())
+                view?.findNavController()?.navigate(actionRegisterFragmentToHomePageFragment())
             }
         }
 
         binding.btnBack.setOnClickListener {
-            val transaction = activity?.supportFragmentManager!!.beginTransaction()
-            transaction.replace(R.id.my_nav_host_fragment, LoginFragment())
-            transaction.disallowAddToBackStack()
-            transaction.commit()
+            view?.findNavController()?.popBackStack()
         }
 
 
