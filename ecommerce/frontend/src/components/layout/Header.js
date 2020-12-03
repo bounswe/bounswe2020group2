@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { useContext } from 'react'
 import { useAppContext } from '../../context/AppContext'
+import { SearchInput } from '../SearchInput'
 
 export const GuestHeaderContent = () => {
     return (
@@ -79,6 +80,13 @@ export const Header = () => {
         <Layout.Header className="header">
             <div className="header-logo">
                 <Link to="/">getflix</Link>
+            </div>
+            <div className='header-search-bar'>
+                <SearchInput
+                    initialValues={''}
+
+                    // initialValues={values.search} onSearch={onSearch}
+                />
             </div>
             {user.type === 'guest' ? <GuestHeaderContent /> : <CustomerHeaderContent />}
         </Layout.Header>

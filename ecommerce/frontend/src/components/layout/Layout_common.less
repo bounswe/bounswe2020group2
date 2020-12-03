@@ -16,10 +16,22 @@
     width: 100%;
     background: @Eggplant;
     color: white;
+    display: flex;
+}
+
+.header-search-bar {
+    flex: 0.5 0 auto;
+    align-self: center;
+    margin: 0 auto;
+}
+
+.header-search-bar .search-input .ant-select,
+.header-search-bar .search-input .ant-select .anticon {
+    color: white;
 }
 
 .header-menu {
-    float: right;
+    flex: auto 0 auto;
 }
 
 .footer {

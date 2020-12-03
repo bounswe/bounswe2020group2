@@ -148,9 +148,6 @@ export const _SearchPage = ({ initialValues = {} }) => {
                 <title>{getTitle(values)}</title>
             </Helmet>
             <div className={'search-page'}>
-                <div className="search-page-bar">
-                    <SearchInput initialValues={values.search} onSearch={onSearch} />
-                </div>
                 <div className="search-page-main">
                     <div className="search-page-side-panel">
                         <SearchSidePanel initialValues={values.filters} onSubmit={onSubmitFilters} />
