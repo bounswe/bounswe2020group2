@@ -1,5 +1,4 @@
 import './HomePage.less'
-import { CategoryBar } from '../CategoryBar'
 import { TrendingGrid } from '../TrendingGrid'
 import getflixLogo from '../../assets/logo.png'
 import { useAppContext } from '../../context/AppContext'
@@ -15,7 +14,6 @@ export const HomePage = () => {
     return (
         <div>
             <HomePage_Splash />
-            <CategoryBar />
             <HomePage_MainContent />
         </div>
     )
