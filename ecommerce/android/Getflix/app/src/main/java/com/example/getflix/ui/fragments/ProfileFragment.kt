@@ -6,12 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentProfileBinding
+import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToLoginFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
@@ -46,10 +45,12 @@ class ProfileFragment : Fragment() {
                  MainActivity.StaticData.isCustomer = false
                  MainActivity.StaticData.isAdmin = false
                  MainActivity.StaticData.isVendor = false
-                 val transaction = activity?.supportFragmentManager!!.beginTransaction()
+            view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
+                /* val transaction = activity?.supportFragmentManager!!.beginTransaction()
                  transaction.replace(R.id.my_nav_host_fragment, LoginFragment())
                  transaction.disallowAddToBackStack()
-                 transaction.commit()
+                 transaction.commit() */
+
          }
 
 

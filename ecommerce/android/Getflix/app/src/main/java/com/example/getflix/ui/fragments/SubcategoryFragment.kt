@@ -1,11 +1,11 @@
 package com.example.getflix.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -25,14 +25,23 @@ class SubcategoryFragment : Fragment() {
                 container, false
         )
 
-        activity?.toolbar!!.toolbar_title.text = "sub"
+        activity?.toolbar!!.visibility = View.GONE
         val navController =
             Navigation.findNavController(requireActivity(), R.id.my_nav_host_fragment)
         val appBarConfiguration = AppBarConfiguration(navController.graph)
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+        binding.toolbar.title = ""
+        val args = SubcategoryFragmentArgs.fromBundle(requireArguments())
+        val subCat = args.subName
+        binding.toolbarTitle.text = subCat
 
-        activity?.toolbar!!.setupWithNavController(navController, appBarConfiguration)
 
         return binding.root
+    }
+
+    override fun onPause() {
+        super.onPause()
+        activity?.toolbar!!.visibility = View.VISIBLE
     }
 
 
