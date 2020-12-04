@@ -29,9 +29,6 @@ const HomePage_Splash = () => {
                     <h3 className="splash-slogan-second">Any product you want, right at your doorstep</h3>
                 </div>
             </div>
-            <div className="splash-search">
-                <SearchInputWrapper />
-            </div>
         </div>
     )
 }
