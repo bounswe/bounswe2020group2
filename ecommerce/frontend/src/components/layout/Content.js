@@ -10,10 +10,12 @@ import { ProfilePage } from '../pages/ProfilePage'
 import { SearchPage } from '../pages/SearchPage'
 import { SignupPage } from '../pages/SignupPage'
 import { ShoppingCartPage } from '../ShoppingCart/ShoppingCartPage'
+import { CategoryBar } from '../CategoryBar'
 
 export const Content = () => {
     return (
         <Layout.Content className="content">
+            <CategoryBar />
             <Switch>
                 <Route path="/login" component={LoginPage} />
                 <Route path="/shoppingCart" component={ShoppingCartPage} />

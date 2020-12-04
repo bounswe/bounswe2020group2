@@ -1,5 +1,4 @@
 import './HomePage.less'
-import { CategoryBar } from '../CategoryBar'
 import { TrendingGrid } from '../TrendingGrid'
 import getflixLogo from '../../assets/logo.png'
 import { useAppContext } from '../../context/AppContext'
@@ -15,7 +14,6 @@ export const HomePage = () => {
     return (
         <div>
             <HomePage_Splash />
-            <CategoryBar />
             <HomePage_MainContent />
         </div>
     )
@@ -30,9 +28,6 @@ const HomePage_Splash = () => {
                     <h1 className="splash-slogan-first">The biggest marketplace in the world</h1>
                     <h3 className="splash-slogan-second">Any product you want, right at your doorstep</h3>
                 </div>
-            </div>
-            <div className="splash-search">
-                <SearchInputWrapper />
             </div>
         </div>
     )
