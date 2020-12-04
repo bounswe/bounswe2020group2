@@ -24,6 +24,7 @@ class CategoriesViewModel: ViewModel() {
     val products: LiveData<List<PModel>>?
         get() = _products
 
+
     var categories = arrayListOf<CategoryModel>()
 
     private var job: Job? = null
@@ -31,17 +32,54 @@ class CategoriesViewModel: ViewModel() {
         println("Error ${throwable.localizedMessage}")
     }
 
-    fun getProducts() {
+    fun getProducts(num: Int) {
         val retrofit = Retrofit.Builder().baseUrl(MainActivity.StaticData.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ProductsAPI::class.java)
         job = CoroutineScope(Dispatchers.IO).launch {
-            val response = retrofit.getProducts()
+            val response = retrofit.getProducts(num)
             withContext(Dispatchers.Main + exceptionHandler) {
                 if (response.isSuccessful) {
                     response.body().let { it ->
                         _products.value = it
+                        println(_products.value.toString())
+                    }
+                }
+            }
+        }
+    }
+
+    fun getProduct(num: Int) {
+        val retrofit = Retrofit.Builder().baseUrl(MainActivity.StaticData.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(ProductsAPI::class.java)
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = retrofit.getProduct(num)
+            withContext(Dispatchers.Main + exceptionHandler) {
+                if (response.isSuccessful) {
+                    response.body().let { it ->
+                        _products.value = it
+                        println(_products.value.toString())
+                    }
+                }
+            }
+        }
+    }
+
+    fun getUserCartProducts(id: Int) {
+        val retrofit = Retrofit.Builder().baseUrl(MainActivity.StaticData.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(ProductsAPI::class.java)
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = retrofit.userCartProducts(id)
+            withContext(Dispatchers.Main + exceptionHandler) {
+                if (response.isSuccessful) {
+                    response.body().let { it ->
+                        _products.value = it
+                        println(_products.value.toString())
                     }
                 }
             }

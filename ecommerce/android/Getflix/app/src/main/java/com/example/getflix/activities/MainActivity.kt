@@ -1,30 +1,23 @@
 package com.example.getflix.activities
 
-import android.app.Activity
+
 import android.content.Context
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.getflix.R
-
-
 import com.example.getflix.ui.fragments.*
-import com.google.android.material.bottomnavigation.BottomNavigationView
-
-
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
@@ -36,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         var name = ""
         var sproducts = null
         val scategories = null
-        const val BASE_URL = "http://10.0.2.2:8000/"
+        const val BASE_URL = "http://ec2-18-189-28-20.us-east-2.compute.amazonaws.com:8000/"
         var isVisitor = false
         var isCustomer = false
         var isVendor = false
@@ -75,6 +68,18 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.my_nav_host_fragment)
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+     fun setApplicationLocale(locale: String) {
+        val resources = resources
+        val dm: DisplayMetrics = resources.displayMetrics
+        val config = resources.configuration
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            config.setLocale(Locale(locale.toLowerCase()))
+        } else {
+            config.locale = Locale(locale.toLowerCase())
+        }
+        resources.updateConfiguration(config, dm)
     }
 
 

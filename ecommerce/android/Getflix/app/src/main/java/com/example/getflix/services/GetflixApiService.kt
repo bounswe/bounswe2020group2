@@ -47,8 +47,6 @@ interface GetflixApiService {
     @POST("regularlogin")
     fun getUserInformation(@Body userData: LoginRequest): Call<LoginResponse>
 
-    @GET("products/homepage/3")
-    fun getProducts(page: Int): Call<List<PModel>>
 
 }
 
