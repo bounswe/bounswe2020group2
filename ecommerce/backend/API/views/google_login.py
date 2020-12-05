@@ -8,6 +8,7 @@ from API.utils.jwttoken import generate_access_token
 from API.utils.crypto import Crypto
 from API.models import User
 from API.serializers import google_token_serializer
+from API.serializers import account_serializer
 
 from google.oauth2 import id_token
 from google.auth.transport import requests
@@ -20,7 +21,7 @@ def googlelogin(request):
     
     data = JSONParser().parse(request)
     serializer = google_token_serializer.GoogleTokenSerializer(data=data)
-    print(serializer)
+    #print(serializer)
     if not serializer.is_valid():
         return Response("Invalid input from frontend.")
     crypto = Crypto()
@@ -28,9 +29,9 @@ def googlelogin(request):
     idinfo = id_token.verify_oauth2_token(token, requests.Request(), "780650655620-8qi5er6094ouirlb66b2c0hm6hlfo9s8.apps.googleusercontent.com")
     creds = google.oauth2.credentials.Credentials(token)
     authed_session = AuthorizedSession(creds)
-    response = authed_session.get('https://openidconnect.googleapis.com/v1/userinfo')
-    user = User.objects.filter(email=response["email"]).first()
-    print(response);
+    #response = authed_session.get('https://openidconnect.googleapis.com/v1/userinfo')
+    user = User.objects.filter(email=idinfo["email"]).first()
+    #print(user);
     if user is None:
         user_serializer = account_serializer.LoginResponseSerializer(
             user,
@@ -40,10 +41,10 @@ def googlelogin(request):
         )
         return Response(user_serializer.data)
     else:
-       user_serializer = account_serializer.LoginResponseSerializer(
+        user_serializer = account_serializer.LoginResponseSerializer(
             User(role=-1),
             context = { 'is_successful': False,
-                        'message': "Kullanıcı adı ya da şifre yanlış"
+                        'message': "Kullanıcı kayıtlı değil."
             }
         )
-       return Response(user_serializer.data)
+        return Response(user_serializer.data)
