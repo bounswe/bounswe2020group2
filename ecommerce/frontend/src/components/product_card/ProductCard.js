@@ -8,27 +8,7 @@ import { InputNumber } from 'antd'
 
 const { Meta } = Card
 
-export const ProductCard = ({
-    product = {
-        id: 2,
-        title:
-            "Under Armour Women's Tech 2.0 PantsUnder Armour Women's Tech 2.0 PantsUnder Armour Women's Tech 2.0 PantsUnder Armour Women's Tech 2.0 PantsUnder Armour Women's Tech 2.0 PantsUnder Armour Women's Tech 2.0 Pants",
-        price: 25,
-        creation_date: '2018-08-20T07:21:34Z',
-        imageUrl: 'https://m.media-amazon.com/images/I/71-oozU3bjL.jpg',
-        rating: 3,
-        rating_count: 19,
-        stock_amount: 18,
-        description:
-            '84% Polyester 16% Elastane, UA Tech fabric is quick-drying, ultra-soft & has a more natural feel, Open hand pockets',
-        subcategory: "Women's Fashion",
-        category: 'Clothing',
-        brand: 'Under Armour',
-        vendor: 'omerfaruk deniz',
-        currency: '₺',
-    },
-    width = 350,
-}) => {
+export const ProductCard = ({ product, width = 350 }) => {
     const { addShoppingCartItem } = useAppContext()
 
     const onAddToCart = product => {
@@ -54,7 +34,7 @@ export const ProductCard = ({
             </div>
             <div className="card-add-button">
                 <Button type="primary" icon={<PlusCircleOutlined />} onClick={() => onAddToCart(product)}>
-                    Add
+                    Add to cart
                 </Button>
             </div>
         </div>
