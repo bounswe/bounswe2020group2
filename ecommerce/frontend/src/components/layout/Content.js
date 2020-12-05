@@ -11,12 +11,14 @@ import { SearchPage } from '../pages/SearchPage'
 import { SignupPage } from '../pages/SignupPage'
 import { ShoppingCartPage } from '../ShoppingCart/ShoppingCartPage'
 import { CategoryBar } from '../CategoryBar'
+import { UserReview } from '../UserReview'
 
 export const Content = () => {
     return (
         <Layout.Content className="content">
             <CategoryBar />
             <Switch>
+                <Route path="/review" component={UserReview} />
                 <Route path="/login" component={LoginPage} />
                 <Route path="/shoppingCart" component={ShoppingCartPage} />
                 <Route path="/signup" component={SignupPage} />
