@@ -21,19 +21,26 @@
     float: right;
 }
 .product-card-img-container {
+    display: flex;
     margin: auto;
 }
 .product-card-img {
+    margin: auto;
     max-height: 200px;
     object-fit: contain;
     padding: 16px;
 }
-
+.card-title {
+    padding-left: 10px;
+    padding-right: 10px;
+    text-overflow: ellipsis;
+    box-sizing: content-box;
+    max-height: 75px;
+}
 .card-title p {
     color: #472836;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: x-large;
-    margin-left: 6px;
 }
 .card-price p {
     color: #472836;

@@ -11,7 +11,8 @@ const { Meta } = Card
 export const ProductCard = ({
     product = {
         id: 2,
-        title: "Under Armour Women's Tech 2.0 Pants",
+        title:
+            "Under Armour Women's Tech 2.0 PantsUnder Armour Women's Tech 2.0 PantsUnder Armour Women's Tech 2.0 PantsUnder Armour Women's Tech 2.0 PantsUnder Armour Women's Tech 2.0 PantsUnder Armour Women's Tech 2.0 Pants",
         price: 25,
         creation_date: '2018-08-20T07:21:34Z',
         imageUrl: 'https://m.media-amazon.com/images/I/71-oozU3bjL.jpg',
