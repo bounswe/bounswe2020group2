@@ -1,8 +1,6 @@
 package com.example.getflix.services
 
-import com.example.getflix.models.LoginRequest
-import com.example.getflix.models.LoginResponse
-import com.example.getflix.models.PModel
+import com.example.getflix.models.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -12,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 
-const val BASE_URL = "http://10.0.2.2:8000/"
+const val BASE_URL = "http://ec2-18-189-28-20.us-east-2.compute.amazonaws.com:8000/"
 
 private val requestInterceptor = Interceptor { chain ->
 
@@ -47,8 +45,9 @@ interface GetflixApiService {
     @POST("regularlogin")
     fun getUserInformation(@Body userData: LoginRequest): Call<LoginResponse>
 
-    @GET("products/homepage/3")
-    fun getProducts(page: Int): Call<List<PModel>>
+    @Headers("Content-Type: application/json")
+    @POST("regularsignup")
+    fun signUp(@Body signUpCredentials: SignUpCredentials): Call<SignUpResponse>
 
 }
 
