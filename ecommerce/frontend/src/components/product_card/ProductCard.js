@@ -4,7 +4,6 @@ import { PlusCircleOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import './ProductCard.less'
 import { useAppContext } from '../../context/AppContext'
-import { InputNumber } from 'antd'
 
 const { Meta } = Card
 
@@ -18,12 +17,14 @@ export const ProductCard = ({ product, width = 350 }) => {
 
     return (
         <div className="whole-card" style={{ minWidth: width, minHeight: width, maxWidth: width }}>
-            <div className="product-card-img-container">
-                <img className="product-card-img" alt={title} src={imageUrl} />
-            </div>
-            <div className="card-title">
-                <p>{title}</p>
-            </div>
+            <Link to={`/product/${id}`}>
+                <div className="product-card-img-container">
+                    <img className="product-card-img" alt={title} src={imageUrl} />
+                </div>
+                <div className="card-title">
+                    <p>{title}</p>
+                </div>
+            </Link>
             <div className="rate-and-price">
                 <div className="card-rate">
                     <Rate disabled allowHalf defaultValue={rating}></Rate>
