@@ -141,4 +141,7 @@
         app:srcCompat="@drawable/menu_favorite"
         tools:ignore="VectorDrawableCompat" />
 
+    <!--TODO add scrollview for product details -->
+    <!--TODO add inline parameters deleted mistakenly -->
+
 </androidx.constraintlayout.widget.ConstraintLayout>
