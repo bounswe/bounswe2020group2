@@ -74,7 +74,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="8dp"
         android:background="@color/white"
-        android:text="@{product.price}"
+        android:text="@{product.price + ' by ' + product.vendor}"
         android:textColor="@color/initPurple"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
