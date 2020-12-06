@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
     // can be accessed like StaticData.isVisitor, can be used in other classes
     object StaticData {
         var name = ""
-        const val BASE_URL = "http://ec2-18-189-28-20.us-east-2.compute.amazonaws.com:8000/"
         var isVisitor = false
         var isCustomer = false
         var isVendor = false
