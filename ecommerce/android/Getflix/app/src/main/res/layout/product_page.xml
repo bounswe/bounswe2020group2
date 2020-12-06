@@ -5,54 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text_product"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="Jacket 1"
-        android:textColor="@color/initGold"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="360dp"
-        android:layout_height="434dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="62dp"
-        app:layout_constraintBottom_toTopOf="@+id/button_add_favorites"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/zara_jacket1" />
+    <data>
+        <variable
+            android:name="product"
+            android:type="com.example.getflix.models.PModel" />
+    </data>
 
     <Button
-        android:id="@+id/button_buy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="BUY"
-        app:backgroundTint="@color/initPurple"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/button_add_favorites"
-        android:layout_width="50dp"
-        android:layout_height="49dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="<3"
-        android:textColor="@color/initPurple"
-        app:backgroundTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button_buy" />
+        android:id="@+id/button_goback"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="<"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_share"
@@ -65,6 +32,41 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/product_image"
+        android:layout_width="360dp"
+        android:layout_height="434dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@{product.image_url}" />
+
+    <TextView
+        android:id="@+id/text_brand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{product.brand}"
+        android:textColor="@color/colorPrimary"
+        android:textColorLink="@color/colorPrimary"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/text_product"
+        app:layout_constraintStart_toStartOf="@id/text_product" />
+
+    <TextView
+        android:id="@+id/text_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@{product.name}"
+        android:textColor="@color/initGold"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/product_image" />
+
     <TextView
         android:id="@+id/text_price"
         android:layout_width="wrap_content"
@@ -72,52 +74,31 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="8dp"
         android:background="@color/white"
-        android:text="$ 60"
+        android:text="@{product.price}"
         android:textColor="@color/initPurple"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/text_brand"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Zara"
-        android:textColor="@color/colorPrimary"
-        android:textColorLink="@color/colorPrimary"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/text_product"
-        app:layout_constraintStart_toStartOf="@+id/text_product" />
-
-    <Button
-        android:id="@+id/button_goback"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="<"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/text_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="48dp"
-        android:text="4.6"
+        android:text="@{product.total_rating}"
         android:textColor="@color/initGold"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@id/product_image" />
 
     <TextView
         android:id="@+id/text_star_symbol"
         android:layout_width="30dp"
         android:layout_height="32dp"
         android:layout_marginStart="2dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:text="⭐"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_rating"
@@ -131,9 +112,40 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
-        android:text="Reviews (252)"
+        android:text="@{'Reviews(' + product.rating_count + ')'"
         android:textColor="@color/initPurple"
-        app:layout_constraintEnd_toEndOf="@+id/text_star_symbol"
-        app:layout_constraintTop_toBottomOf="@+id/text_rating" />
+        app:layout_constraintEnd_toEndOf="@id/text_star_symbol"
+        app:layout_constraintTop_toBottomOf="@id/text_rating" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_add2cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/white"
+        android:clickable="true"
+        android:tint="@color/white"
+        app:backgroundTint="@color/initPurple"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="@color/white"
+        app:srcCompat="@drawable/ic_shopping_cart"
+        tools:ignore="VectorDrawableCompat" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        android:tint="@color/white"
+        app:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/button_add2cart"
+        app:layout_constraintEnd_toStartOf="@+id/button_add2cart"
+        app:layout_constraintTop_toTopOf="@+id/button_add2cart"
+        app:rippleColor="@color/white"
+        app:srcCompat="@drawable/menu_favorite"
+        tools:ignore="VectorDrawableCompat" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
