@@ -7,8 +7,8 @@
 
     <data>
         <variable
-            android:name="product"
-            android:type="com.example.getflix.models.PModel" />
+            name="product"
+            type="com.example.getflix.models.PModel" />
     </data>
 
     <Button
@@ -17,7 +17,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="<"
+        android:text="Back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +41,7 @@
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@{product.image_url}" />
+        app:srcCompat="@drawable/zara_jacket1" />
 
     <TextView
         android:id="@+id/text_brand"
@@ -74,7 +74,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="8dp"
         android:background="@color/white"
-        android:text="@{product.price + ' by ' + product.vendor}"
+        android:text="@{product.price}"
         android:textColor="@color/initPurple"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -101,10 +101,10 @@
         android:layout_marginEnd="16dp"
         android:text="⭐"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/text_rating"
+        app:layout_constraintBottom_toBottomOf="@id/text_rating"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_rating"
-        app:layout_constraintTop_toTopOf="@+id/text_rating" />
+        app:layout_constraintStart_toEndOf="@id/text_rating"
+        app:layout_constraintTop_toTopOf="@id/text_rating" />
 
     <TextView
         android:id="@+id/text_comments"
@@ -112,7 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
-        android:text="@{'Reviews(' + product.rating_count + ')'"
+        android:text="@{product.rating_count}"
         android:textColor="@color/initPurple"
         app:layout_constraintEnd_toEndOf="@id/text_star_symbol"
         app:layout_constraintTop_toBottomOf="@id/text_rating" />
@@ -123,28 +123,21 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@color/white"
         android:clickable="true"
-        android:tint="@color/white"
-        app:backgroundTint="@color/initPurple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:rippleColor="@color/white"
         app:srcCompat="@drawable/ic_shopping_cart"
         tools:ignore="VectorDrawableCompat" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton3"
+        android:id="@+id/button_add2favorites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:clickable="true"
-        android:tint="@color/white"
-        app:backgroundTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/button_add2cart"
-        app:layout_constraintEnd_toStartOf="@+id/button_add2cart"
-        app:layout_constraintTop_toTopOf="@+id/button_add2cart"
-        app:rippleColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/button_add2cart"
+        app:layout_constraintEnd_toStartOf="@id/button_add2cart"
+        app:layout_constraintTop_toTopOf="@id/button_add2cart"
         app:srcCompat="@drawable/menu_favorite"
         tools:ignore="VectorDrawableCompat" />
 
