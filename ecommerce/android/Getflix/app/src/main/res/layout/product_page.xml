@@ -142,6 +142,6 @@
         tools:ignore="VectorDrawableCompat" />
 
     <!--TODO add scrollview for product details -->
-    <!--TODO add inline parameters deleted mistakenly -->
+    <!--TODO add inline parameters deleted mistakenly ex: android:text="@{`Hello ` + user.firstName}" -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
