@@ -21,14 +21,11 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
-    private var nav = false
 
     // static boolean variable to check the type of the user
     // can be accessed like StaticData.isVisitor, can be used in other classes
     object StaticData {
         var name = ""
-        var sproducts = null
-        val scategories = null
         const val BASE_URL = "http://ec2-18-189-28-20.us-east-2.compute.amazonaws.com:8000/"
         var isVisitor = false
         var isCustomer = false
@@ -42,15 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment
         navController = navHostFragment.findNavController()
-        //setSupportActionBar(this.toolbar)
-        //setupActionBarWithNavController(navController)
         bottom_nav.setupWithNavController(navController)
-
-
-        /*val appBarConfiguration = AppBarConfiguration(navController.graph)
-
-        toolbar.setupWithNavController(navController, appBarConfiguration)*/
-        //supportActionBar!!.setDisplayHomeAsUpEnabled(false)
 
 
     }
@@ -64,24 +53,6 @@ class MainActivity : AppCompatActivity() {
         }
         return super.dispatchTouchEvent(ev)
     }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.my_nav_host_fragment)
-        return navController.navigateUp() || super.onSupportNavigateUp()
-    }
-
-     fun setApplicationLocale(locale: String) {
-        val resources = resources
-        val dm: DisplayMetrics = resources.displayMetrics
-        val config = resources.configuration
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            config.setLocale(Locale(locale.toLowerCase()))
-        } else {
-            config.locale = Locale(locale.toLowerCase())
-        }
-        resources.updateConfiguration(config, dm)
-    }
-
 
 
 }

@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 
-const val BASE_URL = "http://10.0.2.2:8000/"
+const val BASE_URL = "http://ec2-18-189-28-20.us-east-2.compute.amazonaws.com:8000/"
 
 private val requestInterceptor = Interceptor { chain ->
 
@@ -46,6 +46,15 @@ interface GetflixApiService {
     @Headers("Content-Type: application/json")
     @POST("regularlogin")
     fun getUserInformation(@Body userData: LoginRequest): Call<LoginResponse>
+
+    @GET("products/homepage/{numberOfProducts}")
+    suspend fun getProducts(@Path("numberOfProducts") numberOfProducts: Int): Response<List<PModel>>
+
+    @GET("product/{productId}")
+    suspend fun getProduct(@Path("productId") productId: Int): Response<List<PModel>>
+
+    @GET("user/{userId}/listShoppingCart")
+    suspend fun userCartProducts(@Path("userId") userId: Int): Response<List<PModel>>
 
 
 }

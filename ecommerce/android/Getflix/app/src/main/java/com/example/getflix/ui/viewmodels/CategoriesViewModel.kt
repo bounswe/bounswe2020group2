@@ -1,18 +1,13 @@
 package com.example.getflix.ui.viewmodels
 
-import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.CategoryModel
 import com.example.getflix.models.PModel
-import com.example.getflix.models.ProductModel
 import com.example.getflix.models.SubcategoryModel
-import com.example.getflix.services.ProductsAPI
+import com.example.getflix.services.GetflixApi
 import kotlinx.coroutines.*
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class CategoriesViewModel: ViewModel() {
 
@@ -33,12 +28,8 @@ class CategoriesViewModel: ViewModel() {
     }
 
     fun getProducts(num: Int) {
-        val retrofit = Retrofit.Builder().baseUrl(MainActivity.StaticData.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ProductsAPI::class.java)
         job = CoroutineScope(Dispatchers.IO).launch {
-            val response = retrofit.getProducts(num)
+            val response = GetflixApi.getflixApiService.getProducts(num)
             withContext(Dispatchers.Main + exceptionHandler) {
                 if (response.isSuccessful) {
                     response.body().let { it ->
@@ -51,12 +42,8 @@ class CategoriesViewModel: ViewModel() {
     }
 
     fun getProduct(num: Int) {
-        val retrofit = Retrofit.Builder().baseUrl(MainActivity.StaticData.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(ProductsAPI::class.java)
         job = CoroutineScope(Dispatchers.IO).launch {
-            val response = retrofit.getProduct(num)
+            val response = GetflixApi.getflixApiService.getProduct(num)
             withContext(Dispatchers.Main + exceptionHandler) {
                 if (response.isSuccessful) {
                     response.body().let { it ->
@@ -69,12 +56,8 @@ class CategoriesViewModel: ViewModel() {
     }
 
     fun getUserCartProducts(id: Int) {
-        val retrofit = Retrofit.Builder().baseUrl(MainActivity.StaticData.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(ProductsAPI::class.java)
         job = CoroutineScope(Dispatchers.IO).launch {
-            val response = retrofit.userCartProducts(id)
+            val response = GetflixApi.getflixApiService.userCartProducts(id)
             withContext(Dispatchers.Main + exceptionHandler) {
                 if (response.isSuccessful) {
                     response.body().let { it ->

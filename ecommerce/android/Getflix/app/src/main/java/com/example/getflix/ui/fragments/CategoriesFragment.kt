@@ -66,8 +66,8 @@ class CategoriesFragment : Fragment() {
         adapter = CategoriesAdapter(cats, this)
         binding.catRec.adapter = adapter
 
-        //viewModel.getProducts(3)
-        //viewModel.getProduct(3)
+        viewModel.getProducts(3)
+        viewModel.getProduct(3)
         //viewModel.getUserCartProducts(2)
 
         /*viewModel.products?.observe(viewLifecycleOwner, {products ->
