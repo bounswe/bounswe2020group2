@@ -1,27 +1,27 @@
-import { useState } from "react";
-import Cards from 'react-credit-cards';
+import { useState } from 'react'
+import Cards from 'react-credit-cards'
 import 'react-credit-cards/es/styles-compiled.css'
-import { Modal, Form, Input } from 'antd';
-
+import { Modal, Form, Input } from 'antd'
 
 export const AddCardModal = ({
     cardProps = {
         cvc: '',
         expiry: '',
         number: '',
-        name: ''
+        name: '',
     },
-    cardId = {}, 
-    cardName = "",
+    cardId = {},
+    cardName = '',
     visible = false,
-    setVisible = () => {}}) => {
+    setVisible = () => {},
+}) => {
     /* This might not remounted after closing and opening again, be careful */
-    const [cvc, setCvc] = useState(cardProps.cvc);
-    const [expiry, setExpiry] = useState(cardProps.expiry);
-    const [name, setName] = useState(cardProps.name);
-    const [number, setNumber] = useState(cardProps.number);
-    const [cardNickname, setCardNickname] = useState(cardName);
-    const [focused, setFocused] = useState('');
+    const [cvc, setCvc] = useState(cardProps.cvc)
+    const [expiry, setExpiry] = useState(cardProps.expiry)
+    const [name, setName] = useState(cardProps.name)
+    const [number, setNumber] = useState(cardProps.number)
+    const [cardNickname, setCardNickname] = useState(cardName)
+    const [focused, setFocused] = useState('')
 
     const [form] = Form.useForm()
     const formItemLayout = {
@@ -43,26 +43,30 @@ export const AddCardModal = ({
         },
     }
 
-    const handleInputFocus = (val) => setFocused(val.target.name)
+    const handleInputFocus = val => setFocused(val.target.name)
 
-    return <Modal
-        visible={visible}
-        title="Add a new card"
-        destroyOnClose
-        onOk={()=>{setVisible(false)}}
-        onCancel={()=>{setVisible(false)}}
-        cancelText="Go Back"
-        okText="Add"
-    >
-        <Form
+    return (
+        <Modal
+            visible={visible}
+            title="Add a new card"
+            destroyOnClose
+            onOk={() => {
+                setVisible(false)
+            }}
+            onCancel={() => {
+                setVisible(false)
+            }}
+            cancelText="Go Back"
+            okText="Add">
+            <Form
                 {...formItemLayout}
                 layout="horizontal"
                 form={form}
                 name="editCardForm"
-                onFinish={()=>{}}
-                onFinishFailed={()=>{}}
+                onFinish={() => {}}
+                onFinishFailed={() => {}}
                 scrollToFirstError
-                initialValues={{cardName: cardName, ...cardProps}}>
+                initialValues={{ cardName: cardName, ...cardProps }}>
                 <Form.Item
                     name="cardName"
                     label="Card Name"
@@ -72,7 +76,11 @@ export const AddCardModal = ({
                             message: 'Please input your card name!',
                         },
                     ]}>
-                    <Input onChange={(val)=>{setCardNickname(val.target.value)}} />
+                    <Input
+                        onChange={val => {
+                            setCardNickname(val.target.value)
+                        }}
+                    />
                 </Form.Item>
                 <Form.Item
                     name="name"
@@ -83,7 +91,13 @@ export const AddCardModal = ({
                             message: 'Please input your card name!',
                         },
                     ]}>
-                    <Input onFocus={handleInputFocus} onChange={(val)=>{setName(val.target.value)}} name="name" />
+                    <Input
+                        onFocus={handleInputFocus}
+                        onChange={val => {
+                            setName(val.target.value)
+                        }}
+                        name="name"
+                    />
                 </Form.Item>
                 <Form.Item
                     name="number"
@@ -94,7 +108,13 @@ export const AddCardModal = ({
                             message: 'Please input your card number!',
                         },
                     ]}>
-                    <Input onFocus={handleInputFocus} onChange={(val)=>{setNumber(val.target.value)}} name="number" />
+                    <Input
+                        onFocus={handleInputFocus}
+                        onChange={val => {
+                            setNumber(val.target.value)
+                        }}
+                        name="number"
+                    />
                 </Form.Item>
                 <Form.Item
                     name="expiry"
@@ -105,7 +125,13 @@ export const AddCardModal = ({
                             message: 'Please input your card expiry date!',
                         },
                     ]}>
-                    <Input onFocus={handleInputFocus} onChange={(val)=>{setExpiry(val.target.value)}} name="expiry" />
+                    <Input
+                        onFocus={handleInputFocus}
+                        onChange={val => {
+                            setExpiry(val.target.value)
+                        }}
+                        name="expiry"
+                    />
                 </Form.Item>
                 <Form.Item
                     name="cvc"
@@ -116,11 +142,16 @@ export const AddCardModal = ({
                             message: 'Please input your CVC!',
                         },
                     ]}>
-                    <Input onFocus={handleInputFocus} onChange={(val)=>{setCvc(val.target.value)}} name="cvc" />
+                    <Input
+                        onFocus={handleInputFocus}
+                        onChange={val => {
+                            setCvc(val.target.value)
+                        }}
+                        name="cvc"
+                    />
                 </Form.Item>
-
             </Form>
             <Cards focused={focused} cvc={cvc} name={name} number={number} expiry={expiry}></Cards>
-    </Modal>
-
+        </Modal>
+    )
 }
