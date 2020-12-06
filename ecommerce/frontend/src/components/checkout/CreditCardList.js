@@ -1,6 +1,7 @@
-import { Button, Card, List, Radio } from 'antd';
+import { Button, List } from 'antd';
 import { useState } from 'react';
 import { CreditCard } from './CreditCard';
+import { AddCardModal } from './AddCardModal';
 import './CreditCardList.less'
 
 export const CreditCardList = () => {
@@ -27,13 +28,15 @@ export const CreditCardList = () => {
         },
     ]);
     const [selectedCard, setSelectedCard] = useState();
+    const [addVisible, setAddVisible] = useState(false);
     
     const onCardSelect = (value) => setSelectedCard(value)
 
     return <div className="cardlist-container">
         <div className="cardlist-title">
             Select a credit card
-            <Button type="dashed">Add a new credit card</Button>
+            <Button onClick={() => setAddVisible(true)} type="dashed">Add a new credit card</Button>
+            <AddCardModal setVisible={setAddVisible} visible={addVisible} />
         </div>
         <div className="cardlist-list">
             
