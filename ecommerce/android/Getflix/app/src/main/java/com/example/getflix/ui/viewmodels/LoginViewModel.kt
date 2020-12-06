@@ -22,7 +22,7 @@ class LoginViewModel : ViewModel() {
     val onLogin: LiveData<Boolean>
         get() = _onLogin
 
-    fun getUserFromBackend() {
+    private fun getUserFromBackend() {
         GetflixApi.getflixApiService.getUserInformation(_logReq.value!!)
                 .enqueue(object :
                         Callback<LoginResponse> {

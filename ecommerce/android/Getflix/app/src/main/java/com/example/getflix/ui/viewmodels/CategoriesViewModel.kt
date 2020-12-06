@@ -1,18 +1,13 @@
 package com.example.getflix.ui.viewmodels
 
-import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.CategoryModel
 import com.example.getflix.models.PModel
-import com.example.getflix.models.ProductModel
 import com.example.getflix.models.SubcategoryModel
-import com.example.getflix.services.ProductsAPI
+import com.example.getflix.services.GetflixApi
 import kotlinx.coroutines.*
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class CategoriesViewModel: ViewModel() {
 
@@ -24,6 +19,7 @@ class CategoriesViewModel: ViewModel() {
     val products: LiveData<List<PModel>>?
         get() = _products
 
+
     var categories = arrayListOf<CategoryModel>()
 
     private var job: Job? = null
@@ -31,17 +27,42 @@ class CategoriesViewModel: ViewModel() {
         println("Error ${throwable.localizedMessage}")
     }
 
-    fun getProducts() {
-        val retrofit = Retrofit.Builder().baseUrl(MainActivity.StaticData.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ProductsAPI::class.java)
+    fun getProducts(num: Int) {
         job = CoroutineScope(Dispatchers.IO).launch {
-            val response = retrofit.getProducts()
+            val response = GetflixApi.getflixApiService.getProducts(num)
             withContext(Dispatchers.Main + exceptionHandler) {
                 if (response.isSuccessful) {
                     response.body().let { it ->
                         _products.value = it
+                        println(_products.value.toString())
+                    }
+                }
+            }
+        }
+    }
+
+    fun getProduct(num: Int) {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = GetflixApi.getflixApiService.getProduct(num)
+            withContext(Dispatchers.Main + exceptionHandler) {
+                if (response.isSuccessful) {
+                    response.body().let { it ->
+                        _products.value = it
+                        println(_products.value.toString())
+                    }
+                }
+            }
+        }
+    }
+
+    fun getUserCartProducts(id: Int) {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = GetflixApi.getflixApiService.userCartProducts(id)
+            withContext(Dispatchers.Main + exceptionHandler) {
+                if (response.isSuccessful) {
+                    response.body().let { it ->
+                        _products.value = it
+                        println(_products.value.toString())
                     }
                 }
             }
