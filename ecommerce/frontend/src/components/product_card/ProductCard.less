@@ -2,8 +2,6 @@
     padding-left: 10px;
     padding-right: 10px;
     background-color: white;
-    // border-bottom-left-radius: 40% 10%;
-    // border-bottom-right-radius: 40% 10%;
 }
 
 .rate-and-price {
@@ -22,6 +20,10 @@
 
 .card-price {
     float: right;
+    p {
+        color: #472836;
+        font-size: x-large;
+    }
 }
 .product-card-img-container {
     display: flex;
@@ -32,21 +34,22 @@
     object-fit: contain;
     padding: 16px;
 }
+
 .card-title {
     padding-left: 10px;
     padding-right: 10px;
-    text-overflow: ellipsis;
     box-sizing: content-box;
-    max-height: 75px;
+    // text-overflow: ellipsis;
+    height: 110px;
+    overflow: hidden;
+    // text-overflow: ellipsis;
+
+    p {
+        color: #472836;
+        font-size: x-large;
+    }
 }
-.card-title p {
-    color: #472836;
-    font-size: x-large;
-}
-.card-price p {
-    color: #472836;
-    font-size: x-large;
-}
+
 .card-add-button {
     text-align: center;
     padding-bottom: 20px;
