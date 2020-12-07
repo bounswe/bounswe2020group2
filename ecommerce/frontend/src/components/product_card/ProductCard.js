@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Rate, Card } from 'antd'
-import { PlusCircleOutlined } from '@ant-design/icons'
+import { PlusCircleOutlined, HeartOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import './ProductCard.less'
 import { useAppContext } from '../../context/AppContext'
@@ -13,6 +13,11 @@ export const ProductCard = ({ product, width = 350 }) => {
     const onAddToCart = product => {
         addShoppingCartItem(product, 1)
     }
+
+    const onAddToList = product => {
+        // addShoppingCartItem(product, 1)
+    }
+
     const { title, rating, price, currency, imageUrl, id } = product
 
     return (
@@ -34,9 +39,15 @@ export const ProductCard = ({ product, width = 350 }) => {
                 </div>
             </div>
             <div className="card-add-button">
-                <Button type="primary" icon={<PlusCircleOutlined />} onClick={() => onAddToCart(product)}>
+                <Button
+                    size="large"
+                    type="primary"
+                    icon={<PlusCircleOutlined />}
+                    onClick={() => onAddToCart(product)}
+                    block>
                     Add to cart
                 </Button>
+                <Button size="large" type="ghost" icon={<HeartOutlined />} onClick={() => onAddToList(product)} />
             </div>
         </div>
     )

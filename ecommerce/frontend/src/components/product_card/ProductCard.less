@@ -25,12 +25,15 @@
         font-size: x-large;
     }
 }
+
 .product-card-img-container {
-    display: flex;
 }
+
 .product-card-img {
+    display: block;
     margin: auto;
-    max-height: 200px;
+    height: 200px;
+    max-width: 100%;
     object-fit: contain;
     padding: 16px;
 }
@@ -39,10 +42,8 @@
     padding-left: 10px;
     padding-right: 10px;
     box-sizing: content-box;
-    // text-overflow: ellipsis;
     height: 110px;
     overflow: hidden;
-    // text-overflow: ellipsis;
 
     p {
         color: #472836;
@@ -51,6 +52,7 @@
 }
 
 .card-add-button {
-    text-align: center;
+    display: flex;
+    gap: 4px;
     padding-bottom: 20px;
 }
