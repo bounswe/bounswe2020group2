@@ -19,6 +19,8 @@ export const AddCardModal = ({
             setIsLoading(true)
             await sleep(2000)
             setIsLoading(false)
+            const fields = await form.validateFields()
+            console.log(fields)
             onSuccessfulAdd();
             onCancel();
             notification.success({ message: 'You have successfully added your credit card!' })

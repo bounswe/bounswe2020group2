@@ -20,8 +20,8 @@ export const CardModalInner = ({
             owner_name: '',
             serial_number: '',
             expiration_date: {
-                month: '',
-                year: ''
+                month: 1,
+                year: 2020
             },
             cvc: ''
         }
@@ -82,7 +82,7 @@ export const CardModalInner = ({
                 rules={[
                     {
                         required: true,
-                        message: 'Please input your card name!',
+                        message: 'Please input your card owner name!',
                     },
                 ]}>
                 <Input
@@ -98,9 +98,19 @@ export const CardModalInner = ({
                         required: true,
                         message: 'Please input your card number!',
                     },
+                    {   
+                        message: 'Your credit card number must be a 16 digit number!',
+                        validator: (rule, val) => {
+                            if (!val) return Promise.resolve(true)
+                            return /^\d{16}$/.test(val)
+                                ? Promise.resolve(true)
+                                : Promise.reject('Wrong card number format!')
+                        },
+                    }
                 ]}>
                 <Input
                     onFocus={handleInputFocus}
+                    formatter={value => console.log(value)}
                     name="number"
                 />
             </Form.Item>
@@ -113,10 +123,13 @@ export const CardModalInner = ({
                         message: 'Please input your card expiry date!',
                     },
                 ]}>
-                <Input.Group compact> {/** TODO: solve this */}
+                <Input.Group compact>
                     <Form.Item
                         name={['expiration_date', 'month']}
-                        noStyle>
+                        noStyle
+                        rules={[
+                            
+                        ]}>
                         <InputNumber
                             max={12}
                             min={1}
@@ -129,7 +142,7 @@ export const CardModalInner = ({
                         name={['expiration_date', 'year']}
                         noStyle>
                         <InputNumber
-                            min={2020}
+                            min={2021}
                             onFocus={handleInputFocus}
                             name="year"/>
                     </Form.Item>
@@ -144,6 +157,15 @@ export const CardModalInner = ({
                         required: true,
                         message: 'Please input your CVC!',
                     },
+                    {   
+                        message: 'Your CVC number must be a 3 or 4 digit number!',
+                        validator: (rule, val) => {
+                            if (!val) return Promise.resolve(true)
+                            return /^\d{3,4}$/.test(val)
+                                ? Promise.resolve(true)
+                                : Promise.reject('Wrong CVC number format!')
+                        },
+                    }
                 ]}>
                 <Input
                     onFocus={handleInputFocus}

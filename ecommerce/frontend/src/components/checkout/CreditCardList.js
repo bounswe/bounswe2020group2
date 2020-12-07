@@ -48,7 +48,7 @@ export const CreditCardList = () => {
     const [addVisible, setAddVisible] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
-    const onCardSelect = value => setSelectedCard(value)
+    const onCardSelect = cardId => setSelectedCard(cardId)
 
     const onCardInfoChange = async () => getCardList('')
 

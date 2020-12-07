@@ -20,6 +20,8 @@ export const EditCardModal = ({
             setIsLoading(true)
             await sleep(2000)
             setIsLoading(false)
+            const fields = await form.validateFields()
+            console.log(fields)
             onSuccessfulEdit();
             onCancel();
             notification.success({ message: 'You have successfully changed your credit card information!' })
