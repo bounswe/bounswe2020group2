@@ -5,57 +5,75 @@ import cls from 'classnames'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { useState } from 'react'
 import { EditCardModal } from './EditCardModal'
-import { Popconfirm } from 'antd'
+import { Popconfirm, Spin, notification } from 'antd'
+import { formatCreditCard, sleep } from '../../utils'
+
 export const CreditCard = ({
-    cardProps = {},
-    cardId = {},
-    cardName = 'My Card',
+    card,
     selected = false,
     onSelect = () => {},
+    onCardInfoChange = () => {},
 }) => {
     const [editVisible, setEditVisible] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+
+    
+    const onDelete = async () => {
+        try {
+            setIsLoading(true)
+            await sleep(2000)
+            setIsLoading(false)
+            onCardInfoChange();
+            notification.success({ message: 'You have successfully deleted your credit card!' })
+            
+        } catch (error) {
+            notification.warning({ message: 'There was an error with your request.' })
+        }
+    }
+
     return (
         <div
-            onClick={() => onSelect(cardId)}
+            onClick={() => onSelect(card?.id)}
             className={cls('creditcard-container', {
                 'creditcard-container__selected': selected,
             })}>
-            <div className="creditcard-header">
-                <input
-                    type="radio"
-                    name="selectedCard"
-                    checked={selected}
-                    value={cardId}
-                    onChange={val => onSelect(val.target.value)}
-                />
-                &nbsp;{cardName}
-                <div className="creditcard-header-icons">
-                    <EditCardModal
-                        setVisible={setEditVisible}
-                        visible={editVisible}
-                        cardProps={cardProps}
-                        cardId={cardId}
-                        cardName={cardName}
+            <Spin spinning={isLoading}>
+                <div className="creditcard-header">
+                    <input
+                        type="radio"
+                        name="selectedCard"
+                        checked={selected}
+                        value={card?.id}
+                        onChange={val => onSelect(val.target.value)}
                     />
-                    <EditOutlined
-                        onClick={() => {
-                            setEditVisible(true)
-                        }}
-                    />{' '}
-                    &nbsp;
-                    <Popconfirm
-                        title="Delete this card?"
-                        onConfirm={() => {}}
-                        onCancel={() => {}}
-                        okText="Yes"
-                        cancelText="No">
-                        <DeleteOutlined />
-                    </Popconfirm>
+                    &nbsp;{card?.name}
+                    <div className="creditcard-header-icons">
+                        <EditCardModal
+                            onCancel={() => setEditVisible(false)}
+                            onSuccessfulEdit={onCardInfoChange}
+                            visible={editVisible}
+                            card={card}
+                        />
+                        <EditOutlined
+                            onClick={() => {
+                                setEditVisible(true)
+                            }}
+                        />{' '}
+                        &nbsp;
+                        <Popconfirm
+                            title="Delete this card?"
+                            onConfirm={onDelete}
+                            okText="Yes"
+                            cancelText="No">
+                            <DeleteOutlined />
+                        </Popconfirm>
+                    </div>
                 </div>
-            </div>
-            <div className="creditcard-card">
-                <Cards className="creditcard-card" {...cardProps} />
-            </div>
+                <div className="creditcard-card">
+                    {card && <Cards className="creditcard-card" {...formatCreditCard(card)} />}
+                </div>
+                
+            </Spin>
         </div>
     )
 }
