@@ -1,33 +1,48 @@
 import React, { useEffect, useState } from 'react'
-import { Rate } from 'antd'
-import { Link } from 'react-router-dom'
+import { Rate, Pagination, notification } from 'antd'
+import { Link, useHistory } from 'react-router-dom'
 import './UserReview.less'
+import * as R from 'ramda'
+import qs from 'query-string'
+
 import { api } from '../api'
 import { useAppContext } from '../context/AppContext'
-import { notification } from 'antd'
 
-export const UserReview = product_id => {
+export const UserReview = (product_id, { initialPage = 1, defaultPageSize = 10 }) => {
     const [isLoading, setIsLoading] = useState(false)
-    const [reviews, setReviews] = useState([])
+    const history = useHistory()
 
-    // useEffect(() => {
-    //     async function fetch() {
-    //         try {
-    //             setIsLoading(true)
-    //             try {
-    //                 const { data } = await api.get(`/product/${product_id}/reviews`)
-    //                 setReviews(data.reviews)
-    //                 // const { id, user_id, vendor_id, rating, comment, created_at } = data
-    //             } catch (error) {
-    //                 notification.error({ description: 'Failed to fetch comments' })
-    //                 console.error(error)
-    //             } finally {
-    //             }
-    //         } finally {
-    //             setIsLoading(false)
-    //         }
-    //     }
-    // }, [])
+    const [reviews, setReviews] = useState([
+        {
+            comment:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+            author: 'Jeff Einstein',
+            date: 'December 23',
+            rating: 4,
+        },
+        {
+            comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+            author: 'Hasan Kaya',
+            date: 'December 11',
+            rating: 3,
+        },
+    ])
+
+    const values = {
+        pagination: {
+            pageSize: defaultPageSize,
+            current: 1,
+            pageSize: 1,
+        },
+    }
+
+    const refreshReviewsWith = (current, pageSize) => {
+        console.log('Current: ', current, 'Pagesize: ', pageSize)
+    }
+
+    const onPaginationChanged = (current, pageSize) => {
+        refreshReviewsWith(current, pageSize)
+    }
 
     const Review = ({ review: { comment, author, date, rating } }) => {
         return (
@@ -49,33 +64,26 @@ export const UserReview = product_id => {
             </div>
         )
     }
-    setReviews([
-        {
-            comment:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
-            author: 'Jeff Einstein',
-            date: 'December 23',
-            rating: 4,
-        },
-        {
-            comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
-            author: 'Hasan Kaya',
-            date: 'December 11',
-            rating: 3,
-        },
-    ])
 
     return (
-        <div className="review-items">
-            <h1>User Reviews</h1>
-            {reviews.map((review, index) => {
-                return (
-                    <div key={review.id}>
-                        <Review review={review} />
-                        {index < reviews.length - 1 && <hr></hr>}
-                    </div>
-                )
-            })}
+        <div>
+            <div className="review-items">
+                <h1>User Reviews</h1>
+                {reviews.map((review, index) => {
+                    return (
+                        <div key={review.id}>
+                            <Review review={review} />
+                            {index < reviews.length - 1 && <hr></hr>}
+                        </div>
+                    )
+                })}
+            </div>
+            <Pagination
+                className="review-results-pagination"
+                onChange={onPaginationChanged}
+                defaultCurrent={1}
+                total={50}
+            />
         </div>
     )
 }
