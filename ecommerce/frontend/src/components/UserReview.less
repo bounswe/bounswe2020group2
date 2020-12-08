@@ -1,28 +1,51 @@
-.rate-and-author {
+.user-review {
     display: flex;
     flex-direction: column;
-    min-width: 150px;
-}
-
-.comment-and-date {
-    margin-left: 15px;
-    margin-top: 6px;
-    display: flex;
-    flex-direction: column;
+    // gap: 10px;
+    padding: 2px 2%;
+    h1 {
+        font-size: xx-large;
+    }
 }
 
 .review-item-content {
     display: flex;
+    flex-direction: column;
+    column-count: 2;
+    gap: 2px;
 }
 
-.review-items {
-    padding: 2%;
+.rate-and-message {
+    display: flex;
+    flex-direction: row;
+}
+.message {
+    padding-top: 5px;
+}
+.rate {
+    min-width: 150px;
 }
 
-.review-items h4 {
-    font-size: larger;
+.author-and-date {
+    padding-top: 3px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
 }
+
 .author {
-    height: 100%;
-    border-collapse: collapse;
+    min-width: 150px;
+}
+
+.date {
+    p {
+        line-height: 16px;
+        font-size: 12px;
+        color: #999999;
+    }
+    margin-top: 4px;
+}
+
+.review-results-pagination {
+    margin-left: auto;
 }

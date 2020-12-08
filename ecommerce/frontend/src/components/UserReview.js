@@ -28,6 +28,32 @@ export const UserReview = ({ productId = 1, pageSize = 10 }) => {
                         date: 'December 11',
                         rating: 3,
                     },
+                    {
+                        comment:
+                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+                        author: 'Jeff Einstein',
+                        date: 'December 23',
+                        rating: 4,
+                    },
+                    {
+                        comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+                        author: 'Hasan Kaya',
+                        date: 'December 11',
+                        rating: 3,
+                    },
+                    {
+                        comment:
+                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+                        author: 'Jeff Einstein',
+                        date: 'December 23',
+                        rating: 4,
+                    },
+                    {
+                        comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+                        author: 'Hasan Kaya',
+                        date: 'December 11',
+                        rating: 3,
+                    },
                 ]
                 const urlStr = `/product/${productId}/review?pagesize=${pageSize}&currentpage=${currentPage}`
                 console.log(urlStr)
@@ -51,34 +77,38 @@ export const UserReview = ({ productId = 1, pageSize = 10 }) => {
     const Review = ({ review: { comment, author, date, rating } }) => {
         return (
             <div className="review-item-content">
-                <div className="rate-and-author">
+                <div className="rate-and-message">
                     <div className="rate">
                         <Rate defaultValue={rating} disabled={true}></Rate>
                     </div>
-                    <Link to="#">
+                    <div className="message">
+                        <p>{comment}</p>
+                    </div>
+                </div>
+                <div className="author-and-date">
+                    <Link to="/">
                         <div className="author">
                             <p>{author}</p>
                         </div>
                     </Link>
-                </div>
-                <div className="comment-and-date">
-                    <p>{comment}</p>
-                    <p>{date}</p>
+                    <div className="date">
+                        <p>{date}</p>
+                    </div>
                 </div>
             </div>
         )
     }
 
     return (
-        <div>
+        <div className="user-review">
             <Spin spinning={isLoading}>
                 <h1>User Reviews</h1>
-                <div className="review-items">
+                <div className="user-review-items">
                     {reviews.map((review, index) => {
                         return (
                             <div key={review.id}>
                                 <Review review={review} />
-                                {index < reviews.length - 1 && <hr></hr>}
+                                {index < reviews.length - 1 && <hr style={{ margin: 0 }}></hr>}
                             </div>
                         )
                     })}
