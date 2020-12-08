@@ -45,9 +45,20 @@ interface GetflixApiService {
     @POST("regularlogin")
     fun getUserInformation(@Body userData: LoginRequest): Call<LoginResponse>
 
+
     @Headers("Content-Type: application/json")
     @POST("regularsignup")
     fun signUp(@Body signUpCredentials: SignUpCredentials): Call<SignUpResponse>
+
+    @GET("products/homepage/{numberOfProducts}")
+    suspend fun getProducts(@Path("numberOfProducts") numberOfProducts: Int): Response<List<PModel>>
+
+    @GET("product/{productId}")
+    suspend fun getProduct(@Path("productId") productId: Int): Response<List<PModel>>
+
+    @GET("user/{userId}/listShoppingCart")
+    suspend fun userCartProducts(@Path("userId") userId: Int): Response<List<PModel>>
+
 
 }
 

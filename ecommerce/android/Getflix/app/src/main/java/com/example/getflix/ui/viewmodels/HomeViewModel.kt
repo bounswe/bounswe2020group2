@@ -2,18 +2,7 @@ package com.example.getflix.ui.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment.findNavController
-import androidx.navigation.fragment.findNavController
-import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.PModel
-import com.example.getflix.models.ProductModel
-import com.example.getflix.services.ProductsAPI
-import com.example.getflix.ui.fragments.HomePageFragment
-import com.example.getflix.ui.fragments.HomePageFragmentDirections
-import kotlinx.coroutines.*
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
