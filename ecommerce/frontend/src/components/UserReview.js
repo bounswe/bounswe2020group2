@@ -1,47 +1,51 @@
 import React, { useEffect, useState } from 'react'
 import { Rate, Pagination, Spin } from 'antd'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './UserReview.less'
 import { sleep } from '../utils'
 import { api } from '../api'
 
-export const UserReview = (product_id, { initialPage = 1, defaultPageSize = 10 }) => {
-    const [isLoading, setIsLoading] = useState(false)
-    const history = useHistory()
+export const UserReview = ({ productId = 1, pageSize = 10 }) => {
+    const [isLoading, setIsLoading] = useState(true)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [reviews, setReviews] = useState([])
 
-    const [reviews, setReviews] = useState([
-        {
-            comment:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
-            author: 'Jeff Einstein',
-            date: 'December 23',
-            rating: 4,
-        },
-        {
-            comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
-            author: 'Hasan Kaya',
-            date: 'December 11',
-            rating: 3,
-        },
-    ])
+    useEffect(() => {
+        async function fetch() {
+            try {
+                setIsLoading(true)
+                const tmp = [
+                    {
+                        comment:
+                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+                        author: 'Jeff Einstein',
+                        date: 'December 23',
+                        rating: 4,
+                    },
+                    {
+                        comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+                        author: 'Hasan Kaya',
+                        date: 'December 11',
+                        rating: 3,
+                    },
+                ]
+                const urlStr = `/product/${productId}/review?pagesize=${pageSize}&currentpage=${currentPage}`
+                console.log(urlStr)
+                // const { data: reviews } = await api.get(urlStr)
+                setReviews(tmp)
+                await sleep(2000)
+            } catch (error) {
+                console.error('Failed to load user reviews', error)
+            } finally {
+                setIsLoading(false)
+            }
+        }
+        fetch()
+    }, [currentPage])
 
-    const values = {
-        pagination: {
-            pageSize: defaultPageSize,
-            current: 1,
-            pageSize: 1,
-        },
-    }
-
-    const refreshReviewsWith = async (current, pageSize) => {
-        setIsLoading(true)
-        await sleep(2000)
-        setIsLoading(false)
-    }
-
-    const onPaginationChanged = (current, pageSize) => {
-        console.log('Current: ', current, 'Pagesize: ', pageSize)
-        refreshReviewsWith(current, pageSize)
+    const onPaginationChanged = value => {
+        console.log('Page changed to ', value)
+        setCurrentPage(value)
     }
 
     const Review = ({ review: { comment, author, date, rating } }) => {
@@ -68,8 +72,8 @@ export const UserReview = (product_id, { initialPage = 1, defaultPageSize = 10 }
     return (
         <div>
             <Spin spinning={isLoading}>
+                <h1>User Reviews</h1>
                 <div className="review-items">
-                    <h1>User Reviews</h1>
                     {reviews.map((review, index) => {
                         return (
                             <div key={review.id}>
