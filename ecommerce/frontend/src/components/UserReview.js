@@ -11,6 +11,7 @@ export const UserReview = ({ productId = 1, pageSize = 10 }) => {
     const [reviews, setReviews] = useState([])
 
     useEffect(() => {
+        // When current page is changed, makes a call to backend and gets the new reviews.
         async function fetch() {
             try {
                 setIsLoading(true)
@@ -70,6 +71,7 @@ export const UserReview = ({ productId = 1, pageSize = 10 }) => {
     }, [currentPage])
 
     const onPaginationChanged = value => {
+        // When page count is changed, current page is set
         console.log('Page changed to ', value)
         setCurrentPage(value)
     }
@@ -118,7 +120,7 @@ export const UserReview = ({ productId = 1, pageSize = 10 }) => {
             <Pagination
                 className="review-results-pagination"
                 onChange={onPaginationChanged}
-                defaultCurrent={1}
+                defaultCurrent={currentPage}
                 total={50}
             />
         </div>
