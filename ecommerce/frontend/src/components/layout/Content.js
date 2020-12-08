@@ -18,7 +18,6 @@ export const Content = () => {
         <Layout.Content className="content">
             <CategoryBar />
             <Switch>
-                <Route path="/review" component={UserReview} />
                 <Route path="/login" component={LoginPage} />
                 <Route path="/shoppingCart" component={ShoppingCartPage} />
                 <Route path="/signup" component={SignupPage} />
