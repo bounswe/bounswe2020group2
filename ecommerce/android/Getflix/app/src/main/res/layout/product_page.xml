@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- The data element works even it has 2 errors -->
     <data>
         <variable
             name="product"
@@ -72,9 +75,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:background="@color/white"
-        android:text="@{product.price}"
+        android:text="@{'$ ' + product.price}"
         android:textColor="@color/initPurple"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -112,7 +115,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
-        android:text="@{product.rating_count}"
+        android:text="@{'Reviews(' + product.rating_count + ')'}"
         android:textColor="@color/initPurple"
         app:layout_constraintEnd_toEndOf="@id/text_star_symbol"
         app:layout_constraintTop_toBottomOf="@id/text_rating" />
@@ -124,6 +127,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
+        app:backgroundTint="@color/initPurple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_shopping_cart"
@@ -135,13 +139,26 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:clickable="true"
+        app:backgroundTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@id/button_add2cart"
         app:layout_constraintEnd_toStartOf="@id/button_add2cart"
         app:layout_constraintTop_toTopOf="@id/button_add2cart"
         app:srcCompat="@drawable/menu_favorite"
         tools:ignore="VectorDrawableCompat" />
 
-    <!--TODO add scrollview for product details -->
-    <!--TODO add inline parameters deleted mistakenly ex: android:text="@{`Hello ` + user.firstName}" -->
+
+    <ScrollView
+        android:layout_width="256dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/text_product"
+        app:layout_constraintTop_toBottomOf="@+id/text_product">
+
+         <TextView
+             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{product.description}"
+            android:textColor="@color/black"/>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
