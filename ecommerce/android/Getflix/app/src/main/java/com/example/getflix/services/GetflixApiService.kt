@@ -1,8 +1,6 @@
 package com.example.getflix.services
 
-import com.example.getflix.models.LoginRequest
-import com.example.getflix.models.LoginResponse
-import com.example.getflix.models.PModel
+import com.example.getflix.models.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -46,6 +44,11 @@ interface GetflixApiService {
     @Headers("Content-Type: application/json")
     @POST("regularlogin")
     fun getUserInformation(@Body userData: LoginRequest): Call<LoginResponse>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("regularsignup")
+    fun signUp(@Body signUpCredentials: SignUpCredentials): Call<SignUpResponse>
 
     @GET("products/homepage/{numberOfProducts}")
     suspend fun getProducts(@Path("numberOfProducts") numberOfProducts: Int): Response<List<PModel>>
