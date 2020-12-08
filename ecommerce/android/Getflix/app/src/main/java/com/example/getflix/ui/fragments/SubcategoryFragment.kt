@@ -33,6 +33,15 @@ class SubcategoryFragment : Fragment() {
                 container, false
         )
 
+        activity?.toolbar!!.visibility = View.GONE
+        val navController =
+                Navigation.findNavController(requireActivity(), R.id.my_nav_host_fragment)
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+        binding.toolbar.title = ""
+        val args = SubcategoryFragmentArgs.fromBundle(requireArguments())
+        val subCat = args.subName
+        binding.toolbarTitle.text = subCat
         viewModel = ViewModelProvider(this).get(SubCategoryViewModel::class.java)
         binding.viewmodel = SubCategoryViewModel()
         val recView = binding?.productList as RecyclerView

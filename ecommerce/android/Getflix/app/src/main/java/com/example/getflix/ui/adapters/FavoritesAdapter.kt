@@ -48,7 +48,7 @@ class FavoritesAdapter(
 
 }
 
-class SubDiffCallback: DiffUtil.ItemCallback<ProductModel>() {
+class FavoritesDiffCallback: DiffUtil.ItemCallback<ProductModel>() {
     override fun areItemsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
         return oldItem.id == newItem.id
     }
