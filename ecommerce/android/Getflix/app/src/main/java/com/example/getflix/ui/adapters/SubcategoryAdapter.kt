@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.FavproductLayoutBinding
 import com.example.getflix.models.ProductModel
 
-class FavoritesAdapter(
+class SubCategoryAdapter(
     private val productList: ArrayList<ProductModel>?,
 ) : ListAdapter<ProductModel, FavoritesAdapter.RowHolder>(FavoritesDiffCallback()) {
 
@@ -26,11 +26,10 @@ class FavoritesAdapter(
                 return RowHolder(binding)
             }
         }
-
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowHolder {
-        return RowHolder.from(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesAdapter.RowHolder {
+        return FavoritesAdapter.RowHolder.from(parent)
     }
 
     /*override fun getItemCount(): Int {
@@ -40,15 +39,14 @@ class FavoritesAdapter(
         return 0;
     }*/
 
-
-    override fun onBindViewHolder(holder: RowHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavoritesAdapter.RowHolder, position: Int) {
         productList?.get(position)?.let { holder.bind(it, position) }
     }
 
 
 }
 
-class SubDiffCallback: DiffUtil.ItemCallback<ProductModel>() {
+class FavoritesDiffCallback: DiffUtil.ItemCallback<ProductModel>() {
     override fun areItemsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
         return oldItem.id == newItem.id
     }

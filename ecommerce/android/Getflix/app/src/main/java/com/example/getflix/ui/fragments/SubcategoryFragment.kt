@@ -15,15 +15,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentSubcategoryBinding
 import com.example.getflix.models.ProductModel
-import com.example.getflix.ui.adapters.FavoritesAdapter
-import com.example.getflix.ui.viewmodels.FavoritesViewModel
+import com.example.getflix.ui.adapters.SubCategoryAdapter
+import com.example.getflix.ui.viewmodels.SubCategoryViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 
 class SubcategoryFragment : Fragment() {
 
-    private lateinit var viewModel: FavoritesViewModel
+    private lateinit var viewModel: SubCategoryViewModel
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -33,8 +33,8 @@ class SubcategoryFragment : Fragment() {
                 container, false
         )
 
-        viewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
-        binding.viewmodel = FavoritesViewModel()
+        viewModel = ViewModelProvider(this).get(SubCategoryViewModel::class.java)
+        binding.viewmodel = SubCategoryViewModel()
         val recView = binding?.productList as RecyclerView
         val products = arrayListOf( ProductModel(1,"Bag","100 TL",null,"Vıntage Bag"),
                 ProductModel(1,"iPhone 7","4815 TL",null,"Best Phone"),
@@ -46,7 +46,7 @@ class SubcategoryFragment : Fragment() {
                 ProductModel(1,"Book","20 TL",null,"Bestseller Book")   ,
                 ProductModel(1,"T-Shirt","23 TL",null,"Black T-Shirt"),
                 ProductModel(1,"Book","20 TL",null,"Bestseller Book"))
-        val productListAdapter = FavoritesAdapter(products)
+        val productListAdapter = SubCategoryAdapter(products)
         recView.adapter = productListAdapter
         recView.setHasFixedSize(true)
 
