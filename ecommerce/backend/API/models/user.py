@@ -31,4 +31,9 @@ class Vendor (models.Model):
 #address
 class Address (models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
+    province = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    country = models.CharField(max_length=255)
