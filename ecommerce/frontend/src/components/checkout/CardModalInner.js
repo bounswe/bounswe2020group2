@@ -8,24 +8,9 @@ import { formatCreditCard } from '../../utils'
 export const CardModalInner = ({
     form,
     card,
-    mode = 'add'
 }) => {
 
-    const [cardState, setCardState] = useState(
-        mode === 'edit' ? 
-        card :
-        {
-            id: '',
-            name: '',
-            owner_name: '',
-            serial_number: '',
-            expiration_date: {
-                month: 1,
-                year: 2020
-            },
-            cvc: ''
-        }
-    )
+    const [cardState, setCardState] = useState(card)
     const [focused, setFocused] = useState('')
 
     const formItemLayout = {
@@ -59,7 +44,7 @@ export const CardModalInner = ({
             {...formItemLayout}
             layout="horizontal"
             form={form}
-            name="editCardForm"
+            name={"cardForm"+card.id}
             onFinish={() => {}}
             onFinishFailed={() => {}}
             onFieldsChange={onFieldsChange}
@@ -74,7 +59,7 @@ export const CardModalInner = ({
                         message: 'Please input your card name!',
                     },
                 ]}>
-                <Input />
+                <Input onFocus={() => {setFocused('owner_name')}} />
             </Form.Item>
             <Form.Item
                 name="owner_name"
@@ -110,7 +95,6 @@ export const CardModalInner = ({
                 ]}>
                 <Input
                     onFocus={handleInputFocus}
-                    formatter={value => console.log(value)}
                     name="number"
                 />
             </Form.Item>

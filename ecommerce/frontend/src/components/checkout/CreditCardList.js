@@ -2,18 +2,20 @@ import { Button, List, Spin, notification } from 'antd'
 import { sleep } from '../../utils'
 import { useEffect, useState } from 'react'
 import { CreditCard } from './CreditCard'
-import { AddCardModal } from './AddCardModal'
+import { CreditCardModal } from './CreditCardModal'
+import { useAppContext } from '../../context/AppContext'
 import './CreditCardList.less'
 
 export const CreditCardList = () => {
     const [cardList, setCardList] = useState([])
+    const { user } = useAppContext();
 
     const getCardList = async userId => {
+        let cards = []
         try {
             setIsLoading(true)
             await sleep(2000)
-            setIsLoading(false)
-            setCardList([
+            cards = [
                 {   
                     id: 44313,
                     name: 'My Mastercard',
@@ -36,13 +38,24 @@ export const CreditCardList = () => {
                     },
                     cvc: 123
                 },
-            ])
+            ]
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })
+            console.error(error)
+        } finally {
+            setIsLoading(false)
+            return Promise.resolve(cards)
         }
     }
 
-    useEffect(() => getCardList(''), [])
+    useEffect(() => {
+        async function fetch() {
+            const cards = await getCardList(user?.id)
+            setCardList(cards)
+            setSelectedCard(cards.length > 0 ? cards[0].id : null)
+        }
+        fetch();
+    }, [user])
 
     const [selectedCard, setSelectedCard] = useState()
     const [addVisible, setAddVisible] = useState(false)
@@ -50,7 +63,7 @@ export const CreditCardList = () => {
 
     const onCardSelect = cardId => setSelectedCard(cardId)
 
-    const onCardInfoChange = async () => getCardList('')
+    const onCardInfoChange = () => {getCardList(user?.id).then(cards => setCardList(cards))}
 
     
 
@@ -61,7 +74,14 @@ export const CreditCardList = () => {
                 <Button onClick={() => setAddVisible(true)} type="dashed">
                     Add a new credit card
                 </Button>
-                <AddCardModal onCancel={() => setAddVisible(false)} onSuccessfulAdd={onCardInfoChange} visible={addVisible} />
+                <CreditCardModal 
+                    mode='add' 
+                    onCancel={() => setAddVisible(false)} 
+                    onSuccess={() => {
+                        setAddVisible(false);
+                        onCardInfoChange();
+                    }} 
+                    visible={addVisible} />
             </div>
             <div className="cardlist-list">
                 <Spin spinning={isLoading}>

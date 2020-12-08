@@ -88,7 +88,7 @@ export function formatCreditCard({
     return {
         name: owner_name,
         number: serial_number,
-        expiry: (month <= 9 ? `0${month}` : month) + '/' + (year % 1000),
+        expiry: month.toString().padStart(2, '0') + '/' + (year % 100),
         cvc: cvc
     }
 }
