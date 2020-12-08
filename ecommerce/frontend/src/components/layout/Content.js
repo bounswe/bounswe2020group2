@@ -11,6 +11,7 @@ import { SearchPage } from '../pages/SearchPage'
 import { SignupPage } from '../pages/SignupPage'
 import { ShoppingCartPage } from '../ShoppingCart/ShoppingCartPage'
 import { CategoryBar } from '../CategoryBar'
+import { CheckoutPage } from '../pages/CheckoutPage'
 
 export const Content = () => {
     return (
@@ -18,6 +19,7 @@ export const Content = () => {
             <CategoryBar />
             <Switch>
                 <Route path="/login" component={LoginPage} />
+                <Route path="/checkout" component={CheckoutPage} />
                 <Route path="/shoppingCart" component={ShoppingCartPage} />
                 <Route path="/signup" component={SignupPage} />
                 <Route path="/profile" component={ProfilePage} />
