@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Rate, Pagination, notification } from 'antd'
+import { Rate, Pagination, Spin } from 'antd'
 import { Link, useHistory } from 'react-router-dom'
 import './UserReview.less'
-import * as R from 'ramda'
-import qs from 'query-string'
-
+import { sleep } from '../utils'
 import { api } from '../api'
-import { useAppContext } from '../context/AppContext'
 
 export const UserReview = (product_id, { initialPage = 1, defaultPageSize = 10 }) => {
     const [isLoading, setIsLoading] = useState(false)
@@ -36,11 +33,14 @@ export const UserReview = (product_id, { initialPage = 1, defaultPageSize = 10 }
         },
     }
 
-    const refreshReviewsWith = (current, pageSize) => {
-        console.log('Current: ', current, 'Pagesize: ', pageSize)
+    const refreshReviewsWith = async (current, pageSize) => {
+        setIsLoading(true)
+        await sleep(2000)
+        setIsLoading(false)
     }
 
     const onPaginationChanged = (current, pageSize) => {
+        console.log('Current: ', current, 'Pagesize: ', pageSize)
         refreshReviewsWith(current, pageSize)
     }
 
@@ -67,17 +67,20 @@ export const UserReview = (product_id, { initialPage = 1, defaultPageSize = 10 }
 
     return (
         <div>
-            <div className="review-items">
-                <h1>User Reviews</h1>
-                {reviews.map((review, index) => {
-                    return (
-                        <div key={review.id}>
-                            <Review review={review} />
-                            {index < reviews.length - 1 && <hr></hr>}
-                        </div>
-                    )
-                })}
-            </div>
+            <Spin spinning={isLoading}>
+                <div className="review-items">
+                    <h1>User Reviews</h1>
+                    {reviews.map((review, index) => {
+                        return (
+                            <div key={review.id}>
+                                <Review review={review} />
+                                {index < reviews.length - 1 && <hr></hr>}
+                            </div>
+                        )
+                    })}
+                </div>
+            </Spin>
+
             <Pagination
                 className="review-results-pagination"
                 onChange={onPaginationChanged}
