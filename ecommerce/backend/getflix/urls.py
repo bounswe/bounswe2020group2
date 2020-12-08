@@ -28,5 +28,7 @@ urlpatterns = [
     path('products/homepage/<int:no>', views.product.homepage_products),
     path('user/<int:id>/listShoppingCart', list_shopping_cart),
     path('user/<int:id>/shoppingCart', views.shopping_cart.add_shopping_cart_item),
-    path('product/<int:productId>', views.product.product_detail)
+    path('product/<int:productId>', views.product.product_detail),
+    path('customer/<int:customer_id>/adresses/<int:adress_id>', views.address.manage_single_address),
+    path('customer/<int:customer_id>/adresses', views.address.manage_multiple_addresses)
 ]
