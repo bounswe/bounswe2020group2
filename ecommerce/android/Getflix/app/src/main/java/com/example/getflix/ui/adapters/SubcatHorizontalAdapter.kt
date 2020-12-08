@@ -14,8 +14,8 @@ import com.example.getflix.databinding.ListHorizontalsubsBinding
 import com.example.getflix.models.ProductModel
 import com.example.getflix.models.SubcategoryModel
 
-class SubcategoryAdapter(private var context: Context) :
-    ListAdapter<SubcategoryModel, SubcategoryAdapter.ViewHolder>(SubcategoryDiffCallback()) {
+class SubcategoryHorizontalAdapter(private var context: Context) :
+    ListAdapter<SubcategoryModel, SubcategoryHorizontalAdapter.ViewHolder>(SubcategoryHorizontalDiffCallback()) {
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -49,7 +49,7 @@ class SubcategoryAdapter(private var context: Context) :
     }
 }
 
-class SubcategoryDiffCallback : DiffUtil.ItemCallback<SubcategoryModel>() {
+class SubcategoryHorizontalDiffCallback : DiffUtil.ItemCallback<SubcategoryModel>() {
     override fun areItemsTheSame(oldItem: SubcategoryModel, newItem: SubcategoryModel): Boolean {
         return oldItem === newItem
     }
