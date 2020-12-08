@@ -105,3 +105,14 @@ export function formatProduct({
         brand,
     }
 }
+
+/**
+ * Round half away from zero ('commercial' rounding)
+ * Uses correction to offset floating-point inaccuracies.
+ * Works symmetrically for positive and negative numbers.
+ */
+export function round(num, decimalPlaces = 2) {
+    var p = Math.pow(10, decimalPlaces)
+    var m = num * p * (1 + Number.EPSILON)
+    return Math.round(m) / p
+}
