@@ -41,8 +41,6 @@ export const ProductImageGallery = ({ product, loading = false }) => {
         )
     }
 
-    console.log(images.length, active)
-
     const onPaginationChange = newPage => {
         setActive(newPage - 1)
     }
