@@ -10,9 +10,9 @@ export const ChooseListModalInner = ({ product, onChooseList }) => {
     const [loading, setLoading] = useState(true)
     const [loadingList, setLoadingList] = useState(null)
 
-    const getLists = async product => {
+    const getLists = async (product, showLoading = true) => {
         try {
-            setLoading(true)
+            setLoading(showLoading)
             await sleep(1000)
             // backend call to get lists of user
 
@@ -41,7 +41,7 @@ export const ChooseListModalInner = ({ product, onChooseList }) => {
     }
 
     useEffect(() => {
-        getLists(product)
+        getLists(product, true)
     }, [])
 
     const removeProductFromList = async (product, list) => {
@@ -74,19 +74,19 @@ export const ChooseListModalInner = ({ product, onChooseList }) => {
         } else {
             await addProductToList(product, list)
         }
-        await getLists(product)
+        await getLists(product, false)
     }
 
     if (loading) {
         return (
             <List size="large" itemLayout="horizontal">
-                <List.Item extra={[<Button disabled type="ghost" icon={<HeartOutlined />} />]}>
+                <List.Item key={1} extra={[<Button disabled type="ghost" icon={<HeartOutlined />} />]}>
                     <Skeleton paragraph={{ rows: 1 }} active title={false} />
                 </List.Item>
-                <List.Item extra={[<Button disabled type="ghost" icon={<HeartOutlined />} />]}>
+                <List.Item key={2} extra={[<Button disabled type="ghost" icon={<HeartOutlined />} />]}>
                     <Skeleton paragraph={{ rows: 1 }} active title={false} />
                 </List.Item>
-                <List.Item extra={[<Button disabled type="ghost" icon={<HeartOutlined />} />]}>
+                <List.Item key={3} extra={[<Button disabled type="ghost" icon={<HeartOutlined />} />]}>
                     <Skeleton paragraph={{ rows: 1 }} active title={false} />
                 </List.Item>
             </List>
