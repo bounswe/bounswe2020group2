@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ProductImageGallery } from './ProductImageGallery'
 import { ProductExtra } from './ProductExtra'
-import { ChooseListModal } from '../ChooseListModal'
+import { ChooseListModalInner } from '../ChooseListModalInner'
 import { useAppContext } from '../../context/AppContext'
 
 export const ProductHeader = ({ product, loading = false }) => {
@@ -102,7 +102,7 @@ export const ProductHeader = ({ product, loading = false }) => {
                 footer={null}
                 title="Choose a list"
                 destroyOnClose>
-                <ChooseListModal onChooseList={onChooseList} />
+                <ChooseListModalInner onChooseList={onChooseList} />
             </Modal>
         </div>
     )

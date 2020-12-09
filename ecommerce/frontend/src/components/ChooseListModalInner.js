@@ -1,10 +1,10 @@
-import './ChooseListModal.less'
+import './ChooseListModalInner.less'
 
 import React, { useEffect, useState } from 'react'
 import { List } from 'antd'
 import { sleep } from '../utils'
 
-export const ChooseListModal = ({ onChooseList }) => {
+export const ChooseListModalInner = ({ onChooseList }) => {
     const [lists, setLists] = useState([])
     const [loading, setLoading] = useState(true)
 

@@ -6,13 +6,11 @@ import * as R from 'ramda'
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useHistory } from 'react-router-dom'
-import uuidv4 from 'uuid/dist/v4'
 
-import { categories, sleep, subcategories } from '../../utils'
+import { api } from '../../api'
+import { categories, subcategories } from '../../utils'
 import { SearchResults } from '../search/SearchResults'
 import { SearchSidePanel } from '../search/SearchSidePanel'
-import { SearchInput } from '../SearchInput'
-import { api } from '../../api'
 
 /**
  * This is a wrapper around the real _SearchPage component
