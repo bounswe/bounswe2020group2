@@ -97,7 +97,7 @@ export const ProductHeader = ({ product, loading = false }) => {
                 <Button onClick={onAddToListClicked} size="large" icon={<HeartOutlined />} />
             </div>
             <Modal
-                visible={isChooseListModalVisible}
+                visible={isChooseListModalVisible || true}
                 onCancel={onCancelChooseList}
                 footer={null}
                 title="Choose a list"
