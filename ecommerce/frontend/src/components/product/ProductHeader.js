@@ -7,12 +7,24 @@ import { Link } from 'react-router-dom'
 import { ProductImageGallery } from './ProductImageGallery'
 import { ProductExtra } from './ProductExtra'
 import { ChooseListModal } from '../ChooseListModal'
+import { useAppContext } from '../../context/AppContext'
 
 export const ProductHeader = ({ product, loading = false }) => {
+    const { addShoppingCartItem } = useAppContext()
+    const [addLoading, setAddLoading] = useState(false)
     const [isChooseListModalVisible, setIsChooseListModalVisible] = useState(false)
 
-    const onAddToCartClicked = () => {
+    const onAddToCartClicked = async () => {
         console.log('add to cart', product)
+        try {
+            setAddLoading(true)
+            await addShoppingCartItem(product, 1)
+        } catch (error) {
+            // error is probably already caught inside addShoppingCartItem
+            console.error(error)
+        } finally {
+            setAddLoading(false)
+        }
     }
 
     const onAddToListClicked = () => {
@@ -74,7 +86,12 @@ export const ProductHeader = ({ product, loading = false }) => {
                 <ProductExtra product={product} loading={loading} />
             </div>
             <div className="product-header-buttons">
-                <Button onClick={onAddToCartClicked} size="large" type="primary" icon={<ShoppingCartOutlined />}>
+                <Button
+                    loading={addLoading}
+                    onClick={onAddToCartClicked}
+                    size="large"
+                    type="primary"
+                    icon={<ShoppingCartOutlined />}>
                     Add to cart
                 </Button>
                 <Button onClick={onAddToListClicked} size="large" icon={<HeartOutlined />} />
