@@ -9,7 +9,7 @@ export const ChooseListModalInner = ({ product, onChooseList }) => {
     const [lists, setLists] = useState([])
     const [loading, setLoading] = useState(true)
 
-    const getLists = async (product) => {
+    const getLists = async product => {
         try {
             setLoading(true)
             await sleep(1000)
@@ -46,23 +46,20 @@ export const ChooseListModalInner = ({ product, onChooseList }) => {
     const removeProductFromList = async (product, list) => {
         try {
             await sleep(1000) // actual code here
-            notification.success({description: "Added product to list"})
+            notification.success({ description: 'Added product to list' })
         } catch (error) {
-            notification.error({description: "Failed to remove product from list"})
-
+            notification.error({ description: 'Failed to remove product from list' })
         } finally {
-
         }
     }
 
     const addProductToList = async (product, list) => {
         try {
             await sleep(1000) // actual code here
-            notification.success({description: "Added product to list"})
+            notification.success({ description: 'Added product to list' })
         } catch (error) {
-            notification.error({description: "Failed to remove product from list"})
+            notification.error({ description: 'Failed to remove product from list' })
         } finally {
-
         }
     }
 
