@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import 'react-credit-cards/es/styles-compiled.css'
 import { Modal, Form, Spin, notification } from 'antd'
-import { sleep } from '../../utils'
-import { CardModalInner } from './CardModalInner'
+import { sleep } from '../../../utils'
+import { AddressModalInner } from './AddressModalInner'
 
-export const CreditCardModal = ({
+export const AddressModal = ({
     card,
     mode = 'add',
     visible = false,
@@ -83,7 +83,7 @@ export const CreditCardModal = ({
             cancelText="Go Back"
             okText={mode === 'add' ? 'Add' : 'Edit'}>
             <Spin spinning={isLoading}>
-                <CardModalInner card={mode === 'add' ? emptyCard : card} form={form} />
+                <AddressModalInner card={mode === 'add' ? emptyCard : card} form={form} />
             </Spin>
         </Modal>
     )

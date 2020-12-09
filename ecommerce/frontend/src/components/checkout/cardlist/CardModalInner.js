@@ -3,7 +3,7 @@ import { useState } from 'react'
 import * as R from 'ramda'
 import Cards from 'react-credit-cards'
 
-import { formatCreditCard } from '../../utils'
+import { formatCreditCard } from '../../../utils'
 
 export const CardModalInner = ({
     form,

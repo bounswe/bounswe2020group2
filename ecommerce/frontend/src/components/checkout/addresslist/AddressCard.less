@@ -1,0 +1,46 @@
+.address-container {
+    padding: 16px;
+    display: inline-block;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    &__selected {
+        border: 2px solid gainsboro;
+    }
+}
+
+.address-header {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.address-header-icons {
+    margin-left: auto;
+}
+
+.address-card {
+    background: rgb(2,0,36);
+    background: linear-gradient(340deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(237,237,237,1) 100%);
+    border-radius: 10px;
+    padding: 8px;
+    box-shadow: 0px 0px 4px 4px rgb(240, 240, 240);
+    width:225px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    gap:8px;
+}
+.address-card-name {
+    font-weight: bold;
+    font-size: medium;
+}
+.address-card-address {
+    word-break: keep-all;
+}
+.address-card-region {
+    margin-top: auto;
+    word-break: keep-all;
+}
+.address-card-phone {
+    margin-bottom: 16px;
+}
