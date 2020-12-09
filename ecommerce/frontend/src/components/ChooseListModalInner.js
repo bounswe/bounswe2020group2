@@ -35,6 +35,7 @@ export const ChooseListModalInner = ({ product, onChooseList }) => {
                 },
             ])
         } catch (error) {
+            notification.error({ description: 'Failed to get the lists' })
         } finally {
             setLoading(false)
         }
