@@ -1,7 +1,7 @@
 import './ChooseListModalInner.less'
 
 import React, { useEffect, useState } from 'react'
-import { Button, List, notification } from 'antd'
+import { Button, List, notification, Skeleton } from 'antd'
 import { sleep } from '../utils'
 import { HeartOutlined, HeartFilled } from '@ant-design/icons'
 
@@ -75,6 +75,22 @@ export const ChooseListModalInner = ({ product, onChooseList }) => {
             await addProductToList(product, list)
         }
         await getLists(product)
+    }
+
+    if (loading) {
+        return (
+            <List size="large" itemLayout="horizontal">
+                <List.Item extra={[<Button disabled type="ghost" icon={<HeartOutlined />} />]}>
+                    <Skeleton paragraph={{ rows: 1 }} active title={false} />
+                </List.Item>
+                <List.Item extra={[<Button disabled type="ghost" icon={<HeartOutlined />} />]}>
+                    <Skeleton paragraph={{ rows: 1 }} active title={false} />
+                </List.Item>
+                <List.Item extra={[<Button disabled type="ghost" icon={<HeartOutlined />} />]}>
+                    <Skeleton paragraph={{ rows: 1 }} active title={false} />
+                </List.Item>
+            </List>
+        )
     }
 
     return (
