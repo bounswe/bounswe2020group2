@@ -35,8 +35,8 @@ export const ProductHeader = ({ product, loading = false }) => {
         console.log('on choose list', list)
         setIsChooseListModalVisible(false)
     }
-    const onCancelChooseList = () => {
-        console.log('on cancel choose list')
+    const onClose = () => {
+        console.log('on close choose list')
         setIsChooseListModalVisible(false)
     }
 
@@ -97,9 +97,10 @@ export const ProductHeader = ({ product, loading = false }) => {
                 <Button onClick={onAddToListClicked} size="large" icon={<HeartOutlined />} />
             </div>
             <Modal
-                visible={isChooseListModalVisible || true}
-                onCancel={onCancelChooseList}
-                footer={null}
+                visible={isChooseListModalVisible}
+                onCancel={onClose}
+                onOk={onClose}
+                cancelButtonProps={{ style: { display: 'none' } }}
                 title="Choose a list"
                 destroyOnClose>
                 <ChooseListModalInner onChooseList={onChooseList} />
