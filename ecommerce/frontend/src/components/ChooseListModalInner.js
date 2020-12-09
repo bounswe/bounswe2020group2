@@ -8,6 +8,7 @@ import { HeartOutlined, HeartFilled } from '@ant-design/icons'
 export const ChooseListModalInner = ({ product, onChooseList }) => {
     const [lists, setLists] = useState([])
     const [loading, setLoading] = useState(true)
+    const [loadingList, setLoadingList] = useState(null)
 
     const getLists = async product => {
         try {
@@ -45,29 +46,33 @@ export const ChooseListModalInner = ({ product, onChooseList }) => {
 
     const removeProductFromList = async (product, list) => {
         try {
+            setLoadingList(list)
             await sleep(1000) // actual code here
             notification.success({ description: 'Added product to list' })
         } catch (error) {
             notification.error({ description: 'Failed to remove product from list' })
         } finally {
+            setLoadingList(null)
         }
     }
 
     const addProductToList = async (product, list) => {
         try {
+            setLoadingList(list)
             await sleep(1000) // actual code here
             notification.success({ description: 'Added product to list' })
         } catch (error) {
             notification.error({ description: 'Failed to remove product from list' })
         } finally {
+            setLoadingList(null)
         }
     }
 
     const onListClick = list => async () => {
         if (list.hasProduct) {
-            await removeProductFromList(list)
+            await removeProductFromList(product, list)
         } else {
-            await addProductToList(list)
+            await addProductToList(product, list)
         }
         await getLists(product)
     }
@@ -81,6 +86,7 @@ export const ChooseListModalInner = ({ product, onChooseList }) => {
                         className={'choose-list-modal-list'}
                         actions={[
                             <Button
+                                loading={list.id === loadingList?.id}
                                 type="ghost"
                                 icon={list.hasProduct ? <HeartFilled /> : <HeartOutlined />}
                                 onClick={onListClick(list)}
