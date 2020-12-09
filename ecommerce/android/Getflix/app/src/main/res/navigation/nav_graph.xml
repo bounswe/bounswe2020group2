@@ -48,24 +48,41 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.getflix.ui.fragments.RegisterFragment"
-        android:label="RegisterFragment" >
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_homePageFragment"
             app:destination="@id/homePageFragment" />
     </fragment>
-    <action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment" />
+
+
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.example.getflix.ui.fragments.CartFragment"
-        android:label="CartFragment" />
+        android:label="CartFragment"
+        tools:layout="@layout/fragment_cart"/>
     <fragment
         android:id="@+id/categoriesFragment"
         android:name="com.example.getflix.ui.fragments.CategoriesFragment"
-        android:label="CategoriesFragment" />
+        android:label="CategoriesFragment" >
+        <action
+            android:id="@+id/action_categoriesFragment_to_subcategoryFragment"
+            app:destination="@id/subcategoryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.example.getflix.ui.fragments.FavoritesFragment"
-        android:label="FavoritesFragment" />
+        android:label="FavoritesFragment"
+        tools:layout="@layout/fragment_favorites"/>
+    <fragment
+        android:id="@+id/subcategoryFragment"
+        android:name="com.example.getflix.ui.fragments.SubcategoryFragment"
+        android:label="SubcategoryFragment"
+        tools:layout="@layout/list_horizontalsubs">
+    <argument
+        android:name="subName"
+        app:argType="string" />
+    </fragment>
 
 </navigation>
 

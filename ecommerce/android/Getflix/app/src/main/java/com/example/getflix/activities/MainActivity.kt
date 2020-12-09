@@ -1,38 +1,31 @@
 package com.example.getflix.activities
 
+
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.getflix.R
-import com.example.getflix.ui.fragments.CartFragment
-import com.example.getflix.ui.fragments.CategoriesFragment
-import com.example.getflix.ui.fragments.HomePageFragment
-import com.example.getflix.ui.fragments.ProfileFragment
-
-
 import com.example.getflix.ui.fragments.*
-import com.google.android.material.bottomnavigation.BottomNavigationView
-
-
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var navController: NavController
 
     // static boolean variable to check the type of the user
     // can be accessed like StaticData.isVisitor, can be used in other classes
     object StaticData {
-        var sproducts = null
-        val scategories = null
-        const val BASE_URL = "http://10.0.2.2:8000/"
+        var name = ""
         var isVisitor = false
         var isCustomer = false
         var isVendor = false
@@ -43,45 +36,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-           /* val toolbar = findViewById<Toolbar>(R.id.toolbar)
-            setSupportActionBar(toolbar)
-            val navController = findNavController(R.id.my_nav_host_fragment)
-            setupActionBarWithNavController(navController) */
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.findNavController()
+        bottom_nav.setupWithNavController(navController)
 
 
-        /*val bottomNavView = findViewById<BottomNavigationView>(R.id.bottom_nav)
-        val navController = findNavController(R.id.my_nav_host_fragment)
-        bottomNavView.setupWithNavController(navController)
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.homePageFragment,
-        R.id.categoriesFragment, R.id.favoritesFragment,R.id.cartFragment,
-        R.id.profileFragment)) */
-        //this.setupActionBarWithNavController(navController,appBarConfiguration)
-
-        val homePageFragment = HomePageFragment()
-        val profileFragment = ProfileFragment()
-        val categoriesFragment = CategoriesFragment()
-        val cartFragment = CartFragment()
-        val favoritesFragment = FavoritesFragment()
-
-        bottom_nav.setOnNavigationItemSelectedListener {
-            when(it.itemId) {
-                R.id.ic_home -> makeCurrentFragment(homePageFragment)
-                R.id.ic_profile -> makeCurrentFragment(profileFragment)
-                R.id.ic_categories -> makeCurrentFragment(categoriesFragment)
-                R.id.ic_cart -> makeCurrentFragment(cartFragment)
-                R.id.ic_favorites -> makeCurrentFragment(favoritesFragment)
-            }
-            true
-        }
     }
 
-    fun makeCurrentFragment(fragment: Fragment) {
-       supportFragmentManager.beginTransaction().apply {
-           replace(R.id.my_nav_host_fragment,fragment)
-           commit()
-       }
-    }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (currentFocus != null) {
@@ -91,4 +52,6 @@ class MainActivity : AppCompatActivity() {
         }
         return super.dispatchTouchEvent(ev)
     }
+
+
 }

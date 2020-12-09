@@ -1,9 +1,12 @@
 import './Layout_common.less'
 import { Layout, Menu, Avatar, Dropdown, Button } from 'antd'
-import { UserOutlined, LogoutOutlined, ShoppingCartOutlined } from '@ant-design/icons'
+import { UserOutlined, LogoutOutlined, ProfileOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useContext } from 'react'
 import { useAppContext } from '../../context/AppContext'
+import { SearchInput } from '../SearchInput'
+import { SearchInputWrapper } from '../search/SearchInputWrapper'
 
 export const GuestHeaderContent = () => {
     return (
@@ -20,16 +23,25 @@ export const GuestHeaderContent = () => {
 
 export const CustomerHeaderContent = () => {
     const { user, logout } = useAppContext()
+    const history = useHistory()
 
     const onMenuItemClick = ({ key }) => {
         if (key === 'logout') {
             logout()
+            history.push('/')
+        } else if (key === 'profile') {
+            history.push({
+                pathname: '/profile',
+            })
         }
     }
 
     const dropdownMenu = () => {
         return (
             <Menu onClick={onMenuItemClick}>
+                <Menu.Item key="profile" icon={<ProfileOutlined />}>
+                    Profile
+                </Menu.Item>
                 <Menu.Item key="logout" icon={<LogoutOutlined />}>
                     Logout
                 </Menu.Item>
@@ -69,6 +81,9 @@ export const Header = () => {
         <Layout.Header className="header">
             <div className="header-logo">
                 <Link to="/">getflix</Link>
+            </div>
+            <div className="header-search-bar">
+                <SearchInputWrapper />
             </div>
             {user.type === 'guest' ? <GuestHeaderContent /> : <CustomerHeaderContent />}
         </Layout.Header>

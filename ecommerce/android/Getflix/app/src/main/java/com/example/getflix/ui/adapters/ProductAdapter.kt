@@ -22,7 +22,7 @@ class ProductAdapter :
     private fun ViewHolder.bind(product: PModel) {
         binding.product = product
         binding.productPrice.text = product.price.toString() + "$"
-       // binding.productImage.setImageResource(getProductImage(product.id))
+        binding.productImage.setImageResource(getProductImage(product.id))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

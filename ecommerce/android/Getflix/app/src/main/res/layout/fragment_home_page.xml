@@ -63,7 +63,8 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="VectorDrawableCompat" />
+                                tools:ignore="VectorDrawableCompat"
+                                android:src="@drawable/ic_fashion"/>
 
                             <TextView
                                 android:id="@+id/text_woman"
@@ -104,7 +105,8 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="VectorDrawableCompat" />
+                                tools:ignore="VectorDrawableCompat"
+                                android:src="@drawable/ic_man"/>
 
                             <TextView
                                 android:id="@+id/text_man"
@@ -152,7 +154,8 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="VectorDrawableCompat" />
+                                tools:ignore="VectorDrawableCompat"
+                                android:src="@drawable/ic_toys"/>
 
                             <TextView
                                 android:id="@+id/text_toys"
@@ -192,7 +195,8 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="VectorDrawableCompat" />
+                                tools:ignore="VectorDrawableCompat"
+                                android:src="@drawable/ic_cosmetics"/>
 
                             <TextView
                                 android:id="@+id/text_cosmetics"
@@ -239,7 +243,8 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="VectorDrawableCompat" />
+                                tools:ignore="VectorDrawableCompat"
+                                android:src="@drawable/ic_furniture"/>
 
                             <TextView
                                 android:id="@+id/text_furniture"
@@ -280,7 +285,8 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="VectorDrawableCompat" />
+                                tools:ignore="VectorDrawableCompat"
+                                android:src="@drawable/ic_electronics"/>
 
                             <TextView
                                 android:id="@+id/text_electronics"
@@ -327,7 +333,8 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="VectorDrawableCompat" />
+                                tools:ignore="VectorDrawableCompat"
+                                android:src="@drawable/ic_movie"/>
 
                             <TextView
                                 android:id="@+id/text_movies"
@@ -367,7 +374,8 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="VectorDrawableCompat" />
+                                tools:ignore="VectorDrawableCompat"
+                                android:src="@drawable/ic_music"/>
 
                             <TextView
                                 android:id="@+id/text_music"
@@ -414,7 +422,8 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="VectorDrawableCompat" />
+                                tools:ignore="VectorDrawableCompat"
+                                android:src="@drawable/ic_dog_food"/>
 
                             <TextView
                                 android:id="@+id/text_pet"
@@ -454,7 +463,8 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="VectorDrawableCompat" />
+                                tools:ignore="VectorDrawableCompat"
+                                android:src="@drawable/ic_tennis_racket"/>
 
                             <TextView
                                 android:id="@+id/text_sport"

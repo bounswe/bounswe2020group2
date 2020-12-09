@@ -75,15 +75,6 @@ export const SearchSidePanel = ({ initialValues = {}, onSubmit = () => {} }) => 
                     ))}
                 </Select>
             </Form.Item>
-            <Form.Item name="vendor" label="Vendor">
-                <Select placeholder="Vendor..." allowClear>
-                    {Object.entries(vendors).map(([key, value]) => (
-                        <Select.Option key={key} value={key}>
-                            {value}
-                        </Select.Option>
-                    ))}
-                </Select>
-            </Form.Item>
             <Form.Item name="brand" label="Brand">
                 <Select placeholder="Brand..." allowClear>
                     {Object.entries(brands).map(([key, value]) => (

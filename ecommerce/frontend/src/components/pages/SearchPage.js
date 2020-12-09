@@ -12,6 +12,7 @@ import { categories, sleep, subcategories } from '../../utils'
 import { SearchResults } from '../search/SearchResults'
 import { SearchSidePanel } from '../search/SearchSidePanel'
 import { SearchInput } from '../SearchInput'
+import { api } from '../../api'
 
 /**
  * This is a wrapper around the real _SearchPage component
@@ -56,20 +57,39 @@ export const _SearchPage = ({ initialValues = {} }) => {
         async function fetch() {
             try {
                 setIsLoading(true)
-                await sleep(1000)
-                const total = 50
+                const total = 20
+                const { data: products } = await api.get(`/products/homepage/${total}`)
                 setProducts(
-                    [...Array(total)].map(x => {
+                    products.map(p => {
                         return {
-                            title: 'Title',
-                            rating: '5',
-                            price: '30.00',
+                            id: p.id,
+                            title: p.name,
+                            rating: p.total_rating,
+                            price: p.price,
                             currency: 'TL',
-                            imageUrl: `https://picsum.photos/300?q=${uuidv4()}`,
-                            id: uuidv4(),
+                            imageUrl: p.image_url,
                         }
                     }),
                 )
+
+                console.log(products)
+                // await sleep(1000)
+                // const total = 50
+                // let i = 0
+
+                // setProducts(
+                //     [...Array(total)].map(x => {
+                //         i = i + 1
+                //         return {
+                //             title: 'Title',
+                //             rating: '5',
+                //             price: '30.00',
+                //             currency: 'TL',
+                //             imageUrl: `https://picsum.photos/300?q=${uuidv4()}`,
+                //             id: i,
+                //         }
+                //     }),
+                // )
                 setTotal(total)
 
                 notification.success({ description: 'Search results ready!' })
@@ -128,9 +148,6 @@ export const _SearchPage = ({ initialValues = {} }) => {
                 <title>{getTitle(values)}</title>
             </Helmet>
             <div className={'search-page'}>
-                <div className="search-page-bar">
-                    <SearchInput initialValues={values.search} onSearch={onSearch} />
-                </div>
                 <div className="search-page-main">
                     <div className="search-page-side-panel">
                         <SearchSidePanel initialValues={values.filters} onSubmit={onSubmitFilters} />

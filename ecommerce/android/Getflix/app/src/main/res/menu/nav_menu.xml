@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-      android:id="@+id/ic_home"
+      android:id="@+id/homePageFragment"
       android:title="@string/home"
       android:icon="@drawable/menu_home"/>
 
     <item
-        android:id="@+id/ic_categories"
+        android:id="@+id/categoriesFragment"
         android:title="@string/categories"
         android:icon="@drawable/menu_category"/>
 
     <item
-        android:id="@+id/ic_favorites"
+        android:id="@+id/favoritesFragment"
         android:title="@string/favorites"
         android:icon="@drawable/menu_favorite"/>
 
     <item
-        android:id="@+id/ic_cart"
+        android:id="@+id/cartFragment"
         android:title="@string/cart"
         android:icon="@drawable/menu_cart"/>
 
     <item
-        android:id="@+id/ic_profile"
+        android:id="@+id/profileFragment"
         android:title="@string/profile"
         android:icon="@drawable/menu_profile"/>
 

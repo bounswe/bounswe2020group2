@@ -1,60 +1,57 @@
 package com.example.getflix.ui.adapters
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.getflix.adapters.ProductAdapter
-import com.example.getflix.databinding.FragmentSubcategoryBinding
+import com.example.getflix.databinding.FavproductLayoutBinding
 import com.example.getflix.models.ProductModel
-import com.example.getflix.models.SubcategoryModel
 
-class SubcategoryAdapter(private var context: Context) :
-    ListAdapter<SubcategoryModel, SubcategoryAdapter.ViewHolder>(SubcategoryDiffCallback()) {
+class SubCategoryAdapter(
+    private val productList: ArrayList<ProductModel>?,
+) : ListAdapter<ProductModel, SubCategoryAdapter.RowHolder>(SubcategoryDiffCallback()) {
 
+    class RowHolder(val binding: FavproductLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
-    }
+        fun bind(product: ProductModel, position: Int) {
+            binding.product = product
 
-    private fun ViewHolder.bind(subcategoryModel: SubcategoryModel) {
-        val productAdapter = ProductAdapter()
-        binding.subcategory = subcategoryModel
-        binding.productList.adapter = productAdapter
-        binding.productList.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        productAdapter.submitList(subcategoryModel.products)
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent)
-    }
-
-    class ViewHolder private constructor(val binding: FragmentSubcategoryBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        companion object {
-            fun from(parent: ViewGroup): ViewHolder {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = FragmentSubcategoryBinding.inflate(layoutInflater, parent, false)
-                return ViewHolder(binding)
-            }
         }
 
+        companion object {
+            fun from(parent: ViewGroup): RowHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = FavproductLayoutBinding.inflate(layoutInflater,parent,false)
+                return RowHolder(binding)
+            }
+        }
     }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowHolder {
+        return RowHolder.from(parent)
+    }
+
+    /*override fun getItemCount(): Int {
+        if (productList != null) {
+            return productList.count()
+        }
+        return 0;
+    }*/
+
+    override fun onBindViewHolder(holder: RowHolder, position: Int) {
+        productList?.get(position)?.let { holder.bind(it, position) }
+    }
+
+
 }
 
-class SubcategoryDiffCallback : DiffUtil.ItemCallback<SubcategoryModel>() {
-    override fun areItemsTheSame(oldItem: SubcategoryModel, newItem: SubcategoryModel): Boolean {
-        return oldItem === newItem
+class SubcategoryDiffCallback: DiffUtil.ItemCallback<ProductModel>() {
+    override fun areItemsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
+        return oldItem.id == newItem.id
     }
 
-    @SuppressLint("DiffUtilEquals")
-    override fun areContentsTheSame(oldItem: SubcategoryModel, newItem: SubcategoryModel): Boolean {
+    override fun areContentsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
         return oldItem == newItem
     }
 
