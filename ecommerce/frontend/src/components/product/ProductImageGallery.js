@@ -10,6 +10,10 @@ export const ProductImageGallery = ({ product, loading = false }) => {
     const getImages = () => {
         if (loading) return []
 
+        // this needs to be updated when the json for product endpoint is clear
+        // return product.pictures
+
+        // right now using mock photos for testing
         return [
             product.image_url,
             'https://picsum.photos/id/237/200/300',
