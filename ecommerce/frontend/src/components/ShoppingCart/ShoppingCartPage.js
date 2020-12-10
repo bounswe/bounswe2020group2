@@ -5,6 +5,7 @@ import React, { Component, useEffect, useState } from 'react'
 
 import { useAppContext } from '../../context/AppContext'
 import { ShoppingCartItems } from './ShoppingCartItems'
+import { Link } from 'react-router-dom'
 
 export const ShoppingCartPage = ({ currency = 'TL' }) => {
     const [isLoading, setIsLoading] = useState(true)
@@ -57,8 +58,8 @@ export const ShoppingCartPage = ({ currency = 'TL' }) => {
                     </Row>
                 </div>
                 <div className="shopping-proceed-button">
-                    <Button type="primary" onClick={onCheckout} block>
-                        Proceed to payment
+                    <Button type="primary" onClick={onCheckout} block disabled={shoppingCart?.length === 0}>
+                        <Link to="/checkout">Proceed to payment</Link>
                     </Button>
                 </div>
             </div>
