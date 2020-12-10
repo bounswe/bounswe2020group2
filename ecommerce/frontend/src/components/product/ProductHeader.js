@@ -69,6 +69,18 @@ export const ProductHeader = ({ product, loading = false }) => {
         return <Result status="500" title="Something is not right..." subTitle="Sorry, we can't find the product" />
     }
 
+    const getVendorRatingLevel = rating => {
+        if (rating <= 5.0) {
+            return 'low'
+        }
+
+        if (rating <= 8.0) {
+            return 'medium'
+        }
+
+        return 'high'
+    }
+
     return (
         <div className="product-header">
             <div className="product-header-gallery">
@@ -81,7 +93,13 @@ export const ProductHeader = ({ product, loading = false }) => {
             <div className="product-header-vendor">
                 <span className="product-header-vendor-label">Vendor:</span>&nbsp;
                 <Link to={`/vendor/${product.vendor}`}>{product.vendor}</Link>
-                &nbsp;<span className="product-header-vendor-rating">{product.vendor_rating ?? 9.7}</span>
+                &nbsp;
+                <span
+                    className={`product-header-vendor-rating product-header-vendor-rating__${getVendorRatingLevel(
+                        product.vendor_rating,
+                    )}`}>
+                    {product.vendor_rating ?? 9.7}
+                </span>
             </div>
             <div className="product-header-extra">
                 <ProductExtra product={product} loading={loading} />
