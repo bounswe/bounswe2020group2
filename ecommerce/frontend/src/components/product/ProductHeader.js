@@ -1,7 +1,7 @@
 import './ProductHeader.less'
 
 import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons'
-import { Button, Modal, Skeleton } from 'antd'
+import { Alert, Button, Modal, Result, Skeleton } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ProductImageGallery } from './ProductImageGallery'
@@ -66,6 +66,10 @@ export const ProductHeader = ({ product, loading = false }) => {
                 </div>
             </div>
         )
+    }
+
+    if (!loading && !product) {
+        return <Result status="500" title="Something is not right..." subTitle="Sorry, we can't find the product" />
     }
 
     return (
