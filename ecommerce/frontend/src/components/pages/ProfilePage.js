@@ -1,30 +1,28 @@
 import './ProfilePage.less'
 import { ProfileDetails } from '../profile/ProfileDetails'
 import { ProfileContent } from '../profile/ProfileContent'
-import getflixLogo from '../../assets/logo.png'
 import { useAppContext } from '../../context/AppContext'
+import { Tabs, Radio, Space } from 'antd';
+const { TabPane } = Tabs;
 
 export const ProfilePage = () => {
     // future version
     const { user } = useAppContext()
     return (
-        <div>
-            <div className="logo-name-splash">
-                <img src={getflixLogo} className="splash-logo"></img>
-                <div className="splash-slogan">
-                    <h1>
-                        {user.name}&nbsp;&nbsp;{user.surname}
-                    </h1>
-                </div>
-            </div>
-            <div className="profile-page-wrapper">
-                <div className="left-bar-profile-details">
-                    <ProfileDetails />
-                </div>
+        <div className="profile-page-wrapper">
+            <Tabs tabPosition="top">
+                <TabPane tab="Update Profile" key="update-profile">
                 <div className="right-bar-profile-content">
                     <ProfileContent key={user.id} user={user} />
                 </div>
-            </div>
+                </TabPane>
+                <TabPane tab="Purchase History" key="purchase-history">
+                    TO DO: Purchase History to be implemented
+                </TabPane>
+                <TabPane tab="Messages" key="messages">
+                    TO DO: Messages to be implemented
+                </TabPane>
+            </Tabs>
         </div>
     )
 }
