@@ -107,7 +107,7 @@ export const ProductHeader = ({ product, loading = false }) => {
                 cancelButtonProps={{ style: { display: 'none' } }}
                 title="Choose a list"
                 destroyOnClose>
-                <ChooseListModalInner />
+                <ChooseListModalInner product={product} />
             </Modal>
         </div>
     )
