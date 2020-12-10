@@ -5,7 +5,7 @@ import { Button, List, notification, Skeleton } from 'antd'
 import { sleep } from '../utils'
 import { HeartOutlined, HeartFilled } from '@ant-design/icons'
 
-export const ChooseListModalInner = ({ product, onChooseList }) => {
+export const ChooseListModalInner = ({ product }) => {
     const [lists, setLists] = useState([])
     const [loading, setLoading] = useState(true)
     const [loadingList, setLoadingList] = useState(null)
