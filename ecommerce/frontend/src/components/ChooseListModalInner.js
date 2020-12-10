@@ -93,7 +93,7 @@ export const ChooseListModalInner = ({ product }) => {
     }
 
     return (
-        <List loading={loading} size="large" itemLayout="horizontal">
+        <List size="large" itemLayout="horizontal">
             {lists.map((list, ix) => {
                 return (
                     <List.Item
