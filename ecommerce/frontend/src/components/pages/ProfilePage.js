@@ -2,8 +2,8 @@ import './ProfilePage.less'
 import { ProfileDetails } from '../profile/ProfileDetails'
 import { ProfileContent } from '../profile/ProfileContent'
 import { useAppContext } from '../../context/AppContext'
-import { Tabs, Radio, Space } from 'antd';
-const { TabPane } = Tabs;
+import { Tabs, Radio, Space } from 'antd'
+const { TabPane } = Tabs
 
 export const ProfilePage = () => {
     // future version
@@ -12,9 +12,9 @@ export const ProfilePage = () => {
         <div className="profile-page-wrapper">
             <Tabs tabPosition="top">
                 <TabPane tab="Update Profile" key="update-profile">
-                <div className="right-bar-profile-content">
-                    <ProfileContent key={user.id} user={user} />
-                </div>
+                    <div className="right-bar-profile-content">
+                        <ProfileContent key={user.id} user={user} />
+                    </div>
                 </TabPane>
                 <TabPane tab="Purchase History" key="purchase-history">
                     TO DO: Purchase History to be implemented
