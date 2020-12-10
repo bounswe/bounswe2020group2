@@ -31,10 +31,7 @@ export const ProductHeader = ({ product, loading = false }) => {
         console.log('on add to list', product)
         setIsChooseListModalVisible(true)
     }
-    const onChooseList = list => {
-        console.log('on choose list', list)
-        setIsChooseListModalVisible(false)
-    }
+
     const onClose = () => {
         console.log('on close choose list')
         setIsChooseListModalVisible(false)
