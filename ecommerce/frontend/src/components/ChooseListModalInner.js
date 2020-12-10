@@ -49,7 +49,6 @@ export const ChooseListModalInner = ({ product }) => {
         try {
             setLoadingList(list)
             await sleep(1000) // actual code here
-            notification.success({ description: 'Removed product from list' })
         } catch (error) {
             notification.error({ description: 'Failed to remove product from list' })
         } finally {
@@ -61,7 +60,6 @@ export const ChooseListModalInner = ({ product }) => {
         try {
             setLoadingList(list)
             await sleep(1000) // actual code here
-            notification.success({ description: 'Added product to list' })
         } catch (error) {
             notification.error({ description: 'Failed to remove product from list' })
         } finally {
