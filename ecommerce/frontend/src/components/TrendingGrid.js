@@ -10,7 +10,9 @@ export const TrendingGrid = ({ trendingProducts }) => {
                         <img src={product.imageUrl} className="gallery__img" alt="" />
                         <div class="product-info">
                             <div class="product-name">{product.title}</div>
-                            <div class="product-price">{product.price}&nbsp;{product.currency}</div>
+                            <div class="product-price">
+                                {product.price}&nbsp;{product.currency}
+                            </div>
                         </div>
                     </Link>
                 </figure>
