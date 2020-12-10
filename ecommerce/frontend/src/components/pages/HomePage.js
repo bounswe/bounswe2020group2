@@ -59,7 +59,7 @@ const HomePage_MainContent = () => {
                         id: 1324,
                     },
                     {
-                        title: 'Watch',
+                        title: ' Watch',
                         rating: '5',
                         price: '45.00',
                         currency: 'TL',
@@ -67,7 +67,7 @@ const HomePage_MainContent = () => {
                         id: 2123,
                     },
                     {
-                        title: 'onlar iyi',
+                        title: 'Nivea Care Package',
                         rating: '5',
                         price: '30.00',
                         currency: 'TL',
@@ -75,7 +75,7 @@ const HomePage_MainContent = () => {
                         id: 32345,
                     },
                     {
-                        title: 'fena biji',
+                        title: 'Cocooil Shampoo',
                         rating: '5',
                         price: '45.00',
                         currency: 'TL',
