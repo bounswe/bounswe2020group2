@@ -34,6 +34,7 @@ class Product (models.Model):
 class ImageUrls (models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE) #product id  
     image_url = models.CharField(max_length=255)
+    index = models.IntegerField(default=0)
 
 
 #productlist
