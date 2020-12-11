@@ -3,11 +3,12 @@ package com.example.getflix.ui.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.getflix.models.CategoryModel
-import com.example.getflix.models.PModel
-import com.example.getflix.models.SubcategoryModel
+import com.example.getflix.models.*
 import com.example.getflix.services.GetflixApi
 import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CategoriesViewModel: ViewModel() {
 
@@ -15,8 +16,8 @@ class CategoriesViewModel: ViewModel() {
     val categoriesList: LiveData<MutableList<CategoryModel>>
         get() = _categoriesList
 
-    private val _products = MutableLiveData<List<PModel>>()
-    val products: LiveData<List<PModel>>?
+    private val _products = MutableLiveData<List<ProductModel>>()
+    val products: LiveData<List<ProductModel>>?
         get() = _products
 
 
@@ -69,6 +70,28 @@ class CategoriesViewModel: ViewModel() {
         }
     }
 
+    fun addToCart(amount: Int, proId: Int) {
+        GetflixApi.getflixApiService.addCartProduct(20,CardProRequest(amount,proId))
+                .enqueue(object :
+                        Callback<CardProResponse> {
+                    override fun onFailure(call: Call<CardProResponse>, t: Throwable) {
+                        // TODO
+                        println("xx")
+                    }
+
+                    override fun onResponse(
+                            call: Call<CardProResponse>,
+                            response: Response<CardProResponse>
+                    ) {
+                        println(response.body().toString())
+                        println(response.code())
+                        if(response.body()!!.successful)
+                        println(response.body().toString())
+                    }
+                }
+                )
+    }
+
     fun addCategory(categoryModel: CategoryModel) {
         if(_categoriesList.value!=null) {
             val categories = _categoriesList.value
@@ -82,13 +105,13 @@ class CategoriesViewModel: ViewModel() {
 
     }
 
-    fun setCategories(products: MutableList<PModel>) {
+    fun setCategories(products: MutableList<ProductModel>) {
         val catList = arrayListOf<CategoryModel>()
         for(pro in products) {
             if(!catList.any {pro.category == it.name}) {
                 println("burda  " + pro.category)
                 val subCats = arrayListOf<SubcategoryModel>()
-                val products = arrayListOf<PModel>()
+                val products = arrayListOf<ProductModel>()
                 products.add(pro)
                 subCats.add(SubcategoryModel(pro.subcategory,products))
                 catList.add(CategoryModel(pro.category,subCats))
@@ -99,7 +122,7 @@ class CategoriesViewModel: ViewModel() {
                         var ind = catList.indexOf(cat)
                         if(!catList[ind].subCats.any {pro.subcategory == it.name}) {
                             println("burda xx  " + pro.subcategory)
-                            val products = arrayListOf<PModel>()
+                            val products = arrayListOf<ProductModel>()
                             products.add(pro)
                             catList[ind].subCats.add(SubcategoryModel(pro.subcategory,products))
                         }

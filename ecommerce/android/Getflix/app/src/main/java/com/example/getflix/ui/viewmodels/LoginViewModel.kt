@@ -22,6 +22,11 @@ class LoginViewModel : ViewModel() {
     val onLogin: LiveData<Boolean>
         get() = _onLogin
 
+    private val _user = MutableLiveData<User>()
+    val user: LiveData<User>
+        get() = _user
+
+
     private fun getUserFromBackend() {
         GetflixApi.getflixApiService.getUserInformation(_logReq.value!!)
                 .enqueue(object :
@@ -35,9 +40,10 @@ class LoginViewModel : ViewModel() {
                             call: Call<LoginResponse>,
                             response: Response<LoginResponse>
                     ) {
-                        System.out.println("HElllloooo")
-                        _onLogin.value = true
-                        System.out.println(response.body().toString())
+                        if(response.body()!!.status.message == "Giriş başarılı") {
+                            _onLogin.value = true
+                            _user.value = response.body()!!.user
+                        }
                     }
                 }
                 )

@@ -9,7 +9,7 @@ import com.example.getflix.databinding.FavproductLayoutBinding
 import com.example.getflix.models.ProductModel
 
 class FavoritesAdapter(
-    private val productList: ArrayList<ProductModel>?,
+        private val productList: ArrayList<ProductModel>?,
 ) : ListAdapter<ProductModel, FavoritesAdapter.RowHolder>(FavoritesDiffCallback()) {
 
     class RowHolder(val binding: FavproductLayoutBinding) : RecyclerView.ViewHolder(binding.root) {

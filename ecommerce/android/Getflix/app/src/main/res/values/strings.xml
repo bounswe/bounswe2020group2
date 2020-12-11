@@ -46,6 +46,15 @@
     <string name="sign_up">Hesabın yok mu? Kaydol</string>
     <string name="guest">Misafir</string>
     <string name="guest_cont">Misafir olarak devam et</string>
+    <string-array name="SortBy">
+        <item>---</item>
+        <item>Çok Satanlar</item>
+        <item>Yeni Gelenler</item>
+        <item>Fiyat</item>
+        <item>Puan</item>
+        <item>Yorum Sayısı</item>
+    </string-array>
+    <string name="sort">Sort By:</string>
 
 
 </resources>
