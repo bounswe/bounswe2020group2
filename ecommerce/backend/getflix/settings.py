@@ -19,14 +19,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 import json
 import os
 from django.core.exceptions import ImproperlyConfigured
-secrets = {
+'''secrets = {
     'HOST': os.environ.get('DB_HOST'),
     'USER': os.environ.get('DB_USER'),
     'PASSWORD': os.environ.get('DB_PASSWORD'),
-}
+}'''
 
-'''with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
-    secrets = json.load(secrets_file)'''
+with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
+    secrets = json.load(secrets_file)
 
 def get_debug():
     debug = os.environ.get("DEBUG")
@@ -119,7 +119,7 @@ WSGI_APPLICATION = 'getflix.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'testdb',
+        'NAME': 'mytestdb',
         'USER': get_secret('USER'),
         'PASSWORD': get_secret('PASSWORD'),
         'HOST': get_secret("HOST"),

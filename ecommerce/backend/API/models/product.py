@@ -24,8 +24,8 @@ class Product (models.Model):
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE) #vendor id  
     image_url = models.CharField(max_length=255)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE) #brand id  
-    total_rating = models.IntegerField()
-    rating_count = models.IntegerField()
+    total_rating = models.IntegerField(default=0)
+    rating_count = models.IntegerField(default=0)
     stock_amount = models.IntegerField()
     description = models.CharField(max_length=255)
 
