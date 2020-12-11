@@ -20,9 +20,9 @@ import json
 import os
 from django.core.exceptions import ImproperlyConfigured
 secrets = {
-    'HOST': os.environ.get('DB_HOST'),
-    'USER': os.environ.get('DB_USER'),
-    'PASSWORD': os.environ.get('DB_PASSWORD'),
+    'HOST': 'localhost',
+    'USER': 'postgres',
+    'PASSWORD': '123123'
 }
 
 '''with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
