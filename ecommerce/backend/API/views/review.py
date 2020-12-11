@@ -8,7 +8,6 @@ from ..models import Review, Product, Vendor
 from ..utils import validate_review_request
 from ..serializers import review_serializer
 
-
 @api_view(['POST'])
 @permission_classes([permissions.IsCustomerUser])
 def add_comment(request):
