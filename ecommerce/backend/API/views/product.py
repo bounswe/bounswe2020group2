@@ -5,7 +5,7 @@ from rest_framework import status
 import json
 
 from ..utils import permissions, Role
-from ..models import Product,Vendor,ImageUrls
+from ..models import Product,Vendor,ImageUrls,Category,Subcategory
 from ..serializers.product_serializer import ProductSerializer
 
 @api_view(['GET'])
@@ -19,6 +19,12 @@ def product_detail(request, productId):
 
     product = Product.objects.filter(id=productId).first()
     v_id = product.vendor_id
+    brand_id = product.brand_id
+    subcategory_id = product.subcategory_id
+    subcategory = Subcategory.objects.filter(id=subcategory_id).first()
+    category = Category.objects.filter(id=subcategory.category_id).first()
+    category_name = category.name
+    category_id = category.id
 
     images = ImageUrls.objects.filter(product_id=product.id).values('image_url')
     image_list = []
@@ -44,10 +50,28 @@ def product_detail(request, productId):
         returnData['rating']=rating 
     else:
         returnData['rating']=None
+    
+    brand_name= returnData['brand']
+    returnData['brand']={'name':brand_name,'id':brand_id}
 
-    returnData['vendor_rating']=vendor_rating
+    subcategory_name = returnData['subcategory']
+    returnData['subcategory']={'name':subcategory_name,'id':subcategory_id}
+
+    vendor_name = returnData['vendor']
+    returnData['vendor']={'rating':vendor_rating,'id':v_id,'name':vendor_name}
 
     returnData['images']=image_list
+
+    old_price = returnData['price']
+
+    price = old_price*(1-returnData['discount'])
+
+    returnData['price'] = int(price)
+
+    returnData['old_price'] = old_price
+
+    returnData['category'] ={'id':category_id,'name':category_name}
+
     
     return Response(returnData)
 
