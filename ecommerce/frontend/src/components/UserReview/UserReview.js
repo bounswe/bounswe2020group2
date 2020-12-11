@@ -1,8 +1,8 @@
 import moment from 'moment'
 import { Rate } from 'antd'
 import { Link } from 'react-router-dom'
-import './Review.less'
-export const Review = ({ review: { comment, author, date, rating } }) => {
+import './UserReview.less'
+export const UserReview = ({ review: { comment, author, date, rating } }) => {
     const dateFmt = moment(date).format('LL')
 
     return (

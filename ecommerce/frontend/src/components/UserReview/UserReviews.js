@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Pagination, Spin } from 'antd'
-import './UserReview.less'
+import './UserReviews.less'
 import { sleep } from '../../utils'
 import { api } from '../../api'
-import { Review } from './Review'
+import { UserReview } from './UserReview'
 
-export const UserReview = ({ productId = 1, pageSize = 10 }) => {
+export const UserReviews = ({ productId = 1, pageSize = 10, totalPage = 50 }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [currentPage, setCurrentPage] = useState(1)
     const [reviews, setReviews] = useState([])
@@ -84,7 +84,7 @@ export const UserReview = ({ productId = 1, pageSize = 10 }) => {
                     {reviews.map((review, index) => {
                         return (
                             <div key={review.id}>
-                                <Review review={review} />
+                                <UserReview review={review} />
                                 {index < reviews.length - 1 && <hr style={{ margin: 0 }}></hr>}
                             </div>
                         )
@@ -95,8 +95,9 @@ export const UserReview = ({ productId = 1, pageSize = 10 }) => {
             <Pagination
                 className="review-results-pagination"
                 onChange={onPaginationChanged}
-                defaultCurrent={currentPage}
-                total={60}
+                current={currentPage}
+                defaultPageSize={pageSize}
+                total={totalPage}
             />
         </div>
     )
