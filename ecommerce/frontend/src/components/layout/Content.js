@@ -12,7 +12,7 @@ import { SignupPage } from '../pages/SignupPage'
 import { ShoppingCartPage } from '../ShoppingCart/ShoppingCartPage'
 import { CategoryBar } from '../CategoryBar'
 import { CheckoutPage } from '../pages/CheckoutPage'
-import { UserReview } from '../UserReview'
+import { UserReview } from '../review/UserReview'
 
 export const Content = () => {
     return (

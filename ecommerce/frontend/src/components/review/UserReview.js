@@ -1,37 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Rate, Pagination, Spin } from 'antd'
-import { Link } from 'react-router-dom'
+import { Pagination, Spin } from 'antd'
 import './UserReview.less'
-import { sleep } from '../utils'
-import { api } from '../api'
-import moment from 'moment'
-
-const Review = ({ review: { comment, author, date, rating } }) => {
-    const dateFmt = moment(date).format('LL')
-
-    return (
-        <div className="review-item-content">
-            <div className="rate-and-message">
-                <div className="rate">
-                    <Rate defaultValue={rating} disabled></Rate>
-                </div>
-                <div className="message">
-                    <p>{comment}</p>
-                </div>
-            </div>
-            <div className="author-and-date">
-                <Link to="/">
-                    <div className="author">
-                        <p>{author}</p>
-                    </div>
-                </Link>
-                <div className="date">
-                    <p>{dateFmt}</p>
-                </div>
-            </div>
-        </div>
-    )
-}
+import { sleep } from '../../utils'
+import { api } from '../../api'
+import { Review } from './Review'
 
 export const UserReview = ({ productId = 1, pageSize = 10 }) => {
     const [isLoading, setIsLoading] = useState(true)
