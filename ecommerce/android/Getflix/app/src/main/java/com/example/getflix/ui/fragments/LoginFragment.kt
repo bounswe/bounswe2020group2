@@ -1,11 +1,15 @@
 package com.example.getflix.ui.fragments
 
+import android.content.Context
+import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -17,6 +21,8 @@ import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.action
 import com.example.getflix.ui.viewmodels.LoginViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
+import org.intellij.lang.annotations.Language
+import java.util.*
 
 
 class LoginFragment : Fragment() {
@@ -37,6 +43,12 @@ class LoginFragment : Fragment() {
                 container, false
         )
 
+        if(resources.configuration.locale.language=="tr") {
+            binding.lang.text = "EN"
+        } else {
+            binding.lang.text = "TR"
+        }
+
 
 
         activity?.toolbar_lay!!.visibility = View.GONE
@@ -48,6 +60,16 @@ class LoginFragment : Fragment() {
         binding.loginViewModel = loginViewModel
         binding.lifecycleOwner = this
 
+        binding.lang.setOnClickListener {
+            if(binding.lang.text.toString()=="TR") {
+                setLocale("tr")
+                binding.lang.text = "EN"
+            }
+            else {
+                setLocale("en")
+                binding.lang.text = "TR"
+            }
+        }
 
 
         binding.login.setOnClickListener {
@@ -117,6 +139,27 @@ class LoginFragment : Fragment() {
             Log.w(TAG, "signInResult:failed code=" + e.statusCode)
         }
     }*/
+
+    private fun setLocale(localeName: String) {
+        var currentLanguage = ""
+        var currentLang = ""
+        if (localeName != currentLanguage) {
+            var locale = Locale(localeName)
+            val res = resources
+            val dm = res.displayMetrics
+            val conf = res.configuration
+            conf.setLocale(locale)
+            res.updateConfiguration(conf, dm)
+            val refresh = Intent(
+                    context,
+                    MainActivity::class.java
+            )
+            refresh.putExtra(currentLang, localeName)
+            startActivity(refresh)
+        } else {
+
+        }
+    }
 
 
 }
