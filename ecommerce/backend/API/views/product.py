@@ -48,6 +48,14 @@ def product_detail(request, productId):
     returnData['vendor_rating']=vendor_rating
 
     returnData['images']=image_list
+
+    old_price = returnData['price']
+
+    price = old_price*(1-returnData['discount'])
+
+    returnData['price'] = int(price)
+
+    returnData['old_price'] = old_price
     
     return Response(returnData)
 
