@@ -10,7 +10,7 @@ def can_review_product(user_id, product_id):
     if product is None or user is None:
         return (False, "Product is not found.")
     order = Purchase.objects.filter(user=user).filter(product=product).filter(status=OrderStatus.DELIVERED.value).first()
-    review = Review.objects.filter(reviewed_by=user).filter(product=product).first()
+    review = Review.objects.filter(reviewed_by=user).filter(product=product).filter(is_deleted=False).first()
     if order is None:
         return (False, "You cannot review a product that you have not bought.")
     elif review is not None:
@@ -32,7 +32,7 @@ def can_review_vendor(user_id, vendor_id):
             break
     if not bought_from_vendor:
         return (False, "You cannot review a vendor that you have not purchased a prouct from.")
-    review = Review.objects.filter(reviewed_by=user).filter(vendor=vendor).first()
+    review = Review.objects.filter(reviewed_by=user).filter(vendor=vendor).filter(is_deleted=False).first()
     if review is not None:
         return (False, "You have already reviewed this vendor.")
     return(True, "Success")
