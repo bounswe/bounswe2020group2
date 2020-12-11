@@ -30,7 +30,7 @@ def product_detail(request, productId):
     if vendor.rating_count != 0:
         vendor_rating = vendor.total_rating/vendor.rating_count
     else:
-        vendor_rating = 'not rated yet'
+        vendor_rating = None
 
     serializer = ProductSerializer(product_query, many=True)
     returnData = serializer.data[0]
@@ -43,7 +43,7 @@ def product_detail(request, productId):
         rating = total_rating/rating_count
         returnData['rating']=rating 
     else:
-        returnData['rating']='not rated yet'
+        returnData['rating']=None
 
     returnData['vendor_rating']=vendor_rating
 
