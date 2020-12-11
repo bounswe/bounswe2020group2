@@ -11,16 +11,16 @@ export const ProductImageGallery = ({ product, loading = false }) => {
         if (loading) return []
 
         // this needs to be updated when the json for product endpoint is clear
-        // return product.pictures
+        return product.images
 
         // right now using mock photos for testing
-        return [
-            product.image_url,
-            'https://picsum.photos/id/237/200/300',
-            'https://picsum.photos/id/102/400/500',
-            'https://picsum.photos/id/27/200/300',
-            'https://picsum.photos/id/72/600/300',
-        ]
+        // return [
+        //     product.image_url,
+        //     'https://picsum.photos/id/237/200/300',
+        //     'https://picsum.photos/id/102/400/500',
+        //     'https://picsum.photos/id/27/200/300',
+        //     'https://picsum.photos/id/72/600/300',
+        // ]
     }
 
     const images = getImages()

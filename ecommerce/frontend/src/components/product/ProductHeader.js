@@ -8,6 +8,7 @@ import { ProductImageGallery } from './ProductImageGallery'
 import { ProductExtra } from './ProductExtra'
 import { ChooseListModalInner } from '../ChooseListModalInner'
 import { useAppContext } from '../../context/AppContext'
+import { round } from '../../utils'
 
 export const ProductHeader = ({ product, loading = false }) => {
     const { addShoppingCartItem } = useAppContext()
@@ -88,7 +89,7 @@ export const ProductHeader = ({ product, loading = false }) => {
             </div>
             <div className="product-header-main">
                 <h1 className="product-header-main-title">{product.name}</h1>
-                <p>{product.description}</p>
+                <p>{product.short_description}</p>
             </div>
             <div className="product-header-vendor">
                 <span className="product-header-vendor-label">Vendor:</span>&nbsp;
@@ -98,7 +99,7 @@ export const ProductHeader = ({ product, loading = false }) => {
                     className={`product-header-vendor-rating product-header-vendor-rating__${getVendorRatingLevel(
                         product.vendor_rating,
                     )}`}>
-                    {product.vendor_rating ?? 9.7}
+                    {round(product.vendor_rating ?? 9.7, 2)}
                 </span>
             </div>
             <div className="product-header-extra">

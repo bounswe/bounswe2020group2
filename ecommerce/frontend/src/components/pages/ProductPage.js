@@ -19,9 +19,7 @@ export const ProductPage = props => {
                 console.log('fetching product', productId)
                 const { data } = await api.get(`/product/${productId}`)
                 console.log('received product data', data)
-                // Returns as an array of items. Take the first
-                // Need to inform backend to return just the item itself
-                setProduct(data[0])
+                setProduct(data)
             } catch (error) {
                 console.error('failed to load trending products', error)
                 notification.error({ description: `Failed to get product ${productId}` })
