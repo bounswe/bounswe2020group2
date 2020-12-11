@@ -8,9 +8,47 @@ from ..models import Review, Product, Vendor
 from ..utils import validate_review_request
 from ..serializers import review_serializer
 
-@api_view(['POST', 'DELETE'])
-@permission_classes([permissions.IsCustomerUser])
+@api_view(['GET', 'POST', 'DELETE'])
+@permission_classes([permissions.AllowAnonymous])
 def manage_review(request):
+    
+    #GET functionalities
+    if request.method == 'GET':
+        review_id = request.query_params.get("review", None)
+        #Get a single review with id
+        if review_id is not None:
+            review = Review.objects.filter(pk=review_id).filter(is_deleted=False).first()
+            review_serialized = review_serializer.ReviewResponseSerializer(
+                    review, 
+                    context = { 'is_successful': True,
+                                'message': ""}
+                )
+            return Response(review_serialized.data)
+        
+
+        reviews = []
+        #Get all reviews of a product
+        product_id = request.query_params.get("product", None)
+        if product_id is not None:
+            product = Product.objects.filter(pk=product_id).first()
+            if product is not None:
+                reviews = Review.objects.filter(product=product).filter(is_deleted=False).all()
+        
+        #Get all reviews of a vendor
+        vendor_id = request.query_params.get("vendor", None)
+        if vendor_id is not None:
+            vendor = Vendor.objects.filter(pk=vendor_id).first()
+            if vendor is not None:
+                reviews = Review.objects.filter(vendor=vendor).filter(is_deleted=False).all()
+
+        review_serialized = review_serializer.ReviewResponseListSerializer(
+                    reviews , 
+                    context = { 'is_successful': True,
+                                'message': ""}
+                )
+        return Response(review_serialized.data)
+
+
     if request.method == 'POST':
         uid = request.user.pk
         if uid != request.data["user_id"]:

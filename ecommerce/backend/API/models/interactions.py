@@ -28,7 +28,7 @@ class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     rating = models.IntegerField()
     comment = models.CharField(max_length=400)
-    reviewed_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    reviewed_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     review_date = models.DateTimeField(auto_now_add=True)
     is_deleted = models.BooleanField(default=False)
 
