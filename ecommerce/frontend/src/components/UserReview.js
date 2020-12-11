@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import './UserReview.less'
 import { sleep } from '../utils'
 import { api } from '../api'
+import moment from 'moment'
 
 export const UserReview = ({ productId = 1, pageSize = 10 }) => {
     const [isLoading, setIsLoading] = useState(true)
@@ -20,44 +21,44 @@ export const UserReview = ({ productId = 1, pageSize = 10 }) => {
                         comment:
                             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
                         author: 'Jeff Einstein',
-                        date: 'December 23',
+                        date: '2020-12-11T14:48:00.000Z',
                         rating: 4,
                     },
                     {
                         comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
                         author: 'Hasan Kaya',
-                        date: 'December 11',
+                        date: '2011-10-05T14:48:00.000Z',
                         rating: 3,
                     },
                     {
                         comment:
                             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
                         author: 'Jeff Einstein',
-                        date: 'December 23',
+                        date: '2011-10-05T14:48:00.000Z',
                         rating: 4,
                     },
                     {
                         comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
                         author: 'Hasan Kaya',
-                        date: 'December 11',
+                        date: '2011-10-05T14:48:00.000Z',
                         rating: 3,
                     },
                     {
                         comment:
                             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
                         author: 'Jeff Einstein',
-                        date: 'December 23',
+                        date: '2011-10-05T14:48:00.000Z',
                         rating: 4,
                     },
                     {
                         comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
                         author: 'Hasan Kaya',
-                        date: 'December 11',
+                        date: '2011-10-05T14:48:00.000Z',
                         rating: 3,
                     },
                 ]
                 const urlStr = `/product/${productId}/review?pagesize=${pageSize}&currentpage=${currentPage}`
-                console.log(urlStr)
+                // console.log(urlStr)
                 // const { data: reviews } = await api.get(urlStr)
                 setReviews(tmp)
                 await sleep(2000)
@@ -77,11 +78,13 @@ export const UserReview = ({ productId = 1, pageSize = 10 }) => {
     }
 
     const Review = ({ review: { comment, author, date, rating } }) => {
+        const dateFmt = moment(date).format('LL')
+
         return (
             <div className="review-item-content">
                 <div className="rate-and-message">
                     <div className="rate">
-                        <Rate defaultValue={rating} disabled={true}></Rate>
+                        <Rate defaultValue={rating} disabled></Rate>
                     </div>
                     <div className="message">
                         <p>{comment}</p>
@@ -94,7 +97,7 @@ export const UserReview = ({ productId = 1, pageSize = 10 }) => {
                         </div>
                     </Link>
                     <div className="date">
-                        <p>{date}</p>
+                        <p>{dateFmt}</p>
                     </div>
                 </div>
             </div>
@@ -121,7 +124,7 @@ export const UserReview = ({ productId = 1, pageSize = 10 }) => {
                 className="review-results-pagination"
                 onChange={onPaginationChanged}
                 defaultCurrent={currentPage}
-                total={50}
+                total={60}
             />
         </div>
     )
