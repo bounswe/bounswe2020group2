@@ -8,23 +8,16 @@ import { CreditCardModal } from './CreditCardModal'
 import { Popconfirm, Spin, notification } from 'antd'
 import { formatCreditCard, sleep } from '../../utils'
 
-export const CreditCard = ({
-    card,
-    selected = false,
-    onSelect = () => {},
-    onCardInfoChange = () => {},
-}) => {
+export const CreditCard = ({ card, selected = false, onSelect = () => {}, onCardInfoChange = () => {} }) => {
     const [editVisible, setEditVisible] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
-    
     const onDelete = async () => {
         try {
             setIsLoading(true)
             await sleep(2000)
-            onCardInfoChange();
+            onCardInfoChange()
             notification.success({ message: 'You have successfully deleted your credit card!' })
-            
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })
         } finally {
@@ -33,8 +26,8 @@ export const CreditCard = ({
     }
 
     const onSuccessfulEdit = () => {
-        setEditVisible(false);
-        onCardInfoChange();
+        setEditVisible(false)
+        onCardInfoChange()
     }
 
     return (
@@ -57,10 +50,10 @@ export const CreditCard = ({
                         <CreditCardModal
                             onCancel={() => setEditVisible(false)}
                             onSuccess={() => {
-                                setEditVisible(false);
-                                onCardInfoChange();
+                                setEditVisible(false)
+                                onCardInfoChange()
                             }}
-                            mode='edit'
+                            mode="edit"
                             visible={editVisible}
                             card={card}
                         />
@@ -70,11 +63,7 @@ export const CreditCard = ({
                             }}
                         />{' '}
                         &nbsp;
-                        <Popconfirm
-                            title="Delete this card?"
-                            onConfirm={onDelete}
-                            okText="Yes"
-                            cancelText="No">
+                        <Popconfirm title="Delete this card?" onConfirm={onDelete} okText="Yes" cancelText="No">
                             <DeleteOutlined />
                         </Popconfirm>
                     </div>
@@ -82,7 +71,6 @@ export const CreditCard = ({
                 <div className="creditcard-card">
                     {card && <Cards className="creditcard-card" {...formatCreditCard(card)} />}
                 </div>
-                
             </Spin>
         </div>
     )

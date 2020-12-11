@@ -19,10 +19,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 import json
 import os
 from django.core.exceptions import ImproperlyConfigured
+
+##
+## DO NOT TOUCH THIS PART
+## IF YOU NEED TO WORK LOCALLY 
+## PASS THE ENVIRONMENT VARIABLES FROM COMMAND LINE
+## 
 secrets = {
-    'HOST': 'localhost',
-    'USER': 'postgres',
-    'PASSWORD': '123123'
+    'HOST': os.environ.get('DB_HOST'),
+    'USER': os.environ.get('DB_USER'),
+    'PASSWORD': os.environ.get('DB_PASSWORD'),
 }
 
 '''with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
