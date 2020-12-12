@@ -47,6 +47,7 @@
     <string name="guest">Misafir</string>
     <string name="guest_cont">Misafir olarak devam et</string>
     <string name="acceptCart">Sepeti Onayla</string>
+    <string name="buy">Odeme Yap</string>
 
 
 </resources>
