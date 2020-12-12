@@ -1,12 +1,12 @@
 import React from 'react'
-import { Button, Rate, Card } from 'antd'
+import { Button, Rate } from 'antd'
 import { PlusCircleOutlined, HeartOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import './ProductCard.less'
 import { useAppContext } from '../../context/AppContext'
 import { round, truncate } from '../../utils'
 
-export const ProductCard = ({ product, width = 380 }) => {
+export const ProductCard = ({ product, width = 350 }) => {
     const { addShoppingCartItem } = useAppContext()
 
     const onAddToCart = product => {
@@ -32,10 +32,10 @@ export const ProductCard = ({ product, width = 380 }) => {
                 <div className="card-rate">
                     <Rate disabled allowHalf defaultValue={rating}></Rate>
                 </div>
-                {round(old_price) != round(price) ? (
-                    <div className="card-old-price">{round(old_price) + ' ' + currency}</div>
+                {round(old_price, 1) !== round(price, 1) ? (
+                    <div className="card-old-price">{round(old_price, 1) + ' ' + currency}</div>
                 ) : null}
-                <div className="card-new-price">{round(price) + ' ' + currency}</div>
+                <div className="card-new-price">{round(price, 1) + ' ' + currency}</div>
             </div>
             <div className="card-add-button">
                 <Button
