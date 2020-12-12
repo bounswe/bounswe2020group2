@@ -8,7 +8,7 @@ from rest_framework.parsers import JSONParser
 
 from ..utils import permissions, Role
 from ..models import User, ShoppingCartItem, Product
-from ..serializers import checkout_product_serializer, checkout_shooping_cart_serializer
+from ..serializers import checkout_product_serializer, checkout_shopping_cart_serializer
 from ..utils import authentication
 
 
@@ -19,7 +19,7 @@ def checkout_details(request):
     user = jwt.authenticate(request=request)
 
     items = ShoppingCartItem.objects.filter(customer_id=user[0].pk).values('id', 'product_id', 'amount')
-    serializers = checkout_shooping_cart_serializer.CheckoutShoppingCartSerializer(items, many=True)
+    serializers = checkout_shopping_cart_serializer.CheckoutShoppingCartSerializer(items, many=True)
 
     amount = 0
     price = 0 
