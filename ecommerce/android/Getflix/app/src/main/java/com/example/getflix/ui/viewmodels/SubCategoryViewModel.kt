@@ -34,7 +34,6 @@ class SubCategoryViewModel: ViewModel() {
 
     fun sort(sortS: String?) {
         _sortBy.value = sortS
-        println(sortS)
         if(sortS == "Price")
             sortPrice()
     }

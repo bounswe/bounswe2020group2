@@ -75,8 +75,7 @@ class CategoriesViewModel: ViewModel() {
                 .enqueue(object :
                         Callback<CardProResponse> {
                     override fun onFailure(call: Call<CardProResponse>, t: Throwable) {
-                        // TODO
-                        println("xx")
+
                     }
 
                     override fun onResponse(
@@ -109,7 +108,6 @@ class CategoriesViewModel: ViewModel() {
         val catList = arrayListOf<CategoryModel>()
         for(pro in products) {
             if(!catList.any {pro.category == it.name}) {
-                println("burda  " + pro.category)
                 val subCats = arrayListOf<SubcategoryModel>()
                 val products = arrayListOf<ProductModel>()
                 products.add(pro)
@@ -118,10 +116,8 @@ class CategoriesViewModel: ViewModel() {
             } else {
                 for(cat in catList) {
                     if(cat.name==pro.category) {
-                        println("burda xx  " + pro.category)
                         var ind = catList.indexOf(cat)
                         if(!catList[ind].subCats.any {pro.subcategory == it.name}) {
-                            println("burda xx  " + pro.subcategory)
                             val products = arrayListOf<ProductModel>()
                             products.add(pro)
                             catList[ind].subCats.add(SubcategoryModel(pro.subcategory,products))

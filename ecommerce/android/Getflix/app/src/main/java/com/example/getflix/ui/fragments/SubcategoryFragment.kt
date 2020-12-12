@@ -107,6 +107,7 @@ class SubcategoryFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         if(!filter)
-        activity?.toolbar!!.visibility = View.VISIBLE
+            activity?.toolbar!!.visibility = View.VISIBLE
+        filter = false
     }
 }

@@ -53,7 +53,6 @@ class SubcategoryDiffCallback: DiffUtil.ItemCallback<ProductModel>() {
     }
 
     override fun areContentsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
-        println(oldItem==newItem)
         return oldItem == newItem
     }
 
