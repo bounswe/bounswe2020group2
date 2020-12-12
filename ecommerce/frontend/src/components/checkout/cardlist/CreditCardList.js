@@ -8,7 +8,7 @@ import './CreditCardList.less'
 
 export const CreditCardList = () => {
     const [cardList, setCardList] = useState([])
-    const { user } = useAppContext();
+    const { user } = useAppContext()
 
     const getCardList = async userId => {
         let cards = []
@@ -16,27 +16,27 @@ export const CreditCardList = () => {
             setIsLoading(true)
             await sleep(2000)
             cards = [
-                {   
+                {
                     id: 44313,
                     name: 'My Mastercard',
                     owner_name: 'Özdeniz Dolu',
-                    serial_number: "5555555555554444",
+                    serial_number: '5555555555554444',
                     expiration_date: {
                         month: 12,
-                        year: 2030
+                        year: 2030,
                     },
-                    cvc: 123
+                    cvc: 123,
                 },
                 {
                     id: 12332,
                     name: 'My Visacard',
                     owner_name: 'Özdeniz Dolu',
-                    serial_number: "4111111111111111",
+                    serial_number: '4111111111111111',
                     expiration_date: {
                         month: 12,
-                        year: 2030
+                        year: 2030,
                     },
-                    cvc: 123
+                    cvc: 123,
                 },
             ]
         } catch (error) {
@@ -54,7 +54,7 @@ export const CreditCardList = () => {
             setCardList(cards)
             setSelectedCard(cards.length > 0 ? cards[0].id : null)
         }
-        fetch();
+        fetch()
     }, [user])
 
     const [selectedCard, setSelectedCard] = useState()
@@ -63,9 +63,9 @@ export const CreditCardList = () => {
 
     const onCardSelect = cardId => setSelectedCard(cardId)
 
-    const onCardInfoChange = () => {getCardList(user?.id).then(cards => setCardList(cards))}
-
-    
+    const onCardInfoChange = () => {
+        getCardList(user?.id).then(cards => setCardList(cards))
+    }
 
     return (
         <div className="cardlist-container">
@@ -74,24 +74,30 @@ export const CreditCardList = () => {
                 <Button onClick={() => setAddVisible(true)} type="dashed">
                     Add a new credit card
                 </Button>
-                <CreditCardModal 
-                    mode='add' 
-                    onCancel={() => setAddVisible(false)} 
+                <CreditCardModal
+                    mode="add"
+                    onCancel={() => setAddVisible(false)}
                     onSuccess={() => {
-                        setAddVisible(false);
-                        onCardInfoChange();
-                    }} 
-                    visible={addVisible} />
+                        setAddVisible(false)
+                        onCardInfoChange()
+                    }}
+                    visible={addVisible}
+                />
             </div>
             <div className="cardlist-list">
                 <Spin spinning={isLoading}>
                     <List
-                        locale={{emptyText: "Add a new payment option!"}}
+                        locale={{ emptyText: 'Add a new payment option!' }}
                         grid={{ gutter: 0 }}
                         dataSource={cardList}
                         renderItem={card => (
                             <List.Item>
-                                <CreditCard card={card} onCardInfoChange={onCardInfoChange} selected={selectedCard === card.id} onSelect={onCardSelect} />
+                                <CreditCard
+                                    card={card}
+                                    onCardInfoChange={onCardInfoChange}
+                                    selected={selectedCard === card.id}
+                                    onSelect={onCardSelect}
+                                />
                             </List.Item>
                         )}
                     />

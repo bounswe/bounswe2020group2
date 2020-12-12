@@ -4,22 +4,13 @@ import { Modal, Form, Spin, notification } from 'antd'
 import { sleep } from '../../../utils'
 import { CardModalInner } from './CardModalInner'
 
-export const CreditCardModal = ({
-    card,
-    mode = 'add',
-    visible = false,
-    onCancel = () => {},
-    onSuccess = () => {}
-}) => {
+export const CreditCardModal = ({ card, mode = 'add', visible = false, onCancel = () => {}, onSuccess = () => {} }) => {
     /* This might not remounted after closing and opening again, be careful */
 
     const [form] = Form.useForm()
     const [isLoading, setIsLoading] = useState(false)
 
-    const title = 
-        mode === 'add' ? 
-        'Add a new credit card' :
-        'Edit your credit card information'
+    const title = mode === 'add' ? 'Add a new credit card' : 'Edit your credit card information'
 
     const emptyCard = {
         id: '',
@@ -28,9 +19,9 @@ export const CreditCardModal = ({
         serial_number: '',
         expiration_date: {
             month: 1,
-            year: 2020
+            year: 2020,
         },
-        cvc: ''
+        cvc: '',
     }
 
     // Add a new credit card
@@ -40,9 +31,8 @@ export const CreditCardModal = ({
             await sleep(2000)
             const fields = await form.validateFields()
             console.log(fields)
-            onSuccess();
+            onSuccess()
             notification.success({ message: 'You have successfully changed your credit card information!' })
-            
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })
             console.error(error)
@@ -57,9 +47,8 @@ export const CreditCardModal = ({
             await sleep(2000)
             const fields = await form.validateFields()
             console.log(fields)
-            onSuccess();
+            onSuccess()
             notification.success({ message: 'You have successfully added your credit card!' })
-            
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })
             console.error(error)
@@ -72,11 +61,7 @@ export const CreditCardModal = ({
         <Modal
             forceRender
             visible={visible}
-            title={
-                mode === 'add' ? 
-                'Add a new credit card' :
-                'Edit your credit card information'
-            }
+            title={mode === 'add' ? 'Add a new credit card' : 'Edit your credit card information'}
             destroyOnClose
             onOk={mode === 'add' ? onAdd : onEdit}
             onCancel={onCancel}
