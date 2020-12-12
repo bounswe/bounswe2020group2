@@ -4,9 +4,9 @@ import { PlusCircleOutlined, HeartOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import './ProductCard.less'
 import { useAppContext } from '../../context/AppContext'
-import { round } from '../../utils'
+import { round, truncate } from '../../utils'
 
-export const ProductCard = ({ product, width = 350 }) => {
+export const ProductCard = ({ product, width = 380 }) => {
     const { addShoppingCartItem } = useAppContext()
 
     const onAddToCart = product => {
@@ -32,8 +32,10 @@ export const ProductCard = ({ product, width = 350 }) => {
                 <div className="card-rate">
                     <Rate disabled allowHalf defaultValue={rating}></Rate>
                 </div>
-                {old_price != price ? <div className="card-old-price">{old_price + ' ' + currency}</div> : null}
-                <div className="card-new-price">{price + ' ' + currency}</div>
+                {round(old_price) != round(price) ? (
+                    <div className="card-old-price">{round(old_price) + ' ' + currency}</div>
+                ) : null}
+                <div className="card-new-price">{round(price) + ' ' + currency}</div>
             </div>
             <div className="card-add-button">
                 <Button
