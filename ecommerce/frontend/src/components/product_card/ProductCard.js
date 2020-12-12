@@ -25,7 +25,7 @@ export const ProductCard = ({ product, width = 380 }) => {
                     <img className="product-card-img" alt={title} src={imageUrl} />
                 </div>
                 <div className="card-title">
-                    <p>{title}</p>
+                    <p>{truncate(title)}</p>
                 </div>
             </Link>
             <div className="rate-and-price">

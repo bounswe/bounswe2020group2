@@ -117,7 +117,7 @@ export function round(num, decimalPlaces = 2) {
     return Math.round(m) / p
 }
 
-export function truncate(input, limit = 30) {
+export function truncate(input, limit = 50) {
     if (input.length > limit) {
         return input.substring(0, limit) + '...'
     }
