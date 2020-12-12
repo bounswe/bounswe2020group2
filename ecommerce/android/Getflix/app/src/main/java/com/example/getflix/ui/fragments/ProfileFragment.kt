@@ -31,8 +31,10 @@ class ProfileFragment : Fragment() {
          if(MainActivity.StaticData.isVisitor) {
             binding.name.text = getString(R.string.guest)
             binding.btnLogout.text = getString(R.string.login)
-            binding.mail.text = "---"
-            binding.tel.text = "---"
+            binding.userinfo.text = "---"
+            binding.address.text = "---"
+            binding.bankAccounts.text = "---"
+            binding.orders.text = "---"
          } else {
              binding.name.text = MainActivity.StaticData.name
          }
