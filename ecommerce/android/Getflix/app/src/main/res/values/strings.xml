@@ -46,6 +46,10 @@
     <string name="sign_up">Hesabın yok mu? Kaydol</string>
     <string name="guest">Misafir</string>
     <string name="guest_cont">Misafir olarak devam et</string>
+    <string name="userInfo">Kullanici Bilgilerim</string>
+    <string name="bankAccounts">Kayitli Kartlarim</string>
+    <string name="orders">Siparislerim</string>
+    <string name="addressInfo">Adres Bilgilerim</string>
 
 
 </resources>
