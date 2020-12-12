@@ -8,7 +8,7 @@ from ..utils import permissions, Role
 from ..models import User, Address
 from ..serializers.address_serializer import *
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'DELETE'])
 @permission_classes([permissions.AllowAnonymous])
 def manage_single_address(request, customer_id, address_id):
     if User.objects.filter(id=customer_id).first() is None:
