@@ -38,9 +38,9 @@
                 <Button
                     android:layout_width="220dp"
                     android:layout_height="wrap_content"
+                    android:id="@+id/acceptOrder"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
-                    android:onClick="onClickSendOrder"
                     android:drawableLeft="@drawable/ic_baseline_check_24"
                     android:text="@string/acceptCart"
                     android:textColor="@color/initPurple"
