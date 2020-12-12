@@ -31,4 +31,6 @@ urlpatterns = [
     path('product/<int:productId>', views.product.product_detail),
     path('customer/<int:customer_id>/adresses/<int:adress_id>', views.address.manage_single_address),
     path('customer/<int:customer_id>/adresses', views.address.manage_multiple_addresses)
+    path('checkout/details', views.checkout.checkout_details),
+    path('review', views.review.manage_review, name="review")
 ]
