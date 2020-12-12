@@ -31,8 +31,6 @@ class ProfileFragment : Fragment() {
          if(MainActivity.StaticData.isVisitor) {
             binding.name.text = getString(R.string.guest)
             binding.btnLogout.text = getString(R.string.login)
-            binding.points.text = "---"
-            binding.products.text = "---"
             binding.mail.text = "---"
             binding.tel.text = "---"
          } else {
@@ -57,5 +55,19 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
+    fun profileToPersonalInfo() {
 
+    }
+
+    fun profileToBankAccounts() {
+
+    }
+
+    fun profileToOrders() {
+
+    }
+
+    fun profileToAddress() {
+
+    }
 }
