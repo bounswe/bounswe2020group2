@@ -68,7 +68,7 @@
                     android:src="@drawable/ic_baseline_person_24" />
 
                 <TextView
-                    android:id="@+id/mail"
+                    android:id="@+id/userinfo"
                     android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
@@ -175,7 +175,7 @@
                     android:src="@drawable/ic_baseline_location_on_24" />
 
                 <TextView
-                    android:id="@+id/tel"
+                    android:id="@+id/address"
                     android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
