@@ -26,7 +26,7 @@ def product_detail(request, productId):
     category_name = category.name
     category_id = category.id
 
-    images = ImageUrls.objects.filter(product_id=product.id).values('image_url')
+    images = ImageUrls.objects.filter(product_id=product.id).order_by('index').values('image_url')
     image_list = []
 
     for image in images:
