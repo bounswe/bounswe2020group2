@@ -27,6 +27,8 @@ class Vendor (models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
+    total_rating = models.IntegerField(default=0)
+    rating_count = models.IntegerField(default=0)
 
 #address
 class Address (models.Model):
