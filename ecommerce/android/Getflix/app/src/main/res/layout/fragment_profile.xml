@@ -193,8 +193,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:id="@+id/addressinfo"
-                    android:background="@drawable/button_image"
-                    android:onClick="profileToAddress">
+                    android:background="@drawable/button_image">
                 </Button>
             </LinearLayout>
         </LinearLayout>
