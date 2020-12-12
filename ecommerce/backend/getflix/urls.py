@@ -30,4 +30,5 @@ urlpatterns = [
     path('user/<int:id>/shoppingCart', views.shopping_cart.add_shopping_cart_item),
     path('product/<int:productId>', views.product.product_detail),
     path('checkout/details', views.checkout.checkout_details)
+    path('review', views.review.manage_review, name="review")
 ]
