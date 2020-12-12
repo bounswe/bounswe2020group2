@@ -18,7 +18,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="405dp">
+            android:layout_height="195dp">
 
             <LinearLayout
                 android:background="@drawable/gradientbackground"
@@ -30,7 +30,7 @@
                     android:layout_marginTop="45dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_height="70dp"
                     android:src="@drawable/ic_baseline_face_24" />
 
                 <TextView
@@ -45,70 +45,6 @@
                     android:textSize="21sp" />
             </LinearLayout>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="400dp"
-                android:layout_height="120dp"
-                android:layout_centerHorizontal="true"
-                app:cardBackgroundColor="@color/colorPrimary"
-                android:layout_marginTop="275dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <LinearLayout
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/points"
-                            android:textColor="@color/initPurple"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:id="@+id/points"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="125"
-                            android:textStyle="bold"
-                            android:textSize="20sp"
-                            android:paddingTop="10dp"
-                            android:textColor="@color/initPurple" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/products"
-                            android:textColor="@color/initPurple"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:id="@+id/products"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="32"
-                            android:textStyle="bold"
-                            android:textSize="20sp"
-                            android:paddingTop="10dp"
-                            android:textColor="@color/initPurple" />
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
         </RelativeLayout>
 
         <LinearLayout
@@ -116,18 +52,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center"
+            android:weightSum="4"
             android:layout_marginTop="45dp">
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:paddingLeft="25dp"
+                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/ic_baseline_mail_24" />
+                    android:src="@drawable/ic_baseline_person_24" />
 
                 <TextView
                     android:id="@+id/mail"
@@ -137,7 +75,21 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="20dp"
                     android:textColor="@color/initGold"
-                    android:text="helin@gmail.com" />
+                    android:text="@string/userInfo" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                </Space>
+
+                <Button
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/userInfoButton"
+                    android:background="@drawable/button_image"
+                    android:onClick="profileToPersonalInfo">
+                </Button>
             </LinearLayout>
 
             <LinearLayout
@@ -150,7 +102,77 @@
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/ic_baseline_phone_24" />
+                    android:src="@drawable/ic_baseline_attach_money_24" />
+
+                <TextView
+                    android:id="@+id/bankAccounts"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:textColor="@color/initGold"
+                    android:text="@string/bankAccounts" />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                </Space>
+
+                <Button
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/bankAccountInfoButton"
+                    android:background="@drawable/button_image"
+                    android:onClick="profileToBankAccounts">
+                </Button>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_baseline_shopping_bag_24" />
+
+                <TextView
+                    android:id="@+id/orders"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:textColor="@color/initGold"
+                    android:text="@string/orders" />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                </Space>
+
+                <Button
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/ordersButton"
+                    android:background="@drawable/button_image"
+                    android:onClick="profileToOrders">
+                </Button>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_baseline_location_on_24" />
 
                 <TextView
                     android:id="@+id/tel"
@@ -160,7 +182,20 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="20dp"
                     android:textColor="@color/initGold"
-                    android:text="+90 532 322 45 54" />
+                    android:text="@string/addressInfo" />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                </Space>
+
+                <Button
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/addressinfo"
+                    android:background="@drawable/button_image"
+                    android:onClick="profileToAddress">
+                </Button>
             </LinearLayout>
         </LinearLayout>
 
