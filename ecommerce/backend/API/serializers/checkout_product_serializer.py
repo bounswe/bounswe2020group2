@@ -4,4 +4,4 @@ from ..models import ShoppingCartItem, Product, Subcategory, Category, Brand, Ve
 class CheckoutProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ('id', 'name', 'price')
+        fields = ('id', 'name', 'price', 'discount')

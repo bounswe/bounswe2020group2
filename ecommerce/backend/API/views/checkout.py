@@ -21,22 +21,21 @@ def checkout_details(request):
     items = ShoppingCartItem.objects.filter(customer_id=user[0].pk).values('id', 'product_id', 'amount')
     serializers = checkout_shooping_cart_serializer.CheckoutShoppingCartSerializer(items, many=True)
 
+    amount = 0
+    price = 0 
+    discount = 0
     products_price = 0
     delivery_price = 7.9
-    discount_percentage = 0.1
-    discount = 0
     total_price = 0
 
 
     for serializer in serializers.data:
         amount = serializer.get("amount")
         price = serializer.get("product")["price"]
-        products_price += amount*price
+        discount = serializer.get("product")["discount"]
+        products_price += amount*price*(1-discount)
 
-        print(amount, price)
-
-    discount = products_price * discount_percentage
-    total_price = products_price - discount + delivery_price
+    total_price = products_price + delivery_price
 
     context = {
                 "products_price": products_price,
