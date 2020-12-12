@@ -4,8 +4,7 @@ import { PlusCircleOutlined, HeartOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import './ProductCard.less'
 import { useAppContext } from '../../context/AppContext'
-
-const { Meta } = Card
+import { round } from '../../utils'
 
 export const ProductCard = ({ product, width = 350 }) => {
     const { addShoppingCartItem } = useAppContext()
@@ -18,8 +17,7 @@ export const ProductCard = ({ product, width = 350 }) => {
         // addShoppingCartItem(product, 1)
     }
 
-    const { title, rating, price, currency, imageUrl, id } = product
-
+    const { title, rating, price, currency, imageUrl, id, old_price } = product
     return (
         <div className="whole-card" style={{ minWidth: width, minHeight: width, maxWidth: width }}>
             <Link to={`/product/${id}`}>
@@ -34,9 +32,8 @@ export const ProductCard = ({ product, width = 350 }) => {
                 <div className="card-rate">
                     <Rate disabled allowHalf defaultValue={rating}></Rate>
                 </div>
-                <div className="card-price">
-                    <p>{price + ' ' + currency} </p>
-                </div>
+                {old_price != price ? <div className="card-old-price">{old_price + ' ' + currency}</div> : null}
+                <div className="card-new-price">{price + ' ' + currency}</div>
             </div>
             <div className="card-add-button">
                 <Button

@@ -1,3 +1,4 @@
+@import '../../common.less';
 .whole-card {
     padding-left: 10px;
     padding-right: 10px;
@@ -5,25 +6,38 @@
 }
 
 .rate-and-price {
-    display: 'flex';
-    column-count: 2;
+    display: flex;
+    column-count: 3;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 4px;
     padding-bottom: 0px;
+    height: 50px;
+    gap: 10px;
 }
 
 .card-rate {
     margin-right: auto;
-    float: left;
+    // float: left;
 }
 
-.card-price {
-    float: right;
-    p {
-        color: #472836;
-        font-size: x-large;
-    }
+.card-old-price {
+    color: #472836;
+    font-size: x-large;
+    font-weight: lighter;
+    text-decoration: line-through @Champagne;
+    font-size: x-large;
+}
+
+.card-new-price {
+    font-size: x-large;
+    color: @Eggplant;
+    background-color: @Champagne;
+    font-weight: bolder;
+    height: 40px;
+    padding: 1px;
+
+    box-shadow: 3px 3px 0px 0px @Eggplant;
 }
 
 .product-card-img-container {
