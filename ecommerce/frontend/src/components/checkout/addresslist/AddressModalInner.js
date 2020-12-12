@@ -1,18 +1,11 @@
 import { Form, Input, InputNumber } from 'antd'
-import { useState } from 'react'
 import * as R from 'ramda'
-import Cards from 'react-credit-cards'
 
-import { formatCreditCard } from '../../../utils'
 
 export const AddressModalInner = ({
     form,
-    card,
+    address,
 }) => {
-
-    const [cardState, setCardState] = useState(card)
-    const [focused, setFocused] = useState('')
-
     const formItemLayout = {
         labelCol: {
             xs: {
@@ -32,132 +25,147 @@ export const AddressModalInner = ({
         },
     }
 
-    const handleInputFocus = val => setFocused(val.target.name)
-
-    const onFieldsChange = () => setCardState({
-        id: cardState.id,
-        ...form.getFieldsValue()
-    })
 
     return <>
         <Form
             {...formItemLayout}
             layout="horizontal"
             form={form}
-            name={"addressForm"+card.id}
+            name={"addressForm"+address?.id}
             onFinish={() => {}}
             onFinishFailed={() => {}}
-            onFieldsChange={onFieldsChange}
             scrollToFirstError
-            initialValues={{...R.omit(['id'], cardState)}}>
+            initialValues={address ?? {...R.omit(['id'], address)}}>
+            <Form.Item
+                name="title"
+                label="Address Title"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input a title for your address!',
+                    },
+                ]}>
+                <Input />
+            </Form.Item>
             <Form.Item
                 name="name"
-                label="Card Name"
+                label="Name"
                 rules={[
                     {
                         required: true,
-                        message: 'Please input your card name!',
+                        message: 'Please input your name!',
                     },
                 ]}>
-                <Input onFocus={() => {setFocused('owner_name')}} />
+                <Input />
             </Form.Item>
             <Form.Item
-                name="owner_name"
-                label="Owner Name"
+                name="surname"
+                label="Surname"
                 rules={[
                     {
                         required: true,
-                        message: 'Please input your card owner name!',
+                        message: 'Please input your surname!',
                     },
                 ]}>
-                <Input
-                    onFocus={handleInputFocus}
-                    name="name"
-                />
+                <Input />
             </Form.Item>
             <Form.Item
-                name="serial_number"
-                label="Card Number"
+                name={'province'}
+                label="Province"
                 rules={[
                     {
                         required: true,
-                        message: 'Please input your card number!',
+                        message: 'Please select your province!',
                     },
-                    {   
-                        message: 'Your credit card number must be a 16 digit number!',
-                        validator: (rule, val) => {
-                            if (!val) return Promise.resolve(true)
-                            return /^\d{16}$/.test(val)
-                                ? Promise.resolve(true)
-                                : Promise.reject('Wrong card number format!')
+                ]}>
+                <Input />
+            </Form.Item>
+            <Form.Item
+                name={'city'}
+                label="City"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please select your city!',
+                    },
+                ]}>
+                <Input />
+            </Form.Item>
+            <Form.Item
+                name={'country'}
+                label="Country"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please select your country!',
+                    },
+                ]}>
+                <Input />
+            </Form.Item>
+            <Form.Item
+                    name={'zipCode'}
+                    label="Zip Code"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please enter your zip code!',
                         },
-                    }
-                ]}>
-                <Input
-                    onFocus={handleInputFocus}
-                    name="number"
-                />
-            </Form.Item>
+                    ]}>
+                    <InputNumber style={{ width: '100%' }} />
+                </Form.Item>
             <Form.Item
-                name="expiration_date"
-                label="Expiry Date"
+                name={'address'}
+                label="Main Address"
                 rules={[
                     {
                         required: true,
-                        message: 'Please input your card expiry date!',
+                        message: 'Please enter your address!',
                     },
                 ]}>
+                <Input />
+            </Form.Item>
+            <Form.Item name="phone" label="Phone Number">
                 <Input.Group compact>
                     <Form.Item
-                        name={['expiration_date', 'month']}
+                        name={['phone', 'countryCode']}
                         noStyle
                         rules={[
-                            
+                            {
+                                required: true,
+                                message: 'Please enter your country code!',
+                            },
+                            {
+                                message: 'Wrong country code format',
+                                validator: (rule, val) => {
+                                    if (!val) return Promise.resolve(true)
+                                    return /\+\d{1,3}/.test(val)
+                                        ? Promise.resolve(true)
+                                        : Promise.reject('Country code format is incorrect!')
+                                },
+                            },
                         ]}>
-                        <InputNumber
-                            max={12}
-                            min={1}
-                            formatter={value => value >= 10 ? value : `0${value}`}
-                            parser={value => value >= 10 ? value : `0${value}`}
-                            onFocus={handleInputFocus}
-                            name="month"/>
+                        <Input style={{ width: '20%' }} placeholder="+90" />
                     </Form.Item>
                     <Form.Item
-                        name={['expiration_date', 'year']}
-                        noStyle>
-                        <InputNumber
-                            min={2021}
-                            onFocus={handleInputFocus}
-                            name="year"/>
+                        name={['phone', 'number']}
+                        noStyle
+                        rules={[
+                            { required: true, message: 'Please enter your phone number!' },
+                            {
+                                message: 'Wrong phone number format',
+                                validator: (rule, val) => {
+                                    if (!val) return Promise.resolve(true)
+                                    return /\d{4,}/.test(val)
+                                        ? Promise.resolve(true)
+                                        : Promise.reject('Phone number format is incorrect!')
+                                },
+                            },
+                        ]}>
+                        <InputNumber style={{ width: '80%' }} />
                     </Form.Item>
-                
                 </Input.Group>
             </Form.Item>
-            <Form.Item
-                name="cvc"
-                label="CVC"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your CVC!',
-                    },
-                    {   
-                        message: 'Your CVC number must be a 3 or 4 digit number!',
-                        validator: (rule, val) => {
-                            if (!val) return Promise.resolve(true)
-                            return /^\d{3,4}$/.test(val)
-                                ? Promise.resolve(true)
-                                : Promise.reject('Wrong CVC number format!')
-                        },
-                    }
-                ]}>
-                <Input
-                    onFocus={handleInputFocus}
-                    name="cvc"
-                />
-            </Form.Item>
         </Form>
-        <Cards focused={focused} {...formatCreditCard(cardState)}></Cards>
 
     </>
 }

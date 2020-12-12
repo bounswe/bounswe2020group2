@@ -21,7 +21,7 @@ export const AddressCard = ({
             setIsLoading(true)
             await sleep(2000)
             onAddressInfoChange();
-            notification.success({ message: 'You have successfully deleted your credit card!' })
+            notification.success({ message: 'You have successfully deleted your address!' })
             
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })
@@ -55,9 +55,9 @@ export const AddressCard = ({
                                 setEditVisible(false);
                                 onAddressInfoChange();
                             }}
-                            mode='add'
+                            mode='edit'
                             visible={editVisible}
-                            card={address}  
+                            address={address}  
                         />
                         <EditOutlined
                             onClick={() => {
@@ -66,7 +66,7 @@ export const AddressCard = ({
                         />{' '}
                         &nbsp;
                         <Popconfirm
-                            title="Delete this card?"
+                            title="Delete this address?"
                             onConfirm={onDelete}
                             okText="Yes"
                             cancelText="No">
@@ -77,8 +77,9 @@ export const AddressCard = ({
                 <div className="address-card">
                         <div className="address-card-name">{address.name + ' ' + address.surname}</div>
                         <div className="address-card-address">{address.address}</div>
+                        <div className="address-card-zipcode">{address.zipCode}</div>
                         <div className="address-card-region">{address.province + ' / ' + address.city + ' / ' + address.country}</div>
-                        <div className="address-card-phone">{address.phone_number}</div>
+                        <div className="address-card-phone">{address.phone.countryCode + address.phone.number}</div>
                 </div>
                 
             </Spin>

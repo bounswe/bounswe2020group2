@@ -19,9 +19,13 @@ export const AddressList = () => {
                 {   
                     id: 44313,
                     title: 'Home Address',
-                    phone_number: '+905555555555',
+                    phone: {
+                        countryCode: '+90',
+                        number: '5555555555'
+                    },
                     name: 'Özdeniz',
                     surname: 'Dolu',
+                    zipCode: '34000',
                     address: 'React Mah. JS Sk. No: 42/1',
                     province: 'Besiktas',
                     city: 'Istanbul',
@@ -30,9 +34,13 @@ export const AddressList = () => {
                 {
                     id: 12322,
                     title: 'Work Address',
-                    phone_number: '+905555555555',
+                    phone: {
+                        countryCode: '+90',
+                        number: '544444444'
+                    },
                     name: 'Özdeniz',
                     surname: 'Dolu',
+                    zipCode: '35000',
                     address: 'Python Mah. Numpy Sk. No: 23/1',
                     province: 'Besiktas',
                     city: 'Istanbul',

@@ -5,7 +5,7 @@ import { sleep } from '../../../utils'
 import { AddressModalInner } from './AddressModalInner'
 
 export const AddressModal = ({
-    card,
+    address,
     mode = 'add',
     visible = false,
     onCancel = () => {},
@@ -16,24 +16,7 @@ export const AddressModal = ({
     const [form] = Form.useForm()
     const [isLoading, setIsLoading] = useState(false)
 
-    const title = 
-        mode === 'add' ? 
-        'Add a new credit card' :
-        'Edit your credit card information'
 
-    const emptyCard = {
-        id: '',
-        name: '',
-        owner_name: '',
-        serial_number: '',
-        expiration_date: {
-            month: 1,
-            year: 2020
-        },
-        cvc: ''
-    }
-
-    // Add a new credit card
     const onEdit = async () => {
         try {
             setIsLoading(true)
@@ -41,7 +24,7 @@ export const AddressModal = ({
             const fields = await form.validateFields()
             console.log(fields)
             onSuccess();
-            notification.success({ message: 'You have successfully changed your credit card information!' })
+            notification.success({ message: 'You have successfully changed your address information!' })
             
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })
@@ -58,7 +41,7 @@ export const AddressModal = ({
             const fields = await form.validateFields()
             console.log(fields)
             onSuccess();
-            notification.success({ message: 'You have successfully added your credit card!' })
+            notification.success({ message: 'You have successfully added a new address!' })
             
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })
@@ -74,8 +57,8 @@ export const AddressModal = ({
             visible={visible}
             title={
                 mode === 'add' ? 
-                'Add a new credit card' :
-                'Edit your credit card information'
+                'Add a new address' :
+                'Edit your address'
             }
             destroyOnClose
             onOk={mode === 'add' ? onAdd : onEdit}
@@ -83,7 +66,7 @@ export const AddressModal = ({
             cancelText="Go Back"
             okText={mode === 'add' ? 'Add' : 'Edit'}>
             <Spin spinning={isLoading}>
-                <AddressModalInner card={mode === 'add' ? emptyCard : card} form={form} />
+                <AddressModalInner address={address} form={form} />
             </Spin>
         </Modal>
     )
