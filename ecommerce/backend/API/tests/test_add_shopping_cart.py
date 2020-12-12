@@ -52,7 +52,7 @@ class AddShoppingCart(TestCase):
             'productId': '1'
         }
         response = client.post(reverse(add_shopping_cart_item, args = [customer_id_for_test]), data=body)
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 200)
 
     def login_credentials_settings(self):
         body = {

@@ -26,7 +26,6 @@ def can_review_vendor(user_id, vendor_id):
     orders = Purchase.objects.filter(user=user).filter(status=OrderStatus.DELIVERED.value).all()
     bought_from_vendor = False
     for order in orders:
-        print(order.product.vendor.pk)
         if order.product.vendor == vendor:
             bought_from_vendor = True
             break

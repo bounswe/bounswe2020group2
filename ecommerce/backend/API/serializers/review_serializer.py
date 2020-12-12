@@ -57,7 +57,7 @@ class ReviewResponseSerializer(serializers.ModelSerializer):
         is_successful = self.context.get("is_successful")
         message = self.context.get("message")
         return {
-            'is_successful': is_successful,
+            'successful': is_successful,
             'message': message
         }
 
@@ -78,5 +78,5 @@ class ReviewResponseListSerializer(serializers.ModelSerializer):
         is_successful = self.context.get("is_successful")
         message = self.context.get("message")
         return {
-            'is_successful': is_successful,
+            'successful': is_successful,
             'message': message}
