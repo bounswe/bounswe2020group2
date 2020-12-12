@@ -8,7 +8,7 @@ import './AddressList.less'
 
 export const AddressList = () => {
     const [addressList, setAddressList] = useState([])
-    const { user } = useAppContext();
+    const { user } = useAppContext()
 
     const getAddressList = async userId => {
         let addresses = []
@@ -16,12 +16,12 @@ export const AddressList = () => {
             setIsLoading(true)
             await sleep(2000)
             addresses = [
-                {   
+                {
                     id: 44313,
                     title: 'Home Address',
                     phone: {
                         countryCode: '+90',
-                        number: '5555555555'
+                        number: '5555555555',
                     },
                     name: 'Özdeniz',
                     surname: 'Dolu',
@@ -36,7 +36,7 @@ export const AddressList = () => {
                     title: 'Work Address',
                     phone: {
                         countryCode: '+90',
-                        number: '544444444'
+                        number: '544444444',
                     },
                     name: 'Özdeniz',
                     surname: 'Dolu',
@@ -62,7 +62,7 @@ export const AddressList = () => {
             setAddressList(addresses)
             setSelectedAddress(addresses.length > 0 ? addresses[0].id : null)
         }
-        fetch();
+        fetch()
     }, [user])
 
     const [selectedAddress, setSelectedAddress] = useState()
@@ -76,8 +76,6 @@ export const AddressList = () => {
         setAddressList(addresses)
     }
 
-    
-
     return (
         <div className="addresslist-container">
             <div className="addresslist-title">
@@ -85,24 +83,30 @@ export const AddressList = () => {
                 <Button onClick={() => setAddVisible(true)} type="dashed">
                     Add a new address
                 </Button>
-                <AddressModal 
-                    mode='add' 
-                    onCancel={() => setAddVisible(false)} 
+                <AddressModal
+                    mode="add"
+                    onCancel={() => setAddVisible(false)}
                     onSuccess={() => {
-                        setAddVisible(false);
-                        onAddressInfoChange();
-                    }} 
-                    visible={addVisible} />
+                        setAddVisible(false)
+                        onAddressInfoChange()
+                    }}
+                    visible={addVisible}
+                />
             </div>
             <div className="addresslist-list">
                 <Spin spinning={isLoading}>
                     <List
-                        locale={{emptyText: "Add a new payment option!"}}
+                        locale={{ emptyText: 'Add a new payment option!' }}
                         grid={{ gutter: 0 }}
                         dataSource={addressList}
                         renderItem={address => (
                             <List.Item>
-                                <AddressCard address={address} onAddressInfoChange={onAddressInfoChange} selected={selectedAddress === address.id} onSelect={onAddressSelect} />
+                                <AddressCard
+                                    address={address}
+                                    onAddressInfoChange={onAddressInfoChange}
+                                    selected={selectedAddress === address.id}
+                                    onSelect={onAddressSelect}
+                                />
                             </List.Item>
                         )}
                     />

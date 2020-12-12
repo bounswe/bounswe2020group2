@@ -6,31 +6,22 @@ import { AddressModal } from './AddressModal'
 import { Popconfirm, Spin, notification } from 'antd'
 import { sleep } from '../../../utils'
 
-export const AddressCard = ({
-    address,
-    selected = false,
-    onSelect = () => {},
-    onAddressInfoChange = () => {},
-}) => {
+export const AddressCard = ({ address, selected = false, onSelect = () => {}, onAddressInfoChange = () => {} }) => {
     const [editVisible, setEditVisible] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
-    
     const onDelete = async () => {
         try {
             setIsLoading(true)
             await sleep(2000)
-            onAddressInfoChange();
+            onAddressInfoChange()
             notification.success({ message: 'You have successfully deleted your address!' })
-            
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })
         } finally {
             setIsLoading(false)
         }
     }
-
- 
 
     return (
         <div
@@ -52,12 +43,12 @@ export const AddressCard = ({
                         <AddressModal
                             onCancel={() => setEditVisible(false)}
                             onSuccess={() => {
-                                setEditVisible(false);
-                                onAddressInfoChange();
+                                setEditVisible(false)
+                                onAddressInfoChange()
                             }}
-                            mode='edit'
+                            mode="edit"
                             visible={editVisible}
-                            address={address}  
+                            address={address}
                         />
                         <EditOutlined
                             onClick={() => {
@@ -65,23 +56,20 @@ export const AddressCard = ({
                             }}
                         />{' '}
                         &nbsp;
-                        <Popconfirm
-                            title="Delete this address?"
-                            onConfirm={onDelete}
-                            okText="Yes"
-                            cancelText="No">
+                        <Popconfirm title="Delete this address?" onConfirm={onDelete} okText="Yes" cancelText="No">
                             <DeleteOutlined />
                         </Popconfirm>
                     </div>
                 </div>
                 <div className="address-card">
-                        <div className="address-card-name">{address.name + ' ' + address.surname}</div>
-                        <div className="address-card-address">{address.address}</div>
-                        <div className="address-card-zipcode">{address.zipCode}</div>
-                        <div className="address-card-region">{address.province + ' / ' + address.city + ' / ' + address.country}</div>
-                        <div className="address-card-phone">{address.phone.countryCode + address.phone.number}</div>
+                    <div className="address-card-name">{address.name + ' ' + address.surname}</div>
+                    <div className="address-card-address">{address.address}</div>
+                    <div className="address-card-zipcode">{address.zipCode}</div>
+                    <div className="address-card-region">
+                        {address.province + ' / ' + address.city + ' / ' + address.country}
+                    </div>
+                    <div className="address-card-phone">{address.phone.countryCode + address.phone.number}</div>
                 </div>
-                
             </Spin>
         </div>
     )

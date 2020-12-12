@@ -109,10 +109,10 @@ function useApp() {
     const regularLogin = async (userType, username, password) => {
         try {
             const { data } = await api.post('/regularlogin', { username, password })
-            const { success, message } = data.status
+            const { successful, message } = data.status
             const { token, id, email, firstname, lastname } = data.user
 
-            if (success) {
+            if (successful) {
                 localStorage.setItem('token', token)
 
                 setUser({ id, email, name: firstname, lastname })
