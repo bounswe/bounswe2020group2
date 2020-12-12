@@ -46,6 +46,7 @@
     <string name="sign_up">Hesabın yok mu? Kaydol</string>
     <string name="guest">Misafir</string>
     <string name="guest_cont">Misafir olarak devam et</string>
+    <string name="acceptCart">Sepeti Onayla</string>
 
 
 </resources>
