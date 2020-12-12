@@ -60,7 +60,11 @@
         android:id="@+id/cartFragment"
         android:name="com.example.getflix.ui.fragments.CartFragment"
         android:label="CartFragment"
-        tools:layout="@layout/fragment_cart"/>
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/action_cartFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
     <fragment
         android:id="@+id/categoriesFragment"
         android:name="com.example.getflix.ui.fragments.CategoriesFragment"
@@ -83,6 +87,11 @@
         android:name="subName"
         app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.example.getflix.ui.fragments.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" />
 
 </navigation>
 
