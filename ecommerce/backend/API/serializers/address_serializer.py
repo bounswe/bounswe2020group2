@@ -30,27 +30,3 @@ class AddressRequestSerializer(serializers.Serializer):
     country = serializers.CharField()
     phone = PhoneSerializer()
     zip_code = serializers.CharField()
-
-    def create(self, validated_data):
-            obj = Address(**validated_data)
-            obj.save()
-            return obj
-    def update(self, instance, validated_data):
-        instance.save()
-        return instance
-"""
-class AddressRequestSerializer(serializers.ModelSerializer):
-    phone_country_code = serializers.SerializerMethodField('get_phone_country_code')
-    phone_number = serializers.SerializerMethodField('get_phone_number')
-
-    class Meta:
-        model = Address
-        fields = ('title', 'address', 'province', 'city', 'country', 'phone_country_code', 'phone_number', 'zip_code')
-
-    def get_phone_country_code(self, obj):
-        print("qqqqqqq")
-        print(obj.phone)
-        return obj.phone.phone_country_code
-    def get_phone_number(self, obj):
-        return obj.phone.phone_number
-"""
