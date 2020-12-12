@@ -20,15 +20,6 @@ def manage_single_address(request, customer_id, address_id):
             return Response({'successful': False, 'message': "No such address is found"})
         address_serializer = AddressResponseSerializer(address, many=True)
         return Response(address_serializer.data)
-    #update single address
-    elif request.method == 'PUT': 
-        address_serializer = AddressRequestSerializer(data=request.data)
-        if address_serializer.is_valid(): 
-            print("yesyesyes")
-            address_serializer.save() 
-            return Response({'successful': True, 'message': "Successfully updated"})
-        else:
-            return Response({'successful': False, 'message': "Wrong format: Data could not be serialized"})
     #delete single address 
     elif request.method == 'DELETE':
         try:
@@ -63,11 +54,12 @@ def manage_multiple_addresses(request, customer_id):
             province = serializer.validated_data.get("province")
             city = serializer.validated_data.get("city")
             country = serializer.validated_data.get("country")
-            phone_country_code = serializer.validated_data.get("phone_country_code")
-            phone_number = serializer.validated_data.get("phone_number")
+            phone = serializer.validated_data.get("phone")
+            phone_country_code = phone.get("country_code")
+            phone_number = phone.get("number")
             zip_code = serializer.validated_data.get("zip_code")
             address = Address(user=user, title=title, address=address, province=province, city=city, 
-                country=country, phone_country_code="phone_country_code", phone_number="phone_number", zip_code=zip_code)
+                country=country, phone_country_code=phone_country_code, phone_number=phone_number, zip_code=zip_code)
             address.save()
             return Response({'successful': True, 'message': "Address is successfully added"})
     return Response({'successful': False, 'message': "Error occurred"})
