@@ -22,12 +22,20 @@ class Product (models.Model):
     price = models.IntegerField()
     creation_date = models.DateTimeField(auto_now_add=True)
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE) #vendor id  
-    image_url = models.CharField(max_length=255)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE) #brand id  
     total_rating = models.IntegerField(default=0)
     rating_count = models.IntegerField(default=0)
     stock_amount = models.IntegerField()
-    description = models.CharField(max_length=255)
+    short_description = models.CharField(max_length=255)
+    long_description = models.TextField(max_length=255,default='long description')
+    discount = models.FloatField(default=0.1)
+
+#img urls
+class ImageUrls (models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE) #product id  
+    image_url = models.CharField(max_length=255)
+    index = models.IntegerField(default=0)
+
 
 #productlist
 class ProductList(models.Model):
