@@ -24,8 +24,7 @@ class ReviewSerializer(serializers.ModelSerializer):
         else:
             return {
                 'id': obj.product.pk,
-                'name': obj.product.name,
-                'image_url': obj.product.image_url
+                'name': obj.product.name
             }
     
     def get_vendor(self, obj):

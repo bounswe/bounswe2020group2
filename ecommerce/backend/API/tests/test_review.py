@@ -26,11 +26,11 @@ class ReviewTests(TestCase):
         v1 = Vendor.objects.create(id=1, user = u, first_name="omerfaruk", last_name="deniz")
         v2 = Vendor.objects.create(id=2, user = u, first_name="umut", last_name="öksüz")
         p1 = Product.objects.create(id=1, name = "Mavi T-shirt", price = 100, 
-            creation_date = "2019-08-20T07:22:34Z", image_url = "image_url1", total_rating = 4, 
-            rating_count = 20, stock_amount = 10, description = "yaza özel", subcategory = s, brand = b, vendor = v1)
+            creation_date = "2019-08-20T07:22:34Z", total_rating = 4, 
+            rating_count = 20, stock_amount = 10, short_description = "yaza özel", subcategory = s, brand = b, vendor = v1)
         p2 = Product.objects.create(id=2, name = "Mavi Pantolon", price = 100, 
-            creation_date = "2019-08-20T07:22:34Z", image_url = "image_url1", total_rating = 4, 
-            rating_count = 20, stock_amount = 10, description = "yaza özel", subcategory = s, brand = b, vendor = v1)
+            creation_date = "2019-08-20T07:22:34Z", total_rating = 4, 
+            rating_count = 20, stock_amount = 10, short_description = "yaza özel", subcategory = s, brand = b, vendor = v1)
         Purchase.objects.create(user=u, product=p1, amount = 1, unit_price = 100, name="Mavi T-shirt", 
         status = OrderStatus.DELIVERED.value, address=a, purchase_date=datetime.date.today())
         body = {
