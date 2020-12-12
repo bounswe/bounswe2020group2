@@ -93,13 +93,13 @@ export const ProductHeader = ({ product, loading = false }) => {
             </div>
             <div className="product-header-vendor">
                 <span className="product-header-vendor-label">Vendor:</span>&nbsp;
-                <Link to={`/vendor/${product.vendor}`}>{product.vendor}</Link>
+                <Link to={`/vendor/${product.vendor.id}`}>{product.vendor.name}</Link>
                 &nbsp;
                 <span
                     className={`product-header-vendor-rating product-header-vendor-rating__${getVendorRatingLevel(
-                        product.vendor_rating,
+                        product.vendor.rating,
                     )}`}>
-                    {round(product.vendor_rating ?? 9.7, 2)}
+                    {round(product.vendor.rating ?? 9.7, 1)}
                 </span>
             </div>
             <div className="product-header-extra">

@@ -11,10 +11,10 @@ export const ProductExtra = ({ product, loading = false }) => {
         }
 
         // only doing this because not sure what product will contain
-        const hasDiscount = !!(product.discount ?? true)
+        const hasDiscount = product.discount > 0
         if (hasDiscount) {
-            const discount = product.discount ?? 0.25
-            const oldPrice = round(product.oldPrice ?? product.price * (1 + discount), 2)
+            const discount = product.discount
+            const oldPrice = round(product.old_price, 2)
             const newPrice = round(product.price, 2)
 
             return (
