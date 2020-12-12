@@ -82,6 +82,15 @@
     <argument
         android:name="subName"
         app:argType="string" />
+        <action
+            android:id="@+id/action_subcategoryFragment_to_filterOptionsFragment"
+            app:destination="@id/filterOptionsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/filterOptionsFragment"
+        android:name="com.example.getflix.ui.fragments.FilterOptionsFragment"
+        android:label="FilterOptionsFragment"
+        tools:layout="@layout/fragment_filter_options">
     </fragment>
 
 </navigation>

@@ -55,4 +55,10 @@
         <item>Number of Comments</item>
     </string-array>
     <string name="sort">Sort By:</string>
+    <string name="vendors">Vendors:</string>
+    <string name="brands">Brands:</string>
+    <string name="pro_rating">Product Rating:</string>
+    <string name="price_range">Price Range:</string>
+    <string name="filter">Filter</string>
+    <string name="filter_options">Filter Options</string>
 </resources>

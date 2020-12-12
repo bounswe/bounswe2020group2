@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,13 +20,17 @@ import com.example.getflix.R
 import com.example.getflix.databinding.FragmentSubcategoryBinding
 import com.example.getflix.models.ProductModel
 import com.example.getflix.ui.adapters.SubCategoryAdapter
+import com.example.getflix.ui.fragments.SubcategoryFragmentDirections.Companion.actionSubcategoryFragmentToFilterOptionsFragment
 import com.example.getflix.ui.viewmodels.SubCategoryViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.toolbar
+import kotlinx.android.synthetic.main.fragment_subcategory.*
 
 
 class SubcategoryFragment : Fragment() {
 
     private lateinit var viewModel: SubCategoryViewModel
+    private var filter = false
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -36,8 +41,7 @@ class SubcategoryFragment : Fragment() {
         )
 
         activity?.toolbar!!.visibility = View.GONE
-        val navController =
-                Navigation.findNavController(requireActivity(), R.id.my_nav_host_fragment)
+        val navController = Navigation.findNavController(requireActivity(), R.id.my_nav_host_fragment)
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         binding.toolbar.title = ""
@@ -70,42 +74,39 @@ class SubcategoryFragment : Fragment() {
             viewModel.addProduct(product)
         }
 
+        binding.btnFilter.setOnClickListener {
+            filter = true
+            view?.findNavController()!!.navigate(actionSubcategoryFragmentToFilterOptionsFragment())
+        }
+
         viewModel.productList.observe(viewLifecycleOwner,{
             it?.let {
-                println("girdi mi")
                 productListAdapter.submitList(it)
             }
         })
 
         val sorts = resources.getStringArray(R.array.SortBy)
         val spinner = binding.spinner
-        if (spinner != null) {
-            val adapter = ArrayAdapter(activity?.applicationContext!!, android.R.layout.simple_spinner_dropdown_item, sorts)
-            spinner.adapter = adapter
-            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-
-                }
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    viewModel.sort(parent?.getItemAtPosition(position).toString())
-
-                }
+        val adapter = ArrayAdapter(activity?.applicationContext!!, android.R.layout.simple_spinner_dropdown_item, sorts)
+        spinner.adapter = adapter
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                viewModel.sort(parent?.getItemAtPosition(position).toString())
+
+            }
+
         }
-
-
-
-
 
         return binding.root
     }
 
-    override fun onPause() {
-        super.onPause()
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if(!filter)
         activity?.toolbar!!.visibility = View.VISIBLE
     }
-
-
-
 }
