@@ -40,13 +40,23 @@ def products(request):
                 brand_q = (brand_q | Q(brand_id=brand_id))
             query_set = query_set.filter(brand_q)
     if "max_price" in query_data:
-        pass #filter
+        query_set = query_set.filter(price__lte=query_data["max_price"])
+    if "min_rating" in query_data:
+        query_set = query_set.filter(rating__gte=query_data["min_rating"])
     #SORTING
+    s_order = ""
+    if "sort_order" in query_data:
+        if query_data["sort_order"]=="decreasing":
+            s_order = "-"
     if "sort_by" not in query_data:
-        pass #best-sellers
-    elif query_data["sort_by"]=="newest-arrivals":
-        pass #sort 
-    #PAGINATION
+        query_set = query_set.order_by("-rating")
+    elif query_data["sort_by"]=="arrival":
+        query_set = query_set.order_by(s_order+"creation_date") #sort
+    elif query_data["sort_by"]=="price":
+        query_set = query_set.order_by(s_order+"price")
+    elif query_data["sort_by"]=="rating":
+        query_set = query_set.order_by(s_order+"rating")
+    # TODO Comment Count and Best Sellers ordering
     page = 0
     page_size = 10
     if "page" in query_data:
@@ -54,7 +64,7 @@ def products(request):
     if "page_size" in query_data:
         page_size = query_data["page_size"];
     #LIMIT MIGHT PASS THE NUMBER OF ELEMENTS
-    query_set=query_set[page*page_size:page_size]
+    query_set=query_set[page*page_size:(page+1)*(page_size)]
 #    user_serializer = search_serializer.SearchProductSerializer(request)
     print(query_set)
     serializer = ProductSerializer(query_set, many=True)
