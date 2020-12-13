@@ -5,7 +5,8 @@ from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 
 from API.utils import permissions, Role
-from API.models import Product
+from API.models import Product, Subcategory
+from django.db.models import Q
 #from API.serializers import search_serializer
 from API.serializers.product_serializer import ProductSerializer
 
@@ -19,11 +20,16 @@ def products(request):
     query_set = Product.objects.all()
     if "query" in query_data:
         pass #case insensitive search on title
-    if "category" in query_data:
-        #query_set = query_set.filter(category=query_data["category"])
+    
         pass
     if "subcategory" in query_data:
         query_set = query_set.filter(subcategory_id=query_data["subcategory"])
+    elif "category" in query_data:
+        category_Q = Q()
+        # Get all subcategories under the given category and create a Q object.
+        for sub_id in Subcategory.objects.filter(category_id=query_data["category"]):
+            category_Q = (category_Q | Q(subcategory_id=sub_id))
+        query_set = query_set.filter(category_Q)
     if "brand" in query_data:
         if not query_data["brand"]:
             pass #brand list is empty, assume no filtering
@@ -49,7 +55,7 @@ def products(request):
 #    user_serializer = search_serializer.SearchProductSerializer(request)
     print(query_set)
     serializer = ProductSerializer(query_set, many=True)
-    #print(serializer.data)
+    print(serializer.data)
     return Response(serializer.data)
 
 
