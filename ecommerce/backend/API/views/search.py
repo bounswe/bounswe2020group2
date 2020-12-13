@@ -64,12 +64,14 @@ def products(request):
     if "page_size" in query_data:
         page_size = query_data["page_size"];
     #LIMIT MIGHT PASS THE NUMBER OF ELEMENTS
+    total_items=query_set.count()
     query_set=query_set[page*page_size:(page+1)*(page_size)]
 #    user_serializer = search_serializer.SearchProductSerializer(request)
     print(query_set)
     serializer = ProductSerializer(query_set, many=True)
     print(serializer.data)
-    return Response(serializer.data)
+    response_data = {"pagination":{"page":page,"page_size":page_size,"total_items":total_items}}
+    return Response( { "data":response_data,"products":serializer.data } )
 
 
 
