@@ -59,7 +59,7 @@ class ProfileFragment : Fragment() {
                 view?.findNavController()?.navigate(actionProfileFragmentToOrderInfoFragment())}
             binding.userInfoButton.setOnClickListener {
                 view?.findNavController()?.navigate(actionProfileFragmentToUserInfoFragment())}
-            binding.addressinfo.setOnClickListener {
+            binding.addressinfoButton.setOnClickListener {
                 view?.findNavController()?.navigate(actionProfileFragmentToAdddressFragment())}
             binding.bankAccountInfoButton.setOnClickListener {
                 view?.findNavController()?.navigate(actionProfileFragmentToBankAccountFragment())}
