@@ -1,3 +1,6 @@
+from API.models import product
+from API.models import purchase
+from API.models.purchase import Purchase
 from django.http.response import HttpResponseForbidden, HttpResponseNotAllowed
 from rest_framework import exceptions
     
@@ -7,9 +10,9 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 
 from ..utils import permissions, Role
-from ..models import User, ShoppingCartItem, Product
-from ..serializers import checkout_product_serializer, checkout_shopping_cart_serializer
-from ..utils import authentication
+from ..models import User, ShoppingCartItem, Product, Address
+from ..serializers import checkout_product_serializer, checkout_shopping_cart_serializer, address_serializer
+from ..utils import authentication, order_status
 
 
 @api_view(['GET'])
@@ -49,3 +52,46 @@ def checkout_details(request):
                 }
 
     return Response(context)
+
+
+@api_view(['POST'])
+@permission_classes([permissions.AllowAnonymous])
+def checkout_payment(request):
+    jwt = authentication.JWTAuthentication()
+    user = jwt.authenticate(request=request)
+
+    address_id = request.data["address_id"]
+    address = Address.objects.filter(id=address_id)
+    address_s = address_serializer.AddressResponseSerializer(address)
+
+    items = ShoppingCartItem.objects.filter(customer_id=user[0].pk).values('id', 'product_id', 'amount')
+    serializers = checkout_shopping_cart_serializer.CheckoutShoppingCartSerializer(items, many=True)
+
+    amount = 0
+    unit_price = 0 
+
+    for serializer in serializers.data:
+        amount = serializer.get("amount")
+        product_id = serializer.get("product")["id"]
+        unit_price = serializer.get("product")["price"]
+        name = serializer.get("product")["amount"]
+        status = order_status.OrderStatus.ACCEPTED
+        purchase = Purchase(user=user, product_id=product_id, amount=amount, unit_price=unit_price,name=name,status=status, address=address_s)
+        purchase.save()
+
+    context = { 'successful': True,
+                'message': "Payment process is successfully satisfied."
+    }
+
+    return Response(context)
+
+
+@api_view(['POST'])
+@permission_classes([permissions.AllowAnonymous])
+def checkout_cancel_order(request, id):
+    jwt = authentication.JWTAuthentication()
+    user = jwt.authenticate(request=request)
+
+    purchase = Purchase.objects.get(pk=int(id))
+    purchase.status = order_status.OrderStatus.CANCELLED
+    purchase.update()
