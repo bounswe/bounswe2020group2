@@ -87,8 +87,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:id="@+id/userInfoButton"
-                    android:background="@drawable/button_image"
-                    android:onClick="profileToPersonalInfo">
+                    android:background="@drawable/button_image">
                 </Button>
             </LinearLayout>
 
@@ -123,8 +122,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:id="@+id/bankAccountInfoButton"
-                    android:background="@drawable/button_image"
-                    android:onClick="profileToBankAccounts">
+                    android:background="@drawable/button_image">
                 </Button>
             </LinearLayout>
             <LinearLayout
@@ -158,8 +156,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:id="@+id/ordersButton"
-                    android:background="@drawable/button_image"
-                    android:onClick="profileToOrders">
+                    android:background="@drawable/button_image">
                 </Button>
             </LinearLayout>
             <LinearLayout
@@ -192,7 +189,7 @@
                 <Button
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:id="@+id/addressinfo"
+                    android:id="@+id/addressinfoButton"
                     android:background="@drawable/button_image">
                 </Button>
             </LinearLayout>
