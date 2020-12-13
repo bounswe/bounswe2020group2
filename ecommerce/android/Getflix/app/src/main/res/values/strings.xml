@@ -46,6 +46,21 @@
     <string name="sign_up">Hesabın yok mu? Kaydol</string>
     <string name="guest">Misafir</string>
     <string name="guest_cont">Misafir olarak devam et</string>
+    <string-array name="SortBy">
+        <item>---</item>
+        <item>Çok Satanlar</item>
+        <item>Yeni Gelenler</item>
+        <item>Fiyat</item>
+        <item>Puan</item>
+        <item>Yorum Sayısı</item>
+    </string-array>
+    <string name="sort">Sort By:</string>
+    <string name="vendors">Satıcılar:</string>
+    <string name="brands">Markalar:</string>
+    <string name="pro_rating">Ürün Değerlendirme Puanı:</string>
+    <string name="price_range">Fiyat Aralığı:</string>
+    <string name="filter">Filtrele</string>
+    <string name="filter_options">Filtre Seçenekleri</string>
 
 
 </resources>
