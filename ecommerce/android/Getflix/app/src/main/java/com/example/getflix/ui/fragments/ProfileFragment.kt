@@ -43,6 +43,18 @@ class ProfileFragment : Fragment() {
              binding.name.text = MainActivity.StaticData.name
          }
 
+        binding.ordersButton.setOnClickListener {
+            print("hey")
+            view?.findNavController()?.navigate(actionProfileFragmentToOrderInfoFragment())}
+        binding.userInfoButton.setOnClickListener {
+            print("hey")
+            view?.findNavController()?.navigate(actionProfileFragmentToUserInfoFragment())}
+        binding.addressinfoButton.setOnClickListener {
+            print("hey")
+            view?.findNavController()?.navigate(actionProfileFragmentToAdddressFragment())}
+        binding.bankAccountInfoButton.setOnClickListener {
+            print("hey")
+            view?.findNavController()?.navigate(actionProfileFragmentToBankAccountFragment())}
 
         binding.btnLogout.setOnClickListener {
                  MainActivity.StaticData.isVisitor = false
@@ -55,14 +67,7 @@ class ProfileFragment : Fragment() {
                  transaction.disallowAddToBackStack()
                  transaction.commit() */
 
-            binding.ordersButton.setOnClickListener {
-                view?.findNavController()?.navigate(actionProfileFragmentToOrderInfoFragment())}
-            binding.userInfoButton.setOnClickListener {
-                view?.findNavController()?.navigate(actionProfileFragmentToUserInfoFragment())}
-            binding.addressinfoButton.setOnClickListener {
-                view?.findNavController()?.navigate(actionProfileFragmentToAdddressFragment())}
-            binding.bankAccountInfoButton.setOnClickListener {
-                view?.findNavController()?.navigate(actionProfileFragmentToBankAccountFragment())}
+
 
          }
         return binding.root
