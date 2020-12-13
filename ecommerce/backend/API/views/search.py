@@ -19,9 +19,7 @@ def products(request):
     print(query_data)
     query_set = Product.objects.all()
     if "query" in query_data:
-        pass #case insensitive search on title
-    
-        pass
+        query_set = query_set.filter(name__icontains=query_data["query"])
     if "subcategory" in query_data:
         query_set = query_set.filter(subcategory_id=query_data["subcategory"])
     elif "category" in query_data:
