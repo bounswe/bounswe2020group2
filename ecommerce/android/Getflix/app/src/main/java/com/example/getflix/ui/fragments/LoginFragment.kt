@@ -87,9 +87,9 @@ class LoginFragment : Fragment() {
             }
         }
 
-        loginViewModel.onLogin.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                MainActivity.StaticData.name = binding.username.text.toString()
+        loginViewModel.user.observe(viewLifecycleOwner, Observer {
+            if (it!=null) {
+                MainActivity.StaticData.user = it
                 view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
             } else {
 

@@ -40,7 +40,8 @@ class ProfileFragment : Fragment() {
             binding.bankAccounts.text = "---"
             binding.orders.text = "---"
          } else {
-             binding.name.text = MainActivity.StaticData.name
+             binding.name.text = MainActivity.StaticData.user!!.firstName + " " + MainActivity.StaticData.user!!.lastName
+             binding.mail.text = MainActivity.StaticData.user!!.email
          }
 
         binding.ordersButton.setOnClickListener {
@@ -61,6 +62,7 @@ class ProfileFragment : Fragment() {
                  MainActivity.StaticData.isCustomer = false
                  MainActivity.StaticData.isAdmin = false
                  MainActivity.StaticData.isVendor = false
+                 MainActivity.StaticData.user = null
             view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
                 /* val transaction = activity?.supportFragmentManager!!.beginTransaction()
                  transaction.replace(R.id.my_nav_host_fragment, LoginFragment())

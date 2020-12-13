@@ -19,4 +19,19 @@ def validate_register_request(request):
         return (False, "Password field must be at least 8 characters long")
     else:
         return(True, "")
-    
+
+def validate_review_request(request):
+    product_id = request.data["product_id"]
+    vendor_id = request.data["vendor_id"]
+    rating = request.data["rating"]
+    comment = request.data["comment"]
+
+    if product_id is None and vendor_id is None:
+        return (False, "Both product and vendor are null.")
+    elif rating is None or rating < 0 or rating > 5:
+        return (False, "Invalid or empty rating")
+    elif comment.__len__() > 400:
+        return (False, "Comment cannot be longer than 400 characters")
+    else:
+        return (True, "Success")
+
