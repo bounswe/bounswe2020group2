@@ -8,8 +8,8 @@ class ProductSerializer(serializers.ModelSerializer):
     vendor = serializers.SerializerMethodField('get_vendor')
     class Meta:
         model = Product
-        fields = ('id', 'name', 'price', 'creation_date','image_url','total_rating', 
-            'rating_count','stock_amount','description','subcategory','category','brand','vendor')
+        fields = ('id', 'name', 'price', 'creation_date','total_rating', 
+            'rating_count','stock_amount','short_description','subcategory','long_description','discount','category','brand','vendor')
 
     def get_subcategory(self, obj):
         subcategory_obj = Subcategory.objects.filter(id=obj.subcategory.id).first()
