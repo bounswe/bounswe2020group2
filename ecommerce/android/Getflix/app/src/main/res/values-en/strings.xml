@@ -48,4 +48,5 @@
     <string name="guest_cont">Continue as a guest</string>
     <string name="acceptCart">Proceed to Checkout</string>
     <string name="buy">Pay</string>
+    <string name="payment">Payment</string>
 </resources>
