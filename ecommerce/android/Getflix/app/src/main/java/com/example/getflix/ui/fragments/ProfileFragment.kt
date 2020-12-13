@@ -65,24 +65,6 @@ class ProfileFragment : Fragment() {
                 view?.findNavController()?.navigate(actionProfileFragmentToBankAccountFragment())}
 
          }
-
-
         return binding.root
-    }
-
-    fun profileToPersonalInfo() {
-
-    }
-
-    fun profileToBankAccounts() {
-
-    }
-
-    fun profileToOrders() {
-
-    }
-
-    fun profileToAddress() {
-
     }
 }
