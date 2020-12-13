@@ -25,17 +25,20 @@ def products(request):
     if "subcategory" in query_data:
         query_set = query_set.filter(subcategory_id=query_data["subcategory"])
     elif "category" in query_data:
-        category_Q = Q()
+        category_q = Q()
         # Get all subcategories under the given category and create a Q object.
         for sub_id in Subcategory.objects.filter(category_id=query_data["category"]):
-            category_Q = (category_Q | Q(subcategory_id=sub_id))
-        query_set = query_set.filter(category_Q)
+            category_q = (category_q | Q(subcategory_id=sub_id))
+        query_set = query_set.filter(category_q)
     if "brand" in query_data:
         if not query_data["brand"]:
             pass #brand list is empty, assume no filtering
         else:
-            pass
-            #brand_q=Q(brand=)
+            brand_q = Q()
+            # Create a Q object for all brands.
+            for brand_id in query_data["brand"]:
+                brand_q = (brand_q | Q(brand_id=brand_id))
+            query_set = query_set.filter(brand_q)
     if "max_price" in query_data:
         pass #filter
     #SORTING
