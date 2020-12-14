@@ -51,13 +51,17 @@ interface GetflixApiService {
     fun signUp(@Body signUpCredentials: SignUpCredentials): Call<SignUpResponse>
 
     @GET("products/homepage/{numberOfProducts}")
-    suspend fun getProducts(@Path("numberOfProducts") numberOfProducts: Int): Response<List<PModel>>
+    suspend fun getProducts(@Path("numberOfProducts") numberOfProducts: Int): Response<List<ProductModel>>
 
     @GET("product/{productId}")
-    suspend fun getProduct(@Path("productId") productId: Int): Response<List<PModel>>
+    suspend fun getProduct(@Path("productId") productId: Int): Response<List<ProductModel>>
 
     @GET("user/{userId}/listShoppingCart")
-    suspend fun userCartProducts(@Path("userId") userId: Int): Response<List<PModel>>
+    suspend fun userCartProducts(@Path("userId") userId: Int): Response<List<ProductModel>>
+
+    @Headers("Content-Type: application/json")
+    @POST("user/{userId}/shoppingCart")
+    fun addCartProduct(@Path("userId") userId: Int,@Body userData: CardProRequest): Call<CardProResponse>
 
 
 }

@@ -8,21 +8,17 @@
 
         <variable
             name="product"
-            type="com.example.getflix.models.PModel" />
+            type="com.example.getflix.models.ProductModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="250dp"
+        android:layout_width="190dp"
         android:layout_height="300dp"
-        android:layout_margin="10dp"
         android:background="@drawable/back">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:padding="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="1dp"
             app:cardElevation="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

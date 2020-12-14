@@ -14,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.getflix.R
+import com.example.getflix.models.User
 import com.example.getflix.ui.fragments.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         var isCustomer = false
         var isVendor = false
         var isAdmin = false
+        var user: User? = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

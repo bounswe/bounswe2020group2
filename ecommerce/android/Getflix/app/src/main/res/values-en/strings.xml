@@ -46,4 +46,23 @@
     <string name="sign_up">Don\'t have an account? Sign up.</string>
     <string name="guest">Guest</string>
     <string name="guest_cont">Continue as a guest</string>
+    <string name="userInfo">Personal Info</string>
+    <string name="bankAccounts">Bank Account Info</string>
+    <string name="orders">My Orders</string>
+    <string name="addressInfo">Address Info</string>
+    <string-array name="SortBy">
+        <item>---</item>
+        <item>Best Sellers</item>
+        <item>Newest Arrivals</item>
+        <item>Price</item>
+        <item>Average Customer Review</item>
+        <item>Number of Comments</item>
+    </string-array>
+    <string name="sort">Sort By:</string>
+    <string name="vendors">Vendors:</string>
+    <string name="brands">Brands:</string>
+    <string name="pro_rating">Product Rating:</string>
+    <string name="price_range">Price Range:</string>
+    <string name="filter">Filter</string>
+    <string name="filter_options">Filter Options</string>
 </resources>

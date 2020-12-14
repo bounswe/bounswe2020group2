@@ -1,7 +1,5 @@
 package com.example.getflix
 
-import com.example.getflix.models.ProductModel
-
 fun getProductImage(productId: Int): Int {
     return when (productId) {
         1 -> R.drawable.zara_jacket1
@@ -26,3 +24,34 @@ fun getProductImage(productId: Int): Int {
     }
 
 }
+
+
+/* - **Electronics**
+  - Computers
+  - Camera & Photo
+  - Cell Phones & Accessories
+  - Digital Videos
+  - Software
+- **Health & Households**
+  - Sports & Outdoor
+  - Beauty & Personal Care
+- **Home & Garden**
+  - Luggage
+  - Pet Supplies
+  - Furniture
+- **Clothing**
+  - Men's Fashion
+  - Women's Fashion
+  - Boys' Fashion
+  - Girls' Fashion
+  - Baby
+- **Hobbies**
+  - Books
+  - Music & CDs
+  - Movies & TVs
+  - Toys & Games
+  - Video Games
+  - Arts & Crafts
+- **Others**
+  - Automotive
+  - Industrial & Scientific  */

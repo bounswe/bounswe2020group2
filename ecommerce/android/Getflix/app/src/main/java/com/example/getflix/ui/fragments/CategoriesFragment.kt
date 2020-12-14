@@ -48,23 +48,48 @@ class CategoriesFragment : Fragment() {
         var catsL = mutableListOf<CategoryModel>()
         var cats = listOf<CategoryModel>(
                 CategoryModel(
-                        "Home",
-                        listOf(SubcategoryModel("Furniture", null)) as MutableList<SubcategoryModel>
-                ), CategoryModel(
                 "Electronics",
                 listOf(SubcategoryModel( "Computers",null),
-                        SubcategoryModel("Mobile Phones",null)) as MutableList<SubcategoryModel>
+                        SubcategoryModel("Camera & Photo",null),
+                        SubcategoryModel("Cell Phones & Accessories",null),
+                        SubcategoryModel("Digital Videos",null),
+                        SubcategoryModel("Software",null)) as MutableList<SubcategoryModel>
         ), CategoryModel(
-                "Baby",
-                listOf(SubcategoryModel("Baby Food", null)) as MutableList<SubcategoryModel>
+                "Health & Households",
+                listOf(SubcategoryModel("Sports & Outdoor", null),
+                        SubcategoryModel("Beauty & Personal Care", null)) as MutableList<SubcategoryModel>
+        ), CategoryModel(
+                "Home & Garden",
+                listOf(SubcategoryModel("Luggage", null),
+                        SubcategoryModel("Pet Supplies", null),
+                        SubcategoryModel("Furniture", null)) as MutableList<SubcategoryModel>
+        ), CategoryModel(
+                "Clothing",
+                listOf(SubcategoryModel( "Men's Fashion",null),
+                        SubcategoryModel("Women's Fashion",null),
+                        SubcategoryModel("Boys' Fashion",null),
+                        SubcategoryModel("Girls' Fashion",null),
+                        SubcategoryModel("Baby",null)) as MutableList<SubcategoryModel>
+        ), CategoryModel(
+                "Hobbies",
+                listOf(SubcategoryModel( "Books",null),
+                        SubcategoryModel("Music & CDs",null),
+                        SubcategoryModel("Movies & TVs",null),
+                        SubcategoryModel("Toys & Games",null),
+                        SubcategoryModel("Video Games",null),
+                        SubcategoryModel("Arts & Crafts",null)) as MutableList<SubcategoryModel>
+        ),  CategoryModel(
+                "Others",
+                listOf(SubcategoryModel("Automotive", null),
+                        SubcategoryModel("Industrial & Scientific", null)) as MutableList<SubcategoryModel>
         )
         )
         adapter = CategoriesAdapter(cats, this)
         binding.catRec.adapter = adapter
-
-        viewModel.getProducts(3)
-        viewModel.getProduct(3)
-        //viewModel.getUserCartProducts(2)
+        //viewModel.getProducts(3)
+        //viewModel.getProduct(3)
+        //viewModel.addToCart(1,4)
+        //viewModel.getUserCartProducts(20)
 
         /*viewModel.products?.observe(viewLifecycleOwner, {products ->
             products?.let {
