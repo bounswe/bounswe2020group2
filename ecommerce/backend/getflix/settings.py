@@ -22,15 +22,15 @@ from django.core.exceptions import ImproperlyConfigured
 ## IF YOU NEED TO WORK LOCALLY 
 ## PASS THE ENVIRONMENT VARIABLES FROM COMMAND LINE
 ## 
-'''secrets = {
+secrets = {
     'HOST': os.environ.get('DB_HOST'),
     'USER': os.environ.get('DB_USER'),
     'PASSWORD': os.environ.get('DB_PASSWORD'),
 }
 
-'''
-with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
-    secrets = json.load(secrets_file)
+
+'''with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
+    secrets = json.load(secrets_file)'''
 
 def get_debug():
     debug = os.environ.get("DEBUG")
@@ -123,7 +123,7 @@ WSGI_APPLICATION = 'getflix.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mytestdb',
+        'NAME': 'testdb',
         'USER': get_secret('USER'),
         'PASSWORD': get_secret('PASSWORD'),
         'HOST': get_secret("HOST"),
