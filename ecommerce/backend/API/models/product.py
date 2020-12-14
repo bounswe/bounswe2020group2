@@ -25,6 +25,7 @@ class Product (models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE) #brand id  
     total_rating = models.IntegerField(default=0)
     rating_count = models.IntegerField(default=0)
+    rating = models.FloatField(default=0)
     stock_amount = models.IntegerField()
     short_description = models.CharField(max_length=255)
     long_description = models.TextField(max_length=255,default='long description')
