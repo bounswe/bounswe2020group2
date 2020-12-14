@@ -16,7 +16,7 @@ def products(request):
 #    print(request)
     query_data=JSONParser().parse(request)
 #    product_search_serializer = search_serializer.SearchProductsSerializer(request)
-    print(query_data)
+#    print(query_data)
     query_set = Product.objects.all()
     if "query" in query_data:
         query_set = query_set.filter(name__icontains=query_data["query"])
@@ -65,9 +65,9 @@ def products(request):
     total_items=query_set.count()
     query_set=query_set[page*page_size:(page+1)*(page_size)]
 #    user_serializer = search_serializer.SearchProductSerializer(request)
-    print(query_set)
+#    print(query_set)
     serializer = ProductSerializer(query_set, many=True)
-    print(serializer.data)
+#    print(serializer.data)
     response_data = {"pagination":{"page":page,"page_size":page_size,"total_items":total_items}}
     return Response( { "data":response_data,"products":serializer.data } )
 
