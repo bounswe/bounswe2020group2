@@ -40,6 +40,7 @@ export const EmailVerification = props => {
                 console.log('token: ', id)
                 // const { data } = await api.post(`/email-verify/${id}`)
                 await sleep(2000)
+                // setVerificationState(data.successful)
                 setVerificationState('success')
             } catch (error) {
                 console.error('failed to verify account', error)
