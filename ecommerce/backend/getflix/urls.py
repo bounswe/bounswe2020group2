@@ -31,5 +31,7 @@ urlpatterns = [
     path('customer/<int:customer_id>/addresses/<int:address_id>', views.address.manage_single_address),
     path('customer/<int:customer_id>/addresses', views.address.manage_multiple_addresses),
     path('checkout/details', views.checkout.checkout_details),
-    path('review', views.review.manage_review, name="review")
+    path('review', views.review.manage_review, name="review"),
+    path('user/verify', views.user_verify.user_verify),
+    path('email-verify', views.email_verify.email_verify)
 ]
