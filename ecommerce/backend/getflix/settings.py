@@ -23,11 +23,19 @@ from django.core.exceptions import ImproperlyConfigured
 ## PASS THE ENVIRONMENT VARIABLES FROM COMMAND LINE
 ## 
 secrets = {
+    # 'HOST': 'localhost',
+    # 'USER': 'postgres',
+    # 'PASSWORD': 'admin',
     'HOST': os.environ.get('DB_HOST'),
     'USER': os.environ.get('DB_USER'),
     'PASSWORD': os.environ.get('DB_PASSWORD'),
+    'EMAIL_BACKEND': os.environ.get('EMAIL_BACKEND'),
+    'MAILER_EMAIL_BACKEND': os.environ.get('MAILER_EMAIL_BACKEND'),
+    'EMAIL_HOST': os.environ.get('EMAIL_HOST'),
+    'EMAIL_HOST_PASSWORD': os.environ.get('EMAIL_HOST_PASSWORD'),
+    'EMAIL_HOST_USER': os.environ.get('EMAIL_HOST_USER'),
+    'DEFAULT_FROM_EMAIL': os.environ.get('DEFAULT_FROM_EMAIL')
 }
-
 
 '''with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
     secrets = json.load(secrets_file)'''
@@ -47,6 +55,16 @@ def get_secret(setting, secrets=secrets):
         return secrets[setting]
     except KeyError:
         raise ImproperlyConfigured("Set the {} setting".format(setting))
+
+EMAIL_BACKEND = get_secret('EMAIL_BACKEND')
+MAILER_EMAIL_BACKEND = get_secret('MAILER_EMAIL_BACKEND')
+EMAIL_HOST = get_secret('EMAIL_HOST')
+EMAIL_HOST_PASSWORD = get_secret('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = get_secret('EMAIL_HOST_USER')
+EMAIL_PORT = 587  
+EMAIL_USE_SSL = False
+EMAIL_USE_TLS = True  
+DEFAULT_FROM_EMAIL = get_secret('DEFAULT_FROM_EMAIL')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -127,7 +145,7 @@ DATABASES = {
         'USER': get_secret('USER'),
         'PASSWORD': get_secret('PASSWORD'),
         'HOST': get_secret("HOST"),
-        'PORT': '5432',
+        'PORT': '1234',
     }
 }
 

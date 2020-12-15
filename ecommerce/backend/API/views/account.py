@@ -1,3 +1,5 @@
+from django.contrib.sites.shortcuts import get_current_site
+
 from rest_framework import exceptions
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -5,11 +7,12 @@ from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 
 from API.utils import permissions, Role
-from API.utils.jwttoken import generate_access_token
+from API.utils.jwttoken import generate_access_token, generate_mail_token
 from API.utils.validators import validate_register_request
 from API.utils.crypto import Crypto
 from API.models import User, Customer
 from API.serializers import account_serializer
+from ..utils import verify_email
 
 # Create your views here.
 
@@ -50,6 +53,7 @@ def register(request):
             'message': 'Username is already in use'
         }
         return Response(context)
+    
     user = User(username=request.data["username"], email=request.data["email"], password_salt=salt, password_hash=password_hash, role = Role.CUSTOMER.value)
     user.save()
     customer = Customer(first_name=request.data["firstname"], last_name=request.data["lastname"], user=user)
@@ -57,6 +61,15 @@ def register(request):
     context = {
             'successful': True,
             'message': 'Signup succeeded'
+    }
+
+    to_email = request.data["email"]
+    current_site = get_current_site(request)
+    verify_message = verify_email.email_send_verify(to_email=to_email, current_site=current_site, user=user)
+
+    context = {
+            'successful': True,
+            'message': 'Signup succeeded' + verify_message
     }
     return Response(context)
 
@@ -96,9 +109,4 @@ def login(request):
             }
         )
         return Response(user_serializer.data)
-
-
-
-
-
 
