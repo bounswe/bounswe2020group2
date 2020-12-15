@@ -30,21 +30,30 @@ class JWTAuthentication(BaseAuthentication):
         return(user, None)
 
     def authenticate_mail(self, uidb64):
+        message = ""
+        control = False
+        user = None
         try:
             payload = jwt.decode(
                 uidb64, settings.SECRET_KEY, algorithms=['HS256'])
 
         except jwt.InvalidSignatureError:
-            raise exceptions.AuthenticationFailed('invalid signature')
+            message= 'Invalid'
+            control = True
         except jwt.ExpiredSignatureError:
-            raise exceptions.AuthenticationFailed('token expired')
+            message= 'Expired'
+            control = True
         except IndexError:
-            raise exceptions.AuthenticationFailed("invalid format")
+            message= 'Invalid'
+            control = True
 
-        user = User.objects.filter(pk=payload['id']).first()
-        if user is None:
-            raise exceptions.AuthenticationFailed('user not found')
-        elif user.is_verified is True:
-            raise exceptions.AuthenticationFailed('Your mail is already verified.')
-        
-        return user
+        if(not control):
+            user = User.objects.filter(pk=payload['id']).first()
+            if user is None:
+                message= 'Invalid'
+            elif user.is_verified is True:
+                message= 'Verified'
+            else:
+                message = "Success"
+
+        return(user, message)

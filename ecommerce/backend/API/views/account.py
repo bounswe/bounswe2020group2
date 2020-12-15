@@ -69,7 +69,7 @@ def register(request):
 
     context = {
             'successful': True,
-            'message': 'Signup succeeded' + verify_message
+            'message': 'Signup succeeded, ' + verify_message
     }
     return Response(context)
 

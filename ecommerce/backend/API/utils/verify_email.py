@@ -9,9 +9,12 @@ def email_send_verify(to_email, current_site, user):
     message = render_to_string('acc_active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
+                'url_path': 'email_verify',
                 'uid': generate_mail_token(user.pk),
             })
     email = EmailMessage(
         mail_subject, message, to=[to_email]
     )
     email.send()
+
+    return " Please check your mail to verify"

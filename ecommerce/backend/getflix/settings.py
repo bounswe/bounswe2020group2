@@ -23,9 +23,6 @@ from django.core.exceptions import ImproperlyConfigured
 ## PASS THE ENVIRONMENT VARIABLES FROM COMMAND LINE
 ## 
 secrets = {
-    # 'HOST': 'localhost',
-    # 'USER': 'postgres',
-    # 'PASSWORD': 'admin',
     'HOST': os.environ.get('DB_HOST'),
     'USER': os.environ.get('DB_USER'),
     'PASSWORD': os.environ.get('DB_PASSWORD'),
@@ -119,7 +116,7 @@ ROOT_URLCONF = 'getflix.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': (os.path.join(os.path.dirname(__file__), '..', 'templates').replace('\\','/'),),
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -145,7 +142,7 @@ DATABASES = {
         'USER': get_secret('USER'),
         'PASSWORD': get_secret('PASSWORD'),
         'HOST': get_secret("HOST"),
-        'PORT': '1234',
+        'PORT': '5432',
     }
 }
 
