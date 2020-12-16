@@ -25,7 +25,11 @@
             app:destination="@id/homePageFragment" />
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/enter_right_to_left"
+            app:popExitAnim="@anim/exit_right_to_left"/>
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -79,7 +83,11 @@
         android:label="CategoriesFragment" >
         <action
             android:id="@+id/action_categoriesFragment_to_subcategoryFragment"
-            app:destination="@id/subcategoryFragment" />
+            app:destination="@id/subcategoryFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/enter_right_to_left"
+            app:popExitAnim="@anim/exit_right_to_left"/>
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"

@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
+import com.example.getflix.askAlert
 import com.example.getflix.databinding.FragmentProfileBinding
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToAdddressFragment
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToBankAccountFragment
@@ -45,33 +46,47 @@ class ProfileFragment : Fragment() {
          }
 
         binding.ordersButton.setOnClickListener {
-            print("hey")
             view?.findNavController()?.navigate(actionProfileFragmentToOrderInfoFragment())}
         binding.userInfoButton.setOnClickListener {
-            print("hey")
             view?.findNavController()?.navigate(actionProfileFragmentToUserInfoFragment())}
         binding.addressinfoButton.setOnClickListener {
-            print("hey")
             view?.findNavController()?.navigate(actionProfileFragmentToAdddressFragment())}
         binding.bankAccountInfoButton.setOnClickListener {
-            print("hey")
             view?.findNavController()?.navigate(actionProfileFragmentToBankAccountFragment())}
 
         binding.btnLogout.setOnClickListener {
-                 MainActivity.StaticData.isVisitor = false
-                 MainActivity.StaticData.isCustomer = false
-                 MainActivity.StaticData.isAdmin = false
-                 MainActivity.StaticData.isVendor = false
-                 MainActivity.StaticData.user = null
-            view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
-                /* val transaction = activity?.supportFragmentManager!!.beginTransaction()
-                 transaction.replace(R.id.my_nav_host_fragment, LoginFragment())
-                 transaction.disallowAddToBackStack()
-                 transaction.commit() */
+            if(!MainActivity.StaticData.isVisitor) {
+                askAlert(this, getString(R.string.logout_warning),:: navigateLogin)
+                /*if (MainActivity.StaticData.confirm) {
+                    resetData()
+                    view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
+                } */
+            } else {
+                resetData()
+                view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
+            }
+         }
 
 
 
          }
         return binding.root
     }
+
+
+
+    private fun resetData() {
+        MainActivity.StaticData.isVisitor = false
+        MainActivity.StaticData.isCustomer = false
+        MainActivity.StaticData.isAdmin = false
+        MainActivity.StaticData.isVendor = false
+        MainActivity.StaticData.user = null
+    }
+
+    fun navigateLogin() {
+        view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
+    }
+
+
+
 }

@@ -65,6 +65,11 @@
     <string name="price_range">Fiyat Aralığı:</string>
     <string name="filter">Filtrele</string>
     <string name="filter_options">Filtre Seçenekleri</string>
+    <string name="login_info">Kullanıcı adı ya da şifre yanlış.</string>
+    <string name="logout_warning">Oturumu kapatmak istediğine emin misin?</string>
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
+    <string name="warning">Uyarı</string>
 
 
 </resources>

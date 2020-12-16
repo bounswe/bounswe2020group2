@@ -65,4 +65,9 @@
     <string name="price_range">Price Range:</string>
     <string name="filter">Filter</string>
     <string name="filter_options">Filter Options</string>
+    <string name="login_info">The username or password is incorrect.</string>
+    <string name="logout_warning">Are you sure you want to log out?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="warning">Warning</string>
 </resources>
