@@ -8,12 +8,15 @@ import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.getflix.R
+import com.example.getflix.UserType
+import com.example.getflix.models.GoogleProfile
 import com.example.getflix.models.User
 import com.example.getflix.ui.fragments.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,14 +30,16 @@ class MainActivity : AppCompatActivity() {
     // can be accessed like StaticData.isVisitor, can be used in other classes
     object StaticData {
         var name = ""
-        var isVisitor = false
-        var isCustomer = false
-        var isVendor = false
-        var isAdmin = false
+
         var user: User? = null
+
+        val userType = MutableLiveData<UserType?>()
+        val regularLoginedUser = MutableLiveData<User?>()
+        val googleSignedInUser = MutableLiveData<GoogleProfile?>()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -49,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (currentFocus != null) {
             val imm: InputMethodManager =
-                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
         }
         return super.dispatchTouchEvent(ev)
