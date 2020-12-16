@@ -12,6 +12,9 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.getflix.R
 import com.example.getflix.models.User
@@ -40,7 +43,15 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment
         navController = navHostFragment.findNavController()
-        bottom_nav.setupWithNavController(navController)
+        setSupportActionBar(toolbar)
+        NavigationUI.setupWithNavController(bottom_nav,navController)
+        val appBarConfiguration = AppBarConfiguration(bottom_nav.menu)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        supportActionBar!!.title = null
+       // NavigationUI.setupWithNavController(bottom_nav,navController)
+       // NavigationUI.setupActionBarWithNavController(this,navController)
+    // navController = navHostFragment.findNavController()
+       // bottom_nav.setupWithNavController(navController)
 
 
     }
@@ -53,6 +64,10 @@ class MainActivity : AppCompatActivity() {
             imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
         }
         return super.dispatchTouchEvent(ev)
+    }
+
+    override fun onBackPressed() {
+        onSupportNavigateUp()
     }
 
 

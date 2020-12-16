@@ -63,11 +63,11 @@ class ProfileFragment : Fragment() {
             }
         }
         binding.bankAccountInfoButton.setOnClickListener {
-            if(MainActivity.StaticData.isVisitor) {
+           /* if(MainActivity.StaticData.isVisitor) {
                 infoAlert(this, getString(R.string.bank_guest_alert))
-            } else {
+            } else { */
                 view?.findNavController()?.navigate(actionProfileFragmentToBankAccountFragment())
-            }
+            //}
         }
 
         binding.btnLogout.setOnClickListener {
