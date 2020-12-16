@@ -70,4 +70,9 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="warning">Warning</string>
+    <string name="order_guest_alert">You have to login to see your order information.</string>
+    <string name="user_guest_alert">You have to login to see your user information.</string>
+    <string name="bank_guest_alert">You have to login to see your bank account information.</string>
+    <string name="address_guest_alert">You have to login to see your address information.</string>
+
 </resources>

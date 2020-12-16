@@ -46,9 +46,9 @@
     <string name="sign_up">Hesabın yok mu? Kaydol</string>
     <string name="guest">Misafir</string>
     <string name="guest_cont">Misafir olarak devam et</string>
-    <string name="userInfo">Kullanici Bilgilerim</string>
-    <string name="bankAccounts">Kayitli Kartlarim</string>
-    <string name="orders">Siparislerim</string>
+    <string name="userInfo">Kullanıcı Bilgilerim</string>
+    <string name="bankAccounts">Kayıtlı Kartlarım</string>
+    <string name="orders">Siparişlerim</string>
     <string name="addressInfo">Adres Bilgilerim</string>
     <string-array name="SortBy">
         <item>---</item>
@@ -70,6 +70,10 @@
     <string name="yes">Evet</string>
     <string name="no">Hayır</string>
     <string name="warning">Uyarı</string>
+    <string name="order_guest_alert">Sipariş bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
+    <string name="user_guest_alert">Kullanıcı bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
+    <string name="bank_guest_alert">Banka hesabı bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
+    <string name="address_guest_alert">Adres bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
 
 
 </resources>
