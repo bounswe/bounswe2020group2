@@ -106,8 +106,17 @@ export const AddressModalInner = ({ form, address }) => {
                             required: true,
                             message: 'Please enter your zip code!',
                         },
+                        {
+                            message: 'Wrong zip code format',
+                            validator: (rule, val) => {
+                                if (!val) return Promise.resolve(true)
+                                return /^\d+$/.test(val)
+                                    ? Promise.resolve(true)
+                                    : Promise.reject('Country code format is incorrect!')
+                            },
+                        },
                     ]}>
-                    <InputNumber style={{ width: '100%' }} />
+                    <Input />
                 </Form.Item>
                 <Form.Item
                     name={'address'}
@@ -120,7 +129,10 @@ export const AddressModalInner = ({ form, address }) => {
                     ]}>
                     <Input />
                 </Form.Item>
-                <Form.Item name="phone" label="Phone Number">
+                <Form.Item 
+                    name="phone" 
+                    label="Phone Number"
+                    required>
                     <Input.Group compact>
                         <Form.Item
                             name={['phone', 'countryCode']}
@@ -157,10 +169,22 @@ export const AddressModalInner = ({ form, address }) => {
                                     },
                                 },
                             ]}>
-                            <InputNumber style={{ width: '80%' }} />
+                            <Input style={{ width: '80%' }} />
                         </Form.Item>
                     </Input.Group>
                 </Form.Item>
+                <div style={{"padding-bottom": 8}}>
+                    <div style={{
+                        color: "red", 
+                        float:"left"}}>
+                        *
+                    </div> 
+                    <div style={{
+                        "font-style": "italic",
+                        float:"left"}}>
+                        &nbsp; marked fields are required
+                    </div>
+                </div>
             </Form>
         </>
     )

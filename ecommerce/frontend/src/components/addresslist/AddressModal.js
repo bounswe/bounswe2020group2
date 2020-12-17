@@ -50,7 +50,7 @@ export const AddressModal = ({ address, mode = 'add', visible = false, onCancel 
             destroyOnClose
             onOk={mode === 'add' ? onAdd : onEdit}
             onCancel={onCancel}
-            cancelText="Go Back"
+            cancelText="Cancel"
             okText={mode === 'add' ? 'Add' : 'Edit'}>
             <Spin spinning={isLoading}>
                 <AddressModalInner address={address} form={form} />
