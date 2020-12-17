@@ -96,7 +96,7 @@ export const AddressList = () => {
             <div className="addresslist-list">
                 <Spin spinning={isLoading}>
                     <List
-                        locale={{ emptyText: 'Add a new payment option!' }}
+                        locale={{ emptyText: 'Add a new address!' }}
                         grid={{ gutter: 0 }}
                         dataSource={addressList}
                         renderItem={address => (
