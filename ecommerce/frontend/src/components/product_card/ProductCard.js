@@ -14,10 +14,12 @@ export const ProductCard = ({ product, width = 350 }) => {
     }
 
     const onAddToList = product => {
-        // addShoppingCartItem(product, 1)
+        
     }
 
-    const { title, rating, price, currency, imageUrl, id, old_price } = product
+    const { title, rating, price, currency, imageUrl, id, discount } = product
+    
+    const discountPrice = price * (1-discount)
     return (
         <div className="whole-card" style={{ minWidth: width, minHeight: width, maxWidth: width }}>
             <Link to={`/product/${id}`}>
@@ -32,10 +34,10 @@ export const ProductCard = ({ product, width = 350 }) => {
                 <div className="card-rate">
                     <Rate disabled allowHalf defaultValue={rating}></Rate>
                 </div>
-                {round(old_price, 1) !== round(price, 1) ? (
-                    <div className="card-old-price">{round(old_price, 1) + ' ' + currency}</div>
+                {round(price, 1) !== round(discountPrice, 1) ? (
+                    <div className="card-old-price">{round(price, 1) + ' ' + currency}</div>
                 ) : null}
-                <div className="card-new-price">{round(price, 1) + ' ' + currency}</div>
+                <div className="card-new-price">{round(discountPrice, 1) + ' ' + currency}</div>
             </div>
             <div className="card-add-button">
                 <Button
