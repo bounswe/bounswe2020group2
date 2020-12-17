@@ -11,6 +11,7 @@ import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.askAlert
 import com.example.getflix.databinding.FragmentProfileBinding
+import com.example.getflix.infoAlert
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToAdddressFragment
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToBankAccountFragment
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToLoginFragment
@@ -25,54 +26,61 @@ class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
-       val binding = DataBindingUtil.inflate<FragmentProfileBinding>(inflater,R.layout.fragment_profile,
-            container,false)
+        val binding = DataBindingUtil.inflate<FragmentProfileBinding>(inflater, R.layout.fragment_profile,
+                container, false)
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.profile)
 
-         if(MainActivity.StaticData.isVisitor) {
+        if (MainActivity.StaticData.isVisitor) {
             binding.name.text = getString(R.string.guest)
             binding.btnLogout.text = getString(R.string.login)
-            binding.userinfo.text = "---"
-            binding.address.text = "---"
-            binding.bankAccounts.text = "---"
-            binding.orders.text = "---"
-         } else {
-             binding.name.text = MainActivity.StaticData.user!!.firstName + " " + MainActivity.StaticData.user!!.lastName
-             binding.mail.text = MainActivity.StaticData.user!!.email
-         }
+        } else {
+            binding.name.text = MainActivity.StaticData.user!!.firstName + " " + MainActivity.StaticData.user!!.lastName
+        }
 
         binding.ordersButton.setOnClickListener {
-            view?.findNavController()?.navigate(actionProfileFragmentToOrderInfoFragment())}
+            if (MainActivity.StaticData.isVisitor) {
+                infoAlert(this, getString(R.string.order_guest_alert))
+            } else {
+                view?.findNavController()?.navigate(actionProfileFragmentToOrderInfoFragment())
+            }
+        }
         binding.userInfoButton.setOnClickListener {
-            view?.findNavController()?.navigate(actionProfileFragmentToUserInfoFragment())}
+            if (MainActivity.StaticData.isVisitor) {
+                infoAlert(this, getString(R.string.user_guest_alert))
+            } else {
+                view?.findNavController()?.navigate(actionProfileFragmentToUserInfoFragment())
+            }
+        }
         binding.addressinfoButton.setOnClickListener {
-            view?.findNavController()?.navigate(actionProfileFragmentToAdddressFragment())}
+            if (MainActivity.StaticData.isVisitor) {
+                infoAlert(this, getString(R.string.address_guest_alert))
+            } else {
+                view?.findNavController()?.navigate(actionProfileFragmentToAdddressFragment())
+            }
+        }
         binding.bankAccountInfoButton.setOnClickListener {
-            view?.findNavController()?.navigate(actionProfileFragmentToBankAccountFragment())}
+            /* if(MainActivity.StaticData.isVisitor) {
+                 infoAlert(this, getString(R.string.bank_guest_alert))
+             } else { */
+            view?.findNavController()?.navigate(actionProfileFragmentToBankAccountFragment())
+            //}
+        }
 
         binding.btnLogout.setOnClickListener {
-            if(!MainActivity.StaticData.isVisitor) {
-                askAlert(this, getString(R.string.logout_warning),:: navigateLogin)
-                /*if (MainActivity.StaticData.confirm) {
-                    resetData()
-                    view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
-                } */
+            if (!MainActivity.StaticData.isVisitor) {
+                askAlert(this, getString(R.string.logout_warning), ::navigateLogin)
             } else {
                 resetData()
                 view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
             }
-         }
+        }
 
-
-
-         }
         return binding.root
     }
-
 
 
     private fun resetData() {
@@ -83,10 +91,9 @@ class ProfileFragment : Fragment() {
         MainActivity.StaticData.user = null
     }
 
-    fun navigateLogin() {
+    private fun navigateLogin() {
         view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
     }
-
 
 
 }

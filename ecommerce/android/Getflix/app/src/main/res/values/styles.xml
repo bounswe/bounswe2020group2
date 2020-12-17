@@ -10,7 +10,9 @@
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle.textColor</item>
         <item name="buttonBarNeutralButtonStyle">@style/NeutralButtonStyle.textColor</item>
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle.textColor</item>
-        <item name="materialAlertDialogTitleTextStyle">@style/MyTitle_MaterialAlertDialog.MaterialComponents.Title.Text</item>
+        <item name="materialAlertDialogTitleTextStyle">
+            @style/MyTitle_MaterialAlertDialog.MaterialComponents.Title.Text
+        </item>
         <item name="shapeAppearance">@style/ShapeAppearance.App.MediumComponent</item>
         <item name="colorAccent">@color/initGold</item>
     </style>
@@ -35,7 +37,6 @@
     <style name="MyTitle_MaterialAlertDialog.MaterialComponents.Title.Text" parent="@style/MaterialAlertDialog.MaterialComponents.Title.Text">
         <item name="android:textColor">@color/initPurple</item>
     </style>
-
 
 
 </resources>

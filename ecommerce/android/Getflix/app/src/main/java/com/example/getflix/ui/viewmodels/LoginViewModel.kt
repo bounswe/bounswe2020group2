@@ -45,7 +45,7 @@ class LoginViewModel : ViewModel() {
                             response: Response<LoginResponse>
                     ) {
                         println(response.body()!!.status.message)
-                        if(response.body()!!.status.message == "Giriş başarılı") {
+                        if (response.body()!!.status.message == "Giriş başarılı") {
                             println(response.body()!!.status.message)
                             _onLogin.value = true
                             _user.value = response.body()!!.user
