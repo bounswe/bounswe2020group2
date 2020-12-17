@@ -26,8 +26,8 @@ class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentProfileBinding>(inflater, R.layout.fragment_profile,
                 container, false)
@@ -49,39 +49,38 @@ class ProfileFragment : Fragment() {
             }
         }
         binding.userInfoButton.setOnClickListener {
-            if(MainActivity.StaticData.isVisitor) {
+            if (MainActivity.StaticData.isVisitor) {
                 infoAlert(this, getString(R.string.user_guest_alert))
             } else {
                 view?.findNavController()?.navigate(actionProfileFragmentToUserInfoFragment())
             }
         }
         binding.addressinfoButton.setOnClickListener {
-            if(MainActivity.StaticData.isVisitor) {
+            if (MainActivity.StaticData.isVisitor) {
                 infoAlert(this, getString(R.string.address_guest_alert))
             } else {
                 view?.findNavController()?.navigate(actionProfileFragmentToAdddressFragment())
             }
         }
         binding.bankAccountInfoButton.setOnClickListener {
-           /* if(MainActivity.StaticData.isVisitor) {
-                infoAlert(this, getString(R.string.bank_guest_alert))
-            } else { */
-                view?.findNavController()?.navigate(actionProfileFragmentToBankAccountFragment())
+            /* if(MainActivity.StaticData.isVisitor) {
+                 infoAlert(this, getString(R.string.bank_guest_alert))
+             } else { */
+            view?.findNavController()?.navigate(actionProfileFragmentToBankAccountFragment())
             //}
         }
 
         binding.btnLogout.setOnClickListener {
-            if(!MainActivity.StaticData.isVisitor) {
-                askAlert(this, getString(R.string.logout_warning),:: navigateLogin)
+            if (!MainActivity.StaticData.isVisitor) {
+                askAlert(this, getString(R.string.logout_warning), ::navigateLogin)
             } else {
                 resetData()
                 view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
             }
-         }
+        }
 
         return binding.root
     }
-
 
 
     private fun resetData() {
@@ -95,7 +94,6 @@ class ProfileFragment : Fragment() {
     private fun navigateLogin() {
         view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
     }
-
 
 
 }

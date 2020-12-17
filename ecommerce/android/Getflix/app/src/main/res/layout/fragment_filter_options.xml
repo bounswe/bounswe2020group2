@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -17,119 +17,118 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:textColor="@color/initPurple"
-            android:text="@string/price_range"
-            android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/price_range"
+                android:textColor="@color/initPurple"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:textColor="@color/initPurple"
-                android:textStyle="bold"/>
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
-    </LinearLayout>
+        </LinearLayout>
 
         <com.google.android.material.slider.RangeSlider
             android:id="@+id/price_slider"
-            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:haloColor="@color/colorPrimary"
+            android:layout_margin="5dp"
             android:stepSize="1"
-            app:tickColor="@color/initPurple"
-            app:trackColor="@color/initPurple"
-            app:thumbColor="@color/initGold"
             android:valueFrom="0.0"
-            android:valueTo="100.0" />
+            android:valueTo="100.0"
+            app:haloColor="@color/colorPrimary"
+            app:thumbColor="@color/initGold"
+            app:tickColor="@color/initPurple"
+            app:trackColor="@color/initPurple" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_margin="5dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
             android:layout_margin="10dp"
-            android:textColor="@color/initPurple"
             android:text="@string/pro_rating"
-            android:textStyle="bold"/>
+            android:textColor="@color/initPurple"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <RelativeLayout
             android:id="@+id/rl"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <RadioGroup
                 android:id="@+id/rg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="15dp"
-                >
+                android:padding="15dp">
+
                 <RadioButton
                     android:id="@+id/rb_0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/initPurple"
-                    android:text="0 +"
-                    android:textColor="@color/initPurple"
                     android:paddingLeft="5dp"
                     android:paddingRight="10dp"
-                    />
+                    android:text="0 +"
+                    android:textColor="@color/initPurple" />
+
                 <RadioButton
                     android:id="@+id/rb_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/initPurple"
-                    android:text="1 +"
-                    android:textColor="@color/initPurple"
                     android:paddingRight="10dp"
-                    />
+                    android:text="1 +"
+                    android:textColor="@color/initPurple" />
+
                 <RadioButton
                     android:id="@+id/rb_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/initPurple"
-                    android:text="2 +"
-                    android:textColor="@color/initPurple"
                     android:paddingRight="10dp"
-                    />
+                    android:text="2 +"
+                    android:textColor="@color/initPurple" />
+
                 <RadioButton
                     android:id="@+id/rb_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/initPurple"
-                    android:text="3 +"
-                    android:textColor="@color/initPurple"
                     android:paddingRight="10dp"
-                    />
+                    android:text="3 +"
+                    android:textColor="@color/initPurple" />
+
                 <RadioButton
                     android:id="@+id/rb_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/initPurple"
-                    android:text="4 +"
-                    android:textColor="@color/initPurple"
                     android:paddingRight="10dp"
-                    />
+                    android:text="4 +"
+                    android:textColor="@color/initPurple" />
             </RadioGroup>
         </RelativeLayout>
 
@@ -137,28 +136,29 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_margin="5dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:layout_margin="10dp"
-            android:textColor="@color/initPurple"
-            android:text="@string/brands"
-            android:layout_gravity="center_vertical"
-            android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:text="@string/brands"
+                android:textColor="@color/initPurple"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btn_brand"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/menu_category"/>
+                android:background="@drawable/menu_category" />
 
         </LinearLayout>
 
@@ -166,49 +166,50 @@
             android:id="@+id/brands"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
             android:layout_margin="15dp"
-            android:textColor="@color/initPurple"
             android:text="None"
-            android:textStyle="bold|italic"/>
+            android:textColor="@color/initPurple"
+            android:textSize="17sp"
+            android:textStyle="bold|italic" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_margin="5dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:layout_margin="10dp"
-            android:textColor="@color/initPurple"
-            android:text="@string/vendors"
-            android:layout_gravity="center_vertical"
-            android:textStyle="bold"/>
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_vendor"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/menu_category"/>
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:text="@string/vendors"
+                android:textColor="@color/initPurple"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_vendor"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/menu_category" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/vendors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
             android:layout_margin="15dp"
-            android:textColor="@color/initPurple"
             android:text="None"
-            android:textStyle="bold|italic"/>
+            android:textColor="@color/initPurple"
+            android:textSize="17sp"
+            android:textStyle="bold|italic" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -221,17 +222,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_margin="5dp"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray" />
 
             <Button
                 android:id="@+id/complete"
                 android:layout_width="200dp"
-                android:background="@color/black"
-                android:textColor="@color/initGold"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:layout_gravity="center_horizontal|center"
-                android:text="@string/filter" />
+                android:layout_margin="10dp"
+                android:background="@color/black"
+                android:text="@string/filter"
+                android:textColor="@color/initGold" />
 
         </LinearLayout>
 

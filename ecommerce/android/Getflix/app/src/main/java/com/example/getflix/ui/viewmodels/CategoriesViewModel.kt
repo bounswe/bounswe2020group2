@@ -10,7 +10,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CategoriesViewModel: ViewModel() {
+class CategoriesViewModel : ViewModel() {
 
     private val _categoriesList = MutableLiveData<MutableList<CategoryModel>>()
     val categoriesList: LiveData<MutableList<CategoryModel>>
@@ -71,7 +71,7 @@ class CategoriesViewModel: ViewModel() {
     }
 
     fun addToCart(amount: Int, proId: Int) {
-        GetflixApi.getflixApiService.addCartProduct(20,CardProRequest(amount,proId))
+        GetflixApi.getflixApiService.addCartProduct(20, CardProRequest(amount, proId))
                 .enqueue(object :
                         Callback<CardProResponse> {
                     override fun onFailure(call: Call<CardProResponse>, t: Throwable) {
@@ -84,15 +84,15 @@ class CategoriesViewModel: ViewModel() {
                     ) {
                         println(response.body().toString())
                         println(response.code())
-                        if(response.body()!!.successful)
-                        println(response.body().toString())
+                        if (response.body()!!.successful)
+                            println(response.body().toString())
                     }
                 }
                 )
     }
 
     fun addCategory(categoryModel: CategoryModel) {
-        if(_categoriesList.value!=null) {
+        if (_categoriesList.value != null) {
             val categories = _categoriesList.value
             categories?.add(categoryModel)
             _categoriesList.value = categories
@@ -106,21 +106,21 @@ class CategoriesViewModel: ViewModel() {
 
     fun setCategories(products: MutableList<ProductModel>) {
         val catList = arrayListOf<CategoryModel>()
-        for(pro in products) {
-            if(!catList.any {pro.category == it.name}) {
+        for (pro in products) {
+            if (!catList.any { pro.category == it.name }) {
                 val subCats = arrayListOf<SubcategoryModel>()
                 val products = arrayListOf<ProductModel>()
                 products.add(pro)
-                subCats.add(SubcategoryModel(pro.subcategory,products))
-                catList.add(CategoryModel(pro.category,subCats))
+                subCats.add(SubcategoryModel(pro.subcategory, products))
+                catList.add(CategoryModel(pro.category, subCats))
             } else {
-                for(cat in catList) {
-                    if(cat.name==pro.category) {
+                for (cat in catList) {
+                    if (cat.name == pro.category) {
                         var ind = catList.indexOf(cat)
-                        if(!catList[ind].subCats.any {pro.subcategory == it.name}) {
+                        if (!catList[ind].subCats.any { pro.subcategory == it.name }) {
                             val products = arrayListOf<ProductModel>()
                             products.add(pro)
-                            catList[ind].subCats.add(SubcategoryModel(pro.subcategory,products))
+                            catList[ind].subCats.add(SubcategoryModel(pro.subcategory, products))
                         }
                     }
                 }

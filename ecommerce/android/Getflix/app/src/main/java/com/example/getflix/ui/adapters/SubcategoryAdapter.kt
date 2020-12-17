@@ -23,7 +23,7 @@ class SubCategoryAdapter(
         companion object {
             fun from(parent: ViewGroup): RowHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = CardProductBinding.inflate(layoutInflater,parent,false)
+                val binding = CardProductBinding.inflate(layoutInflater, parent, false)
                 return RowHolder(binding)
             }
         }
@@ -47,7 +47,7 @@ class SubCategoryAdapter(
 
 }
 
-class SubcategoryDiffCallback: DiffUtil.ItemCallback<ProductModel>() {
+class SubcategoryDiffCallback : DiffUtil.ItemCallback<ProductModel>() {
     override fun areItemsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
         return oldItem.id == newItem.id
     }

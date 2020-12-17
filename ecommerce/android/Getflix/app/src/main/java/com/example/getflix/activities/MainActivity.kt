@@ -15,9 +15,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.getflix.R
 import com.example.getflix.models.User
-import com.example.getflix.ui.fragments.*
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
 
 class MainActivity : AppCompatActivity() {

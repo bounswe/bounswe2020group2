@@ -47,7 +47,7 @@ class CategoryFragment : Fragment() {
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         binding.categoryList.layoutManager = layoutManager
         val args = CategoryFragmentArgs.fromBundle(requireArguments())
-        var categoryId : Int = args.categoryId
+        var categoryId: Int = args.categoryId
         categoryViewModel.setCategory(categoryId)
         return binding.root
     }
