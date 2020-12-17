@@ -34,7 +34,6 @@ export const ShoppingCartPage = ({ currency = 'TL' }) => {
         if (itemCount == 0) {
             alert('Empty cart')
         } else {
-            alert('Total price: ' + totalPrice)
             checkoutShoppingCart(shoppingCart)
         }
     }
