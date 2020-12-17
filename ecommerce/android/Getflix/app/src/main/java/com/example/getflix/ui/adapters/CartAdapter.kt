@@ -9,7 +9,7 @@ import com.example.getflix.databinding.ProductCardBinding
 import com.example.getflix.models.ProductModel
 
 class CartAdapter(
-    private val productList: ArrayList<ProductModel>?,
+        private val productList: ArrayList<ProductModel>?,
 )  : ListAdapter<ProductModel,CartAdapter.RowHolder>(CartDiffCallback()) {
 
 

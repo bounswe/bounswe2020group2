@@ -25,7 +25,11 @@
             app:destination="@id/homePageFragment" />
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/enter_right_to_left"
+            app:popExitAnim="@anim/exit_right_to_left"/>
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -35,6 +39,18 @@
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_adddressFragment"
+            app:destination="@id/adddressFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_bankAccountFragment"
+            app:destination="@id/bankAccountFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_orderInfoFragment"
+            app:destination="@id/orderInfoFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_userInfoFragment"
+            app:destination="@id/userInfoFragment" />
     </fragment>
   <fragment
         android:id="@+id/categoryFragment"
@@ -67,7 +83,11 @@
         android:label="CategoriesFragment" >
         <action
             android:id="@+id/action_categoriesFragment_to_subcategoryFragment"
-            app:destination="@id/subcategoryFragment" />
+            app:destination="@id/subcategoryFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/enter_right_to_left"
+            app:popExitAnim="@anim/exit_right_to_left"/>
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -82,7 +102,36 @@
     <argument
         android:name="subName"
         app:argType="string" />
+        <action
+            android:id="@+id/action_subcategoryFragment_to_filterOptionsFragment"
+            app:destination="@id/filterOptionsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/filterOptionsFragment"
+        android:name="com.example.getflix.ui.fragments.FilterOptionsFragment"
+        android:label="FilterOptionsFragment"
+        tools:layout="@layout/fragment_filter_options">
+    </fragment>
+    <fragment
+        android:id="@+id/adddressFragment"
+        android:name="com.example.getflix.ui.fragments.AdddressFragment"
+        android:label="fragment_adddress"
+        tools:layout="@layout/fragment_adddress" />
+    <fragment
+        android:id="@+id/bankAccountFragment"
+        android:name="com.example.getflix.ui.fragments.BankAccountFragment"
+        android:label="fragment_bank_account"
+        tools:layout="@layout/fragment_bank_account" />
+    <fragment
+        android:id="@+id/orderInfoFragment"
+        android:name="com.example.getflix.ui.fragments.OrderInfoFragment"
+        android:label="fragment_order_info"
+        tools:layout="@layout/fragment_order_info" />
+    <fragment
+        android:id="@+id/userInfoFragment"
+        android:name="com.example.getflix.ui.fragments.UserInfoFragment"
+        android:label="fragment_user_info"
+        tools:layout="@layout/fragment_user_info" />
 
 </navigation>
 
