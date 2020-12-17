@@ -1,5 +1,5 @@
-import { CreditCardList } from '../checkout/cardlist/CreditCardList'
-import { AddressList } from '../checkout/addresslist/AddressList'
+import { CreditCardList } from '../cardlist/CreditCardList'
+import { AddressList } from '../addresslist/AddressList'
 
 export const CheckoutPage = () => {
     return (

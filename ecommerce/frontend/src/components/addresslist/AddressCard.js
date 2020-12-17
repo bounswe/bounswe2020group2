@@ -4,7 +4,7 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { useState } from 'react'
 import { AddressModal } from './AddressModal'
 import { Popconfirm, Spin, notification } from 'antd'
-import { sleep } from '../../../utils'
+import { sleep } from '../../utils'
 
 export const AddressCard = ({ address, selected = false, onSelect = () => {}, onAddressInfoChange = () => {} }) => {
     const [editVisible, setEditVisible] = useState(false)

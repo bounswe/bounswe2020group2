@@ -1,9 +1,9 @@
 import { Button, List, Spin, notification } from 'antd'
-import { sleep } from '../../../utils'
+import { sleep } from '../../utils'
 import { useEffect, useState } from 'react'
 import { CreditCard } from './CreditCard'
 import { CreditCardModal } from './CreditCardModal'
-import { useAppContext } from '../../../context/AppContext'
+import { useAppContext } from '../../context/AppContext'
 import './CreditCardList.less'
 
 export const CreditCardList = () => {

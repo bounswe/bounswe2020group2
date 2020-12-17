@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import 'react-credit-cards/es/styles-compiled.css'
 import { Modal, Form, Spin, notification } from 'antd'
-import { sleep } from '../../../utils'
+import { sleep } from '../../utils'
 import { AddressModalInner } from './AddressModalInner'
 
 export const AddressModal = ({ address, mode = 'add', visible = false, onCancel = () => {}, onSuccess = () => {} }) => {

@@ -6,7 +6,7 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { useState } from 'react'
 import { CreditCardModal } from './CreditCardModal'
 import { Popconfirm, Spin, notification } from 'antd'
-import { formatCreditCard, sleep } from '../../../utils'
+import { formatCreditCard, sleep } from '../../utils'
 
 export const CreditCard = ({ card, selected = false, onSelect = () => {}, onCardInfoChange = () => {} }) => {
     const [editVisible, setEditVisible] = useState(false)

@@ -1,9 +1,9 @@
 import { Button, List, Spin, notification } from 'antd'
-import { sleep } from '../../../utils'
+import { sleep } from '../../utils'
 import { useEffect, useState } from 'react'
 import { AddressCard } from './AddressCard'
 import { AddressModal } from './AddressModal'
-import { useAppContext } from '../../../context/AppContext'
+import { useAppContext } from '../../context/AppContext'
 import './AddressList.less'
 
 export const AddressList = () => {
