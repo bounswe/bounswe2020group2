@@ -23,7 +23,6 @@ class FilterOptionsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activity?.toolbar!!.visibility = View.GONE
         activity?.bottom_nav!!.visibility = View.GONE
 
 
@@ -36,12 +35,8 @@ class FilterOptionsFragment : Fragment() {
                       inflater, R.layout.fragment_filter_options,
                       container, false)
 
-        val navController = Navigation.findNavController(requireActivity(), R.id.my_nav_host_fragment)
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
-        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
-        binding.toolbar.setNavigationIcon(R.drawable.ic_close_button)
-        binding.toolbar.title = ""
-        binding.toolbarTitle.text = getString(R.string.filter_options)
+
+        activity?.toolbar!!.title = getString(R.string.filter_options)
         binding.priceSlider.setValues(0.0f,100.0f)
 
         var rating = -1
@@ -135,7 +130,7 @@ class FilterOptionsFragment : Fragment() {
         }
 
         binding.complete.setOnClickListener {
-            navController.popBackStack()
+           // navController.popBackStack()
         }
 
 

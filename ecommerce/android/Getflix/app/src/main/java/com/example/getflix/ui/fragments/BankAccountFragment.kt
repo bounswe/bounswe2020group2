@@ -27,18 +27,11 @@ class BankAccountFragment : Fragment() {
                 inflater, R.layout.fragment_bank_account,
                 container, false
         )
-        val navController = Navigation.findNavController(requireActivity(), R.id.my_nav_host_fragment)
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
-        activity?.toolbar!!.setupWithNavController(navController, appBarConfiguration)
-        activity?.toolbar!!.title = ""
 
         return binding.root
 
     }
 
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        activity?.toolbar!!.navigationIcon = null;
-    }
+
 }

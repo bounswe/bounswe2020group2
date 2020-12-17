@@ -34,13 +34,6 @@ class CategoryFragment : Fragment() {
                 container, false
         )
 
-        activity?.toolbar!!.visibility = View.GONE
-        val navController =
-                Navigation.findNavController(requireActivity(), R.id.my_nav_host_fragment)
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
-        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
-        binding.toolbar.title = ""
-        binding.toolbarTitle.text = "Category"
 
         categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
         val adapter = SubcategoryHorizontalAdapter(requireContext())
@@ -59,8 +52,5 @@ class CategoryFragment : Fragment() {
         return binding.root
     }
 
-    override fun onPause() {
-        super.onPause()
-        activity?.toolbar!!.visibility = View.VISIBLE
-    }
+
 }
