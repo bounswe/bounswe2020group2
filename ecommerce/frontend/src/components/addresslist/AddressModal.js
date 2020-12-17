@@ -4,6 +4,8 @@ import { Modal, Form, Spin, notification } from 'antd'
 import { sleep } from '../../utils'
 import { AddressModalInner } from './AddressModalInner'
 
+import * as R from 'ramda'
+
 export const AddressModal = ({ address, mode = 'add', visible = false, onCancel = () => {}, onSuccess = () => {} }) => {
     /* This might not remounted after closing and opening again, be careful */
 
@@ -53,7 +55,7 @@ export const AddressModal = ({ address, mode = 'add', visible = false, onCancel 
             cancelText="Cancel"
             okText={mode === 'add' ? 'Add' : 'Edit'}>
             <Spin spinning={isLoading}>
-                <AddressModalInner address={address} form={form} />
+                <AddressModalInner address={address ?? R.omit(['id'], address)} form={form} />
             </Spin>
         </Modal>
     )
