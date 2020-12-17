@@ -3,9 +3,14 @@ import { AddressList } from '../addresslist/AddressList'
 import "./CheckoutPage.less"
 export const CheckoutPage = () => {
     return (
-        <div className="payment-options-container">
-            <CreditCardList />
-            <AddressList />
+        <div className="checkout-page-container">
+            <div className="payment-options-container">
+                <CreditCardList />
+                <AddressList />
+            </div>
+            <div className="price-summary-container">
+                Price summary
+            </div>
         </div>
     )
 }

@@ -1,6 +1,28 @@
+.checkout-page-container {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin: 15px;
+    height: 100%;
+}
+
 .payment-options-container {
     display: flex;
     flex-direction: column;
+    width: 100%;
     gap: 15px;
-    margin: 15px;
+}
+
+.price-summary-container {
+    align-self: flex-start;
+    background: white;
+    border: 2px solid gainsboro;
+    padding: 15px;
+    width: 500px; 
+    height: 400px;
+    //TODO: Make this sticky, it doesn't work right now
+    //position: sticky;
+    //top: 0;
+    font-size: x-large;
+    font-weight: bold;
 }
