@@ -18,6 +18,30 @@
         tools:context=".ui.fragments.LoginFragment">
 
         <TextView
+            android:id="@+id/lang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="10dp"
+            android:layout_marginEnd="392dp"
+            android:layout_marginBottom="170dp"
+            android:background="@drawable/circle"
+            android:elevation="5dp"
+            android:onClick="onClick"
+            android:clickable="true"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:textColor="@color/initGold"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.04"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.100000024" />
+
+        <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

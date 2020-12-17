@@ -34,8 +34,8 @@ class AddShoppingCart(TestCase):
         u = User.objects.create(id=vendor_id_for_test, username="vendoruser", email="vendoruser@gmail.com", role = 2)
         v = Vendor.objects.create(user = u, first_name="vendorname", last_name="vendorlastname")
         Product.objects.create(id=product_id_for_test, name = "Mavi T-shirt", price = 100, 
-            creation_date = "2019-08-20T07:22:34Z", image_url = "image_url1", total_rating = 4, 
-            rating_count = 20, stock_amount = 10, description = "yaza özel", subcategory = s, brand = b, vendor = v)
+            creation_date = "2019-08-20T07:22:34Z", total_rating = 4, 
+            rating_count = 20, stock_amount = 10, short_description = "yaza özel", subcategory = s, brand = b, vendor = v)
 
 
     def test_forbidden_user(self):
@@ -52,7 +52,7 @@ class AddShoppingCart(TestCase):
             'productId': '1'
         }
         response = client.post(reverse(add_shopping_cart_item, args = [customer_id_for_test]), data=body)
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 200)
 
     def login_credentials_settings(self):
         body = {

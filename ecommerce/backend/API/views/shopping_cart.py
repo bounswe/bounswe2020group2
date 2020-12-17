@@ -74,3 +74,4 @@ def add_shopping_cart_item(request, id):
                 'message': "Product is added to the cart succesfully."
     }
     return Response(context)
+    

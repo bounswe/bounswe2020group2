@@ -1,46 +1,37 @@
 package com.example.getflix.activities
 
-import android.app.Activity
+
 import android.content.Context
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.getflix.R
-
-
+import com.example.getflix.models.User
 import com.example.getflix.ui.fragments.*
-import com.google.android.material.bottomnavigation.BottomNavigationView
-
-
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
-    private var nav = false
 
     // static boolean variable to check the type of the user
     // can be accessed like StaticData.isVisitor, can be used in other classes
     object StaticData {
         var name = ""
-        var sproducts = null
-        val scategories = null
-        const val BASE_URL = "http://10.0.2.2:8000/"
         var isVisitor = false
         var isCustomer = false
         var isVendor = false
         var isAdmin = false
+        var user: User? = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,15 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment
         navController = navHostFragment.findNavController()
-        //setSupportActionBar(this.toolbar)
-        //setupActionBarWithNavController(navController)
         bottom_nav.setupWithNavController(navController)
-
-
-        /*val appBarConfiguration = AppBarConfiguration(navController.graph)
-
-        toolbar.setupWithNavController(navController, appBarConfiguration)*/
-        //supportActionBar!!.setDisplayHomeAsUpEnabled(false)
 
 
     }
@@ -71,12 +54,6 @@ class MainActivity : AppCompatActivity() {
         }
         return super.dispatchTouchEvent(ev)
     }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.my_nav_host_fragment)
-        return navController.navigateUp() || super.onSupportNavigateUp()
-    }
-
 
 
 }
