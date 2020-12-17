@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">getflix</string>
+    <string name="app_name2">Getflix</string>
     <string name="hello_blank_fragment">Boş</string>
     <string name="login">Oturum Aç</string>
     <string name="home">Anasayfa</string>
