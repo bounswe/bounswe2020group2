@@ -18,7 +18,6 @@ from django.urls import path
 from API import views
 from API.views.shopping_cart import list_shopping_cart
 
-
 urlpatterns = [
     path('admin', admin.site.urls),
     path('api', views.account.apiOverview, name="api"),
@@ -30,6 +29,8 @@ urlpatterns = [
     path('user/<int:id>/shoppingCart', views.shopping_cart.add_shopping_cart_item),
     path('product/<int:productId>', views.product.product_detail),
     path('search/products', views.search.products, name="search_products"),
+    path('customer/<int:customer_id>/addresses/<int:address_id>', views.address.manage_single_address),
+    path('customer/<int:customer_id>/addresses', views.address.manage_multiple_addresses),
     path('checkout/details', views.checkout.checkout_details),
     path('review', views.review.manage_review, name="review")
 ]

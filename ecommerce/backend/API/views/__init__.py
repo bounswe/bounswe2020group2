@@ -4,3 +4,4 @@ from .shopping_cart import *
 from .search import * 
 from .checkout import *
 from .review import *
+from .address import *

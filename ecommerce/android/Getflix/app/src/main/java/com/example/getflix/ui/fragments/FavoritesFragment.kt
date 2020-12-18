@@ -23,12 +23,12 @@ class FavoritesFragment : Fragment() {
     private lateinit var viewModel: FavoritesViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentFavoritesBinding>(
-            inflater, R.layout.fragment_favorites,
-            container, false
+                inflater, R.layout.fragment_favorites,
+                container, false
         )
 
         viewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
@@ -40,23 +40,23 @@ class FavoritesFragment : Fragment() {
         var zaraJacket2 =
                 ProductModel(11, "Jacket", "231", "1", "Zara", 1, 1, 1, "Cool jacket", "1", "1", "1", "1")
         var zaraJacket3 =
-                ProductModel( 12,"Jacket","321","1","Zara",1,1,1,"Amazing jacket","1","1","1","1")
+                ProductModel(12, "Jacket", "321", "1", "Zara", 1, 1, 1, "Amazing jacket", "1", "1", "1", "1")
         var zaraSkirt1 =
                 ProductModel(4, "Skirt", "79", "1", "Zara", 1, 1, 1, "Nice skirt", "1", "1", "1", "1")
         var zaraSkirt2 =
                 ProductModel(5, "Skirt", "93", "1", "Zara", 1, 1, 1, "Cool skirt", "1", "1", "1", "1")
         var zaraSkirt3 =
                 ProductModel(6, "Skirt", "102", "1", "Zara", 1, 1, 1, "Amazing skirt", "1", "1", "1", "1")
-        val products = arrayListOf( zaraSkirt3,zaraJacket1,zaraSkirt2,zaraJacket2,zaraSkirt1,zaraJacket3)
+        val products = arrayListOf(zaraSkirt3, zaraJacket1, zaraSkirt2, zaraJacket2, zaraSkirt1, zaraJacket3)
         val productListAdapter = FavoritesAdapter(products)
         recView.adapter = productListAdapter
         recView.setHasFixedSize(true)
 
-        for(product in products) {
+        for (product in products) {
             viewModel.addProduct(product)
         }
 
-        viewModel.productList.observe(viewLifecycleOwner, Observer{
+        viewModel.productList.observe(viewLifecycleOwner, Observer {
             it?.let {
                 productListAdapter.submitList(it)
             }
