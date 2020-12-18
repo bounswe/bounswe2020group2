@@ -1,6 +1,6 @@
 import { config } from '../config'
 import { rest } from 'msw'
-import { trendingProducts } from './mocks'
+import { trendingProducts, product } from './mocks'
 
 // preprend config.apiUrl
 const url = u => config.apiUrl + u
@@ -27,5 +27,11 @@ export const handlers = [
         const { count } = params
 
         return res(ctx.json({ successful: true, products: trendingProducts.slice(0, count) }))
+    }),
+    rest.get(url('/product/:productId'), (req, res, ctx) => {
+        const { params, body } = req
+        const { productId } = params
+
+        return res(ctx.json(product))
     }),
 ]
