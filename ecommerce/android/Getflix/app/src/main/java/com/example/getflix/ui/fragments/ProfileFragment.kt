@@ -26,17 +26,19 @@ class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentProfileBinding>(inflater, R.layout.fragment_profile,
-                container, false)
+        val binding = DataBindingUtil.inflate<FragmentProfileBinding>(
+            inflater, R.layout.fragment_profile,
+            container, false
+        )
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.profile)
 
         if (MainActivity.StaticData.isVisitor) {
             binding.name.text = getString(R.string.guest)
-            binding.btnLogout.text = getString(R.string.login)
+            /*      binding.btnLogout.text = getString(R.string.login)
         } else {
             binding.name.text = MainActivity.StaticData.user!!.firstName + " " + MainActivity.StaticData.user!!.lastName
         }
@@ -77,23 +79,23 @@ class ProfileFragment : Fragment() {
                 resetData()
                 view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
             }
+        }*/
+        }
+            return binding.root
         }
 
-        return binding.root
+
+        private fun resetData() {
+            MainActivity.StaticData.isVisitor = false
+            MainActivity.StaticData.isCustomer = false
+            MainActivity.StaticData.isAdmin = false
+            MainActivity.StaticData.isVendor = false
+            MainActivity.StaticData.user = null
+        }
+
+        private fun navigateLogin() {
+            view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
+        }
+
+
     }
-
-
-    private fun resetData() {
-        MainActivity.StaticData.isVisitor = false
-        MainActivity.StaticData.isCustomer = false
-        MainActivity.StaticData.isAdmin = false
-        MainActivity.StaticData.isVendor = false
-        MainActivity.StaticData.user = null
-    }
-
-    private fun navigateLogin() {
-        view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
-    }
-
-
-}
