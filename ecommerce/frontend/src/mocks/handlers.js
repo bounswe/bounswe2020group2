@@ -1,6 +1,6 @@
 import { config } from '../config'
 import { rest } from 'msw'
-import { trendingProducts, product } from './mocks'
+import { trendingProducts, product, products } from './mocks'
 
 // preprend config.apiUrl
 const url = u => config.apiUrl + u
@@ -33,5 +33,22 @@ export const handlers = [
         const { productId } = params
 
         return res(ctx.json(product))
+    }),
+    rest.post(url('/search/products'), (req, res, ctx) => {
+        const { params, body } = req
+        const { page_size = 10, page = 0 } = body
+
+        return res(
+            ctx.json({
+                data: {
+                    pagination: {
+                        page_size,
+                        page,
+                        total_items: products.length,
+                    },
+                    products: products.slice(page * page_size, (page + 1) * page_size),
+                },
+            }),
+        )
     }),
 ]
