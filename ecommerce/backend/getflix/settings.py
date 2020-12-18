@@ -29,8 +29,8 @@ secrets = {
 }
 
 
-'''with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
-    secrets = json.load(secrets_file)'''
+with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
+    secrets = json.load(secrets_file)
 
 def get_debug():
     debug = os.environ.get("DEBUG")
@@ -123,7 +123,7 @@ WSGI_APPLICATION = 'getflix.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'testdb',
+        'NAME': 'mytestdb',
         'USER': get_secret('USER'),
         'PASSWORD': get_secret('PASSWORD'),
         'HOST': get_secret("HOST"),

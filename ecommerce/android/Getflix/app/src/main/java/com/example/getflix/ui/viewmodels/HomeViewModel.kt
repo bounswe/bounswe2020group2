@@ -19,7 +19,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         _onCategoryClick.value = id
     }
 
-    fun navigationComplete(){
+    fun navigationComplete() {
         _onCategoryClick.value = null
     }
 
