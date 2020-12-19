@@ -1,6 +1,7 @@
 from .account import *
 from .product import *
 from .shopping_cart import * 
+from .category import *
 from .search import * 
 from .checkout import *
 from .review import *
