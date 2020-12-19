@@ -1,6 +1,10 @@
 package com.example.getflix
 
-import com.example.getflix.models.ProductModel
+import android.content.DialogInterface
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.fragment.app.Fragment
+import com.example.getflix.activities.MainActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 fun getProductImage(productId: Int): Int {
     return when (productId) {
@@ -26,3 +30,69 @@ fun getProductImage(productId: Int): Int {
     }
 
 }
+
+fun infoAlert(fragment: Fragment, message: String) {
+    MaterialAlertDialogBuilder(fragment.requireContext(), R.style.MaterialAlertDialog_color)
+            .setTitle("Info")
+            .setMessage(message)
+            .setPositiveButton("Ok") { dialog, which ->
+            }
+            .setIcon(R.drawable.ic_info)
+            .show()
+}
+
+fun doneAlert(fragment: Fragment, message: String) {
+    MaterialAlertDialogBuilder(fragment.requireContext(), R.style.MaterialAlertDialog_color)
+            .setTitle("Success")
+            .setMessage(message)
+            .setPositiveButton("Ok") { dialog, which ->
+            }
+            .setIcon(R.drawable.ic_check)
+            .show()
+}
+
+
+fun askAlert(fragment: Fragment, message: String, func: () -> Unit) {
+    MaterialAlertDialogBuilder(fragment.requireContext(), R.style.MaterialAlertDialog_color)
+            .setTitle(fragment.requireContext().getString(R.string.warning))
+            .setMessage(message)
+            .setPositiveButton(fragment.requireContext().getString(R.string.yes)) { dialog, which ->
+                func()
+            }
+
+            .setNegativeButton(fragment.requireContext().getString(R.string.no)) { dialog, which ->
+            }
+            .setIcon(R.drawable.ic_warning)
+            .show()
+}
+
+
+/* - **Electronics**
+  - Computers
+  - Camera & Photo
+  - Cell Phones & Accessories
+  - Digital Videos
+  - Software
+- **Health & Households**
+  - Sports & Outdoor
+  - Beauty & Personal Care
+- **Home & Garden**
+  - Luggage
+  - Pet Supplies
+  - Furniture
+- **Clothing**
+  - Men's Fashion
+  - Women's Fashion
+  - Boys' Fashion
+  - Girls' Fashion
+  - Baby
+- **Hobbies**
+  - Books
+  - Music & CDs
+  - Movies & TVs
+  - Toys & Games
+  - Video Games
+  - Arts & Crafts
+- **Others**
+  - Automotive
+  - Industrial & Scientific  */

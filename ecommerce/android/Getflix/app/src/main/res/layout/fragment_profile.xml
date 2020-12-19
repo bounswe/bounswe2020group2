@@ -9,169 +9,205 @@
     </data>
 
     <LinearLayout
-        android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.getflix.ui.fragments.ProfileFragment"
+        android:layout_marginTop="?attr/actionBarSize"
         android:background="@color/initPurple"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context="com.example.getflix.ui.fragments.ProfileFragment">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="405dp">
+            android:layout_height="195dp">
 
             <LinearLayout
-                android:background="@drawable/gradientbackground"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
+                android:background="@drawable/gradientbackground"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_marginTop="45dp"
-                    android:layout_gravity="center_horizontal"
                     android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="45dp"
                     android:src="@drawable/ic_baseline_face_24" />
 
                 <TextView
                     android:id="@+id/name"
-                    android:layout_marginTop="10dp"
-                    android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
                     android:text="Helin Cakmak"
                     android:textColor="@color/initPurple"
-                    android:textStyle="bold"
-                    android:textSize="21sp" />
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="400dp"
-                android:layout_height="120dp"
-                android:layout_centerHorizontal="true"
-                app:cardBackgroundColor="@color/colorPrimary"
-                android:layout_marginTop="275dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <LinearLayout
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/points"
-                            android:textColor="@color/initPurple"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:id="@+id/points"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="125"
-                            android:textStyle="bold"
-                            android:textSize="20sp"
-                            android:paddingTop="10dp"
-                            android:textColor="@color/initPurple" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/products"
-                            android:textColor="@color/initPurple"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:id="@+id/products"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="32"
-                            android:textStyle="bold"
-                            android:textSize="20sp"
-                            android:paddingTop="10dp"
-                            android:textColor="@color/initPurple" />
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="360dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_gravity="center"
-            android:layout_marginTop="45dp">
+            android:layout_marginTop="45dp"
+            android:orientation="vertical"
+            android:weightSum="4">
 
             <LinearLayout
-                android:orientation="horizontal"
-                android:paddingLeft="25dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingStart="10dp">
 
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/ic_baseline_mail_24" />
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_person_24" />
 
                 <TextView
-                    android:id="@+id/mail"
-                    android:textStyle="bold"
-                    android:layout_gravity="center_vertical"
+                    android:id="@+id/userinfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
+                    android:text="@string/userInfo"
                     android:textColor="@color/initGold"
-                    android:text="helin@gmail.com" />
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"></Space>
+
+                <Button
+                    android:id="@+id/userInfoButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/button_image"></Button>
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
-                android:paddingLeft="25dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:paddingLeft="10dp">
 
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/ic_baseline_phone_24" />
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_attach_money_24" />
 
                 <TextView
-                    android:id="@+id/tel"
-                    android:textStyle="bold"
-                    android:layout_gravity="center_vertical"
+                    android:id="@+id/bankAccounts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
+                    android:text="@string/bankAccounts"
                     android:textColor="@color/initGold"
-                    android:text="+90 532 322 45 54" />
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"></Space>
+
+                <Button
+                    android:id="@+id/bankAccountInfoButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/button_image"></Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_shopping_bag_24" />
+
+                <TextView
+                    android:id="@+id/orders"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:text="@string/orders"
+                    android:textColor="@color/initGold"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"></Space>
+
+                <Button
+                    android:id="@+id/ordersButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/button_image"></Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_location_on_24" />
+
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:text="@string/addressInfo"
+                    android:textColor="@color/initGold"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"></Space>
+
+                <Button
+                    android:id="@+id/addressinfoButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/button_image"></Button>
             </LinearLayout>
         </LinearLayout>
 
         <Button
             android:id="@+id/btn_logout"
-            android:textColor="@color/initPurple"
-            android:layout_marginTop="30dp"
-            android:background="@color/colorPrimary"
-            android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/logout" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:background="@color/colorPrimary"
+            android:text="@string/logout"
+            android:textColor="@color/initPurple" />
     </LinearLayout>
 </layout>
