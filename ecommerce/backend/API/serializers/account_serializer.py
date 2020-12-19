@@ -56,7 +56,7 @@ class LoginResponseSerializer(serializers.ModelSerializer):
         is_successful = self.context.get("is_successful")
         message = self.context.get("message")
         return {
-            'success': is_successful,
+            'successful': is_successful,
             'message': message
         }
 

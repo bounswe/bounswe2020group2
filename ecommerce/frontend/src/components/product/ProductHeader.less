@@ -1,0 +1,70 @@
+@import '../../common.less';
+
+.product-header {
+    display: grid;
+    grid-template-columns: minmax(500px, 8fr) 8fr auto;
+    grid-template-rows: 2fr auto 1fr;
+    grid-template-areas:
+        'gallery main extra'
+        'gallery vendor vendor'
+        'gallery buttons buttons'
+        'gallery empty empty';
+    overflow: hidden;
+    row-gap: 8px;
+    column-gap: 32px;
+    background-color: white;
+    border: 2px solid gainsboro;
+    padding: 16px;
+    max-height: 600px;
+
+    .product-header-gallery {
+        grid-area: gallery;
+    }
+
+    .product-header-main {
+        grid-area: main;
+        .product-header-main-title {
+            font-size: 2em;
+            color: @Eggplant;
+        }
+    }
+
+    .product-header-vendor {
+        grid-area: vendor;
+        font-size: 1.5em;
+        .product-header-vendor-label {
+            font-weight: bold;
+        }
+
+        .product-header-vendor-rating {
+            font-weight: bold;
+            font-size: medium;
+            display: inline-block;
+            padding: 0px 6px;
+            color: white;
+            border-radius: 6px;
+            &__high {
+                background: rgb(11, 184, 25);
+            }
+
+            &__medium {
+                background: darkgoldenrod;
+            }
+
+            &__low {
+                background: rgb(184, 11, 11);
+            }
+        }
+
+    }
+
+    .product-header-buttons {
+        grid-area: buttons;
+        display: flex;
+        gap: 4px;
+    }
+
+    .product-header-extra {
+        grid-area: extra;
+    }
+}

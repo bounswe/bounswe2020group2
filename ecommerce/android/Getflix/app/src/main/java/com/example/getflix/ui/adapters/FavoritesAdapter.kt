@@ -9,7 +9,7 @@ import com.example.getflix.databinding.FavproductLayoutBinding
 import com.example.getflix.models.ProductModel
 
 class FavoritesAdapter(
-    private val productList: ArrayList<ProductModel>?,
+        private val productList: ArrayList<ProductModel>?,
 ) : ListAdapter<ProductModel, FavoritesAdapter.RowHolder>(FavoritesDiffCallback()) {
 
     class RowHolder(val binding: FavproductLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -22,7 +22,7 @@ class FavoritesAdapter(
         companion object {
             fun from(parent: ViewGroup): RowHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = FavproductLayoutBinding.inflate(layoutInflater,parent,false)
+                val binding = FavproductLayoutBinding.inflate(layoutInflater, parent, false)
                 return RowHolder(binding)
             }
         }
@@ -48,7 +48,7 @@ class FavoritesAdapter(
 
 }
 
-class FavoritesDiffCallback: DiffUtil.ItemCallback<ProductModel>() {
+class FavoritesDiffCallback : DiffUtil.ItemCallback<ProductModel>() {
     override fun areItemsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
         return oldItem.id == newItem.id
     }

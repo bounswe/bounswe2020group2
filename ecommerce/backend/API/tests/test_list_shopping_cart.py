@@ -20,8 +20,8 @@ class ListShoppingCart(TestCase):
         u = User.objects.create(id=2, username="furkan", email="furkan@gmail.com", role = 2)
         v = Vendor.objects.create(id=1, user = u, first_name="omerfaruk", last_name="deniz")
         Product.objects.create(id=product_id_for_test, name = "Mavi T-shirt", price = 100, 
-            creation_date = "2019-08-20T07:22:34Z", image_url = "image_url1", total_rating = 4, 
-            rating_count = 20, stock_amount = 10, description = "yaza özel", subcategory = s, brand = b, vendor = v)
+            creation_date = "2019-08-20T07:22:34Z", total_rating = 4, 
+            rating_count = 20, stock_amount = 10, short_description = "yaza özel", subcategory = s, brand = b, vendor = v)
         ShoppingCartItem.objects.create(customer_id = customer_id_for_test, product_id=product_id_for_test, amount=1)
 
     def test_list_shopping_cart(self):
