@@ -2,8 +2,15 @@ import moment from 'moment'
 import { Rate } from 'antd'
 import { Link } from 'react-router-dom'
 import './UserReview.less'
-export const UserReview = ({ review: { comment, user_id, created_at, rating } }) => {
-    const dateFmt = moment(created_at).format('LL')
+export const UserReview = ({
+    review: {
+        comment,
+        reviewed_by: { firstname, lastname },
+        review_date,
+        rating,
+    },
+}) => {
+    const dateFmt = moment(review_date).format('LL')
 
     return (
         <div className="review-item-content">
@@ -15,7 +22,7 @@ export const UserReview = ({ review: { comment, user_id, created_at, rating } })
             </div>
             <div className="review-author-and-date">
                 <Link to="/">
-                    <div className="review-author">{user_id}</div>
+                    <div className="review-author">{firstname.concat(' ', lastname)}</div>
                 </Link>
                 <div className="review-date">{dateFmt}</div>
             </div>

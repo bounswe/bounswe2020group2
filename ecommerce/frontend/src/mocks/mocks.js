@@ -447,118 +447,256 @@ export const product = {
     ],
     old_price: 20,
 }
-const date = '2011-10-05T14:48:00.000Z'
 export const reviews = [
+    //
     {
-        id: '1',
-        user_id: '3',
-        product_id: '3', // if review of product, null otherwise
-        vendor_id: null, // if review of vendor, null otherwise
-        rating: 0.9,
-        comment: 'this product sucks so much',
-        created_at: date,
+        id: 1,
+        rating: 2,
+        comment:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        product: {
+            id: 0,
+            name: 'T-shirt',
+        },
+        vendor: {
+            id: 0,
+            firstname: 'Osman',
+            lastname: 'Bakkal',
+        },
+        review_date: '2011-10-05T14:48:00.000Z',
+        reviewed_by: {
+            id: 0,
+            firstname: 'Hayati',
+            lastname: 'Sevinç',
+        },
     },
     {
-        id: '2',
-        user_id: '4',
-        product_id: '3', // if review of product, null otherwise
-        vendor_id: null, // if review of vendor, null otherwise
+        id: 2,
+        rating: 0,
+        comment: 'this product sucks so much',
+        product: {
+            id: 0,
+            name: 'T-shirt',
+        },
+        vendor: {
+            id: 0,
+            firstname: 'Osman',
+            lastname: 'Bakkal',
+        },
+        review_date: '2019-10-05T14:48:00.000Z',
+        reviewed_by: {
+            id: 0,
+            firstname: 'Serdar',
+            lastname: 'Ortak',
+        },
+    },
+    {
+        id: 3,
+        rating: 0,
+        comment:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        product: {
+            id: 0,
+            name: 'T-shirt',
+        },
+        vendor: {
+            id: 0,
+            firstname: 'Osman',
+            lastname: 'Bakkal',
+        },
+        review_date: '2011-10-05T14:48:00.000Z',
+        reviewed_by: {
+            id: 0,
+            firstname: 'Kestane',
+            lastname: 'Şekeri',
+        },
+    },
+    {
+        id: 4,
         rating: 5,
+        comment: 'this product sucks so much',
+        product: {
+            id: 0,
+            name: 'T-shirt',
+        },
+        vendor: {
+            id: 0,
+            firstname: 'Osman',
+            lastname: 'Bakkal',
+        },
+        review_date: '2011-10-05T14:48:00.000Z',
+        reviewed_by: {
+            id: 0,
+            firstname: 'Pınar',
+            lastname: 'Su',
+        },
+    },
+    {
+        id: 5,
+        rating: 0,
         comment:
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        created_at: date,
+        product: {
+            id: 0,
+            name: 'T-shirt',
+        },
+        vendor: {
+            id: 0,
+            firstname: 'Osman',
+            lastname: 'Bakkal',
+        },
+        review_date: '2011-10-05T14:48:00.000Z',
+        reviewed_by: {
+            id: 0,
+            firstname: 'Hayati',
+            lastname: 'Sevinç',
+        },
     },
     {
-        id: '3',
-        user_id: '4',
-        product_id: '3', // if review of product, null otherwise
-        vendor_id: null, // if review of vendor, null otherwise
-        rating: 5.1,
-        comment: 'this product sucks so much',
-        created_at: date,
-    },
-    {
-        id: '4',
-        user_id: '3',
-        product_id: '3', // if review of product, null otherwise
-        vendor_id: null, // if review of vendor, null otherwise
-        rating: 3,
-        comment: 'this product sucks so much',
-        created_at: date,
-    },
-    {
-        id: '5',
-        user_id: '4',
-        product_id: '3', // if review of product, null otherwise
-        vendor_id: null, // if review of vendor, null otherwise
-        rating: 3,
+        id: 6,
+        rating: 3.2,
         comment:
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        created_at: date,
+        product: {
+            id: 0,
+            name: 'T-shirt',
+        },
+        vendor: {
+            id: 0,
+            firstname: 'Osman',
+            lastname: 'Bakkal',
+        },
+        review_date: '2011-10-05T14:48:00.000Z',
+        reviewed_by: {
+            id: 0,
+            firstname: 'Hayati',
+            lastname: 'Sevinç',
+        },
     },
     {
-        id: '6',
-        user_id: '4',
-        product_id: '3', // if review of product, null otherwise
-        vendor_id: null, // if review of vendor, null otherwise
-        rating: 3,
-        comment: 'this product sucks so much',
-        created_at: date,
-    },
-    {
-        id: '7',
-        user_id: '3',
-        product_id: '3', // if review of product, null otherwise
-        vendor_id: null, // if review of vendor, null otherwise
-        rating: 3,
-        comment: 'this product sucks so much',
-        created_at: date,
-    },
-    {
-        id: '8',
-        user_id: '4',
-        product_id: '3', // if review of product, null otherwise
-        vendor_id: null, // if review of vendor, null otherwise
-        rating: 3,
+        id: 7,
+        rating: 0,
         comment:
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        created_at: date,
+        product: {
+            id: 0,
+            name: 'T-shirt',
+        },
+        vendor: {
+            id: 0,
+            firstname: 'Osman',
+            lastname: 'Bakkal',
+        },
+        review_date: '2011-10-05T14:48:00.000Z',
+        reviewed_by: {
+            id: 0,
+            firstname: 'Hayati',
+            lastname: 'Sevinç',
+        },
     },
     {
-        id: '9',
-        user_id: '4',
-        product_id: '3', // if review of product, null otherwise
-        vendor_id: null, // if review of vendor, null otherwise
-        rating: 3,
-        comment: 'this product sucks so much',
-        created_at: date,
-    },
-    {
-        id: '10',
-        user_id: '3',
-        product_id: '3', // if review of product, null otherwise
-        vendor_id: null, // if review of vendor, null otherwise
-        rating: 3,
-        comment: 'this product sucks so much',
-        created_at: date,
-    },
-    {
-        id: '11',
-        user_id: '4',
-        product_id: '3', // if review of product, null otherwise
-        vendor_id: null, // if review of vendor, null otherwise
-        rating: 3,
+        id: 8,
+        rating: 0,
         comment:
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        created_at: date,
+        product: {
+            id: 0,
+            name: 'T-shirt',
+        },
+        vendor: {
+            id: 0,
+            firstname: 'Osman',
+            lastname: 'Bakkal',
+        },
+        review_date: '2011-10-05T14:48:00.000Z',
+        reviewed_by: {
+            id: 0,
+            firstname: 'Hayati',
+            lastname: 'Sevinç',
+        },
     },
     {
-        id: '12',
-        user_id: '4',
-        product_id: '3', // if review of product, null otherwise
-        vendor_id: null, // if review of vendor, null otherwise
-        rating: 3,
-        comment: 'this product sucks so much',
-        created_at: date,
+        id: 9,
+        rating: 0,
+        comment:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        product: {
+            id: 0,
+            name: 'T-shirt',
+        },
+        vendor: {
+            id: 0,
+            firstname: 'Osman',
+            lastname: 'Bakkal',
+        },
+        review_date: '2011-10-05T14:48:00.000Z',
+        reviewed_by: {
+            id: 0,
+            firstname: 'Hayati',
+            lastname: 'Sevinç',
+        },
+    },
+    {
+        id: 10,
+        rating: 0,
+        comment:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        product: {
+            id: 0,
+            name: 'T-shirt',
+        },
+        vendor: {
+            id: 0,
+            firstname: 'Osman',
+            lastname: 'Bakkal',
+        },
+        review_date: '2011-10-05T14:48:00.000Z',
+        reviewed_by: {
+            id: 0,
+            firstname: 'Hayati',
+            lastname: 'Sevinç',
+        },
+    },
+    {
+        id: 11,
+        rating: 2,
+        comment:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        product: {
+            id: 0,
+            name: 'T-shirt',
+        },
+        vendor: {
+            id: 0,
+            firstname: 'Osman',
+            lastname: 'Bakkal',
+        },
+        review_date: '2011-10-05T14:48:00.000Z',
+        reviewed_by: {
+            id: 0,
+            firstname: 'Hayati',
+            lastname: 'Sevinç',
+        },
+    },
+    {
+        id: 12,
+        rating: 4,
+        comment:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        product: {
+            id: 0,
+            name: 'T-shirt',
+        },
+        vendor: {
+            id: 0,
+            firstname: 'Osman',
+            lastname: 'Bakkal',
+        },
+        review_date: '2011-10-05T14:48:00.000Z',
+        reviewed_by: {
+            id: 0,
+            firstname: 'Hayati',
+            lastname: 'Sevinç',
+        },
     },
 ]

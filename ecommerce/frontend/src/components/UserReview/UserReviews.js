@@ -38,10 +38,8 @@ export const UserReviews = ({ productId = 1 }) => {
 
     const onPaginationChanged = value => {
         // When page count is changed, current page is set
-        console.log('Page changed to ', value)
         setCurrentPage(value)
     }
-    console.log('!', totalPage, pageSize)
 
     return (
         <div className="user-review">

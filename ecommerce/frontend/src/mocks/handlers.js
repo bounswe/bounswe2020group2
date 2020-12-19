@@ -52,10 +52,8 @@ export const handlers = [
         )
     }),
     rest.get(url('/review'), (req, res, ctx) => {
-        const { params } = req
-
         const id = req.url.searchParams.get('product')
-        const page_size = 10
+        const page_size = req.url.searchParams.get('page_size')
         const page = req.url.searchParams.get('page')
         return res(
             ctx.json({
