@@ -447,3 +447,118 @@ export const product = {
     ],
     old_price: 20,
 }
+const date = '2011-10-05T14:48:00.000Z'
+export const reviews = [
+    {
+        id: '1',
+        user_id: '3',
+        product_id: '3', // if review of product, null otherwise
+        vendor_id: null, // if review of vendor, null otherwise
+        rating: 0.2,
+        comment: 'this product sucks so much',
+        created_at: date,
+    },
+    {
+        id: '2',
+        user_id: '4',
+        product_id: '3', // if review of product, null otherwise
+        vendor_id: null, // if review of vendor, null otherwise
+        rating: 5,
+        comment:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        created_at: date,
+    },
+    {
+        id: '3',
+        user_id: '4',
+        product_id: '3', // if review of product, null otherwise
+        vendor_id: null, // if review of vendor, null otherwise
+        rating: 5.1,
+        comment: 'this product sucks so much',
+        created_at: date,
+    },
+    {
+        id: '4',
+        user_id: '3',
+        product_id: '3', // if review of product, null otherwise
+        vendor_id: null, // if review of vendor, null otherwise
+        rating: 3,
+        comment: 'this product sucks so much',
+        created_at: date,
+    },
+    {
+        id: '5',
+        user_id: '4',
+        product_id: '3', // if review of product, null otherwise
+        vendor_id: null, // if review of vendor, null otherwise
+        rating: 3,
+        comment:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        created_at: date,
+    },
+    {
+        id: '6',
+        user_id: '4',
+        product_id: '3', // if review of product, null otherwise
+        vendor_id: null, // if review of vendor, null otherwise
+        rating: 3,
+        comment: 'this product sucks so much',
+        created_at: date,
+    },
+    {
+        id: '7',
+        user_id: '3',
+        product_id: '3', // if review of product, null otherwise
+        vendor_id: null, // if review of vendor, null otherwise
+        rating: 3,
+        comment: 'this product sucks so much',
+        created_at: date,
+    },
+    {
+        id: '8',
+        user_id: '4',
+        product_id: '3', // if review of product, null otherwise
+        vendor_id: null, // if review of vendor, null otherwise
+        rating: 3,
+        comment:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        created_at: date,
+    },
+    {
+        id: '9',
+        user_id: '4',
+        product_id: '3', // if review of product, null otherwise
+        vendor_id: null, // if review of vendor, null otherwise
+        rating: 3,
+        comment: 'this product sucks so much',
+        created_at: date,
+    },
+    {
+        id: '10',
+        user_id: '3',
+        product_id: '3', // if review of product, null otherwise
+        vendor_id: null, // if review of vendor, null otherwise
+        rating: 3,
+        comment: 'this product sucks so much',
+        created_at: date,
+    },
+    {
+        id: '11',
+        user_id: '4',
+        product_id: '3', // if review of product, null otherwise
+        vendor_id: null, // if review of vendor, null otherwise
+        rating: 3,
+        comment:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        created_at: date,
+    },
+    {
+        id: '12',
+        user_id: '4',
+        product_id: '3', // if review of product, null otherwise
+        vendor_id: null, // if review of vendor, null otherwise
+        rating: 3,
+        comment: 'this product sucks so much',
+        created_at: date,
+    },
+]

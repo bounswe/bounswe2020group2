@@ -15,51 +15,12 @@ export const UserReviews = ({ productId = 1, pageSize = 10, totalPage = 50 }) =>
         async function fetch() {
             try {
                 setIsLoading(true)
-                const tmp = [
-                    {
-                        comment:
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
-                        author: 'Jeff Einstein',
-                        date: '2020-12-11T14:48:00.000Z',
-                        rating: 4,
+                const {
+                    data: {
+                        data: { reviews },
                     },
-                    {
-                        comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
-                        author: 'Hasan Kaya',
-                        date: '2011-10-05T14:48:00.000Z',
-                        rating: 3,
-                    },
-                    {
-                        comment:
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
-                        author: 'Jeff Einstein',
-                        date: '2011-10-05T14:48:00.000Z',
-                        rating: 4,
-                    },
-                    {
-                        comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
-                        author: 'Hasan Kaya',
-                        date: '2011-10-05T14:48:00.000Z',
-                        rating: 3,
-                    },
-                    {
-                        comment:
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
-                        author: 'Jeff Einstein',
-                        date: '2011-10-05T14:48:00.000Z',
-                        rating: 4,
-                    },
-                    {
-                        comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
-                        author: 'Hasan Kaya',
-                        date: '2011-10-05T14:48:00.000Z',
-                        rating: 3,
-                    },
-                ]
-                const urlStr = `/product/${productId}/review?pagesize=${pageSize}&currentpage=${currentPage}`
-                // console.log(urlStr)
-                // const { data: reviews } = await api.get(urlStr)
-                setReviews(tmp)
+                } = await api.get(`/product/${productId}/review?page_size=${pageSize}&page=${currentPage}`)
+                setReviews(reviews)
                 await sleep(2000)
             } catch (error) {
                 console.error('Failed to load user reviews', error)
