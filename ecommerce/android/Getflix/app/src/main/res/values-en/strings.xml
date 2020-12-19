@@ -15,7 +15,6 @@
     <string name="register">Sign Up</string>
     <string name="visitor">Continue as visitor</string>
     <string name="favorites">Favorites</string>
-    <string name="add_to_cart">Add to Cart</string>
     <string name="category_pet">Pet Suppliances</string>
     <string name="category_woman">Woman</string>
     <string name="category_man">Man</string>
@@ -76,5 +75,19 @@
     <string name="user_guest_alert">You have to login to see your user information.</string>
     <string name="bank_guest_alert">You have to login to see your bank account information.</string>
     <string name="address_guest_alert">You have to login to see your address information.</string>
-
+    <string name="product_name">Jacket</string>
+    <string name="short_description">Nice jacket</string>
+    <string name="price">698</string>
+    <string name="old_price">854</string>
+    <string name="add_to_cart">ADD TO CART</string>
+    <string name="add_shopping_cart">ADD TO CART</string>
+    <string name="buy_now">BUY NOW</string>
+    <string name="amount">1</string>
+    <string name="brand">Brand</string>
+    <string name="brand_example">Zara</string>
+    <string name="product_details">Product Details</string>
+    <string name="vendor_title">Vendor</string>
+    <string name="vendor_rating">4.5</string>
+    <string name="vendor_example">Canan Tezgec</string>
+    <string name="long_description_title">Description</string>
 </resources>
