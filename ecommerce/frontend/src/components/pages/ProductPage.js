@@ -36,8 +36,8 @@ export const ProductPage = props => {
             <div className="product-page-header">
                 <ProductHeader loading={loading} product={product} />
             </div>
-            <div className = "product-page-reviews">
-            <UserReviews productId={productId} />
+            <div className="product-page-reviews">
+                <UserReviews productId={productId} />
             </div>
         </div>
     )
