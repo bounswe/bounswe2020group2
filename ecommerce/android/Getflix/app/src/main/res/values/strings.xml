@@ -47,6 +47,9 @@
     <string name="sign_up">Hesabın yok mu? Kaydol</string>
     <string name="guest">Misafir</string>
     <string name="guest_cont">Misafir olarak devam et</string>
+    <string name="acceptCart">Sepeti Onayla</string>
+    <string name="buy">Odeme Yap</string>
+    <string name="payment">Odeme</string>
     <string name="userInfo">Kullanıcı Bilgilerim</string>
     <string name="bankAccounts">Kayıtlı Kartlarım</string>
     <string name="orders">Siparişlerim</string>

@@ -48,6 +48,9 @@
     <string name="sign_up">Don\'t have an account? Sign up.</string>
     <string name="guest">Guest</string>
     <string name="guest_cont">Continue as a guest</string>
+    <string name="acceptCart">Proceed to Checkout</string>
+    <string name="buy">Pay</string>
+    <string name="payment">Payment</string>
     <string name="userInfo">Personal Info</string>
     <string name="bankAccounts">Bank Account Info</string>
     <string name="orders">My Orders</string>
@@ -76,5 +79,4 @@
     <string name="user_guest_alert">You have to login to see your user information.</string>
     <string name="bank_guest_alert">You have to login to see your bank account information.</string>
     <string name="address_guest_alert">You have to login to see your address information.</string>
-
 </resources>
