@@ -11,9 +11,9 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
         android:background="#171717"
         tools:context=".ui.fragments.LoginFragment">
 
@@ -59,12 +59,12 @@
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:layout_marginBottom="16dp"
+                                android:src="@drawable/ic_fashion"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="VectorDrawableCompat"
-                                android:src="@drawable/ic_fashion"/>
+                                tools:ignore="VectorDrawableCompat" />
 
                             <TextView
                                 android:id="@+id/text_woman"
@@ -101,12 +101,12 @@
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:layout_marginBottom="16dp"
+                                android:src="@drawable/ic_man"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="VectorDrawableCompat"
-                                android:src="@drawable/ic_man"/>
+                                tools:ignore="VectorDrawableCompat" />
 
                             <TextView
                                 android:id="@+id/text_man"
@@ -150,12 +150,12 @@
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:layout_marginBottom="16dp"
+                                android:src="@drawable/ic_toys"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="VectorDrawableCompat"
-                                android:src="@drawable/ic_toys"/>
+                                tools:ignore="VectorDrawableCompat" />
 
                             <TextView
                                 android:id="@+id/text_toys"
@@ -191,12 +191,12 @@
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:layout_marginBottom="16dp"
+                                android:src="@drawable/ic_cosmetics"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="VectorDrawableCompat"
-                                android:src="@drawable/ic_cosmetics"/>
+                                tools:ignore="VectorDrawableCompat" />
 
                             <TextView
                                 android:id="@+id/text_cosmetics"
@@ -239,12 +239,12 @@
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:layout_marginBottom="16dp"
+                                android:src="@drawable/ic_furniture"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="VectorDrawableCompat"
-                                android:src="@drawable/ic_furniture"/>
+                                tools:ignore="VectorDrawableCompat" />
 
                             <TextView
                                 android:id="@+id/text_furniture"
@@ -281,12 +281,12 @@
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:layout_marginBottom="16dp"
+                                android:src="@drawable/ic_electronics"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="VectorDrawableCompat"
-                                android:src="@drawable/ic_electronics"/>
+                                tools:ignore="VectorDrawableCompat" />
 
                             <TextView
                                 android:id="@+id/text_electronics"
@@ -329,12 +329,12 @@
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:layout_marginBottom="16dp"
+                                android:src="@drawable/ic_movie"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="VectorDrawableCompat"
-                                android:src="@drawable/ic_movie"/>
+                                tools:ignore="VectorDrawableCompat" />
 
                             <TextView
                                 android:id="@+id/text_movies"
@@ -370,12 +370,12 @@
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:layout_marginBottom="16dp"
+                                android:src="@drawable/ic_music"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="VectorDrawableCompat"
-                                android:src="@drawable/ic_music"/>
+                                tools:ignore="VectorDrawableCompat" />
 
                             <TextView
                                 android:id="@+id/text_music"
@@ -418,12 +418,12 @@
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:layout_marginBottom="16dp"
+                                android:src="@drawable/ic_dog_food"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="VectorDrawableCompat"
-                                android:src="@drawable/ic_dog_food"/>
+                                tools:ignore="VectorDrawableCompat" />
 
                             <TextView
                                 android:id="@+id/text_pet"
@@ -459,12 +459,12 @@
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:layout_marginBottom="16dp"
+                                android:src="@drawable/ic_tennis_racket"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="VectorDrawableCompat"
-                                android:src="@drawable/ic_tennis_racket"/>
+                                tools:ignore="VectorDrawableCompat" />
 
                             <TextView
                                 android:id="@+id/text_sport"

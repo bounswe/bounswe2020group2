@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">getflix</string>
+    <string name="app_name2">Getflix</string>
     <string name="hello_blank_fragment">Empty Fragment</string>
     <string name="login">Login</string>
     <string name="home">Home</string>
@@ -9,6 +10,7 @@
     <string name="cart">Cart</string>
     <string name="user_name">User Name</string>
     <string name="password">Password</string>
+    <string name="or_login">or sign up with your Google account</string>
     <string name="not_member">Not a member?</string>
     <string name="register">Sign Up</string>
     <string name="visitor">Continue as visitor</string>
@@ -65,4 +67,14 @@
     <string name="price_range">Price Range:</string>
     <string name="filter">Filter</string>
     <string name="filter_options">Filter Options</string>
+    <string name="login_info">The username or password is incorrect.</string>
+    <string name="logout_warning">Are you sure you want to log out?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="warning">Warning</string>
+    <string name="order_guest_alert">You have to login to see your order information.</string>
+    <string name="user_guest_alert">You have to login to see your user information.</string>
+    <string name="bank_guest_alert">You have to login to see your bank account information.</string>
+    <string name="address_guest_alert">You have to login to see your address information.</string>
+
 </resources>

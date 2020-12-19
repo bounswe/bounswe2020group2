@@ -5,20 +5,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import com.example.getflix.R
+import com.example.getflix.databinding.FragmentAddressBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
-class AdddressFragment : Fragment() {
+class AddressFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         activity?.toolbar!!.toolbar_title.text = getString(R.string.addressInfo)
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_adddress, container, false)
+        val binding = DataBindingUtil.inflate<FragmentAddressBinding>(
+                inflater, R.layout.fragment_address,
+                container, false
+        )
+
+        return binding.root
     }
 
 
