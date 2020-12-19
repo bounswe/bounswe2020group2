@@ -15,6 +15,7 @@ import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentLoginBinding
 import com.example.getflix.infoAlert
 import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToHomePageFragment
+import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToProductFragment
 import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToRegisterFragment
 import com.example.getflix.ui.viewmodels.LoginViewModel
 
@@ -106,7 +107,7 @@ class LoginFragment : Fragment() {
             view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
         }*/
         binding.signInButton.setOnClickListener {
-            view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
+            view?.findNavController()?.navigate(actionLoginFragmentToProductFragment())
         }
 
         binding.guestButton.setOnClickListener {
