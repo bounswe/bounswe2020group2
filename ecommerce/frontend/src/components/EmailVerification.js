@@ -6,7 +6,6 @@ import './EmailVerification.less'
 import { LoadingOutlined } from '@ant-design/icons'
 
 const VerificationMessage = ({ verificationState }) => {
-    console.log(verificationState)
     if (verificationState == 'Success') {
         return (
             <div className="verify-message">
@@ -47,9 +46,7 @@ export const EmailVerification = props => {
     useEffect(() => {
         async function fetch() {
             try {
-                console.log('token: ', id)
                 const { data } = await api.get(`/email-verify/${id}`)
-                await sleep(1000)
                 setVerificationState(data.message)
             } catch (error) {
                 console.error('failed to verify account', error)

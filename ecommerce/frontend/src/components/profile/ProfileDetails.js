@@ -1,7 +1,7 @@
 import './ProfileDetails.less'
 import { Link, Redirect } from 'react-router-dom'
 import { useState } from 'react'
-import { Button, Tabs } from 'antd'
+import { Button, Tabs, notification } from 'antd'
 import { api } from '../../api'
 import { useAppContext } from '../../context/AppContext'
 
@@ -11,13 +11,26 @@ export const ProfileDetails = () => {
     const [isLoading, setIsLoading] = useState(false)
     const { user } = useAppContext()
 
-    const onVerify = () => {
-        async function verify() {
+    const onVerify = async () => {
+        try {
             setIsLoading(true)
             const { data } = await api.post('/user/verify', {})
+            if (data.successful) {
+                notification.successful({
+                    description: 'Successfully verified account',
+                    placement: 'topRight',
+                    duration: 2,
+                })
+            }
+        } catch {
+            notification.error({
+                description: 'Failed to verify account',
+                placement: 'topRight',
+                duration: 2,
+            })
+        } finally {
             setIsLoading(false)
         }
-        verify()
     }
     return (
         <div className="profile-details">
