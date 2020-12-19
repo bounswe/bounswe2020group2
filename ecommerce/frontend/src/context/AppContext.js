@@ -13,6 +13,7 @@ const customerUser = {
     surname: 'Saffar',
     email: 'example@gmail.com',
     role: '1',
+    is_verified: false,
 }
 
 function useApp() {
@@ -84,10 +85,10 @@ function useApp() {
                 },
             })
 
-            const { token, id, email, firstname, lastname } = data
+            const { token, id, email, firstname, lastname, is_verified } = data
 
             // TODO: get type from backend
-            setUser({ id, type: 'customer', email, name: firstname, lastname })
+            setUser({ id, type: 'customer', email, name: firstname, lastname, is_verified })
 
             setRequestInterceptorId(api.interceptors.request.use(requestInterceptor))
 
@@ -110,7 +111,7 @@ function useApp() {
         try {
             const { data } = await api.post('/regularlogin', { username, password })
             const { success, message } = data.status
-            const { token, id, email, firstname, lastname } = data.user
+            const { token, id, email, firstname, lastname, is_verified } = data.user
 
             if (success) {
                 localStorage.setItem('token', token)
