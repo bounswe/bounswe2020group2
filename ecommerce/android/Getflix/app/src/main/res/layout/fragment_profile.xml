@@ -9,40 +9,40 @@
     </data>
 
     <LinearLayout
-        android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.getflix.ui.fragments.ProfileFragment"
+        android:layout_marginTop="?attr/actionBarSize"
         android:background="@color/initPurple"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context="com.example.getflix.ui.fragments.ProfileFragment">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="195dp">
 
             <LinearLayout
-                android:background="@drawable/gradientbackground"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
+                android:background="@drawable/gradientbackground"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_marginTop="45dp"
-                    android:layout_gravity="center_horizontal"
                     android:layout_width="150dp"
                     android:layout_height="70dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="45dp"
                     android:src="@drawable/ic_baseline_face_24" />
 
                 <TextView
                     android:id="@+id/name"
-                    android:layout_marginTop="10dp"
-                    android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
                     android:text="Helin Cakmak"
                     android:textColor="@color/initPurple"
-                    android:textStyle="bold"
-                    android:textSize="21sp" />
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </RelativeLayout>
@@ -50,159 +50,164 @@
         <LinearLayout
             android:layout_width="360dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_gravity="center"
-            android:weightSum="4"
-            android:layout_marginTop="45dp">
+            android:layout_marginTop="45dp"
+            android:orientation="vertical"
+            android:weightSum="4">
 
             <LinearLayout
-                android:orientation="horizontal"
-                android:paddingLeft="25dp"
-                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingStart="10dp">
 
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
                     android:src="@drawable/ic_baseline_person_24" />
 
                 <TextView
                     android:id="@+id/userinfo"
-                    android:textStyle="bold"
-                    android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
+                    android:text="@string/userInfo"
                     android:textColor="@color/initGold"
-                    android:text="@string/userInfo" />
+                    android:textStyle="bold" />
 
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
-                </Space>
+                    android:layout_weight="1"></Space>
 
                 <Button
+                    android:id="@+id/userInfoButton"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:id="@+id/userInfoButton"
-                    android:background="@drawable/button_image">
-                </Button>
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/button_image"></Button>
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
-                android:paddingLeft="25dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:paddingLeft="10dp">
 
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
                     android:src="@drawable/ic_baseline_attach_money_24" />
 
                 <TextView
                     android:id="@+id/bankAccounts"
-                    android:textStyle="bold"
-                    android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
+                    android:text="@string/bankAccounts"
                     android:textColor="@color/initGold"
-                    android:text="@string/bankAccounts" />
+                    android:textStyle="bold" />
+
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
-                </Space>
+                    android:layout_weight="1"></Space>
 
                 <Button
+                    android:id="@+id/bankAccountInfoButton"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:id="@+id/bankAccountInfoButton"
-                    android:background="@drawable/button_image">
-                </Button>
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/button_image"></Button>
             </LinearLayout>
+
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
-                android:paddingLeft="25dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:paddingLeft="10dp">
 
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
                     android:src="@drawable/ic_baseline_shopping_bag_24" />
 
                 <TextView
                     android:id="@+id/orders"
-                    android:textStyle="bold"
-                    android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
+                    android:text="@string/orders"
                     android:textColor="@color/initGold"
-                    android:text="@string/orders" />
+                    android:textStyle="bold" />
+
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
-                </Space>
+                    android:layout_weight="1"></Space>
 
                 <Button
+                    android:id="@+id/ordersButton"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:id="@+id/ordersButton"
-                    android:background="@drawable/button_image">
-                </Button>
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/button_image"></Button>
             </LinearLayout>
+
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
-                android:paddingLeft="25dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:paddingLeft="10dp">
 
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
                     android:src="@drawable/ic_baseline_location_on_24" />
 
                 <TextView
                     android:id="@+id/address"
-                    android:textStyle="bold"
-                    android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
+                    android:text="@string/addressInfo"
                     android:textColor="@color/initGold"
-                    android:text="@string/addressInfo" />
+                    android:textStyle="bold" />
+
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
-                </Space>
+                    android:layout_weight="1"></Space>
 
                 <Button
+                    android:id="@+id/addressinfoButton"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:id="@+id/addressinfoButton"
-                    android:background="@drawable/button_image">
-                </Button>
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/button_image"></Button>
             </LinearLayout>
         </LinearLayout>
 
         <Button
             android:id="@+id/btn_logout"
-            android:textColor="@color/initPurple"
-            android:layout_marginTop="30dp"
-            android:background="@color/colorPrimary"
-            android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/logout" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:background="@color/colorPrimary"
+            android:text="@string/logout"
+            android:textColor="@color/initPurple" />
     </LinearLayout>
 </layout>

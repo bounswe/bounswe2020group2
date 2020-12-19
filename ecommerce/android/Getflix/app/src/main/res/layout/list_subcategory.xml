@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="subCategory"
             type="com.example.getflix.models.SubcategoryModel" />
@@ -22,11 +23,11 @@
                 android:id="@+id/subcat_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
-                android:layout_gravity="center_vertical|start"
-                android:textColor="@color/initGold"
                 android:text="@{subCategory.name}"
+                android:textColor="@color/initGold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.18"

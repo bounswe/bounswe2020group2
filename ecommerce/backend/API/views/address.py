@@ -48,7 +48,6 @@ def manage_multiple_addresses(request, customer_id):
     elif request.method == 'POST':
         serializer = AddressRequestSerializer(data=request.data)
         if serializer.is_valid():
-            print(serializer.validated_data)
             title = serializer.validated_data.get("title")
             address = serializer.validated_data.get("address")
             province = serializer.validated_data.get("province")

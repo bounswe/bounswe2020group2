@@ -28,6 +28,7 @@ urlpatterns = [
     path('user/<int:id>/listShoppingCart', list_shopping_cart),
     path('user/<int:id>/shoppingCart', views.shopping_cart.add_shopping_cart_item),
     path('product/<int:productId>', views.product.product_detail),
+    path('search/products', views.search.products, name="search_products"),
     path('customer/<int:customer_id>/addresses/<int:address_id>', views.address.manage_single_address),
     path('customer/<int:customer_id>/addresses', views.address.manage_multiple_addresses),
     path('checkout/details', views.checkout.checkout_details),
