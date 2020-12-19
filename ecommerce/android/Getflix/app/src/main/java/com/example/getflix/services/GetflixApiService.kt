@@ -1,6 +1,11 @@
 package com.example.getflix.services
 
 import com.example.getflix.models.*
+import com.example.getflix.services.requests.CardProRequest
+import com.example.getflix.services.requests.LoginRequest
+import com.example.getflix.services.responses.CardProResponse
+import com.example.getflix.services.responses.LoginResponse
+import com.example.getflix.services.responses.SignUpResponse
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Call

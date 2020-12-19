@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.getflix.models.*
 import com.example.getflix.services.GetflixApi
+import com.example.getflix.services.requests.CardProRequest
+import com.example.getflix.services.responses.CardProResponse
 import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -79,8 +81,8 @@ class CategoriesViewModel : ViewModel() {
                     }
 
                     override fun onResponse(
-                            call: Call<CardProResponse>,
-                            response: Response<CardProResponse>
+                        call: Call<CardProResponse>,
+                        response: Response<CardProResponse>
                     ) {
                         println(response.body().toString())
                         println(response.code())

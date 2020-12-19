@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentRegisterBinding
+import com.example.getflix.doneAlert
+import com.example.getflix.infoAlert
 import com.example.getflix.ui.fragments.RegisterFragmentDirections.Companion.actionRegisterFragmentToHomePageFragment
 import com.example.getflix.ui.viewmodels.RegisterViewModel
 
@@ -47,23 +49,49 @@ class RegisterFragment : Fragment() {
                 })
 
 
+        var checkFields = false
         binding.btnRegister.setOnClickListener {
-            if (registerViewModel.setSignUpCredentials(
+            checkFields = registerViewModel.setSignUpCredentials(
                             binding.username.text.toString(),
                             binding.mail.text.toString(),
                             binding.password.text.toString(),
                             binding.name.text.toString(),
                             binding.surname.text.toString(),
-                            binding.phone.text.toString()
-                    )) {
-                binding.name.error = getString(R.string.reg_error)
-            }
+                            binding.phone.text.toString(),
+                            binding.conPassword.text.toString()
+                    )
 
             if (binding.conPassword.text.toString().isEmpty()) {
                 binding.conPassword.error = getString(R.string.reg_error)
             }
 
+            var prevAlert = false
+            if (binding.password.text.toString()!=binding.conPassword.text.toString()) {
+                prevAlert = true
+                infoAlert(this,"password eşleşmiyor")
+            }
+
+            if (binding.password.text.toString().length<8) {
+                if(!prevAlert) {
+                    infoAlert(this, "en az 8 karakter olmalı")
+                    prevAlert = true
+                }
+            }
+
+            if (binding.username.text.toString().length<6) {
+                if(!prevAlert) {
+                    infoAlert(this, "en az 6 karakter olmalı")
+                    prevAlert = true
+                }
+            }
+
+            if (binding.name.text.toString().length<2 && binding.surname.text.toString().length<2) {
+                if(!prevAlert)
+                    infoAlert(this,"lütfen geçerli bir ad soyad bilgisi giriniz")
+            }
+
             if (!binding.check.isChecked) {
+                checkFields = false
                 binding.check.error = getString(R.string.reg_agree_err)
             }
             if (!customer) {
@@ -83,8 +111,9 @@ class RegisterFragment : Fragment() {
 
         }
         registerViewModel.canSignUp.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                view?.findNavController()?.navigate(actionRegisterFragmentToHomePageFragment())
+            if (it != null && it.successful && checkFields) {
+                println(it.message)
+                doneAlert(this,"You have registered successfully, now redirecting to login",::navigateLogin)
             }
         })
 
@@ -96,6 +125,10 @@ class RegisterFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    private fun navigateLogin() {
+        view?.findNavController()?.popBackStack()
     }
 
 
