@@ -1,6 +1,6 @@
 import { config } from '../config'
 import { rest } from 'msw'
-import { trendingProducts, product, products } from './mocks'
+import { trendingProducts, product, products, verifications } from './mocks'
 
 // preprend config.apiUrl
 const url = u => config.apiUrl + u
@@ -47,6 +47,18 @@ export const handlers = [
                         total_items: products.length,
                     },
                     products: products.slice(page * page_size, (page + 1) * page_size),
+                },
+            }),
+        )
+    }),
+    rest.get(url('/email-verify/:token'), (req, res, ctx) => {
+        const { params, body } = req
+        const { token } = params
+
+        return res(
+            ctx.json({
+                data: {
+                    message: verifications[Math.floor(Math.random() * verifications.length)],
                 },
             }),
         )

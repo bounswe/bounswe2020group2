@@ -46,10 +46,14 @@ export const EmailVerification = props => {
     useEffect(() => {
         async function fetch() {
             try {
-                const { data } = await api.get(`/email-verify/${id}`)
-                setVerificationState(data.message)
+                const {
+                    data: {
+                        data: { message },
+                    },
+                } = await api.get(`/email-verify/${id}`)
+                setVerificationState(message.message)
             } catch (error) {
-                console.error('failed to verify account', error)
+                console.error(error)
                 setVerificationState('Invalid')
             } finally {
             }
