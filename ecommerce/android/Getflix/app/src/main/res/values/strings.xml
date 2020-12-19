@@ -79,5 +79,9 @@
     <string name="bank_guest_alert">Banka hesabı bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
     <string name="address_guest_alert">Adres bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
     <string name="messages">Mesajlar</string>
+    <string name="pass_char_limit">Şifreniz en az 8 karakter olmalıdır.</string>
+    <string name="username_char_limit">Kullanıcı adınız en az 6 karakter olmalıdır.</string>
+    <string name="valid_name">Lütfen geçerli bir ad soyad bilgisi giriniz.</string>
+    <string name="register_success">Kaydınız tamamlandı! Oturum açma sayfasına yönlendiriliyorsunuz.</string>
 
 </resources>

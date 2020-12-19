@@ -73,21 +73,21 @@ class RegisterFragment : Fragment() {
 
             if (binding.password.text.toString().length<8) {
                 if(!prevAlert) {
-                    infoAlert(this, "en az 8 karakter olmalı")
+                    infoAlert(this, getString(R.string.pass_char_limit))
                     prevAlert = true
                 }
             }
 
             if (binding.username.text.toString().length<6) {
                 if(!prevAlert) {
-                    infoAlert(this, "en az 6 karakter olmalı")
+                    infoAlert(this, getString(R.string.username_char_limit))
                     prevAlert = true
                 }
             }
 
             if (binding.name.text.toString().length<2 && binding.surname.text.toString().length<2) {
                 if(!prevAlert)
-                    infoAlert(this,"lütfen geçerli bir ad soyad bilgisi giriniz")
+                    infoAlert(this,getString(R.string.valid_name))
             }
 
             if (!binding.check.isChecked) {
@@ -112,8 +112,7 @@ class RegisterFragment : Fragment() {
         }
         registerViewModel.canSignUp.observe(viewLifecycleOwner, Observer {
             if (it != null && it.successful && checkFields) {
-                println(it.message)
-                doneAlert(this,"You have registered successfully, now redirecting to login",::navigateLogin)
+                doneAlert(this,getString(R.string.register_success),::navigateLogin)
             }
         })
 
