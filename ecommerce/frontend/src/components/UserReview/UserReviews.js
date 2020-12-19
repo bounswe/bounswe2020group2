@@ -9,7 +9,7 @@ export const UserReviews = ({ productId = 1 }) => {
     const [currentPage, setCurrentPage] = useState(1)
     const [reviews, setReviews] = useState([])
     const [totalPage, setTotalPage] = useState(0)
-    const [pageSize, setPageSize] = useState(0)
+    const [pageSize, setPageSize] = useState(10)
 
     useEffect(() => {
         // When current page is changed, makes a call to backend and gets the new reviews.
@@ -23,7 +23,7 @@ export const UserReviews = ({ productId = 1 }) => {
                             pagination: { page_size, page, total_items },
                         },
                     },
-                } = await api.get(`/product/${productId}/review?page_size=${pageSize}&page=${currentPage - 1}`)
+                } = await api.get(`/review?product=${productId}&page_size=${pageSize}&page=${currentPage - 1}`)
                 setReviews(reviews)
                 setTotalPage(total_items)
                 setPageSize(page_size)

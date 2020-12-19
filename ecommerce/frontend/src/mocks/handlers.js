@@ -51,12 +51,12 @@ export const handlers = [
             }),
         )
     }),
-    rest.get(url('/product/:id/review'), (req, res, ctx) => {
-        const { params, body } = req
-        const page_size = 10
-        const page = 0
-        const { id } = params
+    rest.get(url('/review'), (req, res, ctx) => {
+        const { params } = req
 
+        const id = req.url.searchParams.get('product')
+        const page_size = 10
+        const page = req.url.searchParams.get('page')
         return res(
             ctx.json({
                 data: {
