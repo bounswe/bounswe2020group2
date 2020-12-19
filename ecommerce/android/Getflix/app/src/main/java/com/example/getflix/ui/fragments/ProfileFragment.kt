@@ -29,7 +29,7 @@ class ProfileFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentProfileBinding>(inflater, R.layout.fragment_profile,
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile,
                 container, false)
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.profile)

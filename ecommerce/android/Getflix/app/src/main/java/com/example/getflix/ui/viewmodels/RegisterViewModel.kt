@@ -4,17 +4,16 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.getflix.infoAlert
-import com.example.getflix.models.SignUpCredentials
-import com.example.getflix.services.responses.SignUpResponse
-import com.example.getflix.services.GetflixApi
+import com.example.getflix.service.requests.SignUpRequest
+import com.example.getflix.service.responses.SignUpResponse
+import com.example.getflix.service.GetflixApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class RegisterViewModel(application: Application) : AndroidViewModel(application) {
-    private val _signUpCredentials = MutableLiveData<SignUpCredentials>()
-    val signUpCredentials: LiveData<SignUpCredentials?>
+    private val _signUpCredentials = MutableLiveData<SignUpRequest>()
+    val signUpRequest: LiveData<SignUpRequest?>
         get() = _signUpCredentials
 
     private val _canSignUp = MutableLiveData<SignUpResponse?>()
@@ -30,7 +29,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
         if (password.length<8 || username.length<6 || firstName.length<2 || lastName.length<2) {
             return false
         }
-        _signUpCredentials.value = SignUpCredentials(username, mail, password, firstName, lastName, phoneNumber)
+        _signUpCredentials.value = SignUpRequest(username, mail, password, firstName, lastName, phoneNumber)
         signUp()
         return true
     }

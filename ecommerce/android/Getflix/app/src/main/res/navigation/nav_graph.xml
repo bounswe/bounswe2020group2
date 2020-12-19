@@ -20,7 +20,14 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_homePageFragment"
-            app:destination="@id/homePageFragment" />
+            app:destination="@id/homePageFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_loginFragment_to_vendorHomeFragment"
+            app:destination="@id/vendorHomeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment"
@@ -110,10 +117,10 @@
      <fragment   
         android:id="@+id/filterOptionsFragment"
         android:name="com.example.getflix.ui.fragments.FilterOptionsFragment"
-        tools:layout="@layout/fragment_filter_options"></fragment>
+        tools:layout="@layout/fragment_filter_options"/>
     <fragment
         android:id="@+id/adddressFragment"
-        android:name="com.example.getflix.ui.fragments.AdddressFragment"
+        android:name="com.example.getflix.ui.fragments.AddressFragment"
         tools:layout="@layout/fragment_address" />
     <fragment
         android:id="@+id/bankAccountFragment"
@@ -127,6 +134,19 @@
         android:id="@+id/userInfoFragment"
         android:name="com.example.getflix.ui.fragments.UserInfoFragment"
         tools:layout="@layout/fragment_user_info" />
+    <fragment
+        android:id="@+id/vendorHomeFragment"
+        android:name="com.example.getflix.ui.fragments.VendorHomeFragment"
+        tools:layout="@layout/fragment_vendor_home"
+        />
+    <fragment
+        android:id="@+id/vendorProfileFragment"
+        android:name="com.example.getflix.ui.fragments.VendorProfileFragment"
+        tools:layout="@layout/fragment_vendor_home" />
+    <fragment
+        android:id="@+id/messagesFragment"
+        android:name="com.example.getflix.ui.fragments.MessagesFragment"
+        tools:layout="@layout/fragment_messages" />
 
 </navigation>
 

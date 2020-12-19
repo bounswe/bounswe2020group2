@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModel
 import com.example.getflix.R
 import com.example.getflix.infoAlert
 import com.example.getflix.models.*
-import com.example.getflix.services.GetflixApi
-import com.example.getflix.services.requests.LoginRequest
-import com.example.getflix.services.responses.LoginResponse
+import com.example.getflix.service.GetflixApi
+import com.example.getflix.service.requests.LoginRequest
+import com.example.getflix.service.responses.LoginResponse
 
 import retrofit2.Call
 import retrofit2.Callback

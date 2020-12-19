@@ -1,11 +1,12 @@
-package com.example.getflix.services
+package com.example.getflix.service
 
 import com.example.getflix.models.*
-import com.example.getflix.services.requests.CardProRequest
-import com.example.getflix.services.requests.LoginRequest
-import com.example.getflix.services.responses.CardProResponse
-import com.example.getflix.services.responses.LoginResponse
-import com.example.getflix.services.responses.SignUpResponse
+import com.example.getflix.service.requests.CardProRequest
+import com.example.getflix.service.requests.LoginRequest
+import com.example.getflix.service.requests.SignUpRequest
+import com.example.getflix.service.responses.CardProResponse
+import com.example.getflix.service.responses.LoginResponse
+import com.example.getflix.service.responses.SignUpResponse
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -53,7 +54,7 @@ interface GetflixApiService {
 
     @Headers("Content-Type: application/json")
     @POST("regularsignup")
-    fun signUp(@Body signUpCredentials: SignUpCredentials): Call<SignUpResponse>
+    fun signUp(@Body signUpRequest: SignUpRequest): Call<SignUpResponse>
 
     @GET("products/homepage/{numberOfProducts}")
     suspend fun getProducts(@Path("numberOfProducts") numberOfProducts: Int): Response<List<ProductModel>>

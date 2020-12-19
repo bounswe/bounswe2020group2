@@ -16,6 +16,7 @@ import com.example.getflix.databinding.FragmentLoginBinding
 import com.example.getflix.infoAlert
 import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToHomePageFragment
 import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToRegisterFragment
+import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToVendorHomeFragment
 import com.example.getflix.ui.viewmodels.LoginViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -84,9 +85,15 @@ class LoginFragment : Fragment() {
 
         loginViewModel.user.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                println(loginViewModel.user.toString())
                 MainActivity.StaticData.user = it
-                view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
+                println(it.toString())
+                if(it.id==20) {
+                    (activity as MainActivity).decideBottomNav(true)
+                    view?.findNavController()?.navigate(actionLoginFragmentToVendorHomeFragment())
+                } else {
+                    (activity as MainActivity).decideBottomNav(false)
+                    view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
+                }
             }
         })
 

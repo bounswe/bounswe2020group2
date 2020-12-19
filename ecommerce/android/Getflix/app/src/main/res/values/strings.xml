@@ -78,6 +78,6 @@
     <string name="user_guest_alert">Kullanıcı bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
     <string name="bank_guest_alert">Banka hesabı bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
     <string name="address_guest_alert">Adres bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
-
+    <string name="messages">Mesajlar</string>
 
 </resources>

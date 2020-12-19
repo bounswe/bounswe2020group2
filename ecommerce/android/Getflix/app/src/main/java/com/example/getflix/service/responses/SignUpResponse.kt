@@ -1,4 +1,4 @@
-package com.example.getflix.services.responses
+package com.example.getflix.service.responses
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
