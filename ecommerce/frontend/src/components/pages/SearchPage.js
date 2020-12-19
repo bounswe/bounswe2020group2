@@ -6,13 +6,58 @@ import * as R from 'ramda'
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useHistory } from 'react-router-dom'
-import uuidv4 from 'uuid/dist/v4'
 
-import { categories, sleep, subcategories } from '../../utils'
+import { api } from '../../api'
+import { categories, subcategories } from '../../utils'
 import { SearchResults } from '../search/SearchResults'
 import { SearchSidePanel } from '../search/SearchSidePanel'
-import { SearchInput } from '../SearchInput'
-import { api } from '../../api'
+
+const formatSearchQueryParams = values => ({
+    query: values.search?.query,
+    // query: this can be undefined it means doesn't matter
+    // query: for now, case-insensitive search in title or description
+
+    category: values.filters?.category,
+    // category: if missing, assume all products
+
+    subcategory: values.filters?.subcategory,
+    // subcategory: if missing, assume all subcategories of the category
+    // subcategory: subcategory cannot be given without specifying category
+
+    brand: values.filters?.brands,
+    // brand: OR semantic
+    // brand: these are brand ids I get from the database
+    // brand: if brand is undefined or empty array then consider it as any brand
+
+    max_price: values.filters?.maxPrice,
+    // max_price: if missing, assume +infinity
+
+    min_rating: values.filters?.rating,
+    // min_rating: if missing, assume 0
+    // min_rating: min 0, max 5
+    // min_rating: >= semantic
+
+    // == sorting ==
+    sort_by: values.filters?.sortBy,
+    // sort_by: if missing, assume 'best-sellers'
+
+    sort_order: 'increasing',
+    // sort_order: if missing, assume 'increasing'
+    // sort_order: decreasing best-sellers -> best sellers shown first
+    // sort_order: decreasing newest-arrivals -> newest arrivals shown first
+    // sort_order: increasing price -> low price products first
+    // sort_order: increasing average-customer-review -> low review first
+    // sort_order: increasing number-of-comments -> low comments first
+
+    // == pagination ==
+    page: values.pagination?.current,
+    // page: pages start from 0
+    // page: if missing, assume 0
+
+    page_size: values.pagination?.pageSize,
+    // page_size: smallest page_size should 1, biggest should be 100
+    // page_size: if missing, assume 10
+})
 
 /**
  * This is a wrapper around the real _SearchPage component
@@ -50,15 +95,22 @@ export const _SearchPage = ({ initialValues = {} }) => {
     const [isLoading, setIsLoading] = useState(true)
 
     const [products, setProducts] = useState([])
-    // total number of products matching the query in the database, NOT returned by backende([])
+
+    // total number of products matching the query in the database, NOT returned by backend
     const [total, setTotal] = useState(0)
 
     useEffect(() => {
         async function fetch() {
             try {
                 setIsLoading(true)
-                const total = 20
-                const { data: products } = await api.get(`/products/homepage/${total}`)
+                console.log(values)
+
+                const {
+                    data: {
+                        data: { pagination, products },
+                    },
+                } = await api.post(`/search/products`, formatSearchQueryParams(values))
+
                 setProducts(
                     products.map(p => {
                         return {
@@ -67,30 +119,12 @@ export const _SearchPage = ({ initialValues = {} }) => {
                             rating: p.total_rating,
                             price: p.price,
                             currency: 'TL',
-                            imageUrl: p.image_url,
+                            imageUrl: p.images[0],
                         }
                     }),
                 )
 
-                console.log(products)
-                // await sleep(1000)
-                // const total = 50
-                // let i = 0
-
-                // setProducts(
-                //     [...Array(total)].map(x => {
-                //         i = i + 1
-                //         return {
-                //             title: 'Title',
-                //             rating: '5',
-                //             price: '30.00',
-                //             currency: 'TL',
-                //             imageUrl: `https://picsum.photos/300?q=${uuidv4()}`,
-                //             id: i,
-                //         }
-                //     }),
-                // )
-                setTotal(total)
+                setTotal(pagination.total_items)
 
                 notification.success({ description: 'Search results ready!' })
             } catch {

@@ -24,37 +24,38 @@ class CartFragment : Fragment() {
     private lateinit var viewModel: CartViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentCartBinding>(inflater,R.layout.fragment_cart,
-            container,false)
+        val binding = DataBindingUtil.inflate<FragmentCartBinding>(inflater, R.layout.fragment_cart,
+                container, false)
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.cart)
         viewModel = ViewModelProvider(this).get(CartViewModel::class.java)
         binding.viewmodel = CartViewModel()
         val recView = binding?.cartList as RecyclerView
-        val products = arrayListOf(
-            ProductModel(1,"Bag","100 TL",null,"Vıntage Bag"),
-            ProductModel(1,"iPhone 7","4815 TL",null,"Best Phone"),
-            ProductModel(1,"Pullover","36 TL",null,"Black Pullover"),
-             ProductModel(1,"Notebook","32 TL",null,"Spiral Notebook"),
-             ProductModel(1,"Pencil","13 TL",null,"Black Pencil"),
-             ProductModel(1,"Skirt","30 TL",null,"Vıntage Skirt"),
-             ProductModel(1,"T-Shirt","23 TL",null,"Vıntage T-Shirt"),
-             ProductModel(1,"Book","20 TL",null,"Bestseller Book")   ,
-                ProductModel(1,"T-Shirt","23 TL",null,"Black T-Shirt"),
-                ProductModel(1,"Book","20 TL",null,"Bestseller Book")
-        )
+        var zaraJacket1 =
+                ProductModel(10, "Jacket", "222", "1", "Zara", 1, 1, 1, "Nice jacket", "1", "1", "1", "1")
+        var zaraJacket2 =
+                ProductModel(11, "Jacket", "231", "1", "Zara", 1, 1, 1, "Cool jacket", "1", "1", "1", "1")
+        var zaraJacket3 =
+                ProductModel(12, "Jacket", "32", "1", "Zara", 1, 1, 1, "cool", "Amazing jacket", "1", "1", "1")
+        var zaraSkirt1 =
+                ProductModel(4, "Skirt", "79", "1", "Zara", 1, 1, 1, "Nice skirt", "1", "1", "1", "1")
+        var zaraSkirt2 =
+                ProductModel(5, "Skirt", "93", "1", "Zara", 1, 1, 1, "Cool skirt", "1", "1", "1", "1")
+        var zaraSkirt3 =
+                ProductModel(6, "Skirt", "102", "1", "Zara", 1, 1, 1, "Amazing skirt", "1", "1", "1", "1")
+        val products = arrayListOf(zaraSkirt3, zaraJacket1, zaraSkirt2, zaraJacket2, zaraSkirt1, zaraJacket3)
         val productListAdapter = CartAdapter(products)
         recView.adapter = productListAdapter
         recView.setHasFixedSize(true)
 
-        for(product in products) {
+        for (product in products) {
             viewModel.addProduct(product)
         }
 
-        viewModel.productList.observe(viewLifecycleOwner, Observer{
+        viewModel.productList.observe(viewLifecycleOwner, Observer {
             it?.let {
                 productListAdapter.submitList(it)
             }
@@ -62,8 +63,6 @@ class CartFragment : Fragment() {
 
         return binding.root
     }
-
-
 
 
 }

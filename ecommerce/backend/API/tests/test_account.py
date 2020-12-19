@@ -50,7 +50,7 @@ class TestAccount(TestCase):
         }
         response = self.client.post(reverse('login'), body, 'json')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data["status"]["success"], True)
+        self.assertEqual(response.data["status"]["successful"], True)
         token = response.data["user"]["token"]
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + token)
         response = self.client.get(reverse('init'))
@@ -63,7 +63,7 @@ class TestAccount(TestCase):
         }
         response = self.client.post(reverse('login'), body, 'json')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data["status"]["success"], False)
+        self.assertEqual(response.data["status"]["successful"], False)
 
     def test_auth(self):
         response = self.client.get(reverse('api'))

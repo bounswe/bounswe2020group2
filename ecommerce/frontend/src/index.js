@@ -6,6 +6,12 @@ import reportWebVitals from './reportWebVitals'
 
 import { AppContextProvider } from './context/AppContext'
 
+// only launch mock service worker when in development environment
+if (process.env.NODE_ENV === 'development') {
+    const { worker } = require('./mocks/browser')
+    worker.start()
+}
+
 ReactDOM.render(
     // <React.StrictMode>
     <AppContextProvider>

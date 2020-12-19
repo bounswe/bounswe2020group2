@@ -9,8 +9,8 @@ import com.example.getflix.databinding.ProductCardBinding
 import com.example.getflix.models.ProductModel
 
 class CartAdapter(
-    private val productList: ArrayList<ProductModel>?,
-)  : ListAdapter<ProductModel,CartAdapter.RowHolder>(CartDiffCallback()) {
+        private val productList: ArrayList<ProductModel>?,
+) : ListAdapter<ProductModel, CartAdapter.RowHolder>(CartDiffCallback()) {
 
 
     class RowHolder(val binding: ProductCardBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -22,7 +22,7 @@ class CartAdapter(
         companion object {
             fun from(parent: ViewGroup): RowHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ProductCardBinding.inflate(layoutInflater,parent,false)
+                val binding = ProductCardBinding.inflate(layoutInflater, parent, false)
                 return RowHolder(binding)
             }
         }
@@ -37,17 +37,17 @@ class CartAdapter(
         productList?.get(position)?.let { holder.bind(it, position) }
     }
 
-   /* override fun getItemCount(): Int {
-        if (productList != null) {
-            return productList.count()
-        }
-        return 0
-    } */
+    /* override fun getItemCount(): Int {
+         if (productList != null) {
+             return productList.count()
+         }
+         return 0
+     } */
 
 
 }
 
-class CartDiffCallback: DiffUtil.ItemCallback<ProductModel>() {
+class CartDiffCallback : DiffUtil.ItemCallback<ProductModel>() {
     override fun areItemsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
         return oldItem.id == newItem.id
     }
