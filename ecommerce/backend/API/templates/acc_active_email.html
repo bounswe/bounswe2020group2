@@ -1,6 +1,6 @@
 {% autoescape off %}  
 Hi {{ user.username }},  
 Please click on the link to confirm your registration,
-http://127.0.0.1:5000/verify/{{ uid }}
+http://{{ domain }}/verify/{{ uid }}
 If you think, it's not you, then just ignore this email.  
 {% endautoescape %}
