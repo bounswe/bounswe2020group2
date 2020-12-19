@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Pagination, Spin } from 'antd'
 import './UserReviews.less'
-import { sleep } from '../../utils'
 import { api } from '../../api'
 import { UserReview } from './UserReview'
 
-export const UserReviews = ({ productId = 1, pageSize = 10, totalPage = 50 }) => {
+export const UserReviews = ({ productId = 1 }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [currentPage, setCurrentPage] = useState(1)
     const [reviews, setReviews] = useState([])
+    const [totalPage, setTotalPage] = useState(0)
+    const [pageSize, setPageSize] = useState(0)
 
     useEffect(() => {
         // When current page is changed, makes a call to backend and gets the new reviews.
@@ -17,11 +18,15 @@ export const UserReviews = ({ productId = 1, pageSize = 10, totalPage = 50 }) =>
                 setIsLoading(true)
                 const {
                     data: {
-                        data: { reviews },
+                        data: {
+                            reviews,
+                            pagination: { page_size, page, total_items },
+                        },
                     },
-                } = await api.get(`/product/${productId}/review?page_size=${pageSize}&page=${currentPage}`)
+                } = await api.get(`/product/${productId}/review?page_size=${pageSize}&page=${currentPage - 1}`)
                 setReviews(reviews)
-                await sleep(2000)
+                setTotalPage(total_items)
+                setPageSize(page_size)
             } catch (error) {
                 console.error('Failed to load user reviews', error)
             } finally {
@@ -36,6 +41,7 @@ export const UserReviews = ({ productId = 1, pageSize = 10, totalPage = 50 }) =>
         console.log('Page changed to ', value)
         setCurrentPage(value)
     }
+    console.log('!', totalPage, pageSize)
 
     return (
         <div className="user-review">
@@ -46,7 +52,7 @@ export const UserReviews = ({ productId = 1, pageSize = 10, totalPage = 50 }) =>
                         return (
                             <div key={review.id}>
                                 <UserReview review={review} />
-                                {index < reviews.length - 1 && <hr style={{ margin: 0 }}></hr>}
+                                {index < reviews.length - 1 && <hr style={{ margin: '5px' }}></hr>}
                             </div>
                         )
                     })}

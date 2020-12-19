@@ -454,7 +454,7 @@ export const reviews = [
         user_id: '3',
         product_id: '3', // if review of product, null otherwise
         vendor_id: null, // if review of vendor, null otherwise
-        rating: 0.2,
+        rating: 0.9,
         comment: 'this product sucks so much',
         created_at: date,
     },
