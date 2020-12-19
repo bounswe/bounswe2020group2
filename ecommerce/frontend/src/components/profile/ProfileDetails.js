@@ -8,7 +8,7 @@ import { useAppContext } from '../../context/AppContext'
 const { TabPane } = Tabs
 
 export const ProfileDetails = () => {
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
     const { user } = useAppContext()
 
     const onVerify = () => {

@@ -18,19 +18,21 @@ const VerificationMessage = verificationState => {
         return (
             <div className="verify-message">
                 <p>Failed to verify account</p>
-                <CloseCircleTwoTone />
+                <CloseCircleTwoTone twoToneColor="red" />
             </div>
         )
     } else if (verificationState == 'Expired') {
         return (
             <div className="verify-message">
                 <p>Your activitation link is expired.</p>
+                <CloseCircleTwoTone twoToneColor="red" />
             </div>
         )
     } else if (verificationState == 'Verified') {
         return (
             <div className="verify-message">
                 <p>Your account is already been verified. </p>
+                <CloseCircleTwoTone twoToneColor="red" />
             </div>
         )
     } else {
@@ -52,11 +54,11 @@ export const EmailVerification = props => {
                 console.log('token: ', id)
                 const { data } = await api.get(`/email-verify/${id}`)
                 console.log(data)
-                await sleep(2000)
+                await sleep(1000)
                 setVerificationState(data.message)
             } catch (error) {
                 console.error('failed to verify account', error)
-                setVerificationState('failure')
+                setVerificationState('Invalid')
             } finally {
             }
         }
