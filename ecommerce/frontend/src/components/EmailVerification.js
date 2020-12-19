@@ -4,6 +4,7 @@ import { Result, Button } from 'antd'
 import { sleep } from '../utils'
 import './EmailVerification.less'
 import { LoadingOutlined } from '@ant-design/icons'
+import { useAppContext } from '../context/AppContext'
 
 const VerificationMessage = ({ verificationState }) => {
     if (verificationState == 'Success') {
@@ -42,6 +43,7 @@ const VerificationMessage = ({ verificationState }) => {
 export const EmailVerification = props => {
     const { id } = props.match.params
     const [verificationState, setVerificationState] = useState('waiting')
+    const { user, setUser } = useAppContext()
 
     useEffect(() => {
         async function fetch() {
@@ -52,6 +54,9 @@ export const EmailVerification = props => {
                     },
                 } = await api.get(`/email-verify/${id}`)
                 setVerificationState(message.message)
+                if (message.message === 'Success') {
+                    setUser({ ...user, is_verified: true })
+                }
             } catch (error) {
                 console.error(error)
                 setVerificationState('Invalid')
