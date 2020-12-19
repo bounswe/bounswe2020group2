@@ -11,6 +11,54 @@ class TestAccount(TestCase):
         response = self.client.get(reverse('login'))
         self.assertEqual(response.status_code, 405)
 
+
+    def test_vendor_signup(self):
+        body = {
+            "username": "newvendor",
+            "password": "12345678",
+            "email": "newvendor@vendor.com",
+            "firstname": "my",
+            "lastname": "vendor",
+            "phonenumber": "+905517217180",
+            "address": {
+                "title": "main address",
+                "address": "adkmakdksadsakdsaldad",
+                "city": "İstanbul",
+                "province": "Sarıyer",
+                "country": "Türkiye",
+                "phone": {
+                    "country_code": "+90",
+                    "number": "+90551727180"
+                },
+                "zip_code": "34347"
+            }
+        }
+        response = self.client.post(reverse('vendor_signup'), body, 'json')
+        self.assertEqual(response.data["successful"], True)
+
+    def test_vendor_signup_corrupted_address(self):
+        body = {
+            "username": "newvendor",
+            "password": "12345678",
+            "email": "newvendor@vendor.com",
+            "firstname": "my",
+            "lastname": "vendor",
+            "phonenumber": "+905517217180",
+            "address": {
+                "title": "main address",
+                "address": "adkmakdksadsakdsaldad",
+                "city": "İstanbul",
+                "country": "Türkiye",
+                "phone": {
+                    "country_code": "+90",
+                    "number": "+90551727180"
+                },
+                "zip_code": "34347"
+            }
+        }
+        response = self.client.post(reverse('vendor_signup'), body, 'json')
+        self.assertEqual(response.data["successful"], False)
+
     def test_invalid_register(self):
         body = {
             'username': 'testuser',

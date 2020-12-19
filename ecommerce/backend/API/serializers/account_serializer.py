@@ -15,11 +15,24 @@ class UserSerializer(serializers.ModelSerializer):
     token = serializers.SerializerMethodField()
     firstname = serializers.SerializerMethodField()
     lastname = serializers.SerializerMethodField()
+    role = serializers.SerializerMethodField()
+
+    def get_role(self, obj):
+        if obj.role == Role.CUSTOMER.value:
+            return "CUSTOMER"
+        elif obj.role == Role.VENDOR.value:
+            return "VENDOR"
+        else:
+            return ""
+
 
     def get_firstname(self, obj):
         if obj.role == Role.CUSTOMER.value:
             customer = user_model.Customer.objects.filter(user=obj).first()
             return customer.first_name
+        elif obj.role == Role.VENDOR.value:
+            vendor = user_model.Vendor.objects.filter(user=obj).first()
+            return vendor.first_name
         else:
             return ""
 
@@ -27,6 +40,9 @@ class UserSerializer(serializers.ModelSerializer):
         if obj.role == Role.CUSTOMER.value:
             customer = user_model.Customer.objects.filter(user=obj).first()
             return customer.last_name
+        elif obj.role == Role.VENDOR.value:
+            vendor = user_model.Vendor.objects.filter(user=obj).first()
+            return vendor.last_name
         else:
             return ""
 
@@ -38,7 +54,7 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = user_model.User
-        fields = ('id', 'email', 'token', 'firstname', 'lastname')
+        fields = ('id', 'email', 'token', 'firstname', 'lastname', 'is_verified', 'role')
     
 
 class LoginResponseSerializer(serializers.ModelSerializer):

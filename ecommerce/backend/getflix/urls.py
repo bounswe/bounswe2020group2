@@ -32,5 +32,8 @@ urlpatterns = [
     path('customer/<int:customer_id>/addresses/<int:address_id>', views.address.manage_single_address),
     path('customer/<int:customer_id>/addresses', views.address.manage_multiple_addresses),
     path('checkout/details', views.checkout.checkout_details),
-    path('review', views.review.manage_review, name="review")
+    path('review', views.review.manage_review, name="review"),
+    path('image/<int:image_id>', views.product.get_image),
+    path('vendor/product', views.product.vendor_product, name="vendor_product"),
+    path('vendor/signup', views.account.vendor_register, name="vendor_signup")
 ]
