@@ -1,44 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import { api } from '../api'
-import { notification } from 'antd'
+import { Result, Button } from 'antd'
 import { sleep } from '../utils'
 import './EmailVerification.less'
-import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons'
+import { LoadingOutlined } from '@ant-design/icons'
 
-const VerificationMessage = verificationState => {
+const VerificationMessage = ({ verificationState }) => {
     console.log(verificationState)
     if (verificationState == 'Success') {
         return (
             <div className="verify-message">
-                <p>Your account has been verified.</p>
-                <CheckCircleTwoTone />
+                <Result status="success" title="Your account has been verified" />
             </div>
         )
     } else if (verificationState == 'Invalid') {
         return (
             <div className="verify-message">
-                <p>Failed to verify account</p>
-                <CloseCircleTwoTone twoToneColor="red" />
+                <Result status="warning" title="Failed to verify account" />
             </div>
         )
     } else if (verificationState == 'Expired') {
         return (
             <div className="verify-message">
-                <p>Your activitation link is expired.</p>
-                <CloseCircleTwoTone twoToneColor="red" />
+                <Result status="warning" title="Your activitation link is expired" />
             </div>
         )
     } else if (verificationState == 'Verified') {
         return (
             <div className="verify-message">
-                <p>Your account is already been verified. </p>
-                <CloseCircleTwoTone twoToneColor="red" />
+                <Result status="warning" title="Your account has already been verified" />
             </div>
         )
     } else {
         return (
             <div className="verify-message">
-                <p>Your account is being verified. Please wait...</p>
+                <Result icon={<LoadingOutlined />} title="Your account is being verified. Please wait..." />
             </div>
         )
     }
@@ -53,7 +49,6 @@ export const EmailVerification = props => {
             try {
                 console.log('token: ', id)
                 const { data } = await api.get(`/email-verify/${id}`)
-                console.log(data)
                 await sleep(1000)
                 setVerificationState(data.message)
             } catch (error) {
@@ -65,5 +60,5 @@ export const EmailVerification = props => {
         fetch()
     }, [])
 
-    return <div className="verify-message-box">{VerificationMessage(verificationState)}</div>
+    return <div className="verify-message-box">{<VerificationMessage verificationState={verificationState} />}</div>
 }
