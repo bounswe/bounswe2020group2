@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.getflix.models.*
-import com.example.getflix.services.GetflixApi
+import com.example.getflix.service.GetflixApi
+import com.example.getflix.service.requests.CardProRequest
+import com.example.getflix.service.responses.CardProResponse
 import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -79,8 +81,8 @@ class CategoriesViewModel : ViewModel() {
                     }
 
                     override fun onResponse(
-                            call: Call<CardProResponse>,
-                            response: Response<CardProResponse>
+                        call: Call<CardProResponse>,
+                        response: Response<CardProResponse>
                     ) {
                         println(response.body().toString())
                         println(response.code())
@@ -107,20 +109,20 @@ class CategoriesViewModel : ViewModel() {
     fun setCategories(products: MutableList<ProductModel>) {
         val catList = arrayListOf<CategoryModel>()
         for (pro in products) {
-            if (!catList.any { pro.category == it.name }) {
+            if (!catList.any { pro.category.name == it.name }) {
                 val subCats = arrayListOf<SubcategoryModel>()
                 val products = arrayListOf<ProductModel>()
                 products.add(pro)
-                subCats.add(SubcategoryModel(pro.subcategory, products))
-                catList.add(CategoryModel(pro.category, subCats))
+               // subCats.add(SubcategoryModel(pro.subcategory, products))
+               // catList.add(CategoryModel(pro.category, subCats))
             } else {
                 for (cat in catList) {
-                    if (cat.name == pro.category) {
+                    if (cat.name == pro.category.name) {
                         var ind = catList.indexOf(cat)
-                        if (!catList[ind].subCats.any { pro.subcategory == it.name }) {
+                        if (!catList[ind].subcategories!!.any { pro.subcategory.name == it.name }) {
                             val products = arrayListOf<ProductModel>()
                             products.add(pro)
-                            catList[ind].subCats.add(SubcategoryModel(pro.subcategory, products))
+                           // catList[ind].subCats.add(SubcategoryModel(pro.subcategory, products))
                         }
                     }
                 }

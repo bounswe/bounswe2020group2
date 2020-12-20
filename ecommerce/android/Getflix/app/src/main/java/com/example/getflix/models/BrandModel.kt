@@ -1,13 +1,10 @@
 package com.example.getflix.models
 
-
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 
-
-data class SubcategoryModel (
+data class BrandModel (
 
         @SerializedName("name") val name : String,
         @SerializedName("id") val id : Int
@@ -26,13 +23,14 @@ data class SubcategoryModel (
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<SubcategoryModel> {
-        override fun createFromParcel(parcel: Parcel): SubcategoryModel {
-            return SubcategoryModel(parcel)
+    companion object CREATOR : Parcelable.Creator<BrandModel> {
+        override fun createFromParcel(parcel: Parcel): BrandModel {
+            return BrandModel(parcel)
         }
 
-        override fun newArray(size: Int): Array<SubcategoryModel?> {
+        override fun newArray(size: Int): Array<BrandModel?> {
             return arrayOfNulls(size)
         }
     }
+
 }

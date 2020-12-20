@@ -79,4 +79,9 @@
     <string name="user_guest_alert">You have to login to see your user information.</string>
     <string name="bank_guest_alert">You have to login to see your bank account information.</string>
     <string name="address_guest_alert">You have to login to see your address information.</string>
+    <string name="messages">Messages</string>
+    <string name="pass_char_limit">Your password should contain at least 8 characters.</string>
+    <string name="username_char_limit">Your username should contain at least 6 characters.</string>
+    <string name="valid_name">Please enter a valid name and surname.</string>
+    <string name="register_success">You have registered successfully! You are redirected to the login page.</string>
 </resources>
