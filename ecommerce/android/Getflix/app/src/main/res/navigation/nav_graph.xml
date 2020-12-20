@@ -145,7 +145,11 @@
     <fragment
         android:id="@+id/bankAccountFragment"
         android:name="com.example.getflix.ui.fragments.BankAccountFragment"
-        tools:layout="@layout/fragment_bank_account" />
+        tools:layout="@layout/fragment_bank_account" >
+        <action
+            android:id="@+id/action_bankAccountFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
     <fragment
         android:id="@+id/orderInfoFragment"
         android:name="com.example.getflix.ui.fragments.OrderInfoFragment"
