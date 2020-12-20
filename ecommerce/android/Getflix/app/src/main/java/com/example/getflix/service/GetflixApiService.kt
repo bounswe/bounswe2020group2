@@ -69,6 +69,8 @@ interface GetflixApiService {
     @POST("user/{userId}/shoppingCart")
     fun addCartProduct(@Path("userId") userId: Int,@Body userData: CardProRequest): Call<CardProResponse>
 
+    @GET("categories")
+    suspend fun getCategories(): Response<CategoryListModel>
 
 }
 
