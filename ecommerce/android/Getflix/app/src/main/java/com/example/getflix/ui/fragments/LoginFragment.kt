@@ -1,5 +1,7 @@
 package com.example.getflix.ui.fragments
 
+import android.app.Activity.RESULT_CANCELED
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -161,35 +163,22 @@ class LoginFragment : Fragment() {
 
         if (requestCode == 11) {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-            println("handle a gidiyor")
+            if(resultCode != RESULT_CANCELED)
             handleSignInResult(task)
         }
     }
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             var account = completedTask.result
-            println("tryda")
-            println(account.toString())
-            println(account?.email)
-            println(account?.displayName)
-            println(account?.account)
-            println(account?.givenName)
-            println(account?.idToken)
-            println(account?.id)
-            val idToken = account?.idToken
+            //println(account?.email)
+            //println(account?.displayName)
             MainActivity.StaticData.isGoogleUser = true
             MainActivity.StaticData.account = account
-           // println(account.toString())
             (activity as MainActivity).decideBottomNav(false)
             view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
 
-
-
         } catch (e: ApiException) {
-            println("failed")
-            println(e.message)
-            println(e.statusCode)
-            //Log.w(TAG, "signInResult:failed code=" + e.statusCode)
+    
         }
     }
 
