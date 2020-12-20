@@ -84,4 +84,11 @@
     <string name="username_char_limit">Your username should contain at least 6 characters.</string>
     <string name="valid_name">Please enter a valid name and surname.</string>
     <string name="register_success">You have registered successfully! You are redirected to the login page.</string>
+    <string name="address_form">Enter Address Info</string>
+    <string name="adress_title">Title</string>
+    <string name="address_">Address (ZIP code, Street, Apartment)</string>
+    <string name="province">Province</string>
+    <string name="country">Country</string>
+    <string name="add">Add</string>
+    <string name="address_add">Adres Ekle</string>
 </resources>
