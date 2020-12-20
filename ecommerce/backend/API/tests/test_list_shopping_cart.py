@@ -3,7 +3,7 @@ from rest_framework import status
 from django.test import TestCase, Client
 from django.urls import reverse
 from ..models import Product, Category, Subcategory, User, Vendor, Brand, ShoppingCartItem, Customer
-from ..serializers.shopping_cart_item_serializer import ShoppingCartItemSerializer
+from ..serializers.shopping_cart_item_serializer import ShoppingCartResponseSerializer
 from ..views.shopping_cart import list_shopping_cart
 
 client = Client()
@@ -27,7 +27,7 @@ class ListShoppingCart(TestCase):
     def test_list_shopping_cart(self):
         response = client.get(reverse(list_shopping_cart, args = [customer_id_for_test]))
         sc_items = ShoppingCartItem.objects.filter(customer_id = customer_id_for_test).values('id', 'product_id', 'amount')
-        serializer = ShoppingCartItemSerializer(sc_items, many=True)
+        serializer = ShoppingCartResponseSerializer(sc_items, many=True)
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
