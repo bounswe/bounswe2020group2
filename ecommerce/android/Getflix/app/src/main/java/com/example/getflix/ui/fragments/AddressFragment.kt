@@ -7,14 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
+import com.example.getflix.databinding.AddressCardItemBinding
 import com.example.getflix.databinding.FragmentAddressBinding
+import com.example.getflix.databinding.FragmentProfileBinding
 import com.example.getflix.models.AddressModel
 import com.example.getflix.ui.adapters.AddressAdapter
+import com.example.getflix.ui.viewmodels.AddressViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 class AddressFragment : Fragment() {
+
+    private lateinit var viewModel: AddressViewModel
+    private lateinit var binding: FragmentAddressBinding
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -22,10 +32,15 @@ class AddressFragment : Fragment() {
 
     ): View? {
         activity?.toolbar!!.toolbar_title.text = getString(R.string.addressInfo)
-        val binding = DataBindingUtil.inflate<FragmentAddressBinding>(
-                inflater, R.layout.fragment_address,
-                container, false
-        )
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_address,
+            container, false)
+        binding.fab.setOnClickListener {
+            view?.findNavController()?.navigate(actionAddressFragmentToAddAddressFragment())
+        }
+
+        viewModel = ViewModelProvider(this).get(AddressViewModel::class.java)
+        binding.viewmodel = AddressViewModel()
+        val recView = binding?.addressList as RecyclerView
 
         var address1 =
             AddressModel(1, "Ev", "532983048", "Selin", "Zara", "Lawrence Moreno\n" +
@@ -41,18 +56,18 @@ class AddressFragment : Fragment() {
                     "Santa Rosa MN 98804", "Santa Rosa", "citty", "country")
         val addresses = arrayListOf(address1, address2, address3)
 
-        val list = binding.addressList
-// 2
-        val listItems = arrayOfNulls<AddressModel>(addresses.size)
-// 3
-        for (i in 0 until addresses.size) {
-            val address = addresses[i]
-            listItems[i] = address
+        val addressListAdapter = AddressAdapter(addresses)
+        recView.adapter = addressListAdapter
+
+        for (address in addresses) {
+            viewModel.addProduct(address)
         }
-// 4
-        val adapter = AddressAdapter(addresses)
-        list.adapter = adapter
-        list.setHasFixedSize(true)
+
+        viewModel.addressList.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                addressListAdapter.submitList(it)
+            }
+        })
 
 
         return binding.root
