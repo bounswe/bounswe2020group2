@@ -6,3 +6,4 @@ from .search import *
 from .checkout import *
 from .review import *
 from .address import *
+from .card import *
