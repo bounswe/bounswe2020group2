@@ -12,14 +12,14 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="190dp"
+        android:layout_width="200dp"
         android:layout_height="300dp"
-        android:background="@drawable/back">
+        android:layout_margin="20dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:cardElevation="10dp"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,8 +27,6 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:background="@drawable/recommended_product_background"
-
                 android:layout_height="match_parent">
 
                 <TextView
@@ -36,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="@font/open_sans_bold"
                     android:text="@{product.name}"
                     android:textColor="#000000"
@@ -61,12 +59,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginBottom="24dp"
                     android:fontFamily="@font/open_sans_bold"
                     android:text="@string/price"
                     android:textColor="#000000"
                     android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:layout_editor_absoluteY="261dp" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/old_product_price"
