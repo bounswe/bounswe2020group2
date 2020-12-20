@@ -7,7 +7,7 @@ from ..utils import permissions, Role
 from ..models import User, Card
 from ..serializers.card_serializer import *
 
-@api_view(['PUT', 'GET', 'DELETE'])
+@api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([permissions.AllowAnonymous])
 def manage_single_card(request, customer_id, card_id):
     # reaching others' content is forbidden
