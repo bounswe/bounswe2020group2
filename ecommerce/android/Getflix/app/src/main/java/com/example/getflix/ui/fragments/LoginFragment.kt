@@ -118,6 +118,7 @@ class LoginFragment : Fragment() {
 
         binding.guestButton.setOnClickListener {
             MainActivity.StaticData.isVisitor = true
+            (activity as MainActivity).decideBottomNav(false)
             view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
         }
 
