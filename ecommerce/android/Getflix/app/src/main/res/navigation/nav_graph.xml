@@ -45,16 +45,32 @@
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_profileFragment_to_adddressFragment"
-            app:destination="@id/adddressFragment" />
+            app:destination="@id/adddressFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/enter_right_to_left"
+            app:popExitAnim="@anim/exit_right_to_left"/>
         <action
             android:id="@+id/action_profileFragment_to_bankAccountFragment"
-            app:destination="@id/bankAccountFragment" />
+            app:destination="@id/bankAccountFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/enter_right_to_left"
+            app:popExitAnim="@anim/exit_right_to_left"/>
         <action
             android:id="@+id/action_profileFragment_to_orderInfoFragment"
-            app:destination="@id/orderInfoFragment" />
+            app:destination="@id/orderInfoFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/enter_right_to_left"
+            app:popExitAnim="@anim/exit_right_to_left"/>
         <action
             android:id="@+id/action_profileFragment_to_userInfoFragment"
-            app:destination="@id/userInfoFragment" />
+            app:destination="@id/userInfoFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/enter_right_to_left"
+            app:popExitAnim="@anim/exit_right_to_left"/>
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
