@@ -14,8 +14,8 @@ from ..serializers.shopping_cart_serializer import *
 @permission_classes([permissions.AllowAnonymous])
 def manage_specific_shopping_cart_item(request, customer_id, sc_item_id):
     # reaching others' content is forbidden
-    #if request.user.pk != customer_id:
-    #    return Response(status=status.HTTP_403_FORBIDDEN)
+    if request.user.pk != customer_id:
+        return Response(status=status.HTTP_403_FORBIDDEN)
     # no such user exists
     if User.objects.filter(id=customer_id).first() is None:
         return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -47,8 +47,8 @@ def manage_specific_shopping_cart_item(request, customer_id, sc_item_id):
 @permission_classes([permissions.AllowAnonymous])
 def manage_shopping_cart_items(request, customer_id):
     # reaching others' content is forbidden
-    #if request.user.pk != customer_id:
-    #    return Response(status=status.HTTP_403_FORBIDDEN)
+    if request.user.pk != customer_id:
+        return Response(status=status.HTTP_403_FORBIDDEN)
     # no such user exists
     if User.objects.filter(id=customer_id).first() is None:
         return Response(status=status.HTTP_400_BAD_REQUEST)
