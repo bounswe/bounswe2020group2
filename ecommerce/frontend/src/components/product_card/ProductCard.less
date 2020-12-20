@@ -1,19 +1,70 @@
-.rate-and-addCart {
-    display: 'flex';
-    column-count: 2;
-    margin-top: 7px;
-    padding-left: 5px;
+@import '../../common.less';
+.whole-card {
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
 }
 
-.left {
-    margin-right: auto;
+.rate-and-price {
+    display: flex;
+    flex-direction: row;
+    column-count: 3;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    padding-bottom: 0px;
+    height: 50px;
+    gap: 8px;
+    margin-bottom: 8px;
 }
-.right {
-    margin-left: auto;
-    float: right;
+
+.card-rate {
+    margin-right: auto;
+    // float: left;
+}
+
+.card-old-price {
+    color: #472836;
+    font-size: large;
+    font-weight: lighter;
+    text-decoration: line-through @Champagne;
+    margin-top: 4px;
+}
+
+.card-new-price {
+    font-size: x-large;
+    color: @Eggplant;
+    background-color: @Champagne;
+    font-weight: bolder;
+    height: 35px;
+    padding: 0px 1px 1px 1px;
+    box-shadow: 3px 3px 0px 0px @Eggplant;
 }
 
 .product-card-img {
-    max-height: 200px;
+    display: block;
+    margin: auto;
+    height: 200px;
+    max-width: 100%;
     object-fit: contain;
+    padding: 16px;
+}
+
+.card-title {
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: content-box;
+    height: 110px;
+    overflow: hidden;
+
+    p {
+        color: #472836;
+        font-size: x-large;
+    }
+}
+
+.card-add-button {
+    display: flex;
+    gap: 4px;
+    padding-bottom: 20px;
 }
