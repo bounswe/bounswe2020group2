@@ -28,7 +28,7 @@ function useApp() {
             })
             setShoppingCart(tmp)
         } catch (error) {
-            notification.error({ description: 'Failed to add item to shopping cart' })
+            notification.error({ description: 'Failed to get shopping cart' })
             console.error(error)
         } finally {
         }

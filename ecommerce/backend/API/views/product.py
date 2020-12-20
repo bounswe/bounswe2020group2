@@ -6,86 +6,35 @@ import json
 import base64
 from ..utils import permissions, Role
 from ..models import Product,Vendor,ImageUrls,Category,Subcategory, Image, Brand
-from ..serializers.product_serializer import ProductSerializer
+from ..serializers.product_serializer import ProductResponseSerializer
 from ..serializers import VendorProductResponseSerializer
 from wsgiref.util import FileWrapper
 from ..utils import ImageRenderer
 from ..utils import validate_product_add_request
 
+from ..utils import permissions, Role
+from ..models import Product,Vendor,ImageUrls,Category,Subcategory
+from ..serializers.product_serializer import ProductResponseSerializer
+
 @api_view(['GET'])
 @permission_classes([permissions.AllowAnonymous])
-def product_detail(request, productId):
+def get_product_detail(request, product_id):
     # if product not found
-    if Product.objects.filter(id=productId).first() is None:
+    if Product.objects.filter(id=product_id).first() is None:
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
-    product_query = Product.objects.filter(id=productId)
+    product = Product.objects.filter(id=product_id).first()
+    if product is None:
+        return Response({'successful': False, 'message': "No such product is found"})
+    product = ProductResponseSerializer(product)
+    return Response(product.data)
 
-    product = Product.objects.filter(id=productId).first()
-    if product.is_deleted:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    v_id = product.vendor_id
-    brand_id = product.brand_id
-    subcategory_id = product.subcategory_id
-    subcategory = Subcategory.objects.filter(id=subcategory_id).first()
-    category = Category.objects.filter(id=subcategory.category_id).first()
-    category_name = category.name
-    category_id = category.id
-
-    images = ImageUrls.objects.filter(product_id=product.id).order_by('index').values('image_url')
-    image_list = []
-
-    for image in images:
-        image_list.append(image['image_url'])
-
-    vendor = Vendor.objects.filter(id=v_id).first()
-    if vendor.rating_count != 0:
-        vendor_rating = vendor.total_rating/vendor.rating_count
-    else:
-        vendor_rating = None
-
-    serializer = ProductSerializer(product_query, many=True)
-    returnData = serializer.data[0]
-
-    #calculate rating
-    total_rating = returnData['total_rating']
-    rating_count = returnData['rating_count']
-
-    if rating_count != 0:
-        rating = total_rating/rating_count
-        returnData['rating']=rating 
-    else:
-        returnData['rating']=None
-    
-    brand_name= returnData['brand']
-    returnData['brand']={'name':brand_name,'id':brand_id}
-
-    subcategory_name = returnData['subcategory']
-    returnData['subcategory']={'name':subcategory_name,'id':subcategory_id}
-
-    vendor_name = returnData['vendor']
-    returnData['vendor']={'rating':vendor_rating,'id':v_id,'name':vendor_name}
-
-    returnData['images']=image_list
-
-    old_price = returnData['price']
-
-    price = old_price*(1-returnData['discount'])
-
-    returnData['price'] = int(price)
-
-    returnData['old_price'] = old_price
-
-    returnData['category'] ={'id':category_id,'name':category_name}
-
-    
-    return Response(returnData)
 
 @api_view(['GET'])
 @permission_classes([permissions.AllowAnonymous])
-def homepage_products(request,no):
-    products = Product.objects.all()[:no]
-    serializer = ProductSerializer(products, many=True)
+def get_homepage_products(request, num):
+    products = Product.objects.all()[:num]
+    serializer = ProductResponseSerializer(products, many=True)
     return Response(serializer.data)
 
 @api_view(['POST'])
@@ -230,6 +179,3 @@ def vendor_product(request):
                                 'message': "Success"}
             )
         return Response(response.data)
-        
-
-        
