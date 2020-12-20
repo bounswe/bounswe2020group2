@@ -39,7 +39,7 @@ class CategoryFragment : Fragment() {
         val adapter = SubcategoryHorizontalAdapter(requireContext())
         categoryViewModel.displayedCategory.observe(viewLifecycleOwner, Observer {
             it.let {
-                adapter.submitList(it.subCats)
+                adapter.submitList(it.subcategories)
             }
         })
         binding.lifecycleOwner = this
