@@ -12,8 +12,8 @@ from ..serializers.address_serializer import *
 @permission_classes([permissions.AllowAnonymous])
 def manage_specific_address(request, customer_id, address_id):
     # reaching others' content is forbidden
-    #if request.user.pk != customer_id:
-    #    return Response(status=status.HTTP_403_FORBIDDEN)
+    if request.user.pk != customer_id:
+        return Response(status=status.HTTP_403_FORBIDDEN)
     # no such user exists
     if User.objects.filter(id=customer_id).first() is None:
         return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -49,7 +49,7 @@ def manage_specific_address(request, customer_id, address_id):
         phone = request.data.get("phone")
         address.phone_number = phone.get("number")
         address.phone_country_code = phone.get("country_code")
-        address.country = request.data.get("title")
+        address.country = request.data.get("country")
         address.zip_code = request.data.get("zip_code")
         address.save()
         return Response({'successful': True, 'message': "Address is successfully updated"})
@@ -59,8 +59,8 @@ def manage_specific_address(request, customer_id, address_id):
 @permission_classes([permissions.AllowAnonymous])
 def manage_addresses(request, customer_id):
     # reaching others' content is forbidden
-    #if request.user.pk != customer_id:
-    #    return Response(status=status.HTTP_403_FORBIDDEN)
+    if request.user.pk != customer_id:
+        return Response(status=status.HTTP_403_FORBIDDEN)
     # no such user exists
     if User.objects.filter(id=customer_id).first() is None:
         return Response(status=status.HTTP_400_BAD_REQUEST)
