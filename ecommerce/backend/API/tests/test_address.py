@@ -45,7 +45,7 @@ class AddressTest(TestCase):
         }
         response = self.client.post(reverse(manage_addresses, args = [user.id]), address, 'json')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data["successful"], True)
+        self.assertEqual(response.data["status"]["successful"], True)
     
     def test_get_address(self):
         address = {
@@ -63,10 +63,12 @@ class AddressTest(TestCase):
         address_id = post_response.data["address_id"]
         response = self.client.get(reverse(manage_specific_address, args = [user.id, address_id]))
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
     
     def test_get_all_addresses(self):
         response = self.client.get(reverse(manage_addresses, args = [user.id]))
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
 
     def test_delete_address(self):
         address = {
@@ -84,7 +86,7 @@ class AddressTest(TestCase):
         address_id = post_response.data["address_id"]
         response = self.client.delete(reverse(manage_specific_address, args = [user.id, address_id]))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data["successful"], True)
+        self.assertEqual(response.data["status"]["successful"], True)
     
     def test_update_address(self):
         address = {
@@ -102,4 +104,4 @@ class AddressTest(TestCase):
         address_id = post_response.data["address_id"]
         response = self.client.put(reverse(manage_specific_address, args = [user.id, address_id]), address, 'json')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data["successful"], True)
+        self.assertEqual(response.data["status"]["successful"], True)

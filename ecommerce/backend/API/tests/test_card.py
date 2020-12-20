@@ -42,7 +42,7 @@ class CardTest(TestCase):
         }
         response = self.client.post(reverse(manage_cards, args = [user.id]), card, 'json')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data["successful"], True)
+        self.assertEqual(response.data["status"]["successful"], True)
     
     def test_get_card(self):
         card = {
@@ -58,10 +58,12 @@ class CardTest(TestCase):
         card_id = post_response.data["card_id"]
         response = self.client.get(reverse(manage_specific_card, args = [user.id, card_id]))
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
     
     def test_get_all_cards(self):
         response = self.client.get(reverse(manage_cards, args = [user.id]))
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
 
     def test_delete_card(self):
         card = {
@@ -77,7 +79,7 @@ class CardTest(TestCase):
         card_id = post_response.data["card_id"]
         response = self.client.delete(reverse(manage_specific_card, args = [user.id, card_id]))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data["successful"], True)
+        self.assertEqual(response.data["status"]["successful"], True)
     
     def test_update_card(self):
         card = {
@@ -93,4 +95,4 @@ class CardTest(TestCase):
         card_id = post_response.data["card_id"]
         response = self.client.put(reverse(manage_specific_card, args = [user.id, card_id]), card, 'json')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data["successful"], True)
+        self.assertEqual(response.data["status"]["successful"], True)

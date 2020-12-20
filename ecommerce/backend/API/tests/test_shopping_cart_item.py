@@ -45,7 +45,7 @@ class ShoppingCartItemTest(TestCase):
         }
         response = self.client.post(reverse(manage_shopping_cart_items, args = [user.id]), sc_item, 'json')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data["successful"], True)
+        self.assertEqual(response.data["status"]["successful"], True)
     
     def test_get_shopping_cart_item(self):
         sc_item = {
@@ -57,10 +57,12 @@ class ShoppingCartItemTest(TestCase):
         sc_item_id = post_response.data["sc_item_id"]
         response = self.client.get(reverse(manage_specific_shopping_cart_item, args = [user.id, sc_item_id]))
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
     
     def test_get_all_shopping_cart_items(self):
         response = self.client.get(reverse(manage_shopping_cart_items, args = [user.id]))
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
 
     def test_delete_shopping_cart_item(self):
         sc_item = {
@@ -72,7 +74,7 @@ class ShoppingCartItemTest(TestCase):
         sc_item_id = post_response.data["sc_item_id"]
         response = self.client.delete(reverse(manage_specific_shopping_cart_item, args = [user.id, sc_item_id]))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data["successful"], True)
+        self.assertEqual(response.data["status"]["successful"], True)
     
     def test_update_shopping_cart_item(self):
         sc_item = {
@@ -84,4 +86,4 @@ class ShoppingCartItemTest(TestCase):
         sc_item_id = post_response.data["sc_item_id"]
         response = self.client.put(reverse(manage_specific_shopping_cart_item, args = [user.id, sc_item_id]), sc_item, 'json')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data["successful"], True)
+        self.assertEqual(response.data["status"]["successful"], True)

@@ -21,9 +21,10 @@ def manage_specific_address(request, customer_id, address_id):
     if request.method == 'GET':
         address = Address.objects.filter(user_id=customer_id).filter(id=address_id).filter(is_deleted=False).first()
         if address is None:
-            return Response({'successful': False, 'message': "No such address is found"})
+            return Response({'status': {'successful': False, 'message': "No such address is found"}})
         address_serializer = AddressResponseSerializer(address)
-        return Response(address_serializer.data)
+        return Response({'status': {'successful': True, 
+            'message': "Successfully retrieved"}, 'address': address_serializer.data})
     #delete single address 
     elif request.method == 'DELETE':
         try:
@@ -31,16 +32,16 @@ def manage_specific_address(request, customer_id, address_id):
             if address is not None:
                 address.is_deleted = True
                 address.save()
-                return Response({'successful': True, 'message': "Successfully deleted"})
+                return Response({'status': {'successful': True, 'message': "Successfully deleted"}})
             else:
-                return Response({'successful': True, 'message': "No such address is found"})
+                return Response({'status': {'successful': False, 'message': "No such address is found"}})
         except Exception as e:
-            return Response({'successful': False, 'message': str(e)})
+            return Response({'status': {'successful': False, 'message': str(e)}})
     #update an address
     elif request.method == 'PUT':
         address = Address.objects.filter(user_id=customer_id).filter(id=address_id).filter(is_deleted=False).first()
         if address is None:
-            return Response({'successful': False, 'message': "No such address is found"})
+            return Response({'status': {'successful': False, 'message': "No such address is found"}})
         address.title = request.data.get("title")
         address.name = request.data.get("name")
         address.surname = request.data.get("surname")
@@ -53,8 +54,9 @@ def manage_specific_address(request, customer_id, address_id):
         address.country = request.data.get("country")
         address.zip_code = request.data.get("zip_code")
         address.save()
-        return Response({'successful': True, 'message': "Address is successfully updated"})
-    return Response({'successful': False, 'message': "Error occurred"})
+        #status içine al
+        return Response({'status': {'successful': True, 'message': "Address is successfully updated"}})
+    return Response({'status': {'successful': False, 'message': "Error occurred"}})
 
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAnonymous])
@@ -70,7 +72,8 @@ def manage_addresses(request, customer_id):
     if request.method == 'GET':
         addresses = Address.objects.filter(user_id=customer_id).filter(is_deleted=False)
         address_serializer = AddressResponseSerializer(addresses, many=True)
-        return Response(address_serializer.data)
+        return Response({'status': {'successful': True, 
+            'message': "Successfully retrieved"}, 'addresses': address_serializer.data})
     # add address
     elif request.method == 'POST':
         serializer = AddressRequestSerializer(data=request.data)
@@ -89,5 +92,5 @@ def manage_addresses(request, customer_id):
             address = Address(user=user, name=name, surname=surname, title=title, address=address, province=province, city=city, 
                 country=country, phone_country_code=phone_country_code, phone_number=phone_number, zip_code=zip_code)
             address.save()
-            return Response({'address_id': address.id, 'successful': True, 'message': "Address is successfully added"})
-    return Response({'successful': False, 'message': "Error occurred"})
+            return Response({'address_id': address.id, 'status': {'successful': True, 'message': "Address is successfully added"}})
+    return Response({'status': {'successful': False, 'message': "Error occurred"}})

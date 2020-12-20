@@ -22,9 +22,10 @@ def manage_specific_card(request, customer_id, card_id):
     if request.method == 'GET':
         card = Card.objects.filter(user_id=customer_id).filter(id=card_id).filter(is_deleted=False).first()
         if card is None:
-            return Response({'successful': False, 'message': "No such card is found"})
+            return Response({'status': {'successful': False, 'message': "No such card is found"}})
         card_serializer = CardResponseSerializer(card)
-        return Response(card_serializer.data)
+        return Response({'status': {'successful': True, 
+            'message': "Successfully retrieved"}, 'card': card_serializer.data})
     #delete single card 
     elif request.method == 'DELETE':
         try:
@@ -32,16 +33,16 @@ def manage_specific_card(request, customer_id, card_id):
             if card is not None:
                 card.is_deleted = True # soft delete
                 card.save()
-                return Response({'successful': True, 'message': "Successfully deleted"})
+                return Response({'status': {'successful': True, 'message': "Successfully deleted"}})
             else:
-                return Response({'successful': True, 'message': "No such card is found"})
+                return Response({'status': {'successful': False, 'message': "No such card is found"}})
         except Exception as e:
-            return Response({'successful': False, 'message': str(e)})
+            return Response({'status': {'successful': False, 'message': str(e)}})
     #update a card
     elif request.method == 'PUT':
         card = Card.objects.filter(user_id=customer_id).filter(id=card_id).filter(is_deleted=False).first()
         if card is None:
-            return Response({'successful': False, 'message': "No such card is found"})
+            return Response({'status': {'successful': False, 'message': "No such card is found"}})
         card.name = request.data.get("name")
         card.owner_name = request.data.get("owner_name")
         card.serial_number = request.data.get("serial_number")
@@ -50,8 +51,8 @@ def manage_specific_card(request, customer_id, card_id):
         card.expiration_year = expiration_date.get("year")
         card.cvv = request.data.get("cvv")
         card.save()
-        return Response({'successful': True, 'message': "Card is successfully updated"})
-    return Response({'successful': False, 'message': "Error occurred"})
+        return Response({'status': {'successful': True, 'message': "Card is successfully updated"}})
+    return Response({'status': {'successful': False, 'message': "Error occurred"}})
 
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAnonymous])
@@ -67,7 +68,8 @@ def manage_cards(request, customer_id):
     if request.method == 'GET':
         cards = Card.objects.filter(user_id=customer_id).filter(is_deleted=False)
         card_serializer = CardResponseSerializer(cards, many=True)
-        return Response(card_serializer.data)
+        return Response({'status': {'successful': True, 
+            'message': "Successfully retrieved"}, 'cards': card_serializer.data})
     # add address
     elif request.method == 'POST':
         serializer = CardRequestSerializer(data=request.data)
@@ -81,6 +83,6 @@ def manage_cards(request, customer_id):
             cvv = serializer.validated_data.get("cvv")
             card = Card(user=user, name=name, owner_name=owner_name, serial_number=serial_number, expiration_month=expiration_month, expiration_year=expiration_year, cvv=cvv)
             card.save()
-            return Response({'card_id': card.id, 'successful': True, 'message': "Card is successfully added"})
+            return Response({'card_id': card.id, 'status': {'successful': True, 'message': "Card is successfully added"}})
     
-    return Response({'successful': False, 'message': "Error occurred"})
+    return Response({'status': {'successful': False, 'message': "Error occurred"}})
