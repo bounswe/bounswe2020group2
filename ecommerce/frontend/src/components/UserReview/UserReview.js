@@ -22,7 +22,9 @@ export const UserReview = ({
             </div>
             <div className="review-author-and-date">
                 <Link to="/">
-                    <div className="review-author">{firstname.concat(' ', lastname)}</div>
+                    <div className="review-author">
+                        {firstname} {lastname}
+                    </div>
                 </Link>
                 <div className="review-date">{dateFmt}</div>
             </div>
