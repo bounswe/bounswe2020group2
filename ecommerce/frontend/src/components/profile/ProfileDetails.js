@@ -22,6 +22,7 @@ export const ProfileDetails = () => {
                     placement: 'topRight',
                     duration: 2,
                 })
+                setUser({ ...user, is_verified: true })
             }
         } catch {
             notification.error({
