@@ -1,6 +1,5 @@
 package com.example.getflix.ui.viewmodels
 
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
