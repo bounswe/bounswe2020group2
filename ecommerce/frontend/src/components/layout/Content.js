@@ -1,6 +1,6 @@
 import './Layout_common.less'
 
-import { Layout, Alert } from 'antd'
+import { Layout } from 'antd'
 import { Route, Switch } from 'react-router-dom'
 
 import { HomePage } from '../pages/HomePage'
@@ -13,16 +13,14 @@ import { ShoppingCartPage } from '../ShoppingCart/ShoppingCartPage'
 import { CategoryBar } from '../CategoryBar'
 import { CheckoutPage } from '../pages/CheckoutPage'
 import { EmailVerification } from '../EmailVerification'
-import { useAppContext } from '../../context/AppContext'
+import { IsVerifiedNotification } from '../IsVerifiedNotification'
 
 export const Content = () => {
-    const { user } = useAppContext()
     return (
         <Layout.Content className="content">
             <CategoryBar />
-            {user.type === 'guest' || user.is_verified ? null : (
-                <Alert message="Please verify your account." type="warning" showIcon closable />
-            )}
+            <IsVerifiedNotification />
+
             <Switch>
                 <Route path="/login" component={LoginPage} />
                 <Route path="/verify/:id" component={EmailVerification} />
