@@ -13,9 +13,11 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentFilterOptionsBinding
+import com.example.getflix.models.Status
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.slider.RangeSlider
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 
 class FilterOptionsFragment : Fragment() {
@@ -25,6 +27,7 @@ class FilterOptionsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         activity?.bottom_nav!!.visibility = View.GONE
 
+        val status: Status = Status(true)
 
     }
 
@@ -36,7 +39,7 @@ class FilterOptionsFragment : Fragment() {
                 container, false)
 
 
-        activity?.toolbar!!.title = getString(R.string.filter_options)
+        activity?.toolbar!!.toolbar_title.text = getString(R.string.filter_options)
         binding.priceSlider.setValues(0.0f, 100.0f)
 
         var rating = -1

@@ -30,3 +30,19 @@ class ProductSerializer(serializers.ModelSerializer):
         vendor = Vendor.objects.filter(id=obj.vendor.id).first()
         vendor_full_name = vendor.first_name + " " + vendor.last_name
         return vendor_full_name
+
+
+class VendorProductResponseSerializer(serializers.ModelSerializer):
+    status = serializers.SerializerMethodField("get_status")
+
+    class Meta:
+        model = Product
+        fields = ('id', 'status')
+
+    def get_status(self, obj):
+        is_successful = self.context.get("is_successful")
+        message = self.context.get("message")
+        return {
+            'successful': is_successful,
+            'message': message
+        }

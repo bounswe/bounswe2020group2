@@ -65,7 +65,7 @@
             app:itemBackground="@color/initGold"
             app:itemIconTint="#fff"
             app:itemTextColor="#fff"
-            app:menu="@menu/nav_menu" />
+             />
 
     </RelativeLayout>
 </layout>

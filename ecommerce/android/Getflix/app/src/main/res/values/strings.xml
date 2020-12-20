@@ -47,6 +47,9 @@
     <string name="sign_up">Hesabın yok mu? Kaydol</string>
     <string name="guest">Misafir</string>
     <string name="guest_cont">Misafir olarak devam et</string>
+    <string name="acceptCart">Sepeti Onayla</string>
+    <string name="buy">Odeme Yap</string>
+    <string name="payment">Odeme</string>
     <string name="userInfo">Kullanıcı Bilgilerim</string>
     <string name="bankAccounts">Kayıtlı Kartlarım</string>
     <string name="orders">Siparişlerim</string>
@@ -75,6 +78,10 @@
     <string name="user_guest_alert">Kullanıcı bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
     <string name="bank_guest_alert">Banka hesabı bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
     <string name="address_guest_alert">Adres bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
-
+    <string name="messages">Mesajlar</string>
+    <string name="pass_char_limit">Şifreniz en az 8 karakter olmalıdır.</string>
+    <string name="username_char_limit">Kullanıcı adınız en az 6 karakter olmalıdır.</string>
+    <string name="valid_name">Lütfen geçerli bir ad soyad bilgisi giriniz.</string>
+    <string name="register_success">Kaydınız tamamlandı! Oturum açma sayfasına yönlendiriliyorsunuz.</string>
 
 </resources>

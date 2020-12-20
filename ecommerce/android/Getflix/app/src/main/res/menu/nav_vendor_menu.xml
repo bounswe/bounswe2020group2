@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/vendorHomeFragment"
+        android:icon="@drawable/menu_home"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/messagesFragment"
+        android:icon="@drawable/menu_messages"
+        android:title="@string/messages" />
+
+    <item
+        android:id="@+id/vendorProfileFragment"
+        android:icon="@drawable/menu_profile"
+        android:title="@string/profile" />
+
+
+
+
+</menu>

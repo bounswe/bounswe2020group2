@@ -28,6 +28,7 @@ urlpatterns = [
     path('user/<int:id>/listShoppingCart', list_shopping_cart),
     path('user/<int:id>/shoppingCart', views.shopping_cart.add_shopping_cart_item),
     path('product/<int:productId>', views.product.product_detail),
+    path('categories', views.category.get_categories),
     path('search/products', views.search.products, name="search_products"),
     path('customer/<int:customer_id>/addresses/<int:address_id>', views.address.manage_single_address),
     path('customer/<int:customer_id>/addresses', views.address.manage_multiple_addresses),
@@ -35,4 +36,7 @@ urlpatterns = [
     path('review', views.review.manage_review, name="review"),
     path('user/verify', views.verify.user_verify),
     path('email-verify/<uidb64>', views.verify.email_verify)
+    path('image/<int:image_id>', views.product.get_image),
+    path('vendor/product', views.product.vendor_product, name="vendor_product"),
+    path('vendor/signup', views.account.vendor_register, name="vendor_signup")
 ]
