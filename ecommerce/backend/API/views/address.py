@@ -10,7 +10,7 @@ from ..serializers.address_serializer import *
 
 @api_view(['PUT', 'GET', 'DELETE'])
 @permission_classes([permissions.AllowAnonymous])
-def manage_single_address(request, customer_id, address_id):
+def manage_specific_address(request, customer_id, address_id):
     # reaching others' content is forbidden
     #if request.user.pk != customer_id:
     #    return Response(status=status.HTTP_403_FORBIDDEN)
@@ -57,7 +57,7 @@ def manage_single_address(request, customer_id, address_id):
 
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAnonymous])
-def manage_multiple_addresses(request, customer_id):
+def manage_addresses(request, customer_id):
     # reaching others' content is forbidden
     #if request.user.pk != customer_id:
     #    return Response(status=status.HTTP_403_FORBIDDEN)
