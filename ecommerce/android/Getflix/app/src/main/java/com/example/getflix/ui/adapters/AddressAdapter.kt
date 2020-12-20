@@ -14,15 +14,15 @@ import com.example.getflix.models.ProductModel
 
 class AddressAdapter(
     private val addressList: ArrayList<AddressModel>?,
-) : ListAdapter<AddressModel, AddressAdapter.RowHolder>(CartDiffCallback()) {
+) : ListAdapter<AddressModel, AddressAdapter.RowHolder>(AddressDiffCallback()) {
 
 
     class RowHolder(val binding: AddressCardItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(address: AddressModel, position: Int) {
-            binding.title = address.title
-            binding.addressInfo=address.address
-            binding.city=address.province
+            binding.title.text = address.title
+            binding.addressInfo.text =address.address
+            binding.city.text=address.province
         }
 
         companion object {
@@ -46,13 +46,13 @@ class AddressAdapter(
 
 }
 
-class CartDiffCallback : DiffUtil.ItemCallback<ProductModel>() {
+class AddressDiffCallback : DiffUtil.ItemCallback<AddressModel>() {
 
-    override fun areItemsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
+    override fun areItemsTheSame(oldItem: AddressModel, newItem: AddressModel): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
+    override fun areContentsTheSame(oldItem: AddressModel, newItem: AddressModel): Boolean {
         return oldItem == newItem
     }
 

@@ -41,7 +41,7 @@ class AddressFragment : Fragment() {
                     "Santa Rosa MN 98804", "Santa Rosa", "citty", "country")
         val addresses = arrayListOf(address1, address2, address3)
 
-        val list = binding?.addressList as ListView
+        val list = binding.addressList
 // 2
         val listItems = arrayOfNulls<AddressModel>(addresses.size)
 // 3
@@ -50,8 +50,9 @@ class AddressFragment : Fragment() {
             listItems[i] = address
         }
 // 4
-        val adapter = AddressAdapter(this, listItems)
+        val adapter = AddressAdapter(addresses)
         list.adapter = adapter
+        list.setHasFixedSize(true)
 
 
         return binding.root
