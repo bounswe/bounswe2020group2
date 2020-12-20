@@ -11,7 +11,7 @@ class AddressViewModel  : ViewModel() {
     val addressList: LiveData<MutableList<AddressModel>>
         get() = _addressList
 
-    fun addProduct(addressModel: AddressModel) {
+    fun addAddress(addressModel: AddressModel) {
         if (_addressList.value != null) {
             val addresses = _addressList.value
             addresses?.add(addressModel)
