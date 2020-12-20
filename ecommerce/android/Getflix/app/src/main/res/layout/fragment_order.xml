@@ -45,8 +45,8 @@
 
     <Button
         android:id="@+id/btn_add_address"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:background="@color/initGold"
         android:drawableBottom="@drawable/ic_baseline_add_24"
         android:textColor="@color/initPurple" />
@@ -85,8 +85,8 @@
 
     <Button
         android:id="@+id/btn_add_credit"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:background="@color/initGold"
         android:drawableBottom="@drawable/ic_baseline_add_24"
         android:textColor="@color/initPurple" />
