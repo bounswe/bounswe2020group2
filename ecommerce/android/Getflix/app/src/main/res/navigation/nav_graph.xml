@@ -170,7 +170,6 @@
     <fragment
         android:id="@+id/addAddressFragment"
         android:name="com.example.getflix.ui.fragments.AddAddressFragment"
-        android:label="fragment_add_address"
         tools:layout="@layout/fragment_add_address" />
 
 </navigation>
