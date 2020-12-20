@@ -41,20 +41,20 @@ class CategoriesViewModel : ViewModel() {
             }
         }
     }
-
+    /*
     fun getProduct(num: Int) {
         job = CoroutineScope(Dispatchers.IO).launch {
             val response = GetflixApi.getflixApiService.getProduct(num)
             withContext(Dispatchers.Main + exceptionHandler) {
                 if (response.isSuccessful) {
                     response.body().let { it ->
-                        _products.value = it
+                        _products.value = mutableListOf(it)
                         println(_products.value.toString())
                     }
                 }
             }
         }
-    }
+    }*/
 
     fun getUserCartProducts(id: Int) {
         job = CoroutineScope(Dispatchers.IO).launch {
