@@ -82,6 +82,5 @@ def manage_multiple_cards(request, customer_id):
             card = Card(user=user, name=name, owner_name=owner_name, serial_number=serial_number, expiration_month=expiration_month, expiration_year=expiration_year, cvv=cvv)
             card.save()
             return Response({'successful': True, 'message': "Card is successfully added"})
-    # add address
     
     return Response({'successful': False, 'message': "Error occurred"})
