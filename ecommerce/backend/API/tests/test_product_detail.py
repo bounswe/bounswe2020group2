@@ -3,7 +3,7 @@ from rest_framework import status
 from django.test import TestCase, Client
 from django.urls import reverse
 from ..models import Product, Category, Subcategory, User, Vendor, Brand
-from ..serializers.product_serializer import ProductSerializer
+from ..serializers.product_serializer import ProductResponseSerializer
 from ..views.product import product_detail
 
 client = Client()
@@ -23,6 +23,6 @@ class ProductDetail(TestCase):
     def test_product_detail(self):
         response = client.get(reverse(product_detail, args = [product_id_for_test]))
         product = Product.objects.filter(id = product_id_for_test)
-        serializer = ProductSerializer(product, many=True)
+        serializer = ProductResponseSerializer(product, many=True)
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
