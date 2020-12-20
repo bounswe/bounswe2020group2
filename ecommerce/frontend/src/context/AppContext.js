@@ -112,11 +112,11 @@ function useApp() {
             const { data } = await api.post('/regularlogin', { username, password })
             const { success, message } = data.status
             const { token, id, email, firstname, lastname, is_verified } = data.user
-
+            console.log(token)
             if (success) {
                 localStorage.setItem('token', token)
 
-                setUser({ id, email, name: firstname, lastname })
+                setUser({ id, email, name: firstname, lastname, is_verified })
                 setRequestInterceptorId(api.interceptors.request.use(requestInterceptor))
                 notification.success({ message: `Welcome back, ${firstname}!` })
 

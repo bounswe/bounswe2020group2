@@ -20,7 +20,9 @@ export const Content = () => {
     return (
         <Layout.Content className="content">
             <CategoryBar />
-            {user.is_verified ? null : <Alert message="Please verify your account." type="warning" showIcon closable />}
+            {user.type === 'guest' || user.is_verified ? null : (
+                <Alert message="Please verify your account." type="warning" showIcon closable />
+            )}
             <Switch>
                 <Route path="/login" component={LoginPage} />
                 <Route path="/verify/:id" component={EmailVerification} />

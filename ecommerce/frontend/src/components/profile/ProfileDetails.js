@@ -10,11 +10,12 @@ const { TabPane } = Tabs
 export const ProfileDetails = () => {
     const [isLoading, setIsLoading] = useState(false)
     const { user } = useAppContext()
-
+    console.log('user', user)
     const onVerify = async () => {
         try {
             setIsLoading(true)
             const { data } = await api.post('/user/verify', {})
+            console.log('data', data)
             if (data.successful) {
                 notification.successful({
                     description: 'Successfully verified account',
@@ -41,13 +42,13 @@ export const ProfileDetails = () => {
                 <TabPane tab="" key="4" disabled />
             </Tabs>
             {/* Below will show when user.is_verified is false */}
-            {user.is_verified ?? (
+            {!user.is_verified ? (
                 <div className="profile-page-verify">
                     <Button type="link" onClick={onVerify}>
                         Verify My Account
                     </Button>
                 </div>
-            )}
+            ) : null}
         </div>
     )
 }
