@@ -6,13 +6,6 @@ import json
 
 from ..utils import permissions, Role
 from ..models import Product,Vendor,ImageUrls,Category,Subcategory
-from ..serializers.product_serializer import ProductSerializer
-
-
-
-
-
-
 
 @api_view(['GET'])
 @permission_classes([permissions.AllowAnonymous])

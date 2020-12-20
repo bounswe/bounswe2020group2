@@ -129,3 +129,10 @@ export function round(num, decimalPlaces = 2) {
     var m = num * p * (1 + Number.EPSILON)
     return Math.round(m) / p
 }
+
+export function truncate(input, limit = 50) {
+    if (input.length > limit) {
+        return input.substring(0, limit) + '...'
+    }
+    return input
+}

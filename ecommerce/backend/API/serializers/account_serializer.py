@@ -76,25 +76,3 @@ class LoginResponseSerializer(serializers.ModelSerializer):
             'message': message
         }
 
-
-
-
-'''class ProductSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = product_model.Product
-
-
-class ShoppingCartResponse(serializers.ModelSerializer):
-    product = serializers.SerializerMethodField('get_product')
-
-    class Meta:
-        model = product_model.ShoppingCartItem
-        fields = ('id', 'amount', 'product')
-
-    def get_product(self, obj):
-        product = product_model.Product.objects.get(pk=obj.product_id)
-        return ProductSerializer(product).data'''
-
-
-

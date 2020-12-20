@@ -23,6 +23,8 @@ class TestAccount(TestCase):
             "address": {
                 "title": "main address",
                 "address": "adkmakdksadsakdsaldad",
+                "name": "umut",
+                "surname": "oksuz",
                 "city": "İstanbul",
                 "province": "Sarıyer",
                 "country": "Türkiye",

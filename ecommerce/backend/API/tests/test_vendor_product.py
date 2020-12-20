@@ -4,7 +4,7 @@ from django.urls import reverse
 from ..models import *
 from ..utils import OrderStatus
 import datetime
-from ..views.product import product_detail
+from ..views.product import get_product_detail
 
 class VendorProductTest(TestCase):
 
@@ -20,6 +20,8 @@ class VendorProductTest(TestCase):
             "address": {
                 "title": "main address",
                 "address": "adkmakdksadsakdsaldad",
+                "name": "umut",
+                "surname": "oksuz",
                 "city": "İstanbul",
                 "province": "Sarıyer",
                 "country": "Türkiye",
@@ -92,7 +94,7 @@ class VendorProductTest(TestCase):
         }
         response = self.client.put(reverse('vendor_product'), body, 'json')
         self.assertEqual(response.data["status"]["successful"], True)
-        response = self.client.get(reverse(product_detail, args = [pid]))
+        response = self.client.get(reverse(get_product_detail, args = [pid]))
         self.assertEqual(response.data["name"], "Los Angeles Lakers Old School v3")
         self.assertEqual(response.data["subcategory"]["name"], "Sports")
 
@@ -129,5 +131,5 @@ class VendorProductTest(TestCase):
         body = {
             'id': pid
         }
-        response = self.client.delete(reverse('vendor_product'), body, 'json')
+        response = self.client.delete(reverse('vendor_product'), body)
         self.assertEqual(response.data["status"]["successful"], True)
