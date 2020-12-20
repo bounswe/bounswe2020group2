@@ -9,7 +9,7 @@ from ..serializers.card_serializer import *
 
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([permissions.AllowAnonymous])
-def manage_single_card(request, customer_id, card_id):
+def manage_specific_card(request, customer_id, card_id):
     # reaching others' content is forbidden
     if request.user.pk != customer_id:
         return Response(status=status.HTTP_403_FORBIDDEN)
@@ -55,7 +55,7 @@ def manage_single_card(request, customer_id, card_id):
 
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAnonymous])
-def manage_multiple_cards(request, customer_id):
+def manage_cards(request, customer_id):
     # reaching others' content is forbidden
     if request.user.pk != customer_id:
         return Response(status=status.HTTP_403_FORBIDDEN)
