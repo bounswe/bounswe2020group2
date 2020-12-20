@@ -54,7 +54,7 @@ interface GetflixApiService {
     suspend fun getProducts(@Path("numberOfProducts") numberOfProducts: Int): Response<List<ProductModel>>
 
     @GET("product/{productId}")
-    suspend fun getProduct(@Path("productId") productId: Int): Response<List<ProductModel>>
+    fun getProduct(@Path("productId") productId: Int): Call<ProductModel>
 
     @GET("user/{userId}/listShoppingCart")
     suspend fun userCartProducts(@Path("userId") userId: Int): Response<List<ProductModel>>
