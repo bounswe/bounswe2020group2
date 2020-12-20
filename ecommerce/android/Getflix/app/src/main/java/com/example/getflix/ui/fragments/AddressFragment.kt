@@ -17,6 +17,7 @@ import com.example.getflix.databinding.FragmentAddressBinding
 import com.example.getflix.databinding.FragmentProfileBinding
 import com.example.getflix.models.AddressModel
 import com.example.getflix.ui.adapters.AddressAdapter
+import com.example.getflix.ui.fragments.AddressFragmentDirections.Companion.actionAdddressFragmentToAddAddressFragment
 import com.example.getflix.ui.viewmodels.AddressViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -32,10 +33,11 @@ class AddressFragment : Fragment() {
 
     ): View? {
         activity?.toolbar!!.toolbar_title.text = getString(R.string.addressInfo)
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_address,
             container, false)
         binding.fab.setOnClickListener {
-            view?.findNavController()?.navigate(actionAddressFragmentToAddAddressFragment())
+            view?.findNavController()?.navigate(actionAdddressFragmentToAddAddressFragment())
         }
 
         viewModel = ViewModelProvider(this).get(AddressViewModel::class.java)
@@ -58,9 +60,10 @@ class AddressFragment : Fragment() {
 
         val addressListAdapter = AddressAdapter(addresses)
         recView.adapter = addressListAdapter
+        recView.setHasFixedSize(true)
 
         for (address in addresses) {
-            viewModel.addProduct(address)
+            viewModel.addAddress(address)
         }
 
         viewModel.addressList.observe(viewLifecycleOwner, Observer {
