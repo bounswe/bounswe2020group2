@@ -11,8 +11,8 @@ from ..serializers.card_serializer import *
 @permission_classes([permissions.AllowAnonymous])
 def manage_specific_card(request, customer_id, card_id):
     # reaching others' content is forbidden
-    if request.user.pk != customer_id:
-        return Response(status=status.HTTP_403_FORBIDDEN)
+    #if request.user.pk != customer_id:
+    #    return Response(status=status.HTTP_403_FORBIDDEN)
     # no such user exists
     if User.objects.filter(id=customer_id).first() is None:
         return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -20,16 +20,16 @@ def manage_specific_card(request, customer_id, card_id):
     user = User.objects.get(pk=int(customer_id))
     #get single card
     if request.method == 'GET':
-        card = Card.objects.filter(user_id=customer_id).filter(id=card_id).first()
-        if card is None or card.is_deleted:
+        card = Card.objects.filter(user_id=customer_id).filter(id=card_id).filter(is_deleted=False).first()
+        if card is None:
             return Response({'successful': False, 'message': "No such card is found"})
         card_serializer = CardResponseSerializer(card)
         return Response(card_serializer.data)
     #delete single card 
     elif request.method == 'DELETE':
         try:
-            card = Card.objects.filter(user_id=customer_id).filter(id=card_id)
-            if card is not None or not card.is_deleted:
+            card = Card.objects.filter(user_id=customer_id).filter(id=card_id).filter(is_deleted=False).first()
+            if card is not None:
                 card.is_deleted = True # soft delete
                 card.save()
                 return Response({'successful': True, 'message': "Successfully deleted"})
@@ -39,8 +39,8 @@ def manage_specific_card(request, customer_id, card_id):
             return Response({'successful': False, 'message': str(e)})
     #update a card
     elif request.method == 'PUT':
-        card = Card.objects.filter(user_id=customer_id).filter(id=card_id).first()
-        if card is None or card.is_deleted:
+        card = Card.objects.filter(user_id=customer_id).filter(id=card_id).filter(is_deleted=False).first()
+        if card is None:
             return Response({'successful': False, 'message': "No such card is found"})
         card.name = request.data.get("name")
         card.owner_name = request.data.get("owner_name")
@@ -57,15 +57,15 @@ def manage_specific_card(request, customer_id, card_id):
 @permission_classes([permissions.AllowAnonymous])
 def manage_cards(request, customer_id):
     # reaching others' content is forbidden
-    if request.user.pk != customer_id:
-        return Response(status=status.HTTP_403_FORBIDDEN)
+    #if request.user.pk != customer_id:
+    #    return Response(status=status.HTTP_403_FORBIDDEN)
     # no such user exists
     if User.objects.filter(id=customer_id).first() is None:
         return Response(status=status.HTTP_400_BAD_REQUEST)
     user = User.objects.get(pk=int(customer_id))
     # get all adresses
     if request.method == 'GET':
-        cards = Card.objects.filter(user_id=customer_id)
+        cards = Card.objects.filter(user_id=customer_id).filter(is_deleted=False)
         card_serializer = CardResponseSerializer(cards, many=True)
         return Response(card_serializer.data)
     # add address
@@ -81,6 +81,6 @@ def manage_cards(request, customer_id):
             cvv = serializer.validated_data.get("cvv")
             card = Card(user=user, name=name, owner_name=owner_name, serial_number=serial_number, expiration_month=expiration_month, expiration_year=expiration_year, cvv=cvv)
             card.save()
-            return Response({'successful': True, 'message': "Card is successfully added"})
+            return Response({'card_id': card.id, 'successful': True, 'message': "Card is successfully added"})
     
     return Response({'successful': False, 'message': "Error occurred"})

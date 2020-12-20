@@ -57,3 +57,18 @@ class ProductResponseSerializer(serializers.ModelSerializer):
     def get_images(self, obj):
         image_urls = [obj.image_url for obj in ImageUrls.objects.filter(product_id=obj.id).all()]
         return image_urls
+
+class VendorProductResponseSerializer(serializers.ModelSerializer):
+    status = serializers.SerializerMethodField("get_status")
+    
+    class Meta:
+        model = Product
+        fields = ('id', 'status')
+
+    def get_status(self, obj):
+        is_successful = self.context.get("is_successful")
+        message = self.context.get("message")
+        return {
+            'successful': is_successful,
+            'message': message
+        }

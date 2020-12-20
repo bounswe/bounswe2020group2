@@ -10,7 +10,6 @@ class CardResponseSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'owner_name', 'serial_number', 'expiration_date', 'cvv')
 
     def get_expiration_date(self, obj):
-        print("in response")
         return { 'month': obj.expiration_month, 'year': obj.expiration_year}
 
 class ExpirationSerializer(serializers.Serializer):

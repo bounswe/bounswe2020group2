@@ -14,7 +14,7 @@ from ..serializers.shopping_cart_serializer import *
 @permission_classes([permissions.AllowAnonymous])
 def manage_specific_shopping_cart_item(request, customer_id, item_id):
     # reaching others' content is forbidden
-    if request.user.pk != user_id:
+    if request.user.pk != customer_id:
         return Response(status=status.HTTP_403_FORBIDDEN)
     # no such user exists
     if User.objects.filter(id=customer_id).first() is None:
@@ -33,7 +33,7 @@ def manage_specific_shopping_cart_item(request, customer_id, item_id):
         sc_item.amount = request.data.get("amount")
         sc_item.save()
         return Response({'successful': True, 'message': "Item is successfully updated"})
-    #delete a shopping cart item
+    #delete a shopping cart item, not a soft delete since we do not need anywhere else
     elif request.method == 'DELETE':
         sc_item = ShoppingCartItem.objects.filter(customer_id=customer_id).filter(id=item_id)
         if sc_item is None:
@@ -46,7 +46,7 @@ def manage_specific_shopping_cart_item(request, customer_id, item_id):
 @permission_classes([permissions.AllowAnonymous])
 def manage_shopping_cart_items(request, customer_id):
     # reaching others' content is forbidden
-    if request.user.pk != user_id:
+    if request.user.pk != customer_id:
         return Response(status=status.HTTP_403_FORBIDDEN)
     # no such user exists
     if User.objects.filter(id=customer_id).first() is None:
@@ -67,4 +67,4 @@ def manage_shopping_cart_items(request, customer_id):
         product = Product.objects.get(pk=product_id)
         sc_item = ShoppingCartItem(customer=user, product=product, amount=amount)
         sc_item.save()
-        return Response({ 'successful': True, 'message': "Product is added to the cart succesfully."})
+        return Response({'sc_item_id': sc_item.id, 'successful': True, 'message': "Product is added to the cart succesfully."})

@@ -12,14 +12,14 @@ from ..serializers.address_serializer import *
 @permission_classes([permissions.AllowAnonymous])
 def manage_specific_address(request, customer_id, address_id):
     # reaching others' content is forbidden
-    if request.user.pk != customer_id:
-        return Response(status=status.HTTP_403_FORBIDDEN)
+    #if request.user.pk != customer_id:
+    #    return Response(status=status.HTTP_403_FORBIDDEN)
     # no such user exists
     if User.objects.filter(id=customer_id).first() is None:
         return Response(status=status.HTTP_400_BAD_REQUEST)
     #get single address
     if request.method == 'GET':
-        address = Address.objects.filter(user_id=customer_id).filter(id=address_id).first()
+        address = Address.objects.filter(user_id=customer_id).filter(id=address_id).filter(is_deleted=False).first()
         if address is None:
             return Response({'successful': False, 'message': "No such address is found"})
         address_serializer = AddressResponseSerializer(address)
@@ -27,9 +27,10 @@ def manage_specific_address(request, customer_id, address_id):
     #delete single address 
     elif request.method == 'DELETE':
         try:
-            address = Address.objects.filter(user_id=customer_id).filter(id=address_id)
-            if address is not None or not address.is_deleted:
+            address = Address.objects.filter(user_id=customer_id).filter(id=address_id).filter(is_deleted=False).first()
+            if address is not None:
                 address.is_deleted = True
+                address.save()
                 return Response({'successful': True, 'message': "Successfully deleted"})
             else:
                 return Response({'successful': True, 'message': "No such address is found"})
@@ -37,8 +38,8 @@ def manage_specific_address(request, customer_id, address_id):
             return Response({'successful': False, 'message': str(e)})
     #update an address
     elif request.method == 'PUT':
-        address = Address.objects.filter(user_id=customer_id).filter(id=address_id).first()
-        if address is None or address.is_deleted:
+        address = Address.objects.filter(user_id=customer_id).filter(id=address_id).filter(is_deleted=False).first()
+        if address is None:
             return Response({'successful': False, 'message': "No such address is found"})
         address.title = request.data.get("title")
         address.name = request.data.get("name")
@@ -59,15 +60,15 @@ def manage_specific_address(request, customer_id, address_id):
 @permission_classes([permissions.AllowAnonymous])
 def manage_addresses(request, customer_id):
     # reaching others' content is forbidden
-    if request.user.pk != customer_id:
-        return Response(status=status.HTTP_403_FORBIDDEN)
+    #if request.user.pk != customer_id:
+    #    return Response(status=status.HTTP_403_FORBIDDEN)
     # no such user exists
     if User.objects.filter(id=customer_id).first() is None:
         return Response(status=status.HTTP_400_BAD_REQUEST)
     user = User.objects.get(pk=int(customer_id))
     # get all adresses
     if request.method == 'GET':
-        addresses = Address.objects.filter(user_id=customer_id)
+        addresses = Address.objects.filter(user_id=customer_id).filter(is_deleted=False)
         address_serializer = AddressResponseSerializer(addresses, many=True)
         return Response(address_serializer.data)
     # add address
@@ -88,5 +89,5 @@ def manage_addresses(request, customer_id):
             address = Address(user=user, name=name, surname=surname, title=title, address=address, province=province, city=city, 
                 country=country, phone_country_code=phone_country_code, phone_number=phone_number, zip_code=zip_code)
             address.save()
-            return Response({'successful': True, 'message': "Address is successfully added"})
+            return Response({'address_id': address.id, 'successful': True, 'message': "Address is successfully added"})
     return Response({'successful': False, 'message': "Error occurred"})
