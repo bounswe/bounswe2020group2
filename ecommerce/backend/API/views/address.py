@@ -8,7 +8,7 @@ from ..utils import permissions, Role
 from ..models import User, Address
 from ..serializers.address_serializer import *
 
-@api_view(['PUT', 'GET', 'DELETE'])
+@api_view(['GET','PUT', 'DELETE'])
 @permission_classes([permissions.AllowAnonymous])
 def manage_specific_address(request, customer_id, address_id):
     # reaching others' content is forbidden
