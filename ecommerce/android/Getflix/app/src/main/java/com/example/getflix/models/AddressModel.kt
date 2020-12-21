@@ -22,7 +22,8 @@ data class AddressModel(
         @SerializedName("city")
         var city: String,
         @SerializedName("country")
-        var country: String
+        var country: String,
+
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
