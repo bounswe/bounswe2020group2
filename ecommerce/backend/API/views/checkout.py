@@ -1,3 +1,4 @@
+from ecommerce.backend.API.models.purchase import Order
 from API.models import product
 from API.models import purchase
 from API.models.purchase import Purchase
@@ -10,8 +11,8 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 
 from ..utils import permissions, Role
-from ..models import User, ShoppingCartItem, Product, Address
-from ..serializers import checkout_product_serializer, checkout_shopping_cart_serializer, address_serializer
+from ..models import User, ShoppingCartItem, Product, Address, Order
+from ..serializers import checkout_product_serializer, checkout_shopping_cart_serializer, address_serializer, shopping_cart_serializer
 from ..utils import authentication, order_status
 
 
@@ -21,8 +22,8 @@ def checkout_details(request):
     jwt = authentication.JWTAuthentication()
     user = jwt.authenticate(request=request)
 
-    items = ShoppingCartItem.objects.filter(customer_id=user[0].pk).values('id', 'product_id', 'amount')
-    serializers = checkout_shopping_cart_serializer.CheckoutShoppingCartSerializer(items, many=True)
+    items = ShoppingCartItem.objects.filter(customer_id=user[0].pk)
+    serializers = shopping_cart_serializer.ShoppingCartResponseSerializer(items, many=True)
 
     amount = 0
     price = 0 
@@ -64,8 +65,10 @@ def checkout_payment(request):
     address = Address.objects.filter(id=address_id)
     address_s = address_serializer.AddressResponseSerializer(address)
 
-    items = ShoppingCartItem.objects.filter(customer_id=user[0].pk).values('id', 'product_id', 'amount')
-    serializers = checkout_shopping_cart_serializer.CheckoutShoppingCartSerializer(items, many=True)
+    items = ShoppingCartItem.objects.filter(customer_id=user[0].pk)
+    serializers = shopping_cart_serializer.ShoppingCartResponseSerializer(items, many=True)
+
+    order = Order(user=user)
 
     amount = 0
     unit_price = 0 
@@ -75,15 +78,13 @@ def checkout_payment(request):
         product_id = serializer.get("product")["id"]
         unit_price = serializer.get("product")["price"]
         name = serializer.get("product")["amount"]
+        vendor = serializer.get("product")["vendor"]
         status = order_status.OrderStatus.ACCEPTED
-        purchase = Purchase(user=user, product_id=product_id, amount=amount, unit_price=unit_price,name=name,status=status, address=address_s)
+        purchase = Purchase(user=user, product_id=product_id, amount=amount, unit_price=unit_price, name=name, status=status,\
+                             address_id=address_id, vendor=vendor, order=order)
         purchase.save()
 
-    context = { 'successful': True,
-                'message': "Payment process is successfully satisfied."
-    }
-
-    return Response(context)
+    return Response({'status': { 'successful': True, 'message': "Payment process is successfully satisfied."}})
 
 
 @api_view(['POST'])
@@ -92,6 +93,6 @@ def checkout_cancel_order(request, id):
     jwt = authentication.JWTAuthentication()
     user = jwt.authenticate(request=request)
 
-    purchase = Purchase.objects.get(pk=int(id))
+    order = Order.objects.get(pk=int(id))
     purchase.status = order_status.OrderStatus.CANCELLED
     purchase.update()

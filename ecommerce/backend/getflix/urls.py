@@ -38,7 +38,7 @@ urlpatterns = [
     path('image/<int:image_id>', views.product.get_image),
     path('vendor/product', views.product.vendor_product, name="vendor_product"),
     path('vendor/signup', views.account.vendor_register, name="vendor_signup"),
-    path('vendor/order', views.order.vendor_orders,name="vendor_orders")
+    path('vendor/order', views.order.vendor_orders,name="vendor_orders"),
     path('checkout/payment', views.checkout.checkout_payment),
     path('checkout/cancelorder/<int:id>', views.checkout.checkout_cancel_order),
 ]
