@@ -3,20 +3,23 @@ package com.example.getflix.ui.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.getflix.models.CategoryModel
-import com.example.getflix.models.PModel
-import com.example.getflix.models.SubcategoryModel
-import com.example.getflix.services.GetflixApi
+import com.example.getflix.models.*
+import com.example.getflix.service.GetflixApi
+import com.example.getflix.service.requests.CardProRequest
+import com.example.getflix.service.responses.CardProResponse
 import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class CategoriesViewModel: ViewModel() {
+class CategoriesViewModel : ViewModel() {
 
     private val _categoriesList = MutableLiveData<MutableList<CategoryModel>>()
     val categoriesList: LiveData<MutableList<CategoryModel>>
         get() = _categoriesList
 
-    private val _products = MutableLiveData<List<PModel>>()
-    val products: LiveData<List<PModel>>?
+    private val _products = MutableLiveData<List<ProductModel>>()
+    val products: LiveData<List<ProductModel>>?
         get() = _products
 
 
@@ -69,8 +72,29 @@ class CategoriesViewModel: ViewModel() {
         }
     }
 
+    fun addToCart(amount: Int, proId: Int) {
+        GetflixApi.getflixApiService.addCartProduct(20, CardProRequest(amount, proId))
+                .enqueue(object :
+                        Callback<CardProResponse> {
+                    override fun onFailure(call: Call<CardProResponse>, t: Throwable) {
+
+                    }
+
+                    override fun onResponse(
+                        call: Call<CardProResponse>,
+                        response: Response<CardProResponse>
+                    ) {
+                        println(response.body().toString())
+                        println(response.code())
+                        if (response.body()!!.successful)
+                            println(response.body().toString())
+                    }
+                }
+                )
+    }
+
     fun addCategory(categoryModel: CategoryModel) {
-        if(_categoriesList.value!=null) {
+        if (_categoriesList.value != null) {
             val categories = _categoriesList.value
             categories?.add(categoryModel)
             _categoriesList.value = categories
@@ -82,26 +106,23 @@ class CategoriesViewModel: ViewModel() {
 
     }
 
-    fun setCategories(products: MutableList<PModel>) {
+    fun setCategories(products: MutableList<ProductModel>) {
         val catList = arrayListOf<CategoryModel>()
-        for(pro in products) {
-            if(!catList.any {pro.category == it.name}) {
-                println("burda  " + pro.category)
+        for (pro in products) {
+            if (!catList.any { pro.category.name == it.name }) {
                 val subCats = arrayListOf<SubcategoryModel>()
-                val products = arrayListOf<PModel>()
+                val products = arrayListOf<ProductModel>()
                 products.add(pro)
-                subCats.add(SubcategoryModel(pro.subcategory,products))
-                catList.add(CategoryModel(pro.category,subCats))
+               // subCats.add(SubcategoryModel(pro.subcategory, products))
+               // catList.add(CategoryModel(pro.category, subCats))
             } else {
-                for(cat in catList) {
-                    if(cat.name==pro.category) {
-                        println("burda xx  " + pro.category)
+                for (cat in catList) {
+                    if (cat.name == pro.category.name) {
                         var ind = catList.indexOf(cat)
-                        if(!catList[ind].subCats.any {pro.subcategory == it.name}) {
-                            println("burda xx  " + pro.subcategory)
-                            val products = arrayListOf<PModel>()
+                        if (!catList[ind].subcategories!!.any { pro.subcategory.name == it.name }) {
+                            val products = arrayListOf<ProductModel>()
                             products.add(pro)
-                            catList[ind].subCats.add(SubcategoryModel(pro.subcategory,products))
+                           // catList[ind].subCats.add(SubcategoryModel(pro.subcategory, products))
                         }
                     }
                 }

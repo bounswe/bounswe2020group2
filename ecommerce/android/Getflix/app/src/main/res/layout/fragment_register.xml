@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -29,15 +27,15 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/shadows_into_light_two"
                 android:text="@string/register"
                 android:textColor="@color/black"
-                android:fontFamily="@font/shadows_into_light_two"
                 android:textSize="30sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -50,27 +48,26 @@
                     android:id="@+id/radio_group"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                     >
+                    android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/customer"
                         android:layout_width="0dp"
-                        android:buttonTint="@color/black"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/black"
                         android:checked="true"
-                        android:textColor="@color/black"
-                        android:text="@string/customer" />
+                        android:text="@string/customer"
+                        android:textColor="@color/black" />
 
                     <RadioButton
                         android:id="@+id/vendor"
                         android:layout_width="0dp"
-                        android:buttonTint="@color/black"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:text="@string/vendor" />
+                        android:layout_weight="1"
+                        android:buttonTint="@color/black"
+                        android:text="@string/vendor"
+                        android:textColor="@color/black" />
                 </RadioGroup>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -203,7 +200,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
 
-
                 <LinearLayout
                     android:id="@+id/city_state"
                     android:layout_width="match_parent"
@@ -217,20 +213,20 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:clickable="true"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:hint="@string/city"
-                        android:layout_weight="1"
                         android:textColorHint="@color/black"
                         app:boxStrokeColor="@color/black"
                         app:hintTextColor="@color/black">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/city"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:inputType="text" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -240,11 +236,11 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:clickable="true"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:hint="@string/state"
-                        android:layout_weight="1"
                         android:textColorHint="@color/black"
                         app:boxStrokeColor="@color/black"
                         app:hintTextColor="@color/black">
@@ -262,99 +258,99 @@
 
                 <LinearLayout
                     android:id="@+id/address_zip"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     android:weightSum="5">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/mainAddress_lay"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:hint="@string/address"
-                    android:layout_weight="2"
-                    android:textColorHint="@color/black"
-                    app:boxStrokeColor="@color/black"
-                    app:hintTextColor="@color/black">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/maddress"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/mainAddress_lay"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:layout_weight="2"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:hint="@string/address"
+                        android:textColorHint="@color/black"
+                        app:boxStrokeColor="@color/black"
+                        app:hintTextColor="@color/black">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/maddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/zipCode_lay"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_weight="3"
-                android:focusableInTouchMode="true"
-                android:hint="@string/zip"
-                android:textColorHint="@color/black"
-                app:boxStrokeColor="@color/black"
-                app:hintTextColor="@color/black">
+                    </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/zipCode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/zipCode_lay"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:hint="@string/zip"
+                        android:textColorHint="@color/black"
+                        app:boxStrokeColor="@color/black"
+                        app:hintTextColor="@color/black">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/zipCode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number" />
 
-        </LinearLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
 
 
                 <CheckBox
+                    android:id="@+id/check"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:buttonTint="@color/black"
-                    android:id="@+id/check"
-                    android:textColor="@color/initPurple"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/reg_agree"
-                    android:layout_gravity="center"
+                    android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:focusable="true"/>
+                    android:text="@string/reg_agree"
+                    android:textColor="@color/initPurple" />
 
                 <LinearLayout
-                    android:layout_marginTop="3dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
                     android:orientation="horizontal"
                     android:weightSum="2">
 
-                 <Button
+                    <Button
                         android:id="@+id/btn_back"
-                        android:background="@color/black"
-                        android:textColor="@color/initGold"
                         android:layout_width="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_margin="2dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left|center_vertical"
-                        android:text="back to main" />
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@color/black"
+                        android:text="back to main"
+                        android:textColor="@color/initGold" />
 
-                <Button
-                    android:id="@+id/btn_register"
-                    android:background="@color/black"
-                    android:textColor="@color/initGold"
-                    android:layout_weight="1"
-                    android:layout_margin="2dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right|center_vertical"
-                    android:text="@string/register" />
+                    <Button
+                        android:id="@+id/btn_register"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@color/black"
+                        android:text="@string/register"
+                        android:textColor="@color/initGold" />
 
                 </LinearLayout>
 

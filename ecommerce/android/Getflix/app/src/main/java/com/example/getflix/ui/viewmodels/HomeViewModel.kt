@@ -2,7 +2,7 @@ package com.example.getflix.ui.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.getflix.models.PModel
+import com.example.getflix.models.ProductModel
 
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
@@ -11,15 +11,15 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val onCategoryClick: LiveData<Int>
         get() = _onCategoryClick
 
-    private val _products = MutableLiveData<List<PModel>>()
-    val products: LiveData<List<PModel>>?
+    private val _products = MutableLiveData<List<ProductModel>>()
+    val products: LiveData<List<ProductModel>>?
         get() = _products
 
     fun setOnCategoryClick(id: Int) {
         _onCategoryClick.value = id
     }
 
-    fun navigationComplete(){
+    fun navigationComplete() {
         _onCategoryClick.value = null
     }
 

@@ -1,11 +1,15 @@
 package com.example.getflix.ui.viewmodels
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.getflix.R
+import com.example.getflix.infoAlert
 import com.example.getflix.models.*
-import com.example.getflix.services.GetflixApi
-import com.example.getflix.models.LoginRequest
+import com.example.getflix.service.GetflixApi
+import com.example.getflix.service.requests.LoginRequest
+import com.example.getflix.service.responses.LoginResponse
 
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,7 +26,12 @@ class LoginViewModel : ViewModel() {
     val onLogin: LiveData<Boolean>
         get() = _onLogin
 
-    private fun getUserFromBackend() {
+    private val _user = MutableLiveData<User>()
+    val user: LiveData<User>
+        get() = _user
+
+
+    private fun getUserFromBackend(fragment: Fragment) {
         GetflixApi.getflixApiService.getUserInformation(_logReq.value!!)
                 .enqueue(object :
                         Callback<LoginResponse> {
@@ -32,12 +41,15 @@ class LoginViewModel : ViewModel() {
                     }
 
                     override fun onResponse(
-                            call: Call<LoginResponse>,
-                            response: Response<LoginResponse>
+                        call: Call<LoginResponse>,
+                        response: Response<LoginResponse>
                     ) {
-                        System.out.println("HElllloooo")
-                        _onLogin.value = true
-                        System.out.println(response.body().toString())
+                        if (response.body()!!.status.message == "Giriş başarılı") {
+                            _onLogin.value = true
+                            _user.value = response.body()!!.user
+                        } else {
+                            infoAlert(fragment, fragment.requireContext().getString(R.string.login_info))
+                        }
                     }
                 }
                 )
@@ -47,9 +59,9 @@ class LoginViewModel : ViewModel() {
         _onLogin.value = false
     }
 
-    fun setUser(userName: String, password: String) {
+    fun setUser(fragment: Fragment, userName: String, password: String) {
         _logReq.value = LoginRequest(userName, password)
-        getUserFromBackend()
+        getUserFromBackend(fragment)
     }
 
     fun setOnLogin(canLogin: Boolean) {

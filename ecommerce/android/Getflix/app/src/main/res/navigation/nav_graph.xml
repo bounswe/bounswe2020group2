@@ -9,7 +9,6 @@
     <fragment
         android:id="@+id/homePageFragment"
         android:name="com.example.getflix.ui.fragments.HomePageFragment"
-        android:label="HomePageFragment"
         tools:layout="@layout/fragment_home_page">
         <action
             android:id="@+id/action_homePageFragment_to_categoryFragment"
@@ -18,29 +17,65 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.getflix.ui.fragments.LoginFragment"
-        android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_homePageFragment"
-            app:destination="@id/homePageFragment" />
+            app:destination="@id/homePageFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_loginFragment_to_vendorHomeFragment"
+            app:destination="@id/vendorHomeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/enter_right_to_left"
+            app:popExitAnim="@anim/exit_right_to_left" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.getflix.ui.fragments.ProfileFragment"
-        android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_adddressFragment"
+            app:destination="@id/adddressFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/enter_right_to_left"
+            app:popExitAnim="@anim/exit_right_to_left"/>
+        <action
+            android:id="@+id/action_profileFragment_to_bankAccountFragment"
+            app:destination="@id/bankAccountFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/enter_right_to_left"
+            app:popExitAnim="@anim/exit_right_to_left"/>
+        <action
+            android:id="@+id/action_profileFragment_to_orderInfoFragment"
+            app:destination="@id/orderInfoFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/enter_right_to_left"
+            app:popExitAnim="@anim/exit_right_to_left"/>
+        <action
+            android:id="@+id/action_profileFragment_to_userInfoFragment"
+            app:destination="@id/userInfoFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/enter_right_to_left"
+            app:popExitAnim="@anim/exit_right_to_left"/>
     </fragment>
-  <fragment
+    <fragment
         android:id="@+id/categoryFragment"
         android:name="com.example.getflix.ui.fragments.CategoryFragment"
-        android:label="CategoryFragment"
-      tools:layout="@layout/fragment_category">
+        tools:layout="@layout/fragment_category">
         <argument
             android:name="categoryId"
             app:argType="integer" />
@@ -48,7 +83,6 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.getflix.ui.fragments.RegisterFragment"
-        android:label="RegisterFragment"
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_homePageFragment"
@@ -59,30 +93,76 @@
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.example.getflix.ui.fragments.CartFragment"
-        android:label="CartFragment"
-        tools:layout="@layout/fragment_cart"/>
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/action_cartFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/categoriesFragment"
-        android:name="com.example.getflix.ui.fragments.CategoriesFragment"
-        android:label="CategoriesFragment" >
+        android:name="com.example.getflix.ui.fragments.CategoriesFragment">
         <action
             android:id="@+id/action_categoriesFragment_to_subcategoryFragment"
-            app:destination="@id/subcategoryFragment" />
+            app:destination="@id/subcategoryFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/enter_right_to_left"
+            app:popExitAnim="@anim/exit_right_to_left" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.example.getflix.ui.fragments.FavoritesFragment"
-        android:label="FavoritesFragment"
-        tools:layout="@layout/fragment_favorites"/>
+        tools:layout="@layout/fragment_favorites" />
     <fragment
         android:id="@+id/subcategoryFragment"
         android:name="com.example.getflix.ui.fragments.SubcategoryFragment"
-        android:label="SubcategoryFragment"
         tools:layout="@layout/list_horizontalsubs">
-    <argument
-        android:name="subName"
-        app:argType="string" />
+        <argument
+            android:name="subName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_subcategoryFragment_to_filterOptionsFragment"
+            app:destination="@id/filterOptionsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.example.getflix.ui.fragments.PaymentFragment"
+        tools:layout="@layout/fragment_payment" />
+
+     <fragment   
+        android:id="@+id/filterOptionsFragment"
+        android:name="com.example.getflix.ui.fragments.FilterOptionsFragment"
+        tools:layout="@layout/fragment_filter_options"/>
+    <fragment
+        android:id="@+id/adddressFragment"
+        android:name="com.example.getflix.ui.fragments.AddressFragment"
+        tools:layout="@layout/fragment_address" />
+    <fragment
+        android:id="@+id/bankAccountFragment"
+        android:name="com.example.getflix.ui.fragments.BankAccountFragment"
+        tools:layout="@layout/fragment_bank_account" />
+    <fragment
+        android:id="@+id/orderInfoFragment"
+        android:name="com.example.getflix.ui.fragments.OrderInfoFragment"
+        tools:layout="@layout/fragment_order_info" />
+    <fragment
+        android:id="@+id/userInfoFragment"
+        android:name="com.example.getflix.ui.fragments.UserInfoFragment"
+        tools:layout="@layout/fragment_user_info" />
+    <fragment
+        android:id="@+id/vendorHomeFragment"
+        android:name="com.example.getflix.ui.fragments.VendorHomeFragment"
+        tools:layout="@layout/fragment_vendor_home"
+        />
+    <fragment
+        android:id="@+id/vendorProfileFragment"
+        android:name="com.example.getflix.ui.fragments.VendorProfileFragment"
+        tools:layout="@layout/fragment_vendor_home" />
+    <fragment
+        android:id="@+id/messagesFragment"
+        android:name="com.example.getflix.ui.fragments.MessagesFragment"
+        tools:layout="@layout/fragment_messages" />
 
 </navigation>
 

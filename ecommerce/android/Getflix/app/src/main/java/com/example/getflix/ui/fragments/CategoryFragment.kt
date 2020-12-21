@@ -34,19 +34,12 @@ class CategoryFragment : Fragment() {
                 container, false
         )
 
-        activity?.toolbar!!.visibility = View.GONE
-        val navController =
-                Navigation.findNavController(requireActivity(), R.id.my_nav_host_fragment)
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
-        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
-        binding.toolbar.title = ""
-        binding.toolbarTitle.text = "Category"
 
         categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
         val adapter = SubcategoryHorizontalAdapter(requireContext())
         categoryViewModel.displayedCategory.observe(viewLifecycleOwner, Observer {
             it.let {
-                adapter.submitList(it.subCats)
+                adapter.submitList(it.subcategories)
             }
         })
         binding.lifecycleOwner = this
@@ -54,13 +47,10 @@ class CategoryFragment : Fragment() {
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         binding.categoryList.layoutManager = layoutManager
         val args = CategoryFragmentArgs.fromBundle(requireArguments())
-        var categoryId : Int = args.categoryId
+        var categoryId: Int = args.categoryId
         categoryViewModel.setCategory(categoryId)
         return binding.root
     }
 
-    override fun onPause() {
-        super.onPause()
-        activity?.toolbar!!.visibility = View.VISIBLE
-    }
+
 }

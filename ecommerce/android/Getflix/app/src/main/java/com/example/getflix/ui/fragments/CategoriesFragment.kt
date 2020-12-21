@@ -23,12 +23,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 
-    private lateinit var viewModel: CategoriesViewModel
-    private lateinit var adapter: CategoriesAdapter
-
 class CategoriesFragment : Fragment() {
 
     lateinit var categoryViewModel: CategoryViewModel
+    private lateinit var viewModel: CategoriesViewModel
+    private lateinit var adapter: CategoriesAdapter
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -36,35 +35,60 @@ class CategoriesFragment : Fragment() {
     ): View? {
 
         val binding = DataBindingUtil.inflate<FragmentCategoriesBinding>(
-            inflater, R.layout.fragment_categories,
-            container, false
+                inflater, R.layout.fragment_categories,
+                container, false
         )
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.categories)
         viewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
         binding.viewmodel = CategoriesViewModel()
-        binding.lifecycleOwner=this
+        binding.lifecycleOwner = this
 
         var catsL = mutableListOf<CategoryModel>()
         var cats = listOf<CategoryModel>(
                 CategoryModel(
-                        "Home",
-                        listOf(SubcategoryModel("Furniture", null)) as MutableList<SubcategoryModel>
+                        "Electronics",
+                        1,listOf(SubcategoryModel("Computers", 1),
+                                SubcategoryModel("Camera & Photo", 1),
+                                SubcategoryModel("Cell Phones & Accessories", 1),
+                                SubcategoryModel("Digital Videos", 1),
+                                SubcategoryModel("Software", 1)) as MutableList<SubcategoryModel>
                 ), CategoryModel(
-                "Electronics",
-                listOf(SubcategoryModel( "Computers",null),
-                        SubcategoryModel("Mobile Phones",null)) as MutableList<SubcategoryModel>
+                "Health & Households",1,
+                listOf(SubcategoryModel("Sports & Outdoor", 1),
+                        SubcategoryModel("Beauty & Personal Care", 1)) as MutableList<SubcategoryModel>
         ), CategoryModel(
-                "Baby",
-                listOf(SubcategoryModel("Baby Food", null)) as MutableList<SubcategoryModel>
+                "Home & Garden",1,
+                listOf(SubcategoryModel("Luggage", 1),
+                        SubcategoryModel("Pet Supplies", 1),
+                        SubcategoryModel("Furniture", 1)) as MutableList<SubcategoryModel>
+        ), CategoryModel(
+                "Clothing",1,
+                listOf(SubcategoryModel("Men's Fashion", 1),
+                        SubcategoryModel("Women's Fashion", 1),
+                        SubcategoryModel("Boys' Fashion", 1),
+                        SubcategoryModel("Girls' Fashion", 1),
+                        SubcategoryModel("Baby", 1)) as MutableList<SubcategoryModel>
+        ), CategoryModel(
+                "Hobbies",1,
+                listOf(SubcategoryModel("Books", 1),
+                        SubcategoryModel("Music & CDs", 1),
+                        SubcategoryModel("Movies & TVs", 1),
+                        SubcategoryModel("Toys & Games", 1),
+                        SubcategoryModel("Video Games", 1),
+                        SubcategoryModel("Arts & Crafts", 1)) as MutableList<SubcategoryModel>
+        ), CategoryModel(
+                "Others",1,
+                listOf(SubcategoryModel("Automotive", 1),
+                        SubcategoryModel("Industrial & Scientific", 1)) as MutableList<SubcategoryModel>
         )
         )
         adapter = CategoriesAdapter(cats, this)
         binding.catRec.adapter = adapter
-
-        viewModel.getProducts(3)
-        viewModel.getProduct(3)
-        //viewModel.getUserCartProducts(2)
+        //viewModel.getProducts(3)
+        //viewModel.getProduct(3)
+        //viewModel.addToCart(1,4)
+        //viewModel.getUserCartProducts(20)
 
         /*viewModel.products?.observe(viewLifecycleOwner, {products ->
             products?.let {
@@ -82,11 +106,6 @@ class CategoriesFragment : Fragment() {
         //val cat = viewModel.categories
 
 
-
-
-
-
-
         /*for(category in cats) {
             viewModel.addCategory(category)
         } */
@@ -100,7 +119,7 @@ class CategoriesFragment : Fragment() {
 
 
 
-        categoryViewModel =  ViewModelProvider(this).get(CategoryViewModel::class.java)
+        categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
 
 
         val adapter = SubcategoryHorizontalAdapter(requireContext())
@@ -113,7 +132,6 @@ class CategoriesFragment : Fragment() {
 
         return binding.root
     }
-
 
 
 }
