@@ -84,4 +84,8 @@
     <string name="username_char_limit">Your username should contain at least 6 characters.</string>
     <string name="valid_name">Please enter a valid name and surname.</string>
     <string name="register_success">You have registered successfully! You are redirected to the login page.</string>
+    <string name="slogan1">The biggest marketplace in the world.</string>
+    <string name="todays_deals">Todays Deals</string>
+    <string name="trending_products">Trending Products</string>
+    <string name="recommended_for_you_title">Recommended For You</string>
 </resources>

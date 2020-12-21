@@ -83,5 +83,9 @@
     <string name="username_char_limit">Kullanıcı adınız en az 6 karakter olmalıdır.</string>
     <string name="valid_name">Lütfen geçerli bir ad soyad bilgisi giriniz.</string>
     <string name="register_success">Kaydınız tamamlandı! Oturum açma sayfasına yönlendiriliyorsunuz.</string>
+    <string name="slogan1">The biggest marketplace in the world.</string>
+    <string name="todays_deals">Todays Deals</string>
+    <string name="trending_products">Trending Products</string>
+    <string name="recommended_for_you_title">Recommended For You</string>
 
 </resources>
