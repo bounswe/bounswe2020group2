@@ -18,19 +18,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="#97626262"
+            android:background="#AEFFFFFF"
             android:padding="20dp">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_background"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/logo_circular"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
@@ -38,8 +28,9 @@
                 android:layout_height="80dp"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="28dp"
+                android:background="#FFFFFF"
                 android:src="@drawable/ic_user"
-                app:civ_border_width="2dp"
+                app:civ_circle_background_color="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +44,7 @@
                 android:layout_gravity="center_horizontal"
                 android:fontFamily="@font/open_sans_semibold"
                 android:text="Helin Cakmak"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/initPurple"
                 android:textSize="21sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -65,41 +56,44 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#FFFFFF"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
+                android:layout_marginTop="8dp">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/full_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-
-                    android:drawableLeft="@drawable/ic_baseline_face_24"
-                    android:drawablePadding="10dp"
-                    android:fontFamily="@font/open_sans_semibold">
+                    android:layout_gravity="center_vertical"
+                    android:drawableLeft="@drawable/ic_username"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:paddingLeft="10dp">
 
                 </com.google.android.material.textview.MaterialTextView>
             </com.google.android.material.textfield.TextInputLayout>
 
+
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/mail_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
+                android:layout_marginTop="8dp">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/mail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
+                    android:layout_gravity="center"
 
-                    android:drawableLeft="@drawable/ic_baseline_shopping_bag_24"
+                    android:drawableLeft="@drawable/ic_email"
                     android:drawablePadding="10dp"
                     android:fontFamily="@font/open_sans_semibold"
-                    android:inputType="textEmailAddress">
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="10dp">
 
                 </com.google.android.material.textview.MaterialTextView>
             </com.google.android.material.textfield.TextInputLayout>
@@ -107,27 +101,33 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="8dp"
                 app:passwordToggleEnabled="true">
 
                 <EditText
+                    android:id="@+id/editable_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:background="#FFFFFF"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:drawableStart="@drawable/ic_lock"
+                    android:drawablePadding="10dp"
                     android:fontFamily="@font/open_sans_semibold"
                     android:inputType="textPassword"
-                    android:text="@string/hidden_password">
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/hidden_password"
+                    android:textColor="@color/initPurple">
 
                 </EditText>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/address_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
+                android:layout_marginTop="8dp">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/address"
@@ -145,16 +145,18 @@
                 </com.google.android.material.textview.MaterialTextView>
             </com.google.android.material.textfield.TextInputLayout>
 
+
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/bank_accounts_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
+                android:layout_marginTop="8dp">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/bank_accounts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_baseline_attach_money_24"
+                    android:drawableLeft="@drawable/ic_credit_card"
                     android:drawableRight="@drawable/ic_arrow_forward"
                     android:drawablePadding="10dp"
                     android:fontFamily="@font/open_sans_semibold"
@@ -165,17 +167,19 @@
 
                 </com.google.android.material.textview.MaterialTextView>
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/orders_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
+                android:layout_marginTop="8dp">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/orders"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_baseline_shopping_bag_24"
-                    android:drawableRight="@drawable/ic_arrow_forward"
+                    android:drawableStart="@drawable/ic_order"
+                    android:drawableEnd="@drawable/ic_arrow_forward"
                     android:drawablePadding="10dp"
                     android:fontFamily="@font/open_sans_semibold"
                     android:paddingLeft="10dp"
@@ -190,13 +194,14 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/button_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="32dp"
             android:layout_marginRight="10dp"
-            android:paddingRight="10dp"
-            android:text="Button"
+            android:paddingRight="14dp"
+            android:text="@string/log_out"
             android:textColor="#FFFFFF"
             app:backgroundTint="@color/initPurple" />
 
