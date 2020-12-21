@@ -33,28 +33,37 @@ def vendor_orders(request):
             serializer = ProductResponseSerializer(purchase.product)
             product = serializer.data
 
-            response = {'amount':purchase.amount,'unit_price':purchase.unit_price,'total_price':total_price,'status':purchase.status,
-            'purchase_date':purchase.purchase_date,'adress':adress, 'product':product, 'id':purchase.id}
+            if purchase.status == -1:
+                purchase_status = 'cancelled'
+            elif purchase.status == 0:
+                purchase_status = 'accepted'
+            elif purchase.status == 1:
+                purchase_status = 'at_cargo'
+            elif purchase.status == 2:
+                purchase_status = 'delivered'
+
+            response = {'id':purchase.id,'amount':purchase.amount,'unit_price':purchase.unit_price,'total_price':total_price,'status':purchase_status,
+            'purchase_date':purchase.purchase_date,'adress':adress, 'product':product}
 
             response_purchases.append(response)
 
-        return Response({'orders':response_purchases})
+        return Response({'status': {'successful': True, 'message':'Orders are uccessfully sent'},'orders':response_purchases})
 
 
     if request.method == 'PUT':
 
         if request.data['orderId'] == None:
-            return Response({'is_successful': False, 'message':'Please provide orderId '})
+            return Response({'status': {'successful': False, 'message':'Please provide orderId'}})
 
         if request.data['orderStatus'] == None:
-            return Response({'is_successful': False, 'message':'Please provide orderStatus '})
+            return Response({'status': {'successful': False, 'message':'Please provide orderStatus'}})
         
         vendor = Vendor.objects.filter(user=request.user).first()
 
         purchase_to_change = Purchase.objects.filter(id=request.data['orderId']).first()
 
         if purchase_to_change.vendor_id != vendor.id:
-            return Response({'is_successful': False, 'message':'This order does not belong to you'})
+            return Response({'status': {'successful': False, 'message':'This order does not belong to you'}})
 
         if request.data['orderStatus'] == 'cancelled':
             purchase_to_change.status = -1
@@ -65,8 +74,8 @@ def vendor_orders(request):
         elif request.data['orderStatus'] == 'delivered':
             purchase_to_change.status = 2
         else:
-            return Response({'is_successful': False, 'message':'Please provide a valid orderStatus, options are: cancelled, accepted, at_cargo, delivered'})
+            return Response({'status': {'successful': False, 'message':'Please provide a valid orderStatus, options are: cancelled, accepted, at_cargo, delivered'}})
 
         purchase_to_change.save()
 
-        return Response({'is_successful': True})
+        return Response({'status': {'successful': True, 'message':'Order status is successfully changed'}})
