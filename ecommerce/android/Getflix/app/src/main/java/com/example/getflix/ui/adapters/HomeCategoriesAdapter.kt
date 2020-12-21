@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.CardCategoryBinding
-import com.example.getflix.databinding.ListHorizontalsubsBinding
 import com.example.getflix.getCategoryImage
 import com.example.getflix.models.CategoryModel
 
@@ -30,7 +29,7 @@ class HomeCategoriesAdapter :
 
     override fun getItemViewType(position: Int) = position % 2
 
-    class ViewHolder private constructor(val binding: CardCategoryBinding, val viewType: Int) :
+    class ViewHolder private constructor(val binding: CardCategoryBinding) :
             RecyclerView.ViewHolder(binding.root) {
         companion object {
 
@@ -54,16 +53,3 @@ class CategoryDiffCallback : DiffUtil.ItemCallback<CategoryModel>() {
     }
 
 }
-
-class ViewHolder1 private constructor(val binding: CardCategoryBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-    companion object {
-        fun from(parent: ViewGroup): HomeCategoriesAdapter.ViewHolder {
-            val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = CardCategoryBinding.inflate(layoutInflater, parent, false)
-            return ViewHolder1(binding)
-        }
-    }
-
-}
-
