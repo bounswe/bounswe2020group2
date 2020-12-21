@@ -11,6 +11,8 @@ import com.example.getflix.R
 import com.example.getflix.databinding.FragmentVendorOrdersBinding
 import com.example.getflix.ui.viewmodels.VendorOrdersViewModel
 import com.example.getflix.ui.viewmodels.VendorProfileViewModel
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 
 class VendorOrdersFragment : Fragment() {
@@ -21,6 +23,7 @@ class VendorOrdersFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
+        activity?.toolbar!!.toolbar_title.text = getString(R.string.orders_vendor)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_vendor_orders,
                 container, false)
         viewModel = ViewModelProvider(this).get(VendorOrdersViewModel::class.java)
