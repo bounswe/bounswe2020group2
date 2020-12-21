@@ -9,7 +9,7 @@ const { TabPane } = Tabs
 
 export const ProfileDetails = () => {
     const [isLoading, setIsLoading] = useState(false)
-    const { user } = useAppContext()
+    const { user, setUser } = useAppContext()
     console.log('user', user)
     const onVerify = async () => {
         try {
