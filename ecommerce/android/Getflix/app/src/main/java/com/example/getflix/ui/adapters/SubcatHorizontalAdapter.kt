@@ -26,7 +26,7 @@ class SubcategoryHorizontalAdapter(private var context: Context) :
         binding.productList.adapter = productAdapter
         binding.productList.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        productAdapter.submitList(subcategoryModel.products)
+        //productAdapter.submitList(subcategoryModel.products)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

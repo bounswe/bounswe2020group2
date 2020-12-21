@@ -39,11 +39,7 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment
         navController = navHostFragment.findNavController()
         setSupportActionBar(toolbar)
-        NavigationUI.setupWithNavController(bottom_nav, navController)
-        val appBarConfiguration = AppBarConfiguration(bottom_nav.menu)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.title = null
+
 
 
     }
@@ -66,6 +62,22 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun decideBottomNav(isVendor: Boolean) {
+        NavigationUI.setupWithNavController(bottom_nav, navController)
+        if(isVendor) {
+            bottom_nav.menu.clear()
+            bottom_nav.inflateMenu(R.menu.nav_vendor_menu)
+        }
+        else {
+            bottom_nav.menu.clear()
+            bottom_nav.inflateMenu(R.menu.nav_menu)
+        }
+        val appBarConfiguration = AppBarConfiguration(bottom_nav.menu)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.title = null
     }
 
 
