@@ -77,5 +77,6 @@
     <string name="bank_guest_alert">You have to login to see your bank account information.</string>
     <string name="address_guest_alert">You have to login to see your address information.</string>
     <string name="hidden_password">123456</string>
+    <string name="log_out">LOG OUT</string>
 
 </resources>
