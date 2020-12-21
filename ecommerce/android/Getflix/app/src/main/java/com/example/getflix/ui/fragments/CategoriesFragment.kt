@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.getflix.R
+import com.example.getflix.categories
 import com.example.getflix.databinding.FragmentCategoriesBinding
 import com.example.getflix.models.CategoryModel
 import com.example.getflix.models.SubcategoryModel
@@ -44,46 +45,7 @@ class CategoriesFragment : Fragment() {
         binding.viewmodel = CategoriesViewModel()
         binding.lifecycleOwner = this
 
-        var catsL = mutableListOf<CategoryModel>()
-        var cats = listOf<CategoryModel>(
-                CategoryModel(
-                        "Electronics",
-                        1,listOf(SubcategoryModel("Computers", 1),
-                                SubcategoryModel("Camera & Photo", 1),
-                                SubcategoryModel("Cell Phones & Accessories", 1),
-                                SubcategoryModel("Digital Videos", 1),
-                                SubcategoryModel("Software", 1)) as MutableList<SubcategoryModel>
-                ), CategoryModel(
-                "Health & Households",1,
-                listOf(SubcategoryModel("Sports & Outdoor", 1),
-                        SubcategoryModel("Beauty & Personal Care", 1)) as MutableList<SubcategoryModel>
-        ), CategoryModel(
-                "Home & Garden",1,
-                listOf(SubcategoryModel("Luggage", 1),
-                        SubcategoryModel("Pet Supplies", 1),
-                        SubcategoryModel("Furniture", 1)) as MutableList<SubcategoryModel>
-        ), CategoryModel(
-                "Clothing",1,
-                listOf(SubcategoryModel("Men's Fashion", 1),
-                        SubcategoryModel("Women's Fashion", 1),
-                        SubcategoryModel("Boys' Fashion", 1),
-                        SubcategoryModel("Girls' Fashion", 1),
-                        SubcategoryModel("Baby", 1)) as MutableList<SubcategoryModel>
-        ), CategoryModel(
-                "Hobbies",1,
-                listOf(SubcategoryModel("Books", 1),
-                        SubcategoryModel("Music & CDs", 1),
-                        SubcategoryModel("Movies & TVs", 1),
-                        SubcategoryModel("Toys & Games", 1),
-                        SubcategoryModel("Video Games", 1),
-                        SubcategoryModel("Arts & Crafts", 1)) as MutableList<SubcategoryModel>
-        ), CategoryModel(
-                "Others",1,
-                listOf(SubcategoryModel("Automotive", 1),
-                        SubcategoryModel("Industrial & Scientific", 1)) as MutableList<SubcategoryModel>
-        )
-        )
-        adapter = CategoriesAdapter(cats, this)
+        adapter = CategoriesAdapter(categories, this)
         binding.catRec.adapter = adapter
         //viewModel.getProducts(3)
         //viewModel.getProduct(3)
