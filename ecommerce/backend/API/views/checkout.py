@@ -34,11 +34,14 @@ def checkout_details(request):
     total_price = 0
 
     for serializer in serializers.data:
-        amount = serializer.get("amount")
-        price = serializer.get("product")["price"]
-        discount = serializer.get("product")["discount"]
-        total_discount += amount*price*discount
-        products_price += amount*price
+        if serializer.get("product")["is_deleted"] == True:
+            continue
+        else:
+            amount = serializer.get("amount")
+            price = serializer.get("product")["price"]
+            discount = serializer.get("product")["discount"]
+            total_discount += amount*price*discount
+            products_price += amount*price
     
     total_price = '{:.2f}'.format(products_price + delivery_price - total_discount)
     products_price = '{:.2f}'.format(products_price)
@@ -61,6 +64,9 @@ def checkout_payment(request):
     jwt = authentication.JWTAuthentication()
     user = jwt.authenticate(request=request)
 
+    if user.is_verified == False:
+        return Response({'status': { 'successful': False, 'message': "Please verify your mail account."}})
+
     address_id = request.data["address_id"]
     address = Address.objects.filter(id=address_id)
     address_s = address_serializer.AddressResponseSerializer(address)
@@ -74,15 +80,18 @@ def checkout_payment(request):
     unit_price = 0 
 
     for serializer in serializers.data:
-        amount = serializer.get("amount")
-        product_id = serializer.get("product")["id"]
-        unit_price = serializer.get("product")["price"]
-        name = serializer.get("product")["amount"]
-        vendor = serializer.get("product")["vendor"]
-        status = order_status.OrderStatus.ACCEPTED
-        purchase = Purchase(user=user, product_id=product_id, amount=amount, unit_price=unit_price, name=name, status=status,\
-                             address_id=address_id, vendor=vendor, order=order)
-        purchase.save()
+        if serializer.get("product")["is_deleted"] == True:
+            continue
+        else:
+            amount = serializer.get("amount")
+            product_id = serializer.get("product")["id"]
+            unit_price = serializer.get("product")["price"]
+            name = serializer.get("product")["amount"]
+            vendor = serializer.get("product")["vendor"]
+            status = order_status.OrderStatus.ACCEPTED
+            purchase = Purchase(user=user, product_id=product_id, amount=amount, unit_price=unit_price, name=name, status=status,\
+                                address_id=address_id, vendor=vendor, order=order)
+            purchase.save()
 
     return Response({'status': { 'successful': True, 'message': "Payment process is successfully satisfied."}})
 
@@ -93,6 +102,9 @@ def checkout_cancel_order(request, id):
     jwt = authentication.JWTAuthentication()
     user = jwt.authenticate(request=request)
 
-    order = Order.objects.get(pk=int(id))
-    purchase.status = order_status.OrderStatus.CANCELLED
-    purchase.update()
+    purchases = Purchase.objects.get(pk=int(id))
+    for purchase in purchases:
+        purchase.status = order_status.OrderStatus.CANCELLED
+        purchase.update()
+
+    return Response({'status': { 'successful': True, 'message': "Order is successfully deleted."}})
