@@ -50,11 +50,11 @@ export const EmailVerification = props => {
             try {
                 const {
                     data: {
-                        data: { message },
+                        status: { message, successful },
                     },
                 } = await api.get(`/email-verify/${id}`)
-                setVerificationState(message.message)
-                if (message.message === 'Success') {
+                setVerificationState(message)
+                if (successful) {
                     setUser({ ...user, is_verified: true })
                 }
             } catch (error) {
