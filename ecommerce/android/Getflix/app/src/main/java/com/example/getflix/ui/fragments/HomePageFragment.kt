@@ -14,6 +14,9 @@ import com.example.getflix.R
 import com.example.getflix.categories
 import com.example.getflix.databinding.FragmentNewHomeBinding
 import com.example.getflix.ui.adapters.HomeCategoriesAdapter
+import com.example.getflix.ui.adapters.HomeRecommenderAdapter
+import com.example.getflix.ui.adapters.TodaysDealsAdapter
+import com.example.getflix.ui.adapters.TrendingProductAdapter
 import com.example.getflix.ui.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -38,12 +41,28 @@ class HomePageFragment : Fragment() {
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         binding.lifecycleOwner = this
 
-        val adapter = HomeCategoriesAdapter()
+        val adapterForHomeCategoriesAdapter = HomeCategoriesAdapter()
+        val adapterForTodaysDealsAdapter = TodaysDealsAdapter()
+        val adapterForHomeRecommenderAdapter = HomeRecommenderAdapter()
+        val adapterForTrendingProductAdapter = TrendingProductAdapter()
 
-        binding.categories.adapter = adapter
-        val layoutManager: RecyclerView.LayoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.categories.layoutManager = layoutManager
-        adapter.submitList(categories)
+        binding.categories.adapter = adapterForHomeCategoriesAdapter
+        val layoutManagerForCategoriesAdapter: RecyclerView.LayoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.categories.layoutManager = layoutManagerForCategoriesAdapter
+        adapterForHomeCategoriesAdapter.submitList(categories)
+
+        binding.todaysDeals.adapter = adapterForTodaysDealsAdapter
+        val layoutManagerForTodaysDeals: RecyclerView.LayoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.todaysDeals.layoutManager = layoutManagerForTodaysDeals
+
+        binding.trendingProducts.adapter = adapterForTrendingProductAdapter
+        val layoutManagerForTrendingProducts: RecyclerView.LayoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.trendingProducts.layoutManager = layoutManagerForTrendingProducts
+
+
+        binding.homeRecommendedProducts.adapter = adapterForHomeRecommenderAdapter
+        val layoutManagerForHomeRecommenderAdapter: RecyclerView.LayoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.homeRecommendedProducts.layoutManager = layoutManagerForHomeRecommenderAdapter
 
        // binding.homeViewModel = homeViewModel
      /*   homeViewModel.onCategoryClick.observe(viewLifecycleOwner, Observer {
