@@ -1,42 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import { api } from '../api'
-import { notification } from 'antd'
+import { Result, Button } from 'antd'
 import { sleep } from '../utils'
 import './EmailVerification.less'
-import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons'
+import { LoadingOutlined } from '@ant-design/icons'
+import { useAppContext } from '../context/AppContext'
 
-const VerificationMessage = verificationState => {
-    console.log(verificationState)
+const VerificationMessage = ({ verificationState }) => {
     if (verificationState == 'Success') {
         return (
             <div className="verify-message">
-                <p>Your account has been verified.</p>
-                <CheckCircleTwoTone />
+                <Result status="success" title="Your account has been verified" />
             </div>
         )
     } else if (verificationState == 'Invalid') {
         return (
             <div className="verify-message">
-                <p>Failed to verify account</p>
-                <CloseCircleTwoTone />
+                <Result status="warning" title="Failed to verify account" />
             </div>
         )
     } else if (verificationState == 'Expired') {
         return (
             <div className="verify-message">
-                <p>Your activitation link is expired.</p>
+                <Result status="warning" title="Your activitation link is expired" />
             </div>
         )
     } else if (verificationState == 'Verified') {
         return (
             <div className="verify-message">
-                <p>Your account is already been verified. </p>
+                <Result status="warning" title="Your account has already been verified" />
             </div>
         )
     } else {
         return (
             <div className="verify-message">
-                <p>Your account is being verified. Please wait...</p>
+                <Result icon={<LoadingOutlined />} title="Your account is being verified. Please wait..." />
             </div>
         )
     }
@@ -45,23 +43,28 @@ const VerificationMessage = verificationState => {
 export const EmailVerification = props => {
     const { id } = props.match.params
     const [verificationState, setVerificationState] = useState('waiting')
+    const { user, setUser } = useAppContext()
 
     useEffect(() => {
         async function fetch() {
             try {
-                console.log('token: ', id)
-                const { data } = await api.get(`/email-verify/${id}`)
-                console.log(data)
-                await sleep(2000)
-                setVerificationState(data.message)
+                const {
+                    data: {
+                        data: { message },
+                    },
+                } = await api.get(`/email-verify/${id}`)
+                setVerificationState(message.message)
+                if (message.message === 'Success') {
+                    setUser({ ...user, is_verified: true })
+                }
             } catch (error) {
-                console.error('failed to verify account', error)
-                setVerificationState('failure')
+                console.error(error)
+                setVerificationState('Invalid')
             } finally {
             }
         }
         fetch()
     }, [])
 
-    return <div className="verify-message-box">{VerificationMessage(verificationState)}</div>
+    return <div className="verify-message-box">{<VerificationMessage verificationState={verificationState} />}</div>
 }

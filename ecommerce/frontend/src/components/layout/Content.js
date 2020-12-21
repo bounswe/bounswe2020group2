@@ -13,11 +13,14 @@ import { ShoppingCartPage } from '../ShoppingCart/ShoppingCartPage'
 import { CategoryBar } from '../CategoryBar'
 import { CheckoutPage } from '../pages/CheckoutPage'
 import { EmailVerification } from '../EmailVerification'
+import { IsVerifiedNotification } from '../IsVerifiedNotification'
 
 export const Content = () => {
     return (
         <Layout.Content className="content">
             <CategoryBar />
+            <IsVerifiedNotification />
+
             <Switch>
                 <Route path="/login" component={LoginPage} />
                 <Route path="/verify/:id" component={EmailVerification} />

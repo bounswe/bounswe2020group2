@@ -10,9 +10,9 @@ from API.utils import permissions, Role
 from API.utils.jwttoken import generate_access_token, generate_mail_token
 from API.utils.validators import validate_register_request
 from API.utils.crypto import Crypto
+from ..utils import verify_email
 from API.models import User, Customer, Address, Vendor
 from API.serializers import account_serializer, address_serializer
-from ..utils import verify_email
 
 # Create your views here.
 
