@@ -5,9 +5,10 @@ from rest_framework import status
 import json
 
 from ..utils import permissions, Role
-from ..models import Product,Vendor,ImageUrls,Category,Subcategory,Purchase
+from ..models import Product,Vendor,ImageUrls,Category,Subcategory,Purchase, Order
 from ..serializers.address_serializer import AddressResponseSerializer
 from ..serializers.product_serializer import ProductResponseSerializer
+from ..serializers.purchase_serializer import PurchaseResponseSerializer
 from ..utils.order_status import OrderStatus
 
 
@@ -79,3 +80,18 @@ def vendor_orders(request):
         purchase_to_change.save()
 
         return Response({'status': {'successful': True, 'message':'Order status is successfully changed'}})
+
+@api_view(['GET','PUT'])
+@permission_classes([permissions.IsVendorUser]) 
+def customer_order(request):
+    response_purchases = []
+
+    my_orders = Order.objects.filter(user=request.user) 
+
+    for order in my_orders:
+        purchases = Purchase.objects.filter(order=order)
+        pch_serializer = PurchaseResponseSerializer(purchases, many=True)
+
+        response_purchases.append({'order_id':order.id, 'order_all_purchase':pch_serializer.data})
+
+    return Response({'status': {'successful': True, 'message':'Orders are uccessfully sent'},'orders':response_purchases})

@@ -1,7 +1,3 @@
-from ecommerce.backend.API.models.purchase import Order
-from API.models import product
-from API.models import purchase
-from API.models.purchase import Purchase
 from django.http.response import HttpResponseForbidden, HttpResponseNotAllowed
 from rest_framework import exceptions
     
@@ -11,7 +7,7 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 
 from ..utils import permissions, Role
-from ..models import User, ShoppingCartItem, Product, Address, Order
+from ..models import User, ShoppingCartItem, Product, Address, Order, Purchase
 from ..serializers import checkout_product_serializer, checkout_shopping_cart_serializer, address_serializer, shopping_cart_serializer
 from ..utils import authentication, order_status
 
@@ -89,7 +85,7 @@ def checkout_payment(request):
             name = serializer.get("product")["amount"]
             vendor = serializer.get("product")["vendor"]
             status = order_status.OrderStatus.ACCEPTED
-            purchase = Purchase(user=user, product_id=product_id, amount=amount, unit_price=unit_price, name=name, status=status,\
+            purchase = Purchase(user=user, product_id=product_id, amount=amount, unit_price=unit_price, status=status,\
                                 address_id=address_id, vendor=vendor, order=order)
             purchase.save()
 
