@@ -33,9 +33,13 @@ def user_verify(request):
 def email_verify(request, uidb64):
     jwt = authentication.JWTAuthentication()
     user, message = jwt.authenticate_mail(uidb64=uidb64)
+    successful = False
     if message == 'Success':
         user.is_verified = True
         user.save()
+        successful = True
+    else:
+        successful = False
 
-    return JsonResponse({'status': {'successful': True, 
+    return JsonResponse({'status': {'successful': successful, 
             'message': message}})
