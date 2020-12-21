@@ -16,7 +16,6 @@ import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.acti
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToBankAccountFragment
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToLoginFragment
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToOrderInfoFragment
-import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToUserInfoFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
@@ -38,33 +37,28 @@ class ProfileFragment : Fragment() {
 
         if (MainActivity.StaticData.isVisitor) {
             binding.name.text = getString(R.string.guest)
-            /*      binding.btnLogout.text = getString(R.string.login)
+            binding.buttonLogout.text = getString(R.string.login)
         } else {
-            binding.name.text = MainActivity.StaticData.user!!.firstName + " " + MainActivity.StaticData.user!!.lastName
+            binding.name.text =
+                MainActivity.StaticData.user!!.firstName + " " + MainActivity.StaticData.user!!.lastName
         }
 
-        binding.ordersButton.setOnClickListener {
+        binding.ordersLayout.setOnClickListener {
             if (MainActivity.StaticData.isVisitor) {
                 infoAlert(this, getString(R.string.order_guest_alert))
             } else {
                 view?.findNavController()?.navigate(actionProfileFragmentToOrderInfoFragment())
             }
         }
-        binding.userInfoButton.setOnClickListener {
-            if (MainActivity.StaticData.isVisitor) {
-                infoAlert(this, getString(R.string.user_guest_alert))
-            } else {
-                view?.findNavController()?.navigate(actionProfileFragmentToUserInfoFragment())
-            }
-        }
-        binding.addressinfoButton.setOnClickListener {
+
+        binding.addressLayout.setOnClickListener {
             if (MainActivity.StaticData.isVisitor) {
                 infoAlert(this, getString(R.string.address_guest_alert))
             } else {
                 view?.findNavController()?.navigate(actionProfileFragmentToAdddressFragment())
             }
         }
-        binding.bankAccountInfoButton.setOnClickListener {
+        binding.bankAccountsLayout.setOnClickListener {
             /* if(MainActivity.StaticData.isVisitor) {
                  infoAlert(this, getString(R.string.bank_guest_alert))
              } else { */
@@ -72,18 +66,18 @@ class ProfileFragment : Fragment() {
             //}
         }
 
-        binding.btnLogout.setOnClickListener {
+        binding.buttonLogout.setOnClickListener {
             if (!MainActivity.StaticData.isVisitor) {
                 askAlert(this, getString(R.string.logout_warning), ::navigateLogin)
             } else {
                 resetData()
                 view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
             }
-        }*/
-        }
-            return binding.root
         }
 
+        return binding.root
+
+    }
 
         private fun resetData() {
             MainActivity.StaticData.isVisitor = false
@@ -97,5 +91,4 @@ class ProfileFragment : Fragment() {
             view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
         }
 
-
-    }
+}
