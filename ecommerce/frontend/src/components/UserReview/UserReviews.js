@@ -18,15 +18,11 @@ export const UserReviews = ({ productId = 1 }) => {
                 setIsLoading(true)
                 const {
                     data: {
-                        data: {
-                            reviews,
-                            pagination: { page_size, page, total_items },
-                        },
+                        reviews,
+                        // pagination: { page_size, page, total_items },
                     },
-                } = await api.get(`/review?product=${productId}&page_size=${pageSize}&page=${currentPage - 1}`)
+                } = await api.get(`/review?product=${productId}`) // &page_size=${pageSize}&page=${currentPage - 1}
                 setReviews(reviews)
-                setTotalPage(total_items)
-                setPageSize(page_size)
             } catch (error) {
                 console.error('Failed to load user reviews', error)
             } finally {
