@@ -37,14 +37,15 @@ class HomePageFragment : Fragment() {
 
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         binding.lifecycleOwner = this
+
         val adapter = HomeCategoriesAdapter()
 
         binding.categories.adapter = adapter
         val layoutManager: RecyclerView.LayoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.categories.layoutManager = layoutManager
         adapter.submitList(categories)
+
        // binding.homeViewModel = homeViewModel
-        binding.lifecycleOwner = this
      /*   homeViewModel.onCategoryClick.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 view?.findNavController()?.navigate(actionHomePageFragmentToCategoryFragment(it!!))
