@@ -15,8 +15,12 @@ export const IsVerifiedNotification = () => {
     const onVerify = async () => {
         try {
             setIsLoading(true)
-            const { data } = await api.post('/user/verify', {})
-            if (data.successful) {
+            const {
+                data: {
+                    status: { message, successful },
+                },
+            } = await api.post('/user/verify', {})
+            if (successful) {
                 notification.successful({
                     description: 'Successfully verified account',
                     placement: 'topRight',
