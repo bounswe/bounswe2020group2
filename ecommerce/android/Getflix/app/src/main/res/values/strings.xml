@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">getflix</string>
+    <string name="app_name2">Getflix</string>
     <string name="hello_blank_fragment">Boş</string>
     <string name="login">Oturum Aç</string>
     <string name="home">Anasayfa</string>
@@ -8,7 +9,7 @@
     <string name="cart">Sepet</string>
     <string name="user_name">Kullanıcı Adı</string>
     <string name="password">Şifre</string>
-    <string name="or_login">Ya da Google hesabınzla giriş yapın</string>
+    <string name="or_login">Ya da Google hesabınızla giriş yapın</string>
     <string name="not_member">Hala uye degil misiniz?</string>
     <string name="register">Kayit Ol</string>
     <string name="visitor">Ziyaretci olarak devam et</string>
@@ -46,9 +47,12 @@
     <string name="sign_up">Hesabın yok mu? Kaydol</string>
     <string name="guest">Misafir</string>
     <string name="guest_cont">Misafir olarak devam et</string>
-    <string name="userInfo">Kullanici Bilgilerim</string>
-    <string name="bankAccounts">Kayitli Kartlarim</string>
-    <string name="orders">Siparislerim</string>
+    <string name="acceptCart">Sepeti Onayla</string>
+    <string name="buy">Odeme Yap</string>
+    <string name="payment">Odeme</string>
+    <string name="userInfo">Kullanıcı Bilgilerim</string>
+    <string name="bankAccounts">Kayıtlı Kartlarım</string>
+    <string name="orders">Siparişlerim</string>
     <string name="addressInfo">Adres Bilgilerim</string>
     <string-array name="SortBy">
         <item>---</item>
@@ -65,6 +69,19 @@
     <string name="price_range">Fiyat Aralığı:</string>
     <string name="filter">Filtrele</string>
     <string name="filter_options">Filtre Seçenekleri</string>
-
+    <string name="login_info">Kullanıcı adı ya da şifre yanlış.</string>
+    <string name="logout_warning">Oturumu kapatmak istediğine emin misin?</string>
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
+    <string name="warning">Uyarı</string>
+    <string name="order_guest_alert">Sipariş bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
+    <string name="user_guest_alert">Kullanıcı bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
+    <string name="bank_guest_alert">Banka hesabı bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
+    <string name="address_guest_alert">Adres bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
+    <string name="messages">Mesajlar</string>
+    <string name="pass_char_limit">Şifreniz en az 8 karakter olmalıdır.</string>
+    <string name="username_char_limit">Kullanıcı adınız en az 6 karakter olmalıdır.</string>
+    <string name="valid_name">Lütfen geçerli bir ad soyad bilgisi giriniz.</string>
+    <string name="register_success">Kaydınız tamamlandı! Oturum açma sayfasına yönlendiriliyorsunuz.</string>
 
 </resources>

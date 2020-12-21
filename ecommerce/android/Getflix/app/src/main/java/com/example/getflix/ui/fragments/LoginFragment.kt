@@ -1,27 +1,25 @@
 package com.example.getflix.ui.fragments
 
-import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentLoginBinding
+import com.example.getflix.infoAlert
 import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToHomePageFragment
 import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToRegisterFragment
+import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToVendorHomeFragment
 import com.example.getflix.ui.viewmodels.LoginViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
-import org.intellij.lang.annotations.Language
 import java.util.*
 
 
@@ -43,7 +41,7 @@ class LoginFragment : Fragment() {
                 container, false
         )
 
-        if(resources.configuration.locale.language=="tr") {
+        if (resources.configuration.locale.language == "tr") {
             binding.lang.text = "EN"
         } else {
             binding.lang.text = "TR"
@@ -61,11 +59,10 @@ class LoginFragment : Fragment() {
         binding.lifecycleOwner = this
 
         binding.lang.setOnClickListener {
-            if(binding.lang.text.toString()=="TR") {
+            if (binding.lang.text.toString() == "TR") {
                 setLocale("tr")
                 binding.lang.text = "EN"
-            }
-            else {
+            } else {
                 setLocale("en")
                 binding.lang.text = "TR"
             }
@@ -73,7 +70,6 @@ class LoginFragment : Fragment() {
 
 
         binding.login.setOnClickListener {
-
             if (binding.username.text.toString().isEmpty()) {
                 binding.username.error = getString(R.string.reg_error)
                 loginViewModel.setOnLogin(false)
@@ -83,16 +79,21 @@ class LoginFragment : Fragment() {
                 loginViewModel.setOnLogin(false)
             }
             if (binding.password.text.toString().isNotEmpty() && binding.username.text.toString().isNotEmpty()) {
-                loginViewModel.setUser(binding.username.text.toString(), binding.password.text.toString())
+                loginViewModel.setUser(this, binding.username.text.toString(), binding.password.text.toString())
             }
         }
 
         loginViewModel.user.observe(viewLifecycleOwner, Observer {
-            if (it!=null) {
+            if (it != null) {
                 MainActivity.StaticData.user = it
-                view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
-            } else {
-
+                println(it.toString())
+                if(it.id==20) {
+                    (activity as MainActivity).decideBottomNav(true)
+                    view?.findNavController()?.navigate(actionLoginFragmentToVendorHomeFragment())
+                } else {
+                    (activity as MainActivity).decideBottomNav(false)
+                    view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
+                }
             }
         })
 
@@ -117,6 +118,7 @@ class LoginFragment : Fragment() {
 
         binding.guestButton.setOnClickListener {
             MainActivity.StaticData.isVisitor = true
+            (activity as MainActivity).decideBottomNav(false)
             view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
         }
 

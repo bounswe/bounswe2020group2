@@ -1,11 +1,11 @@
-package com.example.getflix.models
+package com.example.getflix.service.requests
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class SignUpCredentials(
+data class SignUpRequest(
         val username: String,
         val email: String,
         val password: String,

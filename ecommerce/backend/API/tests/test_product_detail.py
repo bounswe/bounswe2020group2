@@ -3,8 +3,8 @@ from rest_framework import status
 from django.test import TestCase, Client
 from django.urls import reverse
 from ..models import Product, Category, Subcategory, User, Vendor, Brand
-from ..serializers.product_serializer import ProductSerializer
-from ..views.product import product_detail
+from ..serializers.product_serializer import ProductResponseSerializer
+from ..views.product import get_product_detail
 
 client = Client()
 product_id_for_test = 1
@@ -21,8 +21,8 @@ class ProductDetail(TestCase):
             rating_count = 5, stock_amount = 10, short_description = "yaza özel",long_description = "gerçekten yaza özel yav", subcategory = s, brand = b, vendor = v)
 
     def test_product_detail(self):
-        response = client.get(reverse(product_detail, args = [product_id_for_test]))
+        response = client.get(reverse(get_product_detail, args = [product_id_for_test]))
         product = Product.objects.filter(id = product_id_for_test)
-        serializer = ProductSerializer(product, many=True)
-        self.assertEqual(response.data, serializer.data)
+        serializer = ProductResponseSerializer(product, many=True)
+        self.assertEqual(response.data, serializer.data[0])
         self.assertEqual(response.status_code, status.HTTP_200_OK)

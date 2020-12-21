@@ -23,12 +23,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 
-    private lateinit var viewModel: CategoriesViewModel
-    private lateinit var adapter: CategoriesAdapter
-
 class CategoriesFragment : Fragment() {
 
     lateinit var categoryViewModel: CategoryViewModel
+    private lateinit var viewModel: CategoriesViewModel
+    private lateinit var adapter: CategoriesAdapter
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -36,52 +35,52 @@ class CategoriesFragment : Fragment() {
     ): View? {
 
         val binding = DataBindingUtil.inflate<FragmentCategoriesBinding>(
-            inflater, R.layout.fragment_categories,
-            container, false
+                inflater, R.layout.fragment_categories,
+                container, false
         )
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.categories)
         viewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
         binding.viewmodel = CategoriesViewModel()
-        binding.lifecycleOwner=this
+        binding.lifecycleOwner = this
 
         var catsL = mutableListOf<CategoryModel>()
         var cats = listOf<CategoryModel>(
                 CategoryModel(
-                "Electronics",
-                listOf(SubcategoryModel( "Computers",null),
-                        SubcategoryModel("Camera & Photo",null),
-                        SubcategoryModel("Cell Phones & Accessories",null),
-                        SubcategoryModel("Digital Videos",null),
-                        SubcategoryModel("Software",null)) as MutableList<SubcategoryModel>
+                        "Electronics",
+                        1,listOf(SubcategoryModel("Computers", 1),
+                                SubcategoryModel("Camera & Photo", 1),
+                                SubcategoryModel("Cell Phones & Accessories", 1),
+                                SubcategoryModel("Digital Videos", 1),
+                                SubcategoryModel("Software", 1)) as MutableList<SubcategoryModel>
+                ), CategoryModel(
+                "Health & Households",1,
+                listOf(SubcategoryModel("Sports & Outdoor", 1),
+                        SubcategoryModel("Beauty & Personal Care", 1)) as MutableList<SubcategoryModel>
         ), CategoryModel(
-                "Health & Households",
-                listOf(SubcategoryModel("Sports & Outdoor", null),
-                        SubcategoryModel("Beauty & Personal Care", null)) as MutableList<SubcategoryModel>
+                "Home & Garden",1,
+                listOf(SubcategoryModel("Luggage", 1),
+                        SubcategoryModel("Pet Supplies", 1),
+                        SubcategoryModel("Furniture", 1)) as MutableList<SubcategoryModel>
         ), CategoryModel(
-                "Home & Garden",
-                listOf(SubcategoryModel("Luggage", null),
-                        SubcategoryModel("Pet Supplies", null),
-                        SubcategoryModel("Furniture", null)) as MutableList<SubcategoryModel>
+                "Clothing",1,
+                listOf(SubcategoryModel("Men's Fashion", 1),
+                        SubcategoryModel("Women's Fashion", 1),
+                        SubcategoryModel("Boys' Fashion", 1),
+                        SubcategoryModel("Girls' Fashion", 1),
+                        SubcategoryModel("Baby", 1)) as MutableList<SubcategoryModel>
         ), CategoryModel(
-                "Clothing",
-                listOf(SubcategoryModel( "Men's Fashion",null),
-                        SubcategoryModel("Women's Fashion",null),
-                        SubcategoryModel("Boys' Fashion",null),
-                        SubcategoryModel("Girls' Fashion",null),
-                        SubcategoryModel("Baby",null)) as MutableList<SubcategoryModel>
+                "Hobbies",1,
+                listOf(SubcategoryModel("Books", 1),
+                        SubcategoryModel("Music & CDs", 1),
+                        SubcategoryModel("Movies & TVs", 1),
+                        SubcategoryModel("Toys & Games", 1),
+                        SubcategoryModel("Video Games", 1),
+                        SubcategoryModel("Arts & Crafts", 1)) as MutableList<SubcategoryModel>
         ), CategoryModel(
-                "Hobbies",
-                listOf(SubcategoryModel( "Books",null),
-                        SubcategoryModel("Music & CDs",null),
-                        SubcategoryModel("Movies & TVs",null),
-                        SubcategoryModel("Toys & Games",null),
-                        SubcategoryModel("Video Games",null),
-                        SubcategoryModel("Arts & Crafts",null)) as MutableList<SubcategoryModel>
-        ),  CategoryModel(
-                "Others",
-                listOf(SubcategoryModel("Automotive", null),
-                        SubcategoryModel("Industrial & Scientific", null)) as MutableList<SubcategoryModel>
+                "Others",1,
+                listOf(SubcategoryModel("Automotive", 1),
+                        SubcategoryModel("Industrial & Scientific", 1)) as MutableList<SubcategoryModel>
         )
         )
         adapter = CategoriesAdapter(cats, this)
@@ -107,11 +106,6 @@ class CategoriesFragment : Fragment() {
         //val cat = viewModel.categories
 
 
-
-
-
-
-
         /*for(category in cats) {
             viewModel.addCategory(category)
         } */
@@ -125,7 +119,7 @@ class CategoriesFragment : Fragment() {
 
 
 
-        categoryViewModel =  ViewModelProvider(this).get(CategoryViewModel::class.java)
+        categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
 
 
         val adapter = SubcategoryHorizontalAdapter(requireContext())
@@ -138,7 +132,6 @@ class CategoriesFragment : Fragment() {
 
         return binding.root
     }
-
 
 
 }
