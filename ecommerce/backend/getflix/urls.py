@@ -37,5 +37,6 @@ urlpatterns = [
     path('review', views.review.manage_review, name="review"),
     path('image/<int:image_id>', views.product.get_image),
     path('vendor/product', views.product.vendor_product, name="vendor_product"),
-    path('vendor/signup', views.account.vendor_register, name="vendor_signup")
+    path('vendor/signup', views.account.vendor_register, name="vendor_signup"),
+    path('vendor/order', views.order.vendor_orders,name="vendor_orders")
 ]
