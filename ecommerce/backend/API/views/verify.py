@@ -17,7 +17,7 @@ from ..utils import authentication, verify_email
 from django.http import JsonResponse
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 @permission_classes([permissions.AllowAnonymous])
 def user_verify(request):
     jwt = authentication.JWTAuthentication()
@@ -26,10 +26,8 @@ def user_verify(request):
     current_site = get_current_site(request)
     verify_message = verify_email.email_send_verify(to_email=to_email, current_site=current_site, user=user)
 
-    context = { 
-        'message': verify_message
-        }
-    return Response(context)
+    return Response({'status': {'successful': True, 
+            'message': verify_message}})
 
 @renderer_classes((TemplateHTMLRenderer, JSONRenderer))
 def email_verify(request, uidb64):
@@ -39,7 +37,5 @@ def email_verify(request, uidb64):
         user.is_verified = True
         user.save()
 
-    context = { 
-                'message' : message
-            }
-    return JsonResponse(context)
+    return JsonResponse({'status': {'successful': True, 
+            'message': message}})

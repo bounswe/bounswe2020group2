@@ -63,6 +63,8 @@ EMAIL_USE_SSL = False
 EMAIL_USE_TLS = True  
 DEFAULT_FROM_EMAIL = get_secret('DEFAULT_FROM_EMAIL')
 
+FRONTEND_URL = "ec2-18-222-139-223.us-east-2.compute.amazonaws.com"
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
