@@ -38,5 +38,9 @@
         <item name="android:textColor">@color/initPurple</item>
     </style>
 
+    <style name="AppTheme.Gold">
+        <item name="colorAccent">@color/initGold</item>
+    </style>
+
 
 </resources>

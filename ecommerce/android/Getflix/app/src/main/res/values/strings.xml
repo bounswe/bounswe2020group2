@@ -85,5 +85,7 @@
     <string name="register_success">Kaydınız tamamlandı! Oturum açma sayfasına yönlendiriliyorsunuz.</string>
     <string name="remember_me">Beni Hatırla</string>
     <string name="register_back">Anasayfaya Dön</string>
+    <string name="loading">Lütfen Bekleyiniz...</string>
+    <string name="confirm_pass_warning">Şifre onaylamanız hatalıdır.</string>
 
 </resources>

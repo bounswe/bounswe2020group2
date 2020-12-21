@@ -86,4 +86,6 @@
     <string name="register_success">You have registered successfully! You are redirected to the login page.</string>
     <string name="remember_me">Remember Me</string>
     <string name="register_back">Back To Login</string>
+    <string name="loading">Please Wait...</string>
+    <string name="confirm_pass_warning">Confirmation of the password is incorrect.</string>
 </resources>

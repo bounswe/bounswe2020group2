@@ -38,6 +38,7 @@ class CategoriesFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity?.loading_progress!!.visibility = View.VISIBLE
         viewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
         viewModel.getCategories()
 
@@ -69,6 +70,7 @@ class CategoriesFragment : Fragment() {
                }
                adapter = CategoriesAdapter(cats1, this)
                binding.catRec.adapter = adapter
+               activity?.loading_progress!!.visibility = View.GONE
            }
        })
 
