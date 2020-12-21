@@ -22,8 +22,10 @@ function useApp() {
 
     const getShoppingCart = async () => {
         try {
-            const { data } = await api.get(`/user/${user.id}/listShoppingCart`)
-            const tmp = data.filter(item => {
+            const {
+                data: { sc_items },
+            } = await api.get(`/customer/${user.id}/shoppingcart`)
+            const tmp = sc_items.filter(item => {
                 return item.amount > 0
             })
             setShoppingCart(tmp)
@@ -36,20 +38,22 @@ function useApp() {
 
     const addShoppingCartItem = async (product, amount) => {
         try {
-            console.log('Add item: ', product, amount)
-            const { data } = await api.post(`/user/${user.id}/shoppingCart`, {
-                productId: product.id,
+            const {
+                data: {
+                    status: { successful, message },
+                },
+            } = await api.post(`/customer/${user.id}/shoppingcart`, {
+                product_id: product.id,
                 amount: amount,
             })
-            console.log(data)
-            if (data.succesful) {
-                notification.success({ description: 'Succesfully updated shopping cart' })
+            if (successful) {
+                notification.success({ description: 'Succesfully added item to shopping cart' })
             } else {
-                notification.error({ description: 'Failed to update shopping cart item' })
+                notification.error({ description: 'Failed to add item to shopping cart item' })
             }
             setShoppingCartRefreshId(i => i + 1)
         } catch (error) {
-            notification.error({ description: 'Failed to update shopping cart item' })
+            notification.error({ description: 'Failed to add item to shopping cart item' })
             console.error(error)
         } finally {
         }
@@ -85,7 +89,7 @@ function useApp() {
             })
 
             const { token, id, email, firstname, lastname } = data
-
+            console.log(token, id, email, firstname, lastname)
             // TODO: get type from backend
             setUser({ id, type: 'customer', email, name: firstname, lastname })
 
@@ -109,10 +113,10 @@ function useApp() {
     const regularLogin = async (userType, username, password) => {
         try {
             const { data } = await api.post('/regularlogin', { username, password })
-            const { success, message } = data.status
+            const { successful, message } = data.status
             const { token, id, email, firstname, lastname } = data.user
-
-            if (success) {
+            console.log(token, id, email, firstname, lastname)
+            if (successful) {
                 localStorage.setItem('token', token)
 
                 setUser({ id, email, name: firstname, lastname })

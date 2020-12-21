@@ -6,6 +6,7 @@ import { useAppContext } from '../../context/AppContext'
 import { useState } from 'react'
 
 export const ShoppingCartItem = ({ cartItem: { amount, product } }) => {
+
     const [tmpAmount, setTmpAmount] = useState(amount)
     const { addShoppingCartItem } = useAppContext()
 
@@ -27,16 +28,15 @@ export const ShoppingCartItem = ({ cartItem: { amount, product } }) => {
             </div>
             <div className="cart-item-content">
                 <div className="cart-item-picture">
-                    <img
-                        alt={product.title}
-                        width={'100%'}
-                        src={product.image_url ?? 'https://picsum.photos/300'}></img>
+                    <img alt={product.name} width={'100%'} src={product.images[0] ?? 'https://picsum.photos/300'}></img>
                 </div>
                 <div className="cart-item-description">
-                    {product.description}
+                    {product.short_description}
                     <p className="cart-item-vendor">
                         by{' '}
-                        <Link to={`/vendors/${product.vendor ?? 'some_vendor_id'}`}>{product.vendor ?? 'vendor'}</Link>
+                        <Link to={`/vendors/${product.vendor?.name ?? 'some_vendor_id'}`}>
+                            {product.vendor?.name ?? 'getflix'}
+                        </Link>
                     </p>
                 </div>
                 <div className="cart-item-controls">
@@ -53,7 +53,7 @@ export const ShoppingCartItem = ({ cartItem: { amount, product } }) => {
                         </div>
                     </div>
                     <div className="cart-item-price">
-                        {product.price}&nbsp;{product.currency ?? 'TL'}
+                        {product.price_after_discount}&nbsp;{product.currency ?? 'TL'}
                     </div>
                     <div className="cart-item-delete">
                         <Popconfirm

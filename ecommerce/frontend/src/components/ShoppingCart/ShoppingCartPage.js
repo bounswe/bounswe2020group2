@@ -9,9 +9,8 @@ import { ShoppingCartItems } from './ShoppingCartItems'
 export const ShoppingCartPage = ({ currency = 'TL' }) => {
     const [isLoading, setIsLoading] = useState(true)
     const { shoppingCart, shoppingCartRefreshId, getShoppingCart, checkoutShoppingCart, user } = useAppContext()
-
-    const totalPrice = shoppingCart.reduce((total, item) => total + item.product.price * item.amount, 0)
-    const itemCount = shoppingCart.reduce((count, item) => count + item.amount, 0)
+    const totalPrice = 0 //shoppingCart.reduce((total, item) => total + item.product.price * item.amount, 0)
+    const itemCount = 0 //shoppingCart.reduce((count, item) => count + item.amount, 0)
 
     useEffect(() => {
         async function fetch() {
