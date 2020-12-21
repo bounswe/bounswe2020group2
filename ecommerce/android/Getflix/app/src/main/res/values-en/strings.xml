@@ -88,4 +88,5 @@
     <string name="register_back">Back To Login</string>
     <string name="loading">Please Wait...</string>
     <string name="confirm_pass_warning">Confirmation of the password is incorrect.</string>
+    <string name="orders_vendor">Orders</string>
 </resources>

@@ -10,11 +10,16 @@
         android:icon="@drawable/menu_messages"
         android:title="@string/messages" />
 
+
+    <item
+        android:id="@+id/vendorOrdersFragment"
+        android:icon="@drawable/menu_orders"
+        android:title="@string/orders_vendor" />
+
     <item
         android:id="@+id/vendorProfileFragment"
         android:icon="@drawable/menu_profile"
         android:title="@string/profile" />
-
 
 
 
