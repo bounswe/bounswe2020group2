@@ -39,6 +39,13 @@ class AddressAdapter(
         return RowHolder.from(parent)
     }
 
+
+    override fun getItemCount(): Int {
+        super.getItemCount()
+        return addressList!!.size
+    }
+
+
     override fun onBindViewHolder(holder: RowHolder, position: Int) {
         addressList?.get(position)?.let { holder.bind(it, position) }
     }
