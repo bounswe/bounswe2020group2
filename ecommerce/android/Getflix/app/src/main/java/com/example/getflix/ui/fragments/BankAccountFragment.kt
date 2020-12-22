@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
+import com.example.getflix.ui.fragments.BankAccountFragmentDirections.Companion.actionBankAccountFragmentToProfileFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -31,8 +33,24 @@ class BankAccountFragment : Fragment() {
     ): View? {
         activity?.toolbar!!.toolbar_title.text = getString(R.string.bankAccounts)
 
+
+        activity?.onBackPressedDispatcher!!.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (isEnabled) {
+                        isEnabled = false
+                        view?.findNavController()!!
+                            .navigate(actionBankAccountFragmentToProfileFragment())
+                    }
+                }
+            }
+        )
+
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bank_account,
                 container, false)
+
 
         binding.fab.setOnClickListener {
             view?.findNavController()?.navigate(actionBankAccountFragmentToPaymentFragment())

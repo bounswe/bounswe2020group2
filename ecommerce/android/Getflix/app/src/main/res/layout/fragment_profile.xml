@@ -12,202 +12,198 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
-        android:background="@color/initPurple"
         android:orientation="vertical"
         tools:context="com.example.getflix.ui.fragments.ProfileFragment">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="195dp">
+            android:layout_height="200dp"
+            android:background="#AEFFFFFF"
+            android:padding="20dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:background="@drawable/gradientbackground"
-                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="70dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="45dp"
-                    android:src="@drawable/ic_baseline_face_24" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="28dp"
+                android:background="#FFFFFF"
+                android:src="@drawable/ic_user"
+                app:civ_circle_background_color="#FFFFFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:text="Helin Cakmak"
-                    android:textColor="@color/initPurple"
-                    android:textSize="21sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/profile_image"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/open_sans_semibold"
+                android:text="Helin Cakmak"
+                android:textColor="@color/initPurple"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
-            android:layout_width="360dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="45dp"
-            android:orientation="vertical"
-            android:weightSum="4">
+            android:background="#FFFFFF"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:paddingStart="10dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_baseline_person_24" />
-
-                <TextView
-                    android:id="@+id/userinfo"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/full_name"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:text="@string/userInfo"
-                    android:textColor="@color/initGold"
-                    android:textStyle="bold" />
+                    android:drawableLeft="@drawable/ic_username"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:paddingLeft="10dp">
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"></Space>
+                </com.google.android.material.textview.MaterialTextView>
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
-                    android:id="@+id/userInfoButton"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/button_image"></Button>
-            </LinearLayout>
 
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/mail_layout"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal"
-                android:paddingLeft="10dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_baseline_attach_money_24" />
-
-                <TextView
-                    android:id="@+id/bankAccounts"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/mail"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:text="@string/bankAccounts"
-                    android:textColor="@color/initGold"
-                    android:textStyle="bold" />
+                    android:layout_gravity="center"
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"></Space>
+                    android:drawableLeft="@drawable/ic_email"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="10dp">
 
-                <Button
-                    android:id="@+id/bankAccountInfoButton"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/button_image"></Button>
-            </LinearLayout>
+                </com.google.android.material.textview.MaterialTextView>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal"
-                android:paddingLeft="10dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:passwordToggleEnabled="true">
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_baseline_shopping_bag_24" />
-
-                <TextView
-                    android:id="@+id/orders"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/editable_password"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:text="@string/orders"
-                    android:textColor="@color/initGold"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="16dp"
+                    android:background="#FFFFFF"
+                    android:drawableStart="@drawable/ic_lock"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:inputType="textPassword"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/hidden_password"
+                    android:textColor="@color/initPurple">
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"></Space>
+                </EditText>
 
-                <Button
-                    android:id="@+id/ordersButton"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/button_image"></Button>
-            </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/address_layout"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal"
-                android:paddingLeft="10dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_baseline_location_on_24" />
-
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/address"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingLeft="20dp"
+                    android:drawableLeft="@drawable/ic_baseline_location_on_24"
+                    android:drawableRight="@drawable/ic_arrow_forward"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:text="@string/addressInfo"
-                    android:textColor="@color/initGold"
-                    android:textStyle="bold" />
+                    android:textColor="@color/initPurple">
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"></Space>
+                </com.google.android.material.textview.MaterialTextView>
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
-                    android:id="@+id/addressinfoButton"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/button_image"></Button>
-            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/bank_accounts_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/bank_accounts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_credit_card"
+                    android:drawableRight="@drawable/ic_arrow_forward"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/bankAccounts"
+                    android:textColor="@color/initPurple">
+
+                </com.google.android.material.textview.MaterialTextView>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/orders_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/orders"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_order"
+                    android:drawableEnd="@drawable/ic_arrow_forward"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/orders"
+                    android:textColor="@color/initPurple"
+                    android:textColorLink="#FFFFFF">
+
+                </com.google.android.material.textview.MaterialTextView>
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_logout"
+            android:id="@+id/button_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:background="@color/colorPrimary"
-            android:text="@string/logout"
-            android:textColor="@color/initPurple" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginRight="10dp"
+            android:paddingRight="14dp"
+            android:text="@string/log_out"
+            android:textColor="#FFFFFF"
+            app:backgroundTint="@color/initPurple" />
+
     </LinearLayout>
 </layout>
