@@ -68,4 +68,18 @@ export const handlers = [
             }),
         )
     }),
+    rest.get(url('/init'), (req, res, ctx) => {
+        return res(
+            ctx.json({
+                id: 9,
+                email: 'mehdi.saffar@boun.edu.tr',
+                token:
+                    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6OSwiZXhwIjoxNjE3MzA3MzE1LCJpYXQiOjE2MDg2NjczMTV9.urCgrUAPSk40dh9-LygnBiLpH73MqXxjbO33d3KHmO8',
+                firstname: 'Mehdi',
+                lastname: 'Saffar',
+                is_verified: false,
+                role: 'CUSTOMER',
+            }),
+        )
+    }),
 ]
