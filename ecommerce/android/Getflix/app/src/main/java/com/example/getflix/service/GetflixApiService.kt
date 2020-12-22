@@ -1,10 +1,10 @@
 package com.example.getflix.service
 
 import com.example.getflix.models.*
-import com.example.getflix.service.requests.CardProRequest
+import com.example.getflix.service.requests.CardProAddRequest
 import com.example.getflix.service.requests.LoginRequest
 import com.example.getflix.service.requests.SignUpRequest
-import com.example.getflix.service.responses.CardProResponse
+import com.example.getflix.service.responses.CardProAddResponse
 import com.example.getflix.service.responses.LoginResponse
 import com.example.getflix.service.responses.SignUpResponse
 import okhttp3.Interceptor
@@ -64,11 +64,11 @@ interface GetflixApiService {
 
 
     @GET("customer/{customerId}/shoppingcart")
-    suspend fun getCustomerCartProducts(@Header("Authorization") token: String,@Path("customerId") customerId: Int): Response<CartProductListModel>
+    suspend fun getCustomerCartProducts(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Response<CartProductListModel>
 
     @Headers("Content-Type: application/json")
     @POST("user/{userId}/shoppingCart")
-    fun addCartProduct(@Path("userId") userId: Int,@Body userData: CardProRequest): Call<CardProResponse>
+    fun addCustomerCartProduct(@Header("Authorization") token: String, @Path("userId") userId: Int,@Body userData: CardProAddRequest): Call<CardProAddResponse>
 
 
 }
