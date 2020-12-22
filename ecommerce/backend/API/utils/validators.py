@@ -35,3 +35,28 @@ def validate_review_request(request):
     else:
         return (True, "Success")
 
+
+def validate_product_add_request(data):
+    name = data["name"]
+    price = data["price"]
+    stock_amount = data["stock_amount"]
+    short_description = data["short_description"]
+    long_description = data["long_description"]
+    discount = data["discount"]
+    brand_id = data["brand_id"]
+    subcategory_id = data["subcategory_id"]
+    
+    if name is None or name.__len__() < 3:
+        return (False, "Invalid product name")
+    elif price <= 0:
+        return (False, "Price cannot be zero or negative")
+    elif stock_amount <=0:
+        return (False, "Stock amount cannot be zero or negative")
+    elif short_description.__len__() < 16:
+        return (False, "Short description must be at least 16 characters long.")
+    elif long_description.__len__() < 64:
+        return (False, "Long description must be at least 64 characters long.")
+    elif discount is not None and (discount > 1 or discount < 0):
+        return (False, "Discount must be between 0 and 1.")
+    else:
+        return(True, "")
