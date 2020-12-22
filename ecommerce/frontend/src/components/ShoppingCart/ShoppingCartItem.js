@@ -15,7 +15,7 @@ export const ShoppingCartItem = ({ cartItem: { id, amount, product } }) => {
 
     const onAmountChange = value => setItemAmount(value)
 
-    const onPressEnterAmount = () => updateShoppingCartItem(id, itemAmount)
+    const onPressEnterAmount = () => updateShoppingCartItem(id, product.id, itemAmount)
 
     return (
         <div className="single-cart-item">
@@ -45,7 +45,7 @@ export const ShoppingCartItem = ({ cartItem: { id, amount, product } }) => {
                                 min={1}
                                 onChange={onAmountChange}
                                 className="amount-counter"
-                                value={itemAmount}
+                                defaultValue={itemAmount}
                                 onPressEnter={onPressEnterAmount}
                             />
                         </div>

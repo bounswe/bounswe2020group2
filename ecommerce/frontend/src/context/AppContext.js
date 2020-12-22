@@ -79,12 +79,16 @@ function useApp() {
     }
 
     const updateShoppingCartItem = async (sc_item_id, product_id, amount) => {
+        console.log('!', {
+            product_id: product_id,
+            amount: amount,
+        })
         try {
             const {
                 data: {
                     status: { successful, message },
                 },
-            } = await api.post(`/customer/${user.id}/shoppingcart/${sc_item_id}`, {
+            } = await api.put(`/customer/${user.id}/shoppingcart/${sc_item_id}`, {
                 product_id: product_id,
                 amount: amount,
             })
