@@ -18,7 +18,7 @@ import com.example.getflix.databinding.FragmentAddressBinding
 import com.example.getflix.databinding.FragmentProfileBinding
 import com.example.getflix.models.AddressModel
 import com.example.getflix.ui.adapters.AddressAdapter
-import com.example.getflix.ui.fragments.AddressFragmentDirections.Companion.actionAdddressFragmentToAddAddressFragment
+import com.example.getflix.ui.fragments.AddressFragmentDirections.Companion.actionAddressFragmentToAddAddressFragment
 import com.example.getflix.ui.viewmodels.AddressViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -39,7 +39,7 @@ class AddressFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_address,
             container, false)
         binding.fab.setOnClickListener {
-            view?.findNavController()?.navigate(actionAdddressFragmentToAddAddressFragment())
+            view?.findNavController()?.navigate(actionAddressFragmentToAddAddressFragment())
         }
 
         viewModel = ViewModelProvider(this).get(AddressViewModel::class.java)

@@ -44,8 +44,8 @@
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
         <action
-            android:id="@+id/action_profileFragment_to_adddressFragment"
-            app:destination="@id/adddressFragment"
+            android:id="@+id/action_profileFragment_to_addressFragment"
+            app:destination="@id/addressFragment"
             app:enterAnim="@anim/enter_left_to_right"
             app:exitAnim="@anim/exit_left_to_right"
             app:popEnterAnim="@anim/enter_right_to_left"
@@ -145,7 +145,7 @@
         android:id="@+id/action_addressFragment_to_profileFragment"
         app:destination="@id/profileFragment" />
         <action
-            android:id="@+id/action_adddressFragment_to_addAddressFragment"
+            android:id="@+id/action_addressFragment_to_addAddressFragment"
             app:destination="@id/addAddressFragment" />
     </fragment>
     <fragment

@@ -12,7 +12,7 @@ import com.example.getflix.activities.MainActivity
 import com.example.getflix.askAlert
 import com.example.getflix.databinding.FragmentProfileBinding
 import com.example.getflix.infoAlert
-import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToAdddressFragment
+import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToAddressFragment
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToBankAccountFragment
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToLoginFragment
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToOrderInfoFragment
@@ -29,8 +29,10 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile,
-                container, false)
+        binding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_profile,
+            container, false
+        )
 
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.profile)
@@ -38,9 +40,9 @@ class ProfileFragment : Fragment() {
         if (MainActivity.StaticData.isVisitor) {
             binding.name.text = getString(R.string.guest)
 
-            binding.btnLogout.text = getString(R.string.login)
-        } else if(MainActivity.StaticData.isGoogleUser) {
-            binding.name.text =  MainActivity.StaticData.account?.displayName
+            binding.buttonLogout.text = getString(R.string.login)
+        } else if (MainActivity.StaticData.isGoogleUser) {
+            binding.name.text = MainActivity.StaticData.account?.displayName
         } else {
             binding.name.text =
                 MainActivity.StaticData.user!!.firstName + " " + MainActivity.StaticData.user!!.lastName
@@ -58,7 +60,7 @@ class ProfileFragment : Fragment() {
             if (MainActivity.StaticData.isVisitor) {
                 infoAlert(this, getString(R.string.address_guest_alert))
             } else {
-                view?.findNavController()?.navigate(actionProfileFragmentToAdddressFragment())
+                view?.findNavController()?.navigate(actionProfileFragmentToAddressFragment())
             }
         }
         binding.bankAccountsLayout.setOnClickListener {
@@ -80,25 +82,23 @@ class ProfileFragment : Fragment() {
 
         return binding.root
 
-
-    private fun resetData() {
-        MainActivity.StaticData.isVisitor = false
-        MainActivity.StaticData.isCustomer = false
-        MainActivity.StaticData.isAdmin = false
-        MainActivity.StaticData.isVendor = false
-        MainActivity.StaticData.user = null
-        MainActivity.StaticData.isGoogleUser = false
     }
 
-    private fun navigateLogin() {
-        view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
-        if(MainActivity.StaticData.isGoogleUser)
-        MainActivity.StaticData.mGoogleSignInClient!!.signOut()
-    }
 
+        private fun resetData() {
+            MainActivity.StaticData.isVisitor = false
+            MainActivity.StaticData.isCustomer = false
+            MainActivity.StaticData.isAdmin = false
+            MainActivity.StaticData.isVendor = false
+            MainActivity.StaticData.user = null
+            MainActivity.StaticData.isGoogleUser = false
+        }
 
         private fun navigateLogin() {
             view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
+            if (MainActivity.StaticData.isGoogleUser)
+                MainActivity.StaticData.mGoogleSignInClient!!.signOut()
         }
+
 
 }
