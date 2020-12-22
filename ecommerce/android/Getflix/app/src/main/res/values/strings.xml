@@ -83,6 +83,8 @@
     <string name="username_char_limit">Kullanıcı adınız en az 6 karakter olmalıdır.</string>
     <string name="valid_name">Lütfen geçerli bir ad soyad bilgisi giriniz.</string>
     <string name="register_success">Kaydınız tamamlandı! Oturum açma sayfasına yönlendiriliyorsunuz.</string>
+    <string name="remember_me">Beni Hatırla</string>
+    <string name="register_back">Anasayfaya Dön</string>
     <string name="address_form">Adres Giriniz</string>
     <string name="adress_title">Baslik</string>
     <string name="address_">Adres (Posta kodu, Sokak ismi, daire No)</string>

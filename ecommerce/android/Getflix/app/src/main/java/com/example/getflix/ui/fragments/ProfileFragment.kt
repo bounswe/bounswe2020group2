@@ -37,6 +37,8 @@ class ProfileFragment : Fragment() {
         if (MainActivity.StaticData.isVisitor) {
             binding.name.text = getString(R.string.guest)
             binding.btnLogout.text = getString(R.string.login)
+        } else if(MainActivity.StaticData.isGoogleUser) {
+            binding.name.text =  MainActivity.StaticData.account?.displayName
         } else {
             binding.name.text = MainActivity.StaticData.user!!.firstName + " " + MainActivity.StaticData.user!!.lastName
         }
@@ -89,10 +91,13 @@ class ProfileFragment : Fragment() {
         MainActivity.StaticData.isAdmin = false
         MainActivity.StaticData.isVendor = false
         MainActivity.StaticData.user = null
+        MainActivity.StaticData.isGoogleUser = false
     }
 
     private fun navigateLogin() {
         view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
+        if(MainActivity.StaticData.isGoogleUser)
+        MainActivity.StaticData.mGoogleSignInClient!!.signOut()
     }
 
 
