@@ -58,7 +58,7 @@ def checkout_details(request):
 @permission_classes([permissions.AllowAnonymous])
 def checkout_payment(request):
     jwt = authentication.JWTAuthentication()
-    user = jwt.authenticate(request=request)
+    user = jwt.authenticate(request=request)[0]
 
     if user.is_verified == False:
         return Response({'status': { 'successful': False, 'message': "Please verify your mail account."}})
@@ -67,10 +67,11 @@ def checkout_payment(request):
     address = Address.objects.filter(id=address_id)
     address_s = address_serializer.AddressResponseSerializer(address)
 
-    items = ShoppingCartItem.objects.filter(customer_id=user[0].pk)
+    items = ShoppingCartItem.objects.filter(customer_id=user.pk)
     serializers = shopping_cart_serializer.ShoppingCartResponseSerializer(items, many=True)
 
-    order = Order(user=user)
+    order = Order(user_id=user.pk)
+    order.save()
 
     amount = 0
     unit_price = 0 
@@ -82,12 +83,13 @@ def checkout_payment(request):
             amount = serializer.get("amount")
             product_id = serializer.get("product")["id"]
             unit_price = serializer.get("product")["price"]
-            name = serializer.get("product")["amount"]
-            vendor = serializer.get("product")["vendor"]
-            status = order_status.OrderStatus.ACCEPTED
-            purchase = Purchase(user=user, product_id=product_id, amount=amount, unit_price=unit_price, status=status,\
-                                address_id=address_id, vendor=vendor, order=order)
+            vendor_id = serializer.get("product")["vendor"]["id"]
+            status = order_status.OrderStatus.ACCEPTED.value
+            purchase = Purchase(product_id=product_id, amount=amount, unit_price=unit_price, status=status,\
+                                address_id=address_id, vendor_id=vendor_id, order_id=order.pk)
             purchase.save()
+
+    items.delete()
 
     return Response({'status': { 'successful': True, 'message': "Payment process is successfully satisfied."}})
 
@@ -98,9 +100,9 @@ def checkout_cancel_order(request, id):
     jwt = authentication.JWTAuthentication()
     user = jwt.authenticate(request=request)
 
-    purchases = Purchase.objects.get(pk=int(id))
+    purchases = Purchase.objects.filter(order_id=int(id))
     for purchase in purchases:
-        purchase.status = order_status.OrderStatus.CANCELLED
-        purchase.update()
+        purchase.status = order_status.OrderStatus.CANCELLED.value
+        purchase.save()
 
     return Response({'status': { 'successful': True, 'message': "Order is successfully deleted."}})
