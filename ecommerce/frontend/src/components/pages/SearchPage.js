@@ -119,6 +119,7 @@ export const _SearchPage = ({ initialValues = {} }) => {
                             title: p.name,
                             rating: p.total_rating,
                             price: p.price,
+                            price_after_discount: p.price_after_discount,
                             currency: 'TL',
                             imageUrl: p.images[0],
                         }
