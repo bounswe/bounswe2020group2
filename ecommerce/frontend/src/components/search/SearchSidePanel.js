@@ -3,9 +3,12 @@ import './SearchSidePanel.less'
 import { Button, Form, InputNumber, Rate, Select, Slider } from 'antd'
 import { useState } from 'react'
 
-import { brands, categories, productSortBy, subcategories, vendors } from '../../utils'
+import { brands, productSortBy, vendors } from '../../utils'
 import ButtonGroup from 'antd/lib/button/button-group'
 import { intersection } from 'ramda'
+
+const categories = []
+const subcategories = []
 
 const formItemLayout = {
     labelCol: {

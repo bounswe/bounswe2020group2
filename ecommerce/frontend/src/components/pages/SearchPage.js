@@ -8,7 +8,7 @@ import { Helmet } from 'react-helmet'
 import { useHistory } from 'react-router-dom'
 
 import { api } from '../../api'
-import { categories, subcategories } from '../../utils'
+// import { categories, subcategories } from '../../utils'
 import { SearchResults } from '../search/SearchResults'
 import { SearchSidePanel } from '../search/SearchSidePanel'
 

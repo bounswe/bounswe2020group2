@@ -1,9 +1,12 @@
 import { Menu } from 'antd'
 import { Link, useHistory } from 'react-router-dom'
 import './CategoryBar.less'
-import { categories, subcategories } from '../utils.js'
+// import { categories, subcategories } from '../utils.js'
 import SubMenu from 'antd/lib/menu/SubMenu'
 import qs from 'querystring'
+
+const categories = []
+const subcategories = []
 
 export const CategoryBar = () => {
     const history = useHistory()
