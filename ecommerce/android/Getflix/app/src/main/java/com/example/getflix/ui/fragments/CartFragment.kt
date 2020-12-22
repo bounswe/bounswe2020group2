@@ -15,7 +15,7 @@ import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentCartBinding
 import com.example.getflix.models.ProductModel
 import com.example.getflix.ui.adapters.CartAdapter
-import com.example.getflix.ui.fragments.CartFragmentDirections.Companion.actionCartFragmentToPaymentFragment
+import com.example.getflix.ui.fragments.CartFragmentDirections.Companion.actionCartFragmentToOrderFragment
 import com.example.getflix.ui.viewmodels.CartViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -60,7 +60,7 @@ class CartFragment : Fragment() {
         }
 
         binding.acceptOrder.setOnClickListener {
-            view?.findNavController()?.navigate(actionCartFragmentToPaymentFragment())
+            view?.findNavController()?.navigate(actionCartFragmentToOrderFragment())
         }
 
 

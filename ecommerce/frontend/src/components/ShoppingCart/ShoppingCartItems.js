@@ -1,6 +1,7 @@
 import { ShoppingCartItem } from './ShoppingCartItem'
 
 export const ShoppingCartItems = ({ cart = [] }) => {
+    console.log(cart)
     return (
         <div>
             {cart.map(cartItem => {

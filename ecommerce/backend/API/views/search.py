@@ -8,7 +8,7 @@ from API.utils import permissions, Role
 from API.models import Product, Subcategory
 from django.db.models import Q
 #from API.serializers import search_serializer
-from API.serializers.product_serializer import ProductSerializer
+from API.serializers.product_serializer import ProductResponseSerializer
 
 @api_view(['POST'])
 @permission_classes([permissions.AllowAnonymous])
@@ -66,7 +66,7 @@ def products(request):
     query_set=query_set[page*page_size:(page+1)*(page_size)]
 #    user_serializer = search_serializer.SearchProductSerializer(request)
 #    print(query_set)
-    serializer = ProductSerializer(query_set, many=True)
+    serializer = ProductResponseSerializer(query_set, many=True)
 #    print(serializer.data)
     response_data = {"pagination":{"page":page,"page_size":page_size,"total_items":total_items}}
     return Response( { "data":response_data,"products":serializer.data } )
