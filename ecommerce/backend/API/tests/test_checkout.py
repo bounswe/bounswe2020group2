@@ -6,6 +6,7 @@ from django.urls import reverse
 
 from ..models import Product, Category, Subcategory, User, Vendor, Brand, ShoppingCartItem, Customer, Address, Purchase, Order, Card
 from ..views.checkout import checkout_details, checkout_payment, checkout_cancel_order
+from ..views.order import customer_order
 from ..utils.crypto import Crypto
 from ..utils import order_status
 
@@ -144,3 +145,12 @@ class CheckoutTest(TestCase):
         self.assertEqual(response.data["status"]["successful"], True)
         self.assertEqual(len(purchase), 1)
         self.assertEqual(order.card.pk, card_id_for_test)
+
+    def test_customer_order(self):
+        self.purchase()
+        client.credentials(HTTP_AUTHORIZATION='Bearer {}'.format(self.login_credentials_settings()))
+        
+        response = client.get(reverse(customer_order))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
+        self.assertEqual(int(response.data["orders"][0]["order_id"]), order_id_for_test)

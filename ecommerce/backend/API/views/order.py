@@ -81,17 +81,17 @@ def vendor_orders(request):
 
         return Response({'status': {'successful': True, 'message':'Order status is successfully changed'}})
 
-@api_view(['GET','PUT'])
-@permission_classes([permissions.IsVendorUser]) 
+@api_view(['GET'])
+@permission_classes([permissions.AllowAnonymous]) 
 def customer_order(request):
     response_purchases = []
 
-    my_orders = Order.objects.filter(user=request.user) 
+    my_orders = Order.objects.filter(user_id=request.user.pk) 
 
     for order in my_orders:
-        purchases = Purchase.objects.filter(order=order)
+        purchases = Purchase.objects.filter(order_id=order.pk)
         pch_serializer = PurchaseResponseSerializer(purchases, many=True)
-
-        response_purchases.append({'order_id':order.id, 'order_all_purchase':pch_serializer.data})
+        response_purchases.append({'order_id':order.pk, 'order_all_purchase':pch_serializer.data})
 
     return Response({'status': {'successful': True, 'message':'Orders are uccessfully sent'},'orders':response_purchases})
+    
