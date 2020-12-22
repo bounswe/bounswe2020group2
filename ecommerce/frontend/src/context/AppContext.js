@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { sleep } from '../utils'
 import uuidv4 from 'uuid/dist/v4'
 import { api } from '../api'
+import { Redirect } from 'react-router'
 
 const guestUser = { type: 'guest' }
 const customerUser = {
@@ -23,34 +24,81 @@ function useApp() {
 
     const getShoppingCart = async () => {
         try {
-            const { data } = await api.get(`/user/${user.id}/listShoppingCart`)
-            const tmp = data.filter(item => {
-                return item.amount > 0
-            })
-            setShoppingCart(tmp)
+            const {
+                data: { sc_items },
+            } = await api.get(`/customer/${user.id}/shoppingcart`)
+            setShoppingCart(sc_items)
         } catch (error) {
             notification.error({ description: 'Failed to get shopping cart' })
             console.error(error)
         } finally {
         }
     }
-
-    const addShoppingCartItem = async (product, amount) => {
+    const deleteShoppingCartItem = async sc_item_id => {
         try {
-            console.log('Add item: ', product, amount)
-            const { data } = await api.post(`/user/${user.id}/shoppingCart`, {
-                productId: product.id,
-                amount: amount,
-            })
-            console.log(data)
-            if (data.succesful) {
-                notification.success({ description: 'Succesfully updated shopping cart' })
+            const {
+                data: {
+                    status: { successful, message },
+                },
+            } = await api.delete(`/customer/${user.id}/shoppingcart/${sc_item_id}`)
+            if (successful) {
+                notification.success({ description: 'Succesfully deleted item from shopping cart' })
             } else {
-                notification.error({ description: 'Failed to update shopping cart item' })
+                notification.error({ description: 'Failed to delete item from shopping cart' })
+                console.error(message)
             }
             setShoppingCartRefreshId(i => i + 1)
         } catch (error) {
-            notification.error({ description: 'Failed to update shopping cart item' })
+            notification.error({ description: 'Failed to delete item from shopping cart' })
+            console.error(error)
+        } finally {
+        }
+    }
+    const addShoppingCartItem = async (product, amount) => {
+        try {
+            const {
+                data: {
+                    status: { successful, message },
+                },
+            } = await api.post(`/customer/${user.id}/shoppingcart`, {
+                product_id: product.id,
+                amount: amount,
+            })
+            if (successful) {
+                notification.success({ description: 'Succesfully added item to shopping cart' })
+            } else {
+                notification.error({ description: 'Failed to add item to shopping cart item' })
+            }
+            setShoppingCartRefreshId(i => i + 1)
+        } catch (error) {
+            notification.error({ description: 'Failed to add item to shopping cart item' })
+            console.error(error)
+        } finally {
+        }
+    }
+
+    const updateShoppingCartItem = async (sc_item_id, product_id, amount) => {
+        if (amount == 0) {
+            deleteShoppingCartItem(sc_item_id)
+            return
+        }
+        try {
+            const {
+                data: {
+                    status: { successful, message },
+                },
+            } = await api.put(`/customer/${user.id}/shoppingcart/${sc_item_id}`, {
+                product_id: product_id,
+                amount: amount,
+            })
+            if (successful) {
+                notification.success({ description: 'Succesfully updated item' })
+            } else {
+                notification.error({ description: 'Failed to update item' })
+            }
+            setShoppingCartRefreshId(i => i + 1)
+        } catch (error) {
+            notification.error({ description: 'Failed to update item' })
             console.error(error)
         } finally {
         }
@@ -84,7 +132,6 @@ function useApp() {
                     authorization: 'Bearer ' + localStorage.getItem('token'),
                 },
             })
-
             const { token, id, email, firstname, lastname, is_verified } = data
 
             // TODO: get type from backend
@@ -114,6 +161,7 @@ function useApp() {
             const { token, id, email, firstname, lastname, is_verified } = data.user
             console.log(token)
             if (success) {
+
                 localStorage.setItem('token', token)
 
                 setUser({ id, email, name: firstname, lastname, is_verified })
@@ -156,6 +204,8 @@ function useApp() {
         checkoutShoppingCart,
         getShoppingCart,
         addShoppingCartItem,
+        deleteShoppingCartItem,
+        updateShoppingCartItem,
     }
 }
 

@@ -14,6 +14,7 @@ import { CategoryBar } from '../CategoryBar'
 import { CheckoutPage } from '../pages/CheckoutPage'
 import { EmailVerification } from '../EmailVerification'
 import { IsVerifiedNotification } from '../IsVerifiedNotification'
+import { UserReviews } from '../UserReview/UserReviews'
 
 export const Content = () => {
     return (
@@ -22,6 +23,7 @@ export const Content = () => {
             <IsVerifiedNotification />
 
             <Switch>
+                <Route path="/review" component={UserReviews} />
                 <Route path="/login" component={LoginPage} />
                 <Route path="/verify/:id" component={EmailVerification} />
                 <Route path="/checkout" component={CheckoutPage} />

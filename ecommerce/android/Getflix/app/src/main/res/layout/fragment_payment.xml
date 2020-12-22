@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            android:text="@string/buy"
+            android:text="@string/add"
             android:textColor="@color/initPurple" />
 
         </LinearLayout>

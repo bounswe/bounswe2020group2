@@ -18,6 +18,10 @@ class CategoriesViewModel : ViewModel() {
     val categoriesList: LiveData<MutableList<CategoryModel>>
         get() = _categoriesList
 
+    private val _categoriess = MutableLiveData<CategoryListModel>()
+    val categoriess: LiveData<CategoryListModel>
+        get() = _categoriess
+
     private val _products = MutableLiveData<List<ProductModel>>()
     val products: LiveData<List<ProductModel>>?
         get() = _products
@@ -66,6 +70,20 @@ class CategoriesViewModel : ViewModel() {
                     response.body().let { it ->
                         _products.value = it
                         println(_products.value.toString())
+                    }
+                }
+            }
+        }
+    }
+
+    fun getCategories() {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = GetflixApi.getflixApiService.getCategories()
+            withContext(Dispatchers.Main + exceptionHandler) {
+                if (response.isSuccessful) {
+                    response.body().let { it ->
+                        _categoriess.value = it
+                        println(_categoriess.value.toString())
                     }
                 }
             }
