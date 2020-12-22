@@ -37,6 +37,11 @@ class CreditCartsAdapter(
 
     }
 
+    override fun getItemCount(): Int {
+        super.getItemCount()
+        return creditCartsList!!.size
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CreditCartsAdapter.RowHolder {
         return RowHolder.from(parent)
     }
