@@ -95,8 +95,8 @@
         android:name="com.example.getflix.ui.fragments.CartFragment"
         tools:layout="@layout/fragment_cart">
         <action
-            android:id="@+id/action_cartFragment_to_paymentFragment"
-            app:destination="@id/paymentFragment" />
+            android:id="@+id/action_cartFragment_to_orderFragment"
+            app:destination="@id/orderFragment" />
     </fragment>
 
     <fragment
@@ -137,11 +137,19 @@
     <fragment
         android:id="@+id/adddressFragment"
         android:name="com.example.getflix.ui.fragments.AddressFragment"
-        tools:layout="@layout/fragment_address" />
+        tools:layout="@layout/fragment_address" >
+        <action
+            android:id="@+id/action_adddressFragment_to_addAddressFragment"
+            app:destination="@id/addAddressFragment" />
+    </fragment>
     <fragment
         android:id="@+id/bankAccountFragment"
         android:name="com.example.getflix.ui.fragments.BankAccountFragment"
-        tools:layout="@layout/fragment_bank_account" />
+        tools:layout="@layout/fragment_bank_account" >
+        <action
+            android:id="@+id/action_bankAccountFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
     <fragment
         android:id="@+id/orderInfoFragment"
         android:name="com.example.getflix.ui.fragments.OrderInfoFragment"
@@ -163,6 +171,21 @@
         android:id="@+id/messagesFragment"
         android:name="com.example.getflix.ui.fragments.MessagesFragment"
         tools:layout="@layout/fragment_messages" />
+    <fragment
+        android:id="@+id/addAddressFragment"
+        android:name="com.example.getflix.ui.fragments.AddAddressFragment"
+        tools:layout="@layout/fragment_add_address" />
+    <fragment
+        android:id="@+id/orderFragment"
+        android:name="com.example.getflix.ui.fragments.OrderFragment"
+        tools:layout="@layout/fragment_order" >
+        <action
+            android:id="@+id/action_orderFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+        <action
+            android:id="@+id/action_orderFragment_to_addAddressFragment"
+            app:destination="@id/addAddressFragment" />
+    </fragment>
 
 </navigation>
 

@@ -1,7 +1,7 @@
 from rest_framework.test import APIClient
 from django.test import TestCase
 from django.urls import reverse
-from ..models import User, Vendor, Product, Review, Purchase, Category, Subcategory, Brand, Address
+from ..models import User, Vendor, Product, Review, Purchase, Category, Subcategory, Brand, Address, Order
 from ..utils import OrderStatus
 import datetime
 
@@ -31,7 +31,8 @@ class ReviewTests(TestCase):
         p2 = Product.objects.create(id=2, name = "Mavi Pantolon", price = 100, 
             creation_date = "2019-08-20T07:22:34Z", total_rating = 4, 
             rating_count = 20, stock_amount = 10, short_description = "yaza özel", subcategory = s, brand = b, vendor = v1)
-        Purchase.objects.create(user=u, product=p1, amount = 1, unit_price = 100, name="Mavi T-shirt", 
+        order = Order.objects.create(id=1, user=u)
+        Purchase.objects.create(order=order, product=p1, amount = 1, unit_price = 100, vendor=v1,
         status = OrderStatus.DELIVERED.value, address=a, purchase_date=datetime.date.today())
         body = {
             'username': 'testuser',

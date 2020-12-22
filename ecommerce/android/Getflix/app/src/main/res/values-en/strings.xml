@@ -86,4 +86,15 @@
     <string name="register_success">You have registered successfully! You are redirected to the login page.</string>
     <string name="remember_me">Remember Me</string>
     <string name="register_back">Back To Login</string>
+    <string name="address_form">Enter Address Info</string>
+    <string name="adress_title">Title</string>
+    <string name="address_">Address (ZIP code, Street, Apartment)</string>
+    <string name="province">Province</string>
+    <string name="country">Country</string>
+    <string name="add">Add</string>
+    <string name="address_add">Add Address</string>
+    <string name="order_complete">Complete Order</string>
+    <string name="choose_credit">Choose a credit card to pay</string>
+    <string name="choose_address">Choose an address</string>
+    <string name="add_credit">Add new credit card</string>
 </resources>

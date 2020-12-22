@@ -34,6 +34,8 @@ class Vendor (models.Model):
 class Address (models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255, default=None, blank=True, null=True)
+    name = models.CharField(max_length=255, default=None, blank=True, null=True)
+    surname = models.CharField(max_length=255, default=None, blank=True, null=True)
     address = models.CharField(max_length=255, default=None, blank=True, null=True)
     province = models.CharField(max_length=255, default=None, blank=True, null=True)
     city = models.CharField(max_length=255, default=None, blank=True, null=True)
@@ -41,3 +43,14 @@ class Address (models.Model):
     phone_country_code = models.CharField(max_length=255, default=None, blank=True, null=True)
     phone_number = models.CharField(max_length=255, default=None, blank=True, null=True)
     zip_code = models.CharField(max_length=255, default=None, blank=True, null=True)
+    is_deleted = models.BooleanField(default=False)
+
+class Card (models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255, default=None, blank=True, null=True)
+    owner_name = models.CharField(max_length=255, default=None, blank=True, null=True)
+    serial_number = models.CharField(max_length=255, default=None, blank=True, null=True)
+    expiration_month = models.IntegerField(default=0, blank=True, null=True)
+    expiration_year = models.IntegerField(default=0, blank=True, null=True)
+    cvv = models.IntegerField(default=0, blank=True, null=True)
+    is_deleted = models.BooleanField(default=False)
