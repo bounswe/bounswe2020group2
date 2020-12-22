@@ -2,9 +2,11 @@ package com.example.getflix.service
 
 import com.example.getflix.models.*
 import com.example.getflix.service.requests.CardProAddRequest
+import com.example.getflix.service.requests.CardProUpdateRequest
 import com.example.getflix.service.requests.LoginRequest
 import com.example.getflix.service.requests.SignUpRequest
 import com.example.getflix.service.responses.CardProAddResponse
+import com.example.getflix.service.responses.CardProUpdateResponse
 import com.example.getflix.service.responses.LoginResponse
 import com.example.getflix.service.responses.SignUpResponse
 import okhttp3.Interceptor
@@ -67,8 +69,12 @@ interface GetflixApiService {
     suspend fun getCustomerCartProducts(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Response<CartProductListModel>
 
     @Headers("Content-Type: application/json")
-    @POST("user/{userId}/shoppingCart")
-    fun addCustomerCartProduct(@Header("Authorization") token: String, @Path("userId") userId: Int,@Body userData: CardProAddRequest): Call<CardProAddResponse>
+    @POST("customer/{customerId}/shoppingcart")
+    fun addCustomerCartProduct(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Body cardproData: CardProAddRequest): Call<CardProAddResponse>
+
+    @Headers("Content-Type: application/json")
+    @PUT("customer/{customerId}/shoppingcart/{sc_item_id}")
+    fun updateCustomerCartProduct(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Path("sc_item_id") sc_item_id: Int,@Body cardproData: CardProUpdateRequest): Call<CardProUpdateResponse>
 
     @GET("categories")
     suspend fun getCategories(): Response<CategoryListModel>

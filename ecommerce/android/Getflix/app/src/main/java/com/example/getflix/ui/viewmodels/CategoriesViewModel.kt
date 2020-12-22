@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModel
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.*
 import com.example.getflix.service.GetflixApi
-import com.example.getflix.service.requests.CardProRequest
-import com.example.getflix.service.responses.CardProResponse
+import com.example.getflix.service.requests.CardProAddRequest
+import com.example.getflix.service.requests.CardProUpdateRequest
+import com.example.getflix.service.responses.CardProAddResponse
+import com.example.getflix.service.responses.CardProUpdateResponse
 import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -67,14 +69,10 @@ class CategoriesViewModel : ViewModel() {
         }
     }
 
-    fun getCustomerCartProducts(id: Int) {
+    fun getCustomerCartProducts() {
         job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getCustomerCartProducts("Bearer " + MainActivity.StaticData.user!!.token,id)
+            val response = GetflixApi.getflixApiService.getCustomerCartProducts("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id)
             withContext(Dispatchers.Main + exceptionHandler) {
-                println("with contextte")
-                println(response.message())
-                println(response.code())
-                println(response.errorBody())
                 if (response.isSuccessful) {
                     println("succesfull mu")
                     response.body().let { it ->
@@ -100,21 +98,42 @@ class CategoriesViewModel : ViewModel() {
         }
     }
 
-    fun addToCart(amount: Int, proId: Int) {
-        GetflixApi.getflixApiService.addCartProduct(20, CardProRequest(amount, proId))
+    fun updateCustomerCartProduct(amount: Int, scId: Int, proId: Int) {
+        GetflixApi.getflixApiService.updateCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, scId, CardProUpdateRequest(proId, amount))
                 .enqueue(object :
-                        Callback<CardProResponse> {
-                    override fun onFailure(call: Call<CardProResponse>, t: Throwable) {
+                        Callback<CardProUpdateResponse> {
+                    override fun onFailure(call: Call<CardProUpdateResponse>, t: Throwable) {
 
                     }
 
                     override fun onResponse(
-                        call: Call<CardProResponse>,
-                        response: Response<CardProResponse>
+                            call: Call<CardProUpdateResponse>,
+                            response: Response<CardProUpdateResponse>
                     ) {
                         println(response.body().toString())
                         println(response.code())
-                        if (response.body()!!.successful)
+                        if (response.body()!!.status.succcesful)
+                            println(response.body().toString())
+                    }
+                }
+                )
+    }
+
+    fun addCustomerCartProduct(amount: Int, proId: Int) {
+        GetflixApi.getflixApiService.addCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, CardProAddRequest(proId, amount))
+                .enqueue(object :
+                        Callback<CardProAddResponse> {
+                    override fun onFailure(call: Call<CardProAddResponse>, t: Throwable) {
+
+                    }
+
+                    override fun onResponse(
+                        call: Call<CardProAddResponse>,
+                        response: Response<CardProAddResponse>
+                    ) {
+                        println(response.body().toString())
+                        println(response.code())
+                        if (response.body()!!.status.succcesful)
                             println(response.body().toString())
                     }
                 }
