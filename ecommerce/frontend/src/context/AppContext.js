@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { sleep } from '../utils'
 import uuidv4 from 'uuid/dist/v4'
 import { api } from '../api'
+import { Redirect } from 'react-router'
 
 const guestUser = { type: 'guest' }
 const customerUser = {
@@ -25,9 +26,6 @@ function useApp() {
             const {
                 data: { sc_items },
             } = await api.get(`/customer/${user.id}/shoppingcart`)
-            // const tmp = sc_items.filter(item => {
-            //     return item.amount > 0
-            // })
             setShoppingCart(sc_items)
         } catch (error) {
             notification.error({ description: 'Failed to get shopping cart' })
@@ -79,10 +77,10 @@ function useApp() {
     }
 
     const updateShoppingCartItem = async (sc_item_id, product_id, amount) => {
-        console.log('!', {
-            product_id: product_id,
-            amount: amount,
-        })
+        if (amount == 0) {
+            deleteShoppingCartItem(sc_item_id)
+            return
+        }
         try {
             const {
                 data: {

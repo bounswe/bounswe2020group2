@@ -9,7 +9,7 @@ import { ShoppingCartItems } from './ShoppingCartItems'
 export const ShoppingCartPage = ({ currency = 'TL' }) => {
     const [isLoading, setIsLoading] = useState(true)
     const { shoppingCart, shoppingCartRefreshId, getShoppingCart, checkoutShoppingCart, user } = useAppContext()
-    const totalPrice = shoppingCart.reduce((total, item) => total + item.product.price * item.amount, 0)
+    const totalPrice = shoppingCart.reduce((total, item) => total + item.product.price_after_discount * item.amount, 0)
     const itemCount = shoppingCart.length
 
     useEffect(() => {
