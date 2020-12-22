@@ -70,6 +70,8 @@ interface GetflixApiService {
     @POST("user/{userId}/shoppingCart")
     fun addCustomerCartProduct(@Header("Authorization") token: String, @Path("userId") userId: Int,@Body userData: CardProAddRequest): Call<CardProAddResponse>
 
+    @GET("categories")
+    suspend fun getCategories(): Response<CategoryListModel>
 
 }
 
