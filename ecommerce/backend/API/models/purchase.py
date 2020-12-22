@@ -1,9 +1,10 @@
 from django.db import models
-from .user import User, Address, Vendor
+from .user import Card, User, Address, Vendor
 from .product import Product
 
 class Order (models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    card = models.ForeignKey(Card, on_delete=models.CASCADE, null=True)
 
 #purchase
 class Purchase (models.Model):
