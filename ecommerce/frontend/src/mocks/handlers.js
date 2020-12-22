@@ -1,6 +1,6 @@
 import { config } from '../config'
 import { rest } from 'msw'
-import { trendingProducts, product, products, reviews } from './mocks'
+import { trendingProducts, product, products, reviews, categories } from './mocks'
 
 // preprend config.apiUrl
 const url = u => config.apiUrl + u
@@ -81,5 +81,8 @@ export const handlers = [
                 role: 'CUSTOMER',
             }),
         )
+    }),
+    rest.get(url('/categories'), (req, res, ctx) => {
+        return res(ctx.json({ categories }))
     }),
 ]
