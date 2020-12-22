@@ -61,12 +61,13 @@ class CategoriesFragment : Fragment() {
         //viewModel.getProducts(3)
         //viewModel.getProduct(3)
         //viewModel.addToCart(1,4)
-        //viewModel.getCustomerCartProducts()
+        viewModel.getCustomerCartProducts()
         //viewModel.addCustomerCartProduct(1,3)
         //viewModel.getCustomerCartProducts()
         //viewModel.updateCustomerCartProduct(2,71,1)
+        //viewModel.deleteCustomerCartProduct(71)
 
-        viewModel.getCustomerCartProducts()
+        //viewModel.getCustomerCartProducts()
 
        var cats1 = arrayListOf<CategoryModel>()
 

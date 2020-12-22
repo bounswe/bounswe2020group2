@@ -5,10 +5,7 @@ import com.example.getflix.service.requests.CardProAddRequest
 import com.example.getflix.service.requests.CardProUpdateRequest
 import com.example.getflix.service.requests.LoginRequest
 import com.example.getflix.service.requests.SignUpRequest
-import com.example.getflix.service.responses.CardProAddResponse
-import com.example.getflix.service.responses.CardProUpdateResponse
-import com.example.getflix.service.responses.LoginResponse
-import com.example.getflix.service.responses.SignUpResponse
+import com.example.getflix.service.responses.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -75,6 +72,10 @@ interface GetflixApiService {
     @Headers("Content-Type: application/json")
     @PUT("customer/{customerId}/shoppingcart/{sc_item_id}")
     fun updateCustomerCartProduct(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Path("sc_item_id") sc_item_id: Int,@Body cardproData: CardProUpdateRequest): Call<CardProUpdateResponse>
+
+    @Headers("Content-Type: application/json")
+    @DELETE("customer/{customerId}/shoppingcart/{sc_item_id}")
+    fun deleteCustomerCartProduct(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Path("sc_item_id") sc_item_id: Int): Call<CardProDeleteResponse>
 
     @GET("categories")
     suspend fun getCategories(): Response<CategoryListModel>

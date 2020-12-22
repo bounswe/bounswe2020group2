@@ -9,6 +9,7 @@ import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.CardProAddRequest
 import com.example.getflix.service.requests.CardProUpdateRequest
 import com.example.getflix.service.responses.CardProAddResponse
+import com.example.getflix.service.responses.CardProDeleteResponse
 import com.example.getflix.service.responses.CardProUpdateResponse
 import kotlinx.coroutines.*
 import retrofit2.Call
@@ -109,6 +110,27 @@ class CategoriesViewModel : ViewModel() {
                     override fun onResponse(
                             call: Call<CardProUpdateResponse>,
                             response: Response<CardProUpdateResponse>
+                    ) {
+                        println(response.body().toString())
+                        println(response.code())
+                        if (response.body()!!.status.succcesful)
+                            println(response.body().toString())
+                    }
+                }
+                )
+    }
+
+    fun deleteCustomerCartProduct(scId: Int) {
+        GetflixApi.getflixApiService.deleteCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, scId)
+                .enqueue(object :
+                        Callback<CardProDeleteResponse> {
+                    override fun onFailure(call: Call<CardProDeleteResponse>, t: Throwable) {
+                        println("failure")
+                    }
+
+                    override fun onResponse(
+                            call: Call<CardProDeleteResponse>,
+                            response: Response<CardProDeleteResponse>
                     ) {
                         println(response.body().toString())
                         println(response.code())
