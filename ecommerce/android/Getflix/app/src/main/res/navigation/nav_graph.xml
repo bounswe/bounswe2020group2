@@ -38,7 +38,7 @@
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_profileFragment_to_adddressFragment"
-            app:destination="@id/adddressFragment" />
+            app:destination="@id/addressFragment" />
         <action
             android:id="@+id/action_profileFragment_to_bankAccountFragment"
             app:destination="@id/bankAccountFragment" />
@@ -102,17 +102,29 @@
         android:name="com.example.getflix.ui.fragments.FilterOptionsFragment"
         tools:layout="@layout/fragment_filter_options" />
     <fragment
-        android:id="@+id/adddressFragment"
+        android:id="@+id/addressFragment"
         android:name="com.example.getflix.ui.fragments.AddressFragment"
-        tools:layout="@layout/fragment_address" />
+        tools:layout="@layout/fragment_address" >
+    <action
+        android:id="@+id/action_addressFragment_to_profileFragment"
+        app:destination="@id/profileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/bankAccountFragment"
         android:name="com.example.getflix.ui.fragments.BankAccountFragment"
-        tools:layout="@layout/fragment_bank_account" />
+        tools:layout="@layout/fragment_bank_account" >
+    <action
+        android:id="@+id/action_bankAccountFragment_to_profileFragment"
+        app:destination="@id/profileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/orderInfoFragment"
         android:name="com.example.getflix.ui.fragments.OrderInfoFragment"
-        tools:layout="@layout/fragment_order_info" />
+        tools:layout="@layout/fragment_order_info" >
+        <action
+            android:id="@+id/action_orderInfoFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
 
 </navigation>
 
