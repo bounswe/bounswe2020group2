@@ -5,6 +5,7 @@
 
     <data>
 
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +16,7 @@
             android:id="@+id/constraintLayout"
             android:layout_width="52dp"
             android:layout_height="52dp"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="80dp"
             android:background="@drawable/circle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
