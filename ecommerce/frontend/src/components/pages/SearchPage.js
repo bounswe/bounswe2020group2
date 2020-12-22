@@ -107,7 +107,8 @@ export const _SearchPage = ({ initialValues = {} }) => {
 
                 const {
                     data: {
-                        data: { pagination, products },
+                        data: { pagination },
+                        products,
                     },
                 } = await api.post(`/search/products`, formatSearchQueryParams(values))
 
