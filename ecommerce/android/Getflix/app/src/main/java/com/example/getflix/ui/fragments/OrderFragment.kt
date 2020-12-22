@@ -43,7 +43,7 @@ class OrderFragment : Fragment() {
         val credits = arrayListOf("QNB Card", "Garanti Card")
 
         val address_adapter = ArrayAdapter(this.requireContext(),
-                android.R.layout.simple_spinner_item, addresses)
+                android.R.layout.simple_spinner_item, addresses!!)
         address_adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         binding.addressSpinner.adapter = address_adapter
 
@@ -54,14 +54,14 @@ class OrderFragment : Fragment() {
 
         binding.addressSpinner.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>,
-                                        view: View, position: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>?,
+                                        view: View?, position: Int, id: Long) {
                 Toast.makeText(context,
                     "selected item: " + addresses[position],
                 Toast.LENGTH_SHORT).show()
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
                 // write code to perform some action
             }
         }
