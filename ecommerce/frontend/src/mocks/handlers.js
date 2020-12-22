@@ -1,6 +1,7 @@
 import { config } from '../config'
 import { rest } from 'msw'
-import { trendingProducts, product, products } from './mocks'
+import { trendingProducts, product, products, reviews } from './mocks'
+
 
 // preprend config.apiUrl
 const url = u => config.apiUrl + u
@@ -47,6 +48,23 @@ export const handlers = [
                         total_items: products.length,
                     },
                     products: products.slice(page * page_size, (page + 1) * page_size),
+                },
+            }),
+        )
+    }),
+    rest.get(url('/review'), (req, res, ctx) => {
+        const id = req.url.searchParams.get('product')
+        const page_size = req.url.searchParams.get('page_size')
+        const page = req.url.searchParams.get('page')
+        return res(
+            ctx.json({
+                data: {
+                    pagination: {
+                        page_size,
+                        page,
+                        total_items: reviews.length,
+                    },
+                    reviews: reviews.slice(page * page_size, (page + 1) * page_size),
                 },
             }),
         )
