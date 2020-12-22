@@ -5,19 +5,17 @@ import { Link } from 'react-router-dom'
 import { useAppContext } from '../../context/AppContext'
 import { useState } from 'react'
 
-export const ShoppingCartItem = ({ cartItem: { amount, product } }) => {
-
-    const [tmpAmount, setTmpAmount] = useState(amount)
-    const { addShoppingCartItem } = useAppContext()
+export const ShoppingCartItem = ({ cartItem: { id, amount, product } }) => {
+    const [itemAmount, setItemAmount] = useState(amount)
+    const { addShoppingCartItem, deleteShoppingCartItem, updateShoppingCartItem } = useAppContext()
 
     const onClickDelete = () => {
-        console.log(product, -tmpAmount)
-        addShoppingCartItem(product, -tmpAmount)
+        deleteShoppingCartItem(id)
     }
 
-    const onAmountChange = value => setTmpAmount(value)
+    const onAmountChange = value => setItemAmount(value)
 
-    const onPressEnterAmount = () => addShoppingCartItem(product, tmpAmount - amount)
+    const onPressEnterAmount = () => updateShoppingCartItem(id, itemAmount)
 
     return (
         <div className="single-cart-item">
@@ -47,7 +45,7 @@ export const ShoppingCartItem = ({ cartItem: { amount, product } }) => {
                                 min={1}
                                 onChange={onAmountChange}
                                 className="amount-counter"
-                                defaultValue={amount}
+                                value={itemAmount}
                                 onPressEnter={onPressEnterAmount}
                             />
                         </div>

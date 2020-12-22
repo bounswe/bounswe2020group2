@@ -25,17 +25,36 @@ function useApp() {
             const {
                 data: { sc_items },
             } = await api.get(`/customer/${user.id}/shoppingcart`)
-            const tmp = sc_items.filter(item => {
-                return item.amount > 0
-            })
-            setShoppingCart(tmp)
+            // const tmp = sc_items.filter(item => {
+            //     return item.amount > 0
+            // })
+            setShoppingCart(sc_items)
         } catch (error) {
             notification.error({ description: 'Failed to get shopping cart' })
             console.error(error)
         } finally {
         }
     }
-
+    const deleteShoppingCartItem = async sc_item_id => {
+        try {
+            const {
+                data: {
+                    status: { successful, message },
+                },
+            } = await api.delete(`/customer/${user.id}/shoppingcart/${sc_item_id}`)
+            if (successful) {
+                notification.success({ description: 'Succesfully deleted item from shopping cart' })
+            } else {
+                notification.error({ description: 'Failed to delete item from shopping cart' })
+                console.error(message)
+            }
+            setShoppingCartRefreshId(i => i + 1)
+        } catch (error) {
+            notification.error({ description: 'Failed to delete item from shopping cart' })
+            console.error(error)
+        } finally {
+        }
+    }
     const addShoppingCartItem = async (product, amount) => {
         try {
             const {
@@ -54,6 +73,29 @@ function useApp() {
             setShoppingCartRefreshId(i => i + 1)
         } catch (error) {
             notification.error({ description: 'Failed to add item to shopping cart item' })
+            console.error(error)
+        } finally {
+        }
+    }
+
+    const updateShoppingCartItem = async (sc_item_id, product_id, amount) => {
+        try {
+            const {
+                data: {
+                    status: { successful, message },
+                },
+            } = await api.post(`/customer/${user.id}/shoppingcart/${sc_item_id}`, {
+                product_id: product_id,
+                amount: amount,
+            })
+            if (successful) {
+                notification.success({ description: 'Succesfully updated item' })
+            } else {
+                notification.error({ description: 'Failed to update item' })
+            }
+            setShoppingCartRefreshId(i => i + 1)
+        } catch (error) {
+            notification.error({ description: 'Failed to update item' })
             console.error(error)
         } finally {
         }
@@ -159,6 +201,8 @@ function useApp() {
         checkoutShoppingCart,
         getShoppingCart,
         addShoppingCartItem,
+        deleteShoppingCartItem,
+        updateShoppingCartItem,
     }
 }
 

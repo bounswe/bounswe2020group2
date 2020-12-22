@@ -9,8 +9,8 @@ import { ShoppingCartItems } from './ShoppingCartItems'
 export const ShoppingCartPage = ({ currency = 'TL' }) => {
     const [isLoading, setIsLoading] = useState(true)
     const { shoppingCart, shoppingCartRefreshId, getShoppingCart, checkoutShoppingCart, user } = useAppContext()
-    const totalPrice = 0 //shoppingCart.reduce((total, item) => total + item.product.price * item.amount, 0)
-    const itemCount = 0 //shoppingCart.reduce((count, item) => count + item.amount, 0)
+    const totalPrice = shoppingCart.reduce((total, item) => total + item.product.price * item.amount, 0)
+    const itemCount = shoppingCart.length
 
     useEffect(() => {
         async function fetch() {
@@ -40,7 +40,7 @@ export const ShoppingCartPage = ({ currency = 'TL' }) => {
     return (
         <div className="shopping-master">
             <div className="shopping-left">
-                <h2>Your shopping cart</h2>
+                <h2>Your shopping cart ({itemCount})</h2>
                 <Spin spinning={isLoading}>
                     <ShoppingCartItems cart={shoppingCart} />
                 </Spin>
