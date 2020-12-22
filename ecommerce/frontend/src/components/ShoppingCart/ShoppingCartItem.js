@@ -33,7 +33,7 @@ export const ShoppingCartItem = ({ cartItem: { id, amount, product } }) => {
                     {product.short_description}
                     <p className="cart-item-vendor">
                         by{' '}
-                        <Link to={`/vendors/${product.vendor?.name ?? 'some_vendor_id'}`}>
+                        <Link to={`/vendors/${product.vendor?.id ?? 'some_vendor_id'}`}>
                             {product.vendor?.name ?? 'getflix'}
                         </Link>
                     </p>
