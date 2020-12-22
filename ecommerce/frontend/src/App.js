@@ -8,10 +8,11 @@ import { useEffect } from 'react'
 import { useAppContext } from './context/AppContext'
 
 function App() {
-    const { init } = useAppContext()
+    const { init, getCategories } = useAppContext()
 
     useEffect(() => {
         init()
+        getCategories()
     }, [])
 
     return (

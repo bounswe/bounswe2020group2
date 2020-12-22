@@ -20,6 +20,7 @@ function useApp() {
     const [user, setUser] = useState(guestUser)
     const [shoppingCart, setShoppingCart] = useState([])
     const [shoppingCartRefreshId, setShoppingCartRefreshId] = useState(0)
+    const [categories, setCategories] = useState([])
 
     const getShoppingCart = async () => {
         try {
@@ -186,6 +187,21 @@ function useApp() {
         }
     }
 
+    const getCategories = async () => {
+        console.log('AppContext:getCategories:start')
+        try {
+            const {
+                data: { categories },
+            } = await api.get('/categories')
+            console.log('AppContext:getCategories:categories', categories)
+            setCategories(categories)
+        } catch (error) {
+            console.error('AppContext:getCategories:error', error)
+        } finally {
+            console.log('AppContext:getCategories:end')
+        }
+    }
+
     return {
         user,
         init,
@@ -199,6 +215,8 @@ function useApp() {
         addShoppingCartItem,
         deleteShoppingCartItem,
         updateShoppingCartItem,
+        categories,
+        getCategories,
     }
 }
 
