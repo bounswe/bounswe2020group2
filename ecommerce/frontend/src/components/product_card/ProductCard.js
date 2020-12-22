@@ -13,13 +13,11 @@ export const ProductCard = ({ product, width = 350 }) => {
         addShoppingCartItem(product, 1)
     }
 
-    const onAddToList = product => {
-        
-    }
+    const onAddToList = product => {}
 
     const { title, rating, price, currency, imageUrl, id, discount } = product
-    
-    const discountPrice = price * (1-discount)
+
+    const discountPrice = price * (1 - discount)
     return (
         <div className="whole-card" style={{ minWidth: width, minHeight: width, maxWidth: width }}>
             <Link to={`/product/${id}`}>
