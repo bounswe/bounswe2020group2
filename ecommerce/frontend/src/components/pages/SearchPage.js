@@ -151,27 +151,20 @@ export const _SearchPage = ({ initialValues = {} }) => {
 
     const onSubmitFilters = filters => refreshSearchWith({ ...values, filters })
 
-    const onSearch = search =>
-        refreshSearchWith({
-            search,
-            filters: {},
-            pagination: { pageSize: values.pagination.pageSize },
-        })
+    // const onSearch = search =>
+    //     refreshSearchWith({
+    //         search,
+    //         filters: {},
+    //         pagination: { pageSize: values.pagination.pageSize },
+    //     })
 
     const onPaginationChanged = (current, pageSize) =>
         refreshSearchWith({ ...values, pagination: { ...values.pagination, current, pageSize } })
 
     const getTitle = values => {
-        const type = values.search.type
+        const { type, query } = values.search
 
-        const query = values.search.query
-        const category = values.filters.category && categories[values.filters.category]
-        const subcategory =
-            values.filters.category &&
-            values.filters.subcategory &&
-            subcategories[values.filters.category][values.filters.subcategory]
-
-        const prefix = query ?? subcategory ?? category ?? 'All'
+        const prefix = query ?? 'All'
 
         return `${prefix} ${type}s - Getflix`
     }
