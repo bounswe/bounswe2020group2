@@ -11,7 +11,6 @@ function App() {
     const { init } = useAppContext()
 
     useEffect(() => {
-        console.log('init')
         init()
     }, [])
 

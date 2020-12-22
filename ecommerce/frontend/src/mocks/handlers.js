@@ -2,7 +2,6 @@ import { config } from '../config'
 import { rest } from 'msw'
 import { trendingProducts, product, products, reviews } from './mocks'
 
-
 // preprend config.apiUrl
 const url = u => config.apiUrl + u
 
