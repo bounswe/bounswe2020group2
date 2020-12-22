@@ -28,16 +28,19 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentProfileBinding>(
-            inflater, R.layout.fragment_profile,
-            container, false
-        )
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile,
+                container, false)
+
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.profile)
 
         if (MainActivity.StaticData.isVisitor) {
             binding.name.text = getString(R.string.guest)
-            binding.buttonLogout.text = getString(R.string.login)
+
+            binding.btnLogout.text = getString(R.string.login)
+        } else if(MainActivity.StaticData.isGoogleUser) {
+            binding.name.text =  MainActivity.StaticData.account?.displayName
         } else {
             binding.name.text =
                 MainActivity.StaticData.user!!.firstName + " " + MainActivity.StaticData.user!!.lastName
@@ -77,15 +80,22 @@ class ProfileFragment : Fragment() {
 
         return binding.root
 
+
+    private fun resetData() {
+        MainActivity.StaticData.isVisitor = false
+        MainActivity.StaticData.isCustomer = false
+        MainActivity.StaticData.isAdmin = false
+        MainActivity.StaticData.isVendor = false
+        MainActivity.StaticData.user = null
+        MainActivity.StaticData.isGoogleUser = false
     }
 
-        private fun resetData() {
-            MainActivity.StaticData.isVisitor = false
-            MainActivity.StaticData.isCustomer = false
-            MainActivity.StaticData.isAdmin = false
-            MainActivity.StaticData.isVendor = false
-            MainActivity.StaticData.user = null
-        }
+    private fun navigateLogin() {
+        view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
+        if(MainActivity.StaticData.isGoogleUser)
+        MainActivity.StaticData.mGoogleSignInClient!!.signOut()
+    }
+
 
         private fun navigateLogin() {
             view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())

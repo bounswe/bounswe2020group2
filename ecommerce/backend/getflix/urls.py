@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from API import views
-from API.views.shopping_cart import list_shopping_cart
 
 urlpatterns = [
     path('admin', admin.site.urls),
@@ -24,12 +23,20 @@ urlpatterns = [
     path('regularsignup', views.account.register, name="register"),
     path('regularlogin', views.account.login, name="login"),
     path('init', views.account.init, name="init"),
-    path('products/homepage/<int:no>', views.product.homepage_products),
-    path('user/<int:id>/listShoppingCart', list_shopping_cart),
-    path('user/<int:id>/shoppingCart', views.shopping_cart.add_shopping_cart_item),
-    path('product/<int:productId>', views.product.product_detail),
-    path('customer/<int:customer_id>/addresses/<int:address_id>', views.address.manage_single_address),
-    path('customer/<int:customer_id>/addresses', views.address.manage_multiple_addresses),
+    path('products/homepage/<int:num>', views.product.get_homepage_products),
+    path('product/<int:product_id>', views.product.get_product_detail),
+    path('categories', views.category.get_categories),
+    path('search/products', views.search.products, name="search_products"),
+    path('customer/<int:customer_id>/shoppingcart/<int:sc_item_id>', views.shopping_cart.manage_specific_shopping_cart_item),
+    path('customer/<int:customer_id>/shoppingcart', views.shopping_cart.manage_shopping_cart_items),
+    path('customer/<int:customer_id>/addresses/<int:address_id>', views.address.manage_specific_address),
+    path('customer/<int:customer_id>/addresses', views.address.manage_addresses),
+    path('customer/<int:customer_id>/cards/<int:card_id>', views.card.manage_specific_card),
+    path('customer/<int:customer_id>/cards', views.card.manage_cards),
     path('checkout/details', views.checkout.checkout_details),
-    path('review', views.review.manage_review, name="review")
+    path('review', views.review.manage_review, name="review"),
+    path('image/<int:image_id>', views.product.get_image),
+    path('vendor/product', views.product.vendor_product, name="vendor_product"),
+    path('vendor/signup', views.account.vendor_register, name="vendor_signup"),
+    path('vendor/order', views.order.vendor_orders,name="vendor_orders")
 ]

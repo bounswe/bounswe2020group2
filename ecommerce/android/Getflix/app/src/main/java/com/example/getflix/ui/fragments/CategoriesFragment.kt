@@ -14,6 +14,7 @@ import com.example.getflix.R
 import com.example.getflix.databinding.FragmentCategoriesBinding
 import com.example.getflix.models.CategoryModel
 import com.example.getflix.models.SubcategoryModel
+import com.example.getflix.service.GetflixApi
 import com.example.getflix.ui.adapters.CategoriesAdapter
 import com.example.getflix.ui.adapters.SubcategoryHorizontalAdapter
 import com.example.getflix.ui.viewmodels.CategoriesViewModel
@@ -21,6 +22,7 @@ import com.example.getflix.ui.viewmodels.CategoryViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.coroutines.*
 
 
 class CategoriesFragment : Fragment() {
@@ -28,6 +30,18 @@ class CategoriesFragment : Fragment() {
     lateinit var categoryViewModel: CategoryViewModel
     private lateinit var viewModel: CategoriesViewModel
     private lateinit var adapter: CategoriesAdapter
+    var cats1 = arrayListOf<CategoryModel>()
+    private var job: Job? = null
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        println("Error ${throwable.localizedMessage}")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
+        viewModel.getCategories()
+
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -40,55 +54,23 @@ class CategoriesFragment : Fragment() {
         )
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.categories)
-        viewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
-        binding.viewmodel = CategoriesViewModel()
         binding.lifecycleOwner = this
 
-        var catsL = mutableListOf<CategoryModel>()
-        var cats = listOf<CategoryModel>(
-                CategoryModel(
-                        "Electronics",
-                        listOf(SubcategoryModel("Computers", null),
-                                SubcategoryModel("Camera & Photo", null),
-                                SubcategoryModel("Cell Phones & Accessories", null),
-                                SubcategoryModel("Digital Videos", null),
-                                SubcategoryModel("Software", null)) as MutableList<SubcategoryModel>
-                ), CategoryModel(
-                "Health & Households",
-                listOf(SubcategoryModel("Sports & Outdoor", null),
-                        SubcategoryModel("Beauty & Personal Care", null)) as MutableList<SubcategoryModel>
-        ), CategoryModel(
-                "Home & Garden",
-                listOf(SubcategoryModel("Luggage", null),
-                        SubcategoryModel("Pet Supplies", null),
-                        SubcategoryModel("Furniture", null)) as MutableList<SubcategoryModel>
-        ), CategoryModel(
-                "Clothing",
-                listOf(SubcategoryModel("Men's Fashion", null),
-                        SubcategoryModel("Women's Fashion", null),
-                        SubcategoryModel("Boys' Fashion", null),
-                        SubcategoryModel("Girls' Fashion", null),
-                        SubcategoryModel("Baby", null)) as MutableList<SubcategoryModel>
-        ), CategoryModel(
-                "Hobbies",
-                listOf(SubcategoryModel("Books", null),
-                        SubcategoryModel("Music & CDs", null),
-                        SubcategoryModel("Movies & TVs", null),
-                        SubcategoryModel("Toys & Games", null),
-                        SubcategoryModel("Video Games", null),
-                        SubcategoryModel("Arts & Crafts", null)) as MutableList<SubcategoryModel>
-        ), CategoryModel(
-                "Others",
-                listOf(SubcategoryModel("Automotive", null),
-                        SubcategoryModel("Industrial & Scientific", null)) as MutableList<SubcategoryModel>
-        )
-        )
-        adapter = CategoriesAdapter(cats, this)
-        binding.catRec.adapter = adapter
-        //viewModel.getProducts(3)
-        //viewModel.getProduct(3)
-        //viewModel.addToCart(1,4)
-        //viewModel.getUserCartProducts(20)
+       var cats1 = arrayListOf<CategoryModel>()
+
+
+       viewModel.categoriess.observe(viewLifecycleOwner, {
+           it?.let {
+               for(category in it.categories!!) {
+                   var name = category.name
+                   var id = category.id
+                   var sub: MutableList<SubcategoryModel> = category.subcategories
+                   cats1.add(CategoryModel(name,id,sub))
+               }
+               adapter = CategoriesAdapter(cats1, this)
+               binding.catRec.adapter = adapter
+           }
+       })
 
         /*viewModel.products?.observe(viewLifecycleOwner, {products ->
             products?.let {
@@ -106,16 +88,6 @@ class CategoriesFragment : Fragment() {
         //val cat = viewModel.categories
 
 
-        /*for(category in cats) {
-            viewModel.addCategory(category)
-        } */
-
-        /*viewModel.categoriesList.observe(viewLifecycleOwner, {
-            it?.let {
-                adapter = CategoriesAdapter(it, this)
-                binding.catRec.adapter = adapter
-            }
-        }) */
 
 
 
@@ -132,6 +104,9 @@ class CategoriesFragment : Fragment() {
 
         return binding.root
     }
+
+
+
 
 
 }

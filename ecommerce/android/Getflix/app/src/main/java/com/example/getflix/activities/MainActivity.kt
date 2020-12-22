@@ -15,6 +15,10 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.getflix.R
 import com.example.getflix.models.User
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -29,7 +33,15 @@ class MainActivity : AppCompatActivity() {
         var isCustomer = false
         var isVendor = false
         var isAdmin = false
+        var isGoogleUser = false
         var user: User? = null
+        val gso =
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("780650655620-8qi5er6094ouirlb66b2c0hm6hlfo9s8.apps.googleusercontent.com")
+                .requestEmail()
+                .build()
+        var mGoogleSignInClient: GoogleSignInClient?=null
+        var account: GoogleSignInAccount ?=null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,11 +51,12 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment
         navController = navHostFragment.findNavController()
         setSupportActionBar(toolbar)
-        NavigationUI.setupWithNavController(bottom_nav, navController)
-        val appBarConfiguration = AppBarConfiguration(bottom_nav.menu)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.title = null
+       /* val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        var mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        var account = GoogleSignIn.getLastSignedInAccount(this); */
+
 
 
     }
@@ -66,6 +79,22 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun decideBottomNav(isVendor: Boolean) {
+        NavigationUI.setupWithNavController(bottom_nav, navController)
+        if(isVendor) {
+            bottom_nav.menu.clear()
+            bottom_nav.inflateMenu(R.menu.nav_vendor_menu)
+        }
+        else {
+            bottom_nav.menu.clear()
+            bottom_nav.inflateMenu(R.menu.nav_menu)
+        }
+        val appBarConfiguration = AppBarConfiguration(bottom_nav.menu)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.title = null
     }
 
 
