@@ -9,13 +9,12 @@ export const ProductExtra = ({ product, loading = false }) => {
         if (loading) {
             return <Skeleton.Avatar shape="square" size="large" active />
         }
-
         // only doing this because not sure what product will contain
         const hasDiscount = product.discount > 0
         if (hasDiscount) {
             const discount = product.discount
-            const oldPrice = round(product.old_price, 2)
-            const newPrice = round(product.price, 2)
+            const oldPrice = round(product.price, 2)
+            const newPrice = round(product.price_after_discount, 2)
 
             return (
                 <div className="product-extra-price">
