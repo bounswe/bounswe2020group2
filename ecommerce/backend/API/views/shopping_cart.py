@@ -65,7 +65,15 @@ def manage_shopping_cart_items(request, customer_id):
         if not serializer.is_valid():
             return Response({'status': {'successful': False, 'message': "Invalid input"}})
         amount = serializer.validated_data.get("amount")
+        if amount < 0:
+            return Response({'status': {'successful': False, 'message': "Amount should be a positive number"}})
         product_id = serializer.validated_data.get("product_id")
+        sc_item = ShoppingCartItem.objects.filter(customer_id=customer_id).filter(product_id=product_id).first()
+        if sc_item is not None:
+            sc_item.amount += amount
+            sc_item.save()
+            return Response({'sc_item_id': sc_item.id, 'status': {'successful': True, 'message': "Product is added to the cart succesfully."}})
+        
         product = Product.objects.get(pk=product_id)
         sc_item = ShoppingCartItem(customer=user, product=product, amount=amount)
         sc_item.save()

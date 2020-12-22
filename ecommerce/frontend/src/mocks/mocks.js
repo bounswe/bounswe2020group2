@@ -447,6 +447,7 @@ export const product = {
     ],
     old_price: 20,
 }
+
 export const reviews = [
     //
     {

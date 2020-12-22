@@ -4,19 +4,19 @@ import { DeleteOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { useAppContext } from '../../context/AppContext'
 import { useState } from 'react'
+import { round } from '../../utils'
 
-export const ShoppingCartItem = ({ cartItem: { amount, product } }) => {
-    const [tmpAmount, setTmpAmount] = useState(amount)
-    const { addShoppingCartItem } = useAppContext()
+export const ShoppingCartItem = ({ cartItem: { id, amount, product } }) => {
+    const [itemAmount, setItemAmount] = useState(amount)
+    const { addShoppingCartItem, deleteShoppingCartItem, updateShoppingCartItem } = useAppContext()
 
     const onClickDelete = () => {
-        console.log(product, -tmpAmount)
-        addShoppingCartItem(product, -tmpAmount)
+        deleteShoppingCartItem(id)
     }
 
-    const onAmountChange = value => setTmpAmount(value)
+    const onAmountChange = value => setItemAmount(value)
 
-    const onPressEnterAmount = () => addShoppingCartItem(product, tmpAmount - amount)
+    const onPressEnterAmount = () => updateShoppingCartItem(id, product.id, itemAmount)
 
     return (
         <div className="single-cart-item">
@@ -27,16 +27,15 @@ export const ShoppingCartItem = ({ cartItem: { amount, product } }) => {
             </div>
             <div className="cart-item-content">
                 <div className="cart-item-picture">
-                    <img
-                        alt={product.title}
-                        width={'100%'}
-                        src={product.image_url ?? 'https://picsum.photos/300'}></img>
+                    <img alt={product.name} width={'100%'} src={product.images[0] ?? 'https://picsum.photos/300'}></img>
                 </div>
                 <div className="cart-item-description">
-                    {product.description}
+                    {product.short_description}
                     <p className="cart-item-vendor">
                         by{' '}
-                        <Link to={`/vendors/${product.vendor ?? 'some_vendor_id'}`}>{product.vendor ?? 'vendor'}</Link>
+                        <Link to={`/vendors/${product.vendor?.name ?? 'some_vendor_id'}`}>
+                            {product.vendor?.name ?? 'getflix'}
+                        </Link>
                     </p>
                 </div>
                 <div className="cart-item-controls">
@@ -47,13 +46,13 @@ export const ShoppingCartItem = ({ cartItem: { amount, product } }) => {
                                 min={1}
                                 onChange={onAmountChange}
                                 className="amount-counter"
-                                defaultValue={amount}
+                                defaultValue={itemAmount}
                                 onPressEnter={onPressEnterAmount}
                             />
                         </div>
                     </div>
                     <div className="cart-item-price">
-                        {product.price}&nbsp;{product.currency ?? 'TL'}
+                        {round(product.price_after_discount, 2)}&nbsp;{product.currency ?? 'TL'}
                     </div>
                     <div className="cart-item-delete">
                         <Popconfirm
