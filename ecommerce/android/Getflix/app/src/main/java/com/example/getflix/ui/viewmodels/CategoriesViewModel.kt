@@ -3,6 +3,7 @@ package com.example.getflix.ui.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.*
 import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.CardProRequest
@@ -21,6 +22,10 @@ class CategoriesViewModel : ViewModel() {
     private val _products = MutableLiveData<List<ProductModel>>()
     val products: LiveData<List<ProductModel>>?
         get() = _products
+
+    private val _cartproducts = MutableLiveData<CartProductListModel>()
+    val cartproducts: LiveData<CartProductListModel>?
+        get() = _cartproducts
 
 
     var categories = arrayListOf<CategoryModel>()
@@ -58,14 +63,19 @@ class CategoriesViewModel : ViewModel() {
         }
     }
 
-    fun getUserCartProducts(id: Int) {
+    fun getCustomerCartProducts(id: Int) {
         job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.userCartProducts(id)
+            val response = GetflixApi.getflixApiService.getCustomerCartProducts("Bearer " + MainActivity.StaticData.user!!.token,id)
             withContext(Dispatchers.Main + exceptionHandler) {
+                println("with contextte")
+                println(response.message())
+                println(response.code())
+                println(response.errorBody())
                 if (response.isSuccessful) {
+                    println("succesfull mu")
                     response.body().let { it ->
-                        _products.value = it
-                        println(_products.value.toString())
+                        _cartproducts.value = it
+                        println(_cartproducts.value.toString())
                     }
                 }
             }

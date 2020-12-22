@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.getflix.R
+import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentCategoriesBinding
 import com.example.getflix.models.CategoryModel
 import com.example.getflix.models.SubcategoryModel
@@ -88,7 +89,7 @@ class CategoriesFragment : Fragment() {
         //viewModel.getProducts(3)
         //viewModel.getProduct(3)
         //viewModel.addToCart(1,4)
-        //viewModel.getUserCartProducts(20)
+        viewModel.getCustomerCartProducts(MainActivity.StaticData.user!!.id)
 
         /*viewModel.products?.observe(viewLifecycleOwner, {products ->
             products?.let {

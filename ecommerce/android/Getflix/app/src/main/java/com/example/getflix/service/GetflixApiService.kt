@@ -62,8 +62,9 @@ interface GetflixApiService {
     @GET("product/{productId}")
     suspend fun getProduct(@Path("productId") productId: Int): Response<List<ProductModel>>
 
-    @GET("user/{userId}/listShoppingCart")
-    suspend fun userCartProducts(@Path("userId") userId: Int): Response<List<ProductModel>>
+
+    @GET("customer/{customerId}/shoppingcart")
+    suspend fun getCustomerCartProducts(@Header("Authorization") token: String,@Path("customerId") customerId: Int): Response<CartProductListModel>
 
     @Headers("Content-Type: application/json")
     @POST("user/{userId}/shoppingCart")
