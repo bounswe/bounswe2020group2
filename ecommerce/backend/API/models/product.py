@@ -19,7 +19,7 @@ class Brand (models.Model):
 class Product (models.Model):
     name = models.CharField(max_length=255)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE) #subcategory id
-    price = models.IntegerField()
+    price = models.FloatField()
     creation_date = models.DateTimeField(auto_now_add=True)
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE) #vendor id  
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE) #brand id  
@@ -30,6 +30,7 @@ class Product (models.Model):
     short_description = models.CharField(max_length=255)
     long_description = models.TextField(max_length=255,default='long description')
     discount = models.FloatField(default=0.1)
+    is_deleted = models.BooleanField(default=False)
 
 #img urls
 class ImageUrls (models.Model):

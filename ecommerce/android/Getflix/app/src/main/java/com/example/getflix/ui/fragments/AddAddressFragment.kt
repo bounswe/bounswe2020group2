@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.getflix.R
+import androidx.databinding.DataBindingUtil
+import com.example.getflix.databinding.FragmentAddAddressBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
@@ -18,8 +20,13 @@ class AddAddressFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         activity?.toolbar!!.toolbar_title.text = getString(R.string.address_add)
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_address, container, false)
+
+        val binding = DataBindingUtil.inflate<FragmentAddAddressBinding>(inflater, R.layout.fragment_add_address,
+            container, false)
+
+        return binding.root
+
+
     }
 
 
