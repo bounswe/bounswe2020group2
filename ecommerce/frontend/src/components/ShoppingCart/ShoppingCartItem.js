@@ -4,6 +4,7 @@ import { DeleteOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { useAppContext } from '../../context/AppContext'
 import { useState } from 'react'
+import { round } from '../../utils'
 
 export const ShoppingCartItem = ({ cartItem: { id, amount, product } }) => {
     const [itemAmount, setItemAmount] = useState(amount)
@@ -51,7 +52,7 @@ export const ShoppingCartItem = ({ cartItem: { id, amount, product } }) => {
                         </div>
                     </div>
                     <div className="cart-item-price">
-                        {product.price_after_discount}&nbsp;{product.currency ?? 'TL'}
+                        {round(product.price_after_discount, 2)}&nbsp;{product.currency ?? 'TL'}
                     </div>
                     <div className="cart-item-delete">
                         <Popconfirm

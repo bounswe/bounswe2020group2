@@ -5,6 +5,7 @@ import React, { Component, useEffect, useState } from 'react'
 
 import { useAppContext } from '../../context/AppContext'
 import { ShoppingCartItems } from './ShoppingCartItems'
+import { round } from '../../utils'
 
 export const ShoppingCartPage = ({ currency = 'TL' }) => {
     const [isLoading, setIsLoading] = useState(true)
@@ -50,7 +51,7 @@ export const ShoppingCartPage = ({ currency = 'TL' }) => {
                     <Row gutter={16}>
                         <Col span={12}>
                             <Spin spinning={isLoading}>
-                                <Statistic title="Total Price" value={totalPrice + ' ' + currency} />
+                                <Statistic title="Total Price" value={round(totalPrice, 2) + ' ' + currency} />
                             </Spin>
                         </Col>
                     </Row>
