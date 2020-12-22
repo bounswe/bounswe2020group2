@@ -14,18 +14,18 @@ import com.example.getflix.R
 import com.example.getflix.databinding.FragmentRegisterBinding
 import com.example.getflix.doneAlert
 import com.example.getflix.infoAlert
-import com.example.getflix.ui.fragments.RegisterFragmentDirections.Companion.actionRegisterFragmentToHomePageFragment
 import com.example.getflix.ui.viewmodels.RegisterViewModel
 
 
 class RegisterFragment : Fragment() {
     private lateinit var registerViewModel: RegisterViewModel
+    private lateinit var binding: FragmentRegisterBinding
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentRegisterBinding>(inflater, R.layout.fragment_register,
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_register,
                 container, false)
         registerViewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
         binding.lifecycleOwner = this

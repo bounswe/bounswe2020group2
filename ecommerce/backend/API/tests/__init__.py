@@ -5,6 +5,5 @@ from .test_card import *
 from .test_shopping_cart_item import *
 from .test_product_detail import *
 from .test_checkout import *
-from .test_vendor_product import *
 from .test_order import *
-
+from .test_vendor_product import *
