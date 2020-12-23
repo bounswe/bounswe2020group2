@@ -4,15 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.getflix.activities.MainActivity
+import com.example.getflix.models.AddressModel
 import com.example.getflix.models.CardModel
 import com.example.getflix.service.GetflixApi
-import com.example.getflix.service.responses.CardDeleteResponse
 import kotlinx.coroutines.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class CreditCartViewModel : ViewModel() {
+class CompleteOrderViewModel : ViewModel() {
+
+    private val _addressList = MutableLiveData<MutableList<AddressModel>>()
+    val addressList: LiveData<MutableList<AddressModel>>
+        get() = _addressList
 
     private val _creditCartList = MutableLiveData<MutableList<CardModel>>()
     val creditList: LiveData<MutableList<CardModel>>
@@ -23,25 +24,18 @@ class CreditCartViewModel : ViewModel() {
         println("Error ${throwable.localizedMessage}")
     }
 
-    fun deleteCustomerCard(cardId: Int) {
-        GetflixApi.getflixApiService.deleteCustomerCard("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, cardId)
-                .enqueue(object :
-                        Callback<CardDeleteResponse> {
-                    override fun onFailure(call: Call<CardDeleteResponse>, t: Throwable) {
-                        println("failure")
-                    }
 
-                    override fun onResponse(
-                            call: Call<CardDeleteResponse>,
-                            response: Response<CardDeleteResponse>
-                    ) {
-                        println(response.body().toString())
-                        println(response.code())
-                        if (response.body()!!.status.succcesful)
-                            println(response.body().toString())
+    fun getCustomerAddresses() {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = GetflixApi.getflixApiService.getCustomerAddresses("Bearer " + MainActivity.StaticData.user!!.token, MainActivity.StaticData.user!!.id)
+            withContext(Dispatchers.Main + exceptionHandler) {
+                if (response.isSuccessful) {
+                    response.body().let { it ->
+                        _addressList.value = response.body()!!.addresses as MutableList<AddressModel>
                     }
                 }
-                )
+            }
+        }
     }
 
     fun getCustomerCards() {
