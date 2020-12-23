@@ -7,7 +7,11 @@ import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.AddressModel
 import com.example.getflix.models.CardModel
 import com.example.getflix.service.GetflixApi
+import com.example.getflix.service.responses.AddressDeleteResponse
 import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class AddressViewModel  : ViewModel() {
 
@@ -32,5 +36,26 @@ class AddressViewModel  : ViewModel() {
                 }
             }
         }
+    }
+
+    fun deleteCustomerAddress(addressId: Int) {
+        GetflixApi.getflixApiService.deleteCustomerAddress("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, addressId)
+                .enqueue(object :
+                        Callback<AddressDeleteResponse> {
+                    override fun onFailure(call: Call<AddressDeleteResponse>, t: Throwable) {
+                        println("failure")
+                    }
+
+                    override fun onResponse(
+                            call: Call<AddressDeleteResponse>,
+                            response: Response<AddressDeleteResponse>
+                    ) {
+                        println(response.body().toString())
+                        println(response.code())
+                        if (response.body()!!.status.succcesful)
+                            println(response.body().toString())
+                    }
+                }
+                )
     }
 }

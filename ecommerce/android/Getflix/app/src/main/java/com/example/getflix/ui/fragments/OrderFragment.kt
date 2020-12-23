@@ -58,7 +58,7 @@ class OrderFragment : Fragment() {
                     println(credit.name)
                 }
                 val creditAdapter = ArrayAdapter(this.requireContext(),
-                        android.R.layout.simple_spinner_item, credits)
+                        android.R.layout.simple_spinner_dropdown_item, credits)
                 creditAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
                 binding.creditSpinner.adapter = creditAdapter
             }
@@ -70,7 +70,7 @@ class OrderFragment : Fragment() {
                     addresses.add(adress.title)
                 }
                 val addressAdapter = ArrayAdapter(this.requireContext(),
-                        android.R.layout.simple_spinner_item, addresses!!)
+                        android.R.layout.simple_spinner_dropdown_item, addresses!!)
                 addressAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
                 binding.addressSpinner.adapter = addressAdapter
             }
