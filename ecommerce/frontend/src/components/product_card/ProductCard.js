@@ -18,7 +18,6 @@ export const ProductCard = ({ product, width = 350 }) => {
     const { title, rating, price, price_after_discount, currency, images, id } = product
 
     // const discountPrice = price * (1 - discount)
-    console.log(product)
     return (
         <div className="whole-card" style={{ minWidth: width, minHeight: width, maxWidth: width }}>
             <Link to={`/product/${id}`}>
