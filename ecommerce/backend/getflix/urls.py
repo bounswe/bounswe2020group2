@@ -27,7 +27,7 @@ urlpatterns = [
     path('product/<int:product_id>', views.product.get_product_detail),
     path('categories', views.category.get_categories),
     path('search/products', views.search.products, name="search_products"),
-    path('customer/<int:customer_id>/shoppingcart/<int:item_id>', views.shopping_cart.manage_specific_shopping_cart_item),
+    path('customer/<int:customer_id>/shoppingcart/<int:sc_item_id>', views.shopping_cart.manage_specific_shopping_cart_item),
     path('customer/<int:customer_id>/shoppingcart', views.shopping_cart.manage_shopping_cart_items),
     path('customer/<int:customer_id>/addresses/<int:address_id>', views.address.manage_specific_address),
     path('customer/<int:customer_id>/addresses', views.address.manage_addresses),
@@ -37,5 +37,9 @@ urlpatterns = [
     path('review', views.review.manage_review, name="review"),
     path('image/<int:image_id>', views.product.get_image),
     path('vendor/product', views.product.vendor_product, name="vendor_product"),
-    path('vendor/signup', views.account.vendor_register, name="vendor_signup")
+    path('vendor/signup', views.account.vendor_register, name="vendor_signup"),
+    path('vendor/order', views.order.vendor_orders,name="vendor_orders"),
+    path('checkout/payment', views.checkout.checkout_payment),
+    path('checkout/cancelorder/<int:id>', views.checkout.checkout_cancel_order),
+    path('customer/orders', views.order.customer_order)
 ]

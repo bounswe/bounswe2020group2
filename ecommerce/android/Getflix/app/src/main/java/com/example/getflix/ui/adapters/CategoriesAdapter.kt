@@ -15,10 +15,13 @@ import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder
 import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder
 
+
+
 class CategoriesAdapter(groups: List<ExpandableGroup<*>>?, fragment: CategoriesFragment) :
         ExpandableRecyclerViewAdapter<CategoryViewHolder, SubCategoryViewHolder>(groups) {
 
     val fragment = fragment
+
 
 
     override fun onCreateGroupViewHolder(parent: ViewGroup?, viewType: Int): CategoryViewHolder {
@@ -60,9 +63,6 @@ class SubCategoryViewHolder(val binding: ListSubcategoryBinding) : ChildViewHold
 
     fun bind(subCategory: SubcategoryModel) {
         binding.subCategory = subCategory
-        binding.root.setOnClickListener { v ->
-            //  v.findNavController().navigate(actionCategoriesFragmentToSubcategoryFragment())
-        }
     }
 
 
