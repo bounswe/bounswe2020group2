@@ -43,6 +43,7 @@ class LoginFragment : Fragment() {
 
 
 
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -124,6 +125,7 @@ class LoginFragment : Fragment() {
                 } else {
                     prefs!!.edit().clear().apply()
                 }
+
                 if (it.id==20) {
                     //println(it.toString())
                     activity?.loading_progress!!.visibility = View.GONE

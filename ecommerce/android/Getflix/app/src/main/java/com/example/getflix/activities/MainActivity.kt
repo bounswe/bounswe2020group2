@@ -58,6 +58,11 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment
         navController = navHostFragment.findNavController()
         setSupportActionBar(toolbar)
+       /* val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        var mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        var account = GoogleSignIn.getLastSignedInAccount(this); */
 
     }
 

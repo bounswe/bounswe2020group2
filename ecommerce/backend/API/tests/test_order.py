@@ -69,4 +69,4 @@ class TestOrderStatus(TestCase):
         body = {"orderId": 1,'orderStatus':'at_cargo'}
         response = self.client.put(reverse('vendor_orders'), body ,'json')
     
-        self.assertEqual(response.data['is_successful'], True)
+        self.assertEqual(response.data["status"]["successful"], True)

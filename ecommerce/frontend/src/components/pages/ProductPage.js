@@ -6,6 +6,7 @@ import { api } from '../../api'
 import { sleep } from '../../utils'
 import { ProductHeader } from '../product/ProductHeader'
 import { notification, Spin } from 'antd'
+import { UserReviews } from '../UserReview/UserReviews'
 
 export const ProductPage = props => {
     const [product, setProduct] = useState()
@@ -34,6 +35,9 @@ export const ProductPage = props => {
         <div className="product-page">
             <div className="product-page-header">
                 <ProductHeader loading={loading} product={product} />
+            </div>
+            <div className="product-page-reviews">
+                <UserReviews productId={productId} />
             </div>
         </div>
     )

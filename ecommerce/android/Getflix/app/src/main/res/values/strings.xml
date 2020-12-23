@@ -78,6 +78,8 @@
     <string name="user_guest_alert">Kullanıcı bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
     <string name="bank_guest_alert">Banka hesabı bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
     <string name="address_guest_alert">Adres bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
+    <string name="hidden_password">123456</string>
+    <string name="log_out">LOG OUT</string>
     <string name="messages">Mesajlar</string>
     <string name="pass_char_limit">Şifreniz en az 8 karakter olmalıdır.</string>
     <string name="username_char_limit">Kullanıcı adınız en az 6 karakter olmalıdır.</string>
