@@ -6,10 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.*
 import com.example.getflix.service.GetflixApi
-import com.example.getflix.service.requests.AddressAddRequest
-import com.example.getflix.service.requests.AddressUpdateRequest
-import com.example.getflix.service.requests.CardProAddRequest
-import com.example.getflix.service.requests.CardProUpdateRequest
+import com.example.getflix.service.requests.*
 import com.example.getflix.service.responses.*
 import kotlinx.coroutines.*
 import retrofit2.Call
@@ -174,6 +171,19 @@ class CategoriesViewModel : ViewModel() {
         }
     }
 
+    fun getCustomerCard(cardId: Int) {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = GetflixApi.getflixApiService.getCustomerCard("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, cardId)
+            withContext(Dispatchers.Main + exceptionHandler) {
+                if (response.isSuccessful) {
+                    response.body().let { it ->
+                        println(response.body().toString())
+                    }
+                }
+            }
+        }
+    }
+
 
 
     fun updateCustomerCartProduct(amount: Int, scId: Int, proId: Int) {
@@ -317,6 +327,82 @@ class CategoriesViewModel : ViewModel() {
             }
         }
         _categoriesList.value = catList
+    }
+
+    fun getCustomerCards() {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = GetflixApi.getflixApiService.getCustomerCards("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id)
+            withContext(Dispatchers.Main + exceptionHandler) {
+                if (response.isSuccessful) {
+                    response.body().let { it ->
+                        println(it.toString())
+                    }
+                }
+            }
+        }
+    }
+
+    fun addCustomerCard(cardRequest: CardAddRequest) {
+        GetflixApi.getflixApiService.addCustomerCard("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, cardRequest)
+                .enqueue(object :
+                        Callback<CardAddResponse> {
+                    override fun onFailure(call: Call<CardAddResponse>, t: Throwable) {
+
+                    }
+
+                    override fun onResponse(
+                            call: Call<CardAddResponse>,
+                            response: Response<CardAddResponse>
+                    ) {
+                        println(response.body().toString())
+                        println(response.code())
+                        if (response.body()!!.status.succcesful)
+                            println(response.body().toString())
+                    }
+                }
+                )
+    }
+
+    fun updateCustomerCard(cardId: Int,cardRequest: CardUpdateRequest) {
+        GetflixApi.getflixApiService.updateCustomerCard("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, cardId,cardRequest)
+                .enqueue(object :
+                        Callback<CardUpdateResponse> {
+                    override fun onFailure(call: Call<CardUpdateResponse>, t: Throwable) {
+
+                    }
+
+                    override fun onResponse(
+                            call: Call<CardUpdateResponse>,
+                            response: Response<CardUpdateResponse>
+                    ) {
+                        println(response.body().toString())
+                        println(response.code())
+                        if (response.body()!!.status.succcesful)
+                            println(response.body().toString())
+                    }
+                }
+                )
+    }
+
+    fun deleteCustomerCard(cardId: Int) {
+        GetflixApi.getflixApiService.deleteCustomerCard("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, cardId)
+                .enqueue(object :
+                        Callback<CardDeleteResponse> {
+                    override fun onFailure(call: Call<CardDeleteResponse>, t: Throwable) {
+                        println("failure")
+                    }
+
+                    override fun onResponse(
+                            call: Call<CardDeleteResponse>,
+                            response: Response<CardDeleteResponse>
+                    ) {
+                        println(response.body().toString())
+                        println(response.code())
+                        if (response.body()!!.status.succcesful)
+                            println(response.body().toString())
+                    }
+                }
+                )
     }
 
 }

@@ -11,6 +11,6 @@ data class CardUpdateRequest(
         @SerializedName("name") val name: String,
         @SerializedName("owner_name") val owner_name: String,
         @SerializedName("serial_number") val serial_number: Int,
-        @SerializedName("expiration_data") val expiration_data: ExpirationDateModel,
-        @SerializedName("cvc") val cvc: Int
+        @SerializedName("expiration_date") val expiration_data: ExpirationDateModel,
+        @SerializedName("cvv") val cvv: Int
 )

@@ -102,13 +102,13 @@ interface GetflixApiService {
 
     @Headers("Content-Type: application/json")
     @POST("customer/{customerId}/cards")
-    fun addCustomerCard(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Body addressData: CardAddRequest): Call<CardAddResponse>
+    fun addCustomerCard(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Body cartData: CardAddRequest): Call<CardAddResponse>
 
     @GET("customer/{customerId}/cards/{cardId}")
     suspend fun getCustomerCard(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Path("cardId") cardId: Int): Response<CardSingleModel>
 
     @Headers("Content-Type: application/json")
-    @PUT("customer/{customerId}/cards/card_id}")
+    @PUT("customer/{customerId}/cards/{card_id}")
     fun updateCustomerCard(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Path("card_id") card_id: Int,@Body cardData: CardUpdateRequest): Call<CardUpdateResponse>
 
     @Headers("Content-Type: application/json")

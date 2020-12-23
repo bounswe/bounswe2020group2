@@ -7,5 +7,5 @@ import kotlinx.android.parcel.Parcelize
 
 data class CardListModel(
         @SerializedName("status") val status: Status,
-        @SerializedName("cards") val addresses: List<CardModel>
+        @SerializedName("cards") val cards: List<CardModel>
 )

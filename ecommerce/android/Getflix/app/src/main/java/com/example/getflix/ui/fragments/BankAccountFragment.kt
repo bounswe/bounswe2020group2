@@ -62,9 +62,9 @@ class BankAccountFragment : Fragment() {
         val recView = binding?.creditList as RecyclerView
 
         var credit1 =
-                CardModel(1, "Garanti Kartim", "Selin Kocak", 4444, ExpirationDateModel(5,2021), 112)
+                CardModel(1, "Garanti Kartim", "Selin Kocak", "4444", ExpirationDateModel(5,2021), 112)
         var credit2 =
-                CardModel(2, "QNB Kartim", "Selin Kocak", 4444, ExpirationDateModel(5,2021), 112)
+                CardModel(2, "QNB Kartim", "Selin Kocak", "4444", ExpirationDateModel(5,2021), 112)
         val credits = arrayListOf(credit1, credit2)
 
         val creditCartsAdapter = CreditCartsAdapter(credits)
