@@ -104,7 +104,10 @@ def checkout_cancel_order(request, id):
 
     purchases = Purchase.objects.filter(order_id=int(id))
     for purchase in purchases:
-        purchase.status = order_status.OrderStatus.CANCELLED.value
-        purchase.save()
+        if purchase.status == order_status.OrderStatus.ACCEPTED.value:
+            purchase.status = order_status.OrderStatus.CANCELLED.value
+            purchase.save()
+        else:
+            continue
 
     return Response({'status': { 'successful': True, 'message': "Order is successfully deleted."}})
