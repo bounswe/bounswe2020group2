@@ -80,9 +80,6 @@ interface GetflixApiService {
     suspend fun getCategories(): Response<CategoryListModel>
 
 
-    @GET("categories")
-    suspend fun getCategories(): Response<CategoryListModel>
-
     @GET("customer/{customerId}/addresses")
     suspend fun getCustomerAddresses(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Response<AddressListModel>
 
