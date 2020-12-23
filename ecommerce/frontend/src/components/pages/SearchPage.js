@@ -157,7 +157,7 @@ export const _SearchPage = ({ initialValues = {} }) => {
 
         const prefix = query ?? 'All'
 
-        return `${prefix} ${type}s - Getflix`
+        return `${prefix} ${type} - Getflix`
     }
 
     return (
