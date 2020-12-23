@@ -1,20 +1,20 @@
 import './CategoryBar.less'
 
 import { Menu } from 'antd'
-import SubMenu from 'antd/lib/menu/SubMenu'
 import qs from 'querystring'
 import { useHistory } from 'react-router-dom'
 
 import { useAppContext } from '../context/AppContext'
+const { SubMenu } = Menu
 
 export const CategoryBar = () => {
     const history = useHistory()
     const { categories } = useAppContext()
 
-    const onCategoryClick = category => () => {
+    const onCategoryClick = categoryId => () => {
         history.push({
             pathname: `/search/products`,
-            search: qs.stringify({ category: category.id }),
+            search: qs.stringify({ category: categoryId }),
         })
     }
 
