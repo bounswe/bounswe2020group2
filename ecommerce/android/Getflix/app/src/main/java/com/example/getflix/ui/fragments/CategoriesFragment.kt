@@ -18,6 +18,7 @@ import com.example.getflix.models.ExpirationDateModel
 import com.example.getflix.models.PhoneModel
 import com.example.getflix.models.SubcategoryModel
 import com.example.getflix.service.GetflixApi
+
 import com.example.getflix.service.requests.AddressAddRequest
 import com.example.getflix.service.requests.AddressUpdateRequest
 import com.example.getflix.service.requests.CardAddRequest
@@ -45,6 +46,9 @@ class CategoriesFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        activity?.loading_progress!!.visibility = View.VISIBLE
+
         viewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
         viewModel.getCategories()
 
@@ -62,6 +66,7 @@ class CategoriesFragment : Fragment() {
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.categories)
         binding.lifecycleOwner = this
+
 
 
         //viewModel.getProducts(3)
@@ -100,7 +105,6 @@ class CategoriesFragment : Fragment() {
         //viewModel.updateCustomerCard(1,cardReqU)
 
 
-
        var cats1 = arrayListOf<CategoryModel>()
 
 
@@ -114,6 +118,7 @@ class CategoriesFragment : Fragment() {
                }
                adapter = CategoriesAdapter(cats1, this)
                binding.catRec.adapter = adapter
+               activity?.loading_progress!!.visibility = View.GONE
            }
        })
 

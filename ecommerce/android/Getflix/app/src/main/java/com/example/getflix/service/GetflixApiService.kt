@@ -79,6 +79,10 @@ interface GetflixApiService {
     @GET("categories")
     suspend fun getCategories(): Response<CategoryListModel>
 
+
+    @GET("categories")
+    suspend fun getCategories(): Response<CategoryListModel>
+
     @GET("customer/{customerId}/addresses")
     suspend fun getCustomerAddresses(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Response<AddressListModel>
 
@@ -114,6 +118,7 @@ interface GetflixApiService {
     @Headers("Content-Type: application/json")
     @DELETE("customer/{customerId}/cards/{card_id}")
     fun deleteCustomerCard(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Path("card_id") address_id: Int): Call<CardDeleteResponse>
+
 
 }
 

@@ -171,6 +171,21 @@ class CategoriesViewModel : ViewModel() {
         }
     }
 
+
+    fun getCategories() {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = GetflixApi.getflixApiService.getCategories()
+            withContext(Dispatchers.Main + exceptionHandler) {
+                if (response.isSuccessful) {
+                    response.body().let { it ->
+                        _categoriess.value = it
+                        println(_categoriess.value.toString())
+                                }
+                }
+            }
+        }
+    }
+
     fun getCustomerCard(cardId: Int) {
         job = CoroutineScope(Dispatchers.IO).launch {
             val response = GetflixApi.getflixApiService.getCustomerCard("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, cardId)
@@ -183,6 +198,7 @@ class CategoriesViewModel : ViewModel() {
             }
         }
     }
+
 
 
 

@@ -185,11 +185,19 @@
     <fragment
         android:id="@+id/vendorProfileFragment"
         android:name="com.example.getflix.ui.fragments.VendorProfileFragment"
-        tools:layout="@layout/fragment_vendor_home" />
+        tools:layout="@layout/fragment_vendor_home" >
+    <action
+        android:id="@+id/action_vendorProfile_to_loginFragment"
+        app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/messagesFragment"
         android:name="com.example.getflix.ui.fragments.MessagesFragment"
         tools:layout="@layout/fragment_messages" />
+    <fragment
+        android:id="@+id/vendorOrdersFragment"
+        android:name="com.example.getflix.ui.fragments.VendorOrdersFragment"
+        tools:layout="@layout/fragment_vendor_orders" />
     <fragment
         android:id="@+id/addAddressFragment"
         android:name="com.example.getflix.ui.fragments.AddAddressFragment"
