@@ -14,8 +14,11 @@ import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentCategoriesBinding
 import com.example.getflix.models.CategoryModel
+import com.example.getflix.models.PhoneModel
 import com.example.getflix.models.SubcategoryModel
 import com.example.getflix.service.GetflixApi
+import com.example.getflix.service.requests.AddressAddRequest
+import com.example.getflix.service.requests.AddressUpdateRequest
 import com.example.getflix.ui.adapters.CategoriesAdapter
 import com.example.getflix.ui.adapters.SubcategoryHorizontalAdapter
 import com.example.getflix.ui.viewmodels.CategoriesViewModel
@@ -66,9 +69,19 @@ class CategoriesFragment : Fragment() {
         //viewModel.getCustomerCartProducts()
         //viewModel.updateCustomerCartProduct(2,71,1)
         //viewModel.deleteCustomerCartProduct(71)
-
+        println("heyyy")
         //viewModel.getCustomerCartProducts()
+        //viewModel.getSingleCartProduct(71)
+        println("-----")
+        viewModel.getCustomerAddresses()
+        val addressReq = AddressAddRequest("Home", PhoneModel("90","8375334"),"Fatma",
+        "Yildiz","A2 98 Kadikoy","Site Mah.","Istanbul","Turkey","34555")
+        //viewModel.addCustomerAddress(addressReq)
+        val addressReqU = AddressUpdateRequest("Home_updated", PhoneModel("90","8375334"),"Fatma",
+                "Yildiz","A2 98 Kadikoy","Site Mah.","Istanbul","Turkey","34555")
+        //viewModel.updateCustomerAddress(3,addressReqU)
 
+        //viewModel.deleteCustomerAddress(3)
        var cats1 = arrayListOf<CategoryModel>()
 
 

@@ -1,10 +1,7 @@
 package com.example.getflix.service
 
 import com.example.getflix.models.*
-import com.example.getflix.service.requests.CardProAddRequest
-import com.example.getflix.service.requests.CardProUpdateRequest
-import com.example.getflix.service.requests.LoginRequest
-import com.example.getflix.service.requests.SignUpRequest
+import com.example.getflix.service.requests.*
 import com.example.getflix.service.responses.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -61,9 +58,11 @@ interface GetflixApiService {
     @GET("product/{productId}")
     suspend fun getProduct(@Path("productId") productId: Int): Response<List<ProductModel>>
 
-
     @GET("customer/{customerId}/shoppingcart")
-    suspend fun getCustomerCartProducts(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Response<CartProductListModel>
+    suspend fun getCustomerAllCartProducts(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Response<CartProductListModel>
+
+    @GET("customer/{customerId}/shoppingcart/{sc_item_id}")
+    suspend fun getCustomerCartProduct(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Path("sc_item_id") sc_item_id: Int): Response<CartProductSingleModel>
 
     @Headers("Content-Type: application/json")
     @POST("customer/{customerId}/shoppingcart")
@@ -79,6 +78,42 @@ interface GetflixApiService {
 
     @GET("categories")
     suspend fun getCategories(): Response<CategoryListModel>
+
+    @GET("customer/{customerId}/addresses")
+    suspend fun getCustomerAddresses(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Response<AddressListModel>
+
+    @Headers("Content-Type: application/json")
+    @POST("customer/{customerId}/addresses")
+    fun addCustomerAddress(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Body addressData: AddressAddRequest): Call<AddressAddResponse>
+
+    @GET("customer/{customerId}/addresses/{addressId}")
+    suspend fun getCustomerAddress(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Path("addressId") addressId: Int): Response<AddressSingleModel>
+
+    @Headers("Content-Type: application/json")
+    @PUT("customer/{customerId}/addresses/{address_id}")
+    fun updateCustomerAddress(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Path("address_id") address_id: Int,@Body addressData: AddressUpdateRequest): Call<AddressUpdateResponse>
+
+    @Headers("Content-Type: application/json")
+    @DELETE("customer/{customerId}/addresses/{address_id}")
+    fun deleteCustomerAddress(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Path("address_id") address_id: Int): Call<AddressDeleteResponse>
+
+    @GET("customer/{customerId}/cards")
+    suspend fun getCustomerCards(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Response<CardListModel>
+
+    @Headers("Content-Type: application/json")
+    @POST("customer/{customerId}/cards")
+    fun addCustomerCard(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Body addressData: CardAddRequest): Call<CardAddResponse>
+
+    @GET("customer/{customerId}/cards/{cardId}")
+    suspend fun getCustomerCard(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Path("cardId") cardId: Int): Response<CardSingleModel>
+
+    @Headers("Content-Type: application/json")
+    @PUT("customer/{customerId}/cards/card_id}")
+    fun updateCustomerCard(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Path("card_id") card_id: Int,@Body cardData: CardUpdateRequest): Call<CardUpdateResponse>
+
+    @Headers("Content-Type: application/json")
+    @DELETE("customer/{customerId}/cards/{card_id}")
+    fun deleteCustomerCard(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Path("card_id") address_id: Int): Call<CardDeleteResponse>
 
 }
 

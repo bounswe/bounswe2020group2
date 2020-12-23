@@ -17,6 +17,7 @@ import com.example.getflix.databinding.AddressCardItemBinding
 import com.example.getflix.databinding.FragmentAddressBinding
 import com.example.getflix.databinding.FragmentProfileBinding
 import com.example.getflix.models.AddressModel
+import com.example.getflix.models.PhoneModel
 import com.example.getflix.ui.adapters.AddressAdapter
 import com.example.getflix.ui.fragments.AddressFragmentDirections.Companion.actionAddressFragmentToAddAddressFragment
 import com.example.getflix.ui.viewmodels.AddressViewModel
@@ -47,17 +48,17 @@ class AddressFragment : Fragment() {
         val recView = binding?.addressList as RecyclerView
 
         var address1 =
-            AddressModel(1, "Ev", "532983048", "Selin", "Zara", "Lawrence Moreno\n" +
+            AddressModel(1, "Ev", PhoneModel("90","88887"), "Selin", "Zara", "Lawrence Moreno\n" +
                     "935-9940 Tortor. Street\n" +
-                    "Santa Rosa MN 98804", "Santa Rosa", "citty", "country")
+                    "Santa Rosa MN 98804", "Santa Rosa", "citty", "country","3434")
         var address2 =
-            AddressModel(2, "Is", "532983048", "Selin", "Zara", "Lawrence Moreno\n" +
+            AddressModel(2, "Is", PhoneModel("90","88887"), "Selin", "Zara", "Lawrence Moreno\n" +
                     "935-9940 Tortor. Street\n" +
-                    "Santa Rosa MN 98804", "Santa Rosa", "citty", "country")
+                    "Santa Rosa MN 98804", "Santa Rosa", "citty", "country","242424")
         var address3 =
-            AddressModel(3, "Yazlik", "532983048", "Selin", "Zara", "Lawrence Moreno\n" +
+            AddressModel(3, "Yazlik", PhoneModel("90","88887"), "Selin", "Zara", "Lawrence Moreno\n" +
                     "935-9940 Tortor. Street\n" +
-                    "Santa Rosa MN 98804", "Santa Rosa", "citty", "country")
+                    "Santa Rosa MN 98804", "Santa Rosa", "citty", "country","234432")
         val addresses = arrayListOf(address1, address2, address3)
 
         val addressListAdapter = AddressAdapter(addresses)

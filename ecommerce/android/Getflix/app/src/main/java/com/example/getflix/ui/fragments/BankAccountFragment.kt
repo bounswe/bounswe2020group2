@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentBankAccountBinding
 import com.example.getflix.models.CardModel
+import com.example.getflix.models.ExpirationDateModel
 import com.example.getflix.ui.adapters.CreditCartsAdapter
 import com.example.getflix.ui.fragments.BankAccountFragmentDirections.Companion.actionBankAccountFragmentToPaymentFragment
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToBankAccountFragment
@@ -61,9 +62,9 @@ class BankAccountFragment : Fragment() {
         val recView = binding?.creditList as RecyclerView
 
         var credit1 =
-                CardModel(1, "Garanti Kartim", "Selin Kocak", 4444, "07/23", 112)
+                CardModel(1, "Garanti Kartim", "Selin Kocak", 4444, ExpirationDateModel(5,2021), 112)
         var credit2 =
-                CardModel(2, "QNB Kartim", "Selin Kocak", 4444, "08/23", 112)
+                CardModel(2, "QNB Kartim", "Selin Kocak", 4444, ExpirationDateModel(5,2021), 112)
         val credits = arrayListOf(credit1, credit2)
 
         val creditCartsAdapter = CreditCartsAdapter(credits)

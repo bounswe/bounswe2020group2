@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModel
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.*
 import com.example.getflix.service.GetflixApi
+import com.example.getflix.service.requests.AddressAddRequest
+import com.example.getflix.service.requests.AddressUpdateRequest
 import com.example.getflix.service.requests.CardProAddRequest
 import com.example.getflix.service.requests.CardProUpdateRequest
-import com.example.getflix.service.responses.CardProAddResponse
-import com.example.getflix.service.responses.CardProDeleteResponse
-import com.example.getflix.service.responses.CardProUpdateResponse
+import com.example.getflix.service.responses.*
 import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,6 +33,18 @@ class CategoriesViewModel : ViewModel() {
     private val _cartproducts = MutableLiveData<CartProductListModel>()
     val cartproducts: LiveData<CartProductListModel>?
         get() = _cartproducts
+
+    private val _cartproduct = MutableLiveData<CartProductSingleModel>()
+    val cartproduct: LiveData<CartProductSingleModel>?
+        get() = _cartproduct
+
+    private val _address = MutableLiveData<AddressSingleModel>()
+    val address: LiveData<AddressSingleModel>?
+        get() = _address
+
+    private val _addresslist = MutableLiveData<AddressListModel>()
+    val addresslist: LiveData<AddressListModel>?
+        get() = _addresslist
 
 
     var categories = arrayListOf<CategoryModel>()
@@ -72,7 +84,7 @@ class CategoriesViewModel : ViewModel() {
 
     fun getCustomerCartProducts() {
         job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getCustomerCartProducts("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id)
+            val response = GetflixApi.getflixApiService.getCustomerAllCartProducts("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id)
             withContext(Dispatchers.Main + exceptionHandler) {
                 if (response.isSuccessful) {
                     println("succesfull mu")
@@ -98,6 +110,71 @@ class CategoriesViewModel : ViewModel() {
             }
         }
     }
+
+    fun getSingleCartProduct(sc_id: Int) {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = GetflixApi.getflixApiService.getCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id,sc_id)
+            withContext(Dispatchers.Main + exceptionHandler) {
+                if (response.isSuccessful) {
+                    response.body().let { it ->
+                        _cartproduct.value = it
+                        println(_cartproduct.value.toString())
+                    }
+                }
+            }
+        }
+    }
+
+    fun getCustomerAddresses() {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = GetflixApi.getflixApiService.getCustomerAddresses("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id)
+            withContext(Dispatchers.Main + exceptionHandler) {
+                if (response.isSuccessful) {
+                    response.body().let { it ->
+                        _addresslist.value = it
+                        println(_addresslist.value.toString())
+                    }
+                }
+            }
+        }
+    }
+
+    fun addCustomerAddress(addressRequest: AddressAddRequest) {
+        GetflixApi.getflixApiService.addCustomerAddress("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, addressRequest)
+                .enqueue(object :
+                        Callback<AddressAddResponse> {
+                    override fun onFailure(call: Call<AddressAddResponse>, t: Throwable) {
+
+                    }
+
+                    override fun onResponse(
+                            call: Call<AddressAddResponse>,
+                            response: Response<AddressAddResponse>
+                    ) {
+                        println(response.body().toString())
+                        println(response.code())
+                        if (response.body()!!.status.succcesful)
+                            println(response.body().toString())
+                    }
+                }
+                )
+    }
+
+    fun getCustomerAddress(addressId: Int) {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = GetflixApi.getflixApiService.getCustomerAddress("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, addressId)
+            withContext(Dispatchers.Main + exceptionHandler) {
+                if (response.isSuccessful) {
+                    response.body().let { it ->
+                        _address.value = it
+                        println(_address.value.toString())
+                    }
+                }
+            }
+        }
+    }
+
+
 
     fun updateCustomerCartProduct(amount: Int, scId: Int, proId: Int) {
         GetflixApi.getflixApiService.updateCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, scId, CardProUpdateRequest(proId, amount))
@@ -162,6 +239,27 @@ class CategoriesViewModel : ViewModel() {
                 )
     }
 
+    fun updateCustomerAddress(addressId: Int, updateReq: AddressUpdateRequest) {
+        GetflixApi.getflixApiService.updateCustomerAddress("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, addressId, updateReq)
+                .enqueue(object :
+                        Callback<AddressUpdateResponse> {
+                    override fun onFailure(call: Call<AddressUpdateResponse>, t: Throwable) {
+
+                    }
+
+                    override fun onResponse(
+                            call: Call<AddressUpdateResponse>,
+                            response: Response<AddressUpdateResponse>
+                    ) {
+                        println(response.body().toString())
+                        println(response.code())
+                        if (response.body()!!.status.succcesful)
+                            println(response.body().toString())
+                    }
+                }
+                )
+    }
+
     fun addCategory(categoryModel: CategoryModel) {
         if (_categoriesList.value != null) {
             val categories = _categoriesList.value
@@ -173,6 +271,27 @@ class CategoriesViewModel : ViewModel() {
             _categoriesList.value = categories
         }
 
+    }
+
+    fun deleteCustomerAddress(addressId: Int) {
+        GetflixApi.getflixApiService.deleteCustomerAddress("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, addressId)
+                .enqueue(object :
+                        Callback<AddressDeleteResponse> {
+                    override fun onFailure(call: Call<AddressDeleteResponse>, t: Throwable) {
+                        println("failure")
+                    }
+
+                    override fun onResponse(
+                            call: Call<AddressDeleteResponse>,
+                            response: Response<AddressDeleteResponse>
+                    ) {
+                        println(response.body().toString())
+                        println(response.code())
+                        if (response.body()!!.status.succcesful)
+                            println(response.body().toString())
+                    }
+                }
+                )
     }
 
     fun setCategories(products: MutableList<ProductModel>) {
