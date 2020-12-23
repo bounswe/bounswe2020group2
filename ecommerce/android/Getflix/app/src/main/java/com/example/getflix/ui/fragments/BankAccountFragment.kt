@@ -28,6 +28,13 @@ class BankAccountFragment : Fragment() {
     private lateinit var viewModel: CreditCartViewModel
     private lateinit var binding: FragmentBankAccountBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(CreditCartViewModel::class.java)
+//        binding.viewmodel = CreditCartViewModel()
+        viewModel.getCustomerCards()
+    }
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -57,29 +64,27 @@ class BankAccountFragment : Fragment() {
             view?.findNavController()?.navigate(actionBankAccountFragmentToPaymentFragment())
         }
 
-        viewModel = ViewModelProvider(this).get(CreditCartViewModel::class.java)
-        binding.viewmodel = CreditCartViewModel()
+        val credits = arrayListOf<CardModel>()
+
+       viewModel = ViewModelProvider(this).get(CreditCartViewModel::class.java)
+        binding.viewmodel = viewModel
+        viewModel.getCustomerCards()
         val recView = binding?.creditList as RecyclerView
-
-        var credit1 =
-                CardModel(1, "Garanti Kartim", "Selin Kocak", "4444", ExpirationDateModel(5,2021), 112)
-        var credit2 =
-                CardModel(2, "QNB Kartim", "Selin Kocak", "4444", ExpirationDateModel(5,2021), 112)
-        val credits = arrayListOf(credit1, credit2)
-
-        val creditCartsAdapter = CreditCartsAdapter(credits)
+       /* val creditCartsAdapter = CreditCartsAdapter(credits)
         recView.adapter = creditCartsAdapter
-        recView.setHasFixedSize(true)
+        recView.setHasFixedSize(true) */
 
-        for (credit in credits) {
-            viewModel.addCreditCart(credit)
-        }
+
 
         viewModel.creditList.observe(viewLifecycleOwner, Observer {
             it?.let {
-                creditCartsAdapter.submitList(it)
+                val creditCartsAdapter = CreditCartsAdapter(ArrayList(it!!))
+                recView.adapter = creditCartsAdapter
+                recView.setHasFixedSize(true)
+               // creditCartsAdapter.submitList(it)
             }
         })
+
 
         return binding.root
     }

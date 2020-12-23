@@ -44,34 +44,18 @@ class AddressFragment : Fragment() {
         }
 
         viewModel = ViewModelProvider(this).get(AddressViewModel::class.java)
-        binding.viewmodel = AddressViewModel()
+        binding.viewmodel = viewModel
         val recView = binding?.addressList as RecyclerView
 
-        var address1 =
-            AddressModel(1, "Ev", PhoneModel("90","88887"), "Selin", "Zara", "Lawrence Moreno\n" +
-                    "935-9940 Tortor. Street\n" +
-                    "Santa Rosa MN 98804", "Santa Rosa", "citty", "country","3434")
-        var address2 =
-            AddressModel(2, "Is", PhoneModel("90","88887"), "Selin", "Zara", "Lawrence Moreno\n" +
-                    "935-9940 Tortor. Street\n" +
-                    "Santa Rosa MN 98804", "Santa Rosa", "citty", "country","242424")
-        var address3 =
-            AddressModel(3, "Yazlik", PhoneModel("90","88887"), "Selin", "Zara", "Lawrence Moreno\n" +
-                    "935-9940 Tortor. Street\n" +
-                    "Santa Rosa MN 98804", "Santa Rosa", "citty", "country","234432")
-        val addresses = arrayListOf(address1, address2, address3)
+        viewModel.getCustomerAddresses()
 
-        val addressListAdapter = AddressAdapter(addresses)
-        recView.adapter = addressListAdapter
-        recView.setHasFixedSize(true)
-
-        for (address in addresses) {
-            viewModel.addAddress(address)
-        }
 
         viewModel.addressList.observe(viewLifecycleOwner, Observer {
             it?.let {
-                addressListAdapter.submitList(it)
+                val addressListAdapter = AddressAdapter(ArrayList(it!!))
+                recView.adapter = addressListAdapter
+                recView.setHasFixedSize(true)
+               // addressListAdapter.submitList(it)
             }
         })
 

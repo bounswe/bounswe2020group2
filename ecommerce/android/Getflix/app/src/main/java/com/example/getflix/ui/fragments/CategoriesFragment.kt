@@ -79,16 +79,19 @@ class CategoriesFragment : Fragment() {
         //viewModel.getCustomerAddresses()
         val addressReq = AddressAddRequest("Home", PhoneModel("90","8375334"),"Fatma",
         "Yildiz","A2 98 Kadikoy","Site Mah.","Istanbul","Turkey","34555")
-        //viewModel.addCustomerAddress(addressReq)
+        viewModel.addCustomerAddress(addressReq)
         val addressReqU = AddressUpdateRequest("Home_updated", PhoneModel("90","8375334"),"Fatma",
                 "Yildiz","A2 98 Kadikoy","Site Mah.","Istanbul","Turkey","34555")
         //viewModel.updateCustomerAddress(3,addressReqU)
 
         //viewModel.deleteCustomerAddress(3)
-        viewModel.getCustomerCards()
+       // viewModel.getCustomerCards()
         val cardReq = CardAddRequest("Ziraat","Fatma Yildiz","8743543878658697",
         ExpirationDateModel(8,2022),343)
         //viewModel.addCustomerCard(cardReq)
+        val cardReq1 = CardAddRequest("World","Fatma Yildiz","543878658697",
+                ExpirationDateModel(8,2021),343)
+        //viewModel.addCustomerCard(cardReq1)
         //viewModel.getCustomerCard(1)
         //viewModel.deleteCustomerCard(1)
 
