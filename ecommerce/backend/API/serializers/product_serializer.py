@@ -13,7 +13,7 @@ class ProductResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ('id', 'name', 'creation_date', 'discount', 'price', 'price_after_discount', 'total_rating', 
-            'rating_count', 'rating', 'stock_amount', 'short_description', 'long_description', 'category', 'subcategory','brand','vendor', 'images')
+            'rating_count', 'rating', 'stock_amount', 'short_description', 'long_description', 'category', 'subcategory','brand','vendor', 'images', 'is_deleted')
 
     def get_price_after_discount(self, obj):
         price = obj.price
