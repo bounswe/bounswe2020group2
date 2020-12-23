@@ -11,6 +11,7 @@ import { api } from '../../api'
 // import { categories, subcategories } from '../../utils'
 import { SearchResults } from '../search/SearchResults'
 import { SearchSidePanel } from '../search/SearchSidePanel'
+import { formatProduct } from '../../utils'
 
 const formatSearchQueryParams = values => ({
     query: values.search?.query,
@@ -112,19 +113,7 @@ export const _SearchPage = ({ initialValues = {} }) => {
                     },
                 } = await api.post(`/search/products`, formatSearchQueryParams(values))
 
-                setProducts(
-                    products.map(p => {
-                        return {
-                            id: p.id,
-                            title: p.name,
-                            rating: p.total_rating,
-                            price: p.price,
-                            price_after_discount: p.price_after_discount,
-                            currency: 'TL',
-                            imageUrl: p.images[0],
-                        }
-                    }),
-                )
+                setProducts(products.map(formatProduct))
 
                 setTotal(pagination.total_items)
 

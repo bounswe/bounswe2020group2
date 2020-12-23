@@ -15,7 +15,7 @@ export const ProductCard = ({ product, width = 350 }) => {
 
     const onAddToList = product => {}
 
-    const { title, rating, price, price_after_discount, currency, imageUrl, id, discount } = product
+    const { title, rating, price, price_after_discount, currency, images, id } = product
 
     // const discountPrice = price * (1 - discount)
     console.log(product)
@@ -23,7 +23,7 @@ export const ProductCard = ({ product, width = 350 }) => {
         <div className="whole-card" style={{ minWidth: width, minHeight: width, maxWidth: width }}>
             <Link to={`/product/${id}`}>
                 <div className="product-card-img-container">
-                    <img className="product-card-img" alt={title} src={imageUrl} />
+                    <img className="product-card-img" alt={title} src={images[0]} />
                 </div>
                 <div className="card-title">
                     <p>{truncate(title)}</p>

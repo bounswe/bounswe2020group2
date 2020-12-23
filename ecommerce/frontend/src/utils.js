@@ -1,3 +1,5 @@
+import { config } from './config'
+
 export const productSortBy = {
     'best-sellers': 'Best sellers',
     'newest-arrivals': 'Newest arrivals',
@@ -44,12 +46,15 @@ export function formatProduct({
     id,
     name,
     price,
+    price_after_discount,
+    discount,
     creation_date,
     total_rating,
     rating_count,
     stock_amount,
-    description,
-    image_url,
+    short_description,
+    long_description,
+    images,
     subcategory,
     category,
     vendor,
@@ -57,20 +62,29 @@ export function formatProduct({
 }) {
     return {
         id,
-        name,
+        title: name,
         price,
+        price_after_discount,
+        discount,
         currency: 'TL', // TODO: Backend is not returning currency so as a quick fix we set it as TL
-        creationDate: creation_date,
+        creation_date,
         rating: total_rating,
-        ratingCount: rating_count,
-        stockAmount: stock_amount,
-        description,
-        imageUrl: image_url,
+        rating_count,
+        stock_amount,
+        short_description,
+        long_description,
+        images: (images ?? []).map(formatImageUrl),
         subcategory,
         category,
         vendor,
         brand,
     }
+}
+
+export function formatImageUrl(imageUrl) {
+    console.log(imageUrl)
+    if (imageUrl.startsWith('/image/')) return config.apiUrl + imageUrl
+    return imageUrl
 }
 
 /**
