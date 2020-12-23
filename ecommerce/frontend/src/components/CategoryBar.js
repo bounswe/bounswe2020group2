@@ -11,10 +11,10 @@ export const CategoryBar = () => {
     const history = useHistory()
     const { categories } = useAppContext()
 
-    const onCategoryClick = categoryId => () => {
+    const onCategoryClick = category => () => {
         history.push({
             pathname: `/search/products`,
-            search: qs.stringify({ category: categoryId }),
+            search: qs.stringify({ category: category.id }),
         })
     }
 
@@ -30,7 +30,7 @@ export const CategoryBar = () => {
             {categories.map(category => {
                 return (
                     <SubMenu
-                        onTitleClick={onCategoryClick(category.id)}
+                        onTitleClick={onCategoryClick(category)}
                         title={category.name}
                         className="category-menu__menu-item"
                         key={category.id}>
