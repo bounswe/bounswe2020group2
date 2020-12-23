@@ -17,27 +17,22 @@ export const handlers = [
     // rest.get(url('/example/user/:userId'), (req, res, ctx) => {
     //     const { params, body } = req
     //     const { userId } = params
-
     //     if (!userId) return res(ctx.status(403), ctx.json({ successful: false, message: `Bad request` }))
-
     //     return res(ctx.json({ successful: true, user: { id: userId, name: 'Ali', surname: 'Batır' } }))
     // }),
     // rest.get(url('/products/homepage/:count'), (req, res, ctx) => {
     //     const { params, body } = req
     //     const { count } = params
-
     //     return res(ctx.json({ successful: true, products: trendingProducts.slice(0, count) }))
     // }),
     // rest.get(url('/product/:productId'), (req, res, ctx) => {
     //     const { params, body } = req
     //     const { productId } = params
-
     //     return res(ctx.json(product))
     // }),
     // rest.post(url('/search/products'), (req, res, ctx) => {
     //     const { params, body } = req
     //     const { page_size = 10, page = 0 } = body
-
     //     return res(
     //         ctx.json({
     //             data: {
@@ -68,21 +63,25 @@ export const handlers = [
     //         }),
     //     )
     // }),
-    rest.get(url('/init'), (req, res, ctx) => {
-        return res(
-            ctx.json({
-                id: 9,
-                email: 'mehdi.saffar@boun.edu.tr',
-                token:
-                    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6OSwiZXhwIjoxNjE3MzA3MzE1LCJpYXQiOjE2MDg2NjczMTV9.urCgrUAPSk40dh9-LygnBiLpH73MqXxjbO33d3KHmO8',
-                firstname: 'Mehdi',
-                lastname: 'Saffar',
-                is_verified: false,
-                role: 'CUSTOMER',
-            }),
-        )
-    }),
-    rest.get(url('/categories'), (req, res, ctx) => {
-        return res(ctx.json({ categories }))
-    }),
+    // rest.get(url('/init'), (req, res, ctx) => {
+    //     return res(
+    //         ctx.json({
+    //             id: 9,
+    //             email: 'mehdi.saffar@boun.edu.tr',
+    //             token:
+    //                 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6OSwiZXhwIjoxNjE3MzA3MzE1LCJpYXQiOjE2MDg2NjczMTV9.urCgrUAPSk40dh9-LygnBiLpH73MqXxjbO33d3KHmO8',
+    //             firstname: 'Mehdi',
+    //             lastname: 'Saffar',
+    //             is_verified: false,
+    //             role: 'CUSTOMER',
+    //         }),
+    //     )
+    // }),
+    // rest.get(url('/categories'), (req, res, ctx) => {
+    //     return res(ctx.json({ categories }))
+    // }),
 ]
+
+if (process.env.NODE_ENV === 'development') {
+    console.warn(`FYI: THERE ARE ${handlers.length} ACTIVE MOCK HANDLERS!`)
+}
