@@ -37,7 +37,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun navigationComplete() {
         _onCategoryClick.value = null
     }
-
+    init {
+        getHomeProducts(9)
+    }
     fun getHomeProducts(numberOfProducts: Int){
         GetflixApi.getflixApiService.getProducts(numberOfProducts)
                 .enqueue(object :
