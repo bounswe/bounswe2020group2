@@ -6,16 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.example.getflix.R
-import com.example.getflix.databinding.FragmentProfileBinding
+import com.example.getflix.activities.MainActivity
+import com.example.getflix.askAlert
 import com.example.getflix.databinding.FragmentVendorProfileBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import com.example.getflix.ui.fragments.VendorProfileFragmentDirections.Companion.actionVendorProfileToLoginFragment
+import com.example.getflix.ui.viewmodels.VendorProfileViewModel
 
 
 class VendorProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentVendorProfileBinding
+    private lateinit var viewModel: VendorProfileViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -23,9 +29,20 @@ class VendorProfileFragment : Fragment() {
                 container, false)
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.profile)
+        viewModel = ViewModelProvider(this).get(VendorProfileViewModel::class.java)
+
+        binding.logout.setOnClickListener {
+            askAlert(this, getString(R.string.logout_warning), ::navigateLogin)
+        }
+
+        binding.name.text = MainActivity.StaticData.user!!.firstName + " " + MainActivity.StaticData.user!!.lastName
 
         return binding.root
     }
 
+
+    private fun navigateLogin() {
+        view?.findNavController()?.navigate(actionVendorProfileToLoginFragment())
+    }
 
 }

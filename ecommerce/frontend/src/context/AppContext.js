@@ -20,6 +20,7 @@ function useApp() {
     const [user, setUser] = useState(guestUser)
     const [shoppingCart, setShoppingCart] = useState([])
     const [shoppingCartRefreshId, setShoppingCartRefreshId] = useState(0)
+    const [categories, setCategories] = useState([])
 
     const getShoppingCart = async () => {
         try {
@@ -112,45 +113,42 @@ function useApp() {
         }
     }
 
-    const [requestInterceptorId, setRequestInterceptorId] = useState(null)
-
-    const requestInterceptor = request => {
-        request.headers.authorization = `Bearer ${localStorage.getItem('token')}`
-        return request
-    }
-
     const init = async () => {
+        console.log('AppContext:init:start')
+        console.log('AppContext:init:token from local storage:', localStorage.getItem('token'))
         if (!localStorage.getItem('token')) {
-            console.log('no token in local storage, not attempting init')
+            console.log('AppContext:init:no token in local storage, not attempting init')
+            console.log('AppContext:init:end')
             return
         }
 
         try {
             const { data } = await api.get('/init', {
-                headers: {
-                    authorization: 'Bearer ' + localStorage.getItem('token'),
-                },
+                headers: { authorization: 'Bearer ' + localStorage.getItem('token') },
             })
 
-            const { token, id, email, firstname, lastname } = data
-            console.log(token, id, email, firstname, lastname)
-            // TODO: get type from backend
-            setUser({ id, type: 'customer', email, name: firstname, lastname })
-
-            setRequestInterceptorId(api.interceptors.request.use(requestInterceptor))
+            const { token, id, email, firstname, lastname, role } = data
+            const newUser = { id, type: role.toLowerCase(), email, name: firstname, lastname }
+            console.log('AppContext:init:user', newUser)
+            console.log('AppContext:init:token', token)
+            setUser(newUser)
 
             notification.success({ message: `Welcome back, ${firstname}!` })
         } catch (error) {
+            console.error('AppContext:init:error', error)
             const status = error?.response?.status
 
             if (status === 401) {
+                console.log('AppContext:init:unauthorized, removing token from local storage')
                 localStorage.removeItem('token')
                 notification.error({ message: `Your token expired`, description: 'Please login to continue' })
+                console.log('AppContext:init:end')
                 return
             }
 
             notification.error({ message: 'Failed to init' })
-            console.error(error)
+        } finally {
+            console.log('AppContext:init:end')
         }
     }
 
@@ -164,7 +162,6 @@ function useApp() {
                 localStorage.setItem('token', token)
 
                 setUser({ id, email, name: firstname, lastname })
-                setRequestInterceptorId(api.interceptors.request.use(requestInterceptor))
                 notification.success({ message: `Welcome back, ${firstname}!` })
 
                 return true
@@ -184,11 +181,24 @@ function useApp() {
             notification.success({ description: `See you soon, ${user.name}!` })
             setUser(guestUser)
             localStorage.removeItem('token')
-            api.interceptors.request.eject(requestInterceptorId)
-            setRequestInterceptorId(null)
         } catch (error) {
             notification.error({ description: `Failed to logout` })
             console.error(error)
+        }
+    }
+
+    const getCategories = async () => {
+        console.log('AppContext:getCategories:start')
+        try {
+            const {
+                data: { categories },
+            } = await api.get('/categories')
+            console.log('AppContext:getCategories:categories', categories)
+            setCategories(categories)
+        } catch (error) {
+            console.error('AppContext:getCategories:error', error)
+        } finally {
+            console.log('AppContext:getCategories:end')
         }
     }
 
@@ -205,6 +215,8 @@ function useApp() {
         addShoppingCartItem,
         deleteShoppingCartItem,
         updateShoppingCartItem,
+        categories,
+        getCategories,
     }
 }
 

@@ -87,6 +87,10 @@
     <string name="register_success">Kaydınız tamamlandı! Oturum açma sayfasına yönlendiriliyorsunuz.</string>
     <string name="remember_me">Beni Hatırla</string>
     <string name="register_back">Anasayfaya Dön</string>
+    <string name="loading">Lütfen Bekleyiniz…</string>
+    <string name="confirm_pass_warning">Şifre onaylamanız hatalıdır.</string>
+    <string name="orders_vendor">Siparişler</string>
+    <string name="vendor_no_message">Henüz bir mesajınız yok.</string>
     <string name="address_form">Adres Giriniz</string>
     <string name="adress_title">Baslik</string>
     <string name="address_">Adres (Posta kodu, Sokak ismi, daire No)</string>

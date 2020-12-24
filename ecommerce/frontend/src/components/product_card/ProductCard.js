@@ -15,14 +15,14 @@ export const ProductCard = ({ product, width = 350 }) => {
 
     const onAddToList = product => {}
 
-    const { title, rating, price, currency, imageUrl, id, discount } = product
+    const { title, rating, price, price_after_discount, currency, images, id } = product
 
-    const discountPrice = price * (1 - discount)
+    // const discountPrice = price * (1 - discount)
     return (
         <div className="whole-card" style={{ minWidth: width, minHeight: width, maxWidth: width }}>
             <Link to={`/product/${id}`}>
                 <div className="product-card-img-container">
-                    <img className="product-card-img" alt={title} src={imageUrl} />
+                    <img className="product-card-img" alt={title} src={images[0]} />
                 </div>
                 <div className="card-title">
                     <p>{truncate(title)}</p>
@@ -32,10 +32,10 @@ export const ProductCard = ({ product, width = 350 }) => {
                 <div className="card-rate">
                     <Rate disabled allowHalf defaultValue={rating}></Rate>
                 </div>
-                {round(price, 1) !== round(discountPrice, 1) ? (
+                {round(price, 1) !== round(price_after_discount, 1) ? (
                     <div className="card-old-price">{round(price, 1) + ' ' + currency}</div>
                 ) : null}
-                <div className="card-new-price">{round(discountPrice, 1) + ' ' + currency}</div>
+                <div className="card-new-price">{round(price_after_discount, 1) + ' ' + currency}</div>
             </div>
             <div className="card-add-button">
                 <Button

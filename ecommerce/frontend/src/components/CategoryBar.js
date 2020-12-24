@@ -1,47 +1,43 @@
-import { Menu } from 'antd'
-import { Link, useHistory } from 'react-router-dom'
 import './CategoryBar.less'
-import { categories, subcategories } from '../utils.js'
-import SubMenu from 'antd/lib/menu/SubMenu'
+
+import { Menu } from 'antd'
 import qs from 'querystring'
+import { useHistory } from 'react-router-dom'
+
+import { useAppContext } from '../context/AppContext'
+const { SubMenu } = Menu
 
 export const CategoryBar = () => {
     const history = useHistory()
+    const { categories } = useAppContext()
 
     const onCategoryClick = category => () => {
         history.push({
             pathname: `/search/products`,
-            search: qs.stringify({
-                category,
-            }),
+            search: qs.stringify({ category: category.id }),
         })
     }
 
     const onSubcategoryClick = (category, subcategory) => () => {
         history.push({
             pathname: `/search/products`,
-            search: qs.stringify({
-                category,
-                subcategory,
-            }),
+            search: qs.stringify({ category: category.id, subcategory: subcategory.id }),
         })
     }
 
     return (
         <Menu mode="horizontal" className="category-menu">
-            {Object.entries(categories).map(([categoryKey, categoryTitle]) => {
+            {categories.map(category => {
                 return (
                     <SubMenu
-                        onTitleClick={onCategoryClick(categoryKey)}
-                        title={categoryTitle}
+                        onTitleClick={onCategoryClick(category)}
+                        title={category.name}
                         className="category-menu__menu-item"
-                        key={categoryKey}>
-                        {Object.entries(subcategories[categoryKey]).map(([subCategoryKey, subCategoryTitle]) => {
+                        key={category.id}>
+                        {category.subcategories.map(subcategory => {
                             return (
-                                <Menu.Item
-                                    key={subCategoryKey}
-                                    onClick={onSubcategoryClick(categoryKey, subCategoryKey)}>
-                                    {subCategoryTitle}
+                                <Menu.Item key={subcategory.id} onClick={onSubcategoryClick(category, subcategory)}>
+                                    {subcategory.name}
                                 </Menu.Item>
                             )
                         })}
