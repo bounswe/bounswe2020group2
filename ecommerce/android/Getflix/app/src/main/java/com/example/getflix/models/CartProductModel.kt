@@ -1,7 +1,10 @@
 package com.example.getflix.models
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class CartProductModel (
 
     @SerializedName("id")
@@ -10,4 +13,4 @@ data class CartProductModel (
     val amount : Int,
     @SerializedName("product")
     val product : ProductModel
-)
+) : Parcelable
