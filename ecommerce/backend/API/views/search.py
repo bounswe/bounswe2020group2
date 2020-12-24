@@ -68,8 +68,8 @@ def products(request):
 #    print(query_set)
     serializer = ProductResponseSerializer(query_set, many=True)
 #    print(serializer.data)
-    response_data = {"pagination":{"page":page,"page_size":page_size,"total_items":total_items}}
-    return Response( { "data":response_data,"products":serializer.data } )
+    response_data = {"pagination":{"page":page,"page_size":page_size,"total_items":total_items,"products":serializer.data}}
+    return Response( { "data":response_data} )
 
 
 
