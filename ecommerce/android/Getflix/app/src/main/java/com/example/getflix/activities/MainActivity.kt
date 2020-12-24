@@ -2,11 +2,17 @@ package com.example.getflix.activities
 
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -15,7 +21,12 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.getflix.R
 import com.example.getflix.models.User
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,7 +40,15 @@ class MainActivity : AppCompatActivity() {
         var isCustomer = false
         var isVendor = false
         var isAdmin = false
+        var isGoogleUser = false
         var user: User? = null
+        val gso =
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("780650655620-8qi5er6094ouirlb66b2c0hm6hlfo9s8.apps.googleusercontent.com")
+                .requestEmail()
+                .build()
+        var mGoogleSignInClient: GoogleSignInClient?=null
+        var account: GoogleSignInAccount ?=null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,8 +58,11 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment
         navController = navHostFragment.findNavController()
         setSupportActionBar(toolbar)
-
-
+       /* val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        var mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        var account = GoogleSignIn.getLastSignedInAccount(this); */
 
     }
 
@@ -64,14 +86,28 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     fun decideBottomNav(isVendor: Boolean) {
         NavigationUI.setupWithNavController(bottom_nav, navController)
         if(isVendor) {
+
             bottom_nav.menu.clear()
+            toolbar.toolbar_title.setTextColor(ContextCompat.getColor(this, R.color.initGold))
+            toolbar.setBackgroundColor(Color.BLACK)
+            bottom_nav.itemBackgroundResource = R.color.black
+            toolbar.btn_notification.compoundDrawableTintList = (ColorStateList.valueOf(ContextCompat.getColor(this, R.color.initGold)))
+            bottom_nav.itemIconTintList = ContextCompat.getColorStateList(this, R.color.initGold)
+            bottom_nav.itemTextColor = ContextCompat.getColorStateList(this, R.color.initGold)
             bottom_nav.inflateMenu(R.menu.nav_vendor_menu)
         }
         else {
             bottom_nav.menu.clear()
+            toolbar.toolbar_title.setTextColor(ContextCompat.getColor(this, R.color.initPurple))
+            toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.initGold))
+            bottom_nav.itemBackgroundResource = R.color.initGold
+            toolbar.btn_notification.compoundDrawableTintList = (ColorStateList.valueOf(ContextCompat.getColor(this, R.color.black)))
+            bottom_nav.itemIconTintList = ContextCompat.getColorStateList(this, R.color.white)
+            bottom_nav.itemTextColor = ContextCompat.getColorStateList(this, R.color.white)
             bottom_nav.inflateMenu(R.menu.nav_menu)
         }
         val appBarConfiguration = AppBarConfiguration(bottom_nav.menu)

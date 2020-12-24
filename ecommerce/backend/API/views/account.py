@@ -93,6 +93,8 @@ def vendor_register(request):
     user = User(username=request.data["username"], email=request.data["email"], password_salt=salt, password_hash=password_hash, role = Role.VENDOR.value)
     user.save()
     title = serializer.validated_data.get("title")
+    name = serializer.validated_data.get("name")
+    surname = serializer.validated_data.get("surname")
     address = serializer.validated_data.get("address")
     province = serializer.validated_data.get("province")
     city = serializer.validated_data.get("city")
@@ -102,7 +104,7 @@ def vendor_register(request):
     phone_number = phone.get("number")
     zip_code = serializer.validated_data.get("zip_code")
     vendor = Vendor(first_name=request.data["firstname"], last_name=request.data["lastname"], user=user)
-    address = Address(user=user, title=title, address=address, province=province, city=city, 
+    address = Address(user=user, title=title, address=address, province=province, city=city, name=name, surname=surname, 
         country=country, phone_country_code=phone_country_code, phone_number=phone_number, zip_code=zip_code)
     vendor.save()
     address.save()
