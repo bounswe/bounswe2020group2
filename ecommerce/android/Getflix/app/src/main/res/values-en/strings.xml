@@ -94,7 +94,7 @@
     <string name="vendor_no_message">You don\'t have any messages yet.</string>
     <string name="address_form">Enter Address Info</string>
     <string name="adress_title">Title</string>
-    <string name="address_">Address (ZIP code, Street, Apartment)</string>
+    <string name="address_">Address (Street, Apartment)</string>
     <string name="province">Province</string>
     <string name="country">Country</string>
     <string name="add">Add</string>

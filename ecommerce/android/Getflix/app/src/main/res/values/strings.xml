@@ -93,7 +93,7 @@
     <string name="vendor_no_message">Henüz bir mesajınız yok.</string>
     <string name="address_form">Adres Giriniz</string>
     <string name="adress_title">Baslik</string>
-    <string name="address_">Adres (Posta kodu, Sokak ismi, daire No)</string>
+    <string name="address_">Adres (Sokak ismi, daire No)</string>
     <string name="province">Bolge</string>
     <string name="country">Ulke</string>
     <string name="add">Ekle</string>
