@@ -31,11 +31,12 @@ class SubcategoryFragment : Fragment() {
 
     private lateinit var viewModel: SubCategoryViewModel
     private var filter = false
+    private lateinit var binding: FragmentSubcategoryBinding
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val binding = DataBindingUtil.inflate<FragmentSubcategoryBinding>(
+        binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_subcategory,
                 container, false
         )

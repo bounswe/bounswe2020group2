@@ -8,70 +8,75 @@ from rest_framework.parsers import JSONParser
 
 from ..utils import permissions, Role
 from ..models import User, ShoppingCartItem, Product
-from ..serializers import shopping_cart_serializer, shopping_cart_item_serializer
+from ..serializers.shopping_cart_serializer import *
 
-@api_view(['GET'])
+@api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([permissions.AllowAnonymous])
-def list_shopping_cart(request, id): #userId
-    # if user not found
-    if User.objects.filter(id=id).first() is None:
+def manage_specific_shopping_cart_item(request, customer_id, sc_item_id):
+    # reaching others' content is forbidden
+    if request.user.pk != customer_id:
+        return Response(status=status.HTTP_403_FORBIDDEN)
+    # no such user exists
+    if User.objects.filter(id=customer_id).first() is None:
         return Response(status=status.HTTP_400_BAD_REQUEST)
-    sc_items = ShoppingCartItem.objects.filter(customer_id=id).values('id', 'product_id', 'amount')
-    sci_serializer = shopping_cart_item_serializer.ShoppingCartItemSerializer(sc_items, many=True)
-    return Response(sci_serializer.data)
+    user = User.objects.get(pk=customer_id)
+    #return single shopping cart item
+    if request.method == 'GET':
+        sc_item = ShoppingCartItem.objects.filter(customer_id=customer_id).filter(id=sc_item_id).first()
+        sci_serializer = ShoppingCartResponseSerializer(sc_item)
+        return Response({'status': {'successful': True, 
+            'message': "Successfully retrieved"}, 'sc_item': sci_serializer.data})
+    #update a shopping cart item
+    elif request.method == 'PUT':
+        sc_item = ShoppingCartItem.objects.filter(customer_id=customer_id).filter(id=sc_item_id).first()
+        if sc_item is None:
+            return Response({'status': {'successful': False, 'message': "No such item is found"}})
+        if request.data.get("amount") <= 0:
+            return Response({'status': {'successful': False, 'message': "Amount should be a positive number"}})
+        sc_item.amount = request.data.get("amount")
+        sc_item.save()
+        return Response({'status': {'successful': True, 'message': "Item is successfully updated"}})
+    #delete a shopping cart item, not a soft delete since we do not need anywhere else
+    elif request.method == 'DELETE':
+        sc_item = ShoppingCartItem.objects.filter(customer_id=customer_id).filter(id=sc_item_id)
+        if sc_item is None:
+            return Response({'status': {'successful': False, 'message': "No such item is found"}})
+        else:
+            sc_item.delete()
+            return Response({'status': { 'successful': True, 'message': "Successfully deleted"}})
 
-
-@api_view(['POST'])
+@api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAnonymous])
-def add_shopping_cart_item(request, id):
-    # if request.user.pk != id:
-    #     return Response(status=status.HTTP_403_FORBIDDEN)
-
-    serializer = shopping_cart_serializer.ShoppingCartRequestSerializer(data=request.data)
-    if not serializer.is_valid():
-        context = { 'succesful': False,
-                    'message': "Invalid input"
-        }
-        return Response(context)
-
-    user = User.objects.get(pk=int(id))
-    if user is None:
-        context = { 'succesful': False,
-                    'message': "Invalid user"
-        }
-        return Response(context)
-    amount = serializer.validated_data.get("amount")
-    product_id = serializer.validated_data.get("productId")
-    product = Product.objects.get(pk=int(product_id))
-    if product is None:
-        context = { 'succesful': False,
-                    'message': "Invalid products"
-        }
-        return Response(context)
-
-    stock_amount = product.stock_amount
-    shopping_cart = ShoppingCartItem.objects.filter(customer_id=user.pk).filter(product_id=product.pk).first()
-
-    if shopping_cart is None:
-        shopping_cart = ShoppingCartItem(customer=user, product=product, amount=amount)
-    else:
-        shopping_cart.amount+=amount
+def manage_shopping_cart_items(request, customer_id):
+    # reaching others' content is forbidden
+    if request.user.pk != customer_id:
+        return Response(status=status.HTTP_403_FORBIDDEN)
+    # no such user exists
+    if User.objects.filter(id=customer_id).first() is None:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    user = User.objects.get(pk=customer_id)
+    #return all shopping cart items
+    if request.method == 'GET':
+        sc_items = ShoppingCartItem.objects.filter(customer_id=customer_id)
+        sci_serializer = ShoppingCartResponseSerializer(sc_items, many=True)
+        return Response({'status': {'successful': True, 
+            'message': "Successfully retrieved"}, 'sc_items': sci_serializer.data})
+    #add a shopping cart item
+    elif request.method == 'POST':
+        serializer = ShoppingCartRequestSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response({'status': {'successful': False, 'message': "Invalid input"}})
+        amount = serializer.validated_data.get("amount")
+        if amount < 0:
+            return Response({'status': {'successful': False, 'message': "Amount should be a positive number"}})
+        product_id = serializer.validated_data.get("product_id")
+        sc_item = ShoppingCartItem.objects.filter(customer_id=customer_id).filter(product_id=product_id).first()
+        if sc_item is not None:
+            sc_item.amount += amount
+            sc_item.save()
+            return Response({'sc_item_id': sc_item.id, 'status': {'successful': True, 'message': "Product is added to the cart succesfully."}})
         
-    
-    if shopping_cart.amount > stock_amount:
-        context = { 'succesful': False,
-                    'message': "Stock Amount is reached"
-        }
-        return Response(context)
-    elif shopping_cart.amount < 0:
-        context = { 'succesful': False,
-                    'message': "Amount cannot be negative"
-        }
-        return Response(context)
-    shopping_cart.save()
-
-    context = { 'succesful': True,
-                'message': "Product is added to the cart succesfully."
-    }
-    return Response(context)
-    
+        product = Product.objects.get(pk=product_id)
+        sc_item = ShoppingCartItem(customer=user, product=product, amount=amount)
+        sc_item.save()
+        return Response({'sc_item_id': sc_item.id, 'status': {'successful': True, 'message': "Product is added to the cart succesfully."}})

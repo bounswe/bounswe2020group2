@@ -11,8 +11,8 @@ data class AddressModel(
         var id: Int,
         @SerializedName("title")
         var title: String,
-        @SerializedName("phoneNumber")
-        var phoneNumber: String,
+        @SerializedName("phone")
+        var phone: PhoneModel,
         @SerializedName("name")
         var name: String,
         @SerializedName("surname")

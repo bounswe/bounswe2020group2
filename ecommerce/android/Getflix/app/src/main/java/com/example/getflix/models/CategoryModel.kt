@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup
 import kotlinx.android.parcel.Parcelize
 
+
 @Parcelize
 data class CategoryModel (
         @SerializedName("name") val name : String,
