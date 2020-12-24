@@ -7,44 +7,61 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+from environs import Env
+from django.core.exceptions import ImproperlyConfigured
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-import json
-import os
-from django.core.exceptions import ImproperlyConfigured
-
-##
-## DO NOT TOUCH THIS PART
-## IF YOU NEED TO WORK LOCALLY 
-## PASS THE ENVIRONMENT VARIABLES FROM COMMAND LINE
-## 
-secrets = {
-    'HOST': os.environ.get('DB_HOST'),
-    'USER': os.environ.get('DB_USER'),
-    'PASSWORD': os.environ.get('DB_PASSWORD'),
-    'EMAIL_BACKEND': os.environ.get('EMAIL_BACKEND'),
-    'MAILER_EMAIL_BACKEND': os.environ.get('MAILER_EMAIL_BACKEND'),
-    'EMAIL_HOST': os.environ.get('EMAIL_HOST'),
-    'EMAIL_HOST_PASSWORD': os.environ.get('EMAIL_HOST_PASSWORD'),
-    'EMAIL_HOST_USER': os.environ.get('EMAIL_HOST_USER'),
-    'DEFAULT_FROM_EMAIL': os.environ.get('DEFAULT_FROM_EMAIL')
-}
-
-'''with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
-    secrets = json.load(secrets_file)'''
-
 def get_debug():
     debug = os.environ.get("DEBUG")
     if debug is None:
         return True
-    else:
-        if debug == "False":
-            return False
-        return True
+
+    if debug == "False":
+        return False
+
+    return True
+
+
+#######################
+# DO NOT TOUCH THIS PART
+# IF YOU NEED TO WORK LOCALLY
+# PASS THE ENVIRONMENT VARIABLES FROM COMMAND LINE
+#######################
+
+
+env = Env(expand_vars=True)
+env_filename = BASE_DIR / ('.env.development' if get_debug() else '.env.production')
+env.read_env(str(env_filename))
+
+
+def get_env(key, default=None):
+    """
+    Try get key from .env
+    Otherwise from os.environ
+    Otherwise use default
+    """
+    try:
+        return env(key)
+    except:
+        return os.environ.get(key, default)
+
+
+secrets = {
+    # DB
+    'DB_HOST': get_env('DB_HOST'),
+    'DB_USER': get_env('DB_USER'),
+    'DB_PASSWORD': get_env('DB_PASSWORD'),
+
+    # EMAIL
+    'EMAIL_HOST_USER': get_env('EMAIL_HOST_USER'),
+    'EMAIL_HOST_PASSWORD': get_env('EMAIL_HOST_PASSWORD'),
+}
+
 
 def get_secret(setting, secrets=secrets):
     """Get secret setting or fail with ImproperlyConfigured"""
@@ -53,22 +70,21 @@ def get_secret(setting, secrets=secrets):
     except KeyError:
         raise ImproperlyConfigured("Set the {} setting".format(setting))
 
-EMAIL_BACKEND = get_secret('EMAIL_BACKEND')
-MAILER_EMAIL_BACKEND = get_secret('MAILER_EMAIL_BACKEND')
-EMAIL_HOST = get_secret('EMAIL_HOST')
-EMAIL_HOST_PASSWORD = get_secret('EMAIL_HOST_PASSWORD')
-EMAIL_HOST_USER = get_secret('EMAIL_HOST_USER')
-EMAIL_PORT = 587  
-EMAIL_USE_SSL = False
-EMAIL_USE_TLS = True  
-DEFAULT_FROM_EMAIL = get_secret('DEFAULT_FROM_EMAIL')
 
-FRONTEND_URL = "ec2-18-222-139-223.us-east-2.compute.amazonaws.com"
-# FRONTEND_URL = "localhost:5000"
+# Email
+EMAIL_BACKEND = get_env('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
+MAILER_EMAIL_BACKEND = EMAIL_BACKEND
+EMAIL_HOST = get_env('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_HOST_USER = get_secret('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = get_secret('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_PORT = int(get_env('EMAIL_PORT', 587))
+EMAIL_USE_SSL = get_env('EMAIL_USE_SSL', False) == 'True' # Do NOT use bool(...)
+EMAIL_USE_TLS = get_env('EMAIL_USE_TLS', True) == 'True' # Do NOT use bool(...)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'wc$0ekguzl&$5gaotf)0!-#znaitq%5jafib)yh494s2a-a5ic'
 
@@ -119,7 +135,7 @@ ROOT_URLCONF = 'getflix.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': (os.path.join(os.path.dirname(__file__), '..', 'templates').replace('\\','/'),),
+        'DIRS': (os.path.join(os.path.dirname(__file__), '..', 'templates').replace('\\', '/'),),
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -142,9 +158,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'testdb',
-        'USER': get_secret('USER'),
-        'PASSWORD': get_secret('PASSWORD'),
-        'HOST': get_secret("HOST"),
+        'USER': get_secret('DB_USER'),
+        'PASSWORD': get_secret('DB_PASSWORD'),
+        'HOST': get_secret("DB_HOST"),
         'PORT': '5432',
     }
 }
@@ -173,13 +189,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 

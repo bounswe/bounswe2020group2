@@ -43,11 +43,19 @@ jobs:
               env:
                   GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
 
+            - name: Decrypt backend.env.production
+              run: gpg --batch --yes --decrypt --passphrase="$GPG_PASSWORD" --output backend.env.production ./secrets/backend.env.production
+              env:
+                  GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
+
             - name: Set slack webhook as env
               run: echo "SLACK_WEBHOOK_URL=$(cat slack_webhook.txt)" >> $GITHUB_ENV
 
             - name: chmod 400 to the keypair
               run: chmod 400 CMPE451.pem
+
+            - name: Handle build prep for backend
+              run: chmod +x backend_build_prep.sh && ./backend_build_prep.sh
 
             - name: Build the Docker image
               run: docker build ecommerce/backend -t backend
@@ -90,7 +98,7 @@ jobs:
                   script: |
                       cd application
                       sudo docker load -i backend.tar.gz
-                      sudo docker run --name backend -p 8000:8000 -e DEBUG=False -e DB_HOST=${{ env.AWS_DATABASE_INSTANCE_IP }} -e DB_USER=postgres -e DB_PASSWORD=admin -d backend
+                      sudo docker run --name backend -p 8000:8000 -e DEBUG=False -e DB_HOST=${{ env.AWS_DATABASE_INSTANCE_IP }} -d backend
 
             - name: Notify slack!
               uses: rtCamp/action-slack-notify@v2
@@ -98,4 +106,4 @@ jobs:
                 SLACK_USERNAME: Deploy Guy
                 SLACK_WEBHOOK: ${{ env.SLACK_WEBHOOK_URL }}
                 SLACK_TITLE: 'Backend deployed! :rocket:'
-                SLACK_MESSAGE: ${{ env.AWS_BACKEND_INSTANCE_IP }}
+                SLACK_MESSAGE: ${{ env.AWS_BACKEND_INSTANCE_IP }}:8000
