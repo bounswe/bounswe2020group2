@@ -5,7 +5,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 
 from API.utils import permissions, Role
-from API.models import Product, Subcategory, Vendor
+from API.models import Product, Subcategory, Vendor, Brand
 from django.db.models import Q
 #from API.serializers import search_serializer
 from API.serializers.product_serializer import ProductResponseSerializer
@@ -80,10 +80,8 @@ def vendors(request):
 #    print(query_data)
     query_set = Vendor.objects.all()
     if "query" in query_data:
-        query_set = query_set.filter(first_name__icontains=query_data["query"])
+        query_set = query_set.filter(Q(first_name__icontains=query_data["query"]) | Q(last_name__icontains=query_data["query"]))
     vendors = query_set
-    print("ALL VENDORS:")
-    print(vendors)
     if "min_rating" in query_data:
         tempvendors = []
         for vendor in vendors:
@@ -118,8 +116,6 @@ def vendors(request):
                 if Product.objects.filter(brand_q,vendor_id=vendor.id).exists():
                     tempvendors.append(vendor)
             vendors = tempvendors
-    print("FILTERED VENDORS:")
-    print(vendors)
     page = 0
     page_size = 10
     if "page" in query_data:
@@ -134,4 +130,45 @@ def vendors(request):
     serializer = VendorResponseSerializer(vendors, many=True)
 #    print(serializer.data)
     response_data = {"pagination":{"page":page,"page_size":page_size,"total_items":total_items},"vendors":serializer.data}
+    return Response( { "data":response_data} )
+@api_view(['POST'])
+@permission_classes([permissions.AllowAnonymous])
+def brands(request):
+#    print(request)
+    query_data=JSONParser().parse(request)
+#    product_search_serializer = search_serializer.SearchProductsSerializer(request)
+#    print(query_data)
+    query_set = Brand.objects.all()
+    if "query" in query_data:
+        query_set = query_set.filter(name__icontains=query_data["query"])
+    brands = query_set
+    if "subcategory" in query_data:
+        tempbrands = []
+        for brand in brands:
+            if Product.objects.filter(subcategory_id=query_data["subcategory"],brand_id=brand.id).exists():
+                tempbrands.append(brand)
+        brands = tempbrands
+    elif "category" in query_data:
+        tempbrands = []
+        category_q = Q()
+        for sub_id in Subcategory.objects.filter(category_id=query_data["category"]):
+            category_q = (category_q | Q(subcategory_id=sub_id))
+        for brand in brands:
+            if Product.objects.filter(category_q,brand_id=brand.id).exists():
+                tempbrands.append(brand)
+        brands = tempbrands
+    page = 0
+    page_size = 10
+    if "page" in query_data:
+        page = query_data["page"];
+    if "page_size" in query_data:
+        page_size = query_data["page_size"];
+    #LIMIT MIGHT PASS THE NUMBER OF ELEMENTS
+    total_items=len(brands)
+    brands=brands[page*page_size:(page+1)*(page_size)]
+#    user_serializer = search_serializer.SearchProductSerializer(request)
+#    print(query_set)
+#    print(serializer.data)
+    serializedBrands = map(lambda brand: {"id":brand.id,"name":brand.name}, brands)
+    response_data = {"pagination":{"page":page,"page_size":page_size,"total_items":total_items},"brands":serializedBrands}
     return Response( { "data":response_data} )

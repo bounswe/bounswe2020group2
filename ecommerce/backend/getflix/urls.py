@@ -28,6 +28,7 @@ urlpatterns = [
     path('categories', views.category.get_categories),
     path('search/products', views.search.products, name="search_products"),
     path('search/vendors', views.search.vendors, name="search_vendors"),
+    path('search/brands', views.search.brands, name="search_brands"),
     path('customer/<int:customer_id>/shoppingcart/<int:sc_item_id>', views.shopping_cart.manage_specific_shopping_cart_item),
     path('customer/<int:customer_id>/shoppingcart', views.shopping_cart.manage_shopping_cart_items),
     path('customer/<int:customer_id>/addresses/<int:address_id>', views.address.manage_specific_address),
