@@ -7,6 +7,7 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ import com.example.getflix.databinding.CardCategoryHighBinding
 import com.example.getflix.getCategoryImage
 import com.example.getflix.models.CategoryModel
 import com.example.getflix.ui.fragments.HomePageFragment
+import com.example.getflix.ui.fragments.HomePageFragmentDirections.Companion.actionHomePageFragmentToCategoryFragment
 
 class HomeCategoriesAdapter(viewLifecycleOwner: LifecycleOwner) :
         ListAdapter<CategoryModel, HomeCategoriesAdapter.ViewHolder<CategoryModel>>(CategoryDiffCallback()) {
@@ -63,6 +65,9 @@ class HomeCategoriesAdapter(viewLifecycleOwner: LifecycleOwner) :
             }
         }
          override fun bind(category: CategoryModel) {
+             binding.root.setOnClickListener {
+                 it.findNavController().navigate(actionHomePageFragmentToCategoryFragment(category.id))
+             }
             binding.categoryImage.setImageResource(getCategoryImage(category.name))
             binding.categoryName.text = category.name
         }
@@ -78,6 +83,9 @@ class HomeCategoriesAdapter(viewLifecycleOwner: LifecycleOwner) :
             }
         }
         override fun bind(category: CategoryModel) {
+            binding.root.setOnClickListener {
+                it.findNavController().navigate(actionHomePageFragmentToCategoryFragment(category.id))
+            }
             binding.categoryImage.setImageResource(getCategoryImage(category.name))
             binding.categoryName.text = category.name
         }
