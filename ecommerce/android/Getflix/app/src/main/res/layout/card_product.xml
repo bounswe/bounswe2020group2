@@ -83,7 +83,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/open_sans_semibold"
-                    android:text="@{product.description}"
+                    android:text="@{product.short_description}"
                     android:textColorHint="#A5A4A4"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"

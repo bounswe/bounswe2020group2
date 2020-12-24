@@ -1,29 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewmodel"
             type="com.example.getflix.ui.viewmodels.CartViewModel" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
         android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
         tools:context=".ui.fragments.CartFragment">
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cart_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight = "8.7"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+            <RelativeLayout
+                android:layout_weight = "1.2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/initPurple">
 
+                <Button
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/acceptOrder"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:drawableLeft="@drawable/ic_baseline_check_24"
+                    android:text="@string/acceptCart"
+                    android:textColor="@color/initPurple"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:background="@drawable/button"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+            </Space>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

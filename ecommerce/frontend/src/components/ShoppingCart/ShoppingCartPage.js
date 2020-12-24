@@ -5,14 +5,13 @@ import React, { Component, useEffect, useState } from 'react'
 
 import { useAppContext } from '../../context/AppContext'
 import { ShoppingCartItems } from './ShoppingCartItems'
-import { Link } from 'react-router-dom'
+import { round } from '../../utils'
 
 export const ShoppingCartPage = ({ currency = 'TL' }) => {
     const [isLoading, setIsLoading] = useState(true)
     const { shoppingCart, shoppingCartRefreshId, getShoppingCart, checkoutShoppingCart, user } = useAppContext()
-
-    const totalPrice = shoppingCart.reduce((total, item) => total + item.product.price * item.amount, 0)
-    const itemCount = shoppingCart.reduce((count, item) => count + item.amount, 0)
+    const totalPrice = shoppingCart.reduce((total, item) => total + item.product.price_after_discount * item.amount, 0)
+    const itemCount = shoppingCart.length
 
     useEffect(() => {
         async function fetch() {
@@ -41,7 +40,7 @@ export const ShoppingCartPage = ({ currency = 'TL' }) => {
     return (
         <div className="shopping-master">
             <div className="shopping-left">
-                <h2>Your shopping cart</h2>
+                <h2>Your shopping cart ({itemCount})</h2>
                 <Spin spinning={isLoading}>
                     <ShoppingCartItems cart={shoppingCart} />
                 </Spin>
@@ -51,7 +50,7 @@ export const ShoppingCartPage = ({ currency = 'TL' }) => {
                     <Row gutter={16}>
                         <Col span={12}>
                             <Spin spinning={isLoading}>
-                                <Statistic title="Total Price" value={totalPrice + ' ' + currency} />
+                                <Statistic title="Total Price" value={round(totalPrice, 2) + ' ' + currency} />
                             </Spin>
                         </Col>
                     </Row>

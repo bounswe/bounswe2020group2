@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.example.getflix.ui.viewmodels.AddressViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/address_list"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fab"
+            android:layout_gravity="bottom|right"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="80dp"
+            android:src="@drawable/ic_baseline_add_24"
+            android:backgroundTint="@color/colorPrimary"
+            app:layout_anchorGravity="bottom|right|end" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

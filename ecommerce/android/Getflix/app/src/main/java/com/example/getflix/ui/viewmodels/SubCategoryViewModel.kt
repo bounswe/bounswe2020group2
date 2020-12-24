@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.getflix.models.ProductModel
 
-class SubCategoryViewModel: ViewModel() {
+class SubCategoryViewModel : ViewModel() {
 
     private val _productList = MutableLiveData<MutableList<ProductModel>>()
     val productList: LiveData<MutableList<ProductModel>>
@@ -20,7 +20,7 @@ class SubCategoryViewModel: ViewModel() {
     }
 
     fun addProduct(productModel: ProductModel) {
-        if(_productList.value!=null) {
+        if (_productList.value != null) {
             val products = _productList.value
             products?.add(productModel)
             _productList.value = products
@@ -34,12 +34,12 @@ class SubCategoryViewModel: ViewModel() {
 
     fun sort(sortS: String?) {
         _sortBy.value = sortS
-        if(sortS == "Price")
+        if (sortS == "Price")
             sortPrice()
     }
 
     private fun sortPrice() {
-        val sorted: MutableList<ProductModel> = _productList.value!!.sortedBy {it.price.toInt()} as MutableList<ProductModel>
+        val sorted: MutableList<ProductModel> = _productList.value!!.sortedBy { it.price.toInt() } as MutableList<ProductModel>
         _productList.value = sorted
     }
 }

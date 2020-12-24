@@ -6,31 +6,30 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/toolbar_lay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:id="@+id/toolbar_lay"
-            >
+            android:layout_alignParentTop="true">
+
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/initGold"
-                android:theme="?attr/actionBarTheme"
                 android:minHeight="?attr/actionBarSize"
-                android:layout_height="wrap_content">
+                android:theme="?attr/actionBarTheme">
 
                 <TextView
                     android:id="@+id/toolbar_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textColor="@color/initPurple"
                     android:fontFamily="@font/shadows_into_light_two"
+                    android:textColor="@color/initPurple"
                     android:textSize="25sp"
                     android:textStyle="bold" />
 
@@ -38,14 +37,12 @@
                     android:id="@+id/btn_notification"
                     android:layout_width="27dp"
                     android:layout_height="27dp"
-                    android:visibility="gone"
-                    android:layout_marginEnd="10dp"
                     android:layout_gravity="center_horizontal|end"
+                    android:layout_marginEnd="10dp"
                     android:background="@drawable/ic_btn_notification"
-                    />
+                    android:visibility="gone" />
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
-
 
 
         <androidx.fragment.app.FragmentContainerView
@@ -53,11 +50,11 @@
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:navGraph="@navigation/nav_graph"
             app:defaultNavHost="true"
-            >
+            app:navGraph="@navigation/nav_graph">
 
-        </androidx.fragment.app.FragmentContainerView>
+         </androidx.fragment.app.FragmentContainerView>
+
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav"
@@ -69,7 +66,12 @@
             app:itemBackground="@color/initGold"
             app:itemIconTint="#fff"
             app:itemTextColor="#fff"
-            app:menu="@menu/nav_menu" />
+             />
+
+        <include
+            android:id="@+id/loading_progress"
+            android:visibility="gone"
+            layout="@layout/progress"/>
 
     </RelativeLayout>
 </layout>

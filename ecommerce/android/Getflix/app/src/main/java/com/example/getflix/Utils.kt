@@ -32,7 +32,7 @@ fun getProductImage(productId: Int): Int {
 }
 
 fun infoAlert(fragment: Fragment, message: String) {
-    MaterialAlertDialogBuilder(fragment.requireContext(),R.style.MaterialAlertDialog_color)
+    MaterialAlertDialogBuilder(fragment.requireContext(), R.style.MaterialAlertDialog_color)
             .setTitle("Info")
             .setMessage(message)
             .setPositiveButton("Ok") { dialog, which ->
@@ -41,31 +41,27 @@ fun infoAlert(fragment: Fragment, message: String) {
             .show()
 }
 
-fun doneAlert(fragment: Fragment, message: String) {
-    MaterialAlertDialogBuilder(fragment.requireContext(),R.style.MaterialAlertDialog_color)
-        .setTitle("Success")
-        .setMessage(message)
-        .setPositiveButton("Ok") { dialog, which ->
-        }
-        .setIcon(R.drawable.ic_check)
-        .show()
+fun doneAlert(fragment: Fragment, message: String, func: () -> Unit) {
+    MaterialAlertDialogBuilder(fragment.requireContext(), R.style.MaterialAlertDialog_color)
+            .setTitle("Success")
+            .setMessage(message)
+            .setPositiveButton("Ok") { dialog, which ->
+                func()
+            }
+            .setIcon(R.drawable.ic_check)
+            .show()
 }
 
-
-
-val negativeClicked = { dialog: DialogInterface, which: Int ->
-
-}
 
 fun askAlert(fragment: Fragment, message: String, func: () -> Unit) {
-    MaterialAlertDialogBuilder(fragment.requireContext(),R.style.MaterialAlertDialog_color)
+    MaterialAlertDialogBuilder(fragment.requireContext(), R.style.MaterialAlertDialog_color)
             .setTitle(fragment.requireContext().getString(R.string.warning))
             .setMessage(message)
-            .setPositiveButton(fragment.requireContext().getString(R.string.yes)){ dialog, which ->
+            .setPositiveButton(fragment.requireContext().getString(R.string.yes)) { dialog, which ->
                 func()
             }
 
-            .setNegativeButton(fragment.requireContext().getString(R.string.no)){ dialog, which ->
+            .setNegativeButton(fragment.requireContext().getString(R.string.no)) { dialog, which ->
             }
             .setIcon(R.drawable.ic_warning)
             .show()

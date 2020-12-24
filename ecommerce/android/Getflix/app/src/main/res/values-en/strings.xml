@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">getflix</string>
+    <string name="app_name2">Getflix</string>
     <string name="hello_blank_fragment">Empty Fragment</string>
     <string name="login">Login</string>
     <string name="home">Home</string>
@@ -9,6 +10,7 @@
     <string name="cart">Cart</string>
     <string name="user_name">User Name</string>
     <string name="password">Password</string>
+    <string name="or_login">or sign up with your Google account</string>
     <string name="not_member">Not a member?</string>
     <string name="register">Sign Up</string>
     <string name="visitor">Continue as visitor</string>
@@ -46,6 +48,9 @@
     <string name="sign_up">Don\'t have an account? Sign up.</string>
     <string name="guest">Guest</string>
     <string name="guest_cont">Continue as a guest</string>
+    <string name="acceptCart">Proceed to Checkout</string>
+    <string name="buy">Pay</string>
+    <string name="payment">Payment</string>
     <string name="userInfo">Personal Info</string>
     <string name="bankAccounts">Bank Account Info</string>
     <string name="orders">My Orders</string>
@@ -70,4 +75,32 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="warning">Warning</string>
+    <string name="order_guest_alert">You have to login to see your order information.</string>
+    <string name="user_guest_alert">You have to login to see your user information.</string>
+    <string name="bank_guest_alert">You have to login to see your bank account information.</string>
+    <string name="address_guest_alert">You have to login to see your address information.</string>
+    <string name="hidden_password">123456</string>
+    <string name="log_out">LOG OUT</string>
+    <string name="messages">Messages</string>
+    <string name="pass_char_limit">Your password should contain at least 8 characters.</string>
+    <string name="username_char_limit">Your username should contain at least 6 characters.</string>
+    <string name="valid_name">Please enter a valid name and surname.</string>
+    <string name="register_success">You have registered successfully! You are redirected to the login page.</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="register_back">Back To Login</string>
+    <string name="loading">Please Wait…</string>
+    <string name="confirm_pass_warning">Confirmation of the password is incorrect.</string>
+    <string name="orders_vendor">Orders</string>
+    <string name="vendor_no_message">You don\'t have any messages yet.</string>
+    <string name="address_form">Enter Address Info</string>
+    <string name="adress_title">Title</string>
+    <string name="address_">Address (ZIP code, Street, Apartment)</string>
+    <string name="province">Province</string>
+    <string name="country">Country</string>
+    <string name="add">Add</string>
+    <string name="address_add">Add Address</string>
+    <string name="order_complete">Complete Order</string>
+    <string name="choose_credit">Choose a credit card to pay</string>
+    <string name="choose_address">Choose an address</string>
+    <string name="add_credit">Add new credit card</string>
 </resources>

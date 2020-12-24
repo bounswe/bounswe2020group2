@@ -11,9 +11,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.getflix.R
+import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentCategoriesBinding
 import com.example.getflix.models.CategoryModel
+import com.example.getflix.models.ExpirationDateModel
+import com.example.getflix.models.PhoneModel
 import com.example.getflix.models.SubcategoryModel
+import com.example.getflix.service.GetflixApi
+
+import com.example.getflix.service.requests.AddressAddRequest
+import com.example.getflix.service.requests.AddressUpdateRequest
+import com.example.getflix.service.requests.CardAddRequest
+import com.example.getflix.service.requests.CardUpdateRequest
 import com.example.getflix.ui.adapters.CategoriesAdapter
 import com.example.getflix.ui.adapters.SubcategoryHorizontalAdapter
 import com.example.getflix.ui.viewmodels.CategoriesViewModel
@@ -21,14 +30,29 @@ import com.example.getflix.ui.viewmodels.CategoryViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.coroutines.*
 
-
-    private lateinit var viewModel: CategoriesViewModel
-    private lateinit var adapter: CategoriesAdapter
 
 class CategoriesFragment : Fragment() {
 
     lateinit var categoryViewModel: CategoryViewModel
+    private lateinit var viewModel: CategoriesViewModel
+    private lateinit var adapter: CategoriesAdapter
+    var cats1 = arrayListOf<CategoryModel>()
+    private var job: Job? = null
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        println("Error ${throwable.localizedMessage}")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        activity?.loading_progress!!.visibility = View.VISIBLE
+
+        viewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
+        viewModel.getCategories()
+
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -36,60 +60,68 @@ class CategoriesFragment : Fragment() {
     ): View? {
 
         val binding = DataBindingUtil.inflate<FragmentCategoriesBinding>(
-            inflater, R.layout.fragment_categories,
-            container, false
+                inflater, R.layout.fragment_categories,
+                container, false
         )
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.categories)
-        viewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
-        binding.viewmodel = CategoriesViewModel()
-        binding.lifecycleOwner=this
+        binding.lifecycleOwner = this
 
-        var catsL = mutableListOf<CategoryModel>()
-        var cats = listOf<CategoryModel>(
-                CategoryModel(
-                "Electronics",
-                listOf(SubcategoryModel( "Computers",null),
-                        SubcategoryModel("Camera & Photo",null),
-                        SubcategoryModel("Cell Phones & Accessories",null),
-                        SubcategoryModel("Digital Videos",null),
-                        SubcategoryModel("Software",null)) as MutableList<SubcategoryModel>
-        ), CategoryModel(
-                "Health & Households",
-                listOf(SubcategoryModel("Sports & Outdoor", null),
-                        SubcategoryModel("Beauty & Personal Care", null)) as MutableList<SubcategoryModel>
-        ), CategoryModel(
-                "Home & Garden",
-                listOf(SubcategoryModel("Luggage", null),
-                        SubcategoryModel("Pet Supplies", null),
-                        SubcategoryModel("Furniture", null)) as MutableList<SubcategoryModel>
-        ), CategoryModel(
-                "Clothing",
-                listOf(SubcategoryModel( "Men's Fashion",null),
-                        SubcategoryModel("Women's Fashion",null),
-                        SubcategoryModel("Boys' Fashion",null),
-                        SubcategoryModel("Girls' Fashion",null),
-                        SubcategoryModel("Baby",null)) as MutableList<SubcategoryModel>
-        ), CategoryModel(
-                "Hobbies",
-                listOf(SubcategoryModel( "Books",null),
-                        SubcategoryModel("Music & CDs",null),
-                        SubcategoryModel("Movies & TVs",null),
-                        SubcategoryModel("Toys & Games",null),
-                        SubcategoryModel("Video Games",null),
-                        SubcategoryModel("Arts & Crafts",null)) as MutableList<SubcategoryModel>
-        ),  CategoryModel(
-                "Others",
-                listOf(SubcategoryModel("Automotive", null),
-                        SubcategoryModel("Industrial & Scientific", null)) as MutableList<SubcategoryModel>
-        )
-        )
-        adapter = CategoriesAdapter(cats, this)
-        binding.catRec.adapter = adapter
+
+
         //viewModel.getProducts(3)
         //viewModel.getProduct(3)
         //viewModel.addToCart(1,4)
-        //viewModel.getUserCartProducts(20)
+        //viewModel.getCustomerCartProducts()
+        //viewModel.addCustomerCartProduct(1,3)
+        //viewModel.getCustomerCartProducts()
+        //viewModel.updateCustomerCartProduct(2,71,1)
+        //viewModel.deleteCustomerCartProduct(71)
+        println("heyyy")
+        //viewModel.getCustomerCartProducts()
+        //viewModel.getSingleCartProduct(71)
+        println("-----")
+        viewModel.getCustomerAddresses()
+        val addressReq = AddressAddRequest("Home", PhoneModel("90","8375334"),"Fatma",
+        "Yildiz","A2 98 Kadikoy","Site Mah.","Istanbul","Turkey","34555")
+        //viewModel.addCustomerAddress(addressReq)
+        val addressReqU = AddressUpdateRequest("Home_updated", PhoneModel("90","8375334"),"Fatma",
+                "Yildiz","A2 98 Kadikoy","Site Mah.","Istanbul","Turkey","34555")
+        //viewModel.updateCustomerAddress(3,addressReqU)
+
+        //viewModel.deleteCustomerAddress(3)
+       viewModel.getCustomerCards()
+        val cardReq = CardAddRequest("Ziraat","Fatma Yildiz","8743543878658697",
+        ExpirationDateModel(8,2022),343)
+        //viewModel.addCustomerCard(cardReq)
+        val cardReq1 = CardAddRequest("World","Fatma Yildiz","543878658697",
+                ExpirationDateModel(8,2021),343)
+        //viewModel.addCustomerCard(cardReq1)
+        //viewModel.getCustomerCard(1)
+        //viewModel.deleteCustomerCard(1)
+
+        val cardReqU = CardUpdateRequest("Ziraat_updated","Fatma Yildiz",8743543,
+                ExpirationDateModel(8,2022),343)
+        //viewModel.updateCustomerCard(1,cardReqU)
+
+
+       var cats1 = arrayListOf<CategoryModel>()
+
+
+       viewModel.categoriess.observe(viewLifecycleOwner, {
+           it?.let {
+               for(category in it.categories!!) {
+                   var name = category.name
+                   var id = category.id
+                   var sub: MutableList<SubcategoryModel> = category.subcategories
+                   cats1.add(CategoryModel(name,id,sub))
+               }
+               adapter = CategoriesAdapter(cats1, this)
+               binding.catRec.adapter = adapter
+               activity?.loading_progress!!.visibility = View.GONE
+           }
+       })
+
 
         /*viewModel.products?.observe(viewLifecycleOwner, {products ->
             products?.let {
@@ -110,22 +142,7 @@ class CategoriesFragment : Fragment() {
 
 
 
-
-
-        /*for(category in cats) {
-            viewModel.addCategory(category)
-        } */
-
-        /*viewModel.categoriesList.observe(viewLifecycleOwner, {
-            it?.let {
-                adapter = CategoriesAdapter(it, this)
-                binding.catRec.adapter = adapter
-            }
-        }) */
-
-
-
-        categoryViewModel =  ViewModelProvider(this).get(CategoryViewModel::class.java)
+        categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
 
 
         val adapter = SubcategoryHorizontalAdapter(requireContext())
@@ -138,6 +155,8 @@ class CategoriesFragment : Fragment() {
 
         return binding.root
     }
+
+
 
 
 

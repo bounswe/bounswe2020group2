@@ -13,8 +13,8 @@ class UserInfoFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         activity?.toolbar!!.toolbar_title.text = getString(R.string.userInfo)
         // Inflate the layout for this fragment
