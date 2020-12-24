@@ -31,11 +31,12 @@ class SubcategoryFragment : Fragment() {
 
     private lateinit var viewModel: SubCategoryViewModel
     private var filter = false
+    private lateinit var binding: FragmentSubcategoryBinding
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val binding = DataBindingUtil.inflate<FragmentSubcategoryBinding>(
+        binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_subcategory,
                 container, false
         )
@@ -51,7 +52,7 @@ class SubcategoryFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(SubCategoryViewModel::class.java)
         //binding.viewmodel = SubCategoryViewModel()
         val recView = binding?.productList as RecyclerView
-        var zaraJacket1 =
+        /*var zaraJacket1 =
                 ProductModel(10, "Jacket", "2", "1", "Zara", 1, 1, 1, "Nice jacket", "1", "1", "1", "1")
         var zaraJacket2 =
                 ProductModel(11, "Jacket", "31", "1", "Zara", 1, 1, 1, "Cool jacket", "1", "1", "1", "1")
@@ -63,7 +64,8 @@ class SubcategoryFragment : Fragment() {
                 ProductModel(5, "Skirt", "93", "1", "Zara", 1, 1, 1, "Cool skirt", "1", "1", "1", "1")
         var zaraSkirt3 =
                 ProductModel(6, "Skirt", "102", "1", "Zara", 1, 1, 1, "Amazing skirt", "1", "1", "1", "1")
-        val products = arrayListOf(zaraSkirt3, zaraJacket1, zaraSkirt2, zaraJacket2, zaraSkirt1, zaraJacket3)
+        val products = arrayListOf(zaraSkirt3, zaraJacket1, zaraSkirt2, zaraJacket2, zaraSkirt1, zaraJacket3)*/
+        val products = arrayListOf<ProductModel>()
         val manager = GridLayoutManager(activity, 2)
         recView.layoutManager = manager
         val productListAdapter = SubCategoryAdapter(products)

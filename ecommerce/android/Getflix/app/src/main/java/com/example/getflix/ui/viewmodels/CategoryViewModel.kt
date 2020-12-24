@@ -16,7 +16,7 @@ class CategoryViewModel() : ViewModel() {
         get() = _displayedCategory
 
     fun setCategory(id: Int) {
-        var categoryModel: CategoryModel? = null
+    /*    var categoryModel: CategoryModel? = null
         if (id == 1) {
             var zaraJacket1 =
                     ProductModel(1, "Jacket", "222", "1", "Zara", 1, 1, 1, "Nice jacket", "1", "1", "1", "1")
@@ -123,7 +123,7 @@ class CategoryViewModel() : ViewModel() {
             categoryModel = CategoryModel("Man", subcategories)
 
         }
-        _displayedCategory.value = categoryModel
+        _displayedCategory.value = categoryModel */
     }
 
 

@@ -1,6 +1,10 @@
 package com.example.getflix.ui.fragments
 
+import android.app.Activity.RESULT_CANCELED
+import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,21 +17,32 @@ import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentLoginBinding
-import com.example.getflix.infoAlert
 import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToHomePageFragment
 import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToProductFragment
 import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToRegisterFragment
+import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToVendorHomeFragment
 import com.example.getflix.ui.viewmodels.LoginViewModel
-
+import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_login.*
 import java.util.*
 
 
 class LoginFragment : Fragment() {
 
-    // private var account : GoogleSignInAccount? = null
 
     private lateinit var loginViewModel: LoginViewModel
+    private lateinit var binding: FragmentLoginBinding
+    private var prefs: SharedPreferences? = null
+
+
 
 
     override fun onCreateView(
@@ -36,10 +51,12 @@ class LoginFragment : Fragment() {
 
     ): View? {
 
-        val binding = DataBindingUtil.inflate<FragmentLoginBinding>(
+        binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_login,
                 container, false
         )
+        MainActivity.StaticData.mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), MainActivity.StaticData.gso)
+        MainActivity.StaticData.account = GoogleSignIn.getLastSignedInAccount(requireActivity())
 
         if (resources.configuration.locale.language == "tr") {
             binding.lang.text = "EN"
@@ -51,6 +68,15 @@ class LoginFragment : Fragment() {
 
         activity?.toolbar_lay!!.visibility = View.GONE
         activity?.bottom_nav!!.visibility = View.GONE
+        prefs = requireContext().getSharedPreferences("SHARED_PREF", Context.MODE_PRIVATE)!!
+        val savedUsername = prefs!!.getString("s_username", null)
+        val savedPassword = prefs!!.getString("s_password", null)
+        val savedChecked = prefs!!.getBoolean("s_checked", false)
+        if(savedUsername!=null) {
+            binding.username.setText(savedUsername)
+            binding.password.setText(savedPassword)
+            binding.btnRemember.isChecked = savedChecked
+        }
 
 
 
@@ -70,70 +96,95 @@ class LoginFragment : Fragment() {
 
 
         binding.login.setOnClickListener {
+            activity?.loading_progress!!.visibility = View.VISIBLE
             if (binding.username.text.toString().isEmpty()) {
                 binding.username.error = getString(R.string.reg_error)
                 loginViewModel.setOnLogin(false)
+                activity?.loading_progress!!.visibility = View.GONE
             }
             if (binding.password.text.toString().isEmpty()) {
                 binding.password.error = getString(R.string.reg_error)
                 loginViewModel.setOnLogin(false)
+                activity?.loading_progress!!.visibility = View.GONE
             }
             if (binding.password.text.toString().isNotEmpty() && binding.username.text.toString().isNotEmpty()) {
-                loginViewModel.setUser(this, binding.username.text.toString(), binding.password.text.toString())
+                loginViewModel.setUser(
+                        this,
+                        binding.username.text.toString(),
+                        binding.password.text.toString()
+                )
             }
         }
 
         loginViewModel.user.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                println(loginViewModel.user.toString())
                 MainActivity.StaticData.user = it
-                view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
+                if (btn_remember.isChecked) {
+                    prefs!!.edit().putString("s_username", binding.username.text.toString()).apply()
+                    prefs!!.edit().putString("s_password", binding.password.text.toString()).apply()
+                    prefs!!.edit().putBoolean("s_checked", true).apply()
+                } else {
+                    prefs!!.edit().clear().apply()
+                }
+
+                if (it.id==20) {
+                    //println(it.toString())
+                    activity?.loading_progress!!.visibility = View.GONE
+                    (activity as MainActivity).decideBottomNav(true)
+                    view?.findNavController()?.navigate(actionLoginFragmentToVendorHomeFragment())
+                } else {
+                    activity?.loading_progress!!.visibility = View.GONE
+                    (activity as MainActivity).decideBottomNav(false)
+                    view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
+                }
             }
         })
 
         binding.signUpButton.setOnClickListener {
             view?.findNavController()?.navigate(actionLoginFragmentToRegisterFragment())
         }
-/*
-       val gso =
-            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build()
-       val mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
-        val account = GoogleSignIn.getLastSignedInAccount(requireActivity())
 
-
-        if(account !=null){
-            view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
-        }*/
         binding.signInButton.setOnClickListener {
+
             view?.findNavController()?.navigate(actionLoginFragmentToProductFragment())
+
+            val signInIntent = MainActivity.StaticData.mGoogleSignInClient?.signInIntent
+            startActivityForResult(signInIntent, 11)
+
         }
 
         binding.guestButton.setOnClickListener {
             MainActivity.StaticData.isVisitor = true
+            (activity as MainActivity).decideBottomNav(false)
             view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
         }
 
         return binding.root
     }
-/*
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode === 11111111.toInt()) {
+        if (requestCode == 11) {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+            if(resultCode != RESULT_CANCELED)
             handleSignInResult(task)
         }
     }
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
-            account  = completedTask.getResult(ApiException::class.java)
+            var account = completedTask.result
+            //println(account?.email)
+            //println(account?.displayName)
+            MainActivity.StaticData.isGoogleUser = true
+            MainActivity.StaticData.account = account
+            (activity as MainActivity).decideBottomNav(false)
+            view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
 
         } catch (e: ApiException) {
-            Log.w(TAG, "signInResult:failed code=" + e.statusCode)
+    
         }
-    }*/
+    }
 
     private fun setLocale(localeName: String) {
         var currentLanguage = ""
