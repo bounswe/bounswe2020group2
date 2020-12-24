@@ -69,7 +69,7 @@ class CategoriesFragment : Fragment() {
 
 
 
-        //viewModel.getProducts(3)
+        viewModel.getProducts(3)
         //viewModel.getProduct(3)
         //viewModel.addToCart(1,4)
         //viewModel.getCustomerCartProducts()
