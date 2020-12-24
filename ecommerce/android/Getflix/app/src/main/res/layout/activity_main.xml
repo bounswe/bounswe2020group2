@@ -53,7 +53,8 @@
             app:defaultNavHost="true"
             app:navGraph="@navigation/nav_graph">
 
-        </androidx.fragment.app.FragmentContainerView>
+         </androidx.fragment.app.FragmentContainerView>
+
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav"
@@ -66,6 +67,11 @@
             app:itemIconTint="#fff"
             app:itemTextColor="#fff"
              />
+
+        <include
+            android:id="@+id/loading_progress"
+            android:visibility="gone"
+            layout="@layout/progress"/>
 
     </RelativeLayout>
 </layout>

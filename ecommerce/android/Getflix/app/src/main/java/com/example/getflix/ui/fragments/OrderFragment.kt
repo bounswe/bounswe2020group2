@@ -9,17 +9,21 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentOrderBinding
 import com.example.getflix.ui.fragments.OrderFragmentDirections.Companion.actionOrderFragmentToAddAddressFragment
 import com.example.getflix.ui.fragments.OrderFragmentDirections.Companion.actionOrderFragmentToPaymentFragment
+import com.example.getflix.ui.viewmodels.CompleteOrderViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 class OrderFragment : Fragment() {
 
     private lateinit var binding: FragmentOrderBinding
+    private lateinit var viewModel: CompleteOrderViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +35,8 @@ class OrderFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_order,
                 container, false)
 
+        viewModel = ViewModelProvider(this).get(CompleteOrderViewModel::class.java)
+
         binding.btnAddCredit.setOnClickListener {
             view?.findNavController()?.navigate(actionOrderFragmentToPaymentFragment())
         }
@@ -39,18 +45,37 @@ class OrderFragment : Fragment() {
             view?.findNavController()?.navigate(actionOrderFragmentToAddAddressFragment())
         }
 
-        val addresses = arrayListOf("home", "office")
-        val credits = arrayListOf("QNB Card", "Garanti Card")
+        var addresses = arrayListOf<String>()
+        var credits = arrayListOf<String>()
 
-        val address_adapter = ArrayAdapter(this.requireContext(),
-                android.R.layout.simple_spinner_item, addresses!!)
-        address_adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-        binding.addressSpinner.adapter = address_adapter
+        viewModel.getCustomerAddresses()
+        viewModel.getCustomerCards()
 
-        val credit_adapter = ArrayAdapter(this.requireContext(),
-            android.R.layout.simple_spinner_item, credits)
-        credit_adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-        binding.creditSpinner.adapter = credit_adapter
+        viewModel.creditList.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                for(credit in it) {
+                    credits.add(credit.name)
+                    println(credit.name)
+                }
+                val creditAdapter = ArrayAdapter(this.requireContext(),
+                        android.R.layout.simple_spinner_dropdown_item, credits)
+                creditAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+                binding.creditSpinner.adapter = creditAdapter
+            }
+        })
+
+        viewModel.addressList.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                for(adress in it) {
+                    addresses.add(adress.title)
+                }
+                val addressAdapter = ArrayAdapter(this.requireContext(),
+                        android.R.layout.simple_spinner_dropdown_item, addresses!!)
+                addressAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+                binding.addressSpinner.adapter = addressAdapter
+            }
+        })
+
 
         binding.addressSpinner.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {

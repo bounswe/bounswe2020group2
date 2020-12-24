@@ -448,15 +448,14 @@ export const product = {
     old_price: 20,
 }
 
-
 export const verifications = [
     { message: 'Success' },
     { message: 'Expired' },
     { message: 'Invalid' },
     { message: 'Verified' },
+]
 
 export const reviews = [
-    //
     {
         id: 1,
         rating: 2,
@@ -706,5 +705,66 @@ export const reviews = [
             firstname: 'Hayati',
             lastname: 'Sevinç',
         },
+    },
+]
+
+export const categories = [
+    {
+        name: 'Electronics',
+        id: 1,
+        subcategories: [
+            { name: 'Camera & Photo', id: 1 },
+            { name: 'Cell Phones & Accessories', id: 2 },
+            { name: 'Digital Videos', id: 3 },
+            { name: 'Software', id: 4 },
+        ],
+    },
+    {
+        name: 'Health & Households',
+        id: 2,
+        subcategories: [
+            { name: 'Sports & Outdoor', id: 5 },
+            { name: 'Beauty & Personal Care', id: 6 },
+        ],
+    },
+    {
+        name: 'Home & Garden',
+        id: 3,
+        subcategories: [
+            { name: 'Luggage', id: 7 },
+            { name: 'Pet Supplies', id: 8 },
+            { name: 'Furniture', id: 9 },
+        ],
+    },
+    {
+        name: 'Clothing',
+        id: 4,
+        subcategories: [
+            { name: "Men's Fashion", id: 10 },
+            { name: "Women's Fashion", id: 11 },
+            { name: "Boys' Fashion", id: 12 },
+            { name: "Girls' Fashion", id: 13 },
+            { name: 'Baby', id: 14 },
+        ],
+    },
+    {
+        name: 'Hobbies',
+        id: 5,
+        subcategories: [
+            { name: 'Books', id: 15 },
+            { name: 'Music & CDs', id: 16 },
+            { name: 'Movies & TVs', id: 17 },
+            { name: 'Toys & Games', id: 18 },
+            { name: 'Video Games', id: 19 },
+            { name: 'Arts & Crafts', id: 20 },
+        ],
+    },
+    {
+        name: 'Others',
+        id: 6,
+        subcategories: [
+            { name: 'Automotive', id: 21 },
+            { name: 'Industrial & Scientific', id: 22 },
+        ],
     },
 ]

@@ -31,6 +31,8 @@ def manage_specific_shopping_cart_item(request, customer_id, sc_item_id):
         sc_item = ShoppingCartItem.objects.filter(customer_id=customer_id).filter(id=sc_item_id).first()
         if sc_item is None:
             return Response({'status': {'successful': False, 'message': "No such item is found"}})
+        if request.data.get("amount") <= 0:
+            return Response({'status': {'successful': False, 'message': "Amount should be a positive number"}})
         sc_item.amount = request.data.get("amount")
         sc_item.save()
         return Response({'status': {'successful': True, 'message': "Item is successfully updated"}})

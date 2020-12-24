@@ -39,7 +39,6 @@ class ProfileFragment : Fragment() {
 
         if (MainActivity.StaticData.isVisitor) {
             binding.name.text = getString(R.string.guest)
-
             binding.buttonLogout.text = getString(R.string.login)
         } else if (MainActivity.StaticData.isGoogleUser) {
             binding.name.text = MainActivity.StaticData.account?.displayName
@@ -85,20 +84,22 @@ class ProfileFragment : Fragment() {
     }
 
 
-        private fun resetData() {
-            MainActivity.StaticData.isVisitor = false
-            MainActivity.StaticData.isCustomer = false
-            MainActivity.StaticData.isAdmin = false
-            MainActivity.StaticData.isVendor = false
-            MainActivity.StaticData.user = null
-            MainActivity.StaticData.isGoogleUser = false
-        }
 
-        private fun navigateLogin() {
-            view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
-            if (MainActivity.StaticData.isGoogleUser)
-                MainActivity.StaticData.mGoogleSignInClient!!.signOut()
-        }
+    private fun resetData() {
+        MainActivity.StaticData.isVisitor = false
+        MainActivity.StaticData.isCustomer = false
+        MainActivity.StaticData.isAdmin = false
+        MainActivity.StaticData.isVendor = false
+        MainActivity.StaticData.user = null
+        MainActivity.StaticData.isGoogleUser = false
+    }
+
+    private fun navigateLogin() {
+        view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
+        if(MainActivity.StaticData.isGoogleUser)
+        MainActivity.StaticData.mGoogleSignInClient!!.signOut()
+    }
+
 
 
 }
