@@ -27,19 +27,19 @@ class PaymentFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentPaymentBinding>(inflater, R.layout.fragment_payment,
                 container, false)
         activity?.toolbar!!.toolbar_title.text = getString(R.string.payment)
-        binding.cardForm.cardRequired(true)
+        binding?.cardForm!!.cardRequired(true)
                 .expirationRequired(true)
                 .cvvRequired(true)
                 .postalCodeRequired(true)
                 .mobileNumberRequired(true)
                 .mobileNumberExplanation("SMS is required on this number")
-                .setup(this.activity);
-        binding.cardForm.getCvvEditText().setInputType(InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD)
+                .setup(activity)
+        binding.cardForm.cvvEditText.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
         binding.btnBuy.setOnClickListener{
-            if (binding.cardForm.isValid()) {
+            if (binding.cardForm.isValid) {
 
             }else {
-                Toast.makeText(this.activity, "Please complete the form", Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, "Please complete the form", Toast.LENGTH_LONG).show();
             }
         }
         // Inflate the layout for this fragment

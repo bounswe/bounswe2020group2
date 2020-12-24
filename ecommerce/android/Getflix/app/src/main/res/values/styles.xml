@@ -39,4 +39,18 @@
     </style>
 
 
+    <style name="AppTheme.Gold">
+        <item name="colorAccent">@color/initGold</item>
+    </style>
+
+    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+
+    </style>
+
+    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+
+
+    </style>
+
+
 </resources>
