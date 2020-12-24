@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector"
-        android:padding="1dp">
+        android:padding="5dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                 android:id="@+id/icon"
                 android:layout_width="60dp"
                 android:layout_height="70dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginBottom="9dp"
                 android:src="@drawable/ic_baseline_home_24"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -34,7 +34,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Space
-                android:layout_width="50dp"
+                android:layout_width="10dp"
                 android:layout_height="match_parent"
                 android:id="@+id/space"
                 app:layout_constraintLeft_toRightOf="@+id/icon">
@@ -42,7 +42,7 @@
 
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="280dp"
                 android:layout_height="match_parent"
                 app:layout_constraintLeft_toRightOf="@+id/space"
                 android:orientation="vertical">
@@ -55,7 +55,8 @@
                 android:gravity="left"
                 android:textColor="#472836"
                 android:textStyle="bold"
-                android:textSize="25dp"
+                android:textSize="20dp"
+                android:fontFamily="@font/open_sans_semibold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.24"
@@ -63,12 +64,20 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.22000003"/>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="5dp"
+                    android:layout_marginStart="0dp"
+                    android:background="@android:color/darker_gray" />
+
             <TextView
                 android:id="@+id/address_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:textSize="12dp"
+                android:fontFamily="@font/open_sans_semibold"
                 android:textColor="@color/initGold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/product_name"
@@ -83,6 +92,7 @@
                 android:textSize="15dp"
                 android:paddingTop="2dp"
                 android:textStyle="italic"
+                android:fontFamily="@font/open_sans_semibold"
                 android:textColor="@color/initGold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/product_info"
