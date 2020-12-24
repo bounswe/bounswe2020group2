@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +30,7 @@ class HomePageFragment : Fragment() {
         var recyclerViewFirstPosition = MutableLiveData<Int>()
 
     }
+
     private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -46,53 +48,57 @@ class HomePageFragment : Fragment() {
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         binding.lifecycleOwner = this
 
-        val adapterForHomeCategoriesAdapter = HomeCategoriesAdapter(viewLifecycleOwner)
-        val adapterForTodaysDealsAdapter = TodaysDealsAdapter()
-        val adapterForHomeRecommenderAdapter = HomeRecommenderAdapter()
-        val adapterForTrendingProductAdapter = TrendingProductAdapter()
+        val adapterForHomeCategories = HomeCategoriesAdapter(viewLifecycleOwner)
+        val adapterForTodaysDeals = TodaysDealsAdapter()
+        val adapterForRecommendedProducts = HomeRecommenderAdapter()
+        val adapterForTrendingProducts = TrendingProductAdapter()
 
-        binding.categories.adapter = adapterForHomeCategoriesAdapter
-        val layoutManagerForCategoriesAdapter =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.categories.adapter = adapterForHomeCategories
+        val layoutManagerForCategoriesAdapter = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.categories.layoutManager = layoutManagerForCategoriesAdapter
-        adapterForHomeCategoriesAdapter.submitList(categories)
+        adapterForHomeCategories.submitList(categories)
 
         recyclerViewFirstPosition.value = 0
-        binding.categories.addOnScrollListener( object: RecyclerView.OnScrollListener(){
+        binding.categories.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 val firstElementPosition = layoutManagerForCategoriesAdapter.findFirstVisibleItemPosition()
-                recyclerViewFirstPosition.value= firstElementPosition
+                recyclerViewFirstPosition.value = firstElementPosition
             }
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val firstElementPosition = layoutManagerForCategoriesAdapter.findFirstVisibleItemPosition()
-                recyclerViewFirstPosition.value= firstElementPosition
+                recyclerViewFirstPosition.value = firstElementPosition
 
             }
         })
 
-
-        binding.todaysDeals.adapter = adapterForTodaysDealsAdapter
-        val layoutManagerForTodaysDeals: RecyclerView.LayoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.todaysDeals.adapter = adapterForTodaysDeals
+        val layoutManagerForTodaysDeals: RecyclerView.LayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.todaysDeals.layoutManager = layoutManagerForTodaysDeals
 
-        binding.trendingProducts.adapter = adapterForTrendingProductAdapter
-        val layoutManagerForTrendingProducts: RecyclerView.LayoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.trendingProducts.adapter = adapterForTrendingProducts
+        val layoutManagerForTrendingProducts: RecyclerView.LayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.trendingProducts.layoutManager = layoutManagerForTrendingProducts
 
 
-        binding.homeRecommendedProducts.adapter = adapterForHomeRecommenderAdapter
-        val layoutManagerForHomeRecommenderAdapter: RecyclerView.LayoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.homeRecommendedProducts.adapter = adapterForRecommendedProducts
+        val layoutManagerForHomeRecommenderAdapter: RecyclerView.LayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.homeRecommendedProducts.layoutManager = layoutManagerForHomeRecommenderAdapter
 
-       // binding.homeViewModel = homeViewModel
-     /*   homeViewModel.onCategoryClick.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                view?.findNavController()?.navigate(actionHomePageFragmentToCategoryFragment(it!!))
-                homeViewModel.navigationComplete()
-            }
-        })*/
+        homeViewModel.todaysDeals?.observe(viewLifecycleOwner, Observer {
+            adapterForTodaysDeals.submitList(it)
+        })
+
+        homeViewModel.recommendedProducts?.observe(viewLifecycleOwner, Observer {
+            adapterForRecommendedProducts.submitList(it)
+        })
+
+        homeViewModel.trendingProducts?.observe(viewLifecycleOwner, Observer {
+            adapterForTrendingProducts.submitList(it)
+        })
+
         return binding.root
     }
 
