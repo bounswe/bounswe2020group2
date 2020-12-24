@@ -100,7 +100,7 @@ export const AddressList = () => {
                         grid={{ gutter: 0 }}
                         dataSource={addressList}
                         renderItem={address => (
-                            <List.Item>
+                            <List.Item key={address.id}>
                                 <AddressCard
                                     address={address}
                                     onAddressInfoChange={onAddressInfoChange}
