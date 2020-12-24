@@ -1,1 +1,5 @@
-cp secrets/backenv.env.production ecommerce/backend/.env.production -v
+#!/usr/bin/env bash                                                                
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"     
+
+cp $DIR/secrets/backenv.env.production $DIR/ecommerce/backend/.env.production -v
