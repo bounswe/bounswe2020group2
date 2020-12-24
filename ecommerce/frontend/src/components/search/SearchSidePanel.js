@@ -1,11 +1,10 @@
 import './SearchSidePanel.less'
 
-import { Button, Form, InputNumber, Rate, Select, Slider } from 'antd'
-import { useState } from 'react'
-
-import { brands, categories, productSortBy, subcategories, vendors } from '../../utils'
+import { Button, Form, InputNumber, Rate, Select } from 'antd'
 import ButtonGroup from 'antd/lib/button/button-group'
-import { intersection } from 'ramda'
+
+import { useAppContext } from '../../context/AppContext'
+import { brands, productSortBy } from '../../utils'
 
 const formItemLayout = {
     labelCol: {
@@ -25,6 +24,7 @@ const formItemLayout = {
         },
     },
 }
+
 const tailFormItemLayout = {
     wrapperCol: {
         xs: {
@@ -39,41 +39,52 @@ const tailFormItemLayout = {
 }
 
 export const SearchSidePanel = ({ initialValues = {}, onSubmit = () => {} }) => {
+    const { categories } = useAppContext()
     const [form] = Form.useForm()
-    const [category, setCategory] = useState(initialValues?.category ?? 'electronics')
-
-    const onSelectCategory = category => {
-        setCategory(category)
-        form.setFieldsValue({ subcategory: null })
-    }
 
     const onFinish = values => {
         console.log('Search side panel form:', values)
         onSubmit(values)
     }
-    const onResetClick = () => {
-        form.resetFields()
+
+    const onResetClick = () => form.resetFields()
+
+    const onFieldsChange = fields => {
+        if (fields.find(field => field.name[0] == 'category')) form.setFieldsValue({ subcategory: undefined })
     }
 
     return (
-        <Form {...formItemLayout} form={form} initialValues={initialValues} onFinish={onFinish}>
+        <Form
+            {...formItemLayout}
+            form={form}
+            onFieldsChange={onFieldsChange}
+            initialValues={initialValues}
+            onFinish={onFinish}>
             <Form.Item name="category" label="Category">
-                <Select onSelect={onSelectCategory} placeholder="Category...">
-                    {Object.entries(categories).map(([key, value]) => (
-                        <Select.Option key={key} value={key}>
-                            {value}
+                <Select placeholder="Category..." allowClear>
+                    {categories.map(category => (
+                        <Select.Option key={category.id} value={category.id}>
+                            {category.name}
                         </Select.Option>
                     ))}
                 </Select>
             </Form.Item>
-            <Form.Item name="subcategory" label="Subcategory">
-                <Select placeholder="Subcategory..." allowClear>
-                    {Object.entries(subcategories[category]).map(([key, value]) => (
-                        <Select.Option key={key} value={key}>
-                            {value}
-                        </Select.Option>
-                    ))}
-                </Select>
+            <Form.Item label="Subcategory" dependencies={['category']}>
+                {({ getFieldValue }) => {
+                    const category = categories.find(category => category.id == getFieldValue('category'))
+                    const subcategories = category?.subcategories ?? []
+                    return (
+                        <Form.Item name="subcategory" noStyle>
+                            <Select placeholder="Subcategory..." allowClear>
+                                {subcategories.map(subcategory => (
+                                    <Select.Option key={subcategory.id} value={subcategory.id}>
+                                        {subcategory.name}
+                                    </Select.Option>
+                                ))}
+                            </Select>
+                        </Form.Item>
+                    )
+                }}
             </Form.Item>
             <Form.Item name="brand" label="Brand">
                 <Select placeholder="Brand..." allowClear>

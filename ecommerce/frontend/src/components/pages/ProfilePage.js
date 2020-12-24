@@ -13,7 +13,7 @@ export const ProfilePage = () => {
                 <img src={getflixLogo} className="splash-logo"></img>
                 <div className="splash-slogan">
                     <h1>
-                        {user.name}&nbsp;&nbsp;{user.surname}
+                        {user.name}&nbsp;&nbsp;{user.lastname}
                     </h1>
                 </div>
             </div>
