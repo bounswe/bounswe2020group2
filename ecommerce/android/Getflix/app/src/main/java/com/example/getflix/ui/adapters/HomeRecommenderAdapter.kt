@@ -5,13 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.getflix.databinding.CardProductBinding
-import com.example.getflix.databinding.CardTodaysDealBinding
-import com.example.getflix.getProductImage
+import com.example.getflix.databinding.CardHomeRecommendedProductBinding
 import com.example.getflix.models.ProductModel
+import com.squareup.picasso.Picasso
 
 class HomeRecommenderAdapter :
-    ListAdapter<ProductModel, HomeRecommenderAdapter.ViewHolder>(ProductDiffCallback()) {
+    ListAdapter<ProductModel, HomeRecommenderAdapter.ViewHolder>(HomeRecommendedProductDiffCallback()) {
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -20,7 +19,10 @@ class HomeRecommenderAdapter :
     }
 
     private fun ViewHolder.bind(product: ProductModel) {
-
+        Picasso.get().load(product.images[0]).into(binding.recommendedProductImage)
+        binding.homeRecommendedProductName.text = product.name
+        binding.recommendedProductPrice.text = product.priceDiscounted.toString() + "TL"
+        binding.recommendedProductOldPrice.text = product.price.toString() + "TL"
 
     }
 
@@ -28,12 +30,13 @@ class HomeRecommenderAdapter :
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: CardTodaysDealBinding) :
+    class ViewHolder private constructor(val binding: CardHomeRecommendedProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = CardTodaysDealBinding.inflate(layoutInflater, parent, false)
+                val binding =
+                    CardHomeRecommendedProductBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }
@@ -41,7 +44,7 @@ class HomeRecommenderAdapter :
     }
 }
 
-class CardToda : DiffUtil.ItemCallback<ProductModel>() {
+class HomeRecommendedProductDiffCallback : DiffUtil.ItemCallback<ProductModel>() {
     override fun areItemsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
         return oldItem === newItem
     }
