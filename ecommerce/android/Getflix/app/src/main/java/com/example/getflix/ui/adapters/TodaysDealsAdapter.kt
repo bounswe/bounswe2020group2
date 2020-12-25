@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.CardTodaysDealBinding
 import com.example.getflix.models.ProductModel
+import com.squareup.picasso.Picasso
 
 class TodaysDealsAdapter :
     ListAdapter<ProductModel, TodaysDealsAdapter.ViewHolder>(TodaysDealsDiffCallback()) {
@@ -18,7 +19,8 @@ class TodaysDealsAdapter :
     }
 
     private fun ViewHolder.bind(product: ProductModel) {
-        // binding.product = product
+        Picasso.get().load(product.images[0]).into(binding.todaysDealImage)
+        binding.todaysDealName.text = product.name
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
