@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.categories
@@ -23,6 +24,7 @@ import com.example.getflix.ui.fragments.HomePageFragment.StaticData.recyclerView
 import com.example.getflix.ui.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import me.relex.circleindicator.CircleIndicator2
 
 
 class HomePageFragment : Fragment() {
@@ -33,10 +35,16 @@ class HomePageFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
-        val binding = DataBindingUtil.inflate<FragmentNewHomeBinding>(inflater, R.layout.fragment_new_home,
-                container, false)
+        val binding = DataBindingUtil.inflate<FragmentNewHomeBinding>(
+            inflater, R.layout.fragment_new_home,
+            container, false
+        )
 
 
         activity?.bottom_nav!!.visibility = View.VISIBLE
@@ -54,7 +62,8 @@ class HomePageFragment : Fragment() {
         val adapterForTrendingProducts = TrendingProductAdapter()
 
         binding.categories.adapter = adapterForHomeCategories
-        val layoutManagerForCategoriesAdapter = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        val layoutManagerForCategoriesAdapter =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.categories.layoutManager = layoutManagerForCategoriesAdapter
         adapterForHomeCategories.submitList(categories)
 
@@ -62,29 +71,39 @@ class HomePageFragment : Fragment() {
         binding.categories.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                val firstElementPosition = layoutManagerForCategoriesAdapter.findFirstVisibleItemPosition()
+                val firstElementPosition =
+                    layoutManagerForCategoriesAdapter.findFirstVisibleItemPosition()
                 recyclerViewFirstPosition.value = firstElementPosition
             }
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val firstElementPosition = layoutManagerForCategoriesAdapter.findFirstVisibleItemPosition()
+                val firstElementPosition =
+                    layoutManagerForCategoriesAdapter.findFirstVisibleItemPosition()
                 recyclerViewFirstPosition.value = firstElementPosition
 
             }
         })
 
+
         binding.todaysDeals.adapter = adapterForTodaysDeals
-        val layoutManagerForTodaysDeals: RecyclerView.LayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.todaysDeals.layoutManager = layoutManagerForTodaysDeals
+
 
         binding.trendingProducts.adapter = adapterForTrendingProducts
-        val layoutManagerForTrendingProducts: RecyclerView.LayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.trendingProducts.layoutManager = layoutManagerForTrendingProducts
 
+        val layoutManagerForTrendingProdutcts: RecyclerView.LayoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.trendingProducts.layoutManager = layoutManagerForTrendingProdutcts
+
+        val pagerSnapHelper = PagerSnapHelper()
+        pagerSnapHelper.attachToRecyclerView(binding.todaysDeals)
+
+        val indicator: CircleIndicator2 = binding.indicator
+        indicator.attachToRecyclerView(binding.todaysDeals, pagerSnapHelper)
 
         binding.homeRecommendedProducts.adapter = adapterForRecommendedProducts
-        val layoutManagerForHomeRecommenderAdapter: RecyclerView.LayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        val layoutManagerForHomeRecommenderAdapter: RecyclerView.LayoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.homeRecommendedProducts.layoutManager = layoutManagerForHomeRecommenderAdapter
 
         homeViewModel.todaysDeals?.observe(viewLifecycleOwner, Observer {

@@ -8,17 +8,14 @@ import androidx.databinding.DataBindingUtil
 
 import androidx.fragment.app.Fragment
 
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.getflix.R
-import com.example.getflix.categories
-import com.example.getflix.activities.MainActivity
+
 import com.example.getflix.databinding.FragmentCategoriesBinding
 import com.example.getflix.models.CategoryModel
 import com.example.getflix.models.ExpirationDateModel
 import com.example.getflix.models.PhoneModel
-import com.example.getflix.models.SubcategoryModel
-import com.example.getflix.service.GetflixApi
+
 
 import com.example.getflix.service.requests.AddressAddRequest
 import com.example.getflix.service.requests.AddressUpdateRequest
@@ -47,11 +44,7 @@ class CategoriesFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         activity?.loading_progress!!.visibility = View.VISIBLE
-
-        viewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
-        viewModel.getCategories()
 
     }
 
@@ -59,6 +52,10 @@ class CategoriesFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+
+
+        viewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
+        viewModel.getCategories()
 
         val binding = DataBindingUtil.inflate<FragmentCategoriesBinding>(
                 inflater, R.layout.fragment_categories,
@@ -146,11 +143,12 @@ class CategoriesFragment : Fragment() {
 
 
         val adapter = SubcategoryHorizontalAdapter(requireContext())
+      /*
         categoryViewModel.displayedCategory.observe(viewLifecycleOwner, Observer {
             it.let {
                 adapter.submitList(it["woman"])
             }
-        })
+        })*/
 
 
         return binding.root
