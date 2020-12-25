@@ -1,6 +1,6 @@
 import { CreditCardList } from '../cardlist/CreditCardList'
 import { AddressList } from '../addresslist/AddressList'
-import "./CheckoutPage.less"
+import './CheckoutPage.less'
 export const CheckoutPage = () => {
     return (
         <div className="checkout-page-container">
@@ -8,9 +8,7 @@ export const CheckoutPage = () => {
                 <CreditCardList />
                 <AddressList />
             </div>
-            <div className="price-summary-container">
-                Price summary
-            </div>
+            <div className="price-summary-container">Price summary</div>
         </div>
     )
 }

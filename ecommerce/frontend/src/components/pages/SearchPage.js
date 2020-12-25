@@ -104,7 +104,6 @@ export const _SearchPage = ({ initialValues = {} }) => {
         async function fetch() {
             try {
                 setIsLoading(true)
-                console.log(values)
 
                 const {
                     data: {

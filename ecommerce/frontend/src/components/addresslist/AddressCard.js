@@ -68,7 +68,9 @@ export const AddressCard = ({ address, selected = false, onSelect = () => {}, on
                     <div className="address-card-region">
                         {[address.province, address.city, address.country].filter(Boolean).join(' / ')}
                     </div>
-                    <div className="address-card-phone">{[address.phone.countryCode, address.phone.number].filter(Boolean).join("")}</div>
+                    <div className="address-card-phone">
+                        {[address.phone.countryCode, address.phone.number].filter(Boolean).join('')}
+                    </div>
                 </div>
             </Spin>
         </div>

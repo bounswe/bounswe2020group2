@@ -1,4 +1,3 @@
-
 import './ProductPage.less'
 
 import React, { useEffect, useState } from 'react'
@@ -144,7 +143,6 @@ export const ProductPage = props => {
             </div>
             <div className="product-page-reviews">
                 <UserReviews productId={productId} />
-
             </div>
             <h2 className="best-sellers-topic">Best Sellers in {product.subcategory}</h2>
             <div className="best-sellers">
