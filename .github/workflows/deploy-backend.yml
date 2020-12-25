@@ -44,7 +44,7 @@ jobs:
                   GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
 
             - name: Decrypt backend.env.production
-              run: gpg --batch --yes --decrypt --passphrase="$GPG_PASSWORD" --output backend.env.production ./secrets/backend.env.production
+              run: gpg --batch --yes --decrypt --passphrase="$GPG_PASSWORD" --output backend.env.production ./secrets/backend.env.production.gpg
               env:
                   GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
 
