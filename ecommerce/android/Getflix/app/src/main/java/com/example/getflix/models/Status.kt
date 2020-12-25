@@ -6,5 +6,5 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Status(
         var succcesful: Boolean,
-        var message: String
+        var message: String ?=null
 ) : Parcelable

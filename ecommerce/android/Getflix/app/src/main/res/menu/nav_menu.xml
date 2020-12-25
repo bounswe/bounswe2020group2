@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-      android:id="@+id/homePageFragment"
-      android:title="@string/home"
-      android:icon="@drawable/menu_home"/>
+        android:id="@+id/homePageFragment"
+        android:icon="@drawable/menu_home"
+        android:title="@string/home" />
 
     <item
         android:id="@+id/categoriesFragment"
-        android:title="@string/categories"
-        android:icon="@drawable/menu_category"/>
+        android:icon="@drawable/menu_category"
+        android:title="@string/categories" />
 
     <item
         android:id="@+id/favoritesFragment"
-        android:title="@string/favorites"
-        android:icon="@drawable/menu_favorite"/>
+        android:icon="@drawable/menu_favorite"
+        android:title="@string/favorites" />
 
     <item
         android:id="@+id/cartFragment"
-        android:title="@string/cart"
-        android:icon="@drawable/menu_cart"/>
+        android:icon="@drawable/menu_cart"
+        android:title="@string/cart" />
 
     <item
         android:id="@+id/profileFragment"
-        android:title="@string/profile"
-        android:icon="@drawable/menu_profile"/>
+        android:icon="@drawable/menu_profile"
+        android:title="@string/profile" />
 
 
 </menu>

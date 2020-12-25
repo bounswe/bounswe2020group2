@@ -6,4 +6,51 @@
         <item name="colorAccent">@color/initPurple</item>
     </style>
 
+    <style name="MaterialAlertDialog_color" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle.textColor</item>
+        <item name="buttonBarNeutralButtonStyle">@style/NeutralButtonStyle.textColor</item>
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle.textColor</item>
+        <item name="materialAlertDialogTitleTextStyle">
+            @style/MyTitle_MaterialAlertDialog.MaterialComponents.Title.Text
+        </item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.MediumComponent</item>
+        <item name="colorAccent">@color/initGold</item>
+    </style>
+
+    <style name="PositiveButtonStyle.textColor" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/initGold</item>
+    </style>
+
+    <style name="NeutralButtonStyle.textColor" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/initGold</item>
+    </style>
+
+    <style name="NegativeButtonStyle.textColor" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/initGold</item>
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="MyTitle_MaterialAlertDialog.MaterialComponents.Title.Text" parent="@style/MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textColor">@color/initPurple</item>
+    </style>
+
+
+    <style name="AppTheme.Gold">
+        <item name="colorAccent">@color/initGold</item>
+    </style>
+
+    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+
+    </style>
+
+    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+
+
+    </style>
+
+
 </resources>
