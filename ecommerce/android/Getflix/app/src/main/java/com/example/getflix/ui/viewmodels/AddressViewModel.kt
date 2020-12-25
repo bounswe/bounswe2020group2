@@ -7,6 +7,8 @@ import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.AddressModel
 import com.example.getflix.models.CardModel
 import com.example.getflix.service.GetflixApi
+import com.example.getflix.service.requests.AddressAddRequest
+import com.example.getflix.service.responses.AddressAddResponse
 import com.example.getflix.service.responses.AddressDeleteResponse
 import kotlinx.coroutines.*
 import retrofit2.Call
@@ -18,6 +20,10 @@ class AddressViewModel  : ViewModel() {
     private val _addressList = MutableLiveData<MutableList<AddressModel>>()
     val addressList: LiveData<MutableList<AddressModel>>
         get() = _addressList
+
+    private val _navigateBack = MutableLiveData<Boolean>()
+    val navigateBack: LiveData<Boolean>
+        get() = _navigateBack
 
     private var job: Job? = null
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
@@ -58,5 +64,30 @@ class AddressViewModel  : ViewModel() {
                     }
                 }
                 )
+    }
+
+    fun addCustomerAddress(addressRequest: AddressAddRequest) {
+        GetflixApi.getflixApiService.addCustomerAddress("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, addressRequest)
+            .enqueue(object :
+                Callback<AddressAddResponse> {
+                override fun onFailure(call: Call<AddressAddResponse>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<AddressAddResponse>,
+                    response: Response<AddressAddResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+                    if (response.code()==200)
+                        _navigateBack.value = true
+                }
+            }
+            )
+    }
+
+    fun resetNavigate() {
+        _navigateBack.value = false
     }
 }

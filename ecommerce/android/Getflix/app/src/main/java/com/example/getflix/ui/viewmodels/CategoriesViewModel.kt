@@ -136,26 +136,7 @@ class CategoriesViewModel : ViewModel() {
         }
     }
 
-    fun addCustomerAddress(addressRequest: AddressAddRequest) {
-        GetflixApi.getflixApiService.addCustomerAddress("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, addressRequest)
-                .enqueue(object :
-                        Callback<AddressAddResponse> {
-                    override fun onFailure(call: Call<AddressAddResponse>, t: Throwable) {
 
-                    }
-
-                    override fun onResponse(
-                            call: Call<AddressAddResponse>,
-                            response: Response<AddressAddResponse>
-                    ) {
-                        println(response.body().toString())
-                        println(response.code())
-                        if (response.body()!!.status.succcesful)
-                            println(response.body().toString())
-                    }
-                }
-                )
-    }
 
     fun getCustomerAddress(addressId: Int) {
         job = CoroutineScope(Dispatchers.IO).launch {

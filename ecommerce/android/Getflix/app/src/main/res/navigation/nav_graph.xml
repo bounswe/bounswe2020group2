@@ -129,9 +129,9 @@
             app:destination="@id/filterOptionsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/paymentFragment"
-        android:name="com.example.getflix.ui.fragments.PaymentFragment"
-        tools:layout="@layout/fragment_payment" />
+        android:id="@+id/addCreditCardFragment"
+        android:name="com.example.getflix.ui.fragments.AddCreditCardFragment"
+        tools:layout="@layout/fragment_add_credit_card" />
 
     <fragment
         android:id="@+id/filterOptionsFragment"
@@ -162,8 +162,8 @@
             app:enterAnim="@anim/enter_right_to_left"
             app:exitAnim="@anim/exit_right_to_left" />
         <action
-            android:id="@+id/action_bankAccountFragment_to_paymentFragment"
-            app:destination="@id/paymentFragment" />
+            android:id="@+id/action_bankAccountFragment_to_addCreditCardFragment"
+            app:destination="@id/addCreditCardFragment" />
     </fragment>
     <fragment
         android:id="@+id/orderInfoFragment"
@@ -208,8 +208,8 @@
         android:name="com.example.getflix.ui.fragments.OrderFragment"
         tools:layout="@layout/fragment_order">
         <action
-            android:id="@+id/action_orderFragment_to_paymentFragment"
-            app:destination="@id/paymentFragment" />
+            android:id="@+id/action_orderFragment_to_addCreditCardFragment"
+            app:destination="@id/addCreditCardFragment" />
         <action
             android:id="@+id/action_orderFragment_to_addAddressFragment"
             app:destination="@id/addAddressFragment" />

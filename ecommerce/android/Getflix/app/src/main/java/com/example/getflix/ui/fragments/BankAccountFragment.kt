@@ -18,7 +18,7 @@ import com.example.getflix.databinding.FragmentBankAccountBinding
 import com.example.getflix.models.CardModel
 import com.example.getflix.ui.adapters.CreditCartsAdapter
 import com.example.getflix.ui.adapters.SwipeToDeleteCreditCart
-import com.example.getflix.ui.fragments.BankAccountFragmentDirections.Companion.actionBankAccountFragmentToPaymentFragment
+import com.example.getflix.ui.fragments.BankAccountFragmentDirections.Companion.actionBankAccountFragmentToAddCreditCardFragment
 import com.example.getflix.ui.viewmodels.CreditCardViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -58,7 +58,7 @@ class BankAccountFragment : Fragment() {
 
 
         binding.fab.setOnClickListener {
-            view?.findNavController()?.navigate(actionBankAccountFragmentToPaymentFragment())
+            view?.findNavController()?.navigate(actionBankAccountFragmentToAddCreditCardFragment())
         }
 
         val credits = arrayListOf<CardModel>()

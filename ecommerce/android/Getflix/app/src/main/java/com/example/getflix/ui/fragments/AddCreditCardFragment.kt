@@ -10,18 +10,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.getflix.R
-import com.example.getflix.databinding.FragmentPaymentBinding
+import com.example.getflix.databinding.FragmentAddCreditCardBinding
 import com.example.getflix.doneAlert
 import com.example.getflix.models.ExpirationDateModel
 import com.example.getflix.service.requests.CardAddRequest
-import com.example.getflix.ui.viewmodels.AddressViewModel
 import com.example.getflix.ui.viewmodels.CreditCardViewModel
 import com.manojbhadane.PaymentCardView.OnPaymentCardEventListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 
-class PaymentFragment : Fragment() {
+class AddCreditCardFragment : Fragment() {
 
     private lateinit var viewModel: CreditCardViewModel
 
@@ -29,8 +28,8 @@ class PaymentFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentPaymentBinding>(
-            inflater, R.layout.fragment_payment,
+        val binding = DataBindingUtil.inflate<FragmentAddCreditCardBinding>(
+            inflater, R.layout.fragment_add_credit_card,
             container, false
         )
         activity?.toolbar!!.toolbar_title.text = getString(R.string.payment)
