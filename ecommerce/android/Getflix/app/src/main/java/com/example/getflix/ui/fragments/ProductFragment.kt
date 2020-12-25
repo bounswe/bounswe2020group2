@@ -1,6 +1,7 @@
 package com.example.getflix.ui.fragments
 
 
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,13 +18,12 @@ import com.example.getflix.databinding.FragmentProductBinding
 import com.example.getflix.ui.adapters.ImageAdapter
 import com.example.getflix.ui.adapters.RecommenderAdapter
 import com.example.getflix.ui.viewmodels.ProductViewModel
-import kotlinx.android.synthetic.main.fragment_product.view.*
 import me.relex.circleindicator.CircleIndicator2
 
 
 class ProductFragment: Fragment() {
-    private lateinit var productViewModel: ProductViewModel
     private lateinit var binding: FragmentProductBinding
+    private lateinit var productViewModel: ProductViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -33,11 +33,13 @@ class ProductFragment: Fragment() {
                 inflater, R.layout.fragment_product,
                 container, false
         )
-
-
+        val args =  ProductFragmentArgs.fromBundle(requireArguments())
         productViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
+        productViewModel.getProduct(args.productId)
+
         val recommenderAdapter = RecommenderAdapter()
         val imageAdapter = ImageAdapter()
+        val commentAdapter = CommentAdapter()
         binding.lifecycleOwner = this
 
         binding.recommendedProducts.adapter = recommenderAdapter
@@ -53,7 +55,6 @@ class ProductFragment: Fragment() {
 
         val indicator: CircleIndicator2 = binding.circleIndicator
         indicator.attachToRecyclerView(binding.images, pagerSnapHelper)
-
 
         binding.like.setOnClickListener {
             productViewModel.onLikeClick()
@@ -75,8 +76,30 @@ class ProductFragment: Fragment() {
         productViewModel.recommendedProducts.observe(viewLifecycleOwner, Observer {
             recommenderAdapter.submitList(it)
         })
-        productViewModel.imageURLs.observe(viewLifecycleOwner, Observer {
-            imageAdapter.submitList(it)
+        val comments = listOf<String>(
+            "A user review refers to a review written by a user or consumer of a product or a service based on her experience as a user of the reviewed product. Popular sources for consumer reviews are e-commerce sites like Amazon.com, Zappos or lately in the Yoga field for schools such as Banjaara Yoga and Ayurveda, and social media sites like TripAdvisor and Yelp. E-commerce sites often have consumer reviews for products and sellers separately. Usually, consumer reviews are in the form of several lines of texts accompanied by a numerical rating. This text is meant to aid in shopping decision of a prospective buyer. A consumer review of a product usually comments on how well the product measures up to expectations based on the specifications provided by the manufacturer or seller. It talks about performance, reliability, quality defects, if any, and value for money. Consumer review, also called 'word of mouth' and 'user generated content' differs from 'marketer generated content' in its evaluation from consumer or user point of view. Often it includes comparative evaluations against competing products. Observations are factual as well as subjective in nature. Consumer review of sellers usually comment on service experienced, and dependability or trustworthiness of the seller. Usually, it comments on factors such as timeliness of delivery, packaging, and correctness of delivered items, shipping charges, return services against promises made, and so on."
+        )
+        productViewModel.product.observe(viewLifecycleOwner, Observer {
+            if (it!=null) {
+                binding.product = it
+                binding.brand.text = it.brand.name
+                binding.productName.text = it.name
+                imageAdapter.submitList(it.images)
+                binding.oldPrice.text = it.price.toString() + " TL"
+                binding.oldPrice.setPaintFlags(binding.oldPrice.getPaintFlags() or Paint.STRIKE_THRU_TEXT_FLAG)
+                binding.price.text = it.priceDiscounted.toString() + " TL"
+                binding.longDescription.text = it.long_description
+                binding.shortDescription.text = it.short_description
+                binding.rating.text = it.rating.toString()
+                binding.totalRating.text = "(" + it.rating_count.toString() + ")"
+                binding.vendorDetail.text = it.vendor.name
+                binding.productCategory.text = it.category.name
+                binding.productSubcategory.text = it.subcategory.name
+                binding.circleIndicator.createIndicators(it.images.size,0)
+                setProductRating(it.rating)
+
+            }
+
         })
         productViewModel.isLiked.observe(viewLifecycleOwner, Observer {
             if(it){
@@ -86,37 +109,20 @@ class ProductFragment: Fragment() {
             }
         })
         return binding.root
+
     }
 
-    fun setVendorRating(rating : Float){
-        if (rating > 1){
+    fun setProductRating(rating : Double){
+        if (rating >= 1){
             binding.star1.setImageResource(R.drawable.ic_filled_star)
         }
-        if (rating > 2){
+        if (rating >= 2){
             binding.star2.setImageResource(R.drawable.ic_filled_star)
         }
-        if (rating > 3){
-            binding.star3.setImageResource(R.drawable.ic_filled_star)
-        }
-        if (rating > 4){
-            binding.star4.setImageResource(R.drawable.ic_filled_star)
-        }
-        if (rating.toInt() == 5){
-            binding.star5.setImageResource(R.drawable.ic_filled_star)
-        }
-    }
-
-    fun setProductRating(rating : Float){
-        if (rating > 1){
-            binding.star1.setImageResource(R.drawable.ic_filled_star)
-        }
-        if (rating > 2){
+        if (rating >= 3){
             binding.star2.setImageResource(R.drawable.ic_filled_star)
         }
-        if (rating > 3){
-            binding.star2.setImageResource(R.drawable.ic_filled_star)
-        }
-        if (rating > 4){
+        if (rating >= 4){
             binding.star2.setImageResource(R.drawable.ic_filled_star)
         }
         if (rating.toInt() == 5){
