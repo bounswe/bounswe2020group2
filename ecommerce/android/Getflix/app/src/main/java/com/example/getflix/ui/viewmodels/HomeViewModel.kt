@@ -4,8 +4,6 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.example.getflix.models.ProductModel
 import com.example.getflix.service.GetflixApi
-import com.example.getflix.service.requests.CardProRequest
-import com.example.getflix.service.responses.CardProResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,27 +35,32 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun navigationComplete() {
         _onCategoryClick.value = null
     }
+
     init {
         getHomeProducts(9)
     }
-    fun getHomeProducts(numberOfProducts: Int){
-        GetflixApi.getflixApiService.getProducts(numberOfProducts)
-                .enqueue(object :
-                        Callback<List<ProductModel>> {
-                    override fun onFailure(call: Call<List<ProductModel>>, t: Throwable) {
-                        _recommendedProducts.value = null
-                        _trendingProducts.value = null
-                        _todaysDeals.value = null
-                    }
 
-                    override fun onResponse(call: Call<List<ProductModel>>, response: Response<List<ProductModel>>) {
-                        val rangeLength =  numberOfProducts / 3
-                        _recommendedProducts.value = response.body()?.subList(0,rangeLength)
-                        _trendingProducts.value = response.body()?.subList(rangeLength,2*rangeLength)
-                        _todaysDeals.value = response.body()?.subList(2*rangeLength,3*rangeLength)
-                    }
+    fun getHomeProducts(numberOfProducts: Int) {
+        GetflixApi.getflixApiService.getProducts(numberOfProducts)
+            .enqueue(object :
+                Callback<List<ProductModel>> {
+                override fun onFailure(call: Call<List<ProductModel>>, t: Throwable) {
+                    _recommendedProducts.value = null
+                    _trendingProducts.value = null
+                    _todaysDeals.value = null
                 }
-                )
+
+                override fun onResponse(
+                    call: Call<List<ProductModel>>,
+                    response: Response<List<ProductModel>>
+                ) {
+                    val rangeLength = numberOfProducts / 3
+                    _recommendedProducts.value = response.body()?.subList(0, rangeLength)
+                    _trendingProducts.value = response.body()?.subList(rangeLength, 2 * rangeLength)
+                    _todaysDeals.value = response.body()?.subList(2 * rangeLength, 3 * rangeLength)
+                }
+            }
+            )
     }
 
 }
