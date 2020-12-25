@@ -11,87 +11,81 @@
             type="com.example.getflix.models.ProductModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="200dp"
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp">
+        android:elevation="2dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="40dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.cardview.widget.CardView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/home_recommended_product_name"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/open_sans_semibold"
+                android:text="@{product.name}"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recommended_product_image" />
 
-                <TextView
-                    android:id="@+id/product_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/open_sans_semibold"
-                    android:text="@{product.name}"
-                    android:textColor="#000000"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/product_image" />
+            <ImageView
+                android:id="@+id/recommended_product_image"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="1dp"
+                android:paddingTop="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/zara_jacket1" />
 
-                <ImageView
-                    android:id="@+id/product_image"
-                    android:layout_width="128dp"
-                    android:layout_height="128dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="1dp"
-                    android:paddingTop="1dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/zara_jacket1" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/recommended_product_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/open_sans_bold"
+                android:text="698"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/recommended_product_old_price"
+                app:layout_constraintTop_toBottomOf="@+id/home_recommended_product_name" />
 
-                <TextView
-                    android:id="@+id/product_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="24dp"
-                    android:fontFamily="@font/open_sans_bold"
-                    android:text="698"
-                    android:textColor="#000000"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toStartOf="@+id/old_product_price"
-                    app:layout_constraintTop_toBottomOf="@+id/recommended_short_description" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/recommended_product_old_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="854"
+                app:layout_constraintBottom_toBottomOf="@+id/recommended_product_price"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/recommended_product_price"
+                app:layout_constraintVertical_bias="0.0" />
 
-                <TextView
-                    android:id="@+id/recommended_short_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:text="TextView"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/product_name" />
-
-                <TextView
-                    android:id="@+id/old_product_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="854"
-                    app:layout_constraintBottom_toBottomOf="@+id/product_price"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/product_price"
-                    app:layout_constraintVertical_bias="0.0" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
