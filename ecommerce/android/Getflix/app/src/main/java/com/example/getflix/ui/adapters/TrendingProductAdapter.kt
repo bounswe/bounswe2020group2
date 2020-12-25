@@ -19,9 +19,7 @@ class TrendingProductAdapter :
     }
 
     private fun ViewHolder.bind(product: ProductModel) {
-        binding.trendingProductName.text = product.name
-        binding.trendingProductPrice.text = product.price.toString() + "$"
-        Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(binding.trendingProductImage)
+        Picasso.get().load(product.images[0]).into(binding.trendingProductImage)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
