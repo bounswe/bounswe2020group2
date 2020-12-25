@@ -69,7 +69,7 @@ def products(request):
 #    print(query_set)
     serializer = ProductResponseSerializer(query_set, many=True)
 #    print(serializer.data)
-    response_data = {"pagination":{"page":page,"page_size":page_size,"total_items":total_items,"products":serializer.data}}
+    response_data = {"pagination":{"page":page,"page_size":page_size,"total_items":total_items},"products":serializer.data}
     return Response( { "data":response_data} )
 @api_view(['POST'])
 @permission_classes([permissions.AllowAnonymous])
@@ -169,6 +169,6 @@ def brands(request):
 #    user_serializer = search_serializer.SearchProductSerializer(request)
 #    print(query_set)
 #    print(serializer.data)
-    serializedBrands = map(lambda brand: {"id":brand.id,"name":brand.name}, brands)
+    serializedBrands = list(map(lambda brand: {"id":brand.id,"name":brand.name}, brands))
     response_data = {"pagination":{"page":page,"page_size":page_size,"total_items":total_items},"brands":serializedBrands}
     return Response( { "data":response_data} )
