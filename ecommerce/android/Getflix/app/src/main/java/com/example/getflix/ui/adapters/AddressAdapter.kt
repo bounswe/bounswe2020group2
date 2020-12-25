@@ -31,7 +31,8 @@ class AddressAdapter(
         fun bind(address: AddressModel, position: Int) {
             binding.title.text = address.title
             binding.addressInfo.text =address.address
-            binding.city.text=address.province
+            binding.city.text=address.city
+            binding.province.text = address.province
         }
 
         companion object {

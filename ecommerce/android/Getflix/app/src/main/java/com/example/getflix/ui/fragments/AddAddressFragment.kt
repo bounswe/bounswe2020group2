@@ -24,6 +24,8 @@ class AddAddressFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentAddAddressBinding>(inflater, R.layout.fragment_add_address,
             container, false)
 
+        binding.btnBack
+
         return binding.root
 
 

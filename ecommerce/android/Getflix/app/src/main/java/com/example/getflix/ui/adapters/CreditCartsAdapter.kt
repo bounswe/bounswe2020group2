@@ -27,7 +27,10 @@ class CreditCartsAdapter(
         fun bind(credit: CardModel, position: Int) {
             binding.name.text = credit.name
             binding.ownerName.text ="Owner: " + credit.owner_name
-            binding.serialNum.text = "Serial Number: " + credit.serial_number
+            println(credit.serial_number.length)
+            binding.serialNum.text = "Serial Number: " + credit.serial_number[0] + "" +
+            credit.serial_number[1] + "************" + credit.serial_number[14] + "" +
+                    credit.serial_number[15]
         }
 
         companion object {
