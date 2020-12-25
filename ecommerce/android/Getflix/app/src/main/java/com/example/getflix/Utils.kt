@@ -3,7 +3,10 @@ package com.example.getflix
 import android.content.DialogInterface
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.getflix.activities.MainActivity
+import com.example.getflix.ui.viewmodels.ProductViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 fun getProductImage(productId: Int): Int {
@@ -66,7 +69,6 @@ fun askAlert(fragment: Fragment, message: String, func: () -> Unit) {
             .setIcon(R.drawable.ic_warning)
             .show()
 }
-
 
 /* - **Electronics**
   - Computers
