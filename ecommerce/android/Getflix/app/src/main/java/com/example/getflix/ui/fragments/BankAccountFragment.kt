@@ -19,19 +19,18 @@ import com.example.getflix.models.CardModel
 import com.example.getflix.ui.adapters.CreditCartsAdapter
 import com.example.getflix.ui.adapters.SwipeToDeleteCreditCart
 import com.example.getflix.ui.fragments.BankAccountFragmentDirections.Companion.actionBankAccountFragmentToPaymentFragment
-import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToBankAccountFragment
-import com.example.getflix.ui.viewmodels.CreditCartViewModel
+import com.example.getflix.ui.viewmodels.CreditCardViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 class BankAccountFragment : Fragment() {
 
-    private lateinit var viewModel: CreditCartViewModel
+    private lateinit var viewModel: CreditCardViewModel
     private lateinit var binding: FragmentBankAccountBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CreditCartViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(CreditCardViewModel::class.java)
 //        binding.viewmodel = CreditCartViewModel()
         viewModel.getCustomerCards()
     }
@@ -70,7 +69,7 @@ class BankAccountFragment : Fragment() {
 
         val credits = arrayListOf<CardModel>()
 
-        viewModel = ViewModelProvider(this).get(CreditCartViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(CreditCardViewModel::class.java)
         binding.viewmodel = viewModel
         viewModel.getCustomerCards()
         val recView = binding?.creditList as RecyclerView

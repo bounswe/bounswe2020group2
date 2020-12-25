@@ -232,25 +232,46 @@ class CategoriesViewModel : ViewModel() {
                 )
     }
 
+    /*fun addCustomerCartProduct(amount: Int, proId: Int) {
+        GetflixApi.getflixApiService.addCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, CardProAddRequest(proId, amount))
+            .enqueue(object :
+                Callback<CardProAddResponse> {
+                override fun onFailure(call: Call<CardProAddResponse>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<CardProAddResponse>,
+                    response: Response<CardProAddResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+                    if (response.body()!!.status.succcesful)
+                        println(response.body().toString())
+                }
+            }
+            )
+    } */
+
     fun addCustomerCartProduct(amount: Int, proId: Int) {
         GetflixApi.getflixApiService.addCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, CardProAddRequest(proId, amount))
-                .enqueue(object :
-                        Callback<CardProAddResponse> {
-                    override fun onFailure(call: Call<CardProAddResponse>, t: Throwable) {
+            .enqueue(object :
+                Callback<CardProAddResponse> {
+                override fun onFailure(call: Call<CardProAddResponse>, t: Throwable) {
 
-                    }
-
-                    override fun onResponse(
-                        call: Call<CardProAddResponse>,
-                        response: Response<CardProAddResponse>
-                    ) {
-                        println(response.body().toString())
-                        println(response.code())
-                        if (response.body()!!.status.succcesful)
-                            println(response.body().toString())
-                    }
                 }
-                )
+
+                override fun onResponse(
+                    call: Call<CardProAddResponse>,
+                    response: Response<CardProAddResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+                    if (response.body()!!.status.succcesful)
+                        println(response.body().toString())
+                }
+            }
+            )
     }
 
     fun updateCustomerAddress(addressId: Int, updateReq: AddressUpdateRequest) {
@@ -346,26 +367,7 @@ class CategoriesViewModel : ViewModel() {
         }
     }
 
-    fun addCustomerCard(cardRequest: CardAddRequest) {
-        GetflixApi.getflixApiService.addCustomerCard("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, cardRequest)
-                .enqueue(object :
-                        Callback<CardAddResponse> {
-                    override fun onFailure(call: Call<CardAddResponse>, t: Throwable) {
 
-                    }
-
-                    override fun onResponse(
-                            call: Call<CardAddResponse>,
-                            response: Response<CardAddResponse>
-                    ) {
-                        println(response.body().toString())
-                        println(response.code())
-                        if (response.body()!!.status.succcesful)
-                            println(response.body().toString())
-                    }
-                }
-                )
-    }
 
     fun updateCustomerCard(cardId: Int,cardRequest: CardUpdateRequest) {
         GetflixApi.getflixApiService.updateCustomerCard("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, cardId,cardRequest)

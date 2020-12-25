@@ -7,42 +7,93 @@
 
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.PaymentFragment">
+        tools:context=".ui.fragments.PaymentFragment"
+        android:paddingTop="50dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="100dp">
-            </Space>
-
-            <com.manojbhadane.PaymentCardView
-                android:id="@+id/creditCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cv_submitBtnText="Done"
-                app:cv_cardTitle="Add Card"/>
-
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="100dp">
-            </Space>
-
-        <Button
-            android:id="@+id/btnBuy"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="@string/add"
-            android:textColor="@color/initPurple" />
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/shadows_into_light_two"
+            android:text="Add Your Credit Card Info"
+            android:textColor="@color/initPurple"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/creditCard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.13999999" />
 
-        </LinearLayout>
-    </FrameLayout>
+
+        <com.manojbhadane.PaymentCardView
+            android:id="@+id/creditCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:cv_cardTitle="Add Card"
+            app:cv_submitBtnText="Done"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.53" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/title_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:hint="Title of Your Card"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.17000002">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/owner_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:hint="Owner of Your Card"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.26999998">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/owner_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.example.getflix.ui.viewmodels.CreditCartViewModel" />
+            type="com.example.getflix.ui.viewmodels.CreditCardViewModel" />
 
     </data>
 

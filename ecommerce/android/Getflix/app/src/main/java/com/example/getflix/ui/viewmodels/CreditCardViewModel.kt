@@ -1,22 +1,30 @@
 package com.example.getflix.ui.viewmodels
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.getflix.activities.MainActivity
+import com.example.getflix.doneAlert
 import com.example.getflix.models.CardModel
 import com.example.getflix.service.GetflixApi
+import com.example.getflix.service.requests.CardAddRequest
+import com.example.getflix.service.responses.CardAddResponse
 import com.example.getflix.service.responses.CardDeleteResponse
 import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CreditCartViewModel : ViewModel() {
+class CreditCardViewModel : ViewModel() {
 
     private val _creditCartList = MutableLiveData<MutableList<CardModel>>()
     val creditList: LiveData<MutableList<CardModel>>
         get() = _creditCartList
+
+    private val _navigateOrder = MutableLiveData<Boolean>()
+    val navigateOrder: LiveData<Boolean>
+        get() = _navigateOrder
 
     private var job: Job? = null
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
@@ -55,5 +63,34 @@ class CreditCartViewModel : ViewModel() {
                 }
             }
         }
+    }
+
+    fun addCustomerCard(cardRequest: CardAddRequest) {
+        GetflixApi.getflixApiService.addCustomerCard("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, cardRequest)
+            .enqueue(object :
+                Callback<CardAddResponse> {
+                override fun onFailure(call: Call<CardAddResponse>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<CardAddResponse>,
+                    response: Response<CardAddResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+                    if (response.code()==200) {
+                        println(response.body().toString())
+                        _navigateOrder.value = true
+                        println(_navigateOrder.value)
+                        //doneAlert(fragment,"Credit card added successfully",::navigateOrder)
+                    }
+                }
+            }
+            )
+    }
+
+    fun resetNavigate() {
+        _navigateOrder.value = false
     }
 }
