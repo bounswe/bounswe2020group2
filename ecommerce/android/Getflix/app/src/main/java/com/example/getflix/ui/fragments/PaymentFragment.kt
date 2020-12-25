@@ -48,8 +48,7 @@ class PaymentFragment : Fragment() {
                 var cardRequest = CardAddRequest(binding.name.text.toString(),binding.ownerName.text.toString(),
                 cardNumber, ExpirationDateModel(month.toInt(),year.toInt()),cvv.toInt())
                 viewModel.addCustomerCard(cardRequest)
-
-
+                viewModel.getCustomerCards()
 
             }
 
@@ -62,29 +61,11 @@ class PaymentFragment : Fragment() {
 
         viewModel.navigateOrder.observe(viewLifecycleOwner, {
             if(it) {
-                doneAlert(this, "Credit card added successfully", ::navigateOrder)
+                doneAlert(this, "Credit card is added successfully", ::navigateOrder)
                 viewModel.resetNavigate()
             }
         })
 
-
-
-        /*binding?.cardForm!!.cardRequired(true)
-                .expirationRequired(true)
-                .cvvRequired(true)
-                .postalCodeRequired(true)
-                .mobileNumberRequired(true)
-                .actionLabel("Purchase")
-                .setup(activity)
-        binding.cardForm.cvvEditText.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
-        binding.btnBuy.setOnClickListener{
-            if (binding.cardForm.isValid) {
-
-            }else {
-                Toast.makeText(activity, "Please complete the form", Toast.LENGTH_LONG).show();
-            }
-        }
-        // Inflate the layout for this fragment */
         return binding.root
     }
 
