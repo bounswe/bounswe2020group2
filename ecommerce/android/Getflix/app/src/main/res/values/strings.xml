@@ -120,6 +120,8 @@
     <string name="choose_credit">Odeme icin kredi karti seciniz</string>
     <string name="choose_address">Teslimat icin adres seciniz</string>
     <string name="add_credit">Yeni kredi karti ekle</string>
+    <string name="category_title">Category</string>
+    <string name="subcategory_title">Subcategory</string>
 
 
 </resources>

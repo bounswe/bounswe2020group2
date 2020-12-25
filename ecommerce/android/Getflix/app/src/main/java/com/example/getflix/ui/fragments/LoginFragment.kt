@@ -18,7 +18,6 @@ import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentLoginBinding
 import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToHomePageFragment
-import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToProductFragment
 import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToRegisterFragment
 import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToVendorHomeFragment
 import com.example.getflix.ui.viewmodels.LoginViewModel
@@ -145,8 +144,6 @@ class LoginFragment : Fragment() {
         }
 
         binding.signInButton.setOnClickListener {
-
-            view?.findNavController()?.navigate(actionLoginFragmentToProductFragment())
 
             val signInIntent = MainActivity.StaticData.mGoogleSignInClient?.signInIntent
             startActivityForResult(signInIntent, 11)

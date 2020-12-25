@@ -120,5 +120,7 @@
     <string name="choose_credit">Choose a credit card to pay</string>
     <string name="choose_address">Choose an address</string>
     <string name="add_credit">Add new credit card</string>
+    <string name="category_title">Category</string>
+    <string name="subcategory_title">Subcategory</string>
 
 </resources>
