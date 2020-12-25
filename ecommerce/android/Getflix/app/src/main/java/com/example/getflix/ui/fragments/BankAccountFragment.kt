@@ -63,6 +63,7 @@ class BankAccountFragment : Fragment() {
                 container, false)
 
 
+
         binding.fab.setOnClickListener {
             view?.findNavController()?.navigate(actionBankAccountFragmentToPaymentFragment())
         }

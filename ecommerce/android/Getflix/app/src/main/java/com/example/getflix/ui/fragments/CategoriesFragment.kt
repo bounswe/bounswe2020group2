@@ -11,13 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.getflix.R
-import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentCategoriesBinding
 import com.example.getflix.models.CategoryModel
 import com.example.getflix.models.ExpirationDateModel
 import com.example.getflix.models.PhoneModel
 import com.example.getflix.models.SubcategoryModel
-import com.example.getflix.service.GetflixApi
 
 import com.example.getflix.service.requests.AddressAddRequest
 import com.example.getflix.service.requests.AddressUpdateRequest
