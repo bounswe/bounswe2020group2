@@ -84,6 +84,8 @@ dependencies {
     implementation 'me.relex:circleindicator:1.3.2'
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+    // Discrete
+    implementation 'com.yarolegovich:discrete-scrollview:1.5.1'
 
 
     // Circular image view
