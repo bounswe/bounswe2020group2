@@ -69,13 +69,13 @@ class ProductFragment : Fragment() {
         }
         binding.imageView7.setOnClickListener {
             val scrollView = binding.scrollView
-            val targetView = binding.detailsTitle
-            scrollView.scrollTo(0, targetView.y.toInt() + 100)
+            val targetView = binding.longDescription
+            scrollView.scrollTo(0, targetView.top)
         }
         binding.imageView6.setOnClickListener {
             val scrollView = binding.scrollView
             val targetView = binding.comments
-            scrollView.scrollTo(0, targetView.y.toInt() + 100)
+            scrollView.scrollTo(0, targetView.top)
         }
         binding.decrease.setOnClickListener {
             productViewModel.decreaseAmount()
@@ -85,10 +85,11 @@ class ProductFragment : Fragment() {
             productViewModel.increaseAmount()
         }
         binding.addToCart.setOnClickListener {
-            productViewModel.addToShoppingCart(1,args.productId)
+            productViewModel.addToShoppingCart(1, args.productId)
         }
 
         productViewModel.amount.observe(viewLifecycleOwner, Observer {
+            binding.amount.text = it?.toString()
             binding.amount.text = it?.toString()
         })
         productViewModel.recommendedProducts.observe(viewLifecycleOwner, Observer {
@@ -139,13 +140,13 @@ class ProductFragment : Fragment() {
             binding.star2.setImageResource(R.drawable.ic_filled_star)
         }
         if (rating >= 3) {
-            binding.star2.setImageResource(R.drawable.ic_filled_star)
+            binding.star3.setImageResource(R.drawable.ic_filled_star)
         }
         if (rating >= 4) {
-            binding.star2.setImageResource(R.drawable.ic_filled_star)
+            binding.star4.setImageResource(R.drawable.ic_filled_star)
         }
         if (rating.toInt() == 5) {
-            binding.star2.setImageResource(R.drawable.ic_filled_star)
+            binding.star5.setImageResource(R.drawable.ic_filled_star)
         }
     }
 
