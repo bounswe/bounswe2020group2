@@ -1,4 +1,5 @@
 import { config } from './config'
+import * as R from 'ramda'
 
 export const productSortBy = {
     'best-sellers': 'Best sellers',
@@ -119,6 +120,17 @@ export const orderStatusInvMap = {
     2: 'delivered',
 }
 
+export function formatPurchase(purchase) {
+    return {
+        ...purchase,
+        product: formatProduct(purchase.product),
+    }
+}
+
 export function formatOrder(order) {
-    return { ...order } // temporary solution
+    return {
+        id: order.order_id,
+        purchases: order.order_all_purchase.map(formatPurchase),
+        ...R.omit(['order_id', 'purchases'], order),
+    } // temporary solution
 }

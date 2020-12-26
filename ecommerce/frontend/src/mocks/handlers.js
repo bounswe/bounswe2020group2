@@ -99,7 +99,7 @@ export const handlers = [
                             {
                                 id: 1,
                                 amount: 2,
-                                product: trendingProducts[0],
+                                product: products[0],
                                 status: orderStatusMap['accepted'],
                                 unit_price: 10,
                                 purchase_date: moment.utc().toISOString(),
