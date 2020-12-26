@@ -148,8 +148,10 @@ class LoginFragment : Fragment() {
         }
 
         binding.signInButton.setOnClickListener {
+
             val signInIntent = MainActivity.StaticData.mGoogleSignInClient?.signInIntent
             startActivityForResult(signInIntent, 11)
+
         }
 
         binding.guestButton.setOnClickListener {

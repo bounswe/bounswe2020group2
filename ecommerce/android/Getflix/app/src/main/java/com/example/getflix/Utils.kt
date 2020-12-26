@@ -1,7 +1,18 @@
 package com.example.getflix
 
 import androidx.fragment.app.Fragment
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.getflix.activities.MainActivity
+import com.example.getflix.service.GetflixApi
+import com.example.getflix.service.requests.CardProUpdateRequest
+import com.example.getflix.service.responses.CardProUpdateResponse
+import com.example.getflix.ui.viewmodels.ProductViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 fun getProductImage(productId: Int): Int {
     return when (productId) {
@@ -50,6 +61,28 @@ fun doneAlert(fragment: Fragment, message: String, func: (() -> Unit)) {
 }
 
 
+fun addToShoppingCart(amount : Int,shoppingCartId: Int, productId: Int) {
+    GetflixApi.getflixApiService.updateCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,
+        MainActivity.StaticData.user!!.id, shoppingCartId, CardProUpdateRequest(productId,
+            amount
+        )
+    )
+        .enqueue(object :
+            Callback<CardProUpdateResponse> {
+            override fun onFailure(call: Call<CardProUpdateResponse>, t: Throwable) {
+
+            }
+
+            override fun onResponse(
+                call: Call<CardProUpdateResponse>,
+                response: Response<CardProUpdateResponse>
+            ) {
+
+            }
+        }
+        )
+}
+
 fun askAlert(fragment: Fragment, message: String, func: () -> Unit) {
     MaterialAlertDialogBuilder(fragment.requireContext(), R.style.MaterialAlertDialog_color)
             .setTitle(fragment.requireContext().getString(R.string.warning))
@@ -63,7 +96,6 @@ fun askAlert(fragment: Fragment, message: String, func: () -> Unit) {
             .setIcon(R.drawable.ic_warning)
             .show()
 }
-
 
 /* - **Electronics**
   - Computers

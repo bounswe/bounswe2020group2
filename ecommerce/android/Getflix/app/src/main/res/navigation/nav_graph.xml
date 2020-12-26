@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homePageFragment_to_categoryFragment"
             app:destination="@id/categoryFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_productFragment2"
+            app:destination="@id/productFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -194,6 +197,14 @@
         android:name="com.example.getflix.ui.fragments.UserInfoFragment"
         tools:layout="@layout/fragment_user_info" />
     <fragment
+        android:id="@+id/productFragment"
+        android:name="com.example.getflix.ui.fragments.ProductFragment"
+        android:label="ProductFragment" >
+        <argument
+            android:name="productId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
         android:id="@+id/vendorHomeFragment"
         android:name="com.example.getflix.ui.fragments.VendorHomeFragment"
         tools:layout="@layout/fragment_vendor_home" />
@@ -244,6 +255,7 @@
         android:name="creditCard"
         app:argType="com.example.getflix.models.CardModel" />
     </fragment>
+
 
 </navigation>
 

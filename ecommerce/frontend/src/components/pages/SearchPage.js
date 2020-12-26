@@ -8,9 +8,10 @@ import { Helmet } from 'react-helmet'
 import { useHistory } from 'react-router-dom'
 
 import { api } from '../../api'
-import { categories, subcategories } from '../../utils'
+// import { categories, subcategories } from '../../utils'
 import { SearchResults } from '../search/SearchResults'
 import { SearchSidePanel } from '../search/SearchSidePanel'
+import { formatProduct } from '../../utils'
 
 const formatSearchQueryParams = values => ({
     query: values.search?.query,
@@ -107,22 +108,12 @@ export const _SearchPage = ({ initialValues = {} }) => {
 
                 const {
                     data: {
-                        data: { pagination, products },
+                        data: { pagination },
+                        products,
                     },
                 } = await api.post(`/search/products`, formatSearchQueryParams(values))
 
-                setProducts(
-                    products.map(p => {
-                        return {
-                            id: p.id,
-                            title: p.name,
-                            rating: p.total_rating,
-                            price: p.price,
-                            currency: 'TL',
-                            imageUrl: p.images[0],
-                        }
-                    }),
-                )
+                setProducts(products.map(formatProduct))
 
                 setTotal(pagination.total_items)
 
@@ -151,29 +142,22 @@ export const _SearchPage = ({ initialValues = {} }) => {
 
     const onSubmitFilters = filters => refreshSearchWith({ ...values, filters })
 
-    const onSearch = search =>
-        refreshSearchWith({
-            search,
-            filters: {},
-            pagination: { pageSize: values.pagination.pageSize },
-        })
+    // const onSearch = search =>
+    //     refreshSearchWith({
+    //         search,
+    //         filters: {},
+    //         pagination: { pageSize: values.pagination.pageSize },
+    //     })
 
     const onPaginationChanged = (current, pageSize) =>
         refreshSearchWith({ ...values, pagination: { ...values.pagination, current, pageSize } })
 
     const getTitle = values => {
-        const type = values.search.type
+        const { type, query } = values.search
 
-        const query = values.search.query
-        const category = values.filters.category && categories[values.filters.category]
-        const subcategory =
-            values.filters.category &&
-            values.filters.subcategory &&
-            subcategories[values.filters.category][values.filters.subcategory]
+        const prefix = query ?? 'All'
 
-        const prefix = query ?? subcategory ?? category ?? 'All'
-
-        return `${prefix} ${type}s - Getflix`
+        return `${prefix} ${type} - Getflix`
     }
 
     return (

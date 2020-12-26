@@ -8,6 +8,7 @@ class PurchaseResponseSerializer(serializers.ModelSerializer):
     product = serializers.SerializerMethodField('get_product')
     vendor = serializers.SerializerMethodField('get_vendor')
     address = serializers.SerializerMethodField('get_address')
+    status = serializers.SerializerMethodField('get_status')
 
     class Meta:
         model = Purchase
@@ -29,3 +30,14 @@ class PurchaseResponseSerializer(serializers.ModelSerializer):
     def get_address(self, obj):
         address = Address.objects.filter(id=obj.address.id).first()
         return AddressResponseSerializer(address).data
+
+    def get_status(self, obj):
+        status = obj.status
+        if status == -1:
+            return 'cancelled'
+        elif status == 0:
+            return 'accepted'
+        elif status == 1:
+            return 'at_cargo'
+        elif status == 2:
+            return 'delivered'
