@@ -1,12 +1,16 @@
 import { notification } from 'antd'
 import { useEffect, useState } from 'react'
 import { api } from '../api'
+import { useAppContext } from '../context/AppContext'
 import { formatOrder } from '../utils'
+import { PastOrder } from './PastOrder'
 import './PastOrdersList.less'
 
 export const PastOrdersList = () => {
     const [orders, setOrders] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const { user } = useAppContext()
+
     const fetchOrders = async () => {
         setIsLoading(true)
         try {
@@ -36,7 +40,7 @@ export const PastOrdersList = () => {
             <div className="orders-header">Order History</div>
             <div className="orders-content">
                 {orders.map(order => {
-                    return JSON.stringify(order)
+                    return <PastOrder key={order.id} order={order} mode={user.type} />
                 })}
             </div>
         </div>
