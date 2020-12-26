@@ -30,12 +30,12 @@ export function sleep(ms) {
  * Data formatter
  * A single credit card info from backend -> props of Cards component from react-credit-cards
  */
-export function formatCreditCard({ id, name, owner_name, serial_number, expiration_date: { month, year }, cvc }) {
+export function formatCreditCard({ id, name, owner_name, serial_number, expiration_date: { month, year }, cvv }) {
     return {
         name: owner_name,
         number: serial_number,
         expiry: month.toString().padStart(2, '0') + '/' + (year % 100),
-        cvc: cvc,
+        cvc: cvv,
     }
 }
 

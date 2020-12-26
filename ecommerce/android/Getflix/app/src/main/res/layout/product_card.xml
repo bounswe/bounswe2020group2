@@ -94,12 +94,12 @@
                 android:id="@+id/product_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginLeft="30dp"
-                android:text="@{product.price}"
-                android:textColor="@color/initPurple"
-                android:textStyle="bold"
-                android:textSize="27dp"
+                android:gravity="left"
+                android:text="@{product.short_description}"
+                android:textColor="@color/initGold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/product_info"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.79" />
 
             <LinearLayout

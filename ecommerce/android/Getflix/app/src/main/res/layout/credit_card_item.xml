@@ -6,15 +6,19 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.example.getflix.ui.viewmodels.CreditCartViewModel" />
+            type="com.example.getflix.ui.viewmodels.CreditCardViewModel" />
 
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/selector"
-        android:padding="1dp">
+        android:layout_height="90dp"
+        android:padding="10dp"
+        android:theme="@style/Theme.MaterialComponents.Light"
+        app:cardElevation="3dp"
+        app:strokeColor="@color/initGold"
+        app:strokeWidth="2dp"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -26,7 +30,8 @@
                 android:layout_width="60dp"
                 android:layout_height="70dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginBottom="9dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:src="@drawable/ic_baseline_credit_card_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.04"
@@ -34,7 +39,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Space
-                android:layout_width="50dp"
+                android:layout_width="20dp"
                 android:layout_height="match_parent"
                 android:id="@+id/space"
                 app:layout_constraintLeft_toRightOf="@+id/icon">
@@ -55,7 +60,9 @@
                     android:gravity="left"
                     android:textColor="#472836"
                     android:textStyle="bold"
-                    android:textSize="25dp"
+                    android:textSize="20sp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/open_sans_semibold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.24"
@@ -68,7 +75,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textSize="12dp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/open_sans_semibold"
                     android:textColor="@color/initGold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/product_name"
@@ -80,9 +88,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:textSize="15dp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/open_sans_semibold"
                     android:paddingTop="2dp"
-                    android:textStyle="italic"
+                    android:layout_marginBottom="5dp"
                     android:textColor="@color/initGold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/product_info"
@@ -93,5 +102,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>
