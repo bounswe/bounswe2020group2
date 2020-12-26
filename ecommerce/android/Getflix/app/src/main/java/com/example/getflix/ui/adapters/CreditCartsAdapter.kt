@@ -3,19 +3,24 @@ package com.example.getflix.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.CreditCardItemBinding
 import com.example.getflix.models.CardModel
+import com.example.getflix.ui.fragments.AddressFragmentDirections
+import com.example.getflix.ui.fragments.BankAccountFragment
+import com.example.getflix.ui.fragments.BankAccountFragmentDirections
 
 
 class CreditCartsAdapter(
-    private val creditCartsList: ArrayList<CardModel>?,
+    private val creditCartsList: ArrayList<CardModel>?, fragment: BankAccountFragment
 ) : ListAdapter<CardModel, CreditCartsAdapter.RowHolder>(CardDiffCallback()) {
 
     // mutable live data for deleted item position
     val pos = MutableLiveData<Int>()
+    val fragment = fragment
 
     init {
         pos.value = -1
@@ -29,8 +34,8 @@ class CreditCartsAdapter(
             binding.ownerName.text ="Owner: " + credit.owner_name
             println(credit.serial_number.length)
             binding.serialNum.text = "Serial Number: " + credit.serial_number[0] + "" +
-            credit.serial_number[1] + "************" + credit.serial_number[14] + "" +
-                    credit.serial_number[15]
+            credit.serial_number[1] + "************" + credit.serial_number[17] + "" +
+                    credit.serial_number[18]
         }
 
         companion object {
@@ -55,7 +60,14 @@ class CreditCartsAdapter(
     }
 
     override fun onBindViewHolder(holder: RowHolder, position: Int) {
-        creditCartsList?.get(position)?.let { holder.bind(it, position) }
+        creditCartsList?.get(position)?.let {
+            holder.bind(it, position)
+            holder?.itemView!!.setOnClickListener {
+                fragment.findNavController().navigate(BankAccountFragmentDirections.actionBankAccountFragmentToUpdateCreditCardFragment(
+                    )
+                )
+            }
+        }
     }
 
     fun deleteItem(position: Int): CardModel {

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ListView
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,14 +13,20 @@ import com.example.getflix.databinding.ProductCardBinding
 import com.example.getflix.models.AddressModel
 import com.example.getflix.models.CardModel
 import com.example.getflix.models.ProductModel
+import com.example.getflix.ui.fragments.AddressFragment
+import com.example.getflix.ui.fragments.AddressFragmentDirections
+import com.example.getflix.ui.fragments.CategoriesFragment
+import com.example.getflix.ui.fragments.CategoriesFragmentDirections
 
 
 class AddressAdapter(
     private val addressList: ArrayList<AddressModel>?,
+     fragment: AddressFragment
 ) : ListAdapter<AddressModel, AddressAdapter.RowHolder>(AddressDiffCallback()) {
 
     // mutable live data for deleted item position
     val pos = MutableLiveData<Int>()
+    val fragment = fragment
 
     init {
         pos.value = -1
@@ -57,7 +64,15 @@ class AddressAdapter(
 
 
     override fun onBindViewHolder(holder: RowHolder, position: Int) {
-        addressList?.get(position)?.let { holder.bind(it, position) }
+        addressList?.get(position)?.let {
+            holder.bind(it, position)
+            holder?.itemView!!.setOnClickListener {
+                fragment.findNavController().navigate(
+                    AddressFragmentDirections.actionAddressFragmentToUpdateAddressFragment(
+                    )
+                )
+            }
+        }
     }
 
     fun deleteItem(position: Int): AddressModel {

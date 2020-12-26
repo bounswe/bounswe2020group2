@@ -151,6 +151,13 @@
             app:destination="@id/addAddressFragment"
             app:popEnterAnim="@anim/enter_right_to_left"
             app:popExitAnim="@anim/exit_right_to_left" />
+        <action
+            android:id="@+id/action_addressFragment_to_updateAddressFragment"
+            app:destination="@id/updateAddressFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/enter_right_to_left"
+            app:popExitAnim="@anim/exit_right_to_left"/>
     </fragment>
     <fragment
         android:id="@+id/bankAccountFragment"
@@ -164,6 +171,13 @@
         <action
             android:id="@+id/action_bankAccountFragment_to_addCreditCardFragment"
             app:destination="@id/addCreditCardFragment" />
+        <action
+            android:id="@+id/action_bankAccountFragment_to_updateCreditCardFragment"
+            app:destination="@id/updateCreditCardFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/enter_right_to_left"
+            app:popExitAnim="@anim/exit_right_to_left"/>
     </fragment>
     <fragment
         android:id="@+id/orderInfoFragment"
@@ -214,6 +228,14 @@
             android:id="@+id/action_orderFragment_to_addAddressFragment"
             app:destination="@id/addAddressFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/updateAddressFragment"
+        android:name="com.example.getflix.ui.fragments.UpdateAddressFragment"
+        tools:layout="@layout/fragment_update_address"/>
+    <fragment
+        android:id="@+id/updateCreditCardFragment"
+        android:name="com.example.getflix.ui.fragments.UpdateCreditCardFragment"
+        tools:layout="@layout/fragment_update_credit_card" />
 
 </navigation>
 

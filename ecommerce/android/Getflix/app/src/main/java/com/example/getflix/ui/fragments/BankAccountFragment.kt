@@ -74,7 +74,7 @@ class BankAccountFragment : Fragment() {
 
         viewModel.creditList.observe(viewLifecycleOwner, Observer { list ->
             list?.let {
-                val creditCartsAdapter = CreditCartsAdapter(ArrayList(list!!))
+                val creditCartsAdapter = CreditCartsAdapter(ArrayList(list!!),this)
                 recView.adapter = creditCartsAdapter
                 recView.setHasFixedSize(true)
                 // creditCartsAdapter.submitList(it)

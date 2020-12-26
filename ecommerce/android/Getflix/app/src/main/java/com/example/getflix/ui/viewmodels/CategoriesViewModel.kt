@@ -255,26 +255,7 @@ class CategoriesViewModel : ViewModel() {
             )
     }
 
-    fun updateCustomerAddress(addressId: Int, updateReq: AddressUpdateRequest) {
-        GetflixApi.getflixApiService.updateCustomerAddress("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, addressId, updateReq)
-                .enqueue(object :
-                        Callback<AddressUpdateResponse> {
-                    override fun onFailure(call: Call<AddressUpdateResponse>, t: Throwable) {
 
-                    }
-
-                    override fun onResponse(
-                            call: Call<AddressUpdateResponse>,
-                            response: Response<AddressUpdateResponse>
-                    ) {
-                        println(response.body().toString())
-                        println(response.code())
-                        if (response.body()!!.status.succcesful)
-                            println(response.body().toString())
-                    }
-                }
-                )
-    }
 
     fun addCategory(categoryModel: CategoryModel) {
         if (_categoriesList.value != null) {
@@ -289,26 +270,7 @@ class CategoriesViewModel : ViewModel() {
 
     }
 
-    fun deleteCustomerAddress(addressId: Int) {
-        GetflixApi.getflixApiService.deleteCustomerAddress("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, addressId)
-                .enqueue(object :
-                        Callback<AddressDeleteResponse> {
-                    override fun onFailure(call: Call<AddressDeleteResponse>, t: Throwable) {
-                        println("failure")
-                    }
 
-                    override fun onResponse(
-                            call: Call<AddressDeleteResponse>,
-                            response: Response<AddressDeleteResponse>
-                    ) {
-                        println(response.body().toString())
-                        println(response.code())
-                        if (response.body()!!.status.succcesful)
-                            println(response.body().toString())
-                    }
-                }
-                )
-    }
 
     fun setCategories(products: MutableList<ProductModel>) {
         val catList = arrayListOf<CategoryModel>()
@@ -350,26 +312,7 @@ class CategoriesViewModel : ViewModel() {
 
 
 
-    fun updateCustomerCard(cardId: Int,cardRequest: CardUpdateRequest) {
-        GetflixApi.getflixApiService.updateCustomerCard("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, cardId,cardRequest)
-                .enqueue(object :
-                        Callback<CardUpdateResponse> {
-                    override fun onFailure(call: Call<CardUpdateResponse>, t: Throwable) {
 
-                    }
-
-                    override fun onResponse(
-                            call: Call<CardUpdateResponse>,
-                            response: Response<CardUpdateResponse>
-                    ) {
-                        println(response.body().toString())
-                        println(response.code())
-                        if (response.body()!!.status.succcesful)
-                            println(response.body().toString())
-                    }
-                }
-                )
-    }
 
     fun deleteCustomerCard(cardId: Int) {
         GetflixApi.getflixApiService.deleteCustomerCard("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, cardId)

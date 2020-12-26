@@ -8,8 +8,10 @@ import com.example.getflix.models.AddressModel
 import com.example.getflix.models.CardModel
 import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.AddressAddRequest
+import com.example.getflix.service.requests.AddressUpdateRequest
 import com.example.getflix.service.responses.AddressAddResponse
 import com.example.getflix.service.responses.AddressDeleteResponse
+import com.example.getflix.service.responses.AddressUpdateResponse
 import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -77,6 +79,27 @@ class AddressViewModel  : ViewModel() {
                 override fun onResponse(
                     call: Call<AddressAddResponse>,
                     response: Response<AddressAddResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+                    if (response.code()==200)
+                        _navigateBack.value = true
+                }
+            }
+            )
+    }
+
+    fun updateCustomerAddress(addressId: Int, updateReq: AddressUpdateRequest) {
+        GetflixApi.getflixApiService.updateCustomerAddress("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, addressId, updateReq)
+            .enqueue(object :
+                Callback<AddressUpdateResponse> {
+                override fun onFailure(call: Call<AddressUpdateResponse>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<AddressUpdateResponse>,
+                    response: Response<AddressUpdateResponse>
                 ) {
                     println(response.body().toString())
                     println(response.code())

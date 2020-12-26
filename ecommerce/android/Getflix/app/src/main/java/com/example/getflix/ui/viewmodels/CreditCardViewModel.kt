@@ -9,8 +9,10 @@ import com.example.getflix.doneAlert
 import com.example.getflix.models.CardModel
 import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.CardAddRequest
+import com.example.getflix.service.requests.CardUpdateRequest
 import com.example.getflix.service.responses.CardAddResponse
 import com.example.getflix.service.responses.CardDeleteResponse
+import com.example.getflix.service.responses.CardUpdateResponse
 import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -86,6 +88,27 @@ class CreditCardViewModel : ViewModel() {
                         println(_navigateOrder.value)
                         //doneAlert(fragment,"Credit card added successfully",::navigateOrder)
                     }
+                }
+            }
+            )
+    }
+
+    fun updateCustomerCard(cardId: Int,cardRequest: CardUpdateRequest) {
+        GetflixApi.getflixApiService.updateCustomerCard("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, cardId,cardRequest)
+            .enqueue(object :
+                Callback<CardUpdateResponse> {
+                override fun onFailure(call: Call<CardUpdateResponse>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<CardUpdateResponse>,
+                    response: Response<CardUpdateResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+                    if (response.code()==200)
+                        _navigateOrder.value = true
                 }
             }
             )

@@ -53,7 +53,7 @@ class AddressFragment : Fragment() {
 
         viewModel.addressList.observe(viewLifecycleOwner, Observer {
             it?.let {
-                val addressListAdapter = AddressAdapter(ArrayList(it!!))
+                val addressListAdapter = AddressAdapter(ArrayList(it!!),this)
                 recView.adapter = addressListAdapter
                 recView.setHasFixedSize(true)
                // addressListAdapter.submitList(it)
