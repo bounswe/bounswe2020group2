@@ -111,5 +111,11 @@
     <string name="edittext_address"><font size="35">Address</font></string>
     <string name="edittext_city"><font size="35">City</font></string>
     <string name="edittext_country"><font size="35">Country</font></string>
-    <string name="edittext_zipcode"><font size="35">Zipcode</font></string>
+    <string name="edittext_zipcode"><font size="35">Zip Code</font></string>
+    <string name="edittext_cvv"><font size="35">CVV</font></string>
+    <string name="edittext_province"><font size="35">Province</font></string>
+    <string name="edittext_ownername"><font size="35">Owner Name</font></string>
+    <string name="edittext_serialnumber"><font size="35">Serial Number</font></string>
+    <string name="edittext_expirationyear"><font size="35">Expiration Year</font></string>
+    <string name="edittext_expirationmonth"><font size="35">Expiration Month</font></string>
 </resources>

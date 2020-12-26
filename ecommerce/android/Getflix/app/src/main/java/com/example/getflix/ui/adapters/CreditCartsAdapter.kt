@@ -33,9 +33,7 @@ class CreditCartsAdapter(
             binding.name.text = credit.name
             binding.ownerName.text ="Owner: " + credit.owner_name
             println(credit.serial_number.length)
-            binding.serialNum.text = "Serial Number: " + credit.serial_number[0] + "" +
-            credit.serial_number[1] + "************" + credit.serial_number[17] + "" +
-                    credit.serial_number[18]
+            binding.serialNum.text = credit.serial_number
         }
 
         companion object {

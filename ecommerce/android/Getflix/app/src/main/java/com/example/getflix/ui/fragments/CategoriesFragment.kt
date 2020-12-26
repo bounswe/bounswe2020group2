@@ -98,7 +98,7 @@ class CategoriesFragment : Fragment() {
         //viewModel.getCustomerCard(1)
         //viewModel.deleteCustomerCard(1)
 
-        val cardReqU = CardUpdateRequest("Ziraat_updated","Fatma Yildiz",8743543,
+        val cardReqU = CardUpdateRequest("Ziraat_updated","Fatma Yildiz","8743543",
                 ExpirationDateModel(8,2022),343)
         //viewModel.updateCustomerCard(1,cardReqU)
 

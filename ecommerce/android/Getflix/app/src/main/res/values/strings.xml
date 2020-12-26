@@ -111,5 +111,11 @@
     <string name="edittext_city"><font size="35">Şehir</font></string>
     <string name="edittext_country"><font size="35">Ülke</font></string>
     <string name="edittext_zipcode"><font size="35">Posta Kodu</font></string>
+    <string name="edittext_cvv"><font size="35">CVV</font></string>
+    <string name="edittext_ownername"><font size="35">Sahibinin İsmi</font></string>
+    <string name="edittext_province"><font size="35">Bölge</font></string>
+    <string name="edittext_serialnumber"><font size="35">Seri Numarası</font></string>
+    <string name="edittext_expirationyear"><font size="35">Son Kullanım Yılı</font></string>
+    <string name="edittext_expirationmonth"><font size="35">Son Kullanım Ayı</font></string>
 
 </resources>

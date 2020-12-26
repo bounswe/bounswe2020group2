@@ -35,7 +35,6 @@
                 android:paddingRight="10dp"
                 android:textSize="17sp"
                 android:textCursorDrawable="@color/black"
-                android:text="hey"
                 android:textColor="@color/initPurple">
 
             </EditText>
@@ -70,7 +69,6 @@
                 android:paddingRight="10dp"
                 android:textSize="17sp"
                 android:textCursorDrawable="@color/black"
-                android:text="hey"
                 android:textColor="@color/initPurple">
 
             </EditText>
@@ -105,7 +103,6 @@
                 android:paddingRight="10dp"
                 android:textSize="17sp"
                 android:textCursorDrawable="@color/black"
-                android:text="hey"
                 android:textColor="@color/initPurple">
 
             </EditText>
@@ -140,7 +137,6 @@
                 android:paddingRight="10dp"
                 android:textSize="17sp"
                 android:textCursorDrawable="@color/black"
-                android:text="hey"
                 android:textColor="@color/initPurple">
 
             </EditText>
@@ -175,7 +171,6 @@
                 android:paddingRight="10dp"
                 android:textSize="17sp"
                 android:textCursorDrawable="@color/black"
-                android:text="hey"
                 android:textColor="@color/initPurple">
 
             </EditText>
@@ -210,7 +205,40 @@
                 android:paddingRight="10dp"
                 android:textSize="17sp"
                 android:textCursorDrawable="@color/black"
-                android:text="hey"
+                android:textColor="@color/initPurple">
+
+            </EditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="3dp"
+            android:background="@android:color/darker_gray" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:hint="@string/edittext_province"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
+            android:textColorHint="@color/black"
+            >
+
+            <EditText
+                android:id="@+id/editable_province"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:translationY="3dp"
+                android:background="#FFFFFF"
+                android:fontFamily="@font/open_sans_semibold"
+                android:inputType="text"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="17sp"
+                android:textCursorDrawable="@color/black"
                 android:textColor="@color/initPurple">
 
             </EditText>
@@ -245,7 +273,6 @@
                 android:paddingRight="10dp"
                 android:textSize="17sp"
                 android:textCursorDrawable="@color/black"
-                android:text="hey"
                 android:textColor="@color/initPurple">
 
             </EditText>
@@ -280,7 +307,6 @@
                 android:paddingRight="10dp"
                 android:textSize="17sp"
                 android:textCursorDrawable="@color/black"
-                android:text="hey"
                 android:textColor="@color/initPurple">
 
             </EditText>
@@ -315,7 +341,6 @@
                 android:paddingRight="10dp"
                 android:textSize="17sp"
                 android:textCursorDrawable="@color/black"
-                android:text="hey"
                 android:textColor="@color/initPurple">
 
             </EditText>
