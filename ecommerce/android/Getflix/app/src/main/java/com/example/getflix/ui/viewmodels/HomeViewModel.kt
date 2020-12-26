@@ -61,9 +61,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 ) {
                     val rangeLength = numberOfProducts / 3
                     _editorPicks.value = response.body()
-                    _recommendedProducts.value = response.body()?.subList(0, rangeLength)
-                    _trendingProducts.value = response.body()?.subList(rangeLength, 2 * rangeLength)
-                    _todaysDeals.value = response.body()?.subList(2 * rangeLength, 3 * rangeLength)
+                    _recommendedProducts.value =  response.body()?.subList(2 * rangeLength, 3 * rangeLength)
+                    _trendingProducts.value = response.body()?.subList(0, rangeLength)
+                    _todaysDeals.value = response.body()?.subList(rangeLength, 2 * rangeLength)
                 }
             }
             )
