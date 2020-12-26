@@ -762,3 +762,36 @@ export const categories = [
         ],
     },
 ]
+
+export const addresses = [
+    {
+        id: 44313,
+        title: 'Home Address',
+        phone: {
+            country_code: '+90',
+            number: '5555555555',
+        },
+        name: 'Özdeniz',
+        surname: 'Dolu',
+        zip_code: '34000',
+        address: 'React Mah. JS Sk. No: 42/1',
+        province: 'Besiktas',
+        city: 'Istanbul',
+        country: 'Turkey',
+    },
+    {
+        id: 12322,
+        title: 'Work Address',
+        phone: {
+            country_code: '+90',
+            number: '544444444',
+        },
+        name: 'Özdeniz',
+        surname: 'Dolu',
+        zip_code: '35000',
+        address: 'Python Mah. Numpy Sk. No: 23/1',
+        province: 'Besiktas',
+        city: 'Istanbul',
+        country: 'Turkey',
+    },
+]

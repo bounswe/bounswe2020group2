@@ -3,6 +3,8 @@ import 'react-credit-cards/es/styles-compiled.css'
 import { Modal, Form, Spin, notification } from 'antd'
 import { sleep } from '../../utils'
 import { AddressModalInner } from './AddressModalInner'
+import { api } from '../../api'
+import { useAppContext } from '../../context/AppContext'
 
 import * as R from 'ramda'
 
@@ -11,15 +13,19 @@ export const AddressModal = ({ address, mode = 'add', visible = false, onCancel 
 
     const [form] = Form.useForm()
     const [isLoading, setIsLoading] = useState(false)
+    const { user } = useAppContext()
 
     const onEdit = async () => {
+        setIsLoading(true)
         try {
-            setIsLoading(true)
-            await sleep(2000)
             const fields = await form.validateFields()
-            console.log(fields)
-            onSuccess()
-            notification.success({ message: 'You have successfully changed your address information!' })
+            const { data: {status} }  = await api.put(`/customer/${user.id}/addresses/${address.id}`, fields)
+            if(status.successful) {
+                onSuccess()
+                notification.success({ message: status.message })
+            } else {
+                notification.warning({ message: 'There was an error with your request.' })
+            }
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })
             console.error(error)
@@ -29,13 +35,16 @@ export const AddressModal = ({ address, mode = 'add', visible = false, onCancel 
     }
 
     const onAdd = async () => {
+        setIsLoading(true)
         try {
-            setIsLoading(true)
-            await sleep(2000)
             const fields = await form.validateFields()
-            console.log(fields)
-            onSuccess()
-            notification.success({ message: 'You have successfully added a new address!' })
+            const { data: {status} }  = await api.post(`/customer/${user.id}/addresses`, fields)
+            if(status.successful) {
+                onSuccess()
+                notification.success({ message: status.message })
+            } else {
+                notification.warning({ message: 'There was an error with your request.' })
+            }
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })
             console.error(error)

@@ -95,7 +95,7 @@ export const AddressModalInner = ({ form, address }) => {
                 <Input />
             </Form.Item>
             <Form.Item
-                name={'zipCode'}
+                name={'zip_code'}
                 label="Zip Code"
                 rules={[
                     {
@@ -131,7 +131,7 @@ export const AddressModalInner = ({ form, address }) => {
                 required>
                 <Input.Group compact>
                     <Form.Item
-                        name={['phone', 'countryCode']}
+                        name={['phone', 'country_code']}
                         noStyle
                         rules={[
                             {
