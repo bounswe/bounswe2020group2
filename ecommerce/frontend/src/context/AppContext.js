@@ -14,6 +14,7 @@ const customerUser = {
     surname: 'Saffar',
     email: 'example@gmail.com',
     role: '1',
+    is_verified: false,
 }
 
 function useApp() {
@@ -126,9 +127,8 @@ function useApp() {
             const { data } = await api.get('/init', {
                 headers: { authorization: 'Bearer ' + localStorage.getItem('token') },
             })
-
-            const { token, id, email, firstname, lastname, role } = data
-            const newUser = { id, type: role.toLowerCase(), email, name: firstname, lastname }
+            const { token, id, email, firstname, lastname, role, is_verified } = data
+            const newUser = { id, type: role.toLowerCase(), email, name: firstname, lastname, is_verified }
             console.log('AppContext:init:user', newUser)
             console.log('AppContext:init:token', token)
             setUser(newUser)
@@ -156,12 +156,12 @@ function useApp() {
         try {
             const { data } = await api.post('/regularlogin', { username, password })
             const { successful, message } = data.status
-            const { token, id, email, firstname, lastname } = data.user
-            console.log(token, id, email, firstname, lastname)
+            const { token, id, email, firstname, lastname, is_verified } = data.user
+
             if (successful) {
                 localStorage.setItem('token', token)
 
-                setUser({ id, email, name: firstname, lastname })
+                setUser({ id, email, name: firstname, lastname, is_verified })
                 notification.success({ message: `Welcome back, ${firstname}!` })
 
                 return true
