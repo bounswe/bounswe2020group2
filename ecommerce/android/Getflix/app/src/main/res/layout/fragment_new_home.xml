@@ -123,6 +123,12 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/editor_picks"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
                 <TextView
                     android:id="@+id/recommended_for_you_title"
                     android:layout_width="match_parent"
@@ -133,7 +139,7 @@
                     android:textColor="@color/initGold"
                     android:textSize="21sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+                    app:layout_constraintTop_toBottomOf="@+id/editor_picks" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -163,7 +169,9 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
