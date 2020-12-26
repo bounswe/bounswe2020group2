@@ -9,7 +9,7 @@ import com.example.getflix.databinding.CardProductBinding
 import com.example.getflix.models.ProductModel
 
 class SubCategoryAdapter(
-        private val productList: ArrayList<ProductModel>?,
+    private val productList: MutableList<ProductModel>,
 ) : ListAdapter<ProductModel, SubCategoryAdapter.RowHolder>(SubcategoryDiffCallback()) {
 
 
@@ -33,12 +33,10 @@ class SubCategoryAdapter(
         return RowHolder.from(parent)
     }
 
-    /*override fun getItemCount(): Int {
-        if (productList != null) {
+    override fun getItemCount(): Int {
             return productList.count()
-        }
-        return 0;
-    }*/
+
+    }
 
     override fun onBindViewHolder(holder: RowHolder, position: Int) {
         productList?.get(position)?.let { holder.bind(it, position) }

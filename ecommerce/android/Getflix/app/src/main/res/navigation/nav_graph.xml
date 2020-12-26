@@ -125,8 +125,8 @@
         android:name="com.example.getflix.ui.fragments.SubcategoryFragment"
         tools:layout="@layout/list_horizontalsubs">
         <argument
-            android:name="subName"
-            app:argType="string" />
+            android:name="subId"
+            app:argType="integer" />
         <action
             android:id="@+id/action_subcategoryFragment_to_filterOptionsFragment"
             app:destination="@id/filterOptionsFragment" />
