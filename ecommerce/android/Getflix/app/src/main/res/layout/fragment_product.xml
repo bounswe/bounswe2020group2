@@ -105,7 +105,7 @@
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/open_sans_semibold"
                     android:text="@string/short_description"
-                    android:textColor="#404040"
+                    android:textColor="@color/subtitle"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/product_name" />
 
@@ -204,6 +204,7 @@
                     android:background="@color/colorPrimary"
                     app:layout_constraintTop_toBottomOf="@+id/buy_now"
                     tools:layout_editor_absoluteX="0dp" />
+
                 <TextView
                     android:id="@+id/long_description_title"
                     android:layout_width="0dp"
@@ -217,20 +218,23 @@
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/star_1" />
+                    app:layout_constraintTop_toBottomOf="@+id/vendor_detail" />
 
                 <TextView
                     android:id="@+id/long_description"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="16dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:gravity="left"
                     android:text="@string/jacket_description"
+                    android:textColor="@color/subtitle"
+                    android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/long_description_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/star_1" />
 
                 <TextView
                     android:id="@+id/brand_title"
@@ -263,6 +267,7 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:gravity="right"
                     android:text="@string/brand_example"
                     android:textColor="@color/subtitle"
@@ -287,22 +292,23 @@
                     android:id="@+id/vendor_detail"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="@font/open_sans_semibold"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="right"
                     android:text="@string/vendor_example"
                     android:textColor="@color/subtitle"
                     android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/vendor_title" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/brand" />
 
                 <ImageView
                     android:id="@+id/star_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@+id/vendor_detail"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toStartOf="@+id/star_2"
-                    app:layout_constraintTop_toTopOf="@+id/vendor_detail"
+                    app:layout_constraintTop_toBottomOf="@+id/long_description_title"
                     app:srcCompat="@drawable/ic_star"
                     tools:ignore="VectorDrawableCompat" />
 
@@ -348,16 +354,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/open_sans_bold"
+                    android:fontFamily="sans-serif-condensed"
                     android:inputType="numberDecimal"
                     android:text="@string/vendor_rating"
                     android:textColor="@color/subtitle"
                     android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/vendor_detail"
+                    app:layout_constraintBottom_toBottomOf="@+id/star_1"
                     app:layout_constraintEnd_toStartOf="@+id/star_1"
-                    app:layout_constraintTop_toTopOf="@+id/vendor_detail" />
-
-
+                    app:layout_constraintTop_toTopOf="@+id/star_1" />
 
 
                 <TextView
@@ -365,8 +369,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/open_sans_semibold"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="TextView"
+                    android:textColor="@color/subtitle"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/star_5"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -391,7 +396,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:text=""
+                    android:textColor="@color/subtitle"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/long_description" />
@@ -416,7 +423,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:text=""
+                    android:textColor="@color/subtitle"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/product_category" />
@@ -436,12 +445,12 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/comments"
-                    android:layout_width="400dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="50dp"
                     android:background="#000000"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/comments_title" />
