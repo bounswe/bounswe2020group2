@@ -18,7 +18,7 @@ class PhoneSerializer(serializers.Serializer):
     country_code = serializers.CharField()
     number = serializers.CharField()
     
-# Formats the body of the POST request to make compatible with the Address model in the database
+# Formats the body of the POST request to make it compatible with the Address model in the database
 class AddressRequestSerializer(serializers.Serializer):
     title = serializers.CharField()
     name = serializers.CharField()
