@@ -111,7 +111,7 @@
     <string name="vendor_no_message">You don\'t have any messages yet.</string>
     <string name="address_form">Enter Address Info</string>
     <string name="adress_title">Title</string>
-    <string name="address_">Address (ZIP code, Street, Apartment)</string>
+    <string name="address_">Address (Street, Apartment)</string>
     <string name="province">Province</string>
     <string name="country">Country</string>
     <string name="add">Add</string>
@@ -120,8 +120,22 @@
     <string name="choose_credit">Choose a credit card to pay</string>
     <string name="choose_address">Choose an address</string>
     <string name="add_credit">Add new credit card</string>
+    <string name="edittext_title"><font size="35">Title</font></string>
+    <string name="edittext_name"><font size="35">Name</font></string>
+    <string name="edittext_surname"><font size="35">Surname</font></string>
+    <string name="edittext_countrycode"><font size="35">Country Code</font></string>
+    <string name="edittext_phone"><font size="35">Phone</font></string>
+    <string name="edittext_address"><font size="35">Address</font></string>
+    <string name="edittext_city"><font size="35">City</font></string>
+    <string name="edittext_country"><font size="35">Country</font></string>
+    <string name="edittext_zipcode"><font size="35">Zip Code</font></string>
+    <string name="edittext_cvv"><font size="35">CVV</font></string>
+    <string name="edittext_province"><font size="35">Province</font></string>
+    <string name="edittext_ownername"><font size="35">Owner Name</font></string>
+    <string name="edittext_serialnumber"><font size="35">Serial Number</font></string>
+    <string name="edittext_expirationyear"><font size="35">Expiration Year</font></string>
+    <string name="edittext_expirationmonth"><font size="35">Expiration Month</font></string>
     <string name="category_title">Category</string>
     <string name="subcategory_title">Subcategory</string>
     <string name="comments_title">Comments</string>
-
 </resources>

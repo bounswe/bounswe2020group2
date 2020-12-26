@@ -1,8 +1,7 @@
 package com.example.getflix
 
-import android.content.DialogInterface
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.getflix.activities.MainActivity
@@ -50,7 +49,7 @@ fun infoAlert(fragment: Fragment, message: String) {
             .show()
 }
 
-fun doneAlert(fragment: Fragment, message: String, func: () -> Unit) {
+fun doneAlert(fragment: Fragment, message: String, func: (() -> Unit)) {
     MaterialAlertDialogBuilder(fragment.requireContext(), R.style.MaterialAlertDialog_color)
             .setTitle("Success")
             .setMessage(message)

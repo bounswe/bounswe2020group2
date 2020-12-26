@@ -5,10 +5,12 @@ import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -44,6 +46,7 @@ class LoginFragment : Fragment() {
 
 
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -132,6 +135,7 @@ class LoginFragment : Fragment() {
                     (activity as MainActivity).decideBottomNav(true)
                     view?.findNavController()?.navigate(actionLoginFragmentToVendorHomeFragment())
                 } else {
+                    println(it.toString())
                     activity?.loading_progress!!.visibility = View.GONE
                     (activity as MainActivity).decideBottomNav(false)
                     view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
@@ -159,6 +163,7 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -168,6 +173,7 @@ class LoginFragment : Fragment() {
             handleSignInResult(task)
         }
     }
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             var account = completedTask.result

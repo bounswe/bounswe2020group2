@@ -111,7 +111,7 @@
     <string name="vendor_no_message">Henüz bir mesajınız yok.</string>
     <string name="address_form">Adres Giriniz</string>
     <string name="adress_title">Baslik</string>
-    <string name="address_">Adres (Posta kodu, Sokak ismi, daire No)</string>
+    <string name="address_">Adres (Sokak ismi, daire No)</string>
     <string name="province">Bolge</string>
     <string name="country">Ulke</string>
     <string name="add">Ekle</string>
@@ -120,9 +120,23 @@
     <string name="choose_credit">Odeme icin kredi karti seciniz</string>
     <string name="choose_address">Teslimat icin adres seciniz</string>
     <string name="add_credit">Yeni kredi karti ekle</string>
+    <string name="edittext_title"><font size="35">Başlık</font></string>
+    <string name="edittext_name"><font size="35">Ad</font></string>
+    <string name="edittext_surname"><font size="35">Soyad</font></string>
+    <string name="edittext_countrycode"><font size="35">Ülke Kodu</font></string>
+    <string name="edittext_phone"><font size="35">Telefon</font></string>
+    <string name="edittext_address"><font size="35">Adres</font></string>
+    <string name="edittext_city"><font size="35">Şehir</font></string>
+    <string name="edittext_country"><font size="35">Ülke</font></string>
+    <string name="edittext_zipcode"><font size="35">Posta Kodu</font></string>
+    <string name="edittext_cvv"><font size="35">CVV</font></string>
+    <string name="edittext_ownername"><font size="35">Sahibinin İsmi</font></string>
+    <string name="edittext_province"><font size="35">Bölge</font></string>
+    <string name="edittext_serialnumber"><font size="35">Seri Numarası</font></string>
+    <string name="edittext_expirationyear"><font size="35">Son Kullanım Yılı</font></string>
+    <string name="edittext_expirationmonth"><font size="35">Son Kullanım Ayı</font></string>
     <string name="category_title">Category</string>
     <string name="subcategory_title">Subcategory</string>
     <string name="comments_title">Comments</string>
-
 
 </resources>
