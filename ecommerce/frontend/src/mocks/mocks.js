@@ -448,8 +448,14 @@ export const product = {
     old_price: 20,
 }
 
+export const verifications = [
+    { message: 'Success' },
+    { message: 'Expired' },
+    { message: 'Invalid' },
+    { message: 'Verified' },
+]
+
 export const reviews = [
-    //
     {
         id: 1,
         rating: 2,

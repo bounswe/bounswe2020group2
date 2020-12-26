@@ -116,6 +116,12 @@ interface GetflixApiService {
     @DELETE("customer/{customerId}/cards/{card_id}")
     fun deleteCustomerCard(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Path("card_id") address_id: Int): Call<CardDeleteResponse>
 
+    @GET("customer/orders")
+    suspend fun getCustomerOrders(@Header("Authorization") token: String): Response<CustomerOrderListModel>
+
+    @Headers("Content-Type: application/json")
+    @POST("search/products")
+    fun searchProductsBySubcategory(@Body cardData: ProSearchBySubcategoryRequest): Call<ProSearchBySubcategoryResponse>
 
 }
 

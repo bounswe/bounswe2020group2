@@ -229,6 +229,8 @@ class CategoriesViewModel : ViewModel() {
 
 
 
+
+
     fun addCategory(categoryModel: CategoryModel) {
         if (_categoriesList.value != null) {
             val categories = _categoriesList.value
@@ -272,6 +274,19 @@ class CategoriesViewModel : ViewModel() {
     fun getCustomerCards() {
         job = CoroutineScope(Dispatchers.IO).launch {
             val response = GetflixApi.getflixApiService.getCustomerCards("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id)
+            withContext(Dispatchers.Main + exceptionHandler) {
+                if (response.isSuccessful) {
+                    response.body().let { it ->
+                        println(it.toString())
+                    }
+                }
+            }
+        }
+    }
+
+    fun getCustomerOrders() {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = GetflixApi.getflixApiService.getCustomerOrders("Bearer " + MainActivity.StaticData.user!!.token)
             withContext(Dispatchers.Main + exceptionHandler) {
                 if (response.isSuccessful) {
                     response.body().let { it ->

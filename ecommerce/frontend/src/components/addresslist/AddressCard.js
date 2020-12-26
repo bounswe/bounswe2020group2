@@ -1,12 +1,13 @@
 import './AddressCard.less'
-import cls from 'classnames'
+
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { notification, Popconfirm, Spin } from 'antd'
+import cls from 'classnames'
 import { useState } from 'react'
-import { AddressModal } from './AddressModal'
-import { Popconfirm, Spin, notification } from 'antd'
-import { sleep } from '../../utils'
+
 import { api } from '../../api'
 import { useAppContext } from '../../context/AppContext'
+import { AddressModal } from './AddressModal'
 
 export const AddressCard = ({ address, selected = false, onSelect = () => {}, onAddressInfoChange = () => {} }) => {
     const [editVisible, setEditVisible] = useState(false)

@@ -12,6 +12,8 @@ import { SignupPage } from '../pages/SignupPage'
 import { ShoppingCartPage } from '../ShoppingCart/ShoppingCartPage'
 import { CategoryBar } from '../CategoryBar'
 import { CheckoutPage } from '../pages/CheckoutPage'
+import { EmailVerification } from '../EmailVerification'
+import { IsVerifiedNotification } from '../IsVerifiedNotification'
 import { UserReviews } from '../UserReview/UserReviews'
 import { useAppContext } from '../../context/AppContext'
 
@@ -25,7 +27,10 @@ export const Content = () => {
     return (
         <Layout.Content className="content">
             <CategoryBar />
+            <IsVerifiedNotification />
+
             <Switch>
+                {isUser && <Route path="/verify/:id" component={EmailVerification} />}
                 <Route path="/search/:type" component={SearchPage} />
                 <Route path="/product/:productId" component={ProductPage} />
                 {isGuest && <Route path="/login" component={LoginPage} />}

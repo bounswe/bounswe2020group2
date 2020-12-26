@@ -1,12 +1,15 @@
-import { CreditCardList } from '../cardlist/CreditCardList'
-import { AddressList } from '../addresslist/AddressList'
-import { Row, Col, Button, Alert, Spin, notification, Result } from 'antd'
-import { SmileOutlined } from '@ant-design/icons'
 import './CheckoutPage.less'
-import { CheckoutTermsAndConditions } from '../distant_sales_agreement/CheckoutTermsAndConditions'
+
+import { SmileOutlined } from '@ant-design/icons'
+import { Alert, Button, Col, notification, Result, Row, Spin } from 'antd'
 import { useEffect, useState } from 'react'
-import { api } from '../../api'
 import { Link } from 'react-router-dom'
+
+import { api } from '../../api'
+import { AddressList } from '../addresslist/AddressList'
+import { CreditCardList } from '../cardlist/CreditCardList'
+import { CheckoutTermsAndConditions } from '../distant_sales_agreement/CheckoutTermsAndConditions'
+
 export const CheckoutPage = () => {
     const [selectedCard, setSelectedCard] = useState()
     const [selectedAddress, setSelectedAddress] = useState()
