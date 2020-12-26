@@ -59,7 +59,7 @@ class UpdateAddressFragment : Fragment() {
 
         viewModel.navigateBack.observe(viewLifecycleOwner, {
             if(it) {
-                doneAlert(this, "Credit card is updated successfully", ::navigateBack)
+                doneAlert(this, "Address is updated successfully", ::navigateBack)
                 viewModel.resetNavigate()
             }
         })

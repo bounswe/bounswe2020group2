@@ -48,7 +48,7 @@ class AddAddressFragment : Fragment() {
 
         viewModel.navigateBack.observe(viewLifecycleOwner, {
             if(it) {
-                doneAlert(this, "Credit card is added successfully", ::navigateBack)
+                doneAlert(this, "Address is added successfully", ::navigateBack)
                 viewModel.resetNavigate()
             }
         })

@@ -26,7 +26,7 @@
             <EditText
                 android:id="@+id/editable_title"
                 android:layout_width="match_parent"
-                android:layout_height="37dp"
+                android:layout_height="32dp"
                 android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
@@ -44,7 +44,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_margin="3dp"
+            android:layout_margin="2dp"
             android:background="@android:color/darker_gray" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -60,7 +60,7 @@
             <EditText
                 android:id="@+id/editable_countrycode"
                 android:layout_width="match_parent"
-                android:layout_height="37dp"
+                android:layout_height="32dp"
                 android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
@@ -78,7 +78,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_margin="3dp"
+            android:layout_margin="2dp"
             android:background="@android:color/darker_gray" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -94,7 +94,7 @@
             <EditText
                 android:id="@+id/editable_phone"
                 android:layout_width="match_parent"
-                android:layout_height="37dp"
+                android:layout_height="32dp"
                 android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
@@ -112,7 +112,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_margin="3dp"
+            android:layout_margin="2dp"
             android:background="@android:color/darker_gray" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -128,7 +128,7 @@
             <EditText
                 android:id="@+id/editable_name"
                 android:layout_width="match_parent"
-                android:layout_height="37dp"
+                android:layout_height="32dp"
                 android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
@@ -146,7 +146,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_margin="3dp"
+            android:layout_margin="2dp"
             android:background="@android:color/darker_gray" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -162,7 +162,7 @@
             <EditText
                 android:id="@+id/editable_surname"
                 android:layout_width="match_parent"
-                android:layout_height="37dp"
+                android:layout_height="32dp"
                 android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
@@ -180,7 +180,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_margin="3dp"
+            android:layout_margin="2dp"
             android:background="@android:color/darker_gray" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -196,7 +196,7 @@
             <EditText
                 android:id="@+id/editable_address"
                 android:layout_width="match_parent"
-                android:layout_height="37dp"
+                android:layout_height="32dp"
                 android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
@@ -214,7 +214,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_margin="3dp"
+            android:layout_margin="2dp"
             android:background="@android:color/darker_gray" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -230,7 +230,7 @@
             <EditText
                 android:id="@+id/editable_province"
                 android:layout_width="match_parent"
-                android:layout_height="37dp"
+                android:layout_height="32dp"
                 android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
@@ -248,7 +248,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_margin="3dp"
+            android:layout_margin="2dp"
             android:background="@android:color/darker_gray" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -264,7 +264,7 @@
             <EditText
                 android:id="@+id/editable_city"
                 android:layout_width="match_parent"
-                android:layout_height="37dp"
+                android:layout_height="32dp"
                 android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
@@ -282,7 +282,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_margin="3dp"
+            android:layout_margin="2dp"
             android:background="@android:color/darker_gray" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -316,7 +316,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_margin="3dp"
+            android:layout_margin="2dp"
             android:background="@android:color/darker_gray" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -350,7 +350,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_margin="3dp"
+            android:layout_margin="2dp"
             android:background="@android:color/darker_gray" />
 
         <Button
