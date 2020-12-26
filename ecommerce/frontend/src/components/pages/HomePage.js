@@ -42,7 +42,6 @@ const HomePage_MainContent = () => {
         async function fetch() {
             try {
                 setIsLoading(true)
-
                 const { data } = await api.get(`/products/homepage/${5}`)
                 setTrendingProducts(data.products)
             } catch (error) {
@@ -57,9 +56,11 @@ const HomePage_MainContent = () => {
 
     return (
         <div className="trending-grid-wrapper">
-            {<Spin spinning={isLoading}>
-                <TrendingGrid trendingProducts={trendingProducts} />
-            </Spin>}
+            {
+                <Spin spinning={isLoading}>
+                    <TrendingGrid trendingProducts={trendingProducts} />
+                </Spin>
+            }
         </div>
     )
 }
