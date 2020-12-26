@@ -5,6 +5,8 @@ from ..models import User
 from ..views.address import *
 
 user = None
+
+# Class for testing the CRUD operations of the Address endpoint
 class AddressTest(TestCase):
     def setUp(self):
         self.client = APIClient()
@@ -102,7 +104,7 @@ class AddressTest(TestCase):
         # if the response returns a 200 and a status is successful, then test is passed
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["status"]["successful"], True)
-        
+    # test updating a single address of the customer from the database
     def test_update_address(self):
         address = {
             "title": "Address9",
