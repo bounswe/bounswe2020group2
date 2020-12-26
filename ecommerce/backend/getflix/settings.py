@@ -78,9 +78,9 @@ EMAIL_HOST = get_env('EMAIL_HOST', 'smtp.gmail.com')
 EMAIL_HOST_USER = get_secret('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = get_secret('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-EMAIL_PORT = int(get_env('EMAIL_PORT', 587))
-EMAIL_USE_SSL = get_env('EMAIL_USE_SSL', False) == 'True' # Do NOT use bool(...)
-EMAIL_USE_TLS = get_env('EMAIL_USE_TLS', True) == 'True' # Do NOT use bool(...)
+EMAIL_PORT = int(get_env('EMAIL_PORT', "587"))
+EMAIL_USE_SSL = get_env('EMAIL_USE_SSL', "False") == 'True'  # Do NOT use bool(...)
+EMAIL_USE_TLS = get_env('EMAIL_USE_TLS', "True") == 'True'  # Do NOT use bool(...)
 
 
 # Quick-start development settings - unsuitable for production
