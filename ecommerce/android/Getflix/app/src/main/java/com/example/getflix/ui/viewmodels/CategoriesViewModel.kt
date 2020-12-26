@@ -51,34 +51,6 @@ class CategoriesViewModel : ViewModel() {
         println("Error ${throwable.localizedMessage}")
     }
 
-    fun getProducts(num: Int) {
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getProducts(num)
-            withContext(Dispatchers.Main + exceptionHandler) {
-                if (response.isSuccessful) {
-                    response.body().let { it ->
-                        _products.value = it
-                        println(_products.value.toString())
-                    }
-                }
-            }
-        }
-    }
-    /*
-    fun getProduct(num: Int) {
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getProduct(num)
-            withContext(Dispatchers.Main + exceptionHandler) {
-                if (response.isSuccessful) {
-                    response.body().let { it ->
-                        _products.value = mutableListOf(it)
-                        println(_products.value.toString())
-                    }
-                }
-            }
-        }
-    }*/
-
     fun getCustomerCartProducts() {
         job = CoroutineScope(Dispatchers.IO).launch {
             val response = GetflixApi.getflixApiService.getCustomerAllCartProducts("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id)
