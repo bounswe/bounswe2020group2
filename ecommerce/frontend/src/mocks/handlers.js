@@ -78,36 +78,35 @@ export const handlers = [
     //     return res(ctx.json({ status, cards }))
     // }),
     // rest.get(url('/customer/orders'), (req, res, ctx) => {
+    //     const order = {
+    //         order_id: 0,
+    //         order_all_purchase: [
+    //             {
+    //                 id: 1,
+    //                 amount: 2,
+    //                 product: products[0],
+    //                 status: 'accepted',
+    //                 unit_price: 10,
+    //                 purchase_date: moment.utc().toISOString(),
+    //                 vendor: { id: 2, name: 'Can Batuk İletişim', rating: 3 },
+    //                 address: addresses[0],
+    //             },
+    //             {
+    //                 id: 2,
+    //                 amount: 4,
+    //                 product: products[2],
+    //                 status: 'at_cargo',
+    //                 unit_price: 40,
+    //                 purchase_date: moment.utc().toISOString(),
+    //                 vendor: { id: 2, name: 'Can Batuk İletişim', rating: 3 },
+    //                 address: addresses[1],
+    //             },
+    //         ],
+    //     }
     //     return res(
     //         ctx.json({
     //             status: { successful: true, message: '' },
-    //             orders: [
-    //                 {
-    //                     order_id: 0,
-    //                     order_all_purchase: [
-    //                         {
-    //                             id: 1,
-    //                             amount: 2,
-    //                             product: products[0],
-    //                             status: 'accepted',
-    //                             unit_price: 10,
-    //                             purchase_date: moment.utc().toISOString(),
-    //                             vendor: { id: 2, name: 'Can Batuk İletişim', rating: 3 },
-    //                             address: addresses[0],
-    //                         },
-    //                         {
-    //                             id: 2,
-    //                             amount: 4,
-    //                             product: products[2],
-    //                             status: 'at_cargo',
-    //                             unit_price: 40,
-    //                             purchase_date: moment.utc().toISOString(),
-    //                             vendor: { id: 2, name: 'Can Batuk İletişim', rating: 3 },
-    //                             address: addresses[1],
-    //                         },
-    //                     ],
-    //                 },
-    //             ],
+    //             orders: [order, { ...order, id: 100 }],
     //         }),
     //     )
     // }),

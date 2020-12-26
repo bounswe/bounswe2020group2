@@ -33,8 +33,8 @@ export const Order = ({ order }) => {
 
     const canCancel =
         R.any(purchase => orderStatusInvMap[purchase.status] !== 'cancelled', order.purchases) &&
-        R.none(purchase => orderStatusInvMap[purchase.status] !== 'at_cargo', order.purchases) &&
-        R.none(purchase => orderStatusInvMap[purchase.status] !== 'delivered', order.purchases)
+        R.none(purchase => orderStatusInvMap[purchase.status] === 'at_cargo', order.purchases) &&
+        R.none(purchase => orderStatusInvMap[purchase.status] === 'delivered', order.purchases)
 
     const orderDate = moment.utc(firstPurchase.purchase_date).format('HH:mm DD/MM/YYYY')
     return (
