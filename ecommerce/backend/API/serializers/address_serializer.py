@@ -2,6 +2,7 @@ from API.models.user import Customer
 from rest_framework import serializers
 from ..models import Customer, Address
 
+# Formats the Address objects taken from the database for GET requests and combines the phone columns into a single object.
 class AddressResponseSerializer(serializers.ModelSerializer):
     phone = serializers.SerializerMethodField('get_phone')
     
@@ -12,10 +13,12 @@ class AddressResponseSerializer(serializers.ModelSerializer):
     def get_phone(self, obj):
         return { 'country_code': obj.phone_country_code, 'number': obj.phone_number}
 
+# Formats the phone object in the body of the POST request into two columns to make it compatible with the database
 class PhoneSerializer(serializers.Serializer):
     country_code = serializers.CharField()
     number = serializers.CharField()
     
+# Formats the body of the POST request to make compatible with the Address model in the database
 class AddressRequestSerializer(serializers.Serializer):
     title = serializers.CharField()
     name = serializers.CharField()
