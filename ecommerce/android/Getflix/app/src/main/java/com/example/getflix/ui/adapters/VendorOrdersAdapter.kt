@@ -17,8 +17,8 @@ class VendorOrdersAdapter(
 
         fun bind(order: OrderModel, position: Int) {
             binding.order = order
-            binding.orderAmount.text = order.amount.toString()
-            binding.orderTotalPrice.text = order.total_price.toString()
+           // binding.orderAmount.text = order.amount.toString()
+           // binding.orderTotalPrice.text = order.total_price.toString()
 
         }
 

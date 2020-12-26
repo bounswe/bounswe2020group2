@@ -227,6 +227,26 @@ class CategoriesViewModel : ViewModel() {
             )
     }
 
+    fun searchBySubcategory(subId: Int) {
+        GetflixApi.getflixApiService.searchProductsBySubcategory(ProSearchBySubcategoryRequest(subId))
+            .enqueue(object :
+                Callback<ProSearchBySubcategoryResponse> {
+                override fun onFailure(call: Call<ProSearchBySubcategoryResponse>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<ProSearchBySubcategoryResponse>,
+                    response: Response<ProSearchBySubcategoryResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+
+                }
+            }
+            )
+    }
+
 
 
     fun addCategory(categoryModel: CategoryModel) {
@@ -272,6 +292,19 @@ class CategoriesViewModel : ViewModel() {
     fun getCustomerCards() {
         job = CoroutineScope(Dispatchers.IO).launch {
             val response = GetflixApi.getflixApiService.getCustomerCards("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id)
+            withContext(Dispatchers.Main + exceptionHandler) {
+                if (response.isSuccessful) {
+                    response.body().let { it ->
+                        println(it.toString())
+                    }
+                }
+            }
+        }
+    }
+
+    fun getCustomerOrders() {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = GetflixApi.getflixApiService.getCustomerOrders("Bearer " + MainActivity.StaticData.user!!.token)
             withContext(Dispatchers.Main + exceptionHandler) {
                 if (response.isSuccessful) {
                     response.body().let { it ->
