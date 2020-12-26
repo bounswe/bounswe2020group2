@@ -1,27 +1,11 @@
 import './CheckoutPage.less'
-import './CheckoutPage.less'
 
-import { SmileOutlined, SmileOutlined } from '@ant-design/icons'
-import {
-    Alert,
-    Alert,
-    Button,
-    Button,
-    Col,
-    Col,
-    notification,
-    notification,
-    Result,
-    Result,
-    Row,
-    Row,
-    Spin,
-    Spin,
-} from 'antd'
+import { SmileOutlined } from '@ant-design/icons'
+import { Alert, Button, Col, notification, Result, Row, Spin } from 'antd'
 import { useEffect, useState } from 'react'
-import { Link, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-import { api, api } from '../../api'
+import { api } from '../../api'
 import { AddressList } from '../addresslist/AddressList'
 import { CreditCardList } from '../cardlist/CreditCardList'
 import { CheckoutTermsAndConditions } from '../distant_sales_agreement/CheckoutTermsAndConditions'

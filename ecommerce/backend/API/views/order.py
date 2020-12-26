@@ -29,7 +29,7 @@ def vendor_orders(request):
             total_price = purchase.amount*purchase.unit_price
 
             serializer = AddressResponseSerializer(purchase.address)
-            adress = serializer.data
+            address = serializer.data
 
             serializer = ProductResponseSerializer(purchase.product)
             product = serializer.data
@@ -44,7 +44,7 @@ def vendor_orders(request):
                 purchase_status = 'delivered'
 
             response = {'id':purchase.id,'amount':purchase.amount,'unit_price':purchase.unit_price,'total_price':total_price,'status':purchase_status,
-            'purchase_date':purchase.purchase_date,'adress':adress, 'product':product}
+            'purchase_date':purchase.purchase_date,'address':address, 'product':product}
 
             response_purchases.append(response)
 
