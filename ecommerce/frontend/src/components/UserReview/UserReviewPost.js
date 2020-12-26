@@ -7,7 +7,7 @@ import './UserReviewPost.less'
 import { useAppContext } from '../../context/AppContext'
 const { TextArea } = Input
 
-export const UserReviewPost = ({ product }) => {
+export const UserReviewPost = ({ product, onFinish }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [comment, setComment] = useState('')
     const [rating, setRating] = useState(null)
@@ -27,6 +27,7 @@ export const UserReviewPost = ({ product }) => {
                 rating: rating,
                 comment: comment,
             })
+            onFinish()
         } catch (error) {
             if (error.response.status === 403)
                 notification.warning({ description: 'You have to buy the product to make a comment' })

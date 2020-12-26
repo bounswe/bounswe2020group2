@@ -111,6 +111,9 @@ export const handlers = [
     //         }),
     //     )
     // }),
+    rest.post(url('/review'), (req, res, ctx) => {
+        return res(ctx.json({}))
+    }),
 ]
 
 if (process.env.NODE_ENV === 'development') {
