@@ -2,7 +2,7 @@ name: Deploy frontend
 
 on:
     push:
-        branches: [deploy]
+        branches: [deploy, B-email-verification]
     pull_request:
         branches: [deploy]
 
