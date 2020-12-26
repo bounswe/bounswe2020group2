@@ -6,7 +6,7 @@ import { AddressModal } from './AddressModal'
 import { useAppContext } from '../../context/AppContext'
 import './AddressList.less'
 
-export const AddressList = () => {
+export const AddressList = ({onSelect = () => {}}) => {
     const [addressList, setAddressList] = useState([])
     const { user } = useAppContext()
 
@@ -60,7 +60,10 @@ export const AddressList = () => {
         async function fetch() {
             const addresses = await getAddressList(user?.id)
             setAddressList(addresses)
-            setSelectedAddress(addresses.length > 0 ? addresses[0].id : null)
+            if(addresses.length > 0) {
+                setSelectedAddress(addresses[0].id)
+                onSelect(addresses[0].id)
+            }
         }
         fetch()
     }, [user])
@@ -69,7 +72,10 @@ export const AddressList = () => {
     const [addVisible, setAddVisible] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
-    const onAddressSelect = addressId => setSelectedAddress(addressId)
+    const onAddressSelect = addressId => {
+        setSelectedAddress(addressId)
+        onSelect(addressId)
+    }
 
     const onAddressInfoChange = async () => {
         const addresses = await getAddressList(user?.id)

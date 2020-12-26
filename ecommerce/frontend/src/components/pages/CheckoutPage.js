@@ -9,6 +9,10 @@ export const CheckoutPage = () => {
     const [selectedAddress, setSelectedAddress] = useState()
     const [userAgreed, setUserAgreed] = useState(false)
 
+    useEffect(() => {
+        console.log(selectedAddress, selectedCard, userAgreed)
+    }, [selectedAddress, selectedCard, userAgreed])
+
 
     return (
         <div className="checkout-page-container">

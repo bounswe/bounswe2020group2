@@ -6,7 +6,7 @@ import { CreditCardModal } from './CreditCardModal'
 import { useAppContext } from '../../context/AppContext'
 import './CreditCardList.less'
 
-export const CreditCardList = () => {
+export const CreditCardList = ({onSelect = () => {}}) => {
     const [cardList, setCardList] = useState([])
     const { user } = useAppContext()
 
@@ -52,7 +52,10 @@ export const CreditCardList = () => {
         async function fetch() {
             const cards = await getCardList(user?.id)
             setCardList(cards)
-            setSelectedCard(cards.length > 0 ? cards[0].id : null)
+            if(cards.length > 0) {
+                setSelectedCard(cards[0].id)
+                onSelect(cards[0].id)
+            }
         }
         fetch()
     }, [user])
@@ -61,7 +64,10 @@ export const CreditCardList = () => {
     const [addVisible, setAddVisible] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
-    const onCardSelect = cardId => setSelectedCard(cardId)
+    const onCardSelect = cardId => {
+        setSelectedCard(cardId)
+        onSelect(cardId)
+    }
 
     const onCardInfoChange = () => {
         getCardList(user?.id).then(cards => setCardList(cards))
