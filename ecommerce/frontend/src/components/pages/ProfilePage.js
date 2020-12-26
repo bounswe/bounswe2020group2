@@ -16,8 +16,14 @@ export const ProfilePage = () => {
                         <ProfileContent key={user.id} user={user} />
                     </div>
                 </TabPane>
-                <TabPane tab="Purchase History" key="purchase-history">
+                <TabPane tab="Orders" key="purchase-history">
                     TO DO: Purchase History to be implemented
+                </TabPane>
+                <TabPane tab="Cards" key="cards">
+                    TO DO: Cards to be implemented
+                </TabPane>
+                <TabPane tab="Addresses" key="addresses">
+                    TO DO: Addresses to be implemented
                 </TabPane>
                 <TabPane tab="Messages" key="messages">
                     TO DO: Messages to be implemented
