@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentCartBinding
-import com.example.getflix.models.ProductModel
+import com.example.getflix.models.*
 import com.example.getflix.ui.adapters.CartAdapter
 import com.example.getflix.ui.fragments.CartFragmentDirections.Companion.actionCartFragmentToOrderFragment
 import com.example.getflix.ui.viewmodels.CartViewModel
@@ -50,7 +50,15 @@ class CartFragment : Fragment() {
         var zaraSkirt3 =
                 ProductModel(6, "Skirt", "102", "1", "Zara", 1, 1, 1, "Amazing skirt", "1", "1", "1", "1")
         val products = arrayListOf(zaraSkirt3, zaraJacket1, zaraSkirt2, zaraJacket2, zaraSkirt1, zaraJacket3)*/
-        val products = arrayListOf<ProductModel>()
+        var pro = ProductModel(id=3,
+            "Skechers Men's Afterburn Memory-Foam Lace-up Sneaker", 50, "2020-08-11T08:22:34Z",
+            50, 10, 22, "100% Leather/Synthetic, Heel measures approximately 2, Memory Foam Insole",
+            SubcategoryModel("Sports & Outdoor", 5), "long one",0.1,
+            CategoryModel("Health & Households", 2, mutableListOf<SubcategoryModel>(SubcategoryModel("women", 2),SubcategoryModel("men", 1))),
+            BrandModel("Skechers" , 2), VendorModel(4.666666666666667, 1, "omerfaruk deniz"), 5,
+            listOf("https://i.ebayimg.com/images/g/vOMAAOSwpeBeTK2g/s-l640.jpg", "https://www.shoes.com/pm/skech/skech681268_41824_jb1.jpg"),
+            45)
+        val products = arrayListOf<ProductModel>(pro)
         val productListAdapter = CartAdapter(products)
         recView.adapter = productListAdapter
         recView.setHasFixedSize(true)
