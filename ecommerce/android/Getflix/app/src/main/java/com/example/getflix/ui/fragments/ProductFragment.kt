@@ -15,40 +15,48 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentProductBinding
+import com.example.getflix.ui.adapters.CommentAdapter
 import com.example.getflix.ui.adapters.ImageAdapter
 import com.example.getflix.ui.adapters.RecommenderAdapter
 import com.example.getflix.ui.viewmodels.ProductViewModel
 import me.relex.circleindicator.CircleIndicator2
 
 
-class ProductFragment: Fragment() {
+class ProductFragment : Fragment() {
     private lateinit var binding: FragmentProductBinding
     private lateinit var productViewModel: ProductViewModel
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-         binding = DataBindingUtil.inflate<FragmentProductBinding>(
-                inflater, R.layout.fragment_product,
-                container, false
+        binding = DataBindingUtil.inflate<FragmentProductBinding>(
+            inflater, R.layout.fragment_product,
+            container, false
         )
-        val args =  ProductFragmentArgs.fromBundle(requireArguments())
+        val args = ProductFragmentArgs.fromBundle(requireArguments())
         productViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
         productViewModel.getProduct(args.productId)
 
         val recommenderAdapter = RecommenderAdapter()
         val imageAdapter = ImageAdapter()
         val commentAdapter = CommentAdapter()
+
         binding.lifecycleOwner = this
 
         binding.recommendedProducts.adapter = recommenderAdapter
-        var layoutManagerForRecommenderAdapter: RecyclerView.LayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        var layoutManagerForRecommenderAdapter: RecyclerView.LayoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.recommendedProducts.layoutManager = layoutManagerForRecommenderAdapter
 
         binding.images.adapter = imageAdapter
-        val layoutManagerForImageAdapter = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        val layoutManagerForImageAdapter =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.images.layoutManager = layoutManagerForImageAdapter
+
+        binding.comments.adapter = commentAdapter
+        val layoutForCommentAdapter = LinearLayoutManager(activity)
+        binding.comments.layoutManager = layoutForCommentAdapter
 
         val pagerSnapHelper = PagerSnapHelper()
         pagerSnapHelper.attachToRecyclerView(binding.images)
@@ -62,25 +70,36 @@ class ProductFragment: Fragment() {
         binding.imageView7.setOnClickListener {
             val scrollView = binding.scrollView
             val targetView = binding.detailsTitle
-            scrollView.scrollTo(0,targetView.y.toInt())
+            scrollView.scrollTo(0, targetView.y.toInt() + 100)
+        }
+        binding.imageView6.setOnClickListener {
+            val scrollView = binding.scrollView
+            val targetView = binding.comments
+            scrollView.scrollTo(0, targetView.y.toInt() + 100)
         }
         binding.decrease.setOnClickListener {
             productViewModel.decreaseAmount()
         }
+
         binding.increase.setOnClickListener {
             productViewModel.increaseAmount()
         }
+        binding.addToCart.setOnClickListener {
+            productViewModel.addToShoppingCart(1,args.productId)
+        }
+
         productViewModel.amount.observe(viewLifecycleOwner, Observer {
             binding.amount.text = it?.toString()
         })
         productViewModel.recommendedProducts.observe(viewLifecycleOwner, Observer {
             recommenderAdapter.submitList(it)
         })
+
         val comments = listOf<String>(
             "A user review refers to a review written by a user or consumer of a product or a service based on her experience as a user of the reviewed product. Popular sources for consumer reviews are e-commerce sites like Amazon.com, Zappos or lately in the Yoga field for schools such as Banjaara Yoga and Ayurveda, and social media sites like TripAdvisor and Yelp. E-commerce sites often have consumer reviews for products and sellers separately. Usually, consumer reviews are in the form of several lines of texts accompanied by a numerical rating. This text is meant to aid in shopping decision of a prospective buyer. A consumer review of a product usually comments on how well the product measures up to expectations based on the specifications provided by the manufacturer or seller. It talks about performance, reliability, quality defects, if any, and value for money. Consumer review, also called 'word of mouth' and 'user generated content' differs from 'marketer generated content' in its evaluation from consumer or user point of view. Often it includes comparative evaluations against competing products. Observations are factual as well as subjective in nature. Consumer review of sellers usually comment on service experienced, and dependability or trustworthiness of the seller. Usually, it comments on factors such as timeliness of delivery, packaging, and correctness of delivered items, shipping charges, return services against promises made, and so on."
         )
         productViewModel.product.observe(viewLifecycleOwner, Observer {
-            if (it!=null) {
+            if (it != null) {
                 binding.product = it
                 binding.brand.text = it.brand.name
                 binding.productName.text = it.name
@@ -95,16 +114,16 @@ class ProductFragment: Fragment() {
                 binding.vendorDetail.text = it.vendor.name
                 binding.productCategory.text = it.category.name
                 binding.productSubcategory.text = it.subcategory.name
-                binding.circleIndicator.createIndicators(it.images.size,0)
+                binding.circleIndicator.createIndicators(it.images.size, 0)
                 setProductRating(it.rating)
-
+                commentAdapter.submitList(comments)
             }
 
         })
         productViewModel.isLiked.observe(viewLifecycleOwner, Observer {
-            if(it){
+            if (it) {
                 binding.like.setImageResource(R.drawable.ic_filled_like)
-            }else{
+            } else {
                 binding.like.setImageResource(R.drawable.ic_like)
             }
         })
@@ -112,20 +131,20 @@ class ProductFragment: Fragment() {
 
     }
 
-    fun setProductRating(rating : Double){
-        if (rating >= 1){
+    fun setProductRating(rating: Double) {
+        if (rating >= 1) {
             binding.star1.setImageResource(R.drawable.ic_filled_star)
         }
-        if (rating >= 2){
+        if (rating >= 2) {
             binding.star2.setImageResource(R.drawable.ic_filled_star)
         }
-        if (rating >= 3){
+        if (rating >= 3) {
             binding.star2.setImageResource(R.drawable.ic_filled_star)
         }
-        if (rating >= 4){
+        if (rating >= 4) {
             binding.star2.setImageResource(R.drawable.ic_filled_star)
         }
-        if (rating.toInt() == 5){
+        if (rating.toInt() == 5) {
             binding.star2.setImageResource(R.drawable.ic_filled_star)
         }
     }
