@@ -6,6 +6,7 @@ from django.conf import settings
 from API.utils.jwttoken import generate_access_token, generate_mail_token
 
 def email_send_verify(to_email, current_site, user):
+    current_site = current_site.replace("http://","")
     if current_site[len(current_site)-1] == '/':
         current_site = current_site[0:len(current_site)-1]
     else:
