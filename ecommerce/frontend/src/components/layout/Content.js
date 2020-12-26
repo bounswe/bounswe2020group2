@@ -14,6 +14,7 @@ import { CategoryBar } from '../CategoryBar'
 import { CheckoutPage } from '../pages/CheckoutPage'
 import { UserReviews } from '../UserReview/UserReviews'
 import { useAppContext } from '../../context/AppContext'
+import { PastOrdersList } from '../PastOrdersList'
 
 export const Content = () => {
     const { user } = useAppContext()
@@ -26,6 +27,7 @@ export const Content = () => {
         <Layout.Content className="content">
             <CategoryBar />
             <Switch>
+                 <Route path="/orders" component={PastOrdersList} />{/* //TEMPORARY */}
                 <Route path="/search/:type" component={SearchPage} />
                 <Route path="/product/:productId" component={ProductPage} />
                 {isGuest && <Route path="/login" component={LoginPage} />}
