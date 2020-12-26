@@ -20,7 +20,7 @@ class HomeEditorsPicksAdapter :
 
     private fun ViewHolder.bind(product: ProductModel) {
         Picasso.get().load(product.images[0]).into(binding.editorPickImage)
-        binding.editorPickName.text = product.name
+        binding.editorPickBrandName.text = product.brand.name
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

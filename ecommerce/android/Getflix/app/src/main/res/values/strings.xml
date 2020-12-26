@@ -106,5 +106,6 @@
     <string name="choose_credit">Odeme icin kredi karti seciniz</string>
     <string name="choose_address">Teslimat icin adres seciniz</string>
     <string name="add_credit">Yeni kredi karti ekle</string>
+    <string name="you_might_like">You might like...</string>
 
 </resources>

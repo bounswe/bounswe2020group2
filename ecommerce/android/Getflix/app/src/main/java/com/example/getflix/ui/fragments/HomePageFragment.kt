@@ -99,6 +99,8 @@ class HomePageFragment : Fragment() {
 
         val indicator: CircleIndicator2 = binding.indicator
         indicator.attachToRecyclerView(binding.todaysDeals, pagerSnapHelper)
+        indicator.createIndicators(4,0);
+
 
         binding.homeRecommendedProducts.adapter = adapterForRecommendedProducts
         val layoutManagerForHomeRecommenderAdapter: RecyclerView.LayoutManager =
@@ -114,7 +116,7 @@ class HomePageFragment : Fragment() {
             )
         )
 
-        val decoration = SpaceGenerator(16)
+        val decoration = SpaceGenerator(18)
         binding.editorPicks.addItemDecoration(decoration)
 
         homeViewModel.todaysDeals?.observe(viewLifecycleOwner, Observer {
@@ -123,9 +125,10 @@ class HomePageFragment : Fragment() {
 
         homeViewModel.recommendedProducts?.observe(viewLifecycleOwner, Observer {
             adapterForRecommendedProducts.submitList(it)
+        })
+        homeViewModel.editorPicks?.observe(viewLifecycleOwner, Observer {
             adapterForEditorsPicks.submitList(it)
         })
-
         homeViewModel.trendingProducts?.observe(viewLifecycleOwner, Observer {
             adapterForTrendingProducts.submitList(it)
         })

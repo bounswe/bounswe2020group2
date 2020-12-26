@@ -27,6 +27,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val recommendedProducts: LiveData<List<ProductModel>>?
         get() = _recommendedProducts
 
+    private val _editorPicks = MutableLiveData<List<ProductModel>>()
+    val editorPicks: LiveData<List<ProductModel>>?
+        get() = _editorPicks
+
 
     fun setOnCategoryClick(id: Int) {
         _onCategoryClick.value = id
@@ -37,7 +41,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     init {
-        getHomeProducts(9)
+        getHomeProducts(12)
     }
 
     fun getHomeProducts(numberOfProducts: Int) {
@@ -48,6 +52,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                     _recommendedProducts.value = null
                     _trendingProducts.value = null
                     _todaysDeals.value = null
+                    _editorPicks.value = null
                 }
 
                 override fun onResponse(
@@ -55,6 +60,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                     response: Response<List<ProductModel>>
                 ) {
                     val rangeLength = numberOfProducts / 3
+                    _editorPicks.value = response.body()
                     _recommendedProducts.value = response.body()?.subList(0, rangeLength)
                     _trendingProducts.value = response.body()?.subList(rangeLength, 2 * rangeLength)
                     _todaysDeals.value = response.body()?.subList(2 * rangeLength, 3 * rangeLength)
