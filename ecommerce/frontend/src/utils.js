@@ -124,6 +124,7 @@ export function formatPurchase(purchase) {
     return {
         ...purchase,
         product: formatProduct(purchase.product),
+        status: orderStatusMap[purchase.status],
     }
 }
 

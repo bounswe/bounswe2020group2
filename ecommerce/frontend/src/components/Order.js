@@ -32,10 +32,9 @@ export const Order = ({ order }) => {
         order.total_price ?? order.purchases.map(purchase => purchase.unit_price * purchase.amount).reduce(R.add, 0)
 
     const canCancel =
-        true ||
-        (R.any(purchase => orderStatusInvMap[purchase.status] !== 'cancelled', order.purchases) &&
-            R.none(purchase => orderStatusInvMap[purchase.status] !== 'at_cargo', order.purchases) &&
-            R.none(purchase => orderStatusInvMap[purchase.status] !== 'delivered', order.purchases))
+        R.any(purchase => orderStatusInvMap[purchase.status] !== 'cancelled', order.purchases) &&
+        R.none(purchase => orderStatusInvMap[purchase.status] !== 'at_cargo', order.purchases) &&
+        R.none(purchase => orderStatusInvMap[purchase.status] !== 'delivered', order.purchases)
 
     const orderDate = moment.utc(firstPurchase.purchase_date).format('HH:mm DD/MM/YYYY')
     return (
