@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="category"
             type="com.example.getflix.models.CategoryModel" />
@@ -11,8 +12,8 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.MaterialComponents.Light"
         android:padding="3dp"
+        android:theme="@style/Theme.MaterialComponents.Light"
         app:cardElevation="3dp"
         app:strokeColor="@color/initPurple"
         app:strokeWidth="1dp"
@@ -28,8 +29,8 @@
                 android:id="@+id/arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="10dp"
-                android:gravity="center"
                 android:layout_marginEnd="16dp"
+                android:gravity="center"
                 android:src="@drawable/ic_arrow_forward"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -37,13 +38,13 @@
 
             <TextView
                 android:id="@+id/cat_name"
-                android:textSize="15sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/initPurple"
-                android:text="@{category.name}"
                 android:padding="?listPreferredItemPaddingLeft"
+                android:text="@{category.name}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/initPurple"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

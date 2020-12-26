@@ -5,14 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.getflix.databinding.FavproductLayoutBinding
+import com.example.getflix.databinding.CardProductBinding
 import com.example.getflix.models.ProductModel
 
 class SubCategoryAdapter(
-    private val productList: ArrayList<ProductModel>?,
+        private val productList: ArrayList<ProductModel>?,
 ) : ListAdapter<ProductModel, SubCategoryAdapter.RowHolder>(SubcategoryDiffCallback()) {
 
-    class RowHolder(val binding: FavproductLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+
+    class RowHolder(val binding: CardProductBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: ProductModel, position: Int) {
             binding.product = product
@@ -22,7 +23,7 @@ class SubCategoryAdapter(
         companion object {
             fun from(parent: ViewGroup): RowHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = FavproductLayoutBinding.inflate(layoutInflater,parent,false)
+                val binding = CardProductBinding.inflate(layoutInflater, parent, false)
                 return RowHolder(binding)
             }
         }
@@ -46,7 +47,7 @@ class SubCategoryAdapter(
 
 }
 
-class SubcategoryDiffCallback: DiffUtil.ItemCallback<ProductModel>() {
+class SubcategoryDiffCallback : DiffUtil.ItemCallback<ProductModel>() {
     override fun areItemsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
         return oldItem.id == newItem.id
     }

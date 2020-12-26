@@ -1,0 +1,57 @@
+@import '../../common.less';
+
+.product-image-gallery {
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-self: center;
+    gap: 16px;
+    .product-image-gallery-main-container {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        gap: 16px;
+        .product-image-gallery-main {
+            display: flex;
+            object-fit: contain;
+            height: 495px;
+            width: 100%;
+            flex: 1 1 auto;
+        }
+        .product-image-gallery-main-pagination {
+            flex: 0 0 auto;
+            margin: auto;
+        }
+    }
+
+    .product-image-gallery-side {
+        display: flex;
+        flex: 0 0 auto;
+        overflow-y: auto;
+        scrollbar-width: none;
+        flex-direction: column;
+        gap: 8px;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        .product-image-gallery-detail {
+            display: block;
+            object-fit: cover;
+            border: 2px solid transparent;
+            height: 80px;
+            width: 80px;
+            min-width: 80px;
+            min-height: 80px;
+            &__selected {
+                border: 2px solid @Champagne;
+            }
+        }
+    }
+
+    .ant-pagination-item:empty {
+        display: none;
+    }
+}

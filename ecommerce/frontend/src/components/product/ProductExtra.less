@@ -1,0 +1,27 @@
+@import '../../common.less';
+
+.product-extra {
+    padding: 16px;
+    background: #f0f2f5;
+    .product-extra-price {
+        font-size: 2.5em;
+        .product-extra-old-price {
+            font-weight: lighter;
+            text-decoration: line-through @Champagne;
+        }
+
+        .product-extra-new-price {
+            padding: 4px;
+            display: inline;
+            color: @Eggplant;
+            background-color: @Champagne;
+            font-weight: bolder;
+            box-shadow: 5px 5px 0px 0px @Eggplant;
+        }
+    }
+    .product-extra-reviews {
+        .ant-rate-star:not(:last-child) {
+            margin-right: 1px;
+        }
+    }
+}

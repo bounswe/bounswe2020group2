@@ -1,3 +1,5 @@
+from django.contrib.sites.shortcuts import get_current_site
+
 from rest_framework import exceptions
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -5,11 +7,12 @@ from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 
 from API.utils import permissions, Role
-from API.utils.jwttoken import generate_access_token
+from API.utils.jwttoken import generate_access_token, generate_mail_token
 from API.utils.validators import validate_register_request
 from API.utils.crypto import Crypto
-from API.models import User, Customer
-from API.serializers import account_serializer
+from ..utils import verify_email
+from API.models import User, Customer, Address, Vendor
+from API.serializers import account_serializer, address_serializer
 
 # Create your views here.
 
@@ -27,7 +30,6 @@ def apiOverview(request):
     return Response("Here test permission function")
 
 
-#Testing purposes, not actual implementation
 @api_view(['POST'])
 @permission_classes([permissions.AllowAnonymous])
 def register(request):
@@ -50,6 +52,7 @@ def register(request):
             'message': 'Username is already in use'
         }
         return Response(context)
+    
     user = User(username=request.data["username"], email=request.data["email"], password_salt=salt, password_hash=password_hash, role = Role.CUSTOMER.value)
     user.save()
     customer = Customer(first_name=request.data["firstname"], last_name=request.data["lastname"], user=user)
@@ -58,6 +61,70 @@ def register(request):
             'successful': True,
             'message': 'Signup succeeded'
     }
+
+    to_email = request.data["email"]
+    current_site = request.META.get('HTTP_REFERER')
+    verify_message = verify_email.email_send_verify(to_email=to_email, current_site=current_site, user=user)
+
+    context = {
+            'successful': True,
+            'message': 'Signup succeeded, ' + verify_message
+    }
+    return Response(context)
+
+
+@api_view(['POST'])
+@permission_classes([permissions.AllowAnonymous])
+def vendor_register(request):
+    validation_result = validate_register_request(request)
+    serializer = address_serializer.AddressRequestSerializer(data=request.data["address"])
+    if validation_result[0] is False:
+        context = {
+            'successful': False,
+            'message': validation_result[1]
+        }
+        return Response(context)
+    
+    if not serializer.is_valid():
+        context = {
+            'successful': False,
+            'message': "Invalid Address"
+        }
+        return Response(context)
+    
+    crypto = Crypto()
+    username = request.data["username"]
+    salt = crypto.getSalt()
+    password_hash = crypto.getHashedPassword(request.data["password"], salt)
+    existing_user = User.objects.filter(username=username).first()
+    if existing_user is not None:
+        context = {
+            'successful': False,
+            'message': 'Username is already in use'
+        }
+        return Response(context)
+    user = User(username=request.data["username"], email=request.data["email"], password_salt=salt, password_hash=password_hash, role = Role.VENDOR.value)
+    user.save()
+    title = serializer.validated_data.get("title")
+    name = serializer.validated_data.get("name")
+    surname = serializer.validated_data.get("surname")
+    address = serializer.validated_data.get("address")
+    province = serializer.validated_data.get("province")
+    city = serializer.validated_data.get("city")
+    country = serializer.validated_data.get("country")
+    phone = serializer.validated_data.get("phone")
+    phone_country_code = phone.get("country_code")
+    phone_number = phone.get("number")
+    zip_code = serializer.validated_data.get("zip_code")
+    vendor = Vendor(first_name=request.data["firstname"], last_name=request.data["lastname"], user=user)
+    address = Address(user=user, title=title, address=address, province=province, city=city, name=name, surname=surname, 
+        country=country, phone_country_code=phone_country_code, phone_number=phone_number, zip_code=zip_code)
+    vendor.save()
+    address.save()
+    context = {
+            'successful': True,
+            'message': 'Signup succeeded'
+        }
     return Response(context)
 
 @api_view(['POST'])
@@ -96,9 +163,4 @@ def login(request):
             }
         )
         return Response(user_serializer.data)
-
-
-
-
-
 

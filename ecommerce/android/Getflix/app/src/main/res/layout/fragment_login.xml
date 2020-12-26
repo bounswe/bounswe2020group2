@@ -26,11 +26,11 @@
             android:layout_marginEnd="392dp"
             android:layout_marginBottom="170dp"
             android:background="@drawable/circle"
-            android:elevation="5dp"
-            android:onClick="onClick"
             android:clickable="true"
+            android:elevation="5dp"
             android:fontFamily="sans-serif"
             android:gravity="center"
+            android:onClick="onClick"
             android:textColor="@color/initGold"
             android:textSize="13dp"
             android:textStyle="bold"
@@ -59,7 +59,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/user_name"
+            android:hint=" "
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,6 +72,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/back"
                 android:fontFamily="@font/open_sans_semibold"
+                android:hint="@string/user_name"
                 android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -86,7 +87,7 @@
             android:clickable="true"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:hint="@string/password"
+            android:hint=" "
             app:boxStrokeColor="@color/initGold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
@@ -99,16 +100,34 @@
                 android:layout_marginRight="10dp"
                 android:background="@drawable/back"
                 android:fontFamily="@font/open_sans_semibold"
+                android:hint="@string/password"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <CheckBox
+            android:id="@+id/btn_remember"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginStart="5dp"
+            android:buttonTint="@color/black"
+            android:focusable="true"
+            android:fontFamily="@font/open_sans_semibold"
+            android:focusableInTouchMode="true"
+            android:text="@string/remember_me"
+            android:textColor="@color/initGold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
         <Button
             android:id="@+id/login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="1dp"
             android:layout_marginRight="10dp"
             android:fontFamily="@font/open_sans_semibold"
             android:text="@string/login"
@@ -116,7 +135,7 @@
             app:backgroundTint="#000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_remember" />
 
 
         <TextView

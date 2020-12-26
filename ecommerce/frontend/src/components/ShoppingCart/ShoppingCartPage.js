@@ -5,13 +5,14 @@ import React, { Component, useEffect, useState } from 'react'
 
 import { useAppContext } from '../../context/AppContext'
 import { ShoppingCartItems } from './ShoppingCartItems'
+import { round } from '../../utils'
+import { Link } from 'react-router-dom'
 
 export const ShoppingCartPage = ({ currency = 'TL' }) => {
     const [isLoading, setIsLoading] = useState(true)
     const { shoppingCart, shoppingCartRefreshId, getShoppingCart, checkoutShoppingCart, user } = useAppContext()
-
-    const totalPrice = shoppingCart.reduce((total, item) => total + item.product.price * item.amount, 0)
-    const itemCount = shoppingCart.reduce((count, item) => count + item.amount, 0)
+    const totalPrice = shoppingCart.reduce((total, item) => total + item.product.price_after_discount * item.amount, 0)
+    const itemCount = shoppingCart.length
 
     useEffect(() => {
         async function fetch() {
@@ -29,19 +30,10 @@ export const ShoppingCartPage = ({ currency = 'TL' }) => {
         }
     }, [shoppingCartRefreshId, user.id])
 
-    const onCheckout = () => {
-        if (itemCount == 0) {
-            alert('Empty cart')
-        } else {
-            alert('Total price: ' + totalPrice)
-            checkoutShoppingCart(shoppingCart)
-        }
-    }
-
     return (
         <div className="shopping-master">
             <div className="shopping-left">
-                <h2>Your shopping cart</h2>
+                <h2>Your shopping cart ({itemCount})</h2>
                 <Spin spinning={isLoading}>
                     <ShoppingCartItems cart={shoppingCart} />
                 </Spin>
@@ -51,14 +43,14 @@ export const ShoppingCartPage = ({ currency = 'TL' }) => {
                     <Row gutter={16}>
                         <Col span={12}>
                             <Spin spinning={isLoading}>
-                                <Statistic title="Total Price" value={totalPrice + ' ' + currency} />
+                                <Statistic title="Total Price" value={round(totalPrice, 2) + ' ' + currency} />
                             </Spin>
                         </Col>
                     </Row>
                 </div>
                 <div className="shopping-proceed-button">
-                    <Button type="primary" onClick={onCheckout} block>
-                        Proceed to payment
+                    <Button type="primary" block disabled={shoppingCart?.length === 0}>
+                        <Link to="/checkout">Proceed to payment</Link>
                     </Button>
                 </div>
             </div>
