@@ -51,7 +51,7 @@ export const Purchase = ({ purchase }) => {
                             <HorizontalLabel label="Amount">{purchase.amount}</HorizontalLabel>
                             <HorizontalLabel label="Receiver">{receiver}</HorizontalLabel>
                             {canReview && (
-                                <Button className="purchase-header-extra" onClick={onReviewClick}>
+                                <Button className="purchase-header-extra" onClick={onReviewClick} type="primary">
                                     Review
                                 </Button>
                             )}

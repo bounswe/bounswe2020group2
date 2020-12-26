@@ -30,7 +30,9 @@ export const UserReviewPost = ({ product, onFinish }) => {
             onFinish()
         } catch (error) {
             if (error.response.status === 403)
-                notification.warning({ description: 'You have to buy the product to make a comment' })
+                return notification.warning({ description: 'You have to buy the product to make a comment' })
+
+            notification.error({ description: 'There was an error with your request.' })
         } finally {
             setIsLoading(false)
         }

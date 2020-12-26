@@ -36,7 +36,7 @@ export const Order = ({ order }) => {
         R.none(purchase => orderStatusInvMap[purchase.status] === 'at_cargo', order.purchases) &&
         R.none(purchase => orderStatusInvMap[purchase.status] === 'delivered', order.purchases)
 
-    const orderDate = moment.utc(firstPurchase.purchase_date).format('HH:mm DD/MM/YYYY')
+    const orderDate = moment.utc(firstPurchase.purchase_date).format('DD/MM/YYYY HH:mm ')
     return (
         <Collapse defaultActiveKey="order" collapsible={false}>
             <Collapse.Panel
@@ -60,7 +60,9 @@ export const Order = ({ order }) => {
                                 </Button>
                             )}
                             &nbsp;
-                            <Button onClick={onShowOrderDetails}>Show Order Details</Button>
+                            <Button onClick={onShowOrderDetails} type="dashed">
+                                Show Order Details
+                            </Button>
                         </div>
                     </div>
                 }>
