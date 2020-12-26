@@ -7,23 +7,24 @@ import { AddressModal } from './AddressModal'
 import { useAppContext } from '../../context/AppContext'
 import './AddressList.less'
 
-export const AddressList = ({onSelect = () => {}}) => {
+export const AddressList = ({ onSelect = () => {} }) => {
     const [addressList, setAddressList] = useState([])
     const { user } = useAppContext()
 
     const fetchAddressList = async () => {
         setIsLoading(true)
         try {
-            const {data: {status, addresses}} = await api.get(`/customer/${user.id}/addresses`)
-            if(status.successful) {
+            const {
+                data: { status, addresses },
+            } = await api.get(`/customer/${user.id}/addresses`)
+            if (status.successful) {
                 setAddressList(addresses)
-                const defaultAddress = addresses.length > 0 ? addresses[0].id : null
+                const defaultAddress = addresses[0]?.id
                 setSelectedAddress(defaultAddress)
                 onSelect(defaultAddress)
             } else {
-                notification.warning({message: status.message})
+                notification.warning({ message: status.message })
             }
-            
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })
             console.error(error)

@@ -125,10 +125,7 @@ export const AddressModalInner = ({ form, address }) => {
                 ]}>
                 <Input />
             </Form.Item>
-            <Form.Item 
-                name="phone" 
-                label="Phone Number"
-                required>
+            <Form.Item name="phone" label="Phone Number" required>
                 <Input.Group compact>
                     <Form.Item
                         name={['phone', 'country_code']}
@@ -169,15 +166,19 @@ export const AddressModalInner = ({ form, address }) => {
                     </Form.Item>
                 </Input.Group>
             </Form.Item>
-            <div style={{paddingBottom: 8}}>
-                <div style={{
-                    color: "red", 
-                    float:"left"}}>
+            <div style={{ paddingBottom: 8 }}>
+                <div
+                    style={{
+                        color: 'red',
+                        float: 'left',
+                    }}>
                     *
-                </div> 
-                <div style={{
-                    fontStyle: "italic",
-                    float:"left"}}>
+                </div>
+                <div
+                    style={{
+                        fontStyle: 'italic',
+                        float: 'left',
+                    }}>
                     &nbsp; marked fields are required
                 </div>
             </div>

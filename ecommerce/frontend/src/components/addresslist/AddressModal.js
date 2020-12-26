@@ -19,8 +19,10 @@ export const AddressModal = ({ address, mode = 'add', visible = false, onCancel 
         setIsLoading(true)
         try {
             const fields = await form.validateFields()
-            const { data: {status} }  = await api.put(`/customer/${user.id}/addresses/${address.id}`, fields)
-            if(status.successful) {
+            const {
+                data: { status },
+            } = await api.put(`/customer/${user.id}/addresses/${address.id}`, fields)
+            if (status.successful) {
                 onSuccess()
                 notification.success({ message: status.message })
             } else {
@@ -38,8 +40,10 @@ export const AddressModal = ({ address, mode = 'add', visible = false, onCancel 
         setIsLoading(true)
         try {
             const fields = await form.validateFields()
-            const { data: {status} }  = await api.post(`/customer/${user.id}/addresses`, fields)
-            if(status.successful) {
+            const {
+                data: { status },
+            } = await api.post(`/customer/${user.id}/addresses`, fields)
+            if (status.successful) {
                 onSuccess()
                 notification.success({ message: status.message })
             } else {

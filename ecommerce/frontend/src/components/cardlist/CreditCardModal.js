@@ -32,8 +32,10 @@ export const CreditCardModal = ({ card, mode = 'add', visible = false, onCancel 
         setIsLoading(true)
         try {
             const fields = await form.validateFields()
-            const { data: {status} }  = await api.put(`/customer/${user.id}/cards/${card.id}`, fields)
-            if(status.successful) {
+            const {
+                data: { status },
+            } = await api.put(`/customer/${user.id}/cards/${card.id}`, fields)
+            if (status.successful) {
                 onSuccess()
                 notification.success({ message: status.message })
             } else {
@@ -51,8 +53,10 @@ export const CreditCardModal = ({ card, mode = 'add', visible = false, onCancel 
         setIsLoading(true)
         try {
             const fields = await form.validateFields()
-            const { data: {status} }  = await api.post(`/customer/${user.id}/cards`, fields)
-            if(status.successful) {
+            const {
+                data: { status },
+            } = await api.post(`/customer/${user.id}/cards`, fields)
+            if (status.successful) {
                 onSuccess()
                 notification.success({ message: status.message })
             } else {

@@ -16,8 +16,10 @@ export const AddressCard = ({ address, selected = false, onSelect = () => {}, on
     const onDelete = async () => {
         setIsLoading(true)
         try {
-            const { data: {status} }  = await api.delete(`/customer/${user.id}/addresses/${address.id}`)
-            if(status.successful) {
+            const {
+                data: { status },
+            } = await api.delete(`/customer/${user.id}/addresses/${address.id}`)
+            if (status.successful) {
                 notification.success({ message: status.message })
                 onAddressInfoChange()
             } else {
@@ -76,7 +78,9 @@ export const AddressCard = ({ address, selected = false, onSelect = () => {}, on
                     <div className="address-card-region">
                         {[address.province, address.city, address.country].filter(Boolean).join(' / ')}
                     </div>
-                    <div className="address-card-phone">{[address.phone.country_code, address.phone.number].filter(Boolean).join("")}</div>
+                    <div className="address-card-phone">
+                        {[address.phone.country_code, address.phone.number].filter(Boolean).join('')}
+                    </div>
                 </div>
             </Spin>
         </div>

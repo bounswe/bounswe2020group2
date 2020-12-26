@@ -18,8 +18,10 @@ export const CreditCard = ({ card, selected = false, onSelect = () => {}, onCard
     const onDelete = async () => {
         setIsLoading(true)
         try {
-            const { data: {status} }  = await api.delete(`/customer/${user.id}/cards/${card.id}`)
-            if(status.successful) {
+            const {
+                data: { status },
+            } = await api.delete(`/customer/${user.id}/cards/${card.id}`)
+            if (status.successful) {
                 notification.success({ message: status.message })
                 onCardInfoChange()
             } else {

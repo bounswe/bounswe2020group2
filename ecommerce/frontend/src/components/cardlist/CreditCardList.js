@@ -7,23 +7,24 @@ import { useAppContext } from '../../context/AppContext'
 import './CreditCardList.less'
 import { api } from '../../api'
 
-export const CreditCardList = ({onSelect = () => {}}) => {
+export const CreditCardList = ({ onSelect = () => {} }) => {
     const [cardList, setCardList] = useState([])
     const { user } = useAppContext()
 
     const fetchCardList = async () => {
         setIsLoading(true)
         try {
-            const {data: {status, cards}} = await api.get(`/customer/${user.id}/cards`)
-            if(status.successful) {
+            const {
+                data: { status, cards },
+            } = await api.get(`/customer/${user.id}/cards`)
+            if (status.successful) {
                 setCardList(cards)
-                const defaultCard = cards.length > 0 ? cards[0].id : null
+                const defaultCard = cards[0]?.id
                 setSelectedCard(defaultCard)
                 onSelect(defaultCard)
             } else {
-                notification.warning({message: status.message})
+                notification.warning({ message: status.message })
             }
-            
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })
             console.error(error)
