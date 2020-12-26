@@ -27,6 +27,11 @@ class UpdateCreditCardFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(CreditCardViewModel::class.java)
         activity?.toolbar!!.toolbar_title.text = "Update Credit Card"
 
+        val args = UpdateCreditCardFragmentArgs.fromBundle(requireArguments())
+        val creditCard = args.creditCard
+
+        println(creditCard.toString())
+
         return binding.root
     }
 

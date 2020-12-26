@@ -157,7 +157,7 @@
             app:enterAnim="@anim/enter_left_to_right"
             app:exitAnim="@anim/exit_left_to_right"
             app:popEnterAnim="@anim/enter_right_to_left"
-            app:popExitAnim="@anim/exit_right_to_left"/>
+            app:popExitAnim="@anim/exit_right_to_left" />
     </fragment>
     <fragment
         android:id="@+id/bankAccountFragment"
@@ -177,7 +177,7 @@
             app:enterAnim="@anim/enter_left_to_right"
             app:exitAnim="@anim/exit_left_to_right"
             app:popEnterAnim="@anim/enter_right_to_left"
-            app:popExitAnim="@anim/exit_right_to_left"/>
+            app:popExitAnim="@anim/exit_right_to_left" />
     </fragment>
     <fragment
         android:id="@+id/orderInfoFragment"
@@ -231,11 +231,19 @@
     <fragment
         android:id="@+id/updateAddressFragment"
         android:name="com.example.getflix.ui.fragments.UpdateAddressFragment"
-        tools:layout="@layout/fragment_update_address"/>
+        tools:layout="@layout/fragment_update_address">
+        <argument
+            android:name="address"
+            app:argType="com.example.getflix.models.AddressModel" />
+    </fragment>
     <fragment
         android:id="@+id/updateCreditCardFragment"
         android:name="com.example.getflix.ui.fragments.UpdateCreditCardFragment"
-        tools:layout="@layout/fragment_update_credit_card" />
+        tools:layout="@layout/fragment_update_credit_card">
+    <argument
+        android:name="creditCard"
+        app:argType="com.example.getflix.models.CardModel" />
+    </fragment>
 
 </navigation>
 

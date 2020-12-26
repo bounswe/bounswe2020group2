@@ -28,6 +28,11 @@ class UpdateAddressFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(AddressViewModel::class.java)
         activity?.toolbar!!.toolbar_title.text = "Update Address"
 
+        val args = UpdateAddressFragmentArgs.fromBundle(requireArguments())
+        val address = args.address
+
+        println(address.toString())
+
         return binding.root
     }
 

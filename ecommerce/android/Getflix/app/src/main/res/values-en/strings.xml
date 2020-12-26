@@ -103,4 +103,13 @@
     <string name="choose_credit">Choose a credit card to pay</string>
     <string name="choose_address">Choose an address</string>
     <string name="add_credit">Add new credit card</string>
+    <string name="edittext_title"><font size="35">Title</font></string>
+    <string name="edittext_name"><font size="35">Name</font></string>
+    <string name="edittext_surname"><font size="35">Surname</font></string>
+    <string name="edittext_countrycode"><font size="35">Country Code</font></string>
+    <string name="edittext_phone"><font size="35">Phone</font></string>
+    <string name="edittext_address"><font size="35">Address</font></string>
+    <string name="edittext_city"><font size="35">City</font></string>
+    <string name="edittext_country"><font size="35">Country</font></string>
+    <string name="edittext_zipcode"><font size="35">Zipcode</font></string>
 </resources>

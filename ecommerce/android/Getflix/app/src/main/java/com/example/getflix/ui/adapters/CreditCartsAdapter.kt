@@ -64,7 +64,7 @@ class CreditCartsAdapter(
             holder.bind(it, position)
             holder?.itemView!!.setOnClickListener {
                 fragment.findNavController().navigate(BankAccountFragmentDirections.actionBankAccountFragmentToUpdateCreditCardFragment(
-                    )
+                    creditCartsList?.get(position)!!)
                 )
             }
         }

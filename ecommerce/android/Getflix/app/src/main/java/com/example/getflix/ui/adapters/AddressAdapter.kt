@@ -69,7 +69,7 @@ class AddressAdapter(
             holder?.itemView!!.setOnClickListener {
                 fragment.findNavController().navigate(
                     AddressFragmentDirections.actionAddressFragmentToUpdateAddressFragment(
-                    )
+                    addressList?.get(position)!!)
                 )
             }
         }
