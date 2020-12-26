@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.activities.MainActivity
+import com.example.getflix.addToShoppingCart
 import com.example.getflix.databinding.CardHomeRecommendedProductBinding
 import com.example.getflix.models.ProductModel
 import com.squareup.picasso.Picasso
@@ -43,7 +44,7 @@ class HomeRecommenderAdapter :
         }
         if (MainActivity.StaticData.isCustomer) {
             binding.addShopping.setOnClickListener {
-               // addToShoppingCart(amount, 1, product.id)
+                addToShoppingCart(amount, 1, product.id)
             }
         }
         binding.decreaseRecProduct.setOnClickListener {
@@ -68,7 +69,8 @@ class HomeRecommenderAdapter :
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = CardHomeRecommendedProductBinding.inflate(layoutInflater, parent, false)
+                val binding =
+                    CardHomeRecommendedProductBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }
