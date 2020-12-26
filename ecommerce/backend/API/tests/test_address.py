@@ -8,6 +8,7 @@ user = None
 class AddressTest(TestCase):
     def setUp(self):
         self.client = APIClient()
+        # register a mock user
         body = {
             'username': 'testuser',
             'email': 'test@mail.com',
@@ -31,6 +32,7 @@ class AddressTest(TestCase):
                 address= "Mahalle Sokak Sk. No 23/8", province= "Sarıyer", city= "Istanbul", 
                 phone_country_code= "+90", phone_number= "5351234567", country= "Turkey", zip_code= "34344")
     
+    # test adding a single address to the database
     def test_add_address(self):
         address = {
             "title": "Address6",
@@ -43,7 +45,9 @@ class AddressTest(TestCase):
             "country": "Turkey",
             "zip_code": "34344"
         }
+        # get the response for a POST request to the /addresses endpoint
         response = self.client.post(reverse(manage_addresses, args = [user.id]), address, 'json')
+        # if the response returns a 200 and a status is successful, then test is passed
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["status"]["successful"], True)
     
