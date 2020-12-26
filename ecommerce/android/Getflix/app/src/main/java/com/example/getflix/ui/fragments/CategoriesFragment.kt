@@ -107,7 +107,7 @@ class CategoriesFragment : Fragment() {
 
        var cats1 = arrayListOf<CategoryModel>()
 
-
+/*
        viewModel.categoriess.observe(viewLifecycleOwner, {
            it?.let {
                for(category in it.categories!!) {
@@ -120,7 +120,7 @@ class CategoriesFragment : Fragment() {
                binding.catRec.adapter = adapter
                activity?.loading_progress!!.visibility = View.GONE
            }
-       })
+       })*/
 
 
         /*viewModel.products?.observe(viewLifecycleOwner, {products ->
