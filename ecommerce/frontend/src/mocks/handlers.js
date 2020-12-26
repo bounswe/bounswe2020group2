@@ -65,23 +65,23 @@ export const handlers = [
     //         }),
     //     )
     // }),
-    // rest.get(url('/init'), (req, res, ctx) => {
-    //     return res(
-    //         ctx.json({
-    //             id: 9,
-    //             email: 'mehdi.saffar@boun.edu.tr',
-    //             token:
-    //                 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6OSwiZXhwIjoxNjE3MzA3MzE1LCJpYXQiOjE2MDg2NjczMTV9.urCgrUAPSk40dh9-LygnBiLpH73MqXxjbO33d3KHmO8',
-    //             firstname: 'Mehdi',
-    //             lastname: 'Saffar',
-    //             is_verified: false,
-    //             role: 'CUSTOMER',
-    //         }),
-    //     )
-    // }),
-    // rest.get(url('/categories'), (req, res, ctx) => {
-    //     return res(ctx.json({ categories }))
-    // }),
+    rest.get(url('/init'), (req, res, ctx) => {
+        return res(
+            ctx.json({
+                id: 9,
+                email: 'mehdi.saffar@boun.edu.tr',
+                token:
+                    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6OSwiZXhwIjoxNjE3MzA3MzE1LCJpYXQiOjE2MDg2NjczMTV9.urCgrUAPSk40dh9-LygnBiLpH73MqXxjbO33d3KHmO8',
+                firstname: 'Mehdi',
+                lastname: 'Saffar',
+                is_verified: false,
+                role: 'CUSTOMER',
+            }),
+        )
+    }),
+    rest.get(url('/categories'), (req, res, ctx) => {
+        return res(ctx.json({ categories }))
+    }),
     // rest.get(url('/customer/:userId/addresses'), (req, res, ctx) => {
     //     return res(ctx.json({ status, addresses }))
     // }),
@@ -105,6 +105,16 @@ export const handlers = [
                                 purchase_date: moment.utc().toISOString(),
                                 vendor: { id: 2, name: 'Can Batuk İletişim', rating: 3 },
                                 address: addresses[0],
+                            },
+                            {
+                                id: 2,
+                                amount: 4,
+                                product: products[2],
+                                status: orderStatusMap['at_cargo'],
+                                unit_price: 40,
+                                purchase_date: moment.utc().toISOString(),
+                                vendor: { id: 2, name: 'Can Batuk İletişim', rating: 3 },
+                                address: addresses[1],
                             },
                         ],
                     },
