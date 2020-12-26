@@ -5,66 +5,49 @@ import { CreditCard } from './CreditCard'
 import { CreditCardModal } from './CreditCardModal'
 import { useAppContext } from '../../context/AppContext'
 import './CreditCardList.less'
+import { api } from '../../api'
 
-export const CreditCardList = () => {
+export const CreditCardList = ({ onSelect = () => {} }) => {
     const [cardList, setCardList] = useState([])
     const { user } = useAppContext()
 
-    const getCardList = async userId => {
-        let cards = []
+    const fetchCardList = async () => {
+        setIsLoading(true)
         try {
-            setIsLoading(true)
-            await sleep(2000)
-            cards = [
-                {
-                    id: 44313,
-                    name: 'My Mastercard',
-                    owner_name: 'Özdeniz Dolu',
-                    serial_number: '5555555555554444',
-                    expiration_date: {
-                        month: 12,
-                        year: 2030,
-                    },
-                    cvc: 123,
-                },
-                {
-                    id: 12332,
-                    name: 'My Visacard',
-                    owner_name: 'Özdeniz Dolu',
-                    serial_number: '4111111111111111',
-                    expiration_date: {
-                        month: 12,
-                        year: 2030,
-                    },
-                    cvc: 123,
-                },
-            ]
+            const {
+                data: { status, cards },
+            } = await api.get(`/customer/${user.id}/cards`)
+            if (status.successful) {
+                setCardList(cards)
+                const defaultCard = cards[0]?.id
+                setSelectedCard(defaultCard)
+                onSelect(defaultCard)
+            } else {
+                notification.warning({ message: status.message })
+            }
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })
             console.error(error)
         } finally {
             setIsLoading(false)
-            return Promise.resolve(cards)
         }
     }
 
     useEffect(() => {
-        async function fetch() {
-            const cards = await getCardList(user?.id)
-            setCardList(cards)
-            setSelectedCard(cards.length > 0 ? cards[0].id : null)
-        }
-        fetch()
+        fetchCardList()
     }, [user])
 
     const [selectedCard, setSelectedCard] = useState()
     const [addVisible, setAddVisible] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
-    const onCardSelect = cardId => setSelectedCard(cardId)
+    const onCardSelect = cardId => {
+        setSelectedCard(cardId)
+        onSelect(cardId)
+    }
 
     const onCardInfoChange = () => {
-        getCardList(user?.id).then(cards => setCardList(cards))
+        fetchCardList()
     }
 
     return (
