@@ -63,7 +63,7 @@ def register(request):
     }
 
     to_email = request.data["email"]
-    current_site = request.META.HTTP_REFERER
+    current_site = request.META.get('HTTP_REFERER')
     verify_message = verify_email.email_send_verify(to_email=to_email, current_site=current_site, user=user)
 
     context = {
