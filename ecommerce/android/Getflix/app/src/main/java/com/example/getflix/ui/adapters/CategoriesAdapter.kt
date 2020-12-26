@@ -41,8 +41,8 @@ class CategoriesAdapter(groups: List<ExpandableGroup<*>>?, fragment: CategoriesF
         val subCat: SubcategoryModel = group?.items?.get(childIndex) as SubcategoryModel
         holder?.bind(subCat)
         holder?.itemView!!.setOnClickListener {
-            val subName = subCat.name
-            fragment.findNavController().navigate(actionCategoriesFragmentToSubcategoryFragment(subName!!))
+            val subId = subCat.id
+            fragment.findNavController().navigate(actionCategoriesFragmentToSubcategoryFragment(subId))
         }
 
 

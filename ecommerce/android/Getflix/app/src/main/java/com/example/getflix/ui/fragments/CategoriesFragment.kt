@@ -66,8 +66,7 @@ class CategoriesFragment : Fragment() {
         binding.lifecycleOwner = this
 
 
-         viewModel.getCustomerOrders()
-        viewModel.searchBySubcategory(2)
+        // viewModel.getCustomerOrders()
         //viewModel.getProducts(3)
         //viewModel.getProduct(3)
         //viewModel.addToCart(1,4)

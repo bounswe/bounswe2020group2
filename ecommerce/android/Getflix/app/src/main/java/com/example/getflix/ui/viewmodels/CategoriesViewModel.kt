@@ -227,25 +227,7 @@ class CategoriesViewModel : ViewModel() {
             )
     }
 
-    fun searchBySubcategory(subId: Int) {
-        GetflixApi.getflixApiService.searchProductsBySubcategory(ProSearchBySubcategoryRequest(subId))
-            .enqueue(object :
-                Callback<ProSearchBySubcategoryResponse> {
-                override fun onFailure(call: Call<ProSearchBySubcategoryResponse>, t: Throwable) {
 
-                }
-
-                override fun onResponse(
-                    call: Call<ProSearchBySubcategoryResponse>,
-                    response: Response<ProSearchBySubcategoryResponse>
-                ) {
-                    println(response.body().toString())
-                    println(response.code())
-
-                }
-            }
-            )
-    }
 
 
 
