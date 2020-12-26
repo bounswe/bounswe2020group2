@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">getflix</string>
+    <string name="app_name2">Getflix</string>
     <string name="hello_blank_fragment">Boş</string>
     <string name="login">Oturum Aç</string>
     <string name="home">Anasayfa</string>
@@ -8,7 +9,7 @@
     <string name="cart">Sepet</string>
     <string name="user_name">Kullanıcı Adı</string>
     <string name="password">Şifre</string>
-    <string name="or_login">Ya da Google hesabınzla giriş yapın</string>
+    <string name="or_login">Ya da Google hesabınızla giriş yapın</string>
     <string name="not_member">Hala uye degil misiniz?</string>
     <string name="register">Kayit Ol</string>
     <string name="visitor">Ziyaretci olarak devam et</string>
@@ -46,6 +47,96 @@
     <string name="sign_up">Hesabın yok mu? Kaydol</string>
     <string name="guest">Misafir</string>
     <string name="guest_cont">Misafir olarak devam et</string>
+    <string name="acceptCart">Sepeti Onayla</string>
+    <string name="buy">Odeme Yap</string>
+    <string name="payment">Odeme</string>
+    <string name="userInfo">Kullanıcı Bilgilerim</string>
+    <string name="bankAccounts">Kayıtlı Kartlarım</string>
+    <string name="orders">Siparişlerim</string>
+    <string name="addressInfo">Adres Bilgilerim</string>
+    <string-array name="SortBy">
+        <item>---</item>
+        <item>Çok Satanlar</item>
+        <item>Yeni Gelenler</item>
+        <item>Fiyat</item>
+        <item>Puan</item>
+        <item>Yorum Sayısı</item>
+    </string-array>
+    <string name="sort">Sort By:</string>
+    <string name="vendors">Satıcılar:</string>
+    <string name="brands">Markalar:</string>
+    <string name="pro_rating">Ürün Değerlendirme Puanı:</string>
+    <string name="price_range">Fiyat Aralığı:</string>
+    <string name="filter">Filtrele</string>
+    <string name="filter_options">Filtre Seçenekleri</string>
+    <string name="login_info">Kullanıcı adı ya da şifre yanlış.</string>
+    <string name="logout_warning">Oturumu kapatmak istediğine emin misin?</string>
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
+    <string name="warning">Uyarı</string>
+    <string name="order_guest_alert">Sipariş bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
+    <string name="user_guest_alert">Kullanıcı bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
+    <string name="bank_guest_alert">Banka hesabı bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
+    <string name="address_guest_alert">Adres bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
 
+    <string name="product_name">Jacket</string>
+    <string name="price">698</string>
+    <string name="old_price">854</string>
+    <string name="short_description">Nice jacket</string>
+    <string name="add_shopping_cart">ADD TO CART</string>
+    <string name="buy_now">BUY NOW</string>
+    <string name="amount">1</string>
+    <string name="brand">Brand</string>
+    <string name="brand_example">Zara</string>
+    <string name="product_details">Product Details</string>
+    <string name="vendor_title">Vendor</string>
+    <string name="vendor_rating">4.5</string>
+    <string name="vendor_example">Canan Tezgec</string>
+    <string name="long_description_title">Description</string>
+    <string name="jacket_description">A jacket is a garment for the upper body, usually extending below the hips.[1] A jacket typically has sleeves, and fastens in the front or slightly on the side. A jacket is generally lighter, tighter-fitting, and less insulating than a coat, which is outerwear. Some jackets are fashionable, while others serve as protective clothing. Jackets without sleeves are vests.</string>
+
+
+    <string name="hidden_password">123456</string>
+    <string name="log_out">LOG OUT</string>
+    <string name="messages">Mesajlar</string>
+    <string name="pass_char_limit">Şifreniz en az 8 karakter olmalıdır.</string>
+    <string name="username_char_limit">Kullanıcı adınız en az 6 karakter olmalıdır.</string>
+    <string name="valid_name">Lütfen geçerli bir ad soyad bilgisi giriniz.</string>
+    <string name="register_success">Kaydınız tamamlandı! Oturum açma sayfasına yönlendiriliyorsunuz.</string>
+    <string name="remember_me">Beni Hatırla</string>
+    <string name="register_back">Anasayfaya Dön</string>
+    <string name="loading">Lütfen Bekleyiniz…</string>
+    <string name="confirm_pass_warning">Şifre onaylamanız hatalıdır.</string>
+    <string name="orders_vendor">Siparişler</string>
+    <string name="vendor_no_message">Henüz bir mesajınız yok.</string>
+    <string name="address_form">Adres Giriniz</string>
+    <string name="adress_title">Baslik</string>
+    <string name="address_">Adres (Sokak ismi, daire No)</string>
+    <string name="province">Bolge</string>
+    <string name="country">Ulke</string>
+    <string name="add">Ekle</string>
+    <string name="address_add">Adres Ekle</string>
+    <string name="order_complete">Siparisi Tamamla</string>
+    <string name="choose_credit">Odeme icin kredi karti seciniz</string>
+    <string name="choose_address">Teslimat icin adres seciniz</string>
+    <string name="add_credit">Yeni kredi karti ekle</string>
+    <string name="edittext_title"><font size="35">Başlık</font></string>
+    <string name="edittext_name"><font size="35">Ad</font></string>
+    <string name="edittext_surname"><font size="35">Soyad</font></string>
+    <string name="edittext_countrycode"><font size="35">Ülke Kodu</font></string>
+    <string name="edittext_phone"><font size="35">Telefon</font></string>
+    <string name="edittext_address"><font size="35">Adres</font></string>
+    <string name="edittext_city"><font size="35">Şehir</font></string>
+    <string name="edittext_country"><font size="35">Ülke</font></string>
+    <string name="edittext_zipcode"><font size="35">Posta Kodu</font></string>
+    <string name="edittext_cvv"><font size="35">CVV</font></string>
+    <string name="edittext_ownername"><font size="35">Sahibinin İsmi</font></string>
+    <string name="edittext_province"><font size="35">Bölge</font></string>
+    <string name="edittext_serialnumber"><font size="35">Seri Numarası</font></string>
+    <string name="edittext_expirationyear"><font size="35">Son Kullanım Yılı</font></string>
+    <string name="edittext_expirationmonth"><font size="35">Son Kullanım Ayı</font></string>
+    <string name="category_title">Category</string>
+    <string name="subcategory_title">Subcategory</string>
+    <string name="comments_title">Comments</string>
 
 </resources>

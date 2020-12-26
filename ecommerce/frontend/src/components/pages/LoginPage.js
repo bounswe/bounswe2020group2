@@ -1,11 +1,11 @@
 import './LoginPage.less'
-import { LoginForm } from '../LoginForm'
-import { api } from '../../api'
-import { useHistory } from 'react-router-dom'
-import { sleep } from '../../utils'
+
 import { notification, Spin } from 'antd'
 import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+
 import { useAppContext } from '../../context/AppContext'
+import { LoginForm } from '../LoginForm'
 
 export const LoginPage = () => {
     const [isLoading, setIsLoading] = useState(false)
@@ -17,18 +17,16 @@ export const LoginPage = () => {
     const onSubmit = async (values, userType) => {
         if (userType === 'customer') {
             try {
+                setIsLoading(true)
                 const isLoginSuccess = await regularLogin('customer', values.username, values.password)
-                if (isLoginSuccess) {
-                    setIsLoading(true)
-                    await sleep(2000)
-                    setIsLoading(false)
-                    history.push({
-                        pathname: '/',
-                    })
-                }
+                if (isLoginSuccess) history.push({ pathname: '/' })
             } catch (error) {
                 notification.warning({ message: 'There was an error with your request.' })
+            } finally {
+                setIsLoading(false)
             }
+        } else {
+            console.log('userType', userType, 'not handled')
         }
         return
     }

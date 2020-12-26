@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="product"
             type="com.example.getflix.models.ProductModel" />
@@ -12,8 +13,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:padding="1dp"
-        android:elevation="3dp">
+        android:elevation="3dp"
+        android:padding="1dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -55,7 +56,7 @@
                 android:layout_marginTop="17dp"
                 android:layout_marginBottom="35dp"
                 android:gravity="left"
-                android:text="@{product.description}"
+                android:text="@{product.short_description}"
                 android:textColor="@color/initGold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/product_name"
@@ -66,8 +67,8 @@
                 android:id="@+id/product_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{product.price}"
                 android:gravity="left"
+                android:text="@{product.short_description}"
                 android:textColor="@color/initGold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/product_info"

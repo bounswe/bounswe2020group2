@@ -7,106 +7,122 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentRegisterBinding
-import com.example.getflix.ui.fragments.RegisterFragmentDirections.Companion.actionRegisterFragmentToHomePageFragment
+import com.example.getflix.doneAlert
+import com.example.getflix.infoAlert
+import com.example.getflix.ui.viewmodels.RegisterViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class RegisterFragment : Fragment() {
-
+    private lateinit var registerViewModel: RegisterViewModel
+    private lateinit var binding: FragmentRegisterBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentRegisterBinding>(inflater, R.layout.fragment_register,
-            container, false)
-
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_register,
+                container, false)
+        registerViewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
+        binding.lifecycleOwner = this
         var customer = true
 
         binding.radioGroup.setOnCheckedChangeListener(
-            RadioGroup.OnCheckedChangeListener { group, checkedId ->
-                when(checkedId) {
-                    R.id.vendor -> {
-                        binding.addressZip.visibility = View.VISIBLE
-                        binding.cityState.visibility = View.VISIBLE
-                        customer = false
+                RadioGroup.OnCheckedChangeListener { group, checkedId ->
+                    when (checkedId) {
+                        R.id.vendor -> {
+                            binding.addressZip.visibility = View.VISIBLE
+                            binding.cityState.visibility = View.VISIBLE
+                            customer = false
+                        }
+                        R.id.customer -> {
+                            binding.addressZip.visibility = View.GONE
+                            binding.cityState.visibility = View.GONE
+                            customer = true
+
+                        }
                     }
-                    R.id.customer -> {
-                        binding.addressZip.visibility = View.GONE
-                        binding.cityState.visibility = View.GONE
-                        customer = true
-
-                    }
-                }
-            })
+                })
 
 
+        var checkFields = false
         binding.btnRegister.setOnClickListener {
-            var canSubmit = true
-            if (binding.name.text.toString().isEmpty()) {
-                binding.name.error = getString(R.string.reg_error)
-                canSubmit = false
-            }
-            if (binding.surname.text.toString().isEmpty()) {
-                binding.surname.error = getString(R.string.reg_error)
-                canSubmit = false
-            }
-            if (binding.username.text.toString().isEmpty()) {
-                binding.username.error = getString(R.string.reg_error)
-                canSubmit = false
-            }
-            if (binding.mail.text.toString().isEmpty()) {
-                binding.mail.error = getString(R.string.reg_error)
-                canSubmit = false
-            }
-            if (binding.password.text.toString().isEmpty()) {
-                binding.password.error = getString(R.string.reg_error)
-                canSubmit = false
-            }
+            activity?.loading_progress!!.visibility = View.VISIBLE
+            checkFields = registerViewModel.setSignUpCredentials(this,
+                            binding.username.text.toString(),
+                            binding.mail.text.toString(),
+                            binding.password.text.toString(),
+                            binding.name.text.toString(),
+                            binding.surname.text.toString(),
+                            binding.phone.text.toString(),
+                            binding.conPassword.text.toString()
+                    )
+
             if (binding.conPassword.text.toString().isEmpty()) {
                 binding.conPassword.error = getString(R.string.reg_error)
-                canSubmit = false
             }
-            if (binding.phone.text.toString().isEmpty()) {
-                binding.phone.error = getString(R.string.reg_error)
-                canSubmit = false
+
+            var prevAlert = false
+            if (binding.password.text.toString()!=binding.conPassword.text.toString()) {
+                prevAlert = true
+                infoAlert(this,getString(R.string.confirm_pass_warning))
             }
-            if(!binding.check.isChecked) {
+
+            if (binding.password.text.toString().length<8) {
+                if(!prevAlert) {
+                    infoAlert(this, getString(R.string.pass_char_limit))
+                    prevAlert = true
+                }
+            }
+
+            if (binding.username.text.toString().length<6) {
+                if(!prevAlert) {
+                    infoAlert(this, getString(R.string.username_char_limit))
+                    prevAlert = true
+                }
+            }
+
+            if (binding.name.text.toString().length<=2 || binding.surname.text.toString().length<=2) {
+                if(!prevAlert)
+                    infoAlert(this,getString(R.string.valid_name))
+            }
+
+            if (!binding.check.isChecked) {
+                checkFields = false
                 binding.check.error = getString(R.string.reg_agree_err)
-                canSubmit = false
+                activity?.loading_progress!!.visibility = View.GONE
             }
-            if(!customer) {
-                if(!binding.maddress.text.toString().isEmpty()) {
+            if (!customer) {
+                if (!binding.maddress.text.toString().isEmpty()) {
                     binding.maddress.error = getString(R.string.reg_error)
-                    canSubmit = false
+                    activity?.loading_progress!!.visibility = View.GONE
                 }
-                if(!binding.zipCode.text.toString().isEmpty()) {
+                if (!binding.zipCode.text.toString().isEmpty()) {
                     binding.maddress.error = getString(R.string.reg_error)
-                    canSubmit = false
+                    activity?.loading_progress!!.visibility = View.GONE
                 }
-                if(!binding.city.text.toString().isEmpty()) {
+                if (!binding.city.text.toString().isEmpty()) {
                     binding.city.error = getString(R.string.reg_error)
-                    canSubmit = false
+                    activity?.loading_progress!!.visibility = View.GONE
                 }
-                if(!binding.state.text.toString().isEmpty()) {
+                if (!binding.state.text.toString().isEmpty()) {
                     binding.state.error = getString(R.string.reg_error)
-                    canSubmit = false
+                    activity?.loading_progress!!.visibility = View.GONE
                 }
             }
 
-            if (canSubmit) {
-                var name = binding.name.text.toString()
-                var surname = binding.surname.text.toString()
-                var username = binding.username.text.toString()
-                var mail = binding.mail.text.toString()
-                var password = binding.password.text.toString()
-                var phone = binding.phone.text.toString()
-
-                view?.findNavController()?.navigate(actionRegisterFragmentToHomePageFragment())
-            }
         }
+        registerViewModel.canSignUp.observe(viewLifecycleOwner, Observer {
+            if (it != null && it.successful && checkFields) {
+                activity?.loading_progress!!.visibility = View.GONE
+                doneAlert(this,getString(R.string.register_success),::navigateLogin)
+            }
+        })
 
         binding.btnBack.setOnClickListener {
             view?.findNavController()?.popBackStack()
@@ -116,6 +132,10 @@ class RegisterFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    private fun navigateLogin() {
+        view?.findNavController()?.popBackStack()
     }
 
 

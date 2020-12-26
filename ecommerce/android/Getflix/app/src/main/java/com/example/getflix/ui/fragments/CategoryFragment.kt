@@ -14,16 +14,15 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
-import com.example.getflix.ui.adapters.SubcategoryAdapter
+import com.example.getflix.ui.adapters.SubcategoryHorizontalAdapter
 import com.example.getflix.databinding.FragmentCategoryBinding
-import com.example.getflix.ui.fragments.CategoryFragmentArgs
 import com.example.getflix.ui.viewmodels.CategoryViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class CategoryFragment : Fragment() {
     private lateinit var categoryViewModel: CategoryViewModel
-    private lateinit var adapter: SubcategoryAdapter
+    private lateinit var adapter: SubcategoryHorizontalAdapter
 
 
     override fun onCreateView(
@@ -35,19 +34,12 @@ class CategoryFragment : Fragment() {
                 container, false
         )
 
-        activity?.toolbar!!.visibility = View.GONE
-        val navController =
-                Navigation.findNavController(requireActivity(), R.id.my_nav_host_fragment)
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
-        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
-        binding.toolbar.title = ""
-        binding.toolbarTitle.text = "Category"
 
         categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
-        val adapter = SubcategoryAdapter(requireContext())
+        val adapter = SubcategoryHorizontalAdapter(requireContext())
         categoryViewModel.displayedCategory.observe(viewLifecycleOwner, Observer {
             it.let {
-                adapter.submitList(it.subCats)
+                adapter.submitList(it.subcategories)
             }
         })
         binding.lifecycleOwner = this
@@ -55,13 +47,10 @@ class CategoryFragment : Fragment() {
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         binding.categoryList.layoutManager = layoutManager
         val args = CategoryFragmentArgs.fromBundle(requireArguments())
-        var categoryId : Int = args.categoryId
+        var categoryId: Int = args.categoryId
         categoryViewModel.setCategory(categoryId)
         return binding.root
     }
 
-    override fun onPause() {
-        super.onPause()
-        activity?.toolbar!!.visibility = View.VISIBLE
-    }
+
 }
