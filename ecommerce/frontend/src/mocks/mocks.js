@@ -762,3 +762,85 @@ export const categories = [
         ],
     },
 ]
+
+export const addresses = [
+    {
+        id: 44313,
+        title: 'Home Address',
+        phone: {
+            country_code: '+90',
+            number: '5555555555',
+        },
+        name: 'Özdeniz',
+        surname: 'Dolu',
+        zip_code: '34000',
+        address: 'React Mah. JS Sk. No: 42/1',
+        province: 'Besiktas',
+        city: 'Istanbul',
+        country: 'Turkey',
+    },
+    {
+        id: 12322,
+        title: 'Work Address',
+        phone: {
+            country_code: '+90',
+            number: '544444444',
+        },
+        name: 'Özdeniz',
+        surname: 'Dolu',
+        zip_code: '35000',
+        address: 'Python Mah. Numpy Sk. No: 23/1',
+        province: 'Besiktas',
+        city: 'Istanbul',
+        country: 'Turkey',
+    },
+]
+
+export const cards = [
+    {
+        id: 44313,
+        name: 'My Mastercard',
+        owner_name: 'Özdeniz Dolu',
+        serial_number: '5555555555554444',
+        expiration_date: {
+            month: 12,
+            year: 2030,
+        },
+        cvc: 123,
+    },
+    {
+        id: 12332,
+        name: 'My Visacard',
+        owner_name: 'Özdeniz Dolu',
+        serial_number: '4111111111111111',
+        expiration_date: {
+            month: 12,
+            year: 2030,
+        },
+        cvc: 123,
+    },
+]
+
+export const accounts = {
+    ozdenz: {
+        id: 12,
+        email: 'ozdeniz.dolu@boun.edu.tr',
+        token:
+            'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTIsImV4cCI6MTYxNzYzMTY0OSwiaWF0IjoxNjA4OTkxNjQ5fQ.edZBL1c0clrEOvw9f-Q_yqy3sAfXVoX9VTT33dSDP9c',
+        firstname: 'Özdeniz',
+        lastname: 'Dolu',
+        is_verified: true,
+        role: 'CUSTOMER',
+    },
+
+    MehdiSaffar: {
+        id: 9,
+        email: 'mehdi.saffar@boun.edu.tr',
+        token:
+            'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6OSwiZXhwIjoxNjE3MzA3MzE1LCJpYXQiOjE2MDg2NjczMTV9.urCgrUAPSk40dh9-LygnBiLpH73MqXxjbO33d3KHmO8',
+        firstname: 'Mehdi',
+        lastname: 'Saffar',
+        is_verified: false,
+        role: 'CUSTOMER',
+    },
+}

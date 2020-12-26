@@ -5,6 +5,7 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 
 import { useAppContext } from '../../context/AppContext'
 import { CategoryBar } from '../CategoryBar'
+import { OrdersList } from '../OrdersList'
 import { CheckoutPage } from '../pages/CheckoutPage'
 import { HomePage } from '../pages/HomePage'
 import { LoginPage } from '../pages/LoginPage'
@@ -25,6 +26,8 @@ export const Content = () => {
         <Layout.Content className="content">
             <CategoryBar />
             <Switch>
+                <Route path="/orders" component={OrdersList} />
+                {/* //TEMPORARY */}
                 <Route path="/search/:type" component={SearchPage} />
                 <Route path="/product/:productId" component={ProductPage} />
                 {isGuest && <Route path="/login" component={LoginPage} />}

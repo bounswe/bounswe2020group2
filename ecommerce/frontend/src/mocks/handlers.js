@@ -1,6 +1,8 @@
 import { config } from '../config'
 import { rest } from 'msw'
-import { trendingProducts, product, products, reviews, categories } from './mocks'
+import { trendingProducts, product, products, reviews, categories, addresses, cards, accounts } from './mocks'
+import { orderStatusMap } from '../utils'
+import * as moment from 'moment'
 
 // preprend config.apiUrl
 const url = u => config.apiUrl + u
@@ -63,22 +65,51 @@ export const handlers = [
     //         }),
     //     )
     // }),
-    // rest.get(url('/init'), (req, res, ctx) => {
+    rest.get(url('/init'), (req, res, ctx) => {
+        return res(ctx.json(accounts.ozdenz))
+    }),
+    rest.get(url('/categories'), (req, res, ctx) => {
+        return res(ctx.json({ categories }))
+    }),
+    // rest.get(url('/customer/:userId/addresses'), (req, res, ctx) => {
+    //     return res(ctx.json({ status, addresses }))
+    // }),
+    // rest.get(url('/customer/:userId/cards'), (req, res, ctx) => {
+    //     return res(ctx.json({ status, cards }))
+    // }),
+    // rest.get(url('/customer/orders'), (req, res, ctx) => {
     //     return res(
     //         ctx.json({
-    //             id: 9,
-    //             email: 'mehdi.saffar@boun.edu.tr',
-    //             token:
-    //                 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6OSwiZXhwIjoxNjE3MzA3MzE1LCJpYXQiOjE2MDg2NjczMTV9.urCgrUAPSk40dh9-LygnBiLpH73MqXxjbO33d3KHmO8',
-    //             firstname: 'Mehdi',
-    //             lastname: 'Saffar',
-    //             is_verified: false,
-    //             role: 'CUSTOMER',
+    //             status: { successful: true, message: '' },
+    //             orders: [
+    //                 {
+    //                     order_id: 0,
+    //                     order_all_purchase: [
+    //                         {
+    //                             id: 1,
+    //                             amount: 2,
+    //                             product: products[0],
+    //                             status: 'accepted',
+    //                             unit_price: 10,
+    //                             purchase_date: moment.utc().toISOString(),
+    //                             vendor: { id: 2, name: 'Can Batuk İletişim', rating: 3 },
+    //                             address: addresses[0],
+    //                         },
+    //                         {
+    //                             id: 2,
+    //                             amount: 4,
+    //                             product: products[2],
+    //                             status: 'at_cargo',
+    //                             unit_price: 40,
+    //                             purchase_date: moment.utc().toISOString(),
+    //                             vendor: { id: 2, name: 'Can Batuk İletişim', rating: 3 },
+    //                             address: addresses[1],
+    //                         },
+    //                     ],
+    //                 },
+    //             ],
     //         }),
     //     )
-    // }),
-    // rest.get(url('/categories'), (req, res, ctx) => {
-    //     return res(ctx.json({ categories }))
     // }),
 ]
 
