@@ -104,3 +104,17 @@ export function truncate(input, limit = 50) {
     }
     return input
 }
+
+export const orderStatusMap = {
+    cancelled: -1,
+    accepted: 0,
+    at_cargo: 1,
+    delivered: 2,
+}
+
+export const orderStatusInvMap = {
+    '-1': 'cancelled',
+    0: 'accepted',
+    1: 'at_cargo',
+    2: 'delivered',
+}

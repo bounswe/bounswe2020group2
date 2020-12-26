@@ -27,7 +27,8 @@ export const Content = () => {
         <Layout.Content className="content">
             <CategoryBar />
             <Switch>
-                 <Route path="/orders" component={PastOrdersList} />{/* //TEMPORARY */}
+                <Route path="/orders" component={PastOrdersList} />
+                {/* //TEMPORARY */}
                 <Route path="/search/:type" component={SearchPage} />
                 <Route path="/product/:productId" component={ProductPage} />
                 {isGuest && <Route path="/login" component={LoginPage} />}

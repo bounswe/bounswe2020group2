@@ -1,6 +1,7 @@
 import { config } from '../config'
 import { rest } from 'msw'
 import { trendingProducts, product, products, reviews, categories, addresses, cards } from './mocks'
+import { orderStatusMap } from '../utils'
 
 // preprend config.apiUrl
 const url = u => config.apiUrl + u
@@ -86,6 +87,30 @@ export const handlers = [
     // rest.get(url('/customer/:userId/cards'), (req, res, ctx) => {
     //     return res(ctx.json({ status, cards }))
     // }),
+    rest.get(url('/customer/orders'), (req, res, ctx) => {
+        return res(
+            ctx.json({
+                status: { successful: true, message: '' },
+                orders: [
+                    {
+                        order_id: 0,
+                        order_all_purchase: [
+                            {
+                                id: 1,
+                                amount: 2,
+                                product: trendingProducts[0],
+                                status: orderStatusMap['accepted'],
+                                unit_price: 10,
+                                purchase_date: moment.utc().toISOString(),
+                                vendor: { id: 2, name: 'Can Batuk İletişim', rating: 3 },
+                                address: addresses[0],
+                            },
+                        ],
+                    },
+                ],
+            }),
+        )
+    }),
 ]
 
 if (process.env.NODE_ENV === 'development') {
