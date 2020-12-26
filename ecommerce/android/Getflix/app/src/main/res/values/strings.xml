@@ -122,6 +122,7 @@
     <string name="add_credit">Yeni kredi karti ekle</string>
     <string name="category_title">Category</string>
     <string name="subcategory_title">Subcategory</string>
+    <string name="comments_title">Comments</string>
 
 
 </resources>

@@ -122,5 +122,6 @@
     <string name="add_credit">Add new credit card</string>
     <string name="category_title">Category</string>
     <string name="subcategory_title">Subcategory</string>
+    <string name="comments_title">Comments</string>
 
 </resources>
