@@ -76,14 +76,18 @@ def manage_addresses(request, customer_id):
     user = User.objects.get(pk=int(customer_id))
     # get all adresses
     if request.method == 'GET':
+        # get all non-deleted addresses of the customer
         addresses = Address.objects.filter(user_id=customer_id).filter(is_deleted=False)
+        # serialize them into a json array
         address_serializer = AddressResponseSerializer(addresses, many=True)
         return Response({'status': {'successful': True, 
             'message': "Successfully retrieved"}, 'addresses': address_serializer.data})
     # add address
     elif request.method == 'POST':
         serializer = AddressRequestSerializer(data=request.data)
+        # check if the formatted data is valid
         if serializer.is_valid():
+            # create an Address object from the formatted data, and save it to the database
             title = serializer.validated_data.get("title")
             name = serializer.validated_data.get("name")
             surname = serializer.validated_data.get("surname")
