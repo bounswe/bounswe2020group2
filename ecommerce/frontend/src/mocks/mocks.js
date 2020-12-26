@@ -795,3 +795,28 @@ export const addresses = [
         country: 'Turkey',
     },
 ]
+
+export const cards = [
+    {
+        id: 44313,
+        name: 'My Mastercard',
+        owner_name: 'Özdeniz Dolu',
+        serial_number: '5555555555554444',
+        expiration_date: {
+            month: 12,
+            year: 2030,
+        },
+        cvc: 123,
+    },
+    {
+        id: 12332,
+        name: 'My Visacard',
+        owner_name: 'Özdeniz Dolu',
+        serial_number: '4111111111111111',
+        expiration_date: {
+            month: 12,
+            year: 2030,
+        },
+        cvc: 123,
+    },
+]

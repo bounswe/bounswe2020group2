@@ -21,7 +21,7 @@ export const AddressCard = ({ address, selected = false, onSelect = () => {}, on
                 notification.success({ message: status.message })
                 onAddressInfoChange()
             } else {
-                notification.warning({ message: 'There was an error with your request.' })
+                notification.warning({ message: status.message })
             }
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })

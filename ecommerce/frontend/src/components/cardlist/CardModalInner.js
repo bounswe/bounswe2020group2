@@ -120,7 +120,7 @@ export const CardModalInner = ({ form, card }) => {
                     </Input.Group>
                 </Form.Item>
                 <Form.Item
-                    name="cvc"
+                    name="cvv"
                     label="CVC"
                     rules={[
                         {

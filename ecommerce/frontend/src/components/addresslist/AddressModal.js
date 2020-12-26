@@ -24,7 +24,7 @@ export const AddressModal = ({ address, mode = 'add', visible = false, onCancel 
                 onSuccess()
                 notification.success({ message: status.message })
             } else {
-                notification.warning({ message: 'There was an error with your request.' })
+                notification.warning({ message: status.message })
             }
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })
@@ -43,7 +43,7 @@ export const AddressModal = ({ address, mode = 'add', visible = false, onCancel 
                 onSuccess()
                 notification.success({ message: status.message })
             } else {
-                notification.warning({ message: 'There was an error with your request.' })
+                notification.warning({ message: status.message })
             }
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })

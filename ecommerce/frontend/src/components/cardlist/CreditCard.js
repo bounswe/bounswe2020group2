@@ -7,19 +7,27 @@ import { useState } from 'react'
 import { CreditCardModal } from './CreditCardModal'
 import { Popconfirm, Spin, notification } from 'antd'
 import { formatCreditCard, sleep } from '../../utils'
+import { api } from '../../api'
+import { useAppContext } from '../../context/AppContext'
 
 export const CreditCard = ({ card, selected = false, onSelect = () => {}, onCardInfoChange = () => {} }) => {
     const [editVisible, setEditVisible] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const { user } = useAppContext()
 
     const onDelete = async () => {
+        setIsLoading(true)
         try {
-            setIsLoading(true)
-            await sleep(2000)
-            onCardInfoChange()
-            notification.success({ message: 'You have successfully deleted your credit card!' })
+            const { data: {status} }  = await api.delete(`/customer/${user.id}/cards/${card.id}`)
+            if(status.successful) {
+                notification.success({ message: status.message })
+                onCardInfoChange()
+            } else {
+                notification.warning({ message: status.message })
+            }
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })
+            console.error(error)
         } finally {
             setIsLoading(false)
         }

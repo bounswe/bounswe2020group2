@@ -11,16 +11,15 @@ export const AddressList = ({onSelect = () => {}}) => {
     const [addressList, setAddressList] = useState([])
     const { user } = useAppContext()
 
-    const fetchAddressList = async userId => {
+    const fetchAddressList = async () => {
         setIsLoading(true)
         try {
             const {data: {status, addresses}} = await api.get(`/customer/${user.id}/addresses`)
             if(status.successful) {
                 setAddressList(addresses)
-                if(addresses.length > 0) {
-                    setSelectedAddress(addresses[0].id)
-                    onSelect(addresses[0].id)
-                }
+                const defaultAddress = addresses.length > 0 ? addresses[0].id : null
+                setSelectedAddress(defaultAddress)
+                onSelect(defaultAddress)
             } else {
                 notification.warning({message: status.message})
             }
@@ -35,7 +34,7 @@ export const AddressList = ({onSelect = () => {}}) => {
 
     useEffect(() => {
         fetchAddressList()
-    }, [])
+    }, [user])
 
     const [selectedAddress, setSelectedAddress] = useState()
     const [addVisible, setAddVisible] = useState(false)
