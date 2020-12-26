@@ -103,6 +103,7 @@ export const UserReviewPost = ({
                     <div className="post-review-short-description">{product.short_description}</div>
                     <div className="post-review-rate">
                         <Rate onChange={onChangeRating} />
+                        <div className="post-review-rate-comment">{'(Please rate the product)'}</div>
                     </div>
                 </div>
             </div>
