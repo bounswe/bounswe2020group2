@@ -118,3 +118,7 @@ export const orderStatusInvMap = {
     1: 'at_cargo',
     2: 'delivered',
 }
+
+export function formatOrder(order) {
+    return { ...order } // temporary solution
+}
