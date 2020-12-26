@@ -1,8 +1,8 @@
 import './TrendingGrid.less'
 import { Link } from 'react-router-dom'
+import { Rate } from 'antd'
 
 export const TrendingGrid = ({ trendingProducts = [] }) => {
-    console.log('trendingProducts', trendingProducts)
     return (
         <div className="gallery">
             {trendingProducts.map((product, index) => (
@@ -14,6 +14,7 @@ export const TrendingGrid = ({ trendingProducts = [] }) => {
                             <div class="product-price">
                                 {product.price}&nbsp;{product.currency}
                             </div>
+                            <Rate disabled allowHalf defaultValue={product.rating}></Rate>
                         </div>
                     </Link>
                 </figure>

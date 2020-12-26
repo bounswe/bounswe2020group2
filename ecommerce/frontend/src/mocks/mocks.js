@@ -8,7 +8,7 @@ export const trendingProducts = [
         id: 1324,
     },
     {
-        title: 'Watch',
+        title: 'Tommy Hilfiger Watch',
         rating: '5',
         price: '45.00',
         currency: 'TL',
@@ -16,7 +16,7 @@ export const trendingProducts = [
         id: 2123,
     },
     {
-        title: 'onlar iyi',
+        title: 'Nivea Care Package',
         rating: '5',
         price: '30.00',
         currency: 'TL',
@@ -24,7 +24,7 @@ export const trendingProducts = [
         id: 32345,
     },
     {
-        title: 'fena biji',
+        title: 'Cocooil Shampoo',
         rating: '5',
         price: '45.00',
         currency: 'TL',
@@ -33,7 +33,7 @@ export const trendingProducts = [
         id: 4435,
     },
     {
-        title: 'onlar iyi',
+        title: 'Adidas Sneakers',
         rating: '5',
         price: '96.00',
         currency: 'TL',
