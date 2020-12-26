@@ -448,8 +448,14 @@ export const product = {
     old_price: 20,
 }
 
+export const verifications = [
+    { message: 'Success' },
+    { message: 'Expired' },
+    { message: 'Invalid' },
+    { message: 'Verified' },
+]
+
 export const reviews = [
-    //
     {
         id: 1,
         rating: 2,
@@ -760,5 +766,63 @@ export const categories = [
             { name: 'Automotive', id: 21 },
             { name: 'Industrial & Scientific', id: 22 },
         ],
+    },
+]
+
+export const addresses = [
+    {
+        id: 44313,
+        title: 'Home Address',
+        phone: {
+            country_code: '+90',
+            number: '5555555555',
+        },
+        name: 'Özdeniz',
+        surname: 'Dolu',
+        zip_code: '34000',
+        address: 'React Mah. JS Sk. No: 42/1',
+        province: 'Besiktas',
+        city: 'Istanbul',
+        country: 'Turkey',
+    },
+    {
+        id: 12322,
+        title: 'Work Address',
+        phone: {
+            country_code: '+90',
+            number: '544444444',
+        },
+        name: 'Özdeniz',
+        surname: 'Dolu',
+        zip_code: '35000',
+        address: 'Python Mah. Numpy Sk. No: 23/1',
+        province: 'Besiktas',
+        city: 'Istanbul',
+        country: 'Turkey',
+    },
+]
+
+export const cards = [
+    {
+        id: 44313,
+        name: 'My Mastercard',
+        owner_name: 'Özdeniz Dolu',
+        serial_number: '5555555555554444',
+        expiration_date: {
+            month: 12,
+            year: 2030,
+        },
+        cvc: 123,
+    },
+    {
+        id: 12332,
+        name: 'My Visacard',
+        owner_name: 'Özdeniz Dolu',
+        serial_number: '4111111111111111',
+        expiration_date: {
+            month: 12,
+            year: 2030,
+        },
+        cvc: 123,
     },
 ]

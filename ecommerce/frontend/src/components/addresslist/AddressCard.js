@@ -1,23 +1,34 @@
 import './AddressCard.less'
-import cls from 'classnames'
+
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { notification, notification, Popconfirm, Popconfirm, Spin, Spin } from 'antd'
+import cls from 'classnames'
 import { useState } from 'react'
+
+import { api, api } from '../../api'
+import { useAppContext, useAppContext } from '../../context/AppContext'
 import { AddressModal } from './AddressModal'
-import { Popconfirm, Spin, notification } from 'antd'
-import { sleep } from '../../utils'
 
 export const AddressCard = ({ address, selected = false, onSelect = () => {}, onAddressInfoChange = () => {} }) => {
     const [editVisible, setEditVisible] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const { user } = useAppContext()
 
     const onDelete = async () => {
+        setIsLoading(true)
         try {
-            setIsLoading(true)
-            await sleep(2000)
-            onAddressInfoChange()
-            notification.success({ message: 'You have successfully deleted your address!' })
+            const {
+                data: { status },
+            } = await api.delete(`/customer/${user.id}/addresses/${address.id}`)
+            if (status.successful) {
+                notification.success({ message: status.message })
+                onAddressInfoChange()
+            } else {
+                notification.warning({ message: status.message })
+            }
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })
+            console.error(error)
         } finally {
             setIsLoading(false)
         }
@@ -64,11 +75,13 @@ export const AddressCard = ({ address, selected = false, onSelect = () => {}, on
                 <div className="address-card">
                     <div className="address-card-name">{address.name + ' ' + address.surname}</div>
                     <div className="address-card-address">{address.address}</div>
-                    <div className="address-card-zipcode">{address.zipCode}</div>
+                    <div className="address-card-zipcode">{address.zip_code}</div>
                     <div className="address-card-region">
                         {[address.province, address.city, address.country].filter(Boolean).join(' / ')}
                     </div>
-                    <div className="address-card-phone">{[address.phone.countryCode, address.phone.number].filter(Boolean).join("")}</div>
+                    <div className="address-card-phone">
+                        {[address.phone.country_code, address.phone.number].filter(Boolean).join('')}
+                    </div>
                 </div>
             </Spin>
         </div>

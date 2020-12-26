@@ -15,7 +15,7 @@ import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentOrderBinding
 import com.example.getflix.ui.fragments.OrderFragmentDirections.Companion.actionOrderFragmentToAddAddressFragment
-import com.example.getflix.ui.fragments.OrderFragmentDirections.Companion.actionOrderFragmentToPaymentFragment
+import com.example.getflix.ui.fragments.OrderFragmentDirections.Companion.actionOrderFragmentToAddCreditCardFragment
 import com.example.getflix.ui.viewmodels.CompleteOrderViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -38,7 +38,7 @@ class OrderFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(CompleteOrderViewModel::class.java)
 
         binding.btnAddCredit.setOnClickListener {
-            view?.findNavController()?.navigate(actionOrderFragmentToPaymentFragment())
+            view?.findNavController()?.navigate(actionOrderFragmentToAddCreditCardFragment())
         }
 
         binding.btnAddAddress.setOnClickListener {
