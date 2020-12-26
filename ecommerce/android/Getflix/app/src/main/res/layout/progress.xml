@@ -18,10 +18,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textSize="14sp"
+        android:fontFamily="@font/open_sans_semibold"
+        android:textSize="16sp"
         android:gravity="center"
         android:textColor="@color/initPurple"
         android:layout_marginTop="8dp"
-        android:text="Please wait ..."/>
+        android:text="@string/loading"/>
 
 </LinearLayout>

@@ -11,13 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.getflix.R
-import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentCategoriesBinding
 import com.example.getflix.models.CategoryModel
 import com.example.getflix.models.ExpirationDateModel
 import com.example.getflix.models.PhoneModel
 import com.example.getflix.models.SubcategoryModel
-import com.example.getflix.service.GetflixApi
 
 import com.example.getflix.service.requests.AddressAddRequest
 import com.example.getflix.service.requests.AddressUpdateRequest
@@ -69,7 +67,7 @@ class CategoriesFragment : Fragment() {
 
 
 
-        //viewModel.getProducts(3)
+        viewModel.getProducts(3)
         //viewModel.getProduct(3)
         //viewModel.addToCart(1,4)
         //viewModel.getCustomerCartProducts()
@@ -100,7 +98,7 @@ class CategoriesFragment : Fragment() {
         //viewModel.getCustomerCard(1)
         //viewModel.deleteCustomerCard(1)
 
-        val cardReqU = CardUpdateRequest("Ziraat_updated","Fatma Yildiz",8743543,
+        val cardReqU = CardUpdateRequest("Ziraat_updated","Fatma Yildiz","8743543",
                 ExpirationDateModel(8,2022),343)
         //viewModel.updateCustomerCard(1,cardReqU)
 
