@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react'
 import { api } from '../api'
 import { useAppContext } from '../context/AppContext'
 import { formatOrder } from '../utils'
-import { PastOrder } from './PastOrder'
-import './PastOrdersList.less'
+import { Order } from './Order'
+import './OrdersList.less'
 
-export const PastOrdersList = () => {
+export const OrdersList = () => {
     const [orders, setOrders] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const { user } = useAppContext()
@@ -40,7 +40,7 @@ export const PastOrdersList = () => {
             <div className="orders-header">Order History</div>
             <div className="orders-content">
                 {orders.map(order => {
-                    return <PastOrder key={order.id} order={order} mode={user.type} />
+                    return <Order key={order.id} order={order} mode={user.type} />
                 })}
             </div>
         </div>
