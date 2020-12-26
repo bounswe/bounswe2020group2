@@ -13,13 +13,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.getflix.R
 import com.example.getflix.categories
 import com.example.getflix.databinding.FragmentNewHomeBinding
-import com.example.getflix.ui.adapters.HomeCategoriesAdapter
-import com.example.getflix.ui.adapters.HomeRecommenderAdapter
-import com.example.getflix.ui.adapters.TodaysDealsAdapter
-import com.example.getflix.ui.adapters.TrendingProductAdapter
+import com.example.getflix.ui.adapters.*
 import com.example.getflix.ui.fragments.HomePageFragment.StaticData.recyclerViewFirstPosition
 import com.example.getflix.ui.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -60,6 +58,7 @@ class HomePageFragment : Fragment() {
         val adapterForTodaysDeals = TodaysDealsAdapter()
         val adapterForRecommendedProducts = HomeRecommenderAdapter()
         val adapterForTrendingProducts = TrendingProductAdapter()
+        val adapterForEditorsPicks = HomeEditorsPicksAdapter()
 
         binding.categories.adapter = adapterForHomeCategories
         val layoutManagerForCategoriesAdapter =
@@ -106,12 +105,25 @@ class HomePageFragment : Fragment() {
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.homeRecommendedProducts.layoutManager = layoutManagerForHomeRecommenderAdapter
 
+
+        binding.editorPicks.adapter = adapterForEditorsPicks
+        binding.editorPicks.setLayoutManager(
+            StaggeredGridLayoutManager(
+                2,
+                StaggeredGridLayoutManager.VERTICAL
+            )
+        )
+
+        val decoration = SpaceGenerator(16)
+        binding.editorPicks.addItemDecoration(decoration)
+
         homeViewModel.todaysDeals?.observe(viewLifecycleOwner, Observer {
             adapterForTodaysDeals.submitList(it)
         })
 
         homeViewModel.recommendedProducts?.observe(viewLifecycleOwner, Observer {
             adapterForRecommendedProducts.submitList(it)
+            adapterForEditorsPicks.submitList(it)
         })
 
         homeViewModel.trendingProducts?.observe(viewLifecycleOwner, Observer {
