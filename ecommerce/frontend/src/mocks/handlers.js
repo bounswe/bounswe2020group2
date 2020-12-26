@@ -51,12 +51,12 @@ export const handlers = [
             }),
         )
     }),
-    rest.get(url('/email-verify/:token'), (req, res, ctx) => {
-        const { params, body } = req
-        const { token } = params
+    // rest.get(url('/email-verify/:token'), (req, res, ctx) => {
+    //     const { params, body } = req
+    //     const { token } = params
 
-        return res(ctx.json({ data: { message: verifications[Math.floor(Math.random() * verifications.length)] } }))
-    }),
+    //     return res(ctx.json({ data: { message: verifications[Math.floor(Math.random() * verifications.length)] } }))
+    // }),
     rest.get(url('/review'), (req, res, ctx) => {
         const id = req.url.searchParams.get('product')
         const page_size = req.url.searchParams.get('page_size')
