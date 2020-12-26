@@ -1,6 +1,6 @@
 import { config } from '../config'
 import { rest } from 'msw'
-import { trendingProducts, product, products, reviews, categories } from './mocks'
+import { trendingProducts, product, products, reviews, categories, addresses, cards } from './mocks'
 
 // preprend config.apiUrl
 const url = u => config.apiUrl + u
@@ -79,6 +79,12 @@ export const handlers = [
     // }),
     // rest.get(url('/categories'), (req, res, ctx) => {
     //     return res(ctx.json({ categories }))
+    // }),
+    // rest.get(url('/customer/:userId/addresses'), (req, res, ctx) => {
+    //     return res(ctx.json({ status, addresses }))
+    // }),
+    // rest.get(url('/customer/:userId/cards'), (req, res, ctx) => {
+    //     return res(ctx.json({ status, cards }))
     // }),
 ]
 

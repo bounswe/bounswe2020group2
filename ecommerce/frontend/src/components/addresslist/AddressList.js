@@ -1,79 +1,53 @@
 import { Button, List, Spin, notification } from 'antd'
 import { sleep } from '../../utils'
+import { api } from '../../api'
 import { useEffect, useState } from 'react'
 import { AddressCard } from './AddressCard'
 import { AddressModal } from './AddressModal'
 import { useAppContext } from '../../context/AppContext'
 import './AddressList.less'
 
-export const AddressList = () => {
+export const AddressList = ({ onSelect = () => {} }) => {
     const [addressList, setAddressList] = useState([])
     const { user } = useAppContext()
 
-    const getAddressList = async userId => {
-        let addresses = []
+    const fetchAddressList = async () => {
+        setIsLoading(true)
         try {
-            setIsLoading(true)
-            await sleep(2000)
-            addresses = [
-                {
-                    id: 44313,
-                    title: 'Home Address',
-                    phone: {
-                        countryCode: '+90',
-                        number: '5555555555',
-                    },
-                    name: 'Özdeniz',
-                    surname: 'Dolu',
-                    zipCode: '34000',
-                    address: 'React Mah. JS Sk. No: 42/1',
-                    province: 'Besiktas',
-                    city: 'Istanbul',
-                    country: 'Turkey',
-                },
-                {
-                    id: 12322,
-                    title: 'Work Address',
-                    phone: {
-                        countryCode: '+90',
-                        number: '544444444',
-                    },
-                    name: 'Özdeniz',
-                    surname: 'Dolu',
-                    zipCode: '35000',
-                    address: 'Python Mah. Numpy Sk. No: 23/1',
-                    province: 'Besiktas',
-                    city: 'Istanbul',
-                    country: 'Turkey',
-                },
-            ]
+            const {
+                data: { status, addresses },
+            } = await api.get(`/customer/${user.id}/addresses`)
+            if (status.successful) {
+                setAddressList(addresses)
+                const defaultAddress = addresses[0]?.id
+                setSelectedAddress(defaultAddress)
+                onSelect(defaultAddress)
+            } else {
+                notification.warning({ message: status.message })
+            }
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })
             console.error(error)
         } finally {
             setIsLoading(false)
-            return addresses
         }
     }
 
     useEffect(() => {
-        async function fetch() {
-            const addresses = await getAddressList(user?.id)
-            setAddressList(addresses)
-            setSelectedAddress(addresses.length > 0 ? addresses[0].id : null)
-        }
-        fetch()
+        fetchAddressList()
     }, [user])
 
     const [selectedAddress, setSelectedAddress] = useState()
     const [addVisible, setAddVisible] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
-    const onAddressSelect = addressId => setSelectedAddress(addressId)
+    const onAddressSelect = addressId => {
+        setSelectedAddress(addressId)
+        onSelect(addressId)
+    }
 
-    const onAddressInfoChange = async () => {
-        const addresses = await getAddressList(user?.id)
-        setAddressList(addresses)
+    const onAddressInfoChange = () => {
+        fetchAddressList()
     }
 
     return (
