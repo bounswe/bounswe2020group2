@@ -12,8 +12,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentOrderBinding
+import com.example.getflix.ui.adapters.CreditCardAdapter
+import com.example.getflix.ui.adapters.OrderAddressAdapter
 import com.example.getflix.ui.fragments.OrderFragmentDirections.Companion.actionOrderFragmentToAddAddressFragment
 import com.example.getflix.ui.fragments.OrderFragmentDirections.Companion.actionOrderFragmentToAddCreditCardFragment
 import com.example.getflix.ui.viewmodels.CompleteOrderViewModel
@@ -26,14 +29,16 @@ class OrderFragment : Fragment() {
     private lateinit var viewModel: CompleteOrderViewModel
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
 
     ): View? {
         activity?.toolbar!!.toolbar_title.text = getString(R.string.order_complete)
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_order,
-                container, false)
+        binding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_order,
+            container, false
+        )
 
         viewModel = ViewModelProvider(this).get(CompleteOrderViewModel::class.java)
 
@@ -48,49 +53,37 @@ class OrderFragment : Fragment() {
         var addresses = arrayListOf<String>()
         var credits = arrayListOf<String>()
 
-        viewModel.getCustomerAddresses()
-        viewModel.getCustomerCards()
+
+        val orderAddressAddressAdapter = OrderAddressAdapter()
+        val layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.orderAddressRecyclerView.adapter = orderAddressAddressAdapter
+        binding.orderAddressRecyclerView.layoutManager = layoutManager
+
+        val creditCardAdapter = CreditCardAdapter()
+        val layoutManagerForCreditCards = GridLayoutManager(requireContext(), 2)
+        binding.orderCardRecyclerView.adapter = creditCardAdapter
+        binding.orderCardRecyclerView.layoutManager = layoutManagerForCreditCards
 
         viewModel.creditList.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                for(credit in it) {
-                    credits.add(credit.name)
-                    println(credit.name)
-                }
-                val creditAdapter = ArrayAdapter(this.requireContext(),
-                        android.R.layout.simple_spinner_dropdown_item, credits)
-                creditAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-                binding.creditSpinner.adapter = creditAdapter
+            if (it != null) {
+                creditCardAdapter.submitList(it)
             }
         })
 
         viewModel.addressList.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                for(adress in it) {
-                    addresses.add(adress.title)
-                }
-                val addressAdapter = ArrayAdapter(this.requireContext(),
-                        android.R.layout.simple_spinner_dropdown_item, addresses!!)
-                addressAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-                binding.addressSpinner.adapter = addressAdapter
+            if (it != null) {
+                orderAddressAddressAdapter.submitList(it)
             }
         })
 
+        CompleteOrderViewModel.currentAddress.observe(viewLifecycleOwner, Observer {
+            binding.currentOrderAddress.text = it?.title
+        })
+        CompleteOrderViewModel.currentCreditCard.observe(viewLifecycleOwner, Observer {
+            binding.currentCreditCart.text = it?.name
+        })
 
-        binding.addressSpinner.onItemSelectedListener = object :
-            AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?,
-                                        view: View?, position: Int, id: Long) {
-                Toast.makeText(context,
-                    "selected item: " + addresses[position],
-                Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // write code to perform some action
-            }
-        }
-    return binding.root
+        return binding.root
     }
 
 }
