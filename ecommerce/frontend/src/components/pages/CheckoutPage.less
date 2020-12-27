@@ -14,15 +14,33 @@
 }
 
 .price-summary-container {
+    display:flex;
+    flex-direction: column;
+    gap:15px;
+    
     align-self: flex-start;
+
     background: white;
     border: 2px solid gainsboro;
     padding: 15px;
-    width: 500px; 
-    height: 400px;
+    width: 500px;   
     //TODO: Make this sticky, it doesn't work right now
     //position: sticky;
     //top: 0;
+}
+.price-summary-header {
     font-size: x-large;
     font-weight: bold;
+
+}
+.price-summary-content {
+    width:95%;
+    margin-left: auto;
+    font-size: larger;
+}
+.price-summary-pricecol {
+    text-align: right;
+}
+.price-summary-button {
+    margin-left: auto;
 }

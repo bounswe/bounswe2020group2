@@ -120,7 +120,7 @@ export const CardModalInner = ({ form, card }) => {
                     </Input.Group>
                 </Form.Item>
                 <Form.Item
-                    name="cvc"
+                    name="cvv"
                     label="CVC"
                     rules={[
                         {
@@ -139,7 +139,6 @@ export const CardModalInner = ({ form, card }) => {
                     ]}>
                     <Input onFocus={handleInputFocus} name="cvc" />
                 </Form.Item>
-                
             </Form>
             <Cards focused={focused} {...formatCreditCard(cardState)}></Cards>
         </>

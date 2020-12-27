@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.getflix.R
+
 import com.example.getflix.categories
 import com.example.getflix.databinding.FragmentNewHomeBinding
 import com.example.getflix.ui.adapters.*
@@ -55,6 +56,7 @@ class HomePageFragment : Fragment() {
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         binding.lifecycleOwner = this
 
+
         val adapterForHomeCategories = HomeCategoriesAdapter(viewLifecycleOwner)
         val adapterForTodaysDeals = TodaysDealsAdapter()
         val adapterForRecommendedProducts = HomeRecommenderAdapter()
@@ -81,6 +83,7 @@ class HomePageFragment : Fragment() {
                 val firstElementPosition =
                     layoutManagerForCategoriesAdapter.findFirstVisibleItemPosition()
                 recyclerViewFirstPosition.value = firstElementPosition
+
 
             }
         })

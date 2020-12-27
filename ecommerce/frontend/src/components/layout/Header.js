@@ -64,7 +64,7 @@ export const CustomerHeaderContent = () => {
                     <Avatar shape="square" size="large" icon={<UserOutlined />} />
                     <div className="header-customer-info-details">
                         <div className="header-customer-info-details-name">
-                            {user.name} {user.surname}
+                            {user.name} {user.lastname}
                         </div>
                         <div className="header-customer-info-details-email">{user.email}</div>
                     </div>

@@ -78,6 +78,24 @@
     <string name="user_guest_alert">Kullanıcı bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
     <string name="bank_guest_alert">Banka hesabı bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
     <string name="address_guest_alert">Adres bilgilerinizi görebilmeniz için oturum açmanız gerekmektedir.</string>
+
+    <string name="product_name">Jacket</string>
+    <string name="price">698</string>
+    <string name="old_price">854</string>
+    <string name="short_description">Nice jacket</string>
+    <string name="add_shopping_cart">ADD TO CART</string>
+    <string name="buy_now">BUY NOW</string>
+    <string name="amount">1</string>
+    <string name="brand">Brand</string>
+    <string name="brand_example">Zara</string>
+    <string name="product_details">Product Details</string>
+    <string name="vendor_title">Vendor</string>
+    <string name="vendor_rating">4.5</string>
+    <string name="vendor_example">Canan Tezgec</string>
+    <string name="long_description_title">Description</string>
+    <string name="jacket_description">A jacket is a garment for the upper body, usually extending below the hips.[1] A jacket typically has sleeves, and fastens in the front or slightly on the side. A jacket is generally lighter, tighter-fitting, and less insulating than a coat, which is outerwear. Some jackets are fashionable, while others serve as protective clothing. Jackets without sleeves are vests.</string>
+
+
     <string name="hidden_password">123456</string>
     <string name="log_out">LOG OUT</string>
     <string name="messages">Mesajlar</string>
@@ -97,7 +115,7 @@
     <string name="vendor_no_message">Henüz bir mesajınız yok.</string>
     <string name="address_form">Adres Giriniz</string>
     <string name="adress_title">Baslik</string>
-    <string name="address_">Adres (Posta kodu, Sokak ismi, daire No)</string>
+    <string name="address_">Adres (Sokak ismi, daire No)</string>
     <string name="province">Bolge</string>
     <string name="country">Ulke</string>
     <string name="add">Ekle</string>
@@ -107,5 +125,24 @@
     <string name="choose_address">Teslimat icin adres seciniz</string>
     <string name="add_credit">Yeni kredi karti ekle</string>
     <string name="you_might_like">You might like...</string>
+    <string name="edittext_title"><font size="35">Başlık</font></string>
+    <string name="edittext_name"><font size="35">Ad</font></string>
+    <string name="edittext_surname"><font size="35">Soyad</font></string>
+    <string name="edittext_countrycode"><font size="35">Ülke Kodu</font></string>
+    <string name="edittext_phone"><font size="35">Telefon</font></string>
+    <string name="edittext_address"><font size="35">Adres</font></string>
+    <string name="edittext_city"><font size="35">Şehir</font></string>
+    <string name="edittext_country"><font size="35">Ülke</font></string>
+    <string name="edittext_zipcode"><font size="35">Posta Kodu</font></string>
+    <string name="edittext_cvv"><font size="35">CVV</font></string>
+    <string name="edittext_ownername"><font size="35">Sahibinin İsmi</font></string>
+    <string name="edittext_province"><font size="35">Bölge</font></string>
+    <string name="edittext_serialnumber"><font size="35">Seri Numarası</font></string>
+    <string name="edittext_expirationyear"><font size="35">Son Kullanım Yılı</font></string>
+    <string name="edittext_expirationmonth"><font size="35">Son Kullanım Ayı</font></string>
+    <string name="category_title">Category</string>
+    <string name="subcategory_title">Subcategory</string>
+    <string name="comments_title">Comments</string>
+    <string name="proceed_with_the_payment">PROCEED WITH THE PAYMENT</string>
 
 </resources>

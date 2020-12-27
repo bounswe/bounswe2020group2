@@ -60,7 +60,7 @@
                 android:layout_marginBottom="35dp"
                 android:fontFamily="@font/open_sans_semibold"
                 android:gravity="left"
-                android:text="@{order.purchase_date}"
+                android:text="xxx"
                 android:textColor="@color/initPurple"
                 android:textSize="14sp"
                 android:textStyle="italic"

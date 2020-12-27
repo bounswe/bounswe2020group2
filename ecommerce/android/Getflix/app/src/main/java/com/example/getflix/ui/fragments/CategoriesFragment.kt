@@ -16,6 +16,7 @@ import com.example.getflix.models.CategoryModel
 import com.example.getflix.models.ExpirationDateModel
 import com.example.getflix.models.PhoneModel
 
+import com.example.getflix.models.SubcategoryModel
 
 import com.example.getflix.service.requests.AddressAddRequest
 import com.example.getflix.service.requests.AddressUpdateRequest
@@ -66,11 +67,16 @@ class CategoriesFragment : Fragment() {
         binding.lifecycleOwner = this
 
 
+
+
+        //viewModel.getCustomerOrders()
+
         //viewModel.getProducts(3)
         //viewModel.getProduct(3)
         //viewModel.addToCart(1,4)
         //viewModel.getCustomerCartProducts()
-        //viewModel.addCustomerCartProduct(1,3)
+        viewModel.addCustomerCartProduct(1,3)
+        viewModel.addCustomerCartProduct(2,2)
         //viewModel.getCustomerCartProducts()
         //viewModel.updateCustomerCartProduct(2,71,1)
         //viewModel.deleteCustomerCartProduct(71)
@@ -78,7 +84,7 @@ class CategoriesFragment : Fragment() {
         //viewModel.getCustomerCartProducts()
         //viewModel.getSingleCartProduct(71)
         println("-----")
-        viewModel.getCustomerAddresses()
+        //viewModel.getCustomerAddresses()
         val addressReq = AddressAddRequest("Home", PhoneModel("90","8375334"),"Fatma",
         "Yildiz","A2 98 Kadikoy","Site Mah.","Istanbul","Turkey","34555")
         //viewModel.addCustomerAddress(addressReq)
@@ -87,7 +93,7 @@ class CategoriesFragment : Fragment() {
         //viewModel.updateCustomerAddress(3,addressReqU)
 
         //viewModel.deleteCustomerAddress(3)
-       viewModel.getCustomerCards()
+       //viewModel.getCustomerCards()
         val cardReq = CardAddRequest("Ziraat","Fatma Yildiz","8743543878658697",
         ExpirationDateModel(8,2022),343)
         //viewModel.addCustomerCard(cardReq)
@@ -97,14 +103,14 @@ class CategoriesFragment : Fragment() {
         //viewModel.getCustomerCard(1)
         //viewModel.deleteCustomerCard(1)
 
-        val cardReqU = CardUpdateRequest("Ziraat_updated","Fatma Yildiz",8743543,
+        val cardReqU = CardUpdateRequest("Ziraat_updated","Fatma Yildiz","8743543",
                 ExpirationDateModel(8,2022),343)
         //viewModel.updateCustomerCard(1,cardReqU)
 
 
        var cats1 = arrayListOf<CategoryModel>()
 
-/*
+
        viewModel.categoriess.observe(viewLifecycleOwner, {
            it?.let {
                for(category in it.categories!!) {
@@ -118,7 +124,7 @@ class CategoriesFragment : Fragment() {
                activity?.loading_progress!!.visibility = View.GONE
            }
        })
-*/
+
 
         /*viewModel.products?.observe(viewLifecycleOwner, {products ->
             products?.let {

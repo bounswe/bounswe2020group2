@@ -75,8 +75,8 @@ export const UpdateProfileForm = ({ onSubmit = () => {}, user }) => {
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             initialValues={{
-                name: user.name,
-                surname: user.lastname,
+                name: user.name, // probably needs to be passed as firstname to backend?
+                surname: user.lastname, // probably needs to be passed as lastname to backend?
                 email: user.email,
             }}
             scrollToFirstError>

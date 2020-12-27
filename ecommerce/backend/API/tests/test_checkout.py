@@ -154,3 +154,7 @@ class CheckoutTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["status"]["successful"], True)
         self.assertEqual(int(response.data["orders"][0]["order_id"]), order_id_for_test)
+        self.assertEqual('{:.2f}'.format(float(response.data["orders"][0]["prices"]["products_price"])), '{:.2f}'.format(unit_price * amount * 2))
+        self.assertEqual('{:.2f}'.format(float(response.data["orders"][0]["prices"]["delivery_price"])), '{:.2f}'.format(delivery_price))
+        self.assertEqual('{:.2f}'.format(float(response.data["orders"][0]["prices"]["discount"])), '{:.2f}'.format(unit_price * amount * discount * 2))
+        self.assertEqual('{:.2f}'.format(float(response.data["orders"][0]["prices"]["total_price"])), '{:.2f}'.format(unit_price * amount * (1 - discount) * 2 + delivery_price))

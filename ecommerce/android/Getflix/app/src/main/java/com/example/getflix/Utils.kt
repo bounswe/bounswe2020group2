@@ -1,18 +1,21 @@
 package com.example.getflix
 
-import android.content.DialogInterface
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.CategoryModel
 import com.example.getflix.models.SubcategoryModel
 import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.CardProUpdateRequest
 import com.example.getflix.service.responses.CardProUpdateResponse
+import com.example.getflix.ui.viewmodels.ProductViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 /* - **Electronics**
   - Computers
@@ -84,6 +87,7 @@ val categories = listOf<CategoryModel>(
 )
 )
 
+
 fun getProductImage(productId: Int): Int {
     return when (productId) {
         1 -> R.drawable.zara_jacket1
@@ -130,7 +134,7 @@ fun infoAlert(fragment: Fragment, message: String) {
             .show()
 }
 
-fun doneAlert(fragment: Fragment, message: String, func: () -> Unit) {
+fun doneAlert(fragment: Fragment, message: String, func: (() -> Unit)) {
     MaterialAlertDialogBuilder(fragment.requireContext(), R.style.MaterialAlertDialog_color)
             .setTitle("Success")
             .setMessage(message)
@@ -140,6 +144,17 @@ fun doneAlert(fragment: Fragment, message: String, func: () -> Unit) {
             .setIcon(R.drawable.ic_check)
             .show()
 }
+
+fun addToShoppingCart(amount : Int,shoppingCartId: Int, productId: Int) {
+    GetflixApi.getflixApiService.updateCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,
+        MainActivity.StaticData.user!!.id, shoppingCartId, CardProUpdateRequest(productId,
+            amount
+        )
+    )
+        .enqueue(object :
+            Callback<CardProUpdateResponse> {
+            override fun onFailure(call: Call<CardProUpdateResponse>, t: Throwable) {
+
 
 fun addToShoppingCart(amount : Int,shoppingCartId: Int, productId: Int) {
     GetflixApi.getflixApiService.updateCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,
@@ -162,6 +177,7 @@ fun addToShoppingCart(amount : Int,shoppingCartId: Int, productId: Int) {
         }
         )
 }
+
 fun askAlert(fragment: Fragment, message: String, func: () -> Unit) {
     MaterialAlertDialogBuilder(fragment.requireContext(), R.style.MaterialAlertDialog_color)
             .setTitle(fragment.requireContext().getString(R.string.warning))
@@ -175,5 +191,4 @@ fun askAlert(fragment: Fragment, message: String, func: () -> Unit) {
             .setIcon(R.drawable.ic_warning)
             .show()
 }
-
 
