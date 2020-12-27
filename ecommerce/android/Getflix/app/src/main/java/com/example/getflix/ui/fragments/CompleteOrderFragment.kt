@@ -128,7 +128,6 @@ class CompleteOrderFragment : Fragment() {
     }
 
     private fun navigateHome() {
-        viewModel.
         view?.findNavController()?.navigate(actionCompleteOrderFragmentToHomePageFragment())
     }
 

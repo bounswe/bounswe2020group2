@@ -14,7 +14,9 @@ data class User(
         @SerializedName("lastname")
         var lastName: String,
         @SerializedName("role")
-        var role: String
+        var role: String,
+        @SerializedName("is_verified")
+        var isVerified: Boolean
 
 ) : Parcelable
 
