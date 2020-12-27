@@ -71,7 +71,7 @@ def checkout_payment(request):
     card = Card.objects.filter(id=card_id)
 
     items = ShoppingCartItem.objects.filter(customer_id=user.pk)
-    if(len(items) == 0):
+    if len(items) == 0:
         return Response({'status': { 'successful': False, 'message': "Shopping Cart is empty."}})
 
     serializers = shopping_cart_serializer.ShoppingCartResponseSerializer(items, many=True)
@@ -96,7 +96,7 @@ def checkout_payment(request):
                                 address_id=address_id, vendor_id=vendor_id, order_id=order.pk)
             purchase.save()
 
-    if(control):
+    if control:
         order.delete()
         return Response({'status': { 'successful': False, 'message': "Payment process is not succesfully satisfied."}})
     
