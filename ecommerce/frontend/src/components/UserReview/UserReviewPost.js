@@ -24,6 +24,7 @@ export const UserReviewPost = ({ product, onFinish }) => {
             await api.post(`/review`, {
                 user_id: user.id,
                 product_id: product.id,
+                vendor_id: null,
                 rating: rating,
                 comment: comment,
             })

@@ -29,7 +29,8 @@ export const Order = ({ order }) => {
     const firstPurchase = order.order_all_purchase[0]
 
     const totalPrice =
-        order.total_price ?? order.purchases.map(purchase => purchase.unit_price * purchase.amount).reduce(R.add, 0)
+        order.prices.total_price ??
+        order.purchases.map(purchase => purchase.unit_price * purchase.amount).reduce(R.add, 0)
 
     const canCancel =
         R.any(purchase => orderStatusInvMap[purchase.status] !== 'cancelled', order.purchases) &&

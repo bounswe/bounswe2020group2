@@ -63,15 +63,15 @@ export const OrdersList = () => {
     return (
         <div className="orders-container">
             <div className="orders-header">Order History</div>
-            <div className="orders-content">
-                <Spin spinning={isLoading}>
+            <Spin spinning={isLoading}>
+                <div className="orders-content">
                     {orders.map(order => {
                         if (user.type === 'customer') return <Order key={order.id} order={order} />
 
                         return <Purchase key={order.id} purchase={order} />
                     })}
-                </Spin>
-            </div>
+                </div>
+            </Spin>
         </div>
     )
 }
