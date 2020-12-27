@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="product"
-            type="com.example.getflix.models.ProductModel" />
+            name="cardproduct"
+            type="com.example.getflix.models.CartProductModel" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -16,65 +16,137 @@
         android:elevation="3dp"
         android:padding="1dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="4dp"
+            android:background="@color/initPurple" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/product_image"
-                android:layout_width="60dp"
-                android:layout_height="70dp"
+                android:layout_width="76dp"
+                android:layout_height="match_parent"
+                android:paddingTop="4dp"
                 android:layout_marginBottom="9dp"
-                android:src="@drawable/ic_examplepro"
+                android:src="@drawable/zara_jacket3"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/product_name"
                 app:layout_constraintHorizontal_bias="0.04"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <LinearLayout
+                android:layout_width="210dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
             <TextView
                 android:id="@+id/product_name"
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical|start"
                 android:gravity="left"
-                android:text="@{product.name}"
+                android:text="@{cardproduct.product.name}"
                 android:textColor="#472836"
+                android:paddingTop="3dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.24"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.22000003"
-                tools:text="sub" />
+                android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/product_info"
-                android:layout_width="100dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="17dp"
-                android:layout_marginBottom="35dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:gravity="left"
-                android:text="@{product.short_description}"
+                android:text="@{cardproduct.product.short_description}"
                 android:textColor="@color/initGold"
+                android:fontFamily="@font/open_sans_semibold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/product_name"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.78" />
+                app:layout_constraintVertical_bias="0.78"
+                android:textSize="12sp"/>
+
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/product_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="@{product.price}"
+                android:text="@{Double.toString(cardproduct.product.price)}"
                 android:textColor="@color/initGold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/product_info"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.79" />
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/decrease"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:onClick="decreaseInteger"
+                    android:text="-"
+                    android:background="@drawable/roundedbutton"
+                    android:textAlignment = "center"
+                    android:textStyle="bold"
+                    android:padding="0dp"
+                    android:textColor="@color/initPurple"/>
+
+                <TextView
+                    android:id="@+id/integer_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="0dp"
+                    android:textStyle="bold"
+                    android:text="@{Integer.toString(cardproduct.amount)}"
+                    android:textSize="28sp" />
+
+                <Button
+                    android:id="@+id/increase"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:onClick="increaseInteger"
+                    android:background="@drawable/roundedbutton"
+                    android:text="+"
+                    android:padding="0dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/initPurple"/>
+            </LinearLayout>
+
+        </LinearLayout>
             <!-- <Button
                 android:id="@+id/button"
                 android:layout_width="wrap_content"
@@ -87,7 +159,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" /> -->
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 </layout>

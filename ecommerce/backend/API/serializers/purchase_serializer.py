@@ -40,4 +40,5 @@ class PurchaseResponseSerializer(serializers.ModelSerializer):
         elif status == 1:
             return 'at_cargo'
         elif status == 2:
-            return 'delivered'
+            return 'delivered'        
+            

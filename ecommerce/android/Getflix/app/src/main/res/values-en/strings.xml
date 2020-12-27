@@ -15,7 +15,6 @@
     <string name="register">Sign Up</string>
     <string name="visitor">Continue as visitor</string>
     <string name="favorites">Favorites</string>
-    <string name="add_to_cart">Add to Cart</string>
     <string name="category_pet">Pet Suppliances</string>
     <string name="category_woman">Woman</string>
     <string name="category_man">Man</string>
@@ -79,6 +78,24 @@
     <string name="user_guest_alert">You have to login to see your user information.</string>
     <string name="bank_guest_alert">You have to login to see your bank account information.</string>
     <string name="address_guest_alert">You have to login to see your address information.</string>
+
+    <string name="product_name">Jacket</string>
+    <string name="short_description">Nice jacket</string>
+    <string name="price">698</string>
+    <string name="old_price">854</string>
+    <string name="add_to_cart">ADD TO CART</string>
+    <string name="add_shopping_cart">ADD TO CART</string>
+    <string name="buy_now">BUY NOW</string>
+    <string name="amount">1</string>
+    <string name="brand">Brand</string>
+    <string name="brand_example">Zara</string>
+    <string name="product_details">Product Details</string>
+    <string name="vendor_title">Vendor</string>
+    <string name="vendor_rating">4.5</string>
+    <string name="vendor_example">Canan Tezgec</string>
+    <string name="long_description_title">Description</string>
+    <string name="jacket_description">A jacket is a garment for the upper body, usually extending below the hips.[1] A jacket typically has sleeves, and fastens in the front or slightly on the side. A jacket is generally lighter, tighter-fitting, and less insulating than a coat, which is outerwear. Some jackets are fashionable, while others serve as protective clothing. Jackets without sleeves are vests.</string>
+
     <string name="hidden_password">123456</string>
     <string name="log_out">LOG OUT</string>
     <string name="messages">Messages</string>
@@ -86,6 +103,10 @@
     <string name="username_char_limit">Your username should contain at least 6 characters.</string>
     <string name="valid_name">Please enter a valid name and surname.</string>
     <string name="register_success">You have registered successfully! You are redirected to the login page.</string>
+    <string name="slogan1">The biggest marketplace in the world.</string>
+    <string name="todays_deals">Todays Deals</string>
+    <string name="trending_products">Trending Products</string>
+    <string name="recommended_for_you_title">Recommended For You</string>
     <string name="remember_me">Remember Me</string>
     <string name="register_back">Back To Login</string>
     <string name="loading">Please Wait…</string>
@@ -94,7 +115,7 @@
     <string name="vendor_no_message">You don\'t have any messages yet.</string>
     <string name="address_form">Enter Address Info</string>
     <string name="adress_title">Title</string>
-    <string name="address_">Address (ZIP code, Street, Apartment)</string>
+    <string name="address_">Address (Street, Apartment)</string>
     <string name="province">Province</string>
     <string name="country">Country</string>
     <string name="add">Add</string>
@@ -103,4 +124,24 @@
     <string name="choose_credit">Choose a credit card to pay</string>
     <string name="choose_address">Choose an address</string>
     <string name="add_credit">Add new credit card</string>
+    <string name="you_might_like">You might like...</string>
+    <string name="edittext_title"><font size="35">Title</font></string>
+    <string name="edittext_name"><font size="35">Name</font></string>
+    <string name="edittext_surname"><font size="35">Surname</font></string>
+    <string name="edittext_countrycode"><font size="35">Country Code</font></string>
+    <string name="edittext_phone"><font size="35">Phone</font></string>
+    <string name="edittext_address"><font size="35">Address</font></string>
+    <string name="edittext_city"><font size="35">City</font></string>
+    <string name="edittext_country"><font size="35">Country</font></string>
+    <string name="edittext_zipcode"><font size="35">Zip Code</font></string>
+    <string name="edittext_cvv"><font size="35">CVV</font></string>
+    <string name="edittext_province"><font size="35">Province</font></string>
+    <string name="edittext_ownername"><font size="35">Owner Name</font></string>
+    <string name="edittext_serialnumber"><font size="35">Serial Number</font></string>
+    <string name="edittext_expirationyear"><font size="35">Expiration Year</font></string>
+    <string name="edittext_expirationmonth"><font size="35">Expiration Month</font></string>
+    <string name="category_title">Category</string>
+    <string name="subcategory_title">Subcategory</string>
+    <string name="comments_title">Comments</string>
+    <string name="proceed_with_the_payment">PROCEED WITH THE PAYMENT</string>
 </resources>

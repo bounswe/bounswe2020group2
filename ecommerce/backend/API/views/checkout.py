@@ -59,6 +59,7 @@ def checkout_details(request):
 def checkout_payment(request):
     jwt = authentication.JWTAuthentication()
     user = jwt.authenticate(request=request)[0]
+    control = True
 
     if user.is_verified == False:
         return Response({'status': { 'successful': False, 'message': "Please verify your mail account."}})
@@ -70,6 +71,9 @@ def checkout_payment(request):
     card = Card.objects.filter(id=card_id)
 
     items = ShoppingCartItem.objects.filter(customer_id=user.pk)
+    if len(items) == 0:
+        return Response({'status': { 'successful': False, 'message': "Shopping Cart is empty."}})
+
     serializers = shopping_cart_serializer.ShoppingCartResponseSerializer(items, many=True)
 
     order = Order(user_id=user.pk, card_id=card_id)
@@ -82,6 +86,7 @@ def checkout_payment(request):
         if serializer.get("product")["is_deleted"] == True:
             continue
         else:
+            control = False
             amount = serializer.get("amount")
             product_id = serializer.get("product")["id"]
             unit_price = serializer.get("product")["price"]
@@ -91,6 +96,10 @@ def checkout_payment(request):
                                 address_id=address_id, vendor_id=vendor_id, order_id=order.pk)
             purchase.save()
 
+    if control:
+        order.delete()
+        return Response({'status': { 'successful': False, 'message': "Payment process is not succesfully satisfied."}})
+    
     items.delete()
 
     return Response({'status': { 'successful': True, 'message': "Payment process is successfully satisfied."}})

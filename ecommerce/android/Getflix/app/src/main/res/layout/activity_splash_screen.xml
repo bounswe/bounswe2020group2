@@ -9,13 +9,13 @@
     <pl.droidsonroids.gif.GifImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/main_background"></pl.droidsonroids.gif.GifImageView>
+        android:background="@drawable/main_background" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#5E424040"
-        android:orientation="horizontal"></LinearLayout>
+        android:orientation="horizontal" />
 
     <ImageView
         android:id="@+id/logo_getflix"

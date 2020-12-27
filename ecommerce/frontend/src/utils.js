@@ -1,4 +1,5 @@
 import { config } from './config'
+import * as R from 'ramda'
 
 export const productSortBy = {
     'best-sellers': 'Best sellers',
@@ -30,12 +31,12 @@ export function sleep(ms) {
  * Data formatter
  * A single credit card info from backend -> props of Cards component from react-credit-cards
  */
-export function formatCreditCard({ id, name, owner_name, serial_number, expiration_date: { month, year }, cvc }) {
+export function formatCreditCard({ id, name, owner_name, serial_number, expiration_date: { month, year }, cvv }) {
     return {
         name: owner_name,
         number: serial_number,
         expiry: month.toString().padStart(2, '0') + '/' + (year % 100),
-        cvc: cvc,
+        cvc: cvv,
     }
 }
 
@@ -82,7 +83,6 @@ export function formatProduct({
 }
 
 export function formatImageUrl(imageUrl) {
-    console.log(imageUrl)
     if (imageUrl.startsWith('/image/')) return config.apiUrl + imageUrl
     return imageUrl
 }
@@ -99,8 +99,46 @@ export function round(num, decimalPlaces = 2) {
 }
 
 export function truncate(input, limit = 50) {
-    if (input.length > limit) {
-        return input.substring(0, limit) + '...'
-    }
+    if (input.length > limit) return input.substring(0, limit) + '...'
     return input
+}
+
+export const orderStatusMap = {
+    cancelled: -1,
+    accepted: 0,
+    at_cargo: 1,
+    delivered: 2,
+}
+
+export const orderStatusInvMap = {
+    '-1': 'cancelled',
+    0: 'accepted',
+    1: 'at_cargo',
+    2: 'delivered',
+}
+
+export function formatPurchase(purchase) {
+    return {
+        ...purchase,
+        product: formatProduct(purchase.product),
+        status: orderStatusMap[purchase.status],
+    }
+}
+
+export function formatOrderStatus(status) {
+    const statusMapping = {
+        cancelled: 'Cancelled',
+        accepted: 'In progress',
+        at_cargo: 'At cargo',
+        delivered: 'Delivered',
+    }
+    return statusMapping[orderStatusInvMap[status]]
+}
+
+export function formatOrder(order) {
+    return {
+        id: order.order_id,
+        purchases: order.order_all_purchase.map(formatPurchase),
+        ...R.omit(['order_id', 'purchases'], order),
+    } // temporary solution
 }

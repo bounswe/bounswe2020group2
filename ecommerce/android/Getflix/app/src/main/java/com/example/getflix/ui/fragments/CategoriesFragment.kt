@@ -11,13 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.getflix.R
-import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentCategoriesBinding
 import com.example.getflix.models.CategoryModel
 import com.example.getflix.models.ExpirationDateModel
 import com.example.getflix.models.PhoneModel
 import com.example.getflix.models.SubcategoryModel
-import com.example.getflix.service.GetflixApi
 
 import com.example.getflix.service.requests.AddressAddRequest
 import com.example.getflix.service.requests.AddressUpdateRequest
@@ -55,13 +53,13 @@ class CategoriesFragment : Fragment() {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
 
         val binding = DataBindingUtil.inflate<FragmentCategoriesBinding>(
-                inflater, R.layout.fragment_categories,
-                container, false
+            inflater, R.layout.fragment_categories,
+            container, false
         )
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.categories)
@@ -69,11 +67,14 @@ class CategoriesFragment : Fragment() {
 
 
 
+        viewModel.getCustomerOrders()
+
         //viewModel.getProducts(3)
         //viewModel.getProduct(3)
         //viewModel.addToCart(1,4)
         //viewModel.getCustomerCartProducts()
-        //viewModel.addCustomerCartProduct(1,3)
+        viewModel.addCustomerCartProduct(1,3)
+        viewModel.addCustomerCartProduct(2,2)
         //viewModel.getCustomerCartProducts()
         //viewModel.updateCustomerCartProduct(2,71,1)
         //viewModel.deleteCustomerCartProduct(71)
@@ -81,46 +82,45 @@ class CategoriesFragment : Fragment() {
         //viewModel.getCustomerCartProducts()
         //viewModel.getSingleCartProduct(71)
         println("-----")
-        viewModel.getCustomerAddresses()
+        //viewModel.getCustomerAddresses()
         val addressReq = AddressAddRequest("Home", PhoneModel("90","8375334"),"Fatma",
-        "Yildiz","A2 98 Kadikoy","Site Mah.","Istanbul","Turkey","34555")
+            "Yildiz","A2 98 Kadikoy","Site Mah.","Istanbul","Turkey","34555")
         //viewModel.addCustomerAddress(addressReq)
         val addressReqU = AddressUpdateRequest("Home_updated", PhoneModel("90","8375334"),"Fatma",
-                "Yildiz","A2 98 Kadikoy","Site Mah.","Istanbul","Turkey","34555")
+            "Yildiz","A2 98 Kadikoy","Site Mah.","Istanbul","Turkey","34555")
         //viewModel.updateCustomerAddress(3,addressReqU)
 
         //viewModel.deleteCustomerAddress(3)
-       viewModel.getCustomerCards()
+        //viewModel.getCustomerCards()
         val cardReq = CardAddRequest("Ziraat","Fatma Yildiz","8743543878658697",
-        ExpirationDateModel(8,2022),343)
+            ExpirationDateModel(8,2022),343)
         //viewModel.addCustomerCard(cardReq)
         val cardReq1 = CardAddRequest("World","Fatma Yildiz","543878658697",
-                ExpirationDateModel(8,2021),343)
+            ExpirationDateModel(8,2021),343)
         //viewModel.addCustomerCard(cardReq1)
         //viewModel.getCustomerCard(1)
         //viewModel.deleteCustomerCard(1)
 
-        val cardReqU = CardUpdateRequest("Ziraat_updated","Fatma Yildiz",8743543,
-                ExpirationDateModel(8,2022),343)
+        val cardReqU = CardUpdateRequest("Ziraat_updated","Fatma Yildiz","8743543",
+            ExpirationDateModel(8,2022),343)
         //viewModel.updateCustomerCard(1,cardReqU)
 
 
-       var cats1 = arrayListOf<CategoryModel>()
+        var cats1 = arrayListOf<CategoryModel>()
 
-
-       viewModel.categoriess.observe(viewLifecycleOwner, {
-           it?.let {
-               for(category in it.categories!!) {
-                   var name = category.name
-                   var id = category.id
-                   var sub: MutableList<SubcategoryModel> = category.subcategories
-                   cats1.add(CategoryModel(name,id,sub))
-               }
-               adapter = CategoriesAdapter(cats1, this)
-               binding.catRec.adapter = adapter
-               activity?.loading_progress!!.visibility = View.GONE
-           }
-       })
+        viewModel.categoriess.observe(viewLifecycleOwner, {
+            it?.let {
+                for(category in it.categories!!) {
+                    var name = category.name
+                    var id = category.id
+                    var sub: MutableList<SubcategoryModel> = category.subcategories
+                    cats1.add(CategoryModel(name,id,sub))
+                }
+                adapter = CategoriesAdapter(cats1, this)
+                binding.catRec.adapter = adapter
+                activity?.loading_progress!!.visibility = View.GONE
+            }
+        })
 
 
         /*viewModel.products?.observe(viewLifecycleOwner, {products ->
@@ -161,4 +161,3 @@ class CategoriesFragment : Fragment() {
 
 
 }
-
