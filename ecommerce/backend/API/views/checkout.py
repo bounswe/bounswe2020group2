@@ -98,6 +98,7 @@ def checkout_payment(request):
 
     if(control):
         order.delete()
+        return Response({'status': { 'successful': False, 'message': "Payment process is not succesfully satisfied."}}
     
     items.delete()
 
