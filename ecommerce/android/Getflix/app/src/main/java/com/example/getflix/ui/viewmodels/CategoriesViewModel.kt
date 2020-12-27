@@ -53,6 +53,26 @@ class CategoriesViewModel : ViewModel() {
 
 
 
+    fun getProducts(numberOfProducts: Int) {
+        GetflixApi.getflixApiService.getProducts(numberOfProducts)
+            .enqueue(object :
+                Callback<List<ProductModel>> {
+                override fun onFailure(call: Call<List<ProductModel>>, t: Throwable) {
+                    _products.value = null
+                }
+
+                override fun onResponse(
+                    call: Call<List<ProductModel>>,
+                    response: Response<List<ProductModel>>
+                ) {
+                    _products.value = response.body()
+                }
+            }
+            )
+    }
+
+
+
     fun getCategories() {
         job = CoroutineScope(Dispatchers.IO).launch {
             val response = GetflixApi.getflixApiService.getCategories()
@@ -112,7 +132,7 @@ class CategoriesViewModel : ViewModel() {
     }
 
 
-   
+
 
     fun getCustomerCard(cardId: Int) {
         job = CoroutineScope(Dispatchers.IO).launch {
@@ -126,6 +146,7 @@ class CategoriesViewModel : ViewModel() {
             }
         }
     }
+
 
 
 
@@ -155,6 +176,7 @@ class CategoriesViewModel : ViewModel() {
             )
     } */
 
+
     fun addCustomerCartProduct(amount: Int, proId: Int) {
         GetflixApi.getflixApiService.addCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, CardProAddRequest(proId, amount))
             .enqueue(object :
@@ -178,8 +200,6 @@ class CategoriesViewModel : ViewModel() {
 
 
 
-
-
     fun addCategory(categoryModel: CategoryModel) {
         if (_categoriesList.value != null) {
             val categories = _categoriesList.value
@@ -192,6 +212,7 @@ class CategoriesViewModel : ViewModel() {
         }
 
     }
+
 
 
 
@@ -225,6 +246,7 @@ class CategoriesViewModel : ViewModel() {
 
 
 
+
     fun customerCancelCheckout(orderId: Int) {
         GetflixApi.getflixApiService.customerCancelCheckout("Bearer " + MainActivity.StaticData.user!!.token, orderId)
             .enqueue(object :
@@ -253,23 +275,23 @@ class CategoriesViewModel : ViewModel() {
 
     fun deleteCustomerCard(cardId: Int) {
         GetflixApi.getflixApiService.deleteCustomerCard("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, cardId)
-                .enqueue(object :
-                        Callback<CardDeleteResponse> {
-                    override fun onFailure(call: Call<CardDeleteResponse>, t: Throwable) {
-                        println("failure")
-                    }
-
-                    override fun onResponse(
-                            call: Call<CardDeleteResponse>,
-                            response: Response<CardDeleteResponse>
-                    ) {
-                        println(response.body().toString())
-                        println(response.code())
-                        if (response.body()!!.status.succcesful)
-                            println(response.body().toString())
-                    }
+            .enqueue(object :
+                Callback<CardDeleteResponse> {
+                override fun onFailure(call: Call<CardDeleteResponse>, t: Throwable) {
+                    println("failure")
                 }
-                )
+
+                override fun onResponse(
+                    call: Call<CardDeleteResponse>,
+                    response: Response<CardDeleteResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+                    if (response.body()!!.status.succcesful)
+                        println(response.body().toString())
+                }
+            }
+            )
     }
 
 }

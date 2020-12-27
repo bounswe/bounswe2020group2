@@ -4,4 +4,4 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class LoginRequest(var username: String, var password: String) :Parcelable
+data class CardProRequest(var amount: Int, var productId: Int) : Parcelable
