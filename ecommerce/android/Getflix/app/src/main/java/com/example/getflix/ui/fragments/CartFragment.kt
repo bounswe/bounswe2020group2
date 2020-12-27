@@ -56,7 +56,7 @@ class CartFragment : Fragment() {
 
         viewModel.cardProducts.observe(viewLifecycleOwner, {
             it?.let {
-                val productListAdapter = CartAdapter(it!!,this)
+                val productListAdapter = CartAdapter(it!!,this, viewModel)
                 recView.adapter = productListAdapter
                 recView.setHasFixedSize(true)
             }

@@ -130,26 +130,7 @@ class CategoriesViewModel : ViewModel() {
 
 
 
-    fun updateCustomerCartProduct(amount: Int, scId: Int, proId: Int) {
-        GetflixApi.getflixApiService.updateCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, scId, CardProUpdateRequest(proId, amount))
-                .enqueue(object :
-                        Callback<CardProUpdateResponse> {
-                    override fun onFailure(call: Call<CardProUpdateResponse>, t: Throwable) {
 
-                    }
-
-                    override fun onResponse(
-                            call: Call<CardProUpdateResponse>,
-                            response: Response<CardProUpdateResponse>
-                    ) {
-                        println(response.body().toString())
-                        println(response.code())
-                        if (response.body()!!.status.succcesful)
-                            println(response.body().toString())
-                    }
-                }
-                )
-    }
 
     fun deleteCustomerCartProduct(scId: Int) {
         GetflixApi.getflixApiService.deleteCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, scId)

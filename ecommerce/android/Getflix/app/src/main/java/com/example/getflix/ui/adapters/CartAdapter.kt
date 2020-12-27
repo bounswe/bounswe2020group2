@@ -10,13 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.ProductCardBinding
 import com.example.getflix.models.CartProductModel
 import com.example.getflix.ui.fragments.CartFragmentDirections.Companion.actionCartFragmentToProductFragment
+import com.example.getflix.ui.viewmodels.CartViewModel
 import kotlinx.android.synthetic.main.product_card.view.*
 
 class CartAdapter(
-    private val productList: MutableList<CartProductModel>, fragment: Fragment
+    private val productList: MutableList<CartProductModel>, fragment: Fragment, viewModel: CartViewModel
 ) : ListAdapter<CartProductModel, CartAdapter.RowHolder>(CartDiffCallback()) {
 
     val fragment = fragment
+    val viewModel = viewModel
 
     class RowHolder(val binding: ProductCardBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -42,12 +44,12 @@ class CartAdapter(
         productList?.get(position)?.let {
             holder.bind(it, position)
             holder.binding.decrease.setOnClickListener {
-                holder.binding.integerAmount.text = (holder.binding.integerAmount.text.toString().toInt()-1).toString()
-
+                //holder.binding.integerAmount.text = (holder.binding.integerAmount.text.toString().toInt()-1).toString()
+                viewModel.updateCustomerCartProduct(holder.binding.integerAmount.text.toString().toInt()-1,productList?.get(position).id,productList?.get(position).product.id)
             }
             holder.binding.increase.setOnClickListener {
-                holder.binding.integerAmount.text = (holder.binding.integerAmount.text.toString().toInt()+1).toString()
-
+                //holder.binding.integerAmount.text = (holder.binding.integerAmount.text.toString().toInt()+1).toString()
+                viewModel.updateCustomerCartProduct(holder.binding.integerAmount.text.toString().toInt()+1,productList?.get(position).id,productList?.get(position).product.id)
             }
             holder?.itemView!!.setOnClickListener{
                 fragment.view?.findNavController()?.navigate(actionCartFragmentToProductFragment(productList?.get(position).product.id))
