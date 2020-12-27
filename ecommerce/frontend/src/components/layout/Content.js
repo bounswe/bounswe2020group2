@@ -14,8 +14,8 @@ import { LoginPage } from '../pages/LoginPage'
 import { ProductPage } from '../pages/ProductPage'
 import { ProfilePage } from '../pages/ProfilePage'
 import { SearchPage } from '../pages/SearchPage'
+import { ShoppingCartPage } from '../pages/ShoppingCartPage'
 import { SignupPage } from '../pages/SignupPage'
-import { ShoppingCartPage } from '../ShoppingCart/ShoppingCartPage'
 
 export const Content = () => {
     const { user } = useAppContext()

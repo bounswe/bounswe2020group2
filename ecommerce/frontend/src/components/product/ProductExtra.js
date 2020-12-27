@@ -50,7 +50,7 @@ export const ProductExtra = ({ product, loading = false }) => {
             <div className="product-extra-reviews">
                 {getPriceView()}
                 <div>
-                    <Rate value={product.rating ?? 4.1} disabled /> {product.rating ?? 4.1}
+                    <Rate value={round(product.rating, 2) ?? 4.1} disabled /> {round(product.rating, 2) ?? 4.1}
                 </div>
                 {product.rating_count ?? 1234} reviews
             </div>
