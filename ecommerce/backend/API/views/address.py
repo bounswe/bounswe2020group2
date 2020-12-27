@@ -19,7 +19,7 @@ def manage_specific_address(request, customer_id, address_id):
         return Response(status=status.HTTP_400_BAD_REQUEST)
     # get single address
     if request.method == 'GET':
-        # get addresses the specific address if it is not soft deleted
+        # get specific address if it is not soft deleted
         address = Address.objects.filter(user_id=customer_id).filter(id=address_id).filter(is_deleted=False).first()
         if address is None:
             return Response({'status': {'successful': False, 'message': "No such address is found"}})
@@ -67,7 +67,7 @@ def manage_specific_address(request, customer_id, address_id):
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAnonymous])
 def manage_addresses(request, customer_id):
-    # return 403_Forbidden if it is trying to reach others content
+    # return 403_FORBIDDEN if it is trying to reach others content
     if request.user.pk != customer_id:
         return Response(status=status.HTTP_403_FORBIDDEN)
     # return 400_BAD_REQUEST if no such user exists
