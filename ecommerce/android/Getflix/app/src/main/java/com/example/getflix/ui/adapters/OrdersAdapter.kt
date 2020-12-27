@@ -7,12 +7,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.getflix.R
 import com.example.getflix.databinding.CreditCardItemBinding
+import com.example.getflix.databinding.ItemMyOrderBinding
 import com.example.getflix.models.OrderModel
-import com.example.getflix.ui.fragments.AddressFragmentDirections
-import com.example.getflix.ui.fragments.BankAccountFragment
-import com.example.getflix.ui.fragments.BankAccountFragmentDirections
 import com.example.getflix.ui.fragments.OrderInfoFragment
+import com.google.firestore.v1.StructuredQuery
 
 
 class OrdersAdapter(
@@ -28,9 +28,12 @@ class OrdersAdapter(
     }
 
 
-    class RowHolder(val binding: CreditCardItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class RowHolder(val binding: ItemMyOrderBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(order: OrderModel, position: Int) {
+            binding.name.text = R.string.product_.toString() + " " + order.order_all_purchase[0].product.name
+            binding.address.text = R.string.delivery_.toString() + " " + order.order_all_purchase[0].address.toString()
+            binding.status.text = R.string.delivery_status.toString() + " " +order.order_all_purchase[0].status
             /*
             binding.name.text = order.name
             binding.ownerName.text ="Owner: " + credit.owner_name
@@ -42,7 +45,7 @@ class OrdersAdapter(
         companion object {
             fun from(parent: ViewGroup): RowHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = CreditCardItemBinding.inflate(layoutInflater, parent, false)
+                val binding = ItemMyOrderBinding.inflate(layoutInflater, parent, false)
                 return RowHolder(binding)
             }
         }
