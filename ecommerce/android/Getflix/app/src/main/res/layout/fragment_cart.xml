@@ -5,9 +5,7 @@
 
     <data>
 
-        <variable
-            name="viewmodel"
-            type="com.example.getflix.ui.viewmodels.CartViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

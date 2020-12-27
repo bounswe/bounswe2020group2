@@ -2,21 +2,26 @@ package com.example.getflix.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.ProductCardBinding
-import com.example.getflix.models.ProductModel
+import com.example.getflix.models.CartProductModel
+import com.example.getflix.ui.fragments.CartFragmentDirections.Companion.actionCartFragmentToProductFragment
+import kotlinx.android.synthetic.main.product_card.view.*
 
 class CartAdapter(
-        private val productList: ArrayList<ProductModel>?,
-) : ListAdapter<ProductModel, CartAdapter.RowHolder>(CartDiffCallback()) {
+    private val productList: MutableList<CartProductModel>, fragment: Fragment
+) : ListAdapter<CartProductModel, CartAdapter.RowHolder>(CartDiffCallback()) {
 
+    val fragment = fragment
 
     class RowHolder(val binding: ProductCardBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(product: ProductModel, position: Int) {
-            binding.product = product
+        fun bind(product: CartProductModel, position: Int) {
+            binding.cardproduct = product
         }
 
         companion object {
@@ -34,25 +39,33 @@ class CartAdapter(
     }
 
     override fun onBindViewHolder(holder: RowHolder, position: Int) {
-        productList?.get(position)?.let { holder.bind(it, position) }
+        productList?.get(position)?.let {
+            holder.bind(it, position)
+            holder.binding.decrease.setOnClickListener {
+                holder.binding.integerAmount.text = (holder.binding.integerAmount.text.toString().toInt()-1).toString()
+            }
+            holder.binding.increase.setOnClickListener {
+                holder.binding.integerAmount.text = (holder.binding.integerAmount.text.toString().toInt()+1).toString()
+            }
+            holder?.itemView!!.setOnClickListener{
+                fragment.view?.findNavController()?.navigate(actionCartFragmentToProductFragment(productList?.get(position).product.id))
+            }
+        }
     }
 
-    /* override fun getItemCount(): Int {
-         if (productList != null) {
-             return productList.count()
-         }
-         return 0
-     } */
+    override fun getItemCount(): Int {
+        return productList!!.count()
+    }
 
 
 }
 
-class CartDiffCallback : DiffUtil.ItemCallback<ProductModel>() {
-    override fun areItemsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
+class CartDiffCallback : DiffUtil.ItemCallback<CartProductModel>() {
+    override fun areItemsTheSame(oldItem: CartProductModel, newItem: CartProductModel): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
+    override fun areContentsTheSame(oldItem: CartProductModel, newItem: CartProductModel): Boolean {
         return oldItem == newItem
     }
 

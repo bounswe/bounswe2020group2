@@ -7,7 +7,7 @@ data class CartProductModel (
     @SerializedName("id")
     val id : Int,
     @SerializedName("amount")
-    val amount : Int,
+    var amount : Int,
     @SerializedName("product")
     val product : ProductModel
 )
