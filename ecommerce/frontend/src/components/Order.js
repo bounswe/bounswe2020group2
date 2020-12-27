@@ -1,9 +1,12 @@
-import { Button, Collapse } from 'antd'
+import { Button, Collapse, notification, Popconfirm } from 'antd'
 import './Order.less'
 import { Purchase } from './Purchase'
 import * as R from 'ramda'
-import { orderStatusInvMap } from '../utils'
+import { orderStatusInvMap, sleep } from '../utils'
 import * as moment from 'moment'
+import { api } from '../api'
+import { StopOutlined } from '@ant-design/icons'
+import { useState } from 'react'
 
 const HorizontalLabel = ({ label, children }) => {
     return (
@@ -15,15 +18,27 @@ const HorizontalLabel = ({ label, children }) => {
     )
 }
 
-export const Order = ({ order }) => {
+export const Order = ({ order, onOrderCancelled }) => {
+    const [cancelLoading, setCancelLoading] = useState(false)
+
     const onCancelOrder = async event => {
         event.stopPropagation() // prevent click on collapse
-        // todo
+
+        setCancelLoading(true)
+        try {
+            await api.post(`/checkout/cancelorder/${order.id}`)
+            notification.success({ message: 'Order was cancelled' })
+            onOrderCancelled()
+        } catch (error) {
+            notification.warning({ message: 'There was an error with your request.' })
+            console.error(error)
+        } finally {
+            setCancelLoading(false)
+        }
     }
 
     const onShowOrderDetails = async event => {
-        event.stopPropagation() // click on collapse
-        // todo
+        event.stopPropagation()
     }
 
     const firstPurchase = order.order_all_purchase[0]
@@ -56,9 +71,19 @@ export const Order = ({ order }) => {
                         <HorizontalLabel label="# of Products">{order.purchases.length}</HorizontalLabel>
                         <div className="order-header-details">
                             {canCancel && (
-                                <Button danger onClick={onCancelOrder}>
-                                    Cancel Order{' '}
-                                </Button>
+                                <Popconfirm
+                                    title="Delete this card?"
+                                    onConfirm={onCancelOrder}
+                                    okText="Yes"
+                                    cancelText="No">
+                                    <Button
+                                        danger
+                                        icon={<StopOutlined />}
+                                        onClick={e => e.stopPropagation()}
+                                        loading={cancelLoading}>
+                                        Cancel Order
+                                    </Button>
+                                </Popconfirm>
                             )}
                             &nbsp;
                             <Button onClick={onShowOrderDetails} type="dashed">

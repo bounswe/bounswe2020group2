@@ -60,10 +60,15 @@ export const OrdersList = () => {
             setIsLoading(false)
         }
     }
-
-    useEffect(() => {
+    const fetch = async () => {
         if (user.type === 'customer') fetchCustomerOrders()
         else if (user.type === 'vendor') fetchVendorOrders()
+    }
+
+    const onOrderCancelled = fetch
+
+    useEffect(() => {
+        fetch()
     }, [])
 
     return (
@@ -72,7 +77,8 @@ export const OrdersList = () => {
             <Spin spinning={isLoading}>
                 <div className="orders-content">
                     {orders.map(order => {
-                        if (user.type === 'customer') return <Order key={order.id} order={order} />
+                        if (user.type === 'customer')
+                            return <Order key={order.id} order={order} onOrderCancelled={onOrderCancelled} />
 
                         return <Purchase key={order.id} purchase={order} />
                     })}
