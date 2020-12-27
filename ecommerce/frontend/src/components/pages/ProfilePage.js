@@ -6,11 +6,11 @@ import { Tabs, Radio, Space } from 'antd'
 const { TabPane } = Tabs
 
 export const ProfilePage = () => {
-    // future version
     const { user } = useAppContext()
+
     return (
         <div className="profile-page-wrapper">
-            <Tabs tabPosition="top">
+            <Tabs tabPosition="left">
                 <TabPane tab="Update Profile" key="update-profile">
                     <div className="right-bar-profile-content">
                         <ProfileContent key={user.id} user={user} />
