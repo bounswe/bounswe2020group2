@@ -37,6 +37,8 @@ urlpatterns = [
     path('customer/<int:customer_id>/cards', views.card.manage_cards),
     path('checkout/details', views.checkout.checkout_details),
     path('review', views.review.manage_review, name="review"),
+    path('user/verify', views.verify.user_verify),
+    path('email-verify/<uidb64>', views.verify.email_verify),
     path('image/<int:image_id>', views.product.get_image),
     path('vendor/product', views.product.vendor_product, name="vendor_product"),
     path('vendor/signup', views.account.vendor_register, name="vendor_signup"),
