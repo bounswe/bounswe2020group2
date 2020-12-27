@@ -3,20 +3,18 @@ package com.example.getflix.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
-import com.example.getflix.databinding.CreditCardItemBinding
 import com.example.getflix.databinding.ItemMyOrderBinding
 import com.example.getflix.models.OrderModel
+import com.example.getflix.models.OrderPurchasedModel
 import com.example.getflix.ui.fragments.OrderInfoFragment
-import com.google.firestore.v1.StructuredQuery
 
 
 class OrdersAdapter(
-    private val orderList: ArrayList<OrderModel>?, fragment: OrderInfoFragment
+    private val orderList: List<OrderModel>, fragment: OrderInfoFragment
 ) : ListAdapter<OrderModel, OrdersAdapter.RowHolder>(OrderDiffCallback()) {
 
     // mutable live data for deleted item position

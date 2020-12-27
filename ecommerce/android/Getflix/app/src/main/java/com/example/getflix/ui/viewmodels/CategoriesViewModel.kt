@@ -43,6 +43,10 @@ class CategoriesViewModel : ViewModel() {
     val addresslist: LiveData<AddressListModel>?
         get() = _addresslist
 
+    private val _orderlist = MutableLiveData<List<OrderModel>>()
+    val orderlist: LiveData<List<OrderModel>>?
+        get() = _orderlist
+
 
     var categories = arrayListOf<CategoryModel>()
 
@@ -278,6 +282,9 @@ class CategoriesViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     response.body().let { it ->
                         println(it.toString())
+                        if (it != null) {
+                            _orderlist.value = it.cartProducts
+                        }
                     }
                 }
             }

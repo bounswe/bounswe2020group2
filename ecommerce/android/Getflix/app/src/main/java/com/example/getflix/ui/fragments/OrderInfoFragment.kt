@@ -10,18 +10,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.getflix.R
-import com.example.getflix.databinding.FragmentBankAccountBinding
 import com.example.getflix.databinding.FragmentOrderInfoBinding
-import com.example.getflix.models.CardModel
 import com.example.getflix.models.OrderModel
 import com.example.getflix.ui.adapters.OrdersAdapter
 import com.example.getflix.ui.fragments.OrderInfoFragmentDirections.Companion.actionOrderInfoFragmentToProfileFragment
 
-import com.example.getflix.ui.viewmodels.CreditCardViewModel
 import com.example.getflix.ui.viewmodels.OrderViewModel
 
 import com.example.getflix.ui.viewmodels.CategoriesViewModel
-import com.example.getflix.ui.viewmodels.CategoryViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -64,6 +60,12 @@ class OrderInfoFragment : Fragment() {
         //val orderAdapter = OrdersAdapter(orders)
         //binding.ordersList.adapter = orderAdapter
         binding.ordersList.setHasFixedSize(true)
+
+        cviewModel.orderlist!!.observe(viewLifecycleOwner, {
+            val orderAdapter = OrdersAdapter(it!!,this)
+            binding.ordersList.adapter = orderAdapter
+            binding.ordersList.setHasFixedSize(true)
+        })
 
         return binding.root
     }
