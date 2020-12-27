@@ -1,6 +1,16 @@
 import { config } from '../config'
 import { rest } from 'msw'
-import { trendingProducts, product, products, reviews, categories, addresses, cards, verifications } from './mocks'
+import {
+    trendingProducts,
+    product,
+    products,
+    reviews,
+    categories,
+    addresses,
+    cards,
+    verifications,
+    accounts,
+} from './mocks'
 import { orderStatusMap } from '../utils'
 import * as moment from 'moment'
 
