@@ -51,20 +51,7 @@ class CategoriesViewModel : ViewModel() {
         println("Error ${throwable.localizedMessage}")
     }
 
-    fun getCustomerCartProducts() {
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getCustomerAllCartProducts("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id)
-            withContext(Dispatchers.Main + exceptionHandler) {
-                if (response.isSuccessful) {
-                    println("succesfull mu")
-                    response.body().let { it ->
-                        _cartproducts.value = it
-                        println(_cartproducts.value.toString())
-                    }
-                }
-            }
-        }
-    }
+
 
     fun getCategories() {
         job = CoroutineScope(Dispatchers.IO).launch {
@@ -287,6 +274,41 @@ class CategoriesViewModel : ViewModel() {
     fun getCustomerOrders() {
         job = CoroutineScope(Dispatchers.IO).launch {
             val response = GetflixApi.getflixApiService.getCustomerOrders("Bearer " + MainActivity.StaticData.user!!.token)
+            withContext(Dispatchers.Main + exceptionHandler) {
+                if (response.isSuccessful) {
+                    response.body().let { it ->
+                        println(it.toString())
+                    }
+                }
+            }
+        }
+    }
+
+
+
+    fun customerCancelCheckout(orderId: Int) {
+        GetflixApi.getflixApiService.customerCancelCheckout("Bearer " + MainActivity.StaticData.user!!.token, orderId)
+            .enqueue(object :
+                Callback<CustomerCheckoutResponse> {
+                override fun onFailure(call: Call<CustomerCheckoutResponse>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<CustomerCheckoutResponse>,
+                    response: Response<CustomerCheckoutResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+
+                }
+            }
+            )
+    }
+
+    fun getCustomerCartPrice() {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = GetflixApi.getflixApiService.getCustomerCartPrice("Bearer " + MainActivity.StaticData.user!!.token)
             withContext(Dispatchers.Main + exceptionHandler) {
                 if (response.isSuccessful) {
                     response.body().let { it ->
