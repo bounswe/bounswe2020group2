@@ -7,9 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentVendorHomeBinding
 import com.example.getflix.databinding.FragmentVendorProfileBinding
+import com.example.getflix.ui.adapters.SubCategoryAdapter
+import com.example.getflix.ui.viewmodels.SubCategoryViewModel
 import com.example.getflix.ui.viewmodels.VendorHomeViewModel
 import com.example.getflix.ui.viewmodels.VendorOrdersViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,6 +35,20 @@ class VendorHomeFragment : Fragment() {
         activity?.toolbar!!.toolbar_title.text = getString(R.string.home)
         activity?.toolbar!!.btn_notification.visibility = View.VISIBLE
         viewModel = ViewModelProvider(this).get(VendorHomeViewModel::class.java)
+
+
+        viewModel.searchBySubcategory(1)
+
+        val recView = binding?.productList as RecyclerView
+
+        val manager = GridLayoutManager(activity, 2)
+        recView.layoutManager = manager
+
+        viewModel.productList.observe(viewLifecycleOwner, {
+            val productListAdapter = VendorHomeProductsAdapter(it!!)
+            recView.adapter = productListAdapter
+            recView.setHasFixedSize(true)
+        })
 
         return binding.root
     }
