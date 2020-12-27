@@ -9,12 +9,11 @@ import { ProductPage } from '../pages/ProductPage'
 import { ProfilePage } from '../pages/ProfilePage'
 import { SearchPage } from '../pages/SearchPage'
 import { SignupPage } from '../pages/SignupPage'
-import { ShoppingCartPage } from '../ShoppingCart/ShoppingCartPage'
+import { ShoppingCartPage } from '../pages/ShoppingCartPage'
 import { CategoryBar } from '../CategoryBar'
 import { CheckoutPage } from '../pages/CheckoutPage'
 import { EmailVerification } from '../EmailVerification'
 import { IsVerifiedNotification } from '../IsVerifiedNotification'
-import { UserReviews } from '../UserReview/UserReviews'
 import { useAppContext } from '../../context/AppContext'
 
 export const Content = () => {
