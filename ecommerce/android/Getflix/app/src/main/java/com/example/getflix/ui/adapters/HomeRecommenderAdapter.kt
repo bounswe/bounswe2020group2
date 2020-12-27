@@ -10,6 +10,7 @@ import com.example.getflix.activities.MainActivity
 import com.example.getflix.addToShoppingCart
 import com.example.getflix.databinding.CardHomeRecommendedProductBinding
 import com.example.getflix.models.ProductModel
+import com.example.getflix.ui.viewmodels.HomeViewModel
 import com.squareup.picasso.Picasso
 
 class HomeRecommenderAdapter :
@@ -23,7 +24,9 @@ class HomeRecommenderAdapter :
 
     private fun ViewHolder.bind(product: ProductModel) {
         Picasso.get().load(product.images[0]).into(binding.productImage)
-
+        binding.root.setOnClickListener {
+            HomeViewModel.onProductClick.value = product
+        }
         var amount = binding.amountRecProduct.text.toString().toInt()
 
         binding.product = product

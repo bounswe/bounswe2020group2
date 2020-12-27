@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.CardTrendingProductBinding
 import com.example.getflix.models.ProductModel
+import com.example.getflix.ui.viewmodels.HomeViewModel
 import com.squareup.picasso.Picasso
 
 class TrendingProductAdapter :
@@ -19,6 +20,9 @@ class TrendingProductAdapter :
     }
 
     private fun ViewHolder.bind(product: ProductModel) {
+        binding.root.setOnClickListener {
+            HomeViewModel.onProductClick.value = product
+        }
         Picasso.get().load(product.images[0]).into(binding.trendingProductImage)
     }
 

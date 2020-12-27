@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.CardEditorPickBinding
 import com.example.getflix.models.ProductModel
+import com.example.getflix.ui.viewmodels.HomeViewModel
 import com.squareup.picasso.Picasso
 
 class HomeEditorsPicksAdapter :
@@ -21,6 +22,9 @@ class HomeEditorsPicksAdapter :
     private fun ViewHolder.bind(product: ProductModel) {
         Picasso.get().load(product.images[0]).into(binding.editorPickImage)
         binding.editorPickBrandName.text = product.brand.name
+        binding.root.setOnClickListener {
+            HomeViewModel.onProductClick.value = product
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

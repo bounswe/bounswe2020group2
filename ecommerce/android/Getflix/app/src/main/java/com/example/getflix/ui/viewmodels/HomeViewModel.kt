@@ -10,7 +10,9 @@ import retrofit2.Response
 
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
-
+    companion object{
+        val onProductClick = MutableLiveData<ProductModel?>()
+    }
     private val _onCategoryClick = MutableLiveData<Int>()
     val onCategoryClick: LiveData<Int>
         get() = _onCategoryClick

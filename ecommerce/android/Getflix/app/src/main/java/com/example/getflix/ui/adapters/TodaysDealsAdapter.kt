@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.CardTodaysDealBinding
 import com.example.getflix.models.ProductModel
+import com.example.getflix.ui.viewmodels.HomeViewModel
 import com.squareup.picasso.Picasso
 
 val imageSources = listOf<Int>(R.drawable.new_year2,R.drawable.new_year1,R.drawable.new_year3,R.drawable.new_year0)
@@ -21,6 +22,9 @@ class TodaysDealsAdapter :
     }
 
     private fun ViewHolder.bind(product: ProductModel,position: Int) {
+        binding.root.setOnClickListener {
+            HomeViewModel.onProductClick.value = product
+        }
         Picasso.get().load(product.images[0]).into(binding.todaysDealImage)
         binding.imageView3.setImageResource(imageSources[position])
     }

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -133,6 +134,12 @@ class HomePageFragment : Fragment() {
             adapterForTrendingProducts.submitList(it)
         })
 
+        HomeViewModel.onProductClick.observe(viewLifecycleOwner, Observer {
+            if(it!=null){
+                HomeViewModel.onProductClick.value = null
+             //   view?.findNavController()?.navigate(HomePageFragmentDirections.actionHomePageFragmentToCategoryFragment())
+            }
+        })
         return binding.root
     }
 
