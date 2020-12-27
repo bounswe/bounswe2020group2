@@ -43,10 +43,6 @@ export const Order = ({ order, onOrderCancelled }) => {
 
     const firstPurchase = order.order_all_purchase[0]
 
-    const totalPrice =
-        order.prices.total_price ??
-        order.purchases.map(purchase => purchase.unit_price * purchase.amount).reduce(R.add, 0)
-
     const canCancel =
         R.any(purchase => orderStatusInvMap[purchase.status] !== 'cancelled', order.purchases) &&
         R.none(purchase => orderStatusInvMap[purchase.status] === 'at_cargo', order.purchases) &&
@@ -63,7 +59,13 @@ export const Order = ({ order, onOrderCancelled }) => {
                     <div className="order-header">
                         <HorizontalLabel label="Order Date">{orderDate}</HorizontalLabel>
                         <HorizontalLabel label="Total Price">
-                            {totalPrice} {firstPurchase.currency ?? 'TL'}
+                            {order.prices.total_price} {firstPurchase.currency ?? 'TL'}
+                        </HorizontalLabel>
+                        <HorizontalLabel label="Total Discount">
+                            -{order.prices.discount} {firstPurchase.currency ?? 'TL'}
+                        </HorizontalLabel>
+                        <HorizontalLabel label="Delivery fee">
+                            {order.prices.delivery_price} {firstPurchase.currency ?? 'TL'}
                         </HorizontalLabel>
                         <HorizontalLabel label="Receiver">
                             {[firstPurchase.address.name, firstPurchase.address.surname].filter(Boolean).join(' ')}
