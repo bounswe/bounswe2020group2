@@ -1,9 +1,10 @@
 from rest_framework.test import APIClient
 from django.test import TestCase
 from django.urls import reverse
-from ..models import User, Vendor, Product, Review, Purchase, Category, Subcategory, Brand, Address, Order
+from ..models import User, Vendor, Product, Review, Purchase, Category, Subcategory, Brand, Address, Order, Customer
 from ..utils import OrderStatus
 import datetime
+from ..utils.crypto import Crypto
 
 class ReviewTests(TestCase):
 
@@ -16,7 +17,13 @@ class ReviewTests(TestCase):
             'firstname': 'test',
             'lastname': 'user'
         }
-        response = self.client.post(reverse('register'), body, 'json')
+
+        salt = Crypto().getSalt()
+        password_hash = Crypto().getHashedPassword("12345678", salt)
+        user = User.objects.create(username="testuser", email="test@mail.com", role = 1,
+                                            password_salt=salt, password_hash=password_hash, is_verified=True)
+        Customer.objects.create(user=user, first_name="test", last_name="user")
+
         u = User.objects.filter(username='testuser').first()
         self.uid = u.id
         c = Category.objects.create(id=4, name="Clothing")

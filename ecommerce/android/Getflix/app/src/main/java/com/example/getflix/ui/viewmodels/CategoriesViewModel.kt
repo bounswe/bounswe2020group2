@@ -51,20 +51,7 @@ class CategoriesViewModel : ViewModel() {
         println("Error ${throwable.localizedMessage}")
     }
 
-    fun getCustomerCartProducts() {
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getCustomerAllCartProducts("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id)
-            withContext(Dispatchers.Main + exceptionHandler) {
-                if (response.isSuccessful) {
-                    println("succesfull mu")
-                    response.body().let { it ->
-                        _cartproducts.value = it
-                        println(_cartproducts.value.toString())
-                    }
-                }
-            }
-        }
-    }
+
 
     fun getCategories() {
         job = CoroutineScope(Dispatchers.IO).launch {
@@ -143,47 +130,9 @@ class CategoriesViewModel : ViewModel() {
 
 
 
-    fun updateCustomerCartProduct(amount: Int, scId: Int, proId: Int) {
-        GetflixApi.getflixApiService.updateCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, scId, CardProUpdateRequest(proId, amount))
-                .enqueue(object :
-                        Callback<CardProUpdateResponse> {
-                    override fun onFailure(call: Call<CardProUpdateResponse>, t: Throwable) {
 
-                    }
 
-                    override fun onResponse(
-                            call: Call<CardProUpdateResponse>,
-                            response: Response<CardProUpdateResponse>
-                    ) {
-                        println(response.body().toString())
-                        println(response.code())
-                        if (response.body()!!.status.succcesful)
-                            println(response.body().toString())
-                    }
-                }
-                )
-    }
 
-    fun deleteCustomerCartProduct(scId: Int) {
-        GetflixApi.getflixApiService.deleteCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, scId)
-                .enqueue(object :
-                        Callback<CardProDeleteResponse> {
-                    override fun onFailure(call: Call<CardProDeleteResponse>, t: Throwable) {
-                        println("failure")
-                    }
-
-                    override fun onResponse(
-                            call: Call<CardProDeleteResponse>,
-                            response: Response<CardProDeleteResponse>
-                    ) {
-                        println(response.body().toString())
-                        println(response.code())
-                        if (response.body()!!.status.succcesful)
-                            println(response.body().toString())
-                    }
-                }
-                )
-    }
 
     /*fun addCustomerCartProduct(amount: Int, proId: Int) {
         GetflixApi.getflixApiService.addCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, CardProAddRequest(proId, amount))
@@ -229,6 +178,8 @@ class CategoriesViewModel : ViewModel() {
 
 
 
+
+
     fun addCategory(categoryModel: CategoryModel) {
         if (_categoriesList.value != null) {
             val categories = _categoriesList.value
@@ -244,30 +195,6 @@ class CategoriesViewModel : ViewModel() {
 
 
 
-    fun setCategories(products: MutableList<ProductModel>) {
-        val catList = arrayListOf<CategoryModel>()
-        for (pro in products) {
-            if (!catList.any { pro.category.name == it.name }) {
-                val subCats = arrayListOf<SubcategoryModel>()
-                val products = arrayListOf<ProductModel>()
-                products.add(pro)
-               // subCats.add(SubcategoryModel(pro.subcategory, products))
-               // catList.add(CategoryModel(pro.category, subCats))
-            } else {
-                for (cat in catList) {
-                    if (cat.name == pro.category.name) {
-                        var ind = catList.indexOf(cat)
-                        if (!catList[ind].subcategories!!.any { pro.subcategory.name == it.name }) {
-                            val products = arrayListOf<ProductModel>()
-                            products.add(pro)
-                           // catList[ind].subCats.add(SubcategoryModel(pro.subcategory, products))
-                        }
-                    }
-                }
-            }
-        }
-        _categoriesList.value = catList
-    }
 
     fun getCustomerCards() {
         job = CoroutineScope(Dispatchers.IO).launch {
@@ -281,6 +208,44 @@ class CategoriesViewModel : ViewModel() {
             }
         }
     }
+
+    fun getCustomerOrders() {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = GetflixApi.getflixApiService.getCustomerOrders("Bearer " + MainActivity.StaticData.user!!.token)
+            withContext(Dispatchers.Main + exceptionHandler) {
+                if (response.isSuccessful) {
+                    response.body().let { it ->
+                        println(it.toString())
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+    fun customerCancelCheckout(orderId: Int) {
+        GetflixApi.getflixApiService.customerCancelCheckout("Bearer " + MainActivity.StaticData.user!!.token, orderId)
+            .enqueue(object :
+                Callback<CustomerCheckoutResponse> {
+                override fun onFailure(call: Call<CustomerCheckoutResponse>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<CustomerCheckoutResponse>,
+                    response: Response<CustomerCheckoutResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+
+                }
+            }
+            )
+    }
+
+
 
 
 

@@ -67,11 +67,14 @@ class CategoriesFragment : Fragment() {
 
 
 
-        viewModel.getProducts(3)
+        viewModel.getCustomerOrders()
+
+        //viewModel.getProducts(3)
         //viewModel.getProduct(3)
         //viewModel.addToCart(1,4)
         //viewModel.getCustomerCartProducts()
-        //viewModel.addCustomerCartProduct(1,3)
+        viewModel.addCustomerCartProduct(1,3)
+        viewModel.addCustomerCartProduct(2,2)
         //viewModel.getCustomerCartProducts()
         //viewModel.updateCustomerCartProduct(2,71,1)
         //viewModel.deleteCustomerCartProduct(71)
@@ -79,7 +82,7 @@ class CategoriesFragment : Fragment() {
         //viewModel.getCustomerCartProducts()
         //viewModel.getSingleCartProduct(71)
         println("-----")
-        viewModel.getCustomerAddresses()
+        //viewModel.getCustomerAddresses()
         val addressReq = AddressAddRequest("Home", PhoneModel("90","8375334"),"Fatma",
         "Yildiz","A2 98 Kadikoy","Site Mah.","Istanbul","Turkey","34555")
         //viewModel.addCustomerAddress(addressReq)
@@ -88,7 +91,7 @@ class CategoriesFragment : Fragment() {
         //viewModel.updateCustomerAddress(3,addressReqU)
 
         //viewModel.deleteCustomerAddress(3)
-       viewModel.getCustomerCards()
+       //viewModel.getCustomerCards()
         val cardReq = CardAddRequest("Ziraat","Fatma Yildiz","8743543878658697",
         ExpirationDateModel(8,2022),343)
         //viewModel.addCustomerCard(cardReq)
@@ -105,7 +108,6 @@ class CategoriesFragment : Fragment() {
 
        var cats1 = arrayListOf<CategoryModel>()
 
-/*
        viewModel.categoriess.observe(viewLifecycleOwner, {
            it?.let {
                for(category in it.categories!!) {
@@ -118,7 +120,7 @@ class CategoriesFragment : Fragment() {
                binding.catRec.adapter = adapter
                activity?.loading_progress!!.visibility = View.GONE
            }
-       })*/
+       })
 
 
         /*viewModel.products?.observe(viewLifecycleOwner, {products ->

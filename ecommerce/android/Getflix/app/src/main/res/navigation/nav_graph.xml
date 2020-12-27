@@ -70,13 +70,7 @@
         <action
             android:id="@+id/action_profileFragment_to_homePageFragment"
             app:destination="@id/homePageFragment" />
-        <action
-            android:id="@+id/action_profileFragment_to_userInfoFragment"
-            app:destination="@id/userInfoFragment"
-            app:enterAnim="@anim/enter_left_to_right"
-            app:exitAnim="@anim/exit_left_to_right"
-            app:popEnterAnim="@anim/enter_right_to_left"
-            app:popExitAnim="@anim/exit_right_to_left" />
+
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -101,8 +95,11 @@
         android:name="com.example.getflix.ui.fragments.CartFragment"
         tools:layout="@layout/fragment_cart">
         <action
-            android:id="@+id/action_cartFragment_to_orderFragment"
-            app:destination="@id/orderFragment" />
+            android:id="@+id/action_cartFragment_to_completeOrderFragment"
+            app:destination="@id/completeOrderFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_productFragment"
+            app:destination="@id/productFragment" />
     </fragment>
 
     <fragment
@@ -125,8 +122,8 @@
         android:name="com.example.getflix.ui.fragments.SubcategoryFragment"
         tools:layout="@layout/list_horizontalsubs">
         <argument
-            android:name="subName"
-            app:argType="string" />
+            android:name="subId"
+            app:argType="integer" />
         <action
             android:id="@+id/action_subcategoryFragment_to_filterOptionsFragment"
             app:destination="@id/filterOptionsFragment" />
@@ -192,10 +189,7 @@
             app:enterAnim="@anim/enter_right_to_left"
             app:exitAnim="@anim/exit_right_to_left" />
     </fragment>
-    <fragment
-        android:id="@+id/userInfoFragment"
-        android:name="com.example.getflix.ui.fragments.UserInfoFragment"
-        tools:layout="@layout/fragment_user_info" />
+
     <fragment
         android:id="@+id/productFragment"
         android:name="com.example.getflix.ui.fragments.ProductFragment"
@@ -229,15 +223,18 @@
         android:name="com.example.getflix.ui.fragments.AddAddressFragment"
         tools:layout="@layout/fragment_add_address" />
     <fragment
-        android:id="@+id/orderFragment"
-        android:name="com.example.getflix.ui.fragments.OrderFragment"
-        tools:layout="@layout/fragment_order">
+        android:id="@+id/completeOrderFragment"
+        android:name="com.example.getflix.ui.fragments.CompleteOrderFragment"
+        tools:layout="@layout/fragment_complete_order">
         <action
-            android:id="@+id/action_orderFragment_to_addCreditCardFragment"
+            android:id="@+id/action_completeOrderFragment_to_addCreditCardFragment"
             app:destination="@id/addCreditCardFragment" />
         <action
-            android:id="@+id/action_orderFragment_to_addAddressFragment"
+            android:id="@+id/action_completeOrderFragment_to_addAddressFragment"
             app:destination="@id/addAddressFragment" />
+        <action
+            android:id="@+id/action_completeOrderFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
     </fragment>
     <fragment
         android:id="@+id/updateAddressFragment"
