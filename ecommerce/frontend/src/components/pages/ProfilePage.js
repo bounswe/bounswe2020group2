@@ -4,6 +4,7 @@ import { ProfileContent } from '../profile/ProfileContent'
 import { useAppContext } from '../../context/AppContext'
 import { Tabs, Radio, Space } from 'antd'
 import { OrdersList } from '../OrdersList'
+import { CreditCardList } from '../cardlist/CreditCardList'
 const { TabPane } = Tabs
 
 export const ProfilePage = () => {
@@ -11,7 +12,7 @@ export const ProfilePage = () => {
 
     return (
         <div className="profile-page-wrapper">
-            <Tabs tabPosition="left" defaultActiveKey="orders">
+            <Tabs tabPosition="left" defaultActiveKey="cards">
                 <TabPane tab="Update Profile" key="update-profile">
                     <div className="right-bar-profile-content">
                         <ProfileContent key={user.id} user={user} />
@@ -21,7 +22,7 @@ export const ProfilePage = () => {
                     <OrdersList />
                 </TabPane>
                 <TabPane tab="Cards" key="cards">
-                    TO DO: Cards to be implemented
+                    <CreditCardList />
                 </TabPane>
                 <TabPane tab="Addresses" key="addresses">
                     TO DO: Addresses to be implemented
