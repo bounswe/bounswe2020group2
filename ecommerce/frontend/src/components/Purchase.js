@@ -35,10 +35,13 @@ export const Purchase = ({ purchase }) => {
         setReviewModalVisible(false)
     }
 
+    const statusName = orderStatusInvMap[status]
+
     return (
         <>
             <Collapse defaultActiveKey="purchase">
                 <Collapse.Panel
+                    className={`purchase-panel-header--${statusName}`}
                     key="purchase"
                     showArrow={false}
                     header={
