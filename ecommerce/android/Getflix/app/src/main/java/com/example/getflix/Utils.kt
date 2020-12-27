@@ -145,15 +145,7 @@ fun doneAlert(fragment: Fragment, message: String, func: (() -> Unit)) {
             .show()
 }
 
-fun addToShoppingCart(amount : Int,shoppingCartId: Int, productId: Int) {
-    GetflixApi.getflixApiService.updateCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,
-        MainActivity.StaticData.user!!.id, shoppingCartId, CardProUpdateRequest(productId,
-            amount
-        )
-    )
-        .enqueue(object :
-            Callback<CardProUpdateResponse> {
-            override fun onFailure(call: Call<CardProUpdateResponse>, t: Throwable) {
+
 
 
 fun addToShoppingCart(amount : Int,shoppingCartId: Int, productId: Int) {
@@ -191,4 +183,5 @@ fun askAlert(fragment: Fragment, message: String, func: () -> Unit) {
             .setIcon(R.drawable.ic_warning)
             .show()
 }
+
 

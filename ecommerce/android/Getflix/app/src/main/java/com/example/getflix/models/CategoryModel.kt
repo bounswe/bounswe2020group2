@@ -11,5 +11,11 @@ import kotlinx.android.parcel.Parcelize
 data class CategoryModel (
         @SerializedName("name") val name : String,
         @SerializedName("id") val id : Int,
-        @SerializedName("subcategories") val subcategories : List<SubcategoryModel> ?=null
-) : Parcelable
+        @SerializedName("subcategories") val subcategories : MutableList<SubcategoryModel>
+) : ExpandableGroup<SubcategoryModel>(name, subcategories) {
+
+
+        operator fun get(s: String): MutableList<SubcategoryModel>? {
+                return null
+        }
+}
