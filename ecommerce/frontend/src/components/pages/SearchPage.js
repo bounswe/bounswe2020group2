@@ -8,11 +8,11 @@ import { Helmet } from 'react-helmet'
 import { useHistory } from 'react-router-dom'
 
 import { api } from '../../api'
-// import { categories, subcategories } from '../../utils'
+import { formatProduct } from '../../utils'
 import { SearchResults } from '../search/SearchResults'
 import { SearchSidePanel } from '../search/SearchSidePanel'
-import { formatProduct } from '../../utils'
 
+// import { categories, subcategories } from '../../utils'
 const formatSearchQueryParams = values => ({
     query: values.search?.query,
     // query: this can be undefined it means doesn't matter
@@ -104,14 +104,17 @@ export const _SearchPage = ({ initialValues = {} }) => {
         async function fetch() {
             try {
                 setIsLoading(true)
-                console.log(values)
+
+                console.log('filters', values)
+                const queryParams = R.reject(R.equals(undefined), formatSearchQueryParams(values))
+
+                console.log('queryParams', queryParams)
 
                 const {
                     data: {
-                        data: { pagination },
-                        products,
+                        data: { pagination, products },
                     },
-                } = await api.post(`/search/products`, formatSearchQueryParams(values))
+                } = await api.post(`/search/products`, queryParams)
 
                 setProducts(products.map(formatProduct))
 

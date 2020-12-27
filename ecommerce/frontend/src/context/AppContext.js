@@ -1,10 +1,8 @@
 import { notification } from 'antd'
 import constate from 'constate'
 import { useState } from 'react'
-import { sleep } from '../utils'
-import uuidv4 from 'uuid/dist/v4'
+
 import { api } from '../api'
-import { Redirect } from 'react-router'
 
 const guestUser = { type: 'guest' }
 const customerUser = {
