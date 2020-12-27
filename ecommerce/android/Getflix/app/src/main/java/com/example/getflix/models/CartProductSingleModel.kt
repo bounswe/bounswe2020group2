@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 
-
+@Parcelize
 data class CartProductSingleModel (
 
         @SerializedName("status")
@@ -13,4 +13,4 @@ data class CartProductSingleModel (
         @SerializedName("sc_item")
         val sc_item : CartProductModel,
 
-)
+):Parcelable

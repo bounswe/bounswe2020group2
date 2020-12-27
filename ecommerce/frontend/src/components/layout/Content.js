@@ -3,18 +3,19 @@ import './Layout_common.less'
 import { Layout } from 'antd'
 import { Redirect, Route, Switch } from 'react-router-dom'
 
+import { useAppContext } from '../../context/AppContext'
+import { CategoryBar } from '../CategoryBar'
+import { EmailVerification } from '../EmailVerification'
+import { IsVerifiedNotification } from '../IsVerifiedNotification'
+import { OrdersList } from '../OrdersList'
+import { CheckoutPage } from '../pages/CheckoutPage'
 import { HomePage } from '../pages/HomePage'
 import { LoginPage } from '../pages/LoginPage'
 import { ProductPage } from '../pages/ProductPage'
 import { ProfilePage } from '../pages/ProfilePage'
 import { SearchPage } from '../pages/SearchPage'
-import { SignupPage } from '../pages/SignupPage'
 import { ShoppingCartPage } from '../pages/ShoppingCartPage'
-import { CategoryBar } from '../CategoryBar'
-import { CheckoutPage } from '../pages/CheckoutPage'
-import { EmailVerification } from '../EmailVerification'
-import { IsVerifiedNotification } from '../IsVerifiedNotification'
-import { useAppContext } from '../../context/AppContext'
+import { SignupPage } from '../pages/SignupPage'
 
 export const Content = () => {
     const { user } = useAppContext()
@@ -29,6 +30,8 @@ export const Content = () => {
             <IsVerifiedNotification />
 
             <Switch>
+                <Route path="/orders" component={OrdersList} />
+                {/* //TEMPORARY */}
                 {isUser && <Route path="/verify/:id" component={EmailVerification} />}
                 <Route path="/search/:type" component={SearchPage} />
                 <Route path="/product/:productId" component={ProductPage} />

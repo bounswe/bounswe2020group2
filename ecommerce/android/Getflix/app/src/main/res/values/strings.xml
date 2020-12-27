@@ -103,6 +103,10 @@
     <string name="username_char_limit">Kullanıcı adınız en az 6 karakter olmalıdır.</string>
     <string name="valid_name">Lütfen geçerli bir ad soyad bilgisi giriniz.</string>
     <string name="register_success">Kaydınız tamamlandı! Oturum açma sayfasına yönlendiriliyorsunuz.</string>
+    <string name="slogan1">The biggest marketplace in the world.</string>
+    <string name="todays_deals">Todays Deals</string>
+    <string name="trending_products">Trending Products</string>
+    <string name="recommended_for_you_title">Our Picks For You</string>
     <string name="remember_me">Beni Hatırla</string>
     <string name="register_back">Anasayfaya Dön</string>
     <string name="loading">Lütfen Bekleyiniz…</string>
@@ -120,6 +124,7 @@
     <string name="choose_credit">Odeme icin kredi karti seciniz</string>
     <string name="choose_address">Teslimat icin adres seciniz</string>
     <string name="add_credit">Yeni kredi karti ekle</string>
+    <string name="you_might_like">You might like...</string>
     <string name="edittext_title"><font size="35">Başlık</font></string>
     <string name="edittext_name"><font size="35">Ad</font></string>
     <string name="edittext_surname"><font size="35">Soyad</font></string>
@@ -138,5 +143,6 @@
     <string name="category_title">Category</string>
     <string name="subcategory_title">Subcategory</string>
     <string name="comments_title">Comments</string>
+    <string name="proceed_with_the_payment">PROCEED WITH THE PAYMENT</string>
 
 </resources>

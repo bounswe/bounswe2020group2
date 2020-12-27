@@ -1,11 +1,17 @@
 from rest_framework.test import APIClient
 from django.test import TestCase
 from django.urls import reverse
-from ..models import user
+from ..models import user, User, Customer
+from ..utils.crypto import Crypto
 
 class TestAccount(TestCase):
     def setUp(self):
         self.client = APIClient()
+        salt = Crypto().getSalt()
+        password_hash = Crypto().getHashedPassword("12345678", salt)
+        user = User.objects.create(username="testuser", email="test@mail.com", role = 1,
+                                            password_salt=salt, password_hash=password_hash, is_verified=True)
+        Customer.objects.create(user=user, first_name="test", last_name="user")
 
     def test_req_format(self):
         response = self.client.get(reverse('login'))
@@ -86,14 +92,6 @@ class TestAccount(TestCase):
         self.assertEqual(usr.email, 'test@mail.com')
 
     def test_login_success(self):
-        body = {
-            'username': 'testuser',
-            'email': 'test@mail.com',
-            'password': '12345678',
-            'firstname': 'test',
-            'lastname': 'user'
-        }
-        response = self.client.post(reverse('register'), body, 'json')
         body = {
             'username': 'testuser',
             'password': '12345678'

@@ -9,15 +9,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.AddressCardItemBinding
-import com.example.getflix.databinding.ProductCardBinding
 import com.example.getflix.models.AddressModel
-import com.example.getflix.models.CardModel
-import com.example.getflix.models.ProductModel
 import com.example.getflix.ui.fragments.AddressFragment
 import com.example.getflix.ui.fragments.AddressFragmentDirections
-import com.example.getflix.ui.fragments.CategoriesFragment
-import com.example.getflix.ui.fragments.CategoriesFragmentDirections
-
 
 class AddressAdapter(
     private val addressList: ArrayList<AddressModel>?,
