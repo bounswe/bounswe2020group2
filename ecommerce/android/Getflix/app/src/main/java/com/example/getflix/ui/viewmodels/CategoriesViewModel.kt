@@ -286,6 +286,7 @@ class CategoriesViewModel : ViewModel() {
 
 
 
+
     fun customerCancelCheckout(orderId: Int) {
         GetflixApi.getflixApiService.customerCancelCheckout("Bearer " + MainActivity.StaticData.user!!.token, orderId)
             .enqueue(object :
@@ -306,18 +307,7 @@ class CategoriesViewModel : ViewModel() {
             )
     }
 
-    fun getCustomerCartPrice() {
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getCustomerCartPrice("Bearer " + MainActivity.StaticData.user!!.token)
-            withContext(Dispatchers.Main + exceptionHandler) {
-                if (response.isSuccessful) {
-                    response.body().let { it ->
-                        println(it.toString())
-                    }
-                }
-            }
-        }
-    }
+
 
 
 

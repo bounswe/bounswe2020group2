@@ -26,18 +26,18 @@ class CartViewModel : ViewModel() {
     }
 
 
-
-    /*fun addProduct(productModel: ProductModel) {
-        if (_productList.value != null) {
-            val products = _productList.value
-            products?.add(productModel)
-            _productList.value = products
-        } else {
-            val products = arrayListOf<ProductModel>()
-            products.add(productModel)
-            _productList.value = products
+    fun getCustomerCartPrice() {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = GetflixApi.getflixApiService.getCustomerCartPrice("Bearer " + MainActivity.StaticData.user!!.token)
+            withContext(Dispatchers.Main + exceptionHandler) {
+                if (response.isSuccessful) {
+                    response.body().let { it ->
+                        println(it.toString())
+                    }
+                }
+            }
         }
-    }*/
+    }
 
     fun getCustomerCartProducts() {
         job = CoroutineScope(Dispatchers.IO).launch {
