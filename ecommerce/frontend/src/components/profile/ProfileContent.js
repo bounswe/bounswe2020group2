@@ -1,13 +1,14 @@
 import { UpdateProfileForm } from '../UpdateProfileForm'
 import './ProfileContent.less'
 import { api } from '../../api'
-import { notification } from 'antd'
+import { Alert, Button, notification, Space } from 'antd'
 import { useHistory } from 'react-router-dom'
 import { sleep } from '../../utils'
 import { useState } from 'react'
 
 export const ProfileContent = ({ user }) => {
     const [isLoading, setIsLoading] = useState(false)
+    const [isVerifyLoading, setIsVerifyLoading] = useState(false)
     const history = useHistory()
 
     const onSubmit = async (values, userType) => {
@@ -32,5 +33,41 @@ export const ProfileContent = ({ user }) => {
         return
     }
 
-    return <UpdateProfileForm onSubmit={onSubmit} user={user} />
+    const onVerify = async () => {
+        try {
+            setIsVerifyLoading(true)
+            const {
+                data: {
+                    status: { successful, message },
+                },
+            } = await api.post('/user/verify', {})
+            if (successful) {
+                notification.success({ description: 'We have sent an email to your inbox' })
+            }
+        } catch {
+            notification.error({ description: 'Oops.. Please try again, later' })
+        } finally {
+            setIsVerifyLoading(false)
+        }
+    }
+
+    return (
+        <>
+            {!user?.is_verifed && (
+                <Alert
+                    message={
+                        <>
+                            Your email is not verified&nbsp;
+                            <Button loading={isVerifyLoading} onClick={onVerify} type="primary">
+                                Verify
+                            </Button>
+                        </>
+                    }
+                    banner
+                />
+            )}
+            <br />
+            <UpdateProfileForm onSubmit={onSubmit} user={user} />
+        </>
+    )
 }
