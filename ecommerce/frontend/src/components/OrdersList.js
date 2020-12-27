@@ -1,6 +1,6 @@
 import './OrdersList.less'
 
-import { notification } from 'antd'
+import { notification, Spin } from 'antd'
 import { useEffect, useState } from 'react'
 
 import { api } from '../api'
@@ -64,11 +64,13 @@ export const OrdersList = () => {
         <div className="orders-container">
             <div className="orders-header">Order History</div>
             <div className="orders-content">
-                {orders.map(order => {
-                    if (user.type === 'customer') return <Order key={order.id} order={order} />
+                <Spin spinning={isLoading}>
+                    {orders.map(order => {
+                        if (user.type === 'customer') return <Order key={order.id} order={order} />
 
-                    return <Purchase key={order.id} purchase={order} />
-                })}
+                        return <Purchase key={order.id} purchase={order} />
+                    })}
+                </Spin>
             </div>
         </div>
     )

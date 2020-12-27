@@ -83,7 +83,6 @@ export function formatProduct({
 }
 
 export function formatImageUrl(imageUrl) {
-    console.log(imageUrl)
     if (imageUrl.startsWith('/image/')) return config.apiUrl + imageUrl
     return imageUrl
 }
@@ -100,9 +99,7 @@ export function round(num, decimalPlaces = 2) {
 }
 
 export function truncate(input, limit = 50) {
-    if (input.length > limit) {
-        return input.substring(0, limit) + '...'
-    }
+    if (input.length > limit) return input.substring(0, limit) + '...'
     return input
 }
 

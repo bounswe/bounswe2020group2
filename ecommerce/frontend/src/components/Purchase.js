@@ -1,9 +1,10 @@
+import './Purchase.less'
+
 import { Button, Collapse, Modal } from 'antd'
-import useModal from 'antd/lib/modal/useModal'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { orderStatusInvMap, formatOrderStatus } from '../utils'
-import './Purchase.less'
+
+import { formatOrderStatus, orderStatusInvMap } from '../utils'
 import { UserReviewPost } from './UserReview/UserReviewPost'
 
 const HorizontalLabel = ({ label, children }) => {
@@ -19,7 +20,6 @@ const HorizontalLabel = ({ label, children }) => {
 export const Purchase = ({ purchase }) => {
     const { product, status } = purchase
 
-    // useModal()
     const [reviewModalVisible, setReviewModalVisible] = useState()
 
     const receiver = [purchase.address.name, purchase.address.surname].filter(Boolean).join(' ')

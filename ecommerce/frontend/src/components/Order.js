@@ -68,7 +68,7 @@ export const Order = ({ order }) => {
                 }>
                 <div className="order-purchases">
                     {order.purchases.map(purchase => {
-                        return <Purchase key={order.id} purchase={purchase} />
+                        return <Purchase key={purchase.id} purchase={purchase} />
                     })}
                 </div>
             </Collapse.Panel>
