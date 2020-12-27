@@ -9,8 +9,8 @@ data class AddressModel(
         var id: Int,
         @SerializedName("title")
         var title: String,
-        @SerializedName("phoneNumber")
-        var phoneNumber: String,
+        @SerializedName("phone")
+        var phone: PhoneModel,
         @SerializedName("name")
         var name: String,
         @SerializedName("surname")
@@ -22,11 +22,14 @@ data class AddressModel(
         @SerializedName("city")
         var city: String,
         @SerializedName("country")
-        var country: String
+        var country: String,
+        @SerializedName("zip_code")
+        var zipCode: String
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
             parcel.readString()!!,
+            parcel.readParcelable(PhoneModel::class.java.classLoader)!!,
             parcel.readString()!!,
             parcel.readString()!!,
             parcel.readString()!!,
@@ -39,13 +42,14 @@ data class AddressModel(
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
         parcel.writeString(title)
-        parcel.writeString(phoneNumber)
+        parcel.writeParcelable(phone, flags)
         parcel.writeString(name)
         parcel.writeString(surname)
         parcel.writeString(address)
         parcel.writeString(province)
         parcel.writeString(city)
         parcel.writeString(country)
+        parcel.writeString(zipCode)
     }
 
     override fun describeContents(): Int {
@@ -61,5 +65,6 @@ data class AddressModel(
             return arrayOfNulls(size)
         }
     }
+
 }
 

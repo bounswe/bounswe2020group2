@@ -5,6 +5,7 @@ from .category import *
 from .search import * 
 from .checkout import *
 from .review import *
+from .verify import *
 from .address import *
 from .card import *
 from .order import *

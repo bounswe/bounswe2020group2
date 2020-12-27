@@ -43,10 +43,8 @@ const HomePage_MainContent = () => {
             try {
                 setIsLoading(true)
 
-                const {
-                    data: { products },
-                } = await api.get(`/products/homepage/${5}`)
-                setTrendingProducts(products)
+                const { data } = await api.get(`/products/homepage/${5}`)
+                setTrendingProducts(data)
             } catch (error) {
                 console.error('failed to load trending products', error)
             } finally {
@@ -59,9 +57,9 @@ const HomePage_MainContent = () => {
 
     return (
         <div className="trending-grid-wrapper">
-            <Spin spinning={isLoading}>
+            {/* <Spin spinning={isLoading}>
                 <TrendingGrid trendingProducts={trendingProducts} />
-            </Spin>
+            </Spin> */}
         </div>
     )
 }

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+    </data>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.fragments.CompleteOrderFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:layout_marginTop="50dp"
+        android:paddingTop="150dp"
+        android:paddingLeft="50dp"
+        android:fontFamily="@font/shadows_into_light_two"
+        android:text="@string/choose_address"
+        android:textColor="@color/initPurple"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <Spinner
+        android:id="@+id/address_spinner"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"/>
+
+        <Space
+            android:layout_width="50dp"
+            android:layout_height="wrap_content">
+        </Space>
+
+    <Button
+        android:id="@+id/btn_add_address"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/initGold"
+        android:drawableBottom="@drawable/ic_baseline_add_24"
+        android:textColor="@color/initPurple" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:layout_marginTop="50dp"
+        android:paddingTop="50dp"
+        android:paddingLeft="50dp"
+        android:fontFamily="@font/shadows_into_light_two"
+        android:text="@string/choose_credit"
+        android:textColor="@color/initPurple"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <Spinner
+        android:id="@+id/credit_spinner"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"/>
+
+        <Space
+            android:layout_width="50dp"
+            android:layout_height="wrap_content">
+        </Space>
+
+    <Button
+        android:id="@+id/btn_add_credit"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/initGold"
+        android:drawableBottom="@drawable/ic_baseline_add_24"
+        android:textColor="@color/initPurple" />
+        
+    </LinearLayout>
+    
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+    </Space>
+
+    <Button
+        android:id="@+id/pay"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/initGold"
+        android:text="@string/buy"
+        android:textColor="@color/initPurple" />
+
+
+</LinearLayout>
+</layout>

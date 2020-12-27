@@ -1,7 +1,7 @@
 import './Layout_common.less'
 
 import { Layout } from 'antd'
-import { Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 
 import { HomePage } from '../pages/HomePage'
 import { LoginPage } from '../pages/LoginPage'
@@ -12,22 +12,34 @@ import { SignupPage } from '../pages/SignupPage'
 import { ShoppingCartPage } from '../ShoppingCart/ShoppingCartPage'
 import { CategoryBar } from '../CategoryBar'
 import { CheckoutPage } from '../pages/CheckoutPage'
+import { EmailVerification } from '../EmailVerification'
+import { IsVerifiedNotification } from '../IsVerifiedNotification'
 import { UserReviews } from '../UserReview/UserReviews'
+import { useAppContext } from '../../context/AppContext'
 
 export const Content = () => {
+    const { user } = useAppContext()
+    const isGuest = user.type === 'guest'
+    const isCustomer = user.type === 'customer'
+    const isVendor = user.type === 'vendor'
+    const isUser = !isGuest
+
     return (
         <Layout.Content className="content">
             <CategoryBar />
+            <IsVerifiedNotification />
+
             <Switch>
-                <Route path="/review" component={UserReviews} />
-                <Route path="/login" component={LoginPage} />
-                <Route path="/checkout" component={CheckoutPage} />
-                <Route path="/shoppingCart" component={ShoppingCartPage} />
-                <Route path="/signup" component={SignupPage} />
-                <Route path="/profile" component={ProfilePage} />
+                {isUser && <Route path="/verify/:id" component={EmailVerification} />}
                 <Route path="/search/:type" component={SearchPage} />
                 <Route path="/product/:productId" component={ProductPage} />
-                <Route path="/" component={HomePage} />
+                {isGuest && <Route path="/login" component={LoginPage} />}
+                {isCustomer && <Route path="/checkout" component={CheckoutPage} />}
+                {isCustomer && <Route path="/shoppingCart" component={ShoppingCartPage} />}
+                {isGuest && <Route path="/signup" component={SignupPage} />}
+                <Route path="/profile" component={ProfilePage} />
+                <Route exact path="/" component={HomePage} />
+                <Redirect to="/" />
             </Switch>
         </Layout.Content>
     )

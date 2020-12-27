@@ -5,10 +5,12 @@ import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -36,16 +38,15 @@ import java.util.*
 
 class LoginFragment : Fragment() {
 
-    // private var account : GoogleSignInAccount? = null
 
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: FragmentLoginBinding
     private var prefs: SharedPreferences? = null
-    private lateinit var auth: FirebaseAuth
 
 
 
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -97,13 +98,16 @@ class LoginFragment : Fragment() {
 
 
         binding.login.setOnClickListener {
+            activity?.loading_progress!!.visibility = View.VISIBLE
             if (binding.username.text.toString().isEmpty()) {
                 binding.username.error = getString(R.string.reg_error)
                 loginViewModel.setOnLogin(false)
+                activity?.loading_progress!!.visibility = View.GONE
             }
             if (binding.password.text.toString().isEmpty()) {
                 binding.password.error = getString(R.string.reg_error)
                 loginViewModel.setOnLogin(false)
+                activity?.loading_progress!!.visibility = View.GONE
             }
             if (binding.password.text.toString().isNotEmpty() && binding.username.text.toString().isNotEmpty()) {
                 loginViewModel.setUser(
@@ -124,10 +128,15 @@ class LoginFragment : Fragment() {
                 } else {
                     prefs!!.edit().clear().apply()
                 }
-                if (it.id == 20) {
+
+                if (it.id==20) {
+                    //println(it.toString())
+                    activity?.loading_progress!!.visibility = View.GONE
                     (activity as MainActivity).decideBottomNav(true)
                     view?.findNavController()?.navigate(actionLoginFragmentToVendorHomeFragment())
                 } else {
+                    println(it.toString())
+                    activity?.loading_progress!!.visibility = View.GONE
                     (activity as MainActivity).decideBottomNav(false)
                     view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
                 }
@@ -138,15 +147,11 @@ class LoginFragment : Fragment() {
             view?.findNavController()?.navigate(actionLoginFragmentToRegisterFragment())
         }
 
-
-
-
-        /*if(account !=null){
-            view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
-        }*/
         binding.signInButton.setOnClickListener {
+
             val signInIntent = MainActivity.StaticData.mGoogleSignInClient?.signInIntent
             startActivityForResult(signInIntent, 11)
+
         }
 
         binding.guestButton.setOnClickListener {
@@ -158,6 +163,7 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -167,6 +173,7 @@ class LoginFragment : Fragment() {
             handleSignInResult(task)
         }
     }
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             var account = completedTask.result

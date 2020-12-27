@@ -2,29 +2,38 @@ package com.example.getflix.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ListView
+import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.getflix.databinding.AddressCardItemBinding
 import com.example.getflix.databinding.CreditCardItemBinding
-import com.example.getflix.databinding.ProductCardBinding
-import com.example.getflix.models.AddressModel
 import com.example.getflix.models.CardModel
-import com.example.getflix.models.ProductModel
+import com.example.getflix.ui.fragments.AddressFragmentDirections
+import com.example.getflix.ui.fragments.BankAccountFragment
+import com.example.getflix.ui.fragments.BankAccountFragmentDirections
 
 
 class CreditCartsAdapter(
-        private val creditCartsList: ArrayList<CardModel>?,
+    private val creditCartsList: ArrayList<CardModel>?, fragment: BankAccountFragment
 ) : ListAdapter<CardModel, CreditCartsAdapter.RowHolder>(CardDiffCallback()) {
+
+    // mutable live data for deleted item position
+    val pos = MutableLiveData<Int>()
+    val fragment = fragment
+
+    init {
+        pos.value = -1
+    }
 
 
     class RowHolder(val binding: CreditCardItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(credit: CardModel, position: Int) {
             binding.name.text = credit.name
-            binding.ownerName.text =credit.owner_name
-            binding.serialNum.text = credit.serial_number.toString()
+            binding.ownerName.text ="Owner: " + credit.owner_name
+            println(credit.serial_number.length)
+            binding.serialNum.text = credit.serial_number
         }
 
         companion object {
@@ -39,7 +48,7 @@ class CreditCartsAdapter(
 
 
     override fun getItemCount(): Int {
-        super.getItemCount()
+
         return creditCartsList!!.size
     }
 
@@ -49,8 +58,28 @@ class CreditCartsAdapter(
     }
 
     override fun onBindViewHolder(holder: RowHolder, position: Int) {
-        creditCartsList?.get(position)?.let { holder.bind(it, position) }
+        creditCartsList?.get(position)?.let {
+            holder.bind(it, position)
+            holder?.itemView!!.setOnClickListener {
+                fragment.findNavController().navigate(BankAccountFragmentDirections.actionBankAccountFragmentToUpdateCreditCardFragment(
+                    creditCartsList?.get(position)!!)
+                )
+            }
+        }
     }
+
+    fun deleteItem(position: Int): CardModel {
+        pos.value = position
+        /*creditCartsList!!.removeAt(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, creditCartsList!!.size);*/
+        return creditCartsList?.get(position)!!
+    }
+
+    fun resetPos() {
+        pos.value = -1
+    }
+
 
 
 }

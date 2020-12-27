@@ -28,3 +28,32 @@ class JWTAuthentication(BaseAuthentication):
             raise exceptions.AuthenticationFailed('user not found')
         
         return(user, None)
+
+    def authenticate_mail(self, uidb64):
+        message = ""
+        control = False
+        user = None
+        try:
+            payload = jwt.decode(
+                uidb64, settings.SECRET_KEY, algorithms=['HS256'])
+
+        except jwt.InvalidSignatureError:
+            message= 'Invalid'
+            control = True
+        except jwt.ExpiredSignatureError:
+            message= 'Expired'
+            control = True
+        except IndexError:
+            message= 'Invalid'
+            control = True
+
+        if(not control):
+            user = User.objects.filter(pk=payload['id']).first()
+            if user is None:
+                message= 'Invalid'
+            elif user.is_verified is True:
+                message= 'Verified'
+            else:
+                message = "Success"
+
+        return(user, message)

@@ -1,10 +1,11 @@
-import { SignUpForm } from '../SignUpForm'
 import './SignupPage.less'
-import { api } from '../../api'
-import { useHistory } from 'react-router-dom'
-import { sleep } from '../../utils'
+
 import { notification, Spin } from 'antd'
 import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+
+import { api } from '../../api'
+import { SignUpForm } from '../SignUpForm'
 
 export const SignupPage = () => {
     const [isLoading, setIsLoading] = useState(false)
@@ -13,24 +14,23 @@ export const SignupPage = () => {
 
     const onSubmit = async (values, userType) => {
         if (userType === 'customer') {
+            setIsLoading(true)
             try {
                 const { data } = await api.post('/regularsignup', values)
                 if (data.successful) {
                     notification.success({ message: 'You have successfully signed up!' })
-                    setIsLoading(true)
-                    await sleep(2000)
-                    setIsLoading(false)
-                    history.push({
-                        pathname: '/login',
-                    })
+                    history.push({ pathname: '/login' })
                 } else {
                     notification.warning({ message: data.message })
                 }
             } catch (error) {
                 notification.warning({ message: 'There was an error with your request.' })
+            } finally {
+                setIsLoading(false)
             }
+        } else {
+            console.log('userType', userType, 'not handled')
         }
-        return
     }
 
     return (
