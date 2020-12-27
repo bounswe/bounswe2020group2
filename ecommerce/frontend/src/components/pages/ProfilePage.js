@@ -16,21 +16,21 @@ export const ProfilePage = () => {
     return (
         <div className="profile-page-wrapper">
             <Tabs tabPosition="left" defaultActiveKey="update-profile">
-                <TabPane tab="Update Profile" key="update-profile">
+                <TabPane tab="Update Profile" key="update-profile" forceRender>
                     <div className="right-bar-profile-content">
                         <ProfileContent key={user.id} user={user} />
                     </div>
                 </TabPane>
-                <TabPane tab="Orders" key="orders">
+                <TabPane tab="Orders" key="orders" forceRender>
                     <OrdersList />
                 </TabPane>
-                <TabPane tab="Cards" key="cards">
+                <TabPane tab="Cards" key="cards" forceRender>
                     <CreditCardList />
                 </TabPane>
-                <TabPane tab="Addresses" key="addresses">
+                <TabPane tab="Addresses" key="addresses" forceRender>
                     <AddressList />
                 </TabPane>
-                <TabPane tab="Messages" key="messages">
+                <TabPane tab="Messages" key="messages" forceRender>
                     TO DO: Messages to be implemented
                 </TabPane>
             </Tabs>
