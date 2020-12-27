@@ -6,16 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
-import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentCartBinding
+
 import com.example.getflix.models.*
+
+import com.example.getflix.models.CartProductModel
+
 import com.example.getflix.ui.adapters.CartAdapter
-import com.example.getflix.ui.fragments.CartFragmentDirections.Companion.actionCartFragmentToOrderFragment
+import com.example.getflix.ui.fragments.CartFragmentDirections.Companion.actionCartFragmentToCompleteOrderFragment
 import com.example.getflix.ui.viewmodels.CartViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -35,7 +37,8 @@ class CartFragment : Fragment() {
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.cart)
         viewModel = ViewModelProvider(this).get(CartViewModel::class.java)
-        binding.viewmodel = CartViewModel()
+        viewModel.getCustomerCartProducts()
+
         val recView = binding?.cartList as RecyclerView
         /*var zaraJacket1 =
                 ProductModel(10, "Jacket", "222", "1", "Zara", 1, 1, 1, "Nice jacket", "1", "1", "1", "1")
@@ -50,7 +53,8 @@ class CartFragment : Fragment() {
         var zaraSkirt3 =
                 ProductModel(6, "Skirt", "102", "1", "Zara", 1, 1, 1, "Amazing skirt", "1", "1", "1", "1")
         val products = arrayListOf(zaraSkirt3, zaraJacket1, zaraSkirt2, zaraJacket2, zaraSkirt1, zaraJacket3)*/
-        var pro = ProductModel(id=3,
+
+        /*var pro = ProductModel(id=3,
             "Skechers Men's Afterburn Memory-Foam Lace-up Sneaker", 50, "2020-08-11T08:22:34Z",
             50, 10, 22, "100% Leather/Synthetic, Heel measures approximately 2, Memory Foam Insole",
             SubcategoryModel("Sports & Outdoor", 5), "long one",0.1,
@@ -61,22 +65,31 @@ class CartFragment : Fragment() {
         val products = arrayListOf<ProductModel>(pro)
         val productListAdapter = CartAdapter(products)
         recView.adapter = productListAdapter
-        recView.setHasFixedSize(true)
+        recView.setHasFixedSize(true) */
 
-        for (product in products) {
+
+      /*  for (product in products) {
             viewModel.addProduct(product)
-        }
+        } */
 
         binding.acceptOrder.setOnClickListener {
-            view?.findNavController()?.navigate(actionCartFragmentToOrderFragment())
+            view?.findNavController()?.navigate(actionCartFragmentToCompleteOrderFragment())
         }
 
+        viewModel.cardProducts.observe(viewLifecycleOwner, {
+            it?.let {
+                val productListAdapter = CartAdapter(it!!)
+                recView.adapter = productListAdapter
+                recView.setHasFixedSize(true)
+            }
+        })
 
-        viewModel.productList.observe(viewLifecycleOwner, Observer {
+
+        /*viewModel.productList.observe(viewLifecycleOwner, Observer {
             it?.let {
                 productListAdapter.submitList(it)
             }
-        })
+        }) */
 
         return binding.root
     }

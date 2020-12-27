@@ -7,7 +7,12 @@ import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.AddressModel
 import com.example.getflix.models.CardModel
 import com.example.getflix.service.GetflixApi
+import com.example.getflix.service.requests.CustomerCheckoutRequest
+import com.example.getflix.service.responses.CustomerCheckoutResponse
 import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CompleteOrderViewModel : ViewModel() {
 
@@ -18,6 +23,10 @@ class CompleteOrderViewModel : ViewModel() {
     private val _creditCartList = MutableLiveData<MutableList<CardModel>>()
     val creditList: LiveData<MutableList<CardModel>>
         get() = _creditCartList
+
+    private val _navigateHome = MutableLiveData<Boolean>()
+    val navigateHome: LiveData<Boolean>
+        get() = _navigateHome
 
     private var job: Job? = null
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
@@ -45,6 +54,44 @@ class CompleteOrderViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     response.body().let { it ->
                         _creditCartList.value = response.body()!!.cards as MutableList<CardModel>
+                    }
+                }
+            }
+        }
+    }
+
+    fun makePurchase(addressId: Int, cardId: Int) {
+        GetflixApi.getflixApiService.customerCheckout("Bearer " + MainActivity.StaticData.user!!.token, CustomerCheckoutRequest(addressId, cardId))
+            .enqueue(object :
+                Callback<CustomerCheckoutResponse> {
+                override fun onFailure(call: Call<CustomerCheckoutResponse>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<CustomerCheckoutResponse>,
+                    response: Response<CustomerCheckoutResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+                    _navigateHome.value = true
+
+                }
+            }
+            )
+    }
+
+    fun resetNavigate() {
+        _navigateHome.value = false
+    }
+
+    fun getCustomerCartPrice() {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = GetflixApi.getflixApiService.getCustomerCartPrice("Bearer " + MainActivity.StaticData.user!!.token)
+            withContext(Dispatchers.Main + exceptionHandler) {
+                if (response.isSuccessful) {
+                    response.body().let { it ->
+                        println(it.toString())
                     }
                 }
             }

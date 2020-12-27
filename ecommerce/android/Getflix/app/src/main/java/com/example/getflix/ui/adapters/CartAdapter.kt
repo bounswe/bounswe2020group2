@@ -6,17 +6,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.ProductCardBinding
-import com.example.getflix.models.ProductModel
+import com.example.getflix.models.CartProductModel
 
 class CartAdapter(
-        private val productList: ArrayList<ProductModel>?,
-) : ListAdapter<ProductModel, CartAdapter.RowHolder>(CartDiffCallback()) {
+    private val productList: MutableList<CartProductModel>,
+) : ListAdapter<CartProductModel, CartAdapter.RowHolder>(CartDiffCallback()) {
 
 
     class RowHolder(val binding: ProductCardBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(product: ProductModel, position: Int) {
-            binding.product = product
+        fun bind(product: CartProductModel, position: Int) {
+            binding.cardproduct = product
         }
 
         companion object {
@@ -37,22 +37,19 @@ class CartAdapter(
         productList?.get(position)?.let { holder.bind(it, position) }
     }
 
-    /* override fun getItemCount(): Int {
-         if (productList != null) {
-             return productList.count()
-         }
-         return 0
-     } */
+    override fun getItemCount(): Int {
+        return productList!!.count()
+    }
 
 
 }
 
-class CartDiffCallback : DiffUtil.ItemCallback<ProductModel>() {
-    override fun areItemsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
+class CartDiffCallback : DiffUtil.ItemCallback<CartProductModel>() {
+    override fun areItemsTheSame(oldItem: CartProductModel, newItem: CartProductModel): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
+    override fun areContentsTheSame(oldItem: CartProductModel, newItem: CartProductModel): Boolean {
         return oldItem == newItem
     }
 

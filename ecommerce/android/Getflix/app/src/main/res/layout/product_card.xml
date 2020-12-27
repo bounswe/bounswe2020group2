@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="product"
-            type="com.example.getflix.models.ProductModel" />
+            name="cardproduct"
+            type="com.example.getflix.models.CartProductModel" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -50,7 +50,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical|start"
                 android:gravity="left"
-                android:text="@{product.name}"
+                android:text="@{cardproduct.product.name}"
                 android:textColor="#472836"
                 android:paddingTop="3dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -72,8 +72,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="left"
-                android:text="@{product.short_description}"
-                android:textColor="@color/colorPrimary"
+                android:text="@{cardproduct.product.short_description}"
+                android:textColor="@color/initGold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/product_name"
                 app:layout_constraintTop_toTopOf="parent"
@@ -95,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="@{product.short_description}"
+                android:text="@{cardproduct.product.vendor.name}"
                 android:textColor="@color/initGold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/product_info"
