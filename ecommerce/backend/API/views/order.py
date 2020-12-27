@@ -106,17 +106,12 @@ def customer_order(request):
                 price = pch.get("product")["price"]
                 products_price += amount * price
                 total_discount += amount * (price * pch.get("product")["discount"])
-
-        total_price = '{:.2f}'.format(products_price + delivery_price - total_discount)
-        products_price = '{:.2f}'.format(products_price)
-        delivery_price = '{:.2f}'.format(delivery_price)
-        total_discount = '{:.2f}'.format(total_discount)
-
+        
         response_purchases.append({'order_id':order.pk, 'order_all_purchase':pch_serializer.data, 'prices': {
-                "products_price": products_price,
-                "delivery_price": delivery_price,
-                "discount": total_discount,
-                "total_price": total_price
+                "products_price": '{:.2f}'.format(products_price),
+                "delivery_price": '{:.2f}'.format(delivery_price),
+                "discount": '{:.2f}'.format(total_discount),
+                "total_price": '{:.2f}'.format(products_price + delivery_price - total_discount),
                 } })
 
     return Response({'status': {'successful': True, 'message':'Orders are uccessfully sent'},'orders':response_purchases})
