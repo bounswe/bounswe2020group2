@@ -138,4 +138,7 @@
     <string name="category_title">Category</string>
     <string name="subcategory_title">Subcategory</string>
     <string name="comments_title">Comments</string>
+    <string name="product_">Urun: </string>
+    <string name="delivery_">Gonderim Adresi: </string>
+    <string name="delivery_status">Teslimat Durumu: </string>
 </resources>
