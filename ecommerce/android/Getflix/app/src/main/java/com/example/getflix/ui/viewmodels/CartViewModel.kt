@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.CartProductModel
+import com.example.getflix.models.CustomerCartPriceModel
 import com.example.getflix.models.ProductModel
 import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.CustomerCheckoutRequest
@@ -20,6 +21,10 @@ class CartViewModel : ViewModel() {
     val cardProducts: LiveData<MutableList<CartProductModel>>
         get() = _cardProducts
 
+    private val _cardPrices = MutableLiveData<CustomerCartPriceModel>()
+    val cardPrices: LiveData<CustomerCartPriceModel>
+        get() = _cardPrices
+
     private var job: Job? = null
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         println("Error ${throwable.localizedMessage}")
@@ -32,7 +37,7 @@ class CartViewModel : ViewModel() {
             withContext(Dispatchers.Main + exceptionHandler) {
                 if (response.isSuccessful) {
                     response.body().let { it ->
-                        println(it.toString())
+                       _cardPrices.value = it
                     }
                 }
             }

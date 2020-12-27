@@ -43,9 +43,11 @@ class CartAdapter(
             holder.bind(it, position)
             holder.binding.decrease.setOnClickListener {
                 holder.binding.integerAmount.text = (holder.binding.integerAmount.text.toString().toInt()-1).toString()
+
             }
             holder.binding.increase.setOnClickListener {
                 holder.binding.integerAmount.text = (holder.binding.integerAmount.text.toString().toInt()+1).toString()
+
             }
             holder?.itemView!!.setOnClickListener{
                 fragment.view?.findNavController()?.navigate(actionCartFragmentToProductFragment(productList?.get(position).product.id))

@@ -38,6 +38,7 @@ class CartFragment : Fragment() {
         activity?.toolbar!!.toolbar_title.text = getString(R.string.cart)
         viewModel = ViewModelProvider(this).get(CartViewModel::class.java)
         viewModel.getCustomerCartProducts()
+        viewModel.getCustomerCartPrice()
 
         val recView = binding?.cartList as RecyclerView
 
@@ -45,6 +46,13 @@ class CartFragment : Fragment() {
         binding.acceptOrder.setOnClickListener {
             view?.findNavController()?.navigate(actionCartFragmentToCompleteOrderFragment())
         }
+
+        viewModel.cardPrices.observe(viewLifecycleOwner, {
+            binding.productsPrice.text = "Products Price: " + it.productsPrice.toString()
+            binding.deliveryPrice.text = "Delivery Price: " + it.deliveryPrice.toString()
+            binding.discount.text = "Discount: " + it.discount.toString()
+            binding.totalPrice.text = "Total Price: " + it.totalPrice.toString()
+        })
 
         viewModel.cardProducts.observe(viewLifecycleOwner, {
             it?.let {

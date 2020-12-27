@@ -233,30 +233,6 @@ class CategoriesViewModel : ViewModel() {
 
 
 
-    fun setCategories(products: MutableList<ProductModel>) {
-        val catList = arrayListOf<CategoryModel>()
-        for (pro in products) {
-            if (!catList.any { pro.category.name == it.name }) {
-                val subCats = arrayListOf<SubcategoryModel>()
-                val products = arrayListOf<ProductModel>()
-                products.add(pro)
-               // subCats.add(SubcategoryModel(pro.subcategory, products))
-               // catList.add(CategoryModel(pro.category, subCats))
-            } else {
-                for (cat in catList) {
-                    if (cat.name == pro.category.name) {
-                        var ind = catList.indexOf(cat)
-                        if (!catList[ind].subcategories!!.any { pro.subcategory.name == it.name }) {
-                            val products = arrayListOf<ProductModel>()
-                            products.add(pro)
-                           // catList[ind].subCats.add(SubcategoryModel(pro.subcategory, products))
-                        }
-                    }
-                }
-            }
-        }
-        _categoriesList.value = catList
-    }
 
     fun getCustomerCards() {
         job = CoroutineScope(Dispatchers.IO).launch {
