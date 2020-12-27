@@ -62,7 +62,6 @@
                     android:fontFamily="@font/open_sans_semibold"
                     android:textColor="#000000"
                     android:textSize="24dp"
-                    android:text="50$"
                     android:padding="3dp"
                     android:background="@drawable/button_background"
                     app:layout_constraintEnd_toEndOf="@+id/product_image"
