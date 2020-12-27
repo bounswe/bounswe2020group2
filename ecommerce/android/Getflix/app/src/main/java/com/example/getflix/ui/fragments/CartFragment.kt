@@ -40,37 +40,7 @@ class CartFragment : Fragment() {
         viewModel.getCustomerCartProducts()
 
         val recView = binding?.cartList as RecyclerView
-        /*var zaraJacket1 =
-                ProductModel(10, "Jacket", "222", "1", "Zara", 1, 1, 1, "Nice jacket", "1", "1", "1", "1")
-        var zaraJacket2 =
-                ProductModel(11, "Jacket", "231", "1", "Zara", 1, 1, 1, "Cool jacket", "1", "1", "1", "1")
-        var zaraJacket3 =
-                ProductModel(12, "Jacket", "32", "1", "Zara", 1, 1, 1, "cool", "Amazing jacket", "1", "1", "1")
-        var zaraSkirt1 =
-                ProductModel(4, "Skirt", "79", "1", "Zara", 1, 1, 1, "Nice skirt", "1", "1", "1", "1")
-        var zaraSkirt2 =
-                ProductModel(5, "Skirt", "93", "1", "Zara", 1, 1, 1, "Cool skirt", "1", "1", "1", "1")
-        var zaraSkirt3 =
-                ProductModel(6, "Skirt", "102", "1", "Zara", 1, 1, 1, "Amazing skirt", "1", "1", "1", "1")
-        val products = arrayListOf(zaraSkirt3, zaraJacket1, zaraSkirt2, zaraJacket2, zaraSkirt1, zaraJacket3)*/
 
-        /*var pro = ProductModel(id=3,
-            "Skechers Men's Afterburn Memory-Foam Lace-up Sneaker", 50, "2020-08-11T08:22:34Z",
-            50, 10, 22, "100% Leather/Synthetic, Heel measures approximately 2, Memory Foam Insole",
-            SubcategoryModel("Sports & Outdoor", 5), "long one",0.1,
-            CategoryModel("Health & Households", 2, mutableListOf<SubcategoryModel>(SubcategoryModel("women", 2),SubcategoryModel("men", 1))),
-            BrandModel("Skechers" , 2), VendorModel(4.666666666666667, 1, "omerfaruk deniz"), 5,
-            listOf("https://i.ebayimg.com/images/g/vOMAAOSwpeBeTK2g/s-l640.jpg", "https://www.shoes.com/pm/skech/skech681268_41824_jb1.jpg"),
-            45)
-        val products = arrayListOf<ProductModel>(pro)
-        val productListAdapter = CartAdapter(products)
-        recView.adapter = productListAdapter
-        recView.setHasFixedSize(true) */
-
-
-      /*  for (product in products) {
-            viewModel.addProduct(product)
-        } */
 
         binding.acceptOrder.setOnClickListener {
             view?.findNavController()?.navigate(actionCartFragmentToCompleteOrderFragment())
@@ -78,7 +48,7 @@ class CartFragment : Fragment() {
 
         viewModel.cardProducts.observe(viewLifecycleOwner, {
             it?.let {
-                val productListAdapter = CartAdapter(it!!)
+                val productListAdapter = CartAdapter(it!!,this)
                 recView.adapter = productListAdapter
                 recView.setHasFixedSize(true)
             }
