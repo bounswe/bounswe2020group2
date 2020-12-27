@@ -156,12 +156,11 @@ function useApp() {
         try {
             const { data } = await api.post('/regularlogin', { username, password })
             const { successful, message } = data.status
-            const { token, id, email, firstname, lastname, is_verified } = data.user
+            const { token, id, email, firstname, lastname, is_verified, role = 'customer' } = data.user
 
             if (successful) {
                 localStorage.setItem('token', token)
-
-                setUser({ id, email, name: firstname, lastname, is_verified })
+                setUser({ id, email, name: firstname, lastname, is_verified, type: role.toLowerCase() })
                 notification.success({ message: `Welcome back, ${firstname}!` })
 
                 return true
