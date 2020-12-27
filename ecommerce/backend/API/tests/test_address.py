@@ -102,6 +102,7 @@ class AddressTest(TestCase):
         # if the response returns a 200 and a status is successful, then test is passed
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["status"]["successful"], True)
+    
     # test updating a single address of the customer from the database
     def test_update_address(self):
         address = {
@@ -118,7 +119,7 @@ class AddressTest(TestCase):
         # get the response for a POST request to the /addresses endpoint
         post_response = self.client.post(reverse(manage_addresses, args = [user.id]), address, 'json')
         address_id = post_response.data["address_id"]
-        # get the response for a DELETE request to the /addresses/:address_id endpoint
+        # get the response for a UPDATE request to the /addresses/:address_id endpoint
         response = self.client.put(reverse(manage_specific_address, args = [user.id, address_id]), address, 'json')
         # if the response returns a 200 and a status is successful, then test is passed
         self.assertEqual(response.status_code, 200)
