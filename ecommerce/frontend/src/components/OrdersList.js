@@ -22,7 +22,10 @@ export const OrdersList = () => {
             } = await api.get(`/customer/orders`)
 
             if (status.successful) {
-                setOrders(orders.map(formatOrder))
+                const sortedOrder = orders.map(formatOrder)
+                sortedOrder.reverse()
+
+                setOrders(sortedOrder)
             } else {
                 notification.warning({ message: status.message })
             }
@@ -43,7 +46,10 @@ export const OrdersList = () => {
             } = await api.get(`/vendor/order`)
 
             if (status.successful) {
-                setOrders(orders.map(formatOrder))
+                const sortedOrder = orders.map(formatOrder)
+                sortedOrder.reverse()
+
+                setOrders(sortedOrder)
             } else {
                 notification.warning({ message: status.message })
             }
