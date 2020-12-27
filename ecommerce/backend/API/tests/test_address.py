@@ -3,6 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 from ..models import User
 from ..views.address import *
+from ..utils.crypto import Crypto
 
 user = None
 
@@ -11,15 +12,12 @@ class AddressTest(TestCase):
     def setUp(self):
         self.client = APIClient()
         # register a mock user
-        body = {
-            'username': 'testuser',
-            'email': 'test@mail.com',
-            'password': '12345678',
-            'firstname': 'test',
-            'lastname': 'user'
-        }
-        response = self.client.post(reverse('register'), body, 'json')
         global user
+        salt = Crypto().getSalt()
+        password_hash = Crypto().getHashedPassword("12345678", salt)
+        user = User.objects.create(username="testuser", email="test@mail.com", role = 1,
+                                            password_salt=salt, password_hash=password_hash, is_verified=True)
+        Customer.objects.create(user=user, first_name="test", last_name="user")
         user = User.objects.filter(username='testuser').first()
         body = {
             'username': 'testuser',
