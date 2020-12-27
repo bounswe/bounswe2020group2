@@ -61,8 +61,7 @@ class AddressViewModel  : ViewModel() {
                         println(response.body().toString())
                         println(response.code())
                         getCustomerAddresses()
-                        if (response.body()!!.status.succcesful)
-                            println(response.body().toString())
+
                     }
                 }
                 )

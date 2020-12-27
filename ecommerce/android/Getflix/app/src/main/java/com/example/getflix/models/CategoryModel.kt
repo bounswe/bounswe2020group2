@@ -15,7 +15,7 @@ data class CategoryModel (
 ) : ExpandableGroup<SubcategoryModel>(name, subcategories) {
 
 
-    operator fun get(s: String): MutableList<SubcategoryModel>? {
-        return null
-    }
+        operator fun get(s: String): MutableList<SubcategoryModel>? {
+                return null
+        }
 }

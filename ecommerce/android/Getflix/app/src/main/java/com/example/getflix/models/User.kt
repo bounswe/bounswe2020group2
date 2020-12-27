@@ -12,7 +12,11 @@ data class User(
         @SerializedName("firstname")
         var firstName: String,
         @SerializedName("lastname")
-        var lastName: String
+        var lastName: String,
+        @SerializedName("role")
+        var role: String,
+        @SerializedName("is_verified")
+        var isVerified: Boolean
 
 ) : Parcelable
 

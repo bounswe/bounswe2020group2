@@ -7,16 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentBankAccountBinding
 import com.example.getflix.databinding.FragmentOrderInfoBinding
 import com.example.getflix.ui.fragments.OrderInfoFragmentDirections.Companion.actionOrderInfoFragmentToProfileFragment
+import com.example.getflix.ui.viewmodels.CategoriesViewModel
+import com.example.getflix.ui.viewmodels.CategoryViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 class OrderInfoFragment : Fragment() {
-
+    private lateinit var viewModel: CategoriesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +30,9 @@ class OrderInfoFragment : Fragment() {
             inflater, R.layout.fragment_order_info,
             container, false
         )
+
+        viewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
+        viewModel.getCustomerOrders()
 
         activity?.onBackPressedDispatcher!!.addCallback(
             viewLifecycleOwner,
