@@ -16,15 +16,24 @@ import com.example.getflix.models.CardModel
 import com.example.getflix.models.OrderModel
 import com.example.getflix.ui.adapters.OrdersAdapter
 import com.example.getflix.ui.fragments.OrderInfoFragmentDirections.Companion.actionOrderInfoFragmentToProfileFragment
+
 import com.example.getflix.ui.viewmodels.CreditCardViewModel
 import com.example.getflix.ui.viewmodels.OrderViewModel
+
+import com.example.getflix.ui.viewmodels.CategoriesViewModel
+import com.example.getflix.ui.viewmodels.CategoryViewModel
+
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 class OrderInfoFragment : Fragment() {
 
+
     private lateinit var viewModel: OrderViewModel
     private lateinit var binding: FragmentOrderInfoBinding
+
+    private lateinit var cviewModel: CategoriesViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +44,9 @@ class OrderInfoFragment : Fragment() {
             inflater, R.layout.fragment_order_info,
             container, false
         )
+
+        cviewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
+        cviewModel.getCustomerOrders()
 
         activity?.onBackPressedDispatcher!!.addCallback(
             viewLifecycleOwner,
