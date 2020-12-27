@@ -8,16 +8,21 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentVendorHomeBinding
 import com.example.getflix.databinding.FragmentVendorProfileBinding
+import com.example.getflix.models.BrandModel
 import com.example.getflix.ui.adapters.SubCategoryAdapter
+import com.example.getflix.ui.adapters.VendorHomeBrandsAdapter
+import com.example.getflix.ui.adapters.VendorHomeProductsAdapter
 import com.example.getflix.ui.viewmodels.SubCategoryViewModel
 import com.example.getflix.ui.viewmodels.VendorHomeViewModel
 import com.example.getflix.ui.viewmodels.VendorOrdersViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.fragment_vendor_home.*
 
 
 class VendorHomeFragment : Fragment() {
@@ -37,17 +42,33 @@ class VendorHomeFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(VendorHomeViewModel::class.java)
 
 
-        viewModel.searchBySubcategory(1)
+        viewModel.searchBySubcategory(2)
 
         val recView = binding?.productList as RecyclerView
+        val brandsView = binding?.brandList as RecyclerView
 
         val manager = GridLayoutManager(activity, 2)
         recView.layoutManager = manager
 
+        val mLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL ,false)
+        brandsView.layoutManager = mLayoutManager
+
+
+
+        var brands = arrayListOf<BrandModel>()
         viewModel.productList.observe(viewLifecycleOwner, {
+            for(product in it) {
+                if(!brands.contains(product.brand))
+                    brands.add(product.brand)
+            }
             val productListAdapter = VendorHomeProductsAdapter(it!!)
             recView.adapter = productListAdapter
             recView.setHasFixedSize(true)
+            println(brands.toString())
+            val brandListAdapter = VendorHomeBrandsAdapter(brands)
+            binding.brandList.adapter = brandListAdapter
+            binding.brandList.setHasFixedSize(true)
+
         })
 
         return binding.root
