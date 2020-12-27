@@ -128,9 +128,6 @@ export const ProductHeader = ({ product, loading = false }) => {
                     <ChooseListModalInner product={product} />
                 </Modal>
             </div>
-            <div className="product-page-reviews">
-                <UserReviews productId={product.id} />
-            </div>
         </div>
     )
 }
