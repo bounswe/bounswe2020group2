@@ -42,7 +42,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/credit_cart_name"
-                app:srcCompat="@drawable/ic_credit_card"
+                app:srcCompat="@drawable/ic_order_card"
                 tools:ignore="VectorDrawableCompat" />
 
             <com.google.android.material.textview.MaterialTextView

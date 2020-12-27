@@ -22,7 +22,7 @@ class CreditCardAdapter :
 
     private fun ViewHolder.bind(cardModel: CardModel) {
         binding.creditCartName.text= cardModel.name
-        binding.userCreditCard.text = "Owner Name:" + cardModel.owner_name + "\nSerial number: **** **** **** " + cardModel.serial_number.takeLast(4)
+        binding.userCreditCard.text = "Owner Name:\n" + cardModel.owner_name + "\nSerial number:\n**** **** **** " + cardModel.serial_number.takeLast(4)
         binding.root.setOnClickListener {
             Toast.makeText(binding.root.context,
                 "selected item: " + cardModel.name,

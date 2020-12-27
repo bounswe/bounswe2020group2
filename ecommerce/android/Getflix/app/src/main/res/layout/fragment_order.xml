@@ -8,11 +8,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="52dp">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +28,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="@font/open_sans_bold"
                     android:paddingLeft="8dp"
                     android:text="@string/choose_address"
@@ -38,6 +40,10 @@
                     android:id="@+id/constraintLayout3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="8dp"
+                    android:background="#C1050505"
                     android:orientation="horizontal">
 
                     <TextView
@@ -49,18 +55,18 @@
                         android:fontFamily="sans-serif"
                         android:shadowColor="#FFFFFF"
                         android:text="TextView"
-                        android:textColor="@color/black"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <de.hdodenhof.circleimageview.CircleImageView
+                    <ImageView
                         android:id="@+id/btn_add_address"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@color/black"
                         android:src="@drawable/ic_gold_add"
-                        app:civ_circle_background_color="#000000"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -71,13 +77,12 @@
                     android:id="@+id/order_address_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:nestedScrollingEnabled="false" />
+                    android:layout_marginTop="16dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="@font/open_sans_bold"
                     android:paddingLeft="8dp"
                     android:text="@string/choose_credit"
@@ -88,7 +93,10 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="8dp"
+                    android:background="#C1050505"
                     android:orientation="horizontal">
 
                     <TextView
@@ -97,19 +105,20 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_weight="1"
+                        android:fontFamily="sans-serif"
                         android:text="TextView"
-                        android:textColor="@color/black"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <de.hdodenhof.circleimageview.CircleImageView
+                    <ImageView
                         android:id="@+id/btn_add_credit"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@color/black"
                         android:src="@drawable/ic_gold_add"
-                        app:civ_circle_background_color="#000000"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -120,8 +129,7 @@
                     android:id="@+id/order_card_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:nestedScrollingEnabled="false" />
+                    android:layout_marginTop="16dp" />
 
                 <TextView
                     android:id="@+id/pay"
@@ -130,6 +138,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginRight="16dp"
+                    android:layout_marginBottom="12dp"
                     android:background="@color/black"
                     android:fontFamily="sans-serif-condensed-medium"
                     android:gravity="center"
