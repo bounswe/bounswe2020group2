@@ -41,6 +41,8 @@ class OrderFragment : Fragment() {
         )
 
         viewModel = ViewModelProvider(this).get(CompleteOrderViewModel::class.java)
+        viewModel.getCustomerCards()
+        viewModel.getCustomerAddresses()
 
         binding.btnAddCredit.setOnClickListener {
             view?.findNavController()?.navigate(actionOrderFragmentToAddCreditCardFragment())
@@ -67,6 +69,7 @@ class OrderFragment : Fragment() {
         viewModel.creditList.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 creditCardAdapter.submitList(it)
+                activity?.loading_progress!!.visibility = View.GONE
             }
         })
 

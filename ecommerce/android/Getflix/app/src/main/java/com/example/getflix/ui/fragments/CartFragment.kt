@@ -61,6 +61,7 @@ class CartFragment : Fragment() {
 
         binding.acceptOrder.setOnClickListener {
             view?.findNavController()?.navigate(actionCartFragmentToOrderFragment())
+            activity?.loading_progress!!.visibility = View.VISIBLE
         }
 
 
