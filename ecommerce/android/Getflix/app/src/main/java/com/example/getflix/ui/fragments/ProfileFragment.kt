@@ -45,6 +45,8 @@ class ProfileFragment : Fragment() {
         } else {
             binding.name.text =
                 MainActivity.StaticData.user!!.firstName + " " + MainActivity.StaticData.user!!.lastName
+            binding.fullName.text = MainActivity.StaticData.user!!.firstName + " " + MainActivity.StaticData.user!!.lastName
+            binding.mail.text = MainActivity.StaticData.user!!.email
         }
 
         binding.ordersLayout.setOnClickListener {

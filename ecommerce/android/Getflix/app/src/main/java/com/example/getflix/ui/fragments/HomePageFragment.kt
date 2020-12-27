@@ -14,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentHomePageBinding
 import com.example.getflix.ui.fragments.HomePageFragmentDirections.Companion.actionHomePageFragmentToCategoryFragment
+import com.example.getflix.ui.fragments.HomePageFragmentDirections.Companion.actionHomePageFragmentToProductFragment2
 import com.example.getflix.ui.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -40,7 +41,8 @@ class HomePageFragment : Fragment() {
         binding.lifecycleOwner = this
         homeViewModel.onCategoryClick.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                view?.findNavController()?.navigate(actionHomePageFragmentToCategoryFragment(it!!))
+                view?.findNavController()?.navigate(
+                    actionHomePageFragmentToProductFragment2(1))
                 homeViewModel.navigationComplete()
             }
         })

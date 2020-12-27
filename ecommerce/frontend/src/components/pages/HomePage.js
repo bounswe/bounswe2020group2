@@ -57,9 +57,9 @@ const HomePage_MainContent = () => {
 
     return (
         <div className="trending-grid-wrapper">
-            <Spin spinning={isLoading}>
+            {/* <Spin spinning={isLoading}>
                 <TrendingGrid trendingProducts={trendingProducts} />
-            </Spin>
+            </Spin> */}
         </div>
     )
 }

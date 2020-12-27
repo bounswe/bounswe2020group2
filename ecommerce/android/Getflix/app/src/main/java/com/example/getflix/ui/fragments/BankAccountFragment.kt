@@ -18,23 +18,16 @@ import com.example.getflix.databinding.FragmentBankAccountBinding
 import com.example.getflix.models.CardModel
 import com.example.getflix.ui.adapters.CreditCartsAdapter
 import com.example.getflix.ui.adapters.SwipeToDeleteCreditCart
-import com.example.getflix.ui.fragments.BankAccountFragmentDirections.Companion.actionBankAccountFragmentToPaymentFragment
-import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToBankAccountFragment
-import com.example.getflix.ui.viewmodels.CreditCartViewModel
+import com.example.getflix.ui.fragments.BankAccountFragmentDirections.Companion.actionBankAccountFragmentToAddCreditCardFragment
+import com.example.getflix.ui.viewmodels.CreditCardViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 class BankAccountFragment : Fragment() {
 
-    private lateinit var viewModel: CreditCartViewModel
+    private lateinit var viewModel: CreditCardViewModel
     private lateinit var binding: FragmentBankAccountBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CreditCartViewModel::class.java)
-//        binding.viewmodel = CreditCartViewModel()
-        viewModel.getCustomerCards()
-    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -63,14 +56,14 @@ class BankAccountFragment : Fragment() {
                 container, false)
 
 
+
         binding.fab.setOnClickListener {
-            view?.findNavController()?.navigate(actionBankAccountFragmentToPaymentFragment())
+            view?.findNavController()?.navigate(actionBankAccountFragmentToAddCreditCardFragment())
         }
 
         val credits = arrayListOf<CardModel>()
 
-        viewModel = ViewModelProvider(this).get(CreditCartViewModel::class.java)
-        binding.viewmodel = viewModel
+        viewModel = ViewModelProvider(this).get(CreditCardViewModel::class.java)
         viewModel.getCustomerCards()
         val recView = binding?.creditList as RecyclerView
         /* val creditCartsAdapter = CreditCartsAdapter(credits)
@@ -79,9 +72,9 @@ class BankAccountFragment : Fragment() {
 
 
 
-        viewModel.creditList.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                val creditCartsAdapter = CreditCartsAdapter(ArrayList(it!!))
+        viewModel.creditList.observe(viewLifecycleOwner, Observer { list ->
+            list?.let {
+                val creditCartsAdapter = CreditCartsAdapter(ArrayList(list!!),this)
                 recView.adapter = creditCartsAdapter
                 recView.setHasFixedSize(true)
                 // creditCartsAdapter.submitList(it)
@@ -91,6 +84,7 @@ class BankAccountFragment : Fragment() {
                     if (it != -1) {
                         val id = creditCartsAdapter.deleteItem(it).id
                         viewModel.deleteCustomerCard(id)
+                       // viewModel.getCustomerCards()
                         creditCartsAdapter.resetPos()
                     }
                 })
