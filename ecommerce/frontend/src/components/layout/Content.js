@@ -30,8 +30,6 @@ export const Content = () => {
             <IsVerifiedNotification />
 
             <Switch>
-                <Route path="/orders" component={OrdersList} />
-                {/* //TEMPORARY */}
                 {isUser && <Route path="/verify/:id" component={EmailVerification} />}
                 <Route path="/search/:type" component={SearchPage} />
                 <Route path="/product/:productId" component={ProductPage} />
@@ -39,7 +37,7 @@ export const Content = () => {
                 {isCustomer && <Route path="/checkout" component={CheckoutPage} />}
                 {isCustomer && <Route path="/shoppingCart" component={ShoppingCartPage} />}
                 {isGuest && <Route path="/signup" component={SignupPage} />}
-                <Route path="/profile" component={ProfilePage} />
+                {isUser && <Route path="/profile" component={ProfilePage} />}
                 <Route exact path="/" component={HomePage} />
                 <Redirect to="/" />
             </Switch>

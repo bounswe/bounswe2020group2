@@ -99,7 +99,7 @@ export const ProductHeader = ({ product, loading = false }) => {
                     &nbsp;
                     <span
                         className={`product-header-vendor-rating product-header-vendor-rating__${getVendorRatingLevel(
-                            product.vendor.rating,
+                            product.vendor.rating ?? 9.7,
                         )}`}>
                         {round(product.vendor.rating ?? 9.7, 1)}
                     </span>
