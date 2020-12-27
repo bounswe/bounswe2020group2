@@ -74,6 +74,7 @@ class CategoriesFragment : Fragment() {
         //viewModel.addToCart(1,4)
         //viewModel.getCustomerCartProducts()
         viewModel.addCustomerCartProduct(1,3)
+        viewModel.addCustomerCartProduct(2,2)
         //viewModel.getCustomerCartProducts()
         //viewModel.updateCustomerCartProduct(2,71,1)
         //viewModel.deleteCustomerCartProduct(71)

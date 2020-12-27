@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentCartBinding
@@ -17,6 +19,8 @@ import com.example.getflix.models.*
 import com.example.getflix.models.CartProductModel
 
 import com.example.getflix.ui.adapters.CartAdapter
+import com.example.getflix.ui.adapters.SwipeToDeleteAddress
+import com.example.getflix.ui.adapters.SwipeToDeleteCartProduct
 import com.example.getflix.ui.fragments.CartFragmentDirections.Companion.actionCartFragmentToCompleteOrderFragment
 import com.example.getflix.ui.viewmodels.CartViewModel
 
@@ -59,6 +63,15 @@ class CartFragment : Fragment() {
                 val productListAdapter = CartAdapter(it!!,this, viewModel)
                 recView.adapter = productListAdapter
                 recView.setHasFixedSize(true)
+                val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCartProduct(productListAdapter!!))
+                itemTouchHelper.attachToRecyclerView(recView)
+                productListAdapter.pos.observe(viewLifecycleOwner, Observer {
+                    if (it != -1) {
+                        val id = productListAdapter.deleteItem(it).id
+                        viewModel.deleteCustomerCartProduct(id)
+                        productListAdapter.resetPos()
+                    }
+                })
             }
         })
 

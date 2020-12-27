@@ -10,6 +10,7 @@ import com.example.getflix.models.ProductModel
 import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.CardProUpdateRequest
 import com.example.getflix.service.requests.CustomerCheckoutRequest
+import com.example.getflix.service.responses.CardProDeleteResponse
 import com.example.getflix.service.responses.CardProUpdateResponse
 import com.example.getflix.service.responses.CustomerCheckoutResponse
 import kotlinx.coroutines.*
@@ -83,6 +84,27 @@ class CartViewModel : ViewModel() {
                     call: Call<CardProUpdateResponse>,
                     response: Response<CardProUpdateResponse>
                 ) {
+                    getCustomerCartProducts()
+                    getCustomerCartPrice()
+                }
+            }
+            )
+    }
+
+    fun deleteCustomerCartProduct(scId: Int) {
+        GetflixApi.getflixApiService.deleteCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, scId)
+            .enqueue(object :
+                Callback<CardProDeleteResponse> {
+                override fun onFailure(call: Call<CardProDeleteResponse>, t: Throwable) {
+                    println("failure")
+                }
+
+                override fun onResponse(
+                    call: Call<CardProDeleteResponse>,
+                    response: Response<CardProDeleteResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
                     getCustomerCartProducts()
                     getCustomerCartPrice()
                 }
