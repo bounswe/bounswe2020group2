@@ -24,7 +24,7 @@ export const Purchase = ({ purchase }) => {
 
     const receiver = [purchase.address.name, purchase.address.surname].filter(Boolean).join(' ')
 
-    const canReview = true || orderStatusInvMap[status] === 'delivered' // needs to check if already reviewd
+    const canReview = orderStatusInvMap[status] === 'delivered' // needs to check if already reviewd
 
     const onReviewClick = event => {
         event.stopPropagation()
