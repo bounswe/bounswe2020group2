@@ -102,12 +102,12 @@ class MainActivity : AppCompatActivity() {
         }
         else {
             bottom_nav.menu.clear()
-            toolbar.toolbar_title.setTextColor(ContextCompat.getColor(this, R.color.initPurple))
-            toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.initGold))
-            bottom_nav.itemBackgroundResource = R.color.initGold
-            toolbar.btn_notification.compoundDrawableTintList = (ColorStateList.valueOf(ContextCompat.getColor(this, R.color.black)))
-            bottom_nav.itemIconTintList = ContextCompat.getColorStateList(this, R.color.white)
-            bottom_nav.itemTextColor = ContextCompat.getColorStateList(this, R.color.white)
+            toolbar.toolbar_title.setTextColor(ContextCompat.getColor(this, R.color.black))
+            toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+            bottom_nav.itemBackgroundResource = R.color.white
+            toolbar.btn_notification.compoundDrawableTintList = (ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorPrimary)))
+            bottom_nav.itemIconTintList = ContextCompat.getColorStateList(this, R.color.black)
+            bottom_nav.itemTextColor = ContextCompat.getColorStateList(this, R.color.black)
             bottom_nav.inflateMenu(R.menu.nav_menu)
         }
         val appBarConfiguration = AppBarConfiguration(bottom_nav.menu)

@@ -8,57 +8,10 @@ import { Helmet } from 'react-helmet'
 import { useHistory } from 'react-router-dom'
 
 import { api } from '../../api'
-// import { categories, subcategories } from '../../utils'
 import { SearchResults } from '../search/SearchResults'
 import { SearchSidePanel } from '../search/SearchSidePanel'
-import { formatProduct } from '../../utils'
+import { formatProduct, formatSearchQueryParams } from '../../utils'
 
-const formatSearchQueryParams = values => ({
-    query: values.search?.query,
-    // query: this can be undefined it means doesn't matter
-    // query: for now, case-insensitive search in title or description
-
-    category: values.filters?.category,
-    // category: if missing, assume all products
-
-    subcategory: values.filters?.subcategory,
-    // subcategory: if missing, assume all subcategories of the category
-    // subcategory: subcategory cannot be given without specifying category
-
-    brand: values.filters?.brands,
-    // brand: OR semantic
-    // brand: these are brand ids I get from the database
-    // brand: if brand is undefined or empty array then consider it as any brand
-
-    max_price: values.filters?.maxPrice,
-    // max_price: if missing, assume +infinity
-
-    min_rating: values.filters?.rating,
-    // min_rating: if missing, assume 0
-    // min_rating: min 0, max 5
-    // min_rating: >= semantic
-
-    // == sorting ==
-    sort_by: values.filters?.sortBy,
-    // sort_by: if missing, assume 'best-sellers'
-
-    sort_order: 'increasing',
-    // sort_order: if missing, assume 'increasing'
-    // sort_order: decreasing best-sellers -> best sellers shown first
-    // sort_order: decreasing newest-arrivals -> newest arrivals shown first
-    // sort_order: increasing price -> low price products first
-    // sort_order: increasing average-customer-review -> low review first
-    // sort_order: increasing number-of-comments -> low comments first
-
-    // == pagination ==
-    page: values.pagination?.current,
-    // page: pages start from 0
-    // page: if missing, assume 0
-
-    page_size: values.pagination?.pageSize,
-    // page_size: smallest page_size should 1, biggest should be 100
-    // page_size: if missing, assume 10
-})
 
 /**
  * This is a wrapper around the real _SearchPage component
@@ -104,14 +57,17 @@ export const _SearchPage = ({ initialValues = {} }) => {
         async function fetch() {
             try {
                 setIsLoading(true)
-                console.log(values)
+
+                console.log('filters', values)
+                const queryParams = R.reject(R.equals(undefined), formatSearchQueryParams(values))
+
+                console.log('queryParams', queryParams)
 
                 const {
                     data: {
-                        data: { pagination },
-                        products,
+                        data: { pagination, products },
                     },
-                } = await api.post(`/search/products`, formatSearchQueryParams(values))
+                } = await api.post(`/search/products`, queryParams)
 
                 setProducts(products.map(formatProduct))
 

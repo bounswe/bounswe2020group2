@@ -11,10 +11,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.getflix.R
+
 import com.example.getflix.databinding.FragmentCompleteOrderBinding
 import com.example.getflix.doneAlert
 import com.example.getflix.models.AddressModel
+import com.example.getflix.ui.adapters.CreditCardAdapter
+import com.example.getflix.ui.adapters.OrderAddressAdapter
 import com.example.getflix.models.CardModel
 import com.example.getflix.ui.fragments.CompleteOrderFragmentDirections.Companion.actionCompleteOrderFragmentToAddAddressFragment
 import com.example.getflix.ui.fragments.CompleteOrderFragmentDirections.Companion.actionCompleteOrderFragmentToAddCreditCardFragment
@@ -30,16 +34,20 @@ class CompleteOrderFragment : Fragment() {
     private lateinit var viewModel: CompleteOrderViewModel
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
 
     ): View? {
         activity?.toolbar!!.toolbar_title.text = getString(R.string.order_complete)
 
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_complete_order,
                 container, false)
 
+
         viewModel = ViewModelProvider(this).get(CompleteOrderViewModel::class.java)
+        viewModel.getCustomerCards()
+        viewModel.getCustomerAddresses()
 
         binding.btnAddCredit.setOnClickListener {
             view?.findNavController()?.navigate(actionCompleteOrderFragmentToAddCreditCardFragment())
@@ -49,69 +57,42 @@ class CompleteOrderFragment : Fragment() {
             view?.findNavController()?.navigate(actionCompleteOrderFragmentToAddAddressFragment())
         }
 
-        var addresses = arrayListOf<AddressModel>()
-        var credits = arrayListOf<CardModel>()
-        var addressesName = arrayListOf<String>()
-        var creditsName = arrayListOf<String>()
 
-        viewModel.getCustomerAddresses()
-        viewModel.getCustomerCards()
-        viewModel.getCustomerCartPrice()
+        val orderAddressAddressAdapter = OrderAddressAdapter()
+        val layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.orderAddressRecyclerView.adapter = orderAddressAddressAdapter
+        binding.orderAddressRecyclerView.layoutManager = layoutManager
+
+        val creditCardAdapter = CreditCardAdapter()
+        val layoutManagerForCreditCards = GridLayoutManager(requireContext(), 2)
+        binding.orderCardRecyclerView.adapter = creditCardAdapter
+        binding.orderCardRecyclerView.layoutManager = layoutManagerForCreditCards
 
         viewModel.creditList.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                for(credit in it) {
-                    credits.add(credit)
-                    creditsName.add(credit.name)
-                    println(credit.name)
-                }
-                val creditAdapter = ArrayAdapter(this.requireContext(),
-                        android.R.layout.simple_spinner_dropdown_item, creditsName)
-                creditAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-                binding.creditSpinner.adapter = creditAdapter
+            if (it != null) {
+                creditCardAdapter.submitList(it)
+                activity?.loading_progress!!.visibility = View.GONE
             }
         })
 
         viewModel.addressList.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                for(address in it) {
-                    addresses.add(address)
-                    addressesName.add(address.title)
-                }
-                val addressAdapter = ArrayAdapter(this.requireContext(),
-                        android.R.layout.simple_spinner_dropdown_item, addressesName!!)
-                addressAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-                binding.addressSpinner.adapter = addressAdapter
+            if (it != null) {
+                orderAddressAddressAdapter.submitList(it) 
             }
         })
 
-
-        var addressId=-1
+        var addressId =-1
         var cardId = -1
-        binding.addressSpinner.onItemSelectedListener = object :
-            AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?,
-                                        view: View?, position: Int, id: Long) {
+        CompleteOrderViewModel.currentAddress.observe(viewLifecycleOwner, Observer {
+            binding.currentOrderAddress.text = it?.title
+            addressId = it?.id!!
+        })
+        CompleteOrderViewModel.currentCreditCard.observe(viewLifecycleOwner, Observer {
+            binding.currentCreditCart.text = it?.name
+            cardId = it?.id!!
+        })
 
-                addressId = addresses[position].id
-                println(addressId)
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-        }
-        binding.creditSpinner.onItemSelectedListener = object :
-            AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?,
-                                        view: View?, position: Int, id: Long) {
-
-                cardId = credits[position].id
-                println(cardId)
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-        }
+       
 
         binding.pay.setOnClickListener {
             viewModel.makePurchase(addressId,cardId)
