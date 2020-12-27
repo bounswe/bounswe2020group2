@@ -57,11 +57,6 @@ class CompleteOrderFragment : Fragment() {
             view?.findNavController()?.navigate(actionCompleteOrderFragmentToAddAddressFragment())
         }
 
-        var addresses = arrayListOf<AddressModel>()
-        var credits = arrayListOf<CardModel>()
-        var addressesName = arrayListOf<String>()
-        var creditsName = arrayListOf<String>()
-
 
         val orderAddressAddressAdapter = OrderAddressAdapter()
         val layoutManager = GridLayoutManager(requireContext(), 2)
@@ -86,11 +81,15 @@ class CompleteOrderFragment : Fragment() {
             }
         })
 
+        var addressId =-1
+        var cardId = -1
         CompleteOrderViewModel.currentAddress.observe(viewLifecycleOwner, Observer {
             binding.currentOrderAddress.text = it?.title
+            addressId = it?.id!!
         })
         CompleteOrderViewModel.currentCreditCard.observe(viewLifecycleOwner, Observer {
             binding.currentCreditCart.text = it?.name
+            cardId = it?.id!!
         })
 
        
