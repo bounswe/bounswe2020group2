@@ -27,23 +27,19 @@ export const IsVerifiedNotification = () => {
         }
     }
 
+    if (user?.is_verified) return null
+
     return (
-        <div>
-            {!user?.is_verified && (
+        <Alert
+            message={
                 <>
-                    <Alert
-                        message={
-                            <>
-                                Your email is not verified&nbsp;
-                                <Button loading={isLoading} onClick={onVerify} type="primary">
-                                    Verify
-                                </Button>
-                            </>
-                        }
-                        banner
-                    />
+                    Your email is not verified&nbsp;
+                    <Button loading={isLoading} onClick={onVerify} type="primary">
+                        Verify
+                    </Button>
                 </>
-            )}
-        </div>
+            }
+            banner
+        />
     )
 }
