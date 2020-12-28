@@ -6,9 +6,9 @@ import * as moment from 'moment'
 import * as R from 'ramda'
 import { useState } from 'react'
 
-import { api } from '../api'
-import { orderStatusInvMap } from '../utils'
-import { HeaderLabel } from './HeaderLabel'
+import { api } from '../../api'
+import { orderStatusInvMap } from '../../utils'
+import { HeaderLabel } from '../HeaderLabel'
 import { Purchase } from './Purchase'
 
 export const Order = ({ order, onOrderCancelled }) => {

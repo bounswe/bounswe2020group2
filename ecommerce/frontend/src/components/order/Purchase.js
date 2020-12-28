@@ -4,9 +4,9 @@ import { Button, Collapse, Modal } from 'antd'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { formatOrderStatus, orderStatusInvMap } from '../utils'
-import { HeaderLabel } from './HeaderLabel'
-import { UserReviewPost } from './UserReview/UserReviewPost'
+import { formatOrderStatus, orderStatusInvMap } from '../../utils'
+import { HeaderLabel } from '../HeaderLabel'
+import { UserReviewPost } from '../UserReview/UserReviewPost'
 
 export const Purchase = ({ purchase }) => {
     const { product, status } = purchase

@@ -5,7 +5,7 @@ import { Alert, Tabs } from 'antd'
 import { useAppContext } from '../../context/AppContext'
 import { AddressList } from '../addresslist/AddressList'
 import { CreditCardList } from '../cardlist/CreditCardList'
-import { OrdersList } from '../OrdersList'
+import { OrdersList } from '../order/OrdersList'
 import { ProfileContent } from '../profile/ProfileContent'
 
 const { TabPane } = Tabs
