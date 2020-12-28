@@ -29,9 +29,9 @@ class OrdersAdapter(
     class RowHolder(val binding: ItemMyOrderBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(order: OrderModel, position: Int) {
-            binding.name.text = R.string.product_.toString() + " " + order.order_all_purchase[0].product.name
-            binding.address.text = R.string.delivery_.toString() + " " + order.order_all_purchase[0].address.toString()
-            binding.status.text = R.string.delivery_status.toString() + " " +order.order_all_purchase[0].status
+            binding.name.setText(order.order_all_purchase[0].product.name)
+            binding.address.setText(order.order_all_purchase[0].address.title)
+            binding.status.setText(order.order_all_purchase[0].status)
             /*
             binding.name.text = order.name
             binding.ownerName.text ="Owner: " + credit.owner_name
