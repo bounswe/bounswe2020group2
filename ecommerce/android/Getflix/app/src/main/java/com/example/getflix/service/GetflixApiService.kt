@@ -141,6 +141,10 @@ interface GetflixApiService {
     @GET("review")
     fun getReviewOfProduct(@Query("product") productId: Int) : Call<ProductReviewListModel>
 
+    @Headers("Content-Type: application/json")
+    @POST("search/products")
+    fun searchProductsByVendor(@Body cardData: ProSearchByVendorRequest): Call<ProSearchByVendorResponse>
+
 
 }
 

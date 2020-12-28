@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
+import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentVendorHomeBinding
 import com.example.getflix.databinding.FragmentVendorProfileBinding
 import com.example.getflix.models.BrandModel
@@ -42,7 +43,7 @@ class VendorHomeFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(VendorHomeViewModel::class.java)
 
 
-        viewModel.searchBySubcategory(2)
+        viewModel.searchByVendor(3)
 
         val recView = binding?.productList as RecyclerView
         val brandsView = binding?.brandList as RecyclerView
@@ -61,6 +62,9 @@ class VendorHomeFragment : Fragment() {
                 if(!brands.contains(product.brand))
                     brands.add(product.brand)
             }
+            MainActivity.StaticData.vendor = it[0].vendor.name
+            MainActivity.StaticData.brandNum  = brands.size
+            MainActivity.StaticData.proNum = it.size
             val productListAdapter = VendorHomeProductsAdapter(it!!)
             recView.adapter = productListAdapter
             recView.setHasFixedSize(true)

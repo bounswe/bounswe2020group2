@@ -130,7 +130,7 @@ class LoginFragment : Fragment() {
                 }
 
                 if (it.role!="CUSTOMER") {
-                    //println(it.toString())
+                    println(it.toString())
                     activity?.loading_progress!!.visibility = View.GONE
                     (activity as MainActivity).decideBottomNav(true)
                     view?.findNavController()?.navigate(actionLoginFragmentToVendorHomeFragment())

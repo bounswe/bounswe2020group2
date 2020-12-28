@@ -49,6 +49,9 @@ class MainActivity : AppCompatActivity() {
                 .build()
         var mGoogleSignInClient: GoogleSignInClient?=null
         var account: GoogleSignInAccount ?=null
+        var vendor: String? = null
+        var proNum: Int? = null
+        var brandNum: Int? = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
