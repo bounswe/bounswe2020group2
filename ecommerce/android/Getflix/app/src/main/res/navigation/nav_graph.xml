@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/homePageFragment"
         android:name="com.example.getflix.ui.fragments.HomePageFragment"
-        tools:layout="@layout/fragment_home_page">
+        tools:layout="@layout/fragment_new_home">
         <action
             android:id="@+id/action_homePageFragment_to_categoryFragment"
             app:destination="@id/categoryFragment" />

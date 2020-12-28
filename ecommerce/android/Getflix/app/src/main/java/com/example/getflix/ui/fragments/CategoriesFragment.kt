@@ -108,7 +108,7 @@ class CategoriesFragment : Fragment() {
 
         var cats1 = arrayListOf<CategoryModel>()
 
-        viewModel.categoriess.observe(viewLifecycleOwner, {
+        viewModel.categoriess.observe(viewLifecycleOwner, Observer{
             it?.let {
                 for(category in it.categories!!) {
                     var name = category.name

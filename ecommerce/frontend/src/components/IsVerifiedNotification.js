@@ -5,12 +5,7 @@ import { api } from './../api'
 
 export const IsVerifiedNotification = () => {
     const { user, setUser } = useAppContext()
-    const [currentUser, setCurrentUser] = useState(user)
     const [isLoading, setIsLoading] = useState(false)
-
-    useEffect(() => {
-        setCurrentUser(user)
-    }, [user])
 
     const onVerify = async () => {
         try {
@@ -21,42 +16,30 @@ export const IsVerifiedNotification = () => {
                 },
             } = await api.post('/user/verify', {})
             if (successful) {
-                notification.successful({
-                    description: 'Successfully verified account',
-                    placement: 'topRight',
-                    duration: 2,
-                })
+                notification.success({ description: 'Successfully verified account' })
                 setUser({ ...user, is_verified: true })
             }
-        } catch {
-            notification.error({
-                description: 'Failed to verify account',
-                placement: 'topRight',
-                duration: 2,
-            })
+        } catch (error) {
+            notification.error({ description: 'Failed to verify account' })
+            console.error(error)
         } finally {
             setIsLoading(false)
         }
     }
 
+    if (user?.is_verified) return null
+
     return (
-        <div>
-            {currentUser.type === 'guest' || currentUser.is_verified ? null : (
-                <Alert
-                    message="Please verify your account."
-                    type="warning"
-                    action={
-                        <Spin spinning={isLoading}>
-                            <Space>
-                                <Button size="small" type="ghost" onClick={onVerify}>
-                                    Done
-                                </Button>
-                            </Space>
-                        </Spin>
-                    }
-                    closable
-                />
-            )}
-        </div>
+        <Alert
+            message={
+                <>
+                    Your email is not verified&nbsp;
+                    <Button loading={isLoading} onClick={onVerify} type="primary">
+                        Verify
+                    </Button>
+                </>
+            }
+            banner
+        />
     )
 }

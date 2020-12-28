@@ -71,7 +71,7 @@ class ProductFragment : Fragment() {
         }
         binding.imageView7.setOnClickListener {
             val scrollView = binding.scrollView
-            val targetView = binding.longDescription
+            val targetView = binding.detailsTitle
             scrollView.scrollTo(0, targetView.top)
         }
         binding.imageView6.setOnClickListener {
@@ -91,7 +91,7 @@ class ProductFragment : Fragment() {
             productViewModel.addCustomerCartProduct(binding.amount.text.toString().toInt(), args.productId)
         }
 
-        productViewModel.navigateBack.observe(viewLifecycleOwner, {
+        productViewModel.navigateBack.observe(viewLifecycleOwner, Observer{
             if(it) {
                 doneAlert(this, "Product is added to your shopping cart!", ::navigateBack)
                 productViewModel.resetNavigate()

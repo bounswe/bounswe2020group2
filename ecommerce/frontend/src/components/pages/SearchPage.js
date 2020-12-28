@@ -1,17 +1,19 @@
 import './SearchPage.less'
 
-import { notification, Spin } from 'antd'
+import { Breadcrumb, notification, Spin } from 'antd'
 import qs from 'query-string'
 import * as R from 'ramda'
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 import { api } from '../../api'
 import { SearchResults } from '../search/SearchResults'
 import { SearchSidePanel } from '../search/SearchSidePanel'
 import { formatProduct, formatSearchQueryParams } from '../../utils'
+import { useAppContext } from '../../context/AppContext'
 
+import { HomeOutlined } from '@ant-design/icons'
 
 /**
  * This is a wrapper around the real _SearchPage component
@@ -45,6 +47,7 @@ export const _SearchPage = ({ initialValues = {} }) => {
     }
 
     const history = useHistory()
+    const { categories } = useAppContext()
 
     const [isLoading, setIsLoading] = useState(true)
 
@@ -116,27 +119,59 @@ export const _SearchPage = ({ initialValues = {} }) => {
         return `${prefix} ${type} - Getflix`
     }
 
+    const getBreadcrumbs = () => {
+        const category = categories.find(x => x.id === values.filters.category)
+        const subcategory = category?.subcategories.find(x => x.id === values.filters.subcategory)
+
+        return (
+            <Breadcrumb>
+                <Breadcrumb.Item>
+                    <Link to={'/'}>
+                        <HomeOutlined /> Home
+                    </Link>
+                </Breadcrumb.Item>
+                {category && (
+                    <Breadcrumb.Item>
+                        <Link to={`/search/${values?.search?.type ?? 'products'}?category=${category.id}`}>
+                            {category.name}
+                        </Link>
+                    </Breadcrumb.Item>
+                )}
+                {subcategory && (
+                    <Breadcrumb.Item>
+                        <Link to={`/search/${values?.search?.type ?? 'products'}?subcategory=${subcategory.id}`}>
+                            {subcategory.name}
+                        </Link>
+                    </Breadcrumb.Item>
+                )}
+            </Breadcrumb>
+        )
+    }
+
     return (
         <>
             <Helmet>
                 <title>{getTitle(values)}</title>
             </Helmet>
-            <div className={'search-page'}>
-                <div className="search-page-main">
-                    <div className="search-page-side-panel">
-                        <SearchSidePanel initialValues={values.filters} onSubmit={onSubmitFilters} />
-                    </div>
-                    <div className="search-page-results">
-                        <Spin spinning={isLoading}>
-                            <SearchResults
-                                products={products}
-                                pagination={{
-                                    ...values.pagination,
-                                    total,
-                                }}
-                                onPaginationChanged={onPaginationChanged}
-                            />
-                        </Spin>
+            <div>
+                <div className="search-page-breadcrumbs">{getBreadcrumbs()}</div>
+                <div className={'search-page'}>
+                    <div className="search-page-main">
+                        <div className="search-page-side-panel">
+                            <SearchSidePanel initialValues={values.filters} onSubmit={onSubmitFilters} />
+                        </div>
+                        <div className="search-page-results">
+                            <Spin spinning={isLoading}>
+                                <SearchResults
+                                    products={products}
+                                    pagination={{
+                                        ...values.pagination,
+                                        total,
+                                    }}
+                                    onPaginationChanged={onPaginationChanged}
+                                />
+                            </Spin>
+                        </div>
                     </div>
                 </div>
             </div>

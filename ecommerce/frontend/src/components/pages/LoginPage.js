@@ -14,7 +14,7 @@ export const LoginPage = () => {
 
     const { user, regularLogin } = useAppContext()
 
-    const onSubmit = async (values) => {
+    const onSubmit = async values => {
         try {
             setIsLoading(true)
             const isLoginSuccess = await regularLogin(values.username, values.password)
