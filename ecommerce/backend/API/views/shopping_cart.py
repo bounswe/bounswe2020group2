@@ -52,6 +52,7 @@ def manage_specific_shopping_cart_item(request, customer_id, sc_item_id):
             sc_item.delete()
             return Response({'status': { 'successful': True, 'message': "Successfully deleted"}})
 
+# serves GET, POST requests for the given customer_id
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAnonymous])
 def manage_shopping_cart_items(request, customer_id):
