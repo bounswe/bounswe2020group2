@@ -1,7 +1,7 @@
 import './Layout_common.less'
 
 import { Layout } from 'antd'
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 
 import { useAppContext } from '../../context/AppContext'
 import { CategoryBar } from '../CategoryBar'
@@ -19,6 +19,7 @@ import { SignupPage } from '../pages/SignupPage'
 
 export const Content = () => {
     const { user } = useAppContext()
+    const location = useLocation()
     const isGuest = user.type === 'guest'
     const isCustomer = user.type === 'customer'
     const isVendor = user.type === 'vendor'
@@ -27,7 +28,7 @@ export const Content = () => {
     return (
         <Layout.Content className="content">
             <CategoryBar />
-            <IsVerifiedNotification />
+            {location.pathname.startsWith('/profile') || <IsVerifiedNotification />}
 
             <Switch>
                 {isUser && <Route path="/verify/:id" component={EmailVerification} />}
