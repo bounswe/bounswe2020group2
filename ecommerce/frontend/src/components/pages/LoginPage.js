@@ -14,21 +14,16 @@ export const LoginPage = () => {
 
     const { user, regularLogin } = useAppContext()
 
-    const onSubmit = async (values, userType) => {
-        if (userType === 'customer') {
-            try {
-                setIsLoading(true)
-                const isLoginSuccess = await regularLogin('customer', values.username, values.password)
-                if (isLoginSuccess) history.push({ pathname: '/' })
-            } catch (error) {
-                notification.warning({ message: 'There was an error with your request.' })
-            } finally {
-                setIsLoading(false)
-            }
-        } else {
-            console.log('userType', userType, 'not handled')
+    const onSubmit = async (values) => {
+        try {
+            setIsLoading(true)
+            const isLoginSuccess = await regularLogin(values.username, values.password)
+            if (isLoginSuccess) history.push({ pathname: '/' })
+        } catch (error) {
+            notification.warning({ message: 'There was an error with your request.' })
+        } finally {
+            setIsLoading(false)
         }
-        return
     }
 
     return (
