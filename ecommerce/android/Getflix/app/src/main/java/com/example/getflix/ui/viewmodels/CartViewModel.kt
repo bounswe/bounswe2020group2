@@ -6,13 +6,10 @@ import androidx.lifecycle.ViewModel
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.CartProductModel
 import com.example.getflix.models.CustomerCartPriceModel
-import com.example.getflix.models.ProductModel
 import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.CardProUpdateRequest
-import com.example.getflix.service.requests.CustomerCheckoutRequest
 import com.example.getflix.service.responses.CardProDeleteResponse
 import com.example.getflix.service.responses.CardProUpdateResponse
-import com.example.getflix.service.responses.CustomerCheckoutResponse
 import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -32,7 +29,10 @@ class CartViewModel : ViewModel() {
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         println("Error ${throwable.localizedMessage}")
     }
-
+    val onSubmit = MutableLiveData<Boolean>()
+    init {
+        onSubmit.value = false
+    }
 
     fun getCustomerCartPrice() {
         job = CoroutineScope(Dispatchers.IO).launch {
@@ -42,6 +42,9 @@ class CartViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     response.body().let { it ->
                         _cardPrices.value = it
+                    }
+                    if(onSubmit.value==false){
+                        onSubmit.value = true
                     }
                 }
             }
@@ -61,6 +64,9 @@ class CartViewModel : ViewModel() {
                         _cardProducts.value =
                             response.body()!!.cartProducts as MutableList<CartProductModel>
                         println(_cardProducts.value.toString())
+                    }
+                    if(onSubmit.value==false){
+                        onSubmit.value = true
                     }
                 }
             }
