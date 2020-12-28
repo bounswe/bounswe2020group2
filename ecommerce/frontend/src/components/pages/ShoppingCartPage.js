@@ -4,7 +4,7 @@ import { Button, Col, Row, Spin, Statistic } from 'antd'
 import React, { Component, useEffect, useState } from 'react'
 
 import { useAppContext } from '../../context/AppContext'
-import { ShoppingCartItems } from './ShoppingCartItems'
+import { ShoppingCartItems } from '../ShoppingCart/ShoppingCartItems'
 import { round } from '../../utils'
 import { Link } from 'react-router-dom'
 
