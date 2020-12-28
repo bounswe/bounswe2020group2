@@ -53,7 +53,7 @@ export const ProfileContent = ({ user }) => {
 
     return (
         <>
-            {!user?.is_verifed && (
+            {!user?.is_verified && (
                 <Alert
                     message={
                         <>
