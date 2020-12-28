@@ -1,21 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="viewmodel"
+            type="com.example.getflix.ui.viewmodels.SubCategoryViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.VendorHomeFragment">
+        android:layout_marginTop="?attr/actionBarSize">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:orientation="vertical">
 
-    </FrameLayout>
+            <TextView
+                android:id="@+id/brands_title"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/open_sans_semibold"
+                android:text="Your Brands"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/brand_list"
+                android:layout_width="match_parent"
+                android:layout_height="120dp" />
+
+            <TextView
+                android:id="@+id/products_title"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/open_sans_semibold"
+                android:text="Your Current Products"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+               />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/product_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

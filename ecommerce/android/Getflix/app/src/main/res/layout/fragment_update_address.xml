@@ -10,32 +10,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="65dp">
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:hint="@string/edittext_title"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black"
             android:textColorHint="@color/black"
-            >
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
 
             <EditText
                 android:id="@+id/editable_title"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
-                android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
                 android:inputType="text"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="17sp"
+                android:textColor="@color/initPurple"
                 android:textCursorDrawable="@color/black"
-                android:textColor="@color/initPurple">
+                android:textSize="17sp"
+                android:translationY="3dp">
 
             </EditText>
 
@@ -52,24 +53,23 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:hint="@string/edittext_countrycode"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black"
             android:textColorHint="@color/black"
-            >
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
 
             <EditText
                 android:id="@+id/editable_countrycode"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
-                android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
                 android:inputType="text"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="17sp"
+                android:textColor="@color/initPurple"
                 android:textCursorDrawable="@color/black"
-                android:textColor="@color/initPurple">
+                android:textSize="17sp"
+                android:translationY="3dp">
 
             </EditText>
 
@@ -86,24 +86,23 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:hint="@string/edittext_phone"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black"
             android:textColorHint="@color/black"
-            >
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
 
             <EditText
                 android:id="@+id/editable_phone"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
-                android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
                 android:inputType="text"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="17sp"
+                android:textColor="@color/initPurple"
                 android:textCursorDrawable="@color/black"
-                android:textColor="@color/initPurple">
+                android:textSize="17sp"
+                android:translationY="3dp">
 
             </EditText>
 
@@ -120,24 +119,23 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:hint="@string/edittext_name"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black"
             android:textColorHint="@color/black"
-            >
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
 
             <EditText
                 android:id="@+id/editable_name"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
-                android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
                 android:inputType="text"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="17sp"
+                android:textColor="@color/initPurple"
                 android:textCursorDrawable="@color/black"
-                android:textColor="@color/initPurple">
+                android:textSize="17sp"
+                android:translationY="3dp">
 
             </EditText>
 
@@ -154,24 +152,23 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:hint="@string/edittext_surname"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black"
             android:textColorHint="@color/black"
-            >
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
 
             <EditText
                 android:id="@+id/editable_surname"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
-                android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
                 android:inputType="text"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="17sp"
+                android:textColor="@color/initPurple"
                 android:textCursorDrawable="@color/black"
-                android:textColor="@color/initPurple">
+                android:textSize="17sp"
+                android:translationY="3dp">
 
             </EditText>
 
@@ -188,24 +185,23 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:hint="@string/edittext_address"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black"
             android:textColorHint="@color/black"
-            >
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
 
             <EditText
                 android:id="@+id/editable_address"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
-                android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
                 android:inputType="text"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="17sp"
+                android:textColor="@color/initPurple"
                 android:textCursorDrawable="@color/black"
-                android:textColor="@color/initPurple">
+                android:textSize="17sp"
+                android:translationY="3dp">
 
             </EditText>
 
@@ -222,24 +218,23 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:hint="@string/edittext_province"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black"
             android:textColorHint="@color/black"
-            >
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
 
             <EditText
                 android:id="@+id/editable_province"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
-                android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
                 android:inputType="text"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="17sp"
+                android:textColor="@color/initPurple"
                 android:textCursorDrawable="@color/black"
-                android:textColor="@color/initPurple">
+                android:textSize="17sp"
+                android:translationY="3dp">
 
             </EditText>
 
@@ -256,24 +251,23 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:hint="@string/edittext_city"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black"
             android:textColorHint="@color/black"
-            >
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
 
             <EditText
                 android:id="@+id/editable_city"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
-                android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
                 android:inputType="text"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="17sp"
+                android:textColor="@color/initPurple"
                 android:textCursorDrawable="@color/black"
-                android:textColor="@color/initPurple">
+                android:textSize="17sp"
+                android:translationY="3dp">
 
             </EditText>
 
@@ -290,24 +284,23 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:hint="@string/edittext_country"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black"
             android:textColorHint="@color/black"
-            >
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
 
             <EditText
                 android:id="@+id/editable_country"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
-                android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
                 android:inputType="text"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="17sp"
+                android:textColor="@color/initPurple"
                 android:textCursorDrawable="@color/black"
-                android:textColor="@color/initPurple">
+                android:textSize="17sp"
+                android:translationY="3dp">
 
             </EditText>
 
@@ -324,24 +317,23 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:hint="@string/edittext_zipcode"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black"
             android:textColorHint="@color/black"
-            >
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
 
             <EditText
                 android:id="@+id/editable_zipcode"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
-                android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
                 android:inputType="text"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="17sp"
+                android:textColor="@color/initPurple"
                 android:textCursorDrawable="@color/black"
-                android:textColor="@color/initPurple">
+                android:textSize="17sp"
+                android:translationY="3dp">
 
             </EditText>
 
@@ -353,19 +345,16 @@
             android:layout_margin="2dp"
             android:background="@android:color/darker_gray" />
 
-        <Button
+        <TextView
             android:id="@+id/btn_add"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="32dp"
-            android:layout_gravity="right|center_vertical"
-            android:layout_margin="5dp"
-            android:background="@color/initGold"
+            android:layout_marginTop="16dp"
+            android:background="@color/black"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:gravity="center"
             android:text="Update"
-            android:textColor="@color/initPurple" />
-
-
-
-
+            android:textColor="@color/colorPrimary" />
 
 
     </LinearLayout>

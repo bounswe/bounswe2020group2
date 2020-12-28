@@ -88,6 +88,8 @@
             android:text="TextView"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/profile_image"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/profile_image"

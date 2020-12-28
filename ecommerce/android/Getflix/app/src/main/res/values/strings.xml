@@ -47,7 +47,7 @@
     <string name="sign_up">Hesabın yok mu? Kaydol</string>
     <string name="guest">Misafir</string>
     <string name="guest_cont">Misafir olarak devam et</string>
-    <string name="acceptCart">Sepeti Onayla</string>
+    <string name="acceptCart">SEPETI ONAYLA</string>
     <string name="buy">Odeme Yap</string>
     <string name="payment">Odeme</string>
     <string name="userInfo">Kullanıcı Bilgilerim</string>
@@ -143,6 +143,10 @@
     <string name="category_title">Category</string>
     <string name="subcategory_title">Subcategory</string>
     <string name="comments_title">Comments</string>
+    <string name="product_">Product: </string>
+    <string name="delivery_">Delivery Address: </string>
+    <string name="delivery_status">Delivery Status: </string>
     <string name="proceed_with_the_payment">PROCEED WITH THE PAYMENT</string>
+    <string name="accept">ACCEPT</string>
 
 </resources>

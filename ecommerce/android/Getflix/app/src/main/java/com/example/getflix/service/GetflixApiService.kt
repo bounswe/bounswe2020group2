@@ -138,6 +138,9 @@ interface GetflixApiService {
     @GET("checkout/details")
     suspend fun getCustomerCartPrice(@Header("Authorization") token: String): Response<CustomerCartPriceModel>
 
+    @GET("review")
+    fun getReviewOfProduct(@Query("product") productId: Int) : Call<ProductReviewListModel>
+
 
 }
 
