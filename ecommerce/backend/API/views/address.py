@@ -8,6 +8,7 @@ from ..utils import permissions, Role
 from ..models import User, Address
 from ..serializers.address_serializer import *
 
+# serves GET, PUT, DELETE requests for the given customer_id and address_id
 @api_view(['GET','PUT', 'DELETE'])
 @permission_classes([permissions.AllowAnonymous])
 def manage_specific_address(request, customer_id, address_id):
