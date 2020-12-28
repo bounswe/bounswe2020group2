@@ -37,7 +37,6 @@ class ProductFragment : Fragment() {
         val args = ProductFragmentArgs.fromBundle(requireArguments())
         productViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
         productViewModel.getProduct(args.productId)
-        productViewModel.getProductReviews(args.productId)
 
         val recommenderAdapter = RecommenderAdapter()
         val imageAdapter = ImageAdapter()
@@ -97,22 +96,17 @@ class ProductFragment : Fragment() {
             recommenderAdapter.submitList(it)
         })
 
-        var comments = arrayListOf<String>(
-            
-        )
 
-
-        productViewModel.reviews.observe(viewLifecycleOwner, {
-            for(review in it) {
-                comments.add(review.comment)
-                println(review.comment)
+        productViewModel.reviews.observe(viewLifecycleOwner, Observer{
+            if (it!= null) {
+                commentAdapter.submitList(it)
             }
-            commentAdapter.submitList(comments)
         })
 
 
         productViewModel.product.observe(viewLifecycleOwner, Observer {
             if (it != null) {
+                productViewModel.getProductReviews()
                 binding.product = it
                 binding.brand.text = it.brand.name
                 binding.productName.text = it.name
@@ -129,7 +123,6 @@ class ProductFragment : Fragment() {
                 binding.productSubcategory.text = it.subcategory.name
                 binding.circleIndicator.createIndicators(it.images.size, 0)
                 setProductRating(it.rating)
-                commentAdapter.submitList(comments)
             }
 
         })

@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class ProductReviewListModel (
 
-    @SerializedName("reviews") val reviews : List<ReviewModel>,
+    @SerializedName("reviews") val reviews : List<ReviewModel>?,
     @SerializedName("status") val status : Status
 ) : Parcelable
