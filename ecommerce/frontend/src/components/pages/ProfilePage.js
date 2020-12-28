@@ -5,17 +5,24 @@ import { Alert, Tabs } from 'antd'
 import { useAppContext } from '../../context/AppContext'
 import { AddressList } from '../addresslist/AddressList'
 import { CreditCardList } from '../cardlist/CreditCardList'
-import { OrdersList } from '../OrdersList'
+import { OrdersList } from '../order/OrdersList'
 import { ProfileContent } from '../profile/ProfileContent'
 
 const { TabPane } = Tabs
 
-export const ProfilePage = () => {
+export const ProfilePage = props => {
     const { user } = useAppContext()
+
+    const tabKey = props.match.params.section ?? 'update-profile'
+
+    const onTabChange = tabKey => {
+        const path = tabKey === 'update-profile' ? '/profile' : `/profile/${tabKey}`
+        props.history.replace(path)
+    }
 
     return (
         <div className="profile-page-wrapper">
-            <Tabs tabPosition="left" defaultActiveKey="update-profile">
+            <Tabs tabPosition="left" activeKey={tabKey} onChange={onTabChange}>
                 <TabPane tab="Update Profile" key="update-profile" forceRender>
                     <Alert.ErrorBoundary>
                         <div className="right-bar-profile-content">

@@ -3,9 +3,9 @@ import './OrdersList.less'
 import { notification, Spin } from 'antd'
 import { useEffect, useState } from 'react'
 
-import { api } from '../api'
-import { useAppContext } from '../context/AppContext'
-import { formatOrder } from '../utils'
+import { api } from '../../api'
+import { useAppContext } from '../../context/AppContext'
+import { formatOrder } from '../../utils'
 import { Order } from './Order'
 import { Purchase } from './Purchase'
 
