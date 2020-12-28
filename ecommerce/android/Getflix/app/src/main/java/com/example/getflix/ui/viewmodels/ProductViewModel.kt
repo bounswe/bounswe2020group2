@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.ProductModel
 import com.example.getflix.service.GetflixApi
+import com.example.getflix.service.requests.CardProAddRequest
 import com.example.getflix.service.requests.CardProUpdateRequest
+import com.example.getflix.service.responses.CardProAddResponse
 import com.example.getflix.service.responses.CardProUpdateResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,6 +26,11 @@ class ProductViewModel:  ViewModel() {
     private val _amount = MutableLiveData<Int>()
     val amount: LiveData<Int>
         get() = _amount
+
+
+    private val _navigateBack = MutableLiveData<Boolean>()
+    val navigateBack: LiveData<Boolean>
+        get() = _navigateBack
 
     private val _isLiked = MutableLiveData<Boolean>()
     val isLiked: LiveData<Boolean>
@@ -65,7 +72,27 @@ class ProductViewModel:  ViewModel() {
                 }
                 )
     }
-    
+
+    fun addCustomerCartProduct(amount: Int, proId: Int) {
+        GetflixApi.getflixApiService.addCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, CardProAddRequest(proId, amount))
+            .enqueue(object :
+                Callback<CardProAddResponse> {
+                override fun onFailure(call: Call<CardProAddResponse>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<CardProAddResponse>,
+                    response: Response<CardProAddResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+                    _navigateBack.value=true
+                }
+            }
+            )
+    }
+
     fun addToShoppingCart(shoppingCartId: Int, productId: Int) {
         GetflixApi.getflixApiService.updateCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,
             MainActivity.StaticData.user!!.id, shoppingCartId, CardProUpdateRequest(productId,
@@ -118,5 +145,9 @@ class ProductViewModel:  ViewModel() {
                 }
             }
             )
+    }
+
+    fun resetNavigate() {
+        _navigateBack.value = false
     }
 }

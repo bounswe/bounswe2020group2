@@ -10,11 +10,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentProductBinding
+import com.example.getflix.doneAlert
 import com.example.getflix.ui.adapters.CommentAdapter
 import com.example.getflix.ui.adapters.ImageAdapter
 import com.example.getflix.ui.adapters.RecommenderAdapter
@@ -85,8 +87,16 @@ class ProductFragment : Fragment() {
             productViewModel.increaseAmount()
         }
         binding.addToCart.setOnClickListener {
-            productViewModel.addToShoppingCart(1, args.productId)
+            //productViewModel.addToShoppingCart(1, args.productId)
+            productViewModel.addCustomerCartProduct(binding.amount.text.toString().toInt(), args.productId)
         }
+
+        productViewModel.navigateBack.observe(viewLifecycleOwner, {
+            if(it) {
+                doneAlert(this, "Product is added to your shopping cart!", ::navigateBack)
+                productViewModel.resetNavigate()
+            }
+        })
 
         productViewModel.amount.observe(viewLifecycleOwner, Observer {
             binding.amount.text = it?.toString()
@@ -130,6 +140,10 @@ class ProductFragment : Fragment() {
         })
         return binding.root
 
+    }
+
+    private fun navigateBack() {
+        view?.findNavController()!!.popBackStack()
     }
 
     fun setProductRating(rating: Double) {
