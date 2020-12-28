@@ -139,7 +139,7 @@ interface GetflixApiService {
     suspend fun getCustomerCartPrice(@Header("Authorization") token: String): Response<CustomerCartPriceModel>
 
     @GET("review")
-    suspend fun getReviewOfProduct(@Query("product") productId: Int) : Response<ProductReviewListModel>
+    fun getReviewOfProduct(@Query("product") productId: Int) : Call<ProductReviewListModel>
 
 
 }
