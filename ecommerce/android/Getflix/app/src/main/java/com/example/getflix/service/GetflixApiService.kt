@@ -145,6 +145,10 @@ interface GetflixApiService {
     @POST("search/products")
     fun searchProductsByVendor(@Body cardData: ProSearchByVendorRequest): Call<ProSearchByVendorResponse>
 
+    @Headers("Content-Type: application/json")
+    @PUT("vendor/product")
+    fun updateVendorProduct(@Header("Authorization") token: String, @Body vendorProData: VendorProUpdateRequest): Call<VendorProUpdateResponse>
+
 
 }
 

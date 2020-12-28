@@ -148,4 +148,13 @@
     <string name="delivery_status">Teslimat Durumu: </string>
     <string name="proceed_with_the_payment">PROCEED WITH THE PAYMENT</string>
     <string name="accept">ACCEPT</string>
+    <string name="edittext_id"><font size="35">Product Id</font></string>
+    <string name="edittext_pname"><font size="35">Product Name</font></string>
+    <string name="edittext_price"><font size="35">Price</font></string>
+    <string name="edittext_stockamount"><font size="35">Stock Amount</font></string>
+    <string name="edittext_shortdescription"><font size="35">Short Description</font></string>
+    <string name="edittext_longdescription"><font size="35">Long Description</font></string>
+    <string name="edittext_discount"><font size="35">Discount</font></string>
+    <string name="edittext_brandid"><font size="35">Brand Id</font></string>
+    <string name="edittext_subcategoryid"><font size="35">Subcategory Id</font></string>
 </resources>

@@ -3,19 +3,24 @@ package com.example.getflix.ui.adapters
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.CardProductBinding
 import com.example.getflix.databinding.VendorProductBinding
 import com.example.getflix.models.ProductModel
+import com.example.getflix.ui.fragments.AddressFragmentDirections
+import com.example.getflix.ui.fragments.VendorHomeFragmentDirections
 import com.example.getflix.ui.viewmodels.HomeViewModel
 import com.squareup.picasso.Picasso
 
 class VendorHomeProductsAdapter(
-    private val productList: MutableList<ProductModel>,
+    private val productList: MutableList<ProductModel>, fragment: Fragment
 ) : ListAdapter<ProductModel, VendorHomeProductsAdapter.RowHolder>(VendorHomeProductsDiffCallback()) {
 
+    val fragment = fragment
 
     class RowHolder(val binding: VendorProductBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -59,7 +64,15 @@ class VendorHomeProductsAdapter(
     }
 
     override fun onBindViewHolder(holder: RowHolder, position: Int) {
-        productList?.get(position)?.let { holder.bind(it, position) }
+        productList?.get(position)?.let {
+            holder.bind(it, position)
+            holder?.itemView!!.setOnClickListener {
+                fragment.findNavController().navigate(
+                    VendorHomeFragmentDirections.actionVendorHomeToUpdateProductFragment(
+                        productList?.get(position)!!)
+                )
+            }
+        }
     }
 
 
