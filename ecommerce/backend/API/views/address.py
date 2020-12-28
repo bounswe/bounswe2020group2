@@ -65,6 +65,7 @@ def manage_specific_address(request, customer_id, address_id):
         return Response({'status': {'successful': True, 'message': "Address is successfully updated"}})
     return Response({'status': {'successful': False, 'message': "Error occurred"}})
 
+# serves GET, POST requests for the given customer_id
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAnonymous])
 def manage_addresses(request, customer_id):
