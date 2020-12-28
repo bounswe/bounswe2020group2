@@ -5,11 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.ProductModel
+import com.example.getflix.models.ProductReviewListModel
+import com.example.getflix.models.ReviewModel
 import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.CardProAddRequest
 import com.example.getflix.service.requests.CardProUpdateRequest
 import com.example.getflix.service.responses.CardProAddResponse
 import com.example.getflix.service.responses.CardProUpdateResponse
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,6 +39,12 @@ class ProductViewModel:  ViewModel() {
     val isLiked: LiveData<Boolean>
         get() = _isLiked
 
+    private val _reviews= MutableLiveData<List<ReviewModel>?>()
+    val reviews: LiveData<List<ReviewModel>?>
+        get() = _reviews
+
+
+
 
     private val _product = MutableLiveData<ProductModel?>()
     val product: LiveData<ProductModel?>
@@ -50,9 +59,30 @@ class ProductViewModel:  ViewModel() {
         _product.value = null
         _addedToShoppingCart.value = false
         _recommendedProducts.value = null
+        _reviews.value =null
         getRecommendedProducts(5)
     }
 
+    fun getProductReviews() {
+
+        GetflixApi.getflixApiService.getReviewOfProduct(_product.value!!.id)
+            .enqueue(object :
+                Callback<ProductReviewListModel> {
+                override fun onFailure(call: Call<ProductReviewListModel>, t: Throwable) {
+                    _reviews.value = null
+                }
+
+                override fun onResponse(
+                    call: Call<ProductReviewListModel>,
+                    response: Response<ProductReviewListModel>
+                ) {
+                    _reviews.value = response.body()?.reviews
+                    println(_reviews.value)
+
+                }
+            }
+            )
+    }
 
     fun getProduct(productId: Int) {
         GetflixApi.getflixApiService.getProduct(productId)
@@ -67,10 +97,13 @@ class ProductViewModel:  ViewModel() {
                             response: Response<ProductModel>
                     ) {
                         _product.value = response.body()
-
+                        if(_product.value!=null) {
+                            getProductReviews()
+                        }
                     }
                 }
                 )
+
     }
 
     fun addCustomerCartProduct(amount: Int, proId: Int) {
@@ -141,7 +174,6 @@ class ProductViewModel:  ViewModel() {
                     response: Response<List<ProductModel>>
                 ) {
                     _recommendedProducts.value = response.body() as MutableList<ProductModel>?
-
                 }
             }
             )
