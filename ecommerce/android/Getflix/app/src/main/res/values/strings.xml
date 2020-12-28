@@ -143,6 +143,9 @@
     <string name="category_title">Category</string>
     <string name="subcategory_title">Subcategory</string>
     <string name="comments_title">Comments</string>
+    <string name="product_">Product: </string>
+    <string name="delivery_">Delivery Address: </string>
+    <string name="delivery_status">Delivery Status: </string>
     <string name="proceed_with_the_payment">PROCEED WITH THE PAYMENT</string>
 
 </resources>
