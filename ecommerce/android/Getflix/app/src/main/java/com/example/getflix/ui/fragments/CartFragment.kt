@@ -62,10 +62,10 @@ class CartFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(recView)
 
         viewModel.cardPrices.observe(viewLifecycleOwner, Observer{
-            binding.productsPrice.text = "Products Price: " + it.productsPrice.toString()
-            binding.deliveryPrice.text = "Delivery Price: " + it.deliveryPrice.toString()
-            binding.discount.text = "Discount: " + it.discount.toString()
-            binding.totalPrice.text = "Total Price: " + it.totalPrice.toString()
+            binding.productsPrice.text = "Products Price: " + it.productsPrice.toString() + " TL"
+            binding.deliveryPrice.text = "Delivery Price: " + it.deliveryPrice.toString()+ " TL"
+            binding.discount.text = "Discount: " + it.discount.toString() + "%"
+            binding.totalPrice.text = "Total Price: " + it.totalPrice.toString()+ " TL"
         })
 
 
