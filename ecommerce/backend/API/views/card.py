@@ -7,7 +7,7 @@ from ..utils import permissions, Role
 from ..models import User, Card
 from ..serializers.card_serializer import *
 
-# serves GET, PUT, DELETE request for the given customer_id and card_id
+# serves GET, PUT, DELETE requests for the given customer_id and card_id
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([permissions.AllowAnonymous])
 def manage_specific_card(request, customer_id, card_id):
@@ -61,6 +61,7 @@ def manage_specific_card(request, customer_id, card_id):
         return Response({'status': {'successful': True, 'message': "Card is successfully updated"}})
     return Response({'status': {'successful': False, 'message': "Error occurred"}})
 
+# serves GET, POST requests for the given customer_id
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAnonymous])
 def manage_cards(request, customer_id):
