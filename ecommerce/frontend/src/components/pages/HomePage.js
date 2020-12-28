@@ -57,17 +57,18 @@ const HomePage_MainContent = () => {
         fetch()
     }, [])
 
-    return (<Spin spinning={isLoading}>
-        <div className="trending-grid-wrapper">
-            {categories.map(category => {
-                const filters = {
-                    category: category.id,
-                    sortBy: 'best-sellers',
-                    type: 'products',
-                }
-                return <HorizontalProductList filters={filters} />
-            })}
-        </div>
-    </Spin>
+    return (
+        <Spin spinning={isLoading}>
+            <div className="trending-grid-wrapper">
+                {categories.map(category => {
+                    const filters = {
+                        category: category.id,
+                        sortBy: 'best-sellers',
+                        type: 'products',
+                    }
+                    return <HorizontalProductList filters={filters} />
+                })}
+            </div>
+        </Spin>
     )
 }

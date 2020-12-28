@@ -48,10 +48,7 @@ export const ProductPage = props => {
             <div className="product-page-reviews">
                 <UserReviews productId={productId} />
             </div>
-            <div className="product-page-best-sellers">
-                {product && <HorizontalProductList filters={filters} />}
-            </div>
-
+            <div className="product-page-best-sellers">{product && <HorizontalProductList filters={filters} />}</div>
         </div>
     )
 }

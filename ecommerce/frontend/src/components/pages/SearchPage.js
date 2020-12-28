@@ -12,7 +12,6 @@ import { SearchResults } from '../search/SearchResults'
 import { SearchSidePanel } from '../search/SearchSidePanel'
 import { formatProduct, formatSearchQueryParams } from '../../utils'
 
-
 /**
  * This is a wrapper around the real _SearchPage component
  * It used to force remount the _SearchPage so that it is reloaded with new initial values
