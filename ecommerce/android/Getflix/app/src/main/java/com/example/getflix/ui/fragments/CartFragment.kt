@@ -64,7 +64,7 @@ class CartFragment : Fragment() {
         viewModel.cardPrices.observe(viewLifecycleOwner, Observer{
             binding.productsPrice.text = "Products Price: " + it.productsPrice.toString() + " TL"
             binding.deliveryPrice.text = "Delivery Price: " + it.deliveryPrice.toString()+ " TL"
-            binding.discount.text = "Discount: " + it.discount.toString() + "%"
+            binding.discount.text = "Discount: " + it.discount.toString() + " TL"
             binding.totalPrice.text = "Total Price: " + it.totalPrice.toString()+ " TL"
         })
 

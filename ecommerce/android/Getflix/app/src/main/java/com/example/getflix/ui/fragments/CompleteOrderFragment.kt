@@ -98,7 +98,7 @@ class CompleteOrderFragment : Fragment() {
             viewModel.makePurchase(addressId,cardId)
         }
 
-        viewModel.navigateHome.observe(viewLifecycleOwner, {
+        viewModel.navigateHome.observe(viewLifecycleOwner, Observer{
             if(it) {
                 doneAlert(this, "Your checkout is done, thank you for choosing us!", ::navigateHome)
                 viewModel.resetNavigate()
