@@ -37,7 +37,8 @@ export const Content = () => {
                 {isCustomer && <Route path="/checkout" component={CheckoutPage} />}
                 {isCustomer && <Route path="/shoppingCart" component={ShoppingCartPage} />}
                 {isGuest && <Route path="/signup" component={SignupPage} />}
-                {isUser && <Route path="/profile" component={ProfilePage} />}
+                {isUser && <Route path="/profile/:section" component={ProfilePage} />}
+                {isUser && <Route path="/profile/" component={ProfilePage} />}
                 <Route exact path="/" component={HomePage} />
                 <Redirect to="/" />
             </Switch>

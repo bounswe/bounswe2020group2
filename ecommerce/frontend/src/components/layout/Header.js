@@ -1,11 +1,19 @@
 import './Layout_common.less'
-import { Layout, Menu, Avatar, Dropdown, Button } from 'antd'
-import { UserOutlined, LogoutOutlined, ProfileOutlined, ShoppingCartOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
-import { useHistory } from 'react-router-dom'
-import { useContext } from 'react'
+
+import {
+    AppstoreOutlined,
+    CreditCardOutlined,
+    HomeOutlined,
+    LogoutOutlined,
+    MessageOutlined,
+    ProfileOutlined,
+    ShoppingCartOutlined,
+    UserOutlined,
+} from '@ant-design/icons'
+import { Avatar, Button, Dropdown, Layout, Menu } from 'antd'
+import { Link, useHistory } from 'react-router-dom'
+
 import { useAppContext } from '../../context/AppContext'
-import { SearchInput } from '../SearchInput'
 import { SearchInputWrapper } from '../search/SearchInputWrapper'
 
 export const GuestHeaderContent = () => {
@@ -29,18 +37,31 @@ export const CustomerHeaderContent = () => {
         if (key === 'logout') {
             logout()
             history.push('/')
-        } else if (key === 'profile') {
-            history.push({
-                pathname: '/profile',
-            })
+        } else if (key === 'update-profile') {
+            history.push({ pathname: '/profile' })
+        } else {
+            // temp solution
+            history.push({ pathname: `/profile/${key}` })
         }
     }
 
     const dropdownMenu = () => {
         return (
             <Menu onClick={onMenuItemClick}>
-                <Menu.Item key="profile" icon={<ProfileOutlined />}>
-                    Profile
+                <Menu.Item key="update-profile" icon={<ProfileOutlined />}>
+                    Profile Details
+                </Menu.Item>
+                <Menu.Item key="orders" icon={<AppstoreOutlined />}>
+                    Orders
+                </Menu.Item>
+                <Menu.Item key="cards" icon={<CreditCardOutlined />}>
+                    Cards
+                </Menu.Item>
+                <Menu.Item key="addresses" icon={<HomeOutlined />}>
+                    Addresses
+                </Menu.Item>
+                <Menu.Item key="messages" icon={<MessageOutlined />}>
+                    Messages
                 </Menu.Item>
                 <Menu.Item key="logout" icon={<LogoutOutlined />}>
                     Logout
