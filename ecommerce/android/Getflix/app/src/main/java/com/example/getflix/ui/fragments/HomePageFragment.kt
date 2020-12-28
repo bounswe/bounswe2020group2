@@ -139,8 +139,10 @@ class HomePageFragment : Fragment() {
 
         HomeViewModel.onProductClick.observe(viewLifecycleOwner, Observer {
             if(it!=null){
+                val productId = it.id
                 HomeViewModel.onProductClick.value = null
-             //   view?.findNavController()?.navigate(HomePageFragmentDirections.actionHomePageFragmentToCategoryFragment())
+                view?.findNavController()?.navigate(HomePageFragmentDirections.actionHomePageFragmentToProductFragment2(productId))
+
             }
         })
         return binding.root
