@@ -188,6 +188,9 @@
             app:destination="@id/profileFragment"
             app:enterAnim="@anim/enter_right_to_left"
             app:exitAnim="@anim/exit_right_to_left" />
+        <action
+            android:id="@+id/action_orderInfoFragment_to_profileFragment2"
+            app:destination="@id/profileFragment" />
     </fragment>
 
     <fragment
