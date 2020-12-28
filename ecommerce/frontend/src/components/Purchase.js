@@ -5,17 +5,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { formatOrderStatus, orderStatusInvMap } from '../utils'
+import { HeaderLabel } from './HeaderLabel'
 import { UserReviewPost } from './UserReview/UserReviewPost'
-
-const HorizontalLabel = ({ label, children }) => {
-    return (
-        <div>
-            <span className="horizontal-label">{label}:&nbsp;</span>
-            <br />
-            <span className="horizontal-text">{children}</span>
-        </div>
-    )
-}
 
 export const Purchase = ({ purchase }) => {
     const { product, status } = purchase
@@ -46,13 +37,13 @@ export const Purchase = ({ purchase }) => {
                     showArrow={false}
                     header={
                         <div className="purchase-header">
-                            <HorizontalLabel label="Status">{formatOrderStatus(status)}</HorizontalLabel>
-                            <HorizontalLabel label="Address">{purchase.address.title}</HorizontalLabel>
-                            <HorizontalLabel label="Price">
+                            <HeaderLabel label="Status">{formatOrderStatus(status)}</HeaderLabel>
+                            <HeaderLabel label="Address">{purchase.address.title}</HeaderLabel>
+                            <HeaderLabel label="Price">
                                 {purchase.unit_price} {purchase.currency ?? 'TL'}
-                            </HorizontalLabel>
-                            <HorizontalLabel label="Amount">{purchase.amount}</HorizontalLabel>
-                            <HorizontalLabel label="Receiver">{receiver}</HorizontalLabel>
+                            </HeaderLabel>
+                            <HeaderLabel label="Amount">{purchase.amount}</HeaderLabel>
+                            <HeaderLabel label="Receiver">{receiver}</HeaderLabel>
                             {canReview && (
                                 <Button className="purchase-header-extra" onClick={onReviewClick} type="primary">
                                     Review

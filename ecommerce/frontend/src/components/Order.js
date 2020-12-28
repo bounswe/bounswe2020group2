@@ -1,22 +1,15 @@
-import { Button, Collapse, notification, Popconfirm } from 'antd'
 import './Order.less'
-import { Purchase } from './Purchase'
-import * as R from 'ramda'
-import { orderStatusInvMap, sleep } from '../utils'
-import * as moment from 'moment'
-import { api } from '../api'
+
 import { StopOutlined } from '@ant-design/icons'
+import { Button, Collapse, notification, Popconfirm } from 'antd'
+import * as moment from 'moment'
+import * as R from 'ramda'
 import { useState } from 'react'
 
-const HorizontalLabel = ({ label, children }) => {
-    return (
-        <div>
-            <span className="order-header-label">{label}:&nbsp;</span>
-            <br />
-            <span className="order-header-text">{children}</span>
-        </div>
-    )
-}
+import { api } from '../api'
+import { orderStatusInvMap } from '../utils'
+import { HeaderLabel } from './HeaderLabel'
+import { Purchase } from './Purchase'
 
 export const Order = ({ order, onOrderCancelled }) => {
     const [cancelLoading, setCancelLoading] = useState(false)
@@ -57,20 +50,20 @@ export const Order = ({ order, onOrderCancelled }) => {
                 showArrow={false}
                 header={
                     <div className="order-header">
-                        <HorizontalLabel label="Order Date">{orderDate}</HorizontalLabel>
-                        <HorizontalLabel label="Total Price">
+                        <HeaderLabel label="Order Date">{orderDate}</HeaderLabel>
+                        <HeaderLabel label="Total Price">
                             {order.prices.total_price} {firstPurchase.currency ?? 'TL'}
-                        </HorizontalLabel>
-                        <HorizontalLabel label="Total Discount">
+                        </HeaderLabel>
+                        <HeaderLabel label="Total Discount">
                             -{order.prices.discount} {firstPurchase.currency ?? 'TL'}
-                        </HorizontalLabel>
-                        <HorizontalLabel label="Delivery fee">
+                        </HeaderLabel>
+                        <HeaderLabel label="Delivery fee">
                             {order.prices.delivery_price} {firstPurchase.currency ?? 'TL'}
-                        </HorizontalLabel>
-                        <HorizontalLabel label="Receiver">
+                        </HeaderLabel>
+                        <HeaderLabel label="Receiver">
                             {[firstPurchase.address.name, firstPurchase.address.surname].filter(Boolean).join(' ')}
-                        </HorizontalLabel>
-                        <HorizontalLabel label="# of Products">{order.purchases.length}</HorizontalLabel>
+                        </HeaderLabel>
+                        <HeaderLabel label="# of Products">{order.purchases.length}</HeaderLabel>
                         <div className="order-header-details">
                             {canCancel && (
                                 <Popconfirm
