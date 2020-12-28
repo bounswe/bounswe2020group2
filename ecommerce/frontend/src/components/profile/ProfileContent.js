@@ -54,20 +54,27 @@ export const ProfileContent = ({ user }) => {
     return (
         <>
             {!user?.is_verified && (
-                <Alert
-                    message={
-                        <>
-                            Your email is not verified&nbsp;
-                            <Button loading={isVerifyLoading} onClick={onVerify} type="primary">
-                                Verify
-                            </Button>
-                        </>
-                    }
-                    banner
-                />
+                <>
+                    <Alert
+                        message={
+                            <>
+                                Your email is not verified&nbsp;
+                                <Button loading={isVerifyLoading} onClick={onVerify} type="primary">
+                                    Verify
+                                </Button>
+                            </>
+                        }
+                        banner
+                    />
+                    <br />
+                </>
             )}
-            <br />
-            <UpdateProfileForm onSubmit={onSubmit} user={user} />
+            <div className="profile-content-container">
+                <div className="profile-content-header">Profile Details</div>
+                <div className="profile-content-content">
+                    <UpdateProfileForm onSubmit={onSubmit} user={user} />
+                </div>
+            </div>
         </>
     )
 }

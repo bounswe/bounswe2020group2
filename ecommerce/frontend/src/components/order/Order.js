@@ -82,7 +82,7 @@ export const Order = ({ order, onOrderCancelled }) => {
                             )}
                             &nbsp;
                             <Button onClick={onShowOrderDetails} type="dashed">
-                                Show Order Details
+                                Details
                             </Button>
                         </div>
                     </div>
