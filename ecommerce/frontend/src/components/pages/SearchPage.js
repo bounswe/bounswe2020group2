@@ -5,13 +5,15 @@ import qs from 'query-string'
 import * as R from 'ramda'
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 import { api } from '../../api'
 import { SearchResults } from '../search/SearchResults'
 import { SearchSidePanel } from '../search/SearchSidePanel'
 import { formatProduct, formatSearchQueryParams } from '../../utils'
 import { useAppContext } from '../../context/AppContext'
+
+import { HomeOutlined } from '@ant-design/icons'
 
 /**
  * This is a wrapper around the real _SearchPage component
@@ -123,9 +125,25 @@ export const _SearchPage = ({ initialValues = {} }) => {
 
         return (
             <Breadcrumb>
-                <Breadcrumb.Item>Home</Breadcrumb.Item>
-                {category && <Breadcrumb.Item>{category.name}</Breadcrumb.Item>}
-                {subcategory && <Breadcrumb.Item>{subcategory.name}</Breadcrumb.Item>}
+                <Breadcrumb.Item>
+                    <Link to={'/'}>
+                        <HomeOutlined /> Home
+                    </Link>
+                </Breadcrumb.Item>
+                {category && (
+                    <Breadcrumb.Item>
+                        <Link to={`/search/${values?.search?.type ?? 'products'}?category=${category.id}`}>
+                            {category.name}
+                        </Link>
+                    </Breadcrumb.Item>
+                )}
+                {subcategory && (
+                    <Breadcrumb.Item>
+                        <Link to={`/search/${values?.search?.type ?? 'products'}?subcategory=${subcategory.id}`}>
+                            {subcategory.name}
+                        </Link>
+                    </Breadcrumb.Item>
+                )}
             </Breadcrumb>
         )
     }
