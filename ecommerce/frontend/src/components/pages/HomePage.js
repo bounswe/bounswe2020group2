@@ -45,7 +45,7 @@ const HomePage_MainContent = () => {
             try {
                 setIsLoading(true)
                 const { data } = await api.get(`/products/homepage/${5}`)
-                setTrendingProducts(data)
+                setTrendingProducts(data.map(formatProduct))
             } catch (error) {
                 console.error('failed to load trending products', error)
             } finally {

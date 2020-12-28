@@ -11,9 +11,9 @@ export const TrendingGrid = ({ trendingProducts = [] }) => {
                     <Link to={'/product/' + product.id}>
                         <img src={product.images[0]} className="gallery__img" alt="" />
                         <div className="product-info">
-                            <div className="product-name">{product.name}</div>
+                            <div className="product-name">{product.title}</div>
                             <div className="product-price">
-                                {product.price}&nbsp;{product.currency}
+                                {product.price_after_discount.toFixed(2) || product.price.toFixed(2)}&nbsp;{product.currency}
                             </div>
                             <Rate disabled allowHalf defaultValue={product.rating}></Rate>
                         </div>
