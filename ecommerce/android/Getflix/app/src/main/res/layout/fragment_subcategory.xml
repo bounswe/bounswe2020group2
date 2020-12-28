@@ -36,7 +36,7 @@
                     android:drawableLeft="@drawable/ic_filter"
                     android:text="@string/filter"
                     android:textAllCaps="false"
-                    android:textColor="@color/initPurple"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
