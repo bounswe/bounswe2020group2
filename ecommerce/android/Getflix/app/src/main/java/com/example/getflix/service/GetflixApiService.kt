@@ -138,6 +138,17 @@ interface GetflixApiService {
     @GET("checkout/details")
     suspend fun getCustomerCartPrice(@Header("Authorization") token: String): Response<CustomerCartPriceModel>
 
+    @GET("review")
+    fun getReviewOfProduct(@Query("product") productId: Int) : Call<ProductReviewListModel>
+
+    @Headers("Content-Type: application/json")
+    @POST("search/products")
+    fun searchProductsByVendor(@Body cardData: ProSearchByVendorRequest): Call<ProSearchByVendorResponse>
+
+    @Headers("Content-Type: application/json")
+    @PUT("vendor/product")
+    fun updateVendorProduct(@Header("Authorization") token: String, @Body vendorProData: VendorProUpdateRequest): Call<VendorProUpdateResponse>
+
 
 }
 

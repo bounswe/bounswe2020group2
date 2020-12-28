@@ -10,25 +10,11 @@ export const LoginForm = ({ onSubmit = () => {} }) => {
             username: values.username,
             password: values.password,
         }
-        onSubmit(valuesToSend, 'customer')
+        onSubmit(valuesToSend)
     }
 
     const onFinishFailed = errors => {
         console.log('Finish failed: ', errors)
-    }
-
-    const onLoginAsVendor = async () => {
-        form.validateFields()
-            .then(values => {
-                const valuesToSend = {
-                    username: values.username,
-                    password: values.password,
-                }
-                onSubmit(valuesToSend, 'vendor')
-            })
-            .catch(errorInfo => {
-                console.log(errorInfo)
-            })
     }
 
     const formItemLayout = {
@@ -103,10 +89,7 @@ export const LoginForm = ({ onSubmit = () => {} }) => {
                 <div className="login-buttons">
                     <Form.Item {...tailFormItemLayout}>
                         <Button className="login-button" type="primary" htmlType="submit">
-                            Login as Customer
-                        </Button>
-                        <Button className="login-button" type="primary" htmlType="button" onClick={onLoginAsVendor}>
-                            Login as Vendor
+                            Login
                         </Button>
                         <Button className="google-login-button">
                             <Link to="/">Google Login</Link>

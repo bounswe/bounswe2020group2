@@ -31,6 +31,12 @@ class VendorProfileFragment : Fragment() {
         activity?.toolbar!!.toolbar_title.text = getString(R.string.profile)
         viewModel = ViewModelProvider(this).get(VendorProfileViewModel::class.java)
 
+        if(MainActivity.StaticData.vendor!=null) {
+            binding.name.text = MainActivity.StaticData.vendor
+            binding.brandNum.text = MainActivity.StaticData.brandNum.toString()
+            binding.proNum.text = MainActivity.StaticData.proNum.toString()
+        }
+
         binding.logout.setOnClickListener {
             askAlert(this, getString(R.string.logout_warning), ::navigateLogin)
         }

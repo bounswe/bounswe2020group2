@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentCartBinding
@@ -52,31 +53,37 @@ class CartFragment : Fragment() {
             view?.findNavController()?.navigate(actionCartFragmentToCompleteOrderFragment())
         }
 
-        viewModel.cardPrices.observe(viewLifecycleOwner, {
-            binding.productsPrice.text = "Products Price: " + it.productsPrice.toString()
-            binding.deliveryPrice.text = "Delivery Price: " + it.deliveryPrice.toString()
-            binding.discount.text = "Discount: " + it.discount.toString()
-            binding.totalPrice.text = "Total Price: " + it.totalPrice.toString()
+
+        val productListAdapter = CartAdapter(this, viewModel)
+        val layoutManager =  LinearLayoutManager(activity)
+        recView.adapter = productListAdapter
+        recView.layoutManager = layoutManager
+        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCartProduct(productListAdapter))
+        itemTouchHelper.attachToRecyclerView(recView)
+
+        viewModel.cardPrices.observe(viewLifecycleOwner, Observer{
+            binding.productsPrice.text = "Products Price: " + it.productsPrice.toString() + " TL"
+            binding.deliveryPrice.text = "Delivery Price: " + it.deliveryPrice.toString()+ " TL"
+            binding.discount.text = "Discount: " + it.discount.toString() + "%"
+            binding.totalPrice.text = "Total Price: " + it.totalPrice.toString()+ " TL"
         })
 
-        viewModel.cardProducts.observe(viewLifecycleOwner, {
-            it?.let {
-                val productListAdapter = CartAdapter(it!!,this, viewModel)
-                recView.adapter = productListAdapter
-                recView.setHasFixedSize(true)
-                val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCartProduct(productListAdapter!!))
-                itemTouchHelper.attachToRecyclerView(recView)
-                productListAdapter.pos.observe(viewLifecycleOwner, Observer {
-                    if (it != -1) {
-                        val id = productListAdapter.deleteItem(it).id
-                        viewModel.deleteCustomerCartProduct(id)
-                        productListAdapter.resetPos()
-                    }
-                })
+
+
+        productListAdapter.pos.observe(viewLifecycleOwner, Observer {
+            if (it != -1) {
+                val id = productListAdapter.deleteItem(it).id
+                viewModel.deleteCustomerCartProduct(id)
+                productListAdapter.submitList(viewModel.cardProducts.value)
+                productListAdapter.resetPos()
             }
         })
+        viewModel.onSubmit.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                productListAdapter.submitList(viewModel.cardProducts.value)
+            }
 
-
+        })
         /*viewModel.productList.observe(viewLifecycleOwner, Observer {
             it?.let {
                 productListAdapter.submitList(it)

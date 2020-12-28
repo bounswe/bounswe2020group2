@@ -14,7 +14,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#52EBD494"
         tools:context=".ui.fragments.LoginFragment">
 
         <TextView
@@ -109,13 +108,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="1dp"
-            android:layout_marginStart="5dp"
             android:buttonTint="@color/black"
             android:focusable="true"
-            android:fontFamily="@font/open_sans_semibold"
             android:focusableInTouchMode="true"
+            android:fontFamily="@font/open_sans_semibold"
             android:text="@string/remember_me"
             android:textColor="@color/initGold"
             app:layout_constraintEnd_toEndOf="parent"

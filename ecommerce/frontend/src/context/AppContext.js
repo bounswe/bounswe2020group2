@@ -1,10 +1,8 @@
 import { notification } from 'antd'
 import constate from 'constate'
 import { useState } from 'react'
-import { sleep } from '../utils'
-import uuidv4 from 'uuid/dist/v4'
+
 import { api } from '../api'
-import { Redirect } from 'react-router'
 
 const guestUser = { type: 'guest' }
 const customerUser = {
@@ -152,16 +150,14 @@ function useApp() {
         }
     }
 
-    const regularLogin = async (userType, username, password) => {
+    const regularLogin = async (username, password) => {
         try {
             const { data } = await api.post('/regularlogin', { username, password })
             const { successful, message } = data.status
-            const { token, id, email, firstname, lastname, is_verified } = data.user
-
+            const { token, id, email, firstname, lastname, is_verified, role } = data.user
             if (successful) {
                 localStorage.setItem('token', token)
-
-                setUser({ id, email, name: firstname, lastname, is_verified })
+                setUser({ id, email, name: firstname, lastname, is_verified, type: role.toLowerCase() })
                 notification.success({ message: `Welcome back, ${firstname}!` })
 
                 return true

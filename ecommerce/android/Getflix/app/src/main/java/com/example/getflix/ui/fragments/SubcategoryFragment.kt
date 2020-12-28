@@ -46,7 +46,7 @@ class SubcategoryFragment : Fragment() {
         recView.layoutManager = manager
 
         viewModel.productList.observe(viewLifecycleOwner, {
-            val productListAdapter = SubCategoryAdapter(it!!)
+            val productListAdapter = SubCategoryAdapter(it!!,this)
             recView.adapter = productListAdapter
             recView.setHasFixedSize(true)
         })
