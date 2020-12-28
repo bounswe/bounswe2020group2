@@ -33,7 +33,9 @@ def get_product_detail(request, product_id):
 @api_view(['GET'])
 @permission_classes([permissions.AllowAnonymous])
 def get_homepage_products(request, num):
+    # get all the products that are non-deleted and select according to the given num variable
     products = Product.objects.filter(is_deleted=False)[:num]
+    # serialize them as a json array
     serializer = ProductResponseSerializer(products, many=True)
     return Response(serializer.data)
 
