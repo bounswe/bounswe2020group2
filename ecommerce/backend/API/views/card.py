@@ -7,6 +7,7 @@ from ..utils import permissions, Role
 from ..models import User, Card
 from ..serializers.card_serializer import *
 
+# serves GET, PUT, DELETE request for the given customer_id and card_id
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([permissions.AllowAnonymous])
 def manage_specific_card(request, customer_id, card_id):
