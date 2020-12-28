@@ -10,8 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.MessagesFragment"
-        android:background="#52EBD494">
+        tools:context=".ui.fragments.MessagesFragment">
 
 
         <ImageView
@@ -28,11 +27,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="22sp"
-            android:textColor="@color/black"
+            android:fontFamily="@font/open_sans_semibold"
             android:text="@string/vendor_no_message"
-            android:fontFamily="@font/shadows_into_light_two"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
