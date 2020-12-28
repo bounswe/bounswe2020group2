@@ -10,6 +10,7 @@ from ..utils import permissions, Role
 from ..models import User, ShoppingCartItem, Product
 from ..serializers.shopping_cart_serializer import *
 
+# serves GET, PUT, DELETE requests for the given customer_id and sc_item_id
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([permissions.AllowAnonymous])
 def manage_specific_shopping_cart_item(request, customer_id, sc_item_id):
