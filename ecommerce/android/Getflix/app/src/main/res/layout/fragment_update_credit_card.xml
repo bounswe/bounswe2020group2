@@ -10,100 +10,99 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="65dp">
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginRight="8dp"
+        android:orientation="vertical">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        android:hint="@string/edittext_name"
-        app:boxStrokeColor="@color/black"
-        app:hintTextColor="@color/black"
-        android:textColorHint="@color/black"
-        >
-
-        <EditText
-            android:id="@+id/editable_name"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="37dp"
-            android:translationY="3dp"
-            android:background="#FFFFFF"
-            android:fontFamily="@font/open_sans_semibold"
-            android:inputType="text"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:textSize="17sp"
-            android:textCursorDrawable="@color/black"
-            android:textColor="@color/initPurple">
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:hint="@string/edittext_name"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
 
-        </EditText>
+            <EditText
+                android:id="@+id/editable_name"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:background="#FFFFFF"
+                android:fontFamily="@font/open_sans_semibold"
+                android:inputType="text"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/initPurple"
+                android:textCursorDrawable="@color/black"
+                android:textSize="17sp"
+                android:translationY="3dp">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            </EditText>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_margin="3dp"
-        android:background="@android:color/darker_gray" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        android:hint="@string/edittext_ownername"
-        app:boxStrokeColor="@color/black"
-        app:hintTextColor="@color/black"
-        android:textColorHint="@color/black"
-        >
-
-        <EditText
-            android:id="@+id/editable_ownername"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="37dp"
-            android:translationY="3dp"
-            android:background="#FFFFFF"
-            android:fontFamily="@font/open_sans_semibold"
-            android:inputType="text"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:textSize="17sp"
-            android:textCursorDrawable="@color/black"
-            android:textColor="@color/initPurple">
+            android:layout_height="1dp"
+            android:layout_margin="3dp"
+            android:background="@android:color/darker_gray" />
 
-        </EditText>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:hint="@string/edittext_ownername"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <EditText
+                android:id="@+id/editable_ownername"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:background="#FFFFFF"
+                android:fontFamily="@font/open_sans_semibold"
+                android:inputType="text"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/initPurple"
+                android:textCursorDrawable="@color/black"
+                android:textSize="17sp"
+                android:translationY="3dp">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_margin="3dp"
-        android:background="@android:color/darker_gray" />
+            </EditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="3dp"
+            android:background="@android:color/darker_gray" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:hint="@string/edittext_serialnumber"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black"
             android:textColorHint="@color/black"
-            >
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
 
             <EditText
                 android:id="@+id/editable_serialnumber"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
-                android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
                 android:inputType="number"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="17sp"
+                android:textColor="@color/initPurple"
                 android:textCursorDrawable="@color/black"
-                android:textColor="@color/initPurple">
+                android:textSize="17sp"
+                android:translationY="3dp">
 
             </EditText>
 
@@ -120,24 +119,23 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:hint="@string/edittext_expirationmonth"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black"
             android:textColorHint="@color/black"
-            >
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
 
             <EditText
                 android:id="@+id/editable_expirationmonth"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
-                android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
                 android:inputType="number"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="17sp"
+                android:textColor="@color/initPurple"
                 android:textCursorDrawable="@color/black"
-                android:textColor="@color/initPurple">
+                android:textSize="17sp"
+                android:translationY="3dp">
 
             </EditText>
 
@@ -154,24 +152,23 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:hint="@string/edittext_expirationyear"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black"
             android:textColorHint="@color/black"
-            >
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
 
             <EditText
                 android:id="@+id/editable_expirationyear"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
-                android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
                 android:inputType="number"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="17sp"
+                android:textColor="@color/initPurple"
                 android:textCursorDrawable="@color/black"
-                android:textColor="@color/initPurple">
+                android:textSize="17sp"
+                android:translationY="3dp">
 
             </EditText>
 
@@ -188,24 +185,23 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:hint="@string/edittext_cvv"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black"
             android:textColorHint="@color/black"
-            >
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
 
             <EditText
                 android:id="@+id/editable_cvv"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
-                android:translationY="3dp"
                 android:background="#FFFFFF"
                 android:fontFamily="@font/open_sans_semibold"
                 android:inputType="number"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="17sp"
+                android:textColor="@color/initPurple"
                 android:textCursorDrawable="@color/black"
-                android:textColor="@color/initPurple">
+                android:textSize="17sp"
+                android:translationY="3dp">
 
             </EditText>
 
@@ -217,15 +213,15 @@
             android:layout_margin="3dp"
             android:background="@android:color/darker_gray" />
 
-        <Button
+        <TextView
             android:id="@+id/btn_add"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="32dp"
-            android:layout_gravity="right|center_vertical"
-            android:layout_margin="5dp"
-            android:background="@color/initGold"
+            android:background="@color/black"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:gravity="center"
             android:text="Update"
-            android:textColor="@color/initPurple" />
+            android:textColor="@color/colorPrimary" />
 
     </LinearLayout>
 
