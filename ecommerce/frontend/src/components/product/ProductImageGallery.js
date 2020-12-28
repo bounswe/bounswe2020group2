@@ -66,7 +66,9 @@ export const ProductImageGallery = ({ product, loading = false }) => {
                 })}
             </div>
             <div className="product-image-gallery-main-container">
-                <img className="product-image-gallery-main" src={images[active]} />
+                <div className="product-image-gallery-main">
+                    <img src={images[active]} />
+                </div>
                 <div className="product-image-gallery-main-pagination">
                     <Pagination
                         size="small"
