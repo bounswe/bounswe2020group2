@@ -91,6 +91,8 @@ class CategoriesViewModel : ViewModel() {
         }
     }
 
+
+
     fun getSingleCartProduct(sc_id: Int) {
         job = CoroutineScope(Dispatchers.IO).launch {
             val response = GetflixApi.getflixApiService.getCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id,sc_id)

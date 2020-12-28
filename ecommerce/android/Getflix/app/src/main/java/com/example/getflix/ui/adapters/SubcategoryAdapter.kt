@@ -2,16 +2,21 @@ package com.example.getflix.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.CardProductBinding
 import com.example.getflix.models.ProductModel
+import com.example.getflix.ui.fragments.CartFragmentDirections
+import com.example.getflix.ui.fragments.SubcategoryFragmentDirections
 
 class SubCategoryAdapter(
-    private val productList: MutableList<ProductModel>,
+    private val productList: MutableList<ProductModel>, fragment: Fragment
 ) : ListAdapter<ProductModel, SubCategoryAdapter.RowHolder>(SubcategoryDiffCallback()) {
 
+    val fragment = fragment
 
     class RowHolder(val binding: CardProductBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -39,7 +44,16 @@ class SubCategoryAdapter(
     }
 
     override fun onBindViewHolder(holder: RowHolder, position: Int) {
-        productList?.get(position)?.let { holder.bind(it, position) }
+        productList?.get(position)?.let {
+            holder.bind(it, position)
+            holder?.itemView!!.setOnClickListener{
+                fragment.view?.findNavController()?.navigate(
+                    SubcategoryFragmentDirections.actionSubcategoryFragmentToProductFragment(
+                        productList?.get(position).id
+                    )
+                )
+            }
+        }
     }
 
 

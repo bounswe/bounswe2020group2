@@ -5,9 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.ProductModel
+import com.example.getflix.models.ReviewModel
 import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.CardProUpdateRequest
 import com.example.getflix.service.responses.CardProUpdateResponse
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,6 +31,15 @@ class ProductViewModel:  ViewModel() {
     val isLiked: LiveData<Boolean>
         get() = _isLiked
 
+    private val _reviews= MutableLiveData<List<ReviewModel>>()
+    val reviews: LiveData<List<ReviewModel>>
+        get() = _reviews
+
+    private var job: Job? = null
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        println("Error ${throwable.localizedMessage}")
+    }
+
 
     private val _product = MutableLiveData<ProductModel?>()
     val product: LiveData<ProductModel?>
@@ -46,6 +57,18 @@ class ProductViewModel:  ViewModel() {
         getRecommendedProducts(5)
     }
 
+    fun getProductReviews(proId: Int) {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = GetflixApi.getflixApiService.getReviewOfProduct(proId)
+            withContext(Dispatchers.Main + exceptionHandler) {
+                if (response.isSuccessful) {
+                    response.body().let { it ->
+                        _reviews.value = it!!.reviews
+                    }
+                }
+            }
+        }
+    }
 
     fun getProduct(productId: Int) {
         GetflixApi.getflixApiService.getProduct(productId)
