@@ -30,6 +30,7 @@ def get_product_detail(request, product_id):
     product = ProductResponseSerializer(product)
     return Response(product.data)
 
+# returns the given number of non-deleted products
 @api_view(['GET'])
 @permission_classes([permissions.AllowAnonymous])
 def get_homepage_products(request, num):
