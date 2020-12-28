@@ -13,7 +13,8 @@ export const TrendingGrid = ({ trendingProducts = [] }) => {
                         <div className="product-info">
                             <div className="product-name">{product.title}</div>
                             <div className="product-price">
-                                {product.price_after_discount.toFixed(2) || product.price.toFixed(2)}&nbsp;{product.currency}
+                                {product.price_after_discount.toFixed(2) || product.price.toFixed(2)}&nbsp;
+                                {product.currency}
                             </div>
                             <Rate disabled allowHalf defaultValue={product.rating}></Rate>
                         </div>
