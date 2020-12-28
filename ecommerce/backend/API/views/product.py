@@ -16,6 +16,7 @@ from ..utils import permissions, Role
 from ..models import Product,Vendor,ImageUrls,Category,Subcategory
 from ..serializers.product_serializer import ProductResponseSerializer
 
+# returns the details of the product having the given product_id
 @api_view(['GET'])
 @permission_classes([permissions.AllowAnonymous])
 def get_product_detail(request, product_id):
@@ -30,7 +31,7 @@ def get_product_detail(request, product_id):
     product = ProductResponseSerializer(product)
     return Response(product.data)
 
-# returns the given number of non-deleted products
+# returns the given number(num) of non-deleted products
 @api_view(['GET'])
 @permission_classes([permissions.AllowAnonymous])
 def get_homepage_products(request, num):
