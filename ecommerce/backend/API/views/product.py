@@ -26,6 +26,7 @@ def get_product_detail(request, product_id):
     product = Product.objects.filter(id=product_id).filter(is_deleted=False).first()
     if product is None:
         return Response({'successful': False, 'message': "No such product is found"})
+    # serialize it as a single json object
     product = ProductResponseSerializer(product)
     return Response(product.data)
 
