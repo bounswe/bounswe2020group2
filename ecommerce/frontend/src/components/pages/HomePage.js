@@ -66,7 +66,7 @@ const HomePage_MainContent = () => {
                         sortBy: 'best-sellers',
                         type: 'products',
                     }
-                    return <HorizontalProductList filters={filters} />
+                    return <HorizontalProductList key={category.id} filters={filters} />
                 })}
             </div>
         </Spin>
