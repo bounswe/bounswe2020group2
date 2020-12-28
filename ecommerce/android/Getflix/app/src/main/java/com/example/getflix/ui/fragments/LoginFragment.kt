@@ -129,7 +129,7 @@ class LoginFragment : Fragment() {
                     prefs!!.edit().clear().apply()
                 }
 
-                if (it.id==20) {
+                if (it.role!="CUSTOMER") {
                     //println(it.toString())
                     activity?.loading_progress!!.visibility = View.GONE
                     (activity as MainActivity).decideBottomNav(true)

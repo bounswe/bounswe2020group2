@@ -1,30 +1,47 @@
 import './ProfilePage.less'
-import { ProfileDetails } from '../profile/ProfileDetails'
-import { ProfileContent } from '../profile/ProfileContent'
-import getflixLogo from '../../assets/logo.png'
+
+import { Alert, Tabs } from 'antd'
+
 import { useAppContext } from '../../context/AppContext'
+import { AddressList } from '../addresslist/AddressList'
+import { CreditCardList } from '../cardlist/CreditCardList'
+import { OrdersList } from '../OrdersList'
+import { ProfileContent } from '../profile/ProfileContent'
+
+const { TabPane } = Tabs
 
 export const ProfilePage = () => {
-    // future version
     const { user } = useAppContext()
+
     return (
-        <div>
-            <div className="logo-name-splash">
-                <img src={getflixLogo} className="splash-logo"></img>
-                <div className="splash-slogan">
-                    <h1>
-                        {user.name}&nbsp;&nbsp;{user.lastname}
-                    </h1>
-                </div>
-            </div>
-            <div className="profile-page-wrapper">
-                <div className="left-bar-profile-details">
-                    <ProfileDetails />
-                </div>
-                <div className="right-bar-profile-content">
-                    <ProfileContent key={user.id} user={user} />
-                </div>
-            </div>
+        <div className="profile-page-wrapper">
+            <Tabs tabPosition="left" defaultActiveKey="update-profile">
+                <TabPane tab="Update Profile" key="update-profile" forceRender>
+                    <Alert.ErrorBoundary>
+                        <div className="right-bar-profile-content">
+                            <ProfileContent key={user.id} user={user} />
+                        </div>
+                    </Alert.ErrorBoundary>
+                </TabPane>
+                <TabPane tab="Orders" key="orders" forceRender>
+                    <Alert.ErrorBoundary>
+                        <OrdersList />
+                    </Alert.ErrorBoundary>
+                </TabPane>
+                <TabPane tab="Cards" key="cards" forceRender>
+                    <Alert.ErrorBoundary>
+                        <CreditCardList />
+                    </Alert.ErrorBoundary>
+                </TabPane>
+                <TabPane tab="Addresses" key="addresses" forceRender>
+                    <Alert.ErrorBoundary>
+                        <AddressList />
+                    </Alert.ErrorBoundary>
+                </TabPane>
+                <TabPane tab="Messages" key="messages" forceRender>
+                    TO DO: Messages to be implemented
+                </TabPane>
+            </Tabs>
         </div>
     )
 }

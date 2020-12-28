@@ -34,7 +34,7 @@ class VendorOrdersFragment : Fragment() {
         var orders = arrayListOf<OrderModel>()
 
 
-        val order1 = OrderModel(1,3,5.0,15.0,"accepted","23.12.2020",null,
+       /* val order1 = OrderModel(1,3,5.0,15.0,"accepted","23.12.2020",null,
             null)
         val order2 = OrderModel(2,4,5.0,20.0,"accepted","14.12.2020",null,
             null)
@@ -46,7 +46,7 @@ class VendorOrdersFragment : Fragment() {
         viewModel.addOrder(order1)
         viewModel.addOrder(order2)
         viewModel.addOrder(order3)
-        viewModel.addOrder(order4)
+        viewModel.addOrder(order4) */
 
         val orderListAdapter = VendorOrdersAdapter(null)
         recView.adapter = orderListAdapter

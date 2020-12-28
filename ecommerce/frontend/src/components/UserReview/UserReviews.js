@@ -4,10 +4,10 @@ import './UserReviews.less'
 import { api } from '../../api'
 import { UserReview } from './UserReview'
 
-export const UserReviews = ({ productId = 1 }) => {
+export const UserReviews = ({ productId }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [currentPage, setCurrentPage] = useState(1)
-    const [reviews, setReviews] = useState([])
+    const [reviews, setReviews] = useState(null)
     const [totalPage, setTotalPage] = useState(0)
     const [pageSize, setPageSize] = useState(10)
 
@@ -32,6 +32,9 @@ export const UserReviews = ({ productId = 1 }) => {
         fetch()
     }, [currentPage])
 
+    console.log('reviews', reviews)
+    if (!isLoading && reviews === null) return null
+
     const onPaginationChanged = value => {
         // When page count is changed, current page is set
         setCurrentPage(value)
@@ -42,7 +45,7 @@ export const UserReviews = ({ productId = 1 }) => {
             <Spin spinning={isLoading}>
                 <h1>User Reviews</h1>
                 <div className="user-review-items">
-                    {reviews.map((review, index) => {
+                    {(reviews ?? []).map((review, index) => {
                         return (
                             <div key={review.id}>
                                 <UserReview review={review} />

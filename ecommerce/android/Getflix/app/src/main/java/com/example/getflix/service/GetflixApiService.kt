@@ -117,6 +117,31 @@ interface GetflixApiService {
     fun deleteCustomerCard(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Path("card_id") address_id: Int): Call<CardDeleteResponse>
 
 
+    @GET("customer/orders")
+    suspend fun getCustomerOrders(@Header("Authorization") token: String): Response<CustomerOrderListModel>
+
+    @Headers("Content-Type: application/json")
+    @POST("search/products")
+    fun searchProductsBySubcategory(@Body cardData: ProSearchBySubcategoryRequest): Call<ProSearchBySubcategoryResponse>
+
+    // puts shopping cart items into purchase and order table
+    @Headers("Content-Type: application/json")
+    @POST("checkout/payment")
+    fun customerCheckout(@Header("Authorization") token: String, @Body checkoutData: CustomerCheckoutRequest): Call<CustomerCheckoutResponse>
+
+    // cancel specific order
+    @Headers("Content-Type: application/json")
+    @POST("checkout/cancelorder/{id}")
+    fun customerCancelCheckout(@Header("Authorization") token: String, @Path("id") orderId: Int): Call<CustomerCheckoutResponse>
+
+    // get prices of shopping cart
+    @GET("checkout/details")
+    suspend fun getCustomerCartPrice(@Header("Authorization") token: String): Response<CustomerCartPriceModel>
+
+    @GET("review")
+    fun getReviewOfProduct(@Query("product") productId: Int) : Call<ProductReviewListModel>
+
+
 }
 
 object GetflixApi {

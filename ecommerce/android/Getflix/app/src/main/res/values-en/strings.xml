@@ -103,6 +103,10 @@
     <string name="username_char_limit">Your username should contain at least 6 characters.</string>
     <string name="valid_name">Please enter a valid name and surname.</string>
     <string name="register_success">You have registered successfully! You are redirected to the login page.</string>
+    <string name="slogan1">The biggest marketplace in the world.</string>
+    <string name="todays_deals">Todays Deals</string>
+    <string name="trending_products">Trending Products</string>
+    <string name="recommended_for_you_title">Recommended For You</string>
     <string name="remember_me">Remember Me</string>
     <string name="register_back">Back To Login</string>
     <string name="loading">Please Wait…</string>
@@ -120,6 +124,7 @@
     <string name="choose_credit">Choose a credit card to pay</string>
     <string name="choose_address">Choose an address</string>
     <string name="add_credit">Add new credit card</string>
+    <string name="you_might_like">You might like...</string>
     <string name="edittext_title"><font size="35">Title</font></string>
     <string name="edittext_name"><font size="35">Name</font></string>
     <string name="edittext_surname"><font size="35">Surname</font></string>
@@ -138,4 +143,9 @@
     <string name="category_title">Category</string>
     <string name="subcategory_title">Subcategory</string>
     <string name="comments_title">Comments</string>
+    <string name="product_">Urun: </string>
+    <string name="delivery_">Gonderim Adresi: </string>
+    <string name="delivery_status">Teslimat Durumu: </string>
+    <string name="proceed_with_the_payment">PROCEED WITH THE PAYMENT</string>
+    <string name="accept">ACCEPT</string>
 </resources>

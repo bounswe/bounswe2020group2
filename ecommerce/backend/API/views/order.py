@@ -85,13 +85,34 @@ def vendor_orders(request):
 @permission_classes([permissions.AllowAnonymous]) 
 def customer_order(request):
     response_purchases = []
-
+    products_price = 0
+    delivery_price = 7.90
+    total_discount = 0
+    total_price = 0
     my_orders = Order.objects.filter(user_id=request.user.pk) 
 
     for order in my_orders:
+        total_price = 0
+        products_price = 0
+        total_discount = 0
         purchases = Purchase.objects.filter(order_id=order.pk)
         pch_serializer = PurchaseResponseSerializer(purchases, many=True)
-        response_purchases.append({'order_id':order.pk, 'order_all_purchase':pch_serializer.data})
+        for pch in pch_serializer.data:
+            status = pch.get("status")
+            if status == 'cancelled':
+                continue
+            else:
+                amount = pch.get("amount")
+                price = pch.get("product")["price"]
+                products_price += amount * price
+                total_discount += amount * (price * pch.get("product")["discount"])
+        
+        response_purchases.append({'order_id':order.pk, 'order_all_purchase':pch_serializer.data, 'prices': {
+                "products_price": '{:.2f}'.format(products_price),
+                "delivery_price": '{:.2f}'.format(delivery_price),
+                "discount": '{:.2f}'.format(total_discount),
+                "total_price": '{:.2f}'.format(products_price + delivery_price - total_discount),
+                } })
 
     return Response({'status': {'successful': True, 'message':'Orders are uccessfully sent'},'orders':response_purchases})
     

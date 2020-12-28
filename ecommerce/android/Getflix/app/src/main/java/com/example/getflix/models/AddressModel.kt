@@ -26,45 +26,44 @@ data class AddressModel(
         @SerializedName("zip_code")
         var zipCode: String
 ) : Parcelable {
-    constructor(parcel: Parcel) : this(
-            parcel.readInt(),
-            parcel.readString()!!,
-            parcel.readParcelable(PhoneModel::class.java.classLoader)!!,
-            parcel.readString()!!,
-            parcel.readString()!!,
-            parcel.readString()!!,
-            parcel.readString()!!,
-            parcel.readString()!!,
-            parcel.readString()!!,
-            parcel.readString()!!) {
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
-        parcel.writeString(title)
-        parcel.writeParcelable(phone, flags)
-        parcel.writeString(name)
-        parcel.writeString(surname)
-        parcel.writeString(address)
-        parcel.writeString(province)
-        parcel.writeString(city)
-        parcel.writeString(country)
-        parcel.writeString(zipCode)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<AddressModel> {
-        override fun createFromParcel(parcel: Parcel): AddressModel {
-            return AddressModel(parcel)
+        constructor(parcel: Parcel) : this(
+                parcel.readInt(),
+                parcel.readString()!!,
+                parcel.readParcelable(PhoneModel::class.java.classLoader)!!,
+                parcel.readString()!!,
+                parcel.readString()!!,
+                parcel.readString()!!,
+                parcel.readString()!!,
+                parcel.readString()!!,
+                parcel.readString()!!,
+                parcel.readString()!!) {
         }
 
-        override fun newArray(size: Int): Array<AddressModel?> {
-            return arrayOfNulls(size)
+        override fun writeToParcel(parcel: Parcel, flags: Int) {
+                parcel.writeInt(id)
+                parcel.writeString(title)
+                parcel.writeParcelable(phone, flags)
+                parcel.writeString(name)
+                parcel.writeString(surname)
+                parcel.writeString(address)
+                parcel.writeString(province)
+                parcel.writeString(city)
+                parcel.writeString(country)
+                parcel.writeString(zipCode)
         }
-    }
+
+        override fun describeContents(): Int {
+                return 0
+        }
+
+        companion object CREATOR : Parcelable.Creator<AddressModel> {
+                override fun createFromParcel(parcel: Parcel): AddressModel {
+                        return AddressModel(parcel)
+                }
+
+                override fun newArray(size: Int): Array<AddressModel?> {
+                        return arrayOfNulls(size)
+                }
+        }
 
 }
-

@@ -1,0 +1,46 @@
+.purchase-panel-header {
+    &--accepted {
+    }
+    &--cancelled {
+        background: #eea7a7;
+    }
+    &--at_cargo {
+        background: #eeeecf;
+    }
+    &--delivered {
+        background: #c5f6c5;
+    }
+}
+
+.purchase-header {
+    display: flex;
+
+    & > div {
+        flex: 1 0 auto;
+    }
+
+    & .purchase-header-extra {
+        text-align: end;
+        align-self: center;
+    }
+}
+
+.purchase-product {
+    display: flex;
+    gap: 32px;
+    &-picture {
+        img {
+            height: 120px;
+            width: 120px;
+            object-fit: contain;
+        }
+    }
+
+    &-details {
+    }
+}
+
+.horizontal-label {
+    font-weight: bold;
+    opacity: 70%;
+}

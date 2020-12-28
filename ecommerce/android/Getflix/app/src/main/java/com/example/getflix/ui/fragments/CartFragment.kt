@@ -9,13 +9,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
-import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentCartBinding
-import com.example.getflix.models.ProductModel
+
+import com.example.getflix.models.*
+
+import com.example.getflix.models.CartProductModel
+
 import com.example.getflix.ui.adapters.CartAdapter
-import com.example.getflix.ui.fragments.CartFragmentDirections.Companion.actionCartFragmentToOrderFragment
+import com.example.getflix.ui.adapters.SwipeToDeleteAddress
+import com.example.getflix.ui.adapters.SwipeToDeleteCartProduct
+import com.example.getflix.ui.fragments.CartFragmentDirections.Companion.actionCartFragmentToCompleteOrderFragment
 import com.example.getflix.ui.viewmodels.CartViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -35,40 +42,53 @@ class CartFragment : Fragment() {
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.cart)
         viewModel = ViewModelProvider(this).get(CartViewModel::class.java)
-        binding.viewmodel = CartViewModel()
-        val recView = binding?.cartList as RecyclerView
-        /*var zaraJacket1 =
-                ProductModel(10, "Jacket", "222", "1", "Zara", 1, 1, 1, "Nice jacket", "1", "1", "1", "1")
-        var zaraJacket2 =
-                ProductModel(11, "Jacket", "231", "1", "Zara", 1, 1, 1, "Cool jacket", "1", "1", "1", "1")
-        var zaraJacket3 =
-                ProductModel(12, "Jacket", "32", "1", "Zara", 1, 1, 1, "cool", "Amazing jacket", "1", "1", "1")
-        var zaraSkirt1 =
-                ProductModel(4, "Skirt", "79", "1", "Zara", 1, 1, 1, "Nice skirt", "1", "1", "1", "1")
-        var zaraSkirt2 =
-                ProductModel(5, "Skirt", "93", "1", "Zara", 1, 1, 1, "Cool skirt", "1", "1", "1", "1")
-        var zaraSkirt3 =
-                ProductModel(6, "Skirt", "102", "1", "Zara", 1, 1, 1, "Amazing skirt", "1", "1", "1", "1")
-        val products = arrayListOf(zaraSkirt3, zaraJacket1, zaraSkirt2, zaraJacket2, zaraSkirt1, zaraJacket3)*/
-        val products = arrayListOf<ProductModel>()
-        val productListAdapter = CartAdapter(products)
-        recView.adapter = productListAdapter
-        recView.setHasFixedSize(true)
+        viewModel.getCustomerCartProducts()
+        viewModel.getCustomerCartPrice()
 
-        for (product in products) {
-            viewModel.addProduct(product)
-        }
+        val recView = binding?.cartList as RecyclerView
+
 
         binding.acceptOrder.setOnClickListener {
-            view?.findNavController()?.navigate(actionCartFragmentToOrderFragment())
+            activity?.loading_progress!!.visibility = View.VISIBLE
+            view?.findNavController()?.navigate(actionCartFragmentToCompleteOrderFragment())
         }
 
 
-        viewModel.productList.observe(viewLifecycleOwner, Observer {
+        val productListAdapter = CartAdapter(this, viewModel)
+        val layoutManager =  LinearLayoutManager(activity)
+        recView.adapter = productListAdapter
+        recView.layoutManager = layoutManager
+        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCartProduct(productListAdapter))
+        itemTouchHelper.attachToRecyclerView(recView)
+
+        viewModel.cardPrices.observe(viewLifecycleOwner, Observer{
+            binding.productsPrice.text = "Products Price: " + it.productsPrice.toString() + " TL"
+            binding.deliveryPrice.text = "Delivery Price: " + it.deliveryPrice.toString()+ " TL"
+            binding.discount.text = "Discount: " + it.discount.toString() + "%"
+            binding.totalPrice.text = "Total Price: " + it.totalPrice.toString()+ " TL"
+        })
+
+
+
+        productListAdapter.pos.observe(viewLifecycleOwner, Observer {
+            if (it != -1) {
+                val id = productListAdapter.deleteItem(it).id
+                viewModel.deleteCustomerCartProduct(id)
+                productListAdapter.submitList(viewModel.cardProducts.value)
+                productListAdapter.resetPos()
+            }
+        })
+        viewModel.onSubmit.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                productListAdapter.submitList(viewModel.cardProducts.value)
+            }
+
+        })
+        /*viewModel.productList.observe(viewLifecycleOwner, Observer {
             it?.let {
                 productListAdapter.submitList(it)
             }
-        })
+        }) */
 
         return binding.root
     }

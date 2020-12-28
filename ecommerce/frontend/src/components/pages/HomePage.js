@@ -9,6 +9,7 @@ import { api } from '../../api'
 import { SearchInput } from '../SearchInput'
 import { SearchInputWrapper } from '../search/SearchInputWrapper'
 import { format } from 'prettier'
+import { HorizontalProductList } from '../HorizontalProductList'
 
 export const HomePage = () => {
     // example usage
@@ -37,13 +38,14 @@ const HomePage_Splash = () => {
 const HomePage_MainContent = () => {
     const [trendingProducts, setTrendingProducts] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const { categories } = useAppContext()
 
     useEffect(() => {
         async function fetch() {
             try {
                 setIsLoading(true)
                 const { data } = await api.get(`/products/homepage/${5}`)
-                setTrendingProducts(data.products)
+                setTrendingProducts(data)
             } catch (error) {
                 console.error('failed to load trending products', error)
             } finally {
@@ -54,13 +56,20 @@ const HomePage_MainContent = () => {
         fetch()
     }, [])
 
-    return (
+    return (<Spin spinning={isLoading}>
         <div className="trending-grid-wrapper">
-            {
-                <Spin spinning={isLoading}>
-                    <TrendingGrid trendingProducts={trendingProducts} />
-                </Spin>
-            }
+            {<TrendingGrid trendingProducts={trendingProducts} />}
         </div>
+        <div className="best-sellers-lists">
+            {categories.map(category => {
+                const filters = {
+                    category: category.id,
+                    sortBy: 'best-sellers',
+                    type: 'products',
+                }
+                return <HorizontalProductList filters={filters} />
+            })}
+        </div>
+    </Spin>
     )
 }

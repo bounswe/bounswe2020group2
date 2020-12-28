@@ -826,3 +826,27 @@ export const cards = [
         cvc: 123,
     },
 ]
+
+export const accounts = {
+    ozdenz: {
+        id: 12,
+        email: 'ozdeniz.dolu@boun.edu.tr',
+        token:
+            'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTIsImV4cCI6MTYxNzYzMTY0OSwiaWF0IjoxNjA4OTkxNjQ5fQ.edZBL1c0clrEOvw9f-Q_yqy3sAfXVoX9VTT33dSDP9c',
+        firstname: 'Özdeniz',
+        lastname: 'Dolu',
+        is_verified: true,
+        role: 'CUSTOMER',
+    },
+
+    MehdiSaffar: {
+        id: 9,
+        email: 'mehdi.saffar@boun.edu.tr',
+        token:
+            'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6OSwiZXhwIjoxNjE3MzA3MzE1LCJpYXQiOjE2MDg2NjczMTV9.urCgrUAPSk40dh9-LygnBiLpH73MqXxjbO33d3KHmO8',
+        firstname: 'Mehdi',
+        lastname: 'Saffar',
+        is_verified: false,
+        role: 'CUSTOMER',
+    },
+}
