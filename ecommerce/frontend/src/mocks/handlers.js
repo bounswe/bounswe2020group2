@@ -10,6 +10,7 @@ import {
     cards,
     verifications,
     accounts,
+    notifications,
 } from './mocks'
 import { orderStatusMap } from '../utils'
 import * as moment from 'moment'
@@ -63,6 +64,9 @@ export const handlers = [
     //     const { token } = params
     //     return res(ctx.json({ data: { message: verifications[Math.floor(Math.random() * verifications.length)] } }))
     // }),
+    rest.get(url('/notifications'), (req, res, ctx) => {
+        return res(ctx.json(notifications))
+    }),
     // rest.get(url('/review'), (req, res, ctx) => {
     //     const id = req.url.searchParams.get('product')
     //     const page_size = req.url.searchParams.get('page_size')

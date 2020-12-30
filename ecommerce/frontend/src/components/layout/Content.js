@@ -16,6 +16,7 @@ import { ProfilePage } from '../pages/ProfilePage'
 import { SearchPage } from '../pages/SearchPage'
 import { ShoppingCartPage } from '../pages/ShoppingCartPage'
 import { SignupPage } from '../pages/SignupPage'
+import { Notifications } from '../Notifications'
 
 export const Content = () => {
     const { user } = useAppContext()
@@ -32,6 +33,7 @@ export const Content = () => {
 
             <Switch>
                 {isUser && <Route path="/verify/:id" component={EmailVerification} />}
+                <Route path="/notifications" component={Notifications} />
                 <Route path="/search/:type" component={SearchPage} />
                 <Route path="/product/:productId" component={ProductPage} />
                 {isGuest && <Route path="/login" component={LoginPage} />}

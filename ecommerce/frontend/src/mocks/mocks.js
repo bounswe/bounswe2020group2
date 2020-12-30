@@ -850,3 +850,10 @@ export const accounts = {
         role: 'CUSTOMER',
     },
 }
+
+export const notifications = [
+    { message: 'A product in your list is now 73.99 $', date: '2011-10-05T14:48:00.000Z', product },
+    { message: 'A product in your list is now 84.99 $', date: '2011-10-05T14:48:00.000Z', product },
+    { message: 'A product in your list is now 9.99 ₺', date: '2011-10-05T14:48:00.000Z', product },
+    { message: 'A product in your list is now 11273.99 €', date: '2011-10-05T14:48:00.000Z', product },
+]
