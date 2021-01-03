@@ -13,24 +13,34 @@ import './Notifications.less'
 
 export const Notifications = () => {
     const [notifications, setNotifications] = useState([])
-
-    useEffect(async () => {
-        try {
+    useEffect(() => {
+        const fetch = async () => {
             const { data } = await api.get('/notifications')
             console.log(data)
             setNotifications(data)
+        }
+        try {
+            fetch()
         } catch (error) {
             console.error(error)
         }
     }, [])
+
     return (
         <div className="notifications-container">
             {notifications.map(n => {
                 return (
-                    <div>
-                        <p>{n.message}</p>
-                        {moment(n.date).format('LL')}
-                        <Link to={`/product/${n.product.id}`}>See</Link>
+                    <div key={n.id} className="notification-item">
+                        <div className="notification-image">
+                            <img src={n.product.images[0]} />
+                        </div>
+                        <div className="notification-message">
+                            <div>
+                                <p>{n.message}</p>
+                                <Link to={`/product/${n.product.id}`}>See new deal now. </Link>{' '}
+                            </div>
+                            <div className="notification-date">{moment(n.date).fromNow()}</div>
+                        </div>
                     </div>
                 )
             })}

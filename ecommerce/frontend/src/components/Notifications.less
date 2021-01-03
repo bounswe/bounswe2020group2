@@ -1,3 +1,31 @@
 .notifications-container {
-    background-color: darkgoldenrod;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.notification-item {
+    display: flex;
+    flex-direction: row;
+    border: 2px solid gainsboro;
+    padding: 1px;
+}
+
+.notification-image {
+    width: 100px;
+    height: 100px;
+    min-width: 100px;
+    min-height: 100px;
+}
+
+.notification-image img {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: contain;
+}
+
+.notification-message {
+    display: flex;
+    flex-direction: column;
+    margin-left: 7px;
 }

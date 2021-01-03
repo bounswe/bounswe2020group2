@@ -852,8 +852,40 @@ export const accounts = {
 }
 
 export const notifications = [
-    { message: 'A product in your list is now 73.99 $', date: '2011-10-05T14:48:00.000Z', product },
-    { message: 'A product in your list is now 84.99 $', date: '2011-10-05T14:48:00.000Z', product },
-    { message: 'A product in your list is now 9.99 ₺', date: '2011-10-05T14:48:00.000Z', product },
-    { message: 'A product in your list is now 11273.99 €', date: '2011-10-05T14:48:00.000Z', product },
+    {
+        id: 1,
+        message: 'A product in your wishlist Summer is now 33% cheaper',
+        date: '2020-12-29T14:48:00.000Z',
+        product,
+    },
+    {
+        id: 2,
+        message: 'A product in your wishlist Gaming is now 15% cheaper',
+        date: '2020-12-27T14:48:00.000Z',
+        product,
+    },
+    {
+        id: 3,
+        message: 'A product in your wishlist Summer is now 33% cheaper',
+        date: '2020-12-20T14:48:00.000Z',
+        product,
+    },
+    {
+        id: 4,
+        message: 'A product in your wishlist Classic Guitars is now 9% cheaper',
+        date: '2020-11-29T14:48:00.000Z',
+        product,
+    },
+    {
+        id: 6,
+        message: 'A product in your wishlist Classic Guitars is now 9% cheaper',
+        date: '2020-11-25T14:48:00.000Z',
+        product,
+    },
+    {
+        id: 5,
+        message: 'A product in your wishlist Classic Guitars is now 9% cheaper',
+        date: '2020-11-05T14:48:00.000Z',
+        product,
+    },
 ]

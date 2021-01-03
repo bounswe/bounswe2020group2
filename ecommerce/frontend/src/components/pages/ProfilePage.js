@@ -7,6 +7,7 @@ import { AddressList } from '../addresslist/AddressList'
 import { CreditCardList } from '../cardlist/CreditCardList'
 import { OrdersList } from '../order/OrdersList'
 import { ProfileContent } from '../profile/ProfileContent'
+import { Notifications } from '../Notifications'
 
 const { TabPane } = Tabs
 
@@ -43,6 +44,13 @@ export const ProfilePage = props => {
                 <TabPane tab="Addresses" key="addresses" forceRender>
                     <Alert.ErrorBoundary>
                         <AddressList />
+                    </Alert.ErrorBoundary>
+                </TabPane>
+                <TabPane tab="Notifications" key="notifications" forceRender>
+                    <Alert.ErrorBoundary>
+                        <div className="right-bar-profile-content">
+                            <Notifications key={user.id} user={user} />
+                        </div>
                     </Alert.ErrorBoundary>
                 </TabPane>
                 <TabPane tab="Messages" key="messages" forceRender>
