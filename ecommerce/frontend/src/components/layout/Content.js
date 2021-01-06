@@ -16,6 +16,7 @@ import { ProfilePage } from '../pages/ProfilePage'
 import { SearchPage } from '../pages/SearchPage'
 import { ShoppingCartPage } from '../pages/ShoppingCartPage'
 import { SignupPage } from '../pages/SignupPage'
+import { VendorHomepage } from '../pages/VendorHomepage'
 
 export const Content = () => {
     const { user } = useAppContext()
@@ -41,6 +42,7 @@ export const Content = () => {
                 {isUser && <Route path="/profile/:section" component={ProfilePage} />}
                 {isUser && <Route path="/profile/" component={ProfilePage} />}
                 <Route exact path="/" component={HomePage} />
+                <Route to="/vendor" component={VendorHomepage} />
                 <Redirect to="/" />
             </Switch>
         </Layout.Content>
