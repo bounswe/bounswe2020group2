@@ -2,9 +2,9 @@ name: Deploy backend
 
 on:
     push:
-        branches: [deploy, deploy-refactor]
+        branches: [deploy]
     pull_request:
-        branches: [deploy, deploy-refactor]
+        branches: [deploy]
 
 jobs:
     deploy-frontend:
@@ -85,7 +85,7 @@ jobs:
                   script: |
                       cd backend
                       sudo docker load -i backend.tar.gz
-                      sudo docker run --name backend -p 8000:8000 -e DEBUG=False -e DB_HOST=${{ env.AWS_INSTANCE_IP }} -d backend
+                      sudo docker run --name backend --network=host -e DEBUG=False -e DB_HOST=localhost -d backend
 
             - name: Notify slack!
               uses: rtCamp/action-slack-notify@v2
