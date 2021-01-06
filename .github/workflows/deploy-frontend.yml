@@ -89,4 +89,4 @@ jobs:
                 SLACK_USERNAME: Deploy Guy
                 SLACK_WEBHOOK: ${{ env.SLACK_WEBHOOK_URL }}
                 SLACK_TITLE: 'Frontend deployed! :rocket:'
-                SLACK_MESSAGE: ${{ env.AWS_INSTANCE_IP }}
+                SLACK_MESSAGE: http://${{ env.AWS_INSTANCE_IP }}
