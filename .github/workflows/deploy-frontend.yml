@@ -22,24 +22,15 @@ jobs:
                   aws-region: us-east-2
 
             - name: Get public ip of Frontend instance
-              run: echo "AWS_FRONTEND_INSTANCE_IP=$(aws ec2 describe-instances --filters 'Name=tag:Name,Values=frontend' --query 'Reservations[0].Instances[0].PublicDnsName' --output text)" >> $GITHUB_ENV
+              run: echo "AWS_INSTANCE_IP=$(aws ec2 describe-instances --filters 'Name=tag:Name,Values=instance' --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)" >> $GITHUB_ENV
 
-            - name: Get public ip of Backend instance
-              run: echo "AWS_BACKEND_INSTANCE_IP=$(aws ec2 describe-instances --filters 'Name=tag:Name,Values=backend' --query 'Reservations[0].Instances[0].PublicDnsName' --output text)" >> $GITHUB_ENV
+            - name: Echo instance public ip
+              run: echo "frontend $AWS_INSTANCE_IP"
 
-            - name: Echo Frontend public ip
-              run: echo "frontend $AWS_FRONTEND_INSTANCE_IP"
-
-            - name: Echo Backend public ip
-              run: echo "backend $AWS_BACKEND_INSTANCE_IP"
-
-            - name: Decrypt Key pair
-              run: gpg --batch --yes --decrypt --passphrase="$GPG_PASSWORD" --output CMPE451.pem ./secrets/CMPE451.pem.gpg
-              env:
-                  GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
-
-            - name: Decrypt Slack webhook
-              run: gpg --batch --yes --decrypt --passphrase="$GPG_PASSWORD" --output slack_webhook.txt ./secrets/slack_webhook.txt.gpg
+            - name: Decrypt secrets
+              run: |
+                gpg --batch --yes --decrypt --passphrase="$GPG_PASSWORD" --output CMPE451.pem ./secrets/CMPE451.pem.gpg
+                gpg --batch --yes --decrypt --passphrase="$GPG_PASSWORD" --output slack_webhook.txt ./secrets/slack_webhook.txt.gpg
               env:
                   GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
 
@@ -50,7 +41,7 @@ jobs:
               run: chmod 400 CMPE451.pem
 
             - name: Build the Docker image
-              run: docker build ecommerce/frontend -t frontend --build-arg REACT_APP_API_URL="http://${AWS_BACKEND_INSTANCE_IP}:8000"
+              run: docker build ecommerce/frontend -t frontend --build-arg REACT_APP_API_URL="http://${AWS_INSTANCE_IP}:8000"
 
             - name: Save Docker image
               run: docker save frontend | gzip > frontend.tar.gz
@@ -61,36 +52,36 @@ jobs:
             - name: Reset state
               uses: appleboy/ssh-action@master
               with:
-                  host: ${{ env.AWS_FRONTEND_INSTANCE_IP }}
+                  host: ${{ env.AWS_INSTANCE_IP }}
                   username: ubuntu
                   key_path: CMPE451.pem
                   script_stop: true
                   script: |
-                      sudo rm -rf application || true
-                      mkdir application
-                      sudo docker container stop $(sudo docker container ls -aq) || true
-                      sudo docker container rm $(sudo docker container ls -aq) || true
+                      sudo rm -rf frontend || true
+                      mkdir frontend
+                      sudo docker container stop frontend || true
+                      sudo docker container rm frontend || true
 
             - name: Push Docker to EC2 - with action
               uses: appleboy/scp-action@master
               with:
-                  host: ${{ env.AWS_FRONTEND_INSTANCE_IP }}
+                  host: ${{ env.AWS_INSTANCE_IP }}
                   username: ubuntu
                   key_path: CMPE451.pem
                   source: frontend.tar.gz
-                  target: ~/application/
+                  target: ~/frontend/
 
             - name: Run docker
               uses: appleboy/ssh-action@master
               with:
-                  host: ${{ env.AWS_FRONTEND_INSTANCE_IP }}
+                  host: ${{ env.AWS_INSTANCE_IP }}
                   username: ubuntu
                   key_path: CMPE451.pem
                   script_stop: true
                   script: |
-                      cd application
+                      cd frontend
                       sudo docker load -i frontend.tar.gz
-                      sudo docker run -p 80:80 -d frontend 
+                      sudo docker run -p 80:80 --name frontend -d frontend 
 
             - name: Notify slack!
               uses: rtCamp/action-slack-notify@v2
@@ -98,4 +89,4 @@ jobs:
                 SLACK_USERNAME: Deploy Guy
                 SLACK_WEBHOOK: ${{ env.SLACK_WEBHOOK_URL }}
                 SLACK_TITLE: 'Frontend deployed! :rocket:'
-                SLACK_MESSAGE: ${{ env.AWS_FRONTEND_INSTANCE_IP }}
+                SLACK_MESSAGE: http://${{ env.AWS_INSTANCE_IP }}
