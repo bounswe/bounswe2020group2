@@ -4,14 +4,17 @@ import { useAppContext } from '../../context/AppContext'
 import { useEffect, useState } from 'react'
 import { Spin, Button, Rate } from 'antd'
 import { api } from '../../api'
+import { Redirect, useHistory } from 'react-router-dom'
 import { SearchInput } from '../SearchInput'
 import { SearchInputWrapper } from '../search/SearchInputWrapper'
 import { format } from 'prettier'
 import { EditOutlined } from '@ant-design/icons'
 import { HorizontalProductList } from '../HorizontalProductList'
 
-export const VendorHomepage = () => {
+export const VendorHomepage = props => {
     // example usage
+    const { id } = props.match.params
+
     return (
         <div>
             <VendorSplash />
@@ -31,8 +34,8 @@ const VendorSplash = () => {
                 <h3 className="vendor-slogan">Create the future</h3>
                 <Rate />
             </div>
-            <div className="vendor-edit-page">
-                <Button type="primary" icon={<EditOutlined />}>
+            <div className="vendor-edit-button">
+                <Button type="primary" icon={<EditOutlined />} href="/profile">
                     Edit Page
                 </Button>
             </div>

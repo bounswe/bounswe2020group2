@@ -42,7 +42,7 @@ export const Content = () => {
                 {isUser && <Route path="/profile/:section" component={ProfilePage} />}
                 {isUser && <Route path="/profile/" component={ProfilePage} />}
                 <Route exact path="/" component={HomePage} />
-                <Route to="/vendor" component={VendorHomepage} />
+                <Route to="/vendor/:id" component={VendorHomepage} />
                 <Redirect to="/" />
             </Switch>
         </Layout.Content>
