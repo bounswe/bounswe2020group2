@@ -21,30 +21,17 @@ jobs:
                   aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                   aws-region: us-east-2
 
-            - name: Get public ip of database instance
-              run: echo "AWS_DATABASE_INSTANCE_IP=$(aws ec2 describe-instances --filters 'Name=tag:Name,Values=database' --query 'Reservations[0].Instances[0].PublicDnsName' --output text)" >> $GITHUB_ENV
-
             - name: Get public ip of Backend instance
-              run: echo "AWS_BACKEND_INSTANCE_IP=$(aws ec2 describe-instances --filters 'Name=tag:Name,Values=backend' --query 'Reservations[0].Instances[0].PublicDnsName' --output text)" >> $GITHUB_ENV
-
-            - name: Echo Database public ip
-              run: echo "database $AWS_DATABASE_INSTANCE_IP"
+              run: echo "AWS_INSTANCE_IP=$(aws ec2 describe-instances --filters 'Name=tag:Name,Values=instance' --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)" >> $GITHUB_ENV
 
             - name: Echo Backend public ip
-              run: echo "backend $AWS_BACKEND_INSTANCE_IP"
+              run: echo "backend $AWS_INSTANCE_IP"
 
-            - name: Decrypt Key pair
-              run: gpg --batch --yes --decrypt --passphrase="$GPG_PASSWORD" --output CMPE451.pem ./secrets/CMPE451.pem.gpg
-              env:
-                  GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
-
-            - name: Decrypt Slack webhook
-              run: gpg --batch --yes --decrypt --passphrase="$GPG_PASSWORD" --output slack_webhook.txt ./secrets/slack_webhook.txt.gpg
-              env:
-                  GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
-
-            - name: Decrypt backend.env.production
-              run: gpg --batch --yes --decrypt --passphrase="$GPG_PASSWORD" --output backend.env.production ./secrets/backend.env.production.gpg
+            - name: Decrypt secrets
+              run: |
+                gpg --batch --yes --decrypt --passphrase="$GPG_PASSWORD" --output CMPE451.pem ./secrets/CMPE451.pem.gpg
+                gpg --batch --yes --decrypt --passphrase="$GPG_PASSWORD" --output slack_webhook.txt ./secrets/slack_webhook.txt.gpg
+                gpg --batch --yes --decrypt --passphrase="$GPG_PASSWORD" --output backend.env.production ./secrets/backend.env.production.gpg
               env:
                   GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
 
@@ -69,36 +56,36 @@ jobs:
             - name: Reset state
               uses: appleboy/ssh-action@master
               with:
-                  host: ${{ env.AWS_BACKEND_INSTANCE_IP }}
+                  host: ${{ env.AWS_INSTANCE_IP }}
                   username: ubuntu
                   key_path: CMPE451.pem
                   script_stop: true
                   script: |
-                      sudo rm -rf application || true
-                      mkdir application
-                      sudo docker container stop $(sudo docker container ls -aq) || true
-                      sudo docker container rm $(sudo docker container ls -aq) || true
+                      sudo rm -rf backend || true
+                      mkdir backend
+                      sudo docker container stop backend || true
+                      sudo docker container rm backend || true
 
             - name: Push Docker to EC2 - with action
               uses: appleboy/scp-action@master
               with:
-                  host: ${{ env.AWS_BACKEND_INSTANCE_IP }}
+                  host: ${{ env.AWS_INSTANCE_IP }}
                   username: ubuntu
                   key_path: CMPE451.pem
                   source: backend.tar.gz
-                  target: ~/application/
+                  target: ~/backend/
 
             - name: Run docker
               uses: appleboy/ssh-action@master
               with:
-                  host: ${{ env.AWS_BACKEND_INSTANCE_IP }}
+                  host: ${{ env.AWS_INSTANCE_IP }}
                   username: ubuntu
                   key_path: CMPE451.pem
                   script_stop: true
                   script: |
-                      cd application
+                      cd backend
                       sudo docker load -i backend.tar.gz
-                      sudo docker run --name backend -p 8000:8000 -e DEBUG=False -e DB_HOST=${{ env.AWS_DATABASE_INSTANCE_IP }} -d backend
+                      sudo docker run --name backend -p 8000:8000 -e DEBUG=False -e DB_HOST=localhost -d backend
 
             - name: Notify slack!
               uses: rtCamp/action-slack-notify@v2
@@ -106,4 +93,4 @@ jobs:
                 SLACK_USERNAME: Deploy Guy
                 SLACK_WEBHOOK: ${{ env.SLACK_WEBHOOK_URL }}
                 SLACK_TITLE: 'Backend deployed! :rocket:'
-                SLACK_MESSAGE: ${{ env.AWS_BACKEND_INSTANCE_IP }}:8000
+                SLACK_MESSAGE: ${{ env.AWS_INSTANCE_IP }}:8000
