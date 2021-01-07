@@ -16,8 +16,8 @@ class Review(models.Model):
         return self.comment
 
 class Message(models.Model):
-    sender = models.ForeignKey(User, on_delete=models.CASCADE)
-    receiver = models.ForeignKey(User, on_delete=models.CASCADE)
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver')
     text = models.CharField(max_length=2000)
     date = models.DateTimeField(auto_now_add=True)
     attachment_url = models.CharField(max_length=1000)
