@@ -8,10 +8,20 @@ import { HorizontalProductList } from '../HorizontalProductList'
 import './VendorHomepage.less'
 import { round } from '../../utils'
 import { ProductCard } from '../product_card/ProductCard'
-import { EditableProductCard } from '../product_card/EditableProductCard'
 import { product } from '../../mocks/mocks'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { Tabs } from 'antd'
+import { StickyContainer, Sticky } from 'react-sticky'
 
+const { TabPane } = Tabs
+function callback(key) {
+    console.log(key)
+}
+const renderTabBar = (props, DefaultTabBar) => (
+    <Sticky bottomOffset={80}>
+        {({ style }) => <DefaultTabBar {...props} className="site-custom-tab-bar" style={{ ...style }} />}
+    </Sticky>
+)
 export const VendorHomepage = props => {
     // example usage
     const { id } = props.match.params
@@ -19,8 +29,17 @@ export const VendorHomepage = props => {
     return (
         <div>
             <VendorSplash />
-            <ProductCard product={product} editable={true} />
-            <HomePage_MainContent />
+            <Tabs onChange={callback} type="card">
+                <TabPane tab="Products" key="vendor-products">
+                    <VendorMainContent />
+                </TabPane>
+                <TabPane tab="Drafts" key="vendor-drafts">
+                    Content of Tab Pane 2
+                </TabPane>
+                <TabPane tab="Reviews" key="vendor-reviews">
+                    Content of Tab Pane 3
+                </TabPane>
+            </Tabs>
         </div>
     )
 }
@@ -61,7 +80,7 @@ const VendorSplash = () => {
     )
 }
 
-const HomePage_MainContent = () => {
+const VendorMainContent = () => {
     const [trendingProducts, setTrendingProducts] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const { categories } = useAppContext()

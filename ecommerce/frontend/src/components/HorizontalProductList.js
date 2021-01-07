@@ -6,7 +6,6 @@ import { api } from '../api'
 import { formatProduct, formatSearchQueryParams } from '../utils'
 import { ProductCard } from './product_card/ProductCard'
 import './HorizontalProductList.less'
-import { EditableProductCard } from './product_card/EditableProductCard'
 
 export const HorizontalProductList = ({ filters, editable = false }) => {
     const [isLoading, setIsLoading] = useState(true)
