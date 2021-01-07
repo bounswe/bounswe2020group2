@@ -3,11 +3,42 @@ import { useEffect, useState } from 'react'
 import { api } from '../../api'
 import { formatConversation } from '../../utils'
 import './Conversations.less'
-import { MessageList } from 'react-chat-elements'
+import { MessageList, ChatList } from 'react-chat-elements'
 import 'react-chat-elements/dist/main.css'
 
 export const ConversationList = ({ className, conversations, onSelectConversation }) => {
     if (conversations === null) return null
+
+    const formatConversation = conversation => {
+        const lastMessage = conversation.messages[conversation.messages.length - 1]
+
+        return {
+            conversation,
+            avatar: 'https://facebook.github.io/react/img/logo.svg',
+            alt: conversation.counterpart.name,
+            title: conversation.counterpart.name,
+            subtitle: lastMessage.text,
+            date: lastMessage.date,
+            unread: 0,
+        }
+
+        // return {
+        //     position: message.sent_by_me ? 'right' : 'left',
+        //     type: 'text',
+        //     text: message.text,
+        //     date: message.date,
+        // }
+    }
+
+    return (
+        // <div className={className}>
+        <ChatList
+            className={className}
+            dataSource={conversations.map(formatConversation)}
+            onClick={chatItem => onSelectConversation(chatItem.conversation)}
+        />
+        // </div>
+    )
 
     return (
         <div className={className}>
@@ -33,7 +64,6 @@ export const ConversationList = ({ className, conversations, onSelectConversatio
 }
 
 export const Conversation = ({ className, conversation }) => {
-    console.log(conversation)
     if (conversation === null) return null
 
     const formatMessage = message => {
@@ -78,6 +108,7 @@ export const Conversations = () => {
     }
 
     const onSelectConversation = conversation => {
+        console.log(conversation)
         setConversation(conversation)
     }
 
