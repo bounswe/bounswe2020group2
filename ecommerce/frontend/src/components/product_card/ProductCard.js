@@ -23,6 +23,9 @@ export const ProductCard = ({ product, width = 350, editable = false }) => {
 
     const { title, rating, price, price_after_discount, currency = '₺', images, id } = product
 
+    const { user } = useAppContext()
+    const isVendor = user.type === 'vendor'
+
     return (
         <div className="whole-card" style={{ minWidth: width, minHeight: width, maxWidth: width }}>
             {editable && (
@@ -49,14 +52,16 @@ export const ProductCard = ({ product, width = 350, editable = false }) => {
                 <div className="card-new-price">{round(price_after_discount, 1) + ' ' + currency}</div>
             </div>
             <div className="card-add-button">
-                <Button
-                    size="large"
-                    type="primary"
-                    icon={<PlusCircleOutlined />}
-                    onClick={() => onAddToCart(product)}
-                    block>
-                    Add to cart
-                </Button>
+                {!isVendor && (
+                    <Button
+                        size="large"
+                        type="primary"
+                        icon={<PlusCircleOutlined />}
+                        onClick={() => onAddToCart(product)}
+                        block>
+                        Add to cart
+                    </Button>
+                )}
                 <Button size="large" type="ghost" icon={<HeartOutlined />} onClick={() => onAddToList(product)} />
             </div>
         </div>
