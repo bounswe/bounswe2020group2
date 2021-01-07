@@ -12,7 +12,7 @@ class MessageResponseSerializer(serializers.ModelSerializer):
     
     def get_sent_by_me(self, obj):
         return obj.sender == self.context["sender"]
-
+    
 class ConversationSerializer(serializers.ModelSerializer):
     receiver = serializers.SerializerMethodField('get_receiver')
     messages = serializers.SerializerMethodField('get_messages')
@@ -32,3 +32,9 @@ class ConversationSerializer(serializers.ModelSerializer):
     def get_messages(self, messages):
         serializer = MessageResponseSerializer(messages, context={'sender': self.context["sender"]}, many=True)
         return serializer.data
+    
+# Formats the body of the POST request to make it compatible with the Message model in the database
+class MessageRequestSerializer(serializers.Serializer):
+    receiver_id = serializers.IntegerField()
+    text = serializers.CharField()
+    attachment_url = serializers.CharField()
