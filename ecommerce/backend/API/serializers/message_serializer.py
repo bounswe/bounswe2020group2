@@ -32,14 +32,3 @@ class ConversationSerializer(serializers.ModelSerializer):
     def get_messages(self, messages):
         serializer = MessageResponseSerializer(messages, context={'sender': self.context["sender"]}, many=True)
         return serializer.data
-
-# Formats the phone object in the body of the POST request into two columns to make it compatible with the database
-class PhoneSerializer(serializers.Serializer):
-    country_code = serializers.CharField()
-    number = serializers.CharField()
-    
-# Formats the body of the POST request to make it compatible with the Message model in the database
-class MessageRequestSerializer(serializers.Serializer):
-    receiver_id = serializers.IntegerField()
-    text = serializers.CharField()
-    attachment_url = serializers.CharField()
