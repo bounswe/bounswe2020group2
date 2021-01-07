@@ -2,7 +2,6 @@ from django.db import models
 from .product import Product
 from .user import User, Vendor
 
-
 #review
 class Review(models.Model):
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE, null=True)
@@ -19,5 +18,6 @@ class Review(models.Model):
 class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
     receiver = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.CharField(max_length=2000)
     date = models.DateTimeField(auto_now_add=True)
     attachment_url = models.CharField(max_length=1000)
