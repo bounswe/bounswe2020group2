@@ -6,8 +6,9 @@ import { api } from '../api'
 import { formatProduct, formatSearchQueryParams } from '../utils'
 import { ProductCard } from './product_card/ProductCard'
 import './HorizontalProductList.less'
+import { EditableProductCard } from './product_card/EditableProductCard'
 
-export const HorizontalProductList = ({ filters }) => {
+export const HorizontalProductList = ({ filters, editable = false }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [products, setProducts] = useState([])
     const { categories } = useAppContext()
@@ -49,9 +50,10 @@ export const HorizontalProductList = ({ filters }) => {
         <Spin spinning={isLoading}>
             <div className="best-sellers">
                 <h1 className="best-sellers-header">Best Sellers in {subcategory?.name ?? category?.name}</h1>
+
                 <div className="best-sellers-content">
                     {products.map(product => (
-                        <ProductCard key={product.id} product={product} />
+                        <ProductCard key={product.id} product={product} editable={editable} />
                     ))}
                 </div>
             </div>

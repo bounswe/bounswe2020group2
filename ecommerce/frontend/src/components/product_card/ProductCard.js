@@ -1,25 +1,36 @@
 import React from 'react'
 import { Button, Rate } from 'antd'
-import { PlusCircleOutlined, HeartOutlined } from '@ant-design/icons'
+import { PlusCircleOutlined, HeartOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import './ProductCard.less'
 import { useAppContext } from '../../context/AppContext'
 import { round, truncate } from '../../utils'
 
-export const ProductCard = ({ product, width = 350 }) => {
+export const ProductCard = ({ product, width = 350, editable = false }) => {
     const { addShoppingCartItem } = useAppContext()
 
     const onAddToCart = product => {
         addShoppingCartItem(product, 1)
     }
 
+    const onDeleteProductCard = () => {
+        console.log('delete product card')
+    }
+    const onEditProductCard = () => {
+        console.log('edit product card')
+    }
     const onAddToList = product => {}
 
     const { title, rating, price, price_after_discount, currency = '₺', images, id } = product
 
-    // const discountPrice = price * (1 - discount)
     return (
         <div className="whole-card" style={{ minWidth: width, minHeight: width, maxWidth: width }}>
+            {editable && (
+                <div className="product-card-editable-icons">
+                    <EditOutlined onClick={onEditProductCard} />
+                    <DeleteOutlined onClick={onDeleteProductCard} />
+                </div>
+            )}
             <Link to={`/product/${id}`}>
                 <div className="product-card-img-container">
                     <img className="product-card-img" alt={title} src={images[0]} />

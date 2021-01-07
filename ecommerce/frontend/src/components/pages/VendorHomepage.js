@@ -4,12 +4,13 @@ import { useEffect, useState } from 'react'
 import { Spin, Button, Rate } from 'antd'
 import { api } from '../../api'
 import { Redirect, useHistory } from 'react-router-dom'
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { HorizontalProductList } from '../HorizontalProductList'
 import './VendorHomepage.less'
 import { round } from '../../utils'
 import { ProductCard } from '../product_card/ProductCard'
+import { EditableProductCard } from '../product_card/EditableProductCard'
 import { product } from '../../mocks/mocks'
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 
 export const VendorHomepage = props => {
     // example usage
@@ -18,16 +19,8 @@ export const VendorHomepage = props => {
     return (
         <div>
             <VendorSplash />
-            <div className="vendor-page-product-card-editable">
-                <div className="vendor-page-product-card-editing-icons">
-                    <EditOutlined />
-                    <DeleteOutlined />
-                </div>
-                <div className="vendor-page-product-card">
-                    <ProductCard product={product} />
-                </div>
-            </div>
-            {/* <HomePage_MainContent /> */}
+            <ProductCard product={product} editable={true} />
+            <HomePage_MainContent />
         </div>
     )
 }
@@ -99,7 +92,7 @@ const HomePage_MainContent = () => {
                         sortBy: 'best-sellers',
                         type: 'products',
                     }
-                    return <HorizontalProductList key={category.id} filters={filters} />
+                    return <HorizontalProductList key={category.id} filters={filters} editable={true} />
                 })}
             </div>
         </Spin>
