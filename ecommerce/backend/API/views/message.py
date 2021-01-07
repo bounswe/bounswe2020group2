@@ -18,11 +18,11 @@ def manage_messages(request):
         # get all non-deleted messages of the user
         conversations = []
         messages = Message.objects.filter(sender_id=sender.pk)
+
         for receiver_id in messages.values_list('receiver_id', flat=True).distinct():
-            conversations.append(messages.filter(receiver_id=receiver_id))
-        print(conversations)
-        print(messages)
+            conversations.append({'messages': list(messages.filter(receiver_id=receiver_id))})
         # serialize them into a json array
+        print(conversations)
         message_serializer = ConversationSerializer(conversations, context={'sender': sender}, many=True)
         return Response({'status': {'successful': True, 
             'message': "Successfully retrieved"}, 'conversations': message_serializer.data})
