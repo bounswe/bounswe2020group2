@@ -10,6 +10,7 @@ import {
     cards,
     verifications,
     accounts,
+    conversations,
 } from './mocks'
 import { orderStatusMap } from '../utils'
 import * as moment from 'moment'
@@ -151,6 +152,9 @@ export const handlers = [
     // rest.get(url('/customer/:userId/cards'), (req, res, ctx) => {
     //     return res(ctx.json({ status, cards }))
     // }),
+    rest.get(url('/messages'), (req, res, ctx) => {
+        return res(ctx.json(conversations))
+    }),
 ]
 
 if (process.env.NODE_ENV === 'development') {

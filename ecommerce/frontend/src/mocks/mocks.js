@@ -850,3 +850,86 @@ export const accounts = {
         role: 'CUSTOMER',
     },
 }
+
+export const conversations = [
+    {
+        counterpart: {
+            id: 5,
+            name: 'Umut Öksüz',
+        },
+        messages: [
+            {
+                id: 1,
+                text: 'afdsadsadasd',
+                sent_by_me: true,
+                date: '2021-01-07T14:24:49+0000',
+                attachment_url: null,
+            },
+            {
+                id: 2,
+                text: 'afdsadsadasd',
+                sent_by_me: false,
+                date: '2021-01-07T14:28:49+0000',
+                attachment_url: 'https://www.quill.com/is/image/Quill/s0807665_s7?$img400$',
+            },
+            {
+                id: 3,
+                text: 'nice ahhahahaha',
+                sent_by_me: true,
+                date: '2021-01-07T14:29:49+0000',
+                attachment_url: null,
+            },
+        ],
+    },
+    {
+        counterpart: {
+            id: 6,
+            name: 'Furkan Nane',
+        },
+        messages: [
+            {
+                id: 1,
+                text: 'afdsadsadasd',
+                sent_by_me: false,
+                date: '2021-01-07T14:24:49+0000',
+                attachment_url: null,
+            },
+            {
+                id: 2,
+                text: 'afdsadsadasd',
+                sent_by_me: true,
+                date: '2021-01-07T14:28:49+0000',
+                attachment_url: 'https://www.quill.com/is/image/Quill/s0807665_s7?$img400$',
+            },
+        ],
+    },
+    {
+        counterpart: {
+            id: 7,
+            name: 'Mehdi Saffar',
+        },
+        messages: [
+            {
+                id: 1,
+                text: 'afdsadsadasd',
+                sent_by_me: true,
+                date: '2021-01-07T14:24:49+0000',
+                attachment_url: null,
+            },
+            {
+                id: 2,
+                text: 'afdsadsadasd',
+                sent_by_me: false,
+                date: '2021-01-07T14:28:49+0000',
+                attachment_url: 'https://www.quill.com/is/image/Quill/s0807665_s7?$img400$',
+            },
+            {
+                id: 3,
+                text: 'nice ahhahahaha',
+                sent_by_me: true,
+                date: '2021-01-07T14:29:49+0000',
+                attachment_url: null,
+            },
+        ],
+    },
+]

@@ -1,4 +1,5 @@
 import { config } from './config'
+import moment from 'moment'
 import * as R from 'ramda'
 
 export const productSortBy = {
@@ -189,3 +190,11 @@ export const formatSearchQueryParams = values => ({
     // page_size: smallest page_size should 1, biggest should be 100
     // page_size: if missing, assume 10
 })
+
+export const formatMessage = obj => {
+    return { ...obj, date: moment.utc(obj.date) }
+}
+
+export const formatConversation = obj => {
+    return { ...obj, messages: obj?.messages.map(formatMessage) }
+}

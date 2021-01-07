@@ -17,6 +17,7 @@
         "query-string": "^6.13.7",
         "ramda": "^0.27.1",
         "react": "^17.0.1",
+        "react-chat-elements": "^10.13.0",
         "react-credit-cards": "^0.8.3",
         "react-dom": "^17.0.1",
         "react-google-recaptcha": "^2.1.0",

@@ -4,6 +4,7 @@ import { Alert, Tabs } from 'antd'
 
 import { useAppContext } from '../../context/AppContext'
 import { AddressList } from '../addresslist/AddressList'
+import { Conversations } from '../messages/Conversations'
 import { CreditCardList } from '../cardlist/CreditCardList'
 import { OrdersList } from '../order/OrdersList'
 import { ProfileContent } from '../profile/ProfileContent'
@@ -46,7 +47,9 @@ export const ProfilePage = props => {
                     </Alert.ErrorBoundary>
                 </TabPane>
                 <TabPane tab="Messages" key="messages" forceRender>
-                    TO DO: Messages to be implemented
+                    <Alert.ErrorBoundary>
+                        <Conversations />
+                    </Alert.ErrorBoundary>
                 </TabPane>
             </Tabs>
         </div>
