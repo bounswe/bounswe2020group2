@@ -11,11 +11,17 @@ from ..serializers.message_serializer import *
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAnonymous])
 def manage_messages(request):
-    sender = request.user
+    #sender = request.user
+    sender = User.objects.get(id=9)
     # get all conversations
     if request.method == 'GET':
         # get all non-deleted messages of the user
-        conversations = Message.objects.filter(sender_id=sender.pk).values('receiver_id') # group by receiver_id
+        conversations = []
+        messages = Message.objects.filter(sender_id=sender.pk)
+        for receiver_id in messages.values_list('receiver_id', flat=True).distinct():
+            conversations.append(messages.filter(receiver_id=receiver_id))
+        print(conversations)
+        print(messages)
         # serialize them into a json array
         message_serializer = ConversationSerializer(conversations, context={'sender': sender}, many=True)
         return Response({'status': {'successful': True, 
@@ -26,7 +32,7 @@ def manage_messages(request):
         # check if the formatted data is valid
         if serializer.is_valid():
             # create a Message object from the formatted data, and save it to the database
-            receiver = User.objects.get(serializer.validated_data.get("receiver_id"))
+            receiver = User.objects.get(id=serializer.validated_data.get("receiver_id"))
             text = serializer.validated_data.get("text")
             attachment_url = serializer.validated_data.get("attachment_url")
             message = Message(sender=sender, receiver=receiver, text=text, attachment_url=attachment_url)

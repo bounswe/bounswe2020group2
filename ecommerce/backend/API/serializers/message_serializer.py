@@ -12,13 +12,13 @@ class MessageResponseSerializer(serializers.ModelSerializer):
     
     def get_sent_by_me(self, obj):
         return obj.sender == self.context["sender"]
-    
+
 class ConversationSerializer(serializers.ModelSerializer):
     receiver = serializers.SerializerMethodField('get_receiver')
     messages = serializers.SerializerMethodField('get_messages')
     class Meta:
         model = Message
-        fields = ('id', 'text', 'sent_by_me', 'date', 'attachment_url')
+        fields = ('receiver', 'messages')
     
     def get_receiver(self, messages):
         # all objects in the objects list has the same receiver_id
