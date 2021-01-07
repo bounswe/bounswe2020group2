@@ -15,7 +15,7 @@ export const ProductCard = ({ product, width = 350 }) => {
 
     const onAddToList = product => {}
 
-    const { title, rating, price, price_after_discount, currency, images, id } = product
+    const { title, rating, price, price_after_discount, currency = '₺', images, id } = product
 
     // const discountPrice = price * (1 - discount)
     return (

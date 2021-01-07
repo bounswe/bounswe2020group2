@@ -413,8 +413,9 @@ export const products = [
 
 export const product = {
     id: 1,
-    name: "Under Armour Men's Tech 2.0 Short Sleeve T-Shirt",
+    title: "Under Armour Men's Tech 2.0 Short Sleeve T-Shirt",
     price: 18,
+    price_after_discount: 14.2,
     creation_date: '2019-08-20T07:22:34Z',
     total_rating: 80,
     rating_count: 20,

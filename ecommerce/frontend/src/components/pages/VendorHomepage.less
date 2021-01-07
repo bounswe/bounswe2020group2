@@ -30,6 +30,7 @@
     display: flex;
     flex-direction: column;
     margin-left: 64px;
+    font-size: 1em;
 }
 .vendor-name {
     font-family: 'Work Sans';
@@ -45,10 +46,46 @@
 .vendor-edit-button {
 }
 
+.product-header-vendor-rating {
+    font-weight: bold;
+    font-size: medium;
+    display: inline-block;
+    padding: 0px 6px;
+    color: white;
+    border-radius: 6px;
+    &__high {
+        background: rgb(11, 184, 25);
+    }
+
+    &__medium {
+        background: darkgoldenrod;
+    }
+
+    &__low {
+        background: rgb(184, 11, 11);
+    }
+}
+
 .trending-grid-wrapper {
     display: flex;
     width: 100%;
     flex-direction: column;
     padding: 32px 64px;
     gap: 32px;
+}
+.vendor-page-product-card {
+    z-index: -1;
+}
+.vendor-page-product-card-editing-icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 16px;
+    padding-right: 16px;
+    z-index: 1;
+}
+
+.vendor-page-product-card-editable {
+    width: 350px;
+    padding-top: 16px;
 }

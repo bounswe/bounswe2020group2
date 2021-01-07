@@ -1,15 +1,15 @@
-import './VendorHomepage.less'
 import getflixLogo from '../../assets/logo.png'
 import { useAppContext } from '../../context/AppContext'
 import { useEffect, useState } from 'react'
 import { Spin, Button, Rate } from 'antd'
 import { api } from '../../api'
 import { Redirect, useHistory } from 'react-router-dom'
-import { SearchInput } from '../SearchInput'
-import { SearchInputWrapper } from '../search/SearchInputWrapper'
-import { format } from 'prettier'
-import { EditOutlined } from '@ant-design/icons'
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { HorizontalProductList } from '../HorizontalProductList'
+import './VendorHomepage.less'
+import { round } from '../../utils'
+import { ProductCard } from '../product_card/ProductCard'
+import { product } from '../../mocks/mocks'
 
 export const VendorHomepage = props => {
     // example usage
@@ -18,12 +18,33 @@ export const VendorHomepage = props => {
     return (
         <div>
             <VendorSplash />
-            <HomePage_MainContent />
+            <div className="vendor-page-product-card-editable">
+                <div className="vendor-page-product-card-editing-icons">
+                    <EditOutlined />
+                    <DeleteOutlined />
+                </div>
+                <div className="vendor-page-product-card">
+                    <ProductCard product={product} />
+                </div>
+            </div>
+            {/* <HomePage_MainContent /> */}
         </div>
     )
 }
+const getVendorRatingLevel = rating => {
+    if (rating <= 5.0) {
+        return 'low'
+    }
 
+    if (rating <= 8.0) {
+        return 'medium'
+    }
+
+    return 'high'
+}
 const VendorSplash = () => {
+    const vendor = {}
+
     return (
         <div className="vendor-splash">
             <div className="vendor-image">
@@ -32,7 +53,11 @@ const VendorSplash = () => {
             <div className="vendor-header">
                 <h1 className="vendor-name">SAMSUNG</h1>
                 <h3 className="vendor-slogan">Create the future</h3>
-                <Rate />
+                {/* //vendor?.rating ??  */}
+                <span
+                    className={`product-header-vendor-rating product-header-vendor-rating__${getVendorRatingLevel(4)}`}>
+                    {4}
+                </span>
             </div>
             <div className="vendor-edit-button">
                 <Button type="primary" icon={<EditOutlined />} href="/profile">
