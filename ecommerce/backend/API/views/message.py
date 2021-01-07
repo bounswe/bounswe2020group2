@@ -11,31 +11,26 @@ from ..serializers.message_serializer import *
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAnonymous])
 def manage_messages(request):
-    sender_user_id = request.user.pk
-    user = User.objects.get(sender_user_id)
-    # get all message
+    sender = request.user
+    # get all messages
     if request.method == 'GET':
-        # get all non-deleted cards of the customer
-        cards = Card.objects.filter(user_id=customer_id).filter(is_deleted=False)
+        # get all non-deleted messages of the user
+        messages = Message.objects.filter(sender_id=sender.pk)
         # serialize them into a json array
-        card_serializer = CardResponseSerializer(cards, many=True)
+        message_serializer = MessageResponseSerializer(messages, context={'sender': sender}, many=True)
         return Response({'status': {'successful': True, 
-            'message': "Successfully retrieved"}, 'cards': card_serializer.data})
+            'message': "Successfully retrieved"}, 'cards': message_serializer.data})
     # add message
     elif request.method == 'POST':
         serializer = MessageRequestSerializer(data=request.data)
         # check if the formatted data is valid
         if serializer.is_valid():
-            # create a Card object from the formatted data, and save it to the database
-            name = serializer.validated_data.get("name")
-            owner_name = serializer.validated_data.get("owner_name")
-            serial_number = serializer.validated_data.get("serial_number")
-            expiration_date = serializer.validated_data.get("expiration_date")
-            expiration_month = expiration_date.get("month")
-            expiration_year = expiration_date.get("year")
-            cvv = serializer.validated_data.get("cvv")
-            card = Card(user=user, name=name, owner_name=owner_name, serial_number=serial_number, expiration_month=expiration_month, expiration_year=expiration_year, cvv=cvv)
-            card.save()
-            return Response({'card_id': card.id, 'status': {'successful': True, 'message': "Card is successfully added"}})
+            # create a Message object from the formatted data, and save it to the database
+            receiver = User.objects.get(serializer.validated_data.get("receiver_id"))
+            text = serializer.validated_data.get("text")
+            attachment_url = serializer.validated_data.get("attachment_url")
+            message = Message(sender=sender, receiver=receiver, text=text, attachment_url=attachment_url)
+            message.save()
+            return Response({'message_id': message.id, 'status': {'successful': True, 'message': "Message is successfully added"}})
     
     return Response({'status': {'successful': False, 'message': "Error occurred"}})
