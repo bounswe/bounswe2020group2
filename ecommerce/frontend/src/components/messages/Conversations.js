@@ -21,45 +21,14 @@ export const ConversationList = ({ className, conversations, onSelectConversatio
             date: lastMessage.date,
             unread: 0,
         }
-
-        // return {
-        //     position: message.sent_by_me ? 'right' : 'left',
-        //     type: 'text',
-        //     text: message.text,
-        //     date: message.date,
-        // }
     }
 
     return (
-        // <div className={className}>
         <ChatList
             className={className}
             dataSource={conversations.map(formatConversation)}
             onClick={chatItem => onSelectConversation(chatItem.conversation)}
         />
-        // </div>
-    )
-
-    return (
-        <div className={className}>
-            <List
-                dataSource={conversations}
-                rowKey={'id'}
-                renderItem={conversation => {
-                    const lastMessage = conversation.messages[conversation.messages.length - 1]
-                    return (
-                        <List.Item>
-                            <List.Item.Meta
-                                avatar={
-                                    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                                }
-                                title={conversation.counterpart.name}
-                                description={lastMessage.text}
-                            />
-                        </List.Item>
-                    )
-                }}></List>
-        </div>
     )
 }
 
@@ -67,11 +36,13 @@ export const Conversation = ({ className, conversation }) => {
     if (conversation === null) return null
 
     const formatMessage = message => {
+        const type = message.attachment_url !== null ? 'photo' : 'text'
         return {
             position: message.sent_by_me ? 'right' : 'left',
-            type: 'text',
+            type,
             text: message.text,
             date: message.date,
+            ...(type === 'photo' ? { data: { uri: message.attachment_url } } : {}),
         }
     }
 
@@ -108,7 +79,6 @@ export const Conversations = () => {
     }
 
     const onSelectConversation = conversation => {
-        console.log(conversation)
         setConversation(conversation)
     }
 
