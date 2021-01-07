@@ -12,14 +12,14 @@ from ..serializers.message_serializer import *
 @permission_classes([permissions.AllowAnonymous])
 def manage_messages(request):
     sender = request.user
-    # get all messages
+    # get all conversations
     if request.method == 'GET':
         # get all non-deleted messages of the user
-        messages = Message.objects.filter(sender_id=sender.pk)
+        conversations = Message.objects.filter(sender_id=sender.pk).values('receiver_id') # group by receiver_id
         # serialize them into a json array
-        message_serializer = MessageResponseSerializer(messages, context={'sender': sender}, many=True)
+        message_serializer = ConversationSerializer(conversations, context={'sender': sender}, many=True)
         return Response({'status': {'successful': True, 
-            'message': "Successfully retrieved"}, 'cards': message_serializer.data})
+            'message': "Successfully retrieved"}, 'conversations': message_serializer.data})
     # add message
     elif request.method == 'POST':
         serializer = MessageRequestSerializer(data=request.data)
