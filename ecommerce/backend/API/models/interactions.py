@@ -15,9 +15,12 @@ class Review(models.Model):
     def __str__(self):
         return self.comment
 
-class Message(models.Model):
+class Conversation(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver')
+
+class Message(models.Model):
+    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE, null=True)
     text = models.CharField(max_length=2000)
     date = models.DateTimeField(auto_now_add=True)
     attachment_url = models.CharField(max_length=1000)

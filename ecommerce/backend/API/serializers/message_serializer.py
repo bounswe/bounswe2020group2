@@ -22,18 +22,15 @@ class ConversationSerializer(serializers.ModelSerializer):
     
     def get_receiver(self, obj):
         # all objects in the objects list has the same receiver_id
-        messages = obj["messages"]
-        receiver_id = messages[0].receiver_id
-        user_serializer = UserSerializer(User.objects.get(receiver_id))
+        user_serializer = UserSerializer(User.objects.get(obj["receiver_id"]))
         if user_serializer.is_valid():
             full_name = user_serializer.validated_data.get("first_name") + " " 
             + user_serializer.validated_data.get("last_name")
-            return {'id': receiver_id, 'name': full_name}
+            return {'id': obj["receiver_id"], 'name': full_name}
     
     def get_messages(self, obj):
-        messages = obj["messages"]
-        serializer = MessageResponseSerializer(messages, context={'sender': self.context["sender"]}, many=True)
-        print(serializer.data)
+        messages = Message.objects.filter(sender_id=obj["sender_id"]).filter(receiver_id=obj["receiver_id"])
+        serializer = MessageResponseSerializer(messages, context={'sender': obj["sender_id"]}, many=True)
         return serializer.data
     
 # Formats the body of the POST request to make it compatible with the Message model in the database

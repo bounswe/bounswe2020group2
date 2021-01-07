@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 
 from ..utils import permissions, Role
-from ..models import User, Message
+from ..models import User, Conversation, Message
 from ..serializers.message_serializer import *
 
 # serves GET, POST requests for the given customer_id
@@ -16,23 +16,21 @@ def manage_messages(request):
     # get all conversations
     if request.method == 'GET':
         # get all non-deleted messages of the user
-        conversations = []
-        messages = Message.objects.filter(sender_id=sender.pk)
-
-        for receiver_id in messages.values_list('receiver_id', flat=True).distinct():
-            conversations.append({'messages': list(messages.filter(receiver_id=receiver_id))})
-        # serialize them into a json array
-        print(conversations)
-        message_serializer = ConversationSerializer(conversations, context={'sender': sender}, many=True)
+        conversations = Conversation.objects.filter(sender_id=sender.pk)
+        conversation_serializer = ConversationSerializer(conversations, many=True)
         return Response({'status': {'successful': True, 
-            'message': "Successfully retrieved"}, 'conversations': message_serializer.data})
+            'message': "Successfully retrieved"}, 'conversations': conversation_serializer.data})
     # add message
     elif request.method == 'POST':
         serializer = MessageRequestSerializer(data=request.data)
         # check if the formatted data is valid
         if serializer.is_valid():
             # create a Message object from the formatted data, and save it to the database
-            receiver = User.objects.get(id=serializer.validated_data.get("receiver_id"))
+            receiver_id = serializer.validated_data.get("receiver_id")
+            if not Conversation.objects.filter(sender_id=sender.pk).filter(receiver_id=receiver_id):
+                conversation = Conversation(sender_id=sender.pk, receiver_id=receiver_id)
+                conversation.save()
+            receiver = User.objects.get(receiver_id)
             text = serializer.validated_data.get("text")
             attachment_url = serializer.validated_data.get("attachment_url")
             message = Message(sender=sender, receiver=receiver, text=text, attachment_url=attachment_url)
