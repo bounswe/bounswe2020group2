@@ -12,6 +12,7 @@ import { product } from '../../mocks/mocks'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { Tabs } from 'antd'
 import { StickyContainer, Sticky } from 'react-sticky'
+import { UserReviews } from '../UserReview/UserReviews'
 
 const { TabPane } = Tabs
 function callback(key) {
@@ -29,17 +30,18 @@ export const VendorHomepage = props => {
     return (
         <div>
             <VendorSplash />
-            <Tabs onChange={callback} type="card">
-                <TabPane tab="Products" key="vendor-products">
-                    <VendorMainContent />
-                </TabPane>
-                <TabPane tab="Drafts" key="vendor-drafts">
-                    Content of Tab Pane 2
-                </TabPane>
-                <TabPane tab="Reviews" key="vendor-reviews">
-                    Content of Tab Pane 3
-                </TabPane>
-            </Tabs>
+            <div style={{ margin: '32px 64px 0 64px' }}>
+                <Tabs onChange={callback} type="card">
+                    <TabPane tab="Products" key="vendor-products">
+                        <p>!</p>
+
+                        <VendorMainContent />
+                    </TabPane>
+                    <TabPane tab="Reviews" key="vendor-reviews">
+                        <UserReviews productId={1} />
+                    </TabPane>
+                </Tabs>
+            </div>
         </div>
     )
 }
