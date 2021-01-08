@@ -25,23 +25,40 @@ export const ProductCard = ({ product, width = 350, editable = false }) => {
 
     const { user } = useAppContext()
     const isVendor = user.type === 'vendor'
-
+    let editableProduct = editable && isVendor
     return (
         <div className="whole-card" style={{ minWidth: width, minHeight: width, maxWidth: width }}>
-            {editable && (
-                <div className="product-card-editable-icons">
-                    <EditOutlined onClick={onEditProductCard} />
-                    <DeleteOutlined onClick={onDeleteProductCard} />
-                </div>
-            )}
-            <Link to={`/product/${id}`}>
-                <div className="product-card-img-container">
-                    <img className="product-card-img" alt={title} src={images[0]} />
-                </div>
-                <div className="card-title">
-                    <p>{truncate(title)}</p>
-                </div>
-            </Link>
+            <div>
+                {editableProduct && (
+                    <div className="product-card-editable-icons">
+                        <Button
+                            type="link"
+                            icon={<EditOutlined />}
+                            onClick={onEditProductCard}
+                            style={{ color: '#472836', backgroundColor: '#e2be5a' }}>
+                            Edit
+                        </Button>
+                        <Button
+                            type="link"
+                            icon={<DeleteOutlined />}
+                            onClick={onDeleteProductCard}
+                            style={{
+                                color: '#472836',
+                                backgroundColor: '#e2be5a',
+                            }}>
+                            Delete
+                        </Button>
+                    </div>
+                )}
+                <Link to={`/product/${id}`}>
+                    <div className="product-card-img-container">
+                        <img className="product-card-img" alt={title} src={images[0]} />
+                    </div>
+                    <div className="card-title">
+                        <p>{truncate(title)}</p>
+                    </div>
+                </Link>
+            </div>
             <div className="rate-and-price">
                 <div className="card-rate">
                     <Rate disabled allowHalf defaultValue={rating}></Rate>
@@ -51,8 +68,8 @@ export const ProductCard = ({ product, width = 350, editable = false }) => {
                 ) : null}
                 <div className="card-new-price">{round(price_after_discount, 1) + ' ' + currency}</div>
             </div>
-            <div className="card-add-button">
-                {!isVendor && (
+            {!isVendor && (
+                <div className="card-add-button">
                     <Button
                         size="large"
                         type="primary"
@@ -61,9 +78,10 @@ export const ProductCard = ({ product, width = 350, editable = false }) => {
                         block>
                         Add to cart
                     </Button>
-                )}
-                <Button size="large" type="ghost" icon={<HeartOutlined />} onClick={() => onAddToList(product)} />
-            </div>
+
+                    <Button size="large" type="ghost" icon={<HeartOutlined />} onClick={() => onAddToList(product)} />
+                </div>
+            )}
         </div>
     )
 }
