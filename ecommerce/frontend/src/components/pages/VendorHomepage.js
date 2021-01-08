@@ -1,14 +1,9 @@
-import getflixLogo from '../../assets/logo.png'
 import { useAppContext } from '../../context/AppContext'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Spin, Button, Rate } from 'antd'
 import { api } from '../../api'
-import { Redirect, useHistory } from 'react-router-dom'
 import { HorizontalProductList } from '../HorizontalProductList'
 import './VendorHomepage.less'
-import { round } from '../../utils'
-import { ProductCard } from '../product_card/ProductCard'
-import { product } from '../../mocks/mocks'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { Tabs } from 'antd'
 import { UserReviews } from '../UserReview/UserReviews'
@@ -19,12 +14,10 @@ function callback(key) {
 }
 
 export const VendorHomepage = props => {
-    // example usage
-    const { id } = props.match.params
-
+    const { vendorId } = props.match.params
     return (
         <div>
-            <VendorSplash />
+            <VendorSplash vendorId={vendorId} />
             <div style={{ margin: '32px 64px 0 64px' }}>
                 <Tabs onChange={callback} type="card">
                     <TabPane tab="Products" key="vendor-products">
@@ -49,7 +42,7 @@ const getVendorRatingLevel = rating => {
 
     return 'high'
 }
-const VendorSplash = () => {
+const VendorSplash = ({ vendorId }) => {
     const vendorHeaderDetails = {
         title: 'SAMSUNG',
         imageUrl:
@@ -59,7 +52,7 @@ const VendorSplash = () => {
     }
     const { title, imageUrl, description, rating } = vendorHeaderDetails
     const { user } = useAppContext()
-    const isVendor = user.type === 'vendor'
+    const isVendorAndOwner = user.type === 'vendor' && vendorId === user.id.toString()
     return (
         <div className="vendor-splash">
             <div className="vendor-image">
@@ -77,7 +70,7 @@ const VendorSplash = () => {
                     </span>
                 </div>
                 <div className="vendor-edit-button">
-                    {isVendor ? (
+                    {isVendorAndOwner ? (
                         <Button type="primary" icon={<EditOutlined />} href="/profile">
                             Edit Page
                         </Button>
@@ -122,6 +115,7 @@ const VendorMainContent = () => {
                         category: category.id,
                         sortBy: 'best-sellers',
                         type: 'products',
+                        // vendorId: user.id
                     }
                     return <HorizontalProductList key={category.id} filters={filters} editable={true} />
                 })}
