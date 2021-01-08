@@ -27,13 +27,15 @@ def manage_messages(request):
         if serializer.is_valid():
             # create a Message object from the formatted data, and save it to the database
             receiver_id = serializer.validated_data.get("receiver_id")
+            receiver = User.objects.get(id=receiver_id)
             if not Conversation.objects.filter(sender_id=sender.pk).filter(receiver_id=receiver_id):
-                conversation = Conversation(sender_id=sender.pk, receiver_id=receiver_id)
+                conversation = Conversation(sender=sender, receiver=receiver)
                 conversation.save()
-            receiver = User.objects.get(receiver_id)
+            else:
+                conversation = Conversation.objects.get(sender_id=sender.pk, receiver_id=receiver_id)
             text = serializer.validated_data.get("text")
             attachment_url = serializer.validated_data.get("attachment_url")
-            message = Message(sender=sender, receiver=receiver, text=text, attachment_url=attachment_url)
+            message = Message(conversation=conversation, receiver=receiver, text=text, attachment_url=attachment_url)
             message.save()
             return Response({'message_id': message.id, 'status': {'successful': True, 'message': "Message is successfully added"}})
     

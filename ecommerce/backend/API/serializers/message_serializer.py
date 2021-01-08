@@ -22,7 +22,7 @@ class ConversationSerializer(serializers.ModelSerializer):
     
     def get_receiver(self, obj):
         # all objects in the objects list has the same receiver_id
-        user_serializer = UserSerializer(User.objects.get(obj["receiver_id"]))
+        user_serializer = UserSerializer(User.objects.get(obj.receiver.id))
         if user_serializer.is_valid():
             full_name = user_serializer.validated_data.get("first_name") + " " 
             + user_serializer.validated_data.get("last_name")
