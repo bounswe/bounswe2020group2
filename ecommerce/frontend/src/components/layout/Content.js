@@ -33,7 +33,6 @@ export const Content = () => {
 
             <Switch>
                 {isUser && <Route path="/verify/:id" component={EmailVerification} />}
-                <Route path="/notifications" component={Notifications} />
                 <Route path="/search/:type" component={SearchPage} />
                 <Route path="/product/:productId" component={ProductPage} />
                 {isGuest && <Route path="/login" component={LoginPage} />}

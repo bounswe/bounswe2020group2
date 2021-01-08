@@ -9,6 +9,7 @@ import {
     ProfileOutlined,
     ShoppingCartOutlined,
     UserOutlined,
+    BellOutlined,
 } from '@ant-design/icons'
 import { Avatar, Button, Dropdown, Layout, Menu } from 'antd'
 import { Link, useHistory } from 'react-router-dom'
@@ -59,6 +60,9 @@ export const CustomerHeaderContent = () => {
                 </Menu.Item>
                 <Menu.Item key="addresses" icon={<HomeOutlined />}>
                     Addresses
+                </Menu.Item>
+                <Menu.Item key="notifications" icon={<BellOutlined />}>
+                    Notifications
                 </Menu.Item>
                 <Menu.Item key="messages" icon={<MessageOutlined />}>
                     Messages

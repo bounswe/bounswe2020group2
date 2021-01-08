@@ -38,18 +38,22 @@ export const Notifications = () => {
             <div className="notifications-header">
                 <h3>{'Your notifications (' + unseenNotifications.length + ')'}</h3>
                 <div>
-                    <Button
-                        type="text"
-                        icon={<BellTwoTone twoToneColor="#52c41a" />}
-                        onClick={onSnoozeAllNotifications}>
-                        Snooze All
-                    </Button>
-                    <Button
-                        type="text"
-                        icon={<DeleteTwoTone twoToneColor="#F35A22" />}
-                        onClick={onDeleteAllNotifications}>
-                        Delete All
-                    </Button>
+                    {unseenNotifications.length != 0 && (
+                        <Button
+                            type="text"
+                            icon={<BellTwoTone twoToneColor="#52c41a" />}
+                            onClick={onSnoozeAllNotifications}>
+                            Snooze All
+                        </Button>
+                    )}
+                    {notifications.length != 0 && (
+                        <Button
+                            type="text"
+                            icon={<DeleteTwoTone twoToneColor="#F35A22" />}
+                            onClick={onDeleteAllNotifications}>
+                            Delete All
+                        </Button>
+                    )}
                 </div>
             </div>
             <div className="notifications-container">
@@ -70,14 +74,16 @@ export const Notifications = () => {
                                 </div>
                                 <div className="notification-date">{moment(notification.date).fromNow()}</div>
                             </div>
-                            <div className="notification-option-icons">
-                                <Button
-                                    type="default"
-                                    icon={<BellTwoTone twoToneColor="#52c41a" />}
-                                    onClick={onSeenNotification}>
-                                    Mark as Seen
-                                </Button>
-                            </div>
+                            {!notification.is_seen && (
+                                <div className="notification-option-icons">
+                                    <Button
+                                        type="default"
+                                        icon={<BellTwoTone twoToneColor="#52c41a" />}
+                                        onClick={onSeenNotification}>
+                                        Mark as Seen
+                                    </Button>
+                                </div>
+                            )}
                         </div>
                     )
                 })}
