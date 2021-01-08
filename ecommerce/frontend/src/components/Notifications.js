@@ -7,7 +7,7 @@ import { api } from '../api'
 import { format } from 'prettier'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
-import { EditOutlined } from '@ant-design/icons'
+import { EditOutlined, BellOutlined, BellTwoTone, DeleteOutlined } from '@ant-design/icons'
 
 import { notifications } from '../mocks/mocks'
 import './Notifications.less'
@@ -26,10 +26,20 @@ export const Notifications = () => {
             console.error(error)
         }
     }, [])
-
+    const unseenNotifications = notifications.filter(item => !item.is_seen)
     return (
         <div>
-            {notifications.length != 0 && <h3>{'Your notifications (' + notifications.length + ')'}</h3>}
+            <div className="notifications-header">
+                <h3>{'Your notifications (' + unseenNotifications.length + ')'}</h3>
+                <div>
+                    <Button type="text" icon={<BellOutlined />}>
+                        Snooze All
+                    </Button>
+                    <Button type="text" icon={<DeleteOutlined />}>
+                        Delete All
+                    </Button>
+                </div>
+            </div>
             <div className="notifications-container">
                 {notifications.map(notification => {
                     return (
@@ -49,8 +59,8 @@ export const Notifications = () => {
                                 <div className="notification-date">{moment(notification.date).fromNow()}</div>
                             </div>
                             <div className="notification-option-icons">
-                                <Button type="primary" icon={<EditOutlined />}>
-                                    Snooze
+                                <Button type="default" icon={<BellTwoTone twoToneColor="#B779EE" />}>
+                                    Mark as Seen
                                 </Button>
                             </div>
                         </div>
