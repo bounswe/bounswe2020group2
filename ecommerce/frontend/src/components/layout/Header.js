@@ -32,7 +32,7 @@ export const GuestHeaderContent = () => {
 export const CustomerHeaderContent = () => {
     const { user, logout } = useAppContext()
     const history = useHistory()
-
+    const isVendor = user.type === 'vendor'
     const onMenuItemClick = ({ key }) => {
         if (key === 'logout') {
             logout()
@@ -72,14 +72,16 @@ export const CustomerHeaderContent = () => {
 
     return (
         <div className="header-customer">
-            <Link to="/shoppingCart" className="header-customer-cart">
-                <Button
-                    className="header-customer-cart"
-                    icon={<ShoppingCartOutlined className="header-customer-cart-icon" />}
-                    ghost>
-                    My Cart
-                </Button>
-            </Link>
+            {!isVendor && (
+                <Link to="/shoppingCart" className="header-customer-cart">
+                    <Button
+                        className="header-customer-cart"
+                        icon={<ShoppingCartOutlined className="header-customer-cart-icon" />}
+                        ghost>
+                        My Cart
+                    </Button>
+                </Link>
+            )}
             <Dropdown overlay={dropdownMenu()} placement={'bottomRight'} trigger="click">
                 <Button className="header-customer-info" ghost>
                     <Avatar shape="square" size="large" icon={<UserOutlined />} />
