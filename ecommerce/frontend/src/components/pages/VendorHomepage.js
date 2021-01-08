@@ -76,13 +76,17 @@ const VendorSplash = () => {
                         {rating}
                     </span>
                 </div>
-                {isVendor && (
-                    <div className="vendor-edit-button">
+                <div className="vendor-edit-button">
+                    {isVendor ? (
                         <Button type="primary" icon={<EditOutlined />} href="/profile">
                             Edit Page
                         </Button>
-                    </div>
-                )}
+                    ) : (
+                        <Button type="primary" icon={<EditOutlined />} href="/profile/messages">
+                            Send a message
+                        </Button>
+                    )}
+                </div>
             </div>
         </div>
     )
