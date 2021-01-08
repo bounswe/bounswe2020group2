@@ -28,5 +28,27 @@
     display: flex;
     flex-direction: column;
     margin-left: 7px;
+    padding-top: 3px;
     margin-top: 1px;
+    justify-content: space-between;
+}
+
+.notification-status {
+    width: 10px;
+
+    background-color: aqua;
+
+    &__seen {
+        background: rgba(114, 111, 111, 0.366);
+    }
+
+    &__unseen {
+        background: rgba(239, 146, 135, 0.934);
+    }
+}
+
+.notification-option-icons {
+    display: flex;
+    
+    align-items: center;
 }
