@@ -58,7 +58,8 @@
         <item>---</item>
         <item>Çok Satanlar</item>
         <item>Yeni Gelenler</item>
-        <item>Fiyat</item>
+        <item>Fiyat (Art.)</item>
+        <item>Fiyat (Azl.)</item>
         <item>Puan</item>
         <item>Yorum Sayısı</item>
     </string-array>

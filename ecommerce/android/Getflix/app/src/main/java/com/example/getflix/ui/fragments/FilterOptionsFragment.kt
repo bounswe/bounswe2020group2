@@ -5,15 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioGroup
+import android.widget.RatingBar
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentFilterOptionsBinding
-import com.example.getflix.models.Status
+import com.example.getflix.ui.fragments.FilterOptionsFragmentDirections.Companion.actionFilterOptionsFragmentToSubcategoryFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.slider.RangeSlider
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,9 +23,6 @@ class FilterOptionsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.bottom_nav!!.visibility = View.GONE
-
-        val status: Status = Status(true)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -41,18 +35,20 @@ class FilterOptionsFragment : Fragment() {
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.filter_options)
         binding.priceSlider.setValues(0.0f, 100.0f)
+        val args = FilterOptionsFragmentArgs.fromBundle(requireArguments())
+        val brandsl = args.brands.toList()
+        val vendorsl = args.vendors.toList()
+        val subId = args.subId
 
-        var rating = -1
-        binding.rg.setOnCheckedChangeListener(
-                RadioGroup.OnCheckedChangeListener { _, checkedId ->
-                    when (checkedId) {
-                        R.id.rb_0 -> rating = 0
-                        R.id.rb_1 -> rating = 1
-                        R.id.rb_2 -> rating = 2
-                        R.id.rb_3 -> rating = 3
-                        R.id.rb_4 -> rating = 4
-                    }
-                })
+        var rating: Float = 0F
+        binding.ratingText.text = "0.0 +"
+        binding.rating.onRatingBarChangeListener = object : RatingBar.OnRatingBarChangeListener {
+            override fun onRatingChanged(p0: RatingBar?, p1: Float, p2: Boolean) {
+                binding.ratingText.text = "$p1 +"
+                rating = p1
+            }
+        }
+
 
         var values = arrayListOf<Int>()
         binding.priceSlider.addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener {
@@ -69,21 +65,16 @@ class FilterOptionsFragment : Fragment() {
         })
 
 
-        val checkedBrandItems = booleanArrayOf(false, false, false, false, false,
-                false, false, false, false, false, false)
+        val checkedBrandItems = BooleanArray(brandsl.size) { false }
+        var brands = arrayListOf<String>()
         binding.btnBrand.setOnClickListener {
-            val multiItems = arrayOf("Brand 1", "Brand 2", "Brand 3", "Brand 4", "Brand 5",
-                    "Brand 6", "Brand 7", "Brand 8", "Brand 9", "Brand 10", "Brand 11")
-
-
-            var brands = arrayListOf<String>()
             MaterialAlertDialogBuilder(requireContext(), R.style.MaterialAlertDialog_color)
                     .setTitle("Brands")
                     .setPositiveButton("Ok") { dialog, which ->
                         brands = arrayListOf<String>()
                         checkedBrandItems.forEachIndexed { index, b ->
                             if (b)
-                                brands.add(multiItems[index])
+                                brands.add(brandsl[index])
                         }
                         if (brands.size == 0)
                             binding.brands.text = "None"
@@ -93,20 +84,16 @@ class FilterOptionsFragment : Fragment() {
                     .setNeutralButton("Cancel") { dialog, which ->
                         // Respond to neutral button press
                     }
-                    .setMultiChoiceItems(multiItems, checkedBrandItems) { dialog, which, checked ->
-                        // Respond to item chosen
+                    .setMultiChoiceItems(brandsl.toTypedArray(), checkedBrandItems) { dialog, which, checked ->
+
                     }
                     .setIcon(R.drawable.menu_category)
                     .show()
         }
 
         var vendors = arrayListOf<String>()
-        val checkedVendorItems = booleanArrayOf(false, false, false, false, false,
-                false, false, false, false, false, false)
+        val checkedVendorItems = BooleanArray(vendorsl.size) { false }
         binding.btnVendor.setOnClickListener {
-            val multiItems = arrayOf("Vendor 1", "Vendor 2", "Vendor 3", "Vendor 4", "Vendor 5",
-                    "Vendor 6", "Vendor 7", "Vendor 8", "Vendor 9", "Vendor 10", "Vendor 11")
-
 
             MaterialAlertDialogBuilder(requireContext(), R.style.MaterialAlertDialog_color)
                     .setTitle("Vendors")
@@ -114,7 +101,7 @@ class FilterOptionsFragment : Fragment() {
                         vendors = arrayListOf<String>()
                         checkedVendorItems.forEachIndexed { index, b ->
                             if (b)
-                                vendors.add(multiItems[index])
+                                vendors.add(vendorsl[index])
                         }
                         if (vendors.size == 0)
                             binding.vendors.text = "None"
@@ -125,7 +112,7 @@ class FilterOptionsFragment : Fragment() {
                     .setNeutralButton("Cancel") { dialog, which ->
                         // Respond to neutral button press
                     }
-                    .setMultiChoiceItems(multiItems, checkedVendorItems) { dialog, which, checked ->
+                    .setMultiChoiceItems(vendorsl.toTypedArray(), checkedVendorItems) { dialog, which, checked ->
 
                     }
                     .setIcon(R.drawable.menu_category)
@@ -133,7 +120,8 @@ class FilterOptionsFragment : Fragment() {
         }
 
         binding.complete.setOnClickListener {
-            // navController.popBackStack()
+            view?.findNavController()!!.navigate(actionFilterOptionsFragmentToSubcategoryFragment(subId, values.toIntArray(),brands.toTypedArray(),
+            vendors.toTypedArray(),rating.toString()))
         }
 
 
