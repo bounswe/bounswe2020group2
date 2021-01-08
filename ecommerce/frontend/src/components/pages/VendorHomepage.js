@@ -66,22 +66,24 @@ const VendorSplash = () => {
                 <img src={imageUrl} className="splash-logo"></img>
             </div>
             <div className="vendor-header">
-                <h1 className="vendor-name">{title}</h1>
-                <h3 className="vendor-slogan">{description}</h3>
-                <span
-                    className={`product-header-vendor-rating product-header-vendor-rating__${getVendorRatingLevel({
-                        rating,
-                    })}`}>
-                    {rating}
-                </span>
-            </div>
-            {isVendor && (
-                <div className="vendor-edit-button">
-                    <Button type="primary" icon={<EditOutlined />} href="/profile">
-                        Edit Page
-                    </Button>
+                <div className="vendor-header-content">
+                    <h1 className="vendor-name">{title}</h1>
+                    <h3 className="vendor-slogan">{description}</h3>
+                    <span
+                        className={`product-header-vendor-rating product-header-vendor-rating__${getVendorRatingLevel({
+                            rating,
+                        })}`}>
+                        {rating}
+                    </span>
                 </div>
-            )}
+                {isVendor && (
+                    <div className="vendor-edit-button">
+                        <Button type="primary" icon={<EditOutlined />} href="/profile">
+                            Edit Page
+                        </Button>
+                    </div>
+                )}
+            </div>
         </div>
     )
 }
