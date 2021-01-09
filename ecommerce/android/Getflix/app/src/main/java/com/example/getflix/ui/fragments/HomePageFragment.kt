@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.getflix.R
 import com.example.getflix.categories
 import com.example.getflix.databinding.FragmentNewHomeBinding
+import com.example.getflix.hideKeyboard
 import com.example.getflix.ui.adapters.*
 import com.example.getflix.ui.fragments.HomePageFragment.StaticData.recyclerViewFirstPosition
 import com.example.getflix.ui.viewmodels.HomeViewModel
@@ -54,15 +56,27 @@ class HomePageFragment : Fragment() {
         activity?.toolbar!!.toolbar_title.text = getString(R.string.home)
         activity?.toolbar!!.btn_notification.visibility = View.VISIBLE
         activity?.search!!.visibility = View.VISIBLE
+        activity?.btn_search!!.visibility = View.VISIBLE
         activity?.toolbar!!.toolbar_title.visibility = View.GONE
 
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         binding.lifecycleOwner = this
 
-        activity?.search!!.setOnTouchListener { v, _ ->
+        /*activity?.search!!.setOnTouchListener { v, _ ->
             v.isFocusable = true
             v.isFocusableInTouchMode = true
             false
+        } */
+
+        activity?.search!!.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                activity?.toolbar!!.requestFocus()
+            }
+        }
+
+        activity?.btn_search!!.setOnClickListener {
+            println(activity?.search!!.text)
+            activity?.search!!.text.clear()
         }
 
 
@@ -122,11 +136,9 @@ class HomePageFragment : Fragment() {
 
 
         binding.editorPicks.adapter = adapterForEditorsPicks
-        binding.editorPicks.setLayoutManager(
-            StaggeredGridLayoutManager(
-                2,
-                StaggeredGridLayoutManager.VERTICAL
-            )
+        binding.editorPicks.layoutManager = StaggeredGridLayoutManager(
+            2,
+            StaggeredGridLayoutManager.VERTICAL
         )
 
         val decoration = SpaceGenerator(18)
@@ -165,6 +177,7 @@ class HomePageFragment : Fragment() {
         super.onStop()
         activity?.toolbar!!.btn_notification.visibility = View.GONE
         activity?.search!!.visibility = View.GONE
+        activity?.btn_search!!.visibility = View.GONE
         activity?.toolbar!!.toolbar_title.visibility = View.VISIBLE
     }
 }

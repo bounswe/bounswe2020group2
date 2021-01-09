@@ -21,7 +21,9 @@
                 android:layout_height="wrap_content"
                 android:background="@color/initGold"
                 android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme">
+                android:theme="?attr/actionBarTheme"
+                android:focusable="true"
+                android:focusableInTouchMode="true" >
 
                 <TextView
                     android:id="@+id/toolbar_title"
@@ -42,12 +44,15 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
                     android:layout_gravity="center_vertical"
-                    android:focusable="false"
                     android:textCursorDrawable="@null"
                     android:drawableStart="@drawable/menu_category"
                     android:drawablePadding="12dp"
                     android:background="@drawable/custom_input"
                     android:textSize="14sp"/>
+
+                <Space
+                    android:layout_width="15dp"
+                    android:layout_height="10dp"/>
 
 
                 <Button
