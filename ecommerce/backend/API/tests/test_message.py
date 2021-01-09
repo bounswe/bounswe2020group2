@@ -5,32 +5,40 @@ from ..models import User
 from ..views.message import *
 from ..utils.crypto import Crypto
 
-user = None
-
+sender = None
+receiver = None
 # Class for testing the CRUD operations of the Message endpoint
 class MessageTest(TestCase):
     def setUp(self):
         self.client = APIClient()
-        # register a mock user
-        global user
+        # register a mock sender
+        global sender, receiver
         salt = Crypto().getSalt()
-        password_hash = Crypto().getHashedPassword("12345678", salt)
-        user = User.objects.create(username="testuser", email="test@mail.com", role = 1,
+        password_hash = Crypto().getHashedPassword("sender123", salt)
+        sender = User.objects.create(username="testsender", email="sender@mail.com", role = 1,
                                             password_salt=salt, password_hash=password_hash, is_verified=True)
-        Customer.objects.create(user=user, first_name="test", last_name="user")
-        user = User.objects.filter(username='testuser').first()
+        Customer.objects.create(user=sender, first_name="s_first", last_name="s_last")
+        sender = User.objects.filter(username='testsender').first()
         body = {
-            'username': 'testuser',
-            'password': '12345678'
+            'username': 'testsender',
+            'password': 'sender123'
         }
         response = self.client.post(reverse('login'), body, 'json')
         token = response.data["user"]["token"]
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + token)
+
+        # register a mock receiver
+        salt = Crypto().getSalt()
+        password_hash = Crypto().getHashedPassword("receiver123", salt)
+        receiver = User.objects.create(username="testreceiver", email="receiver@mail.com", role = 1,
+                                            password_salt=salt, password_hash=password_hash, is_verified=True)
+        Customer.objects.create(user=sender, first_name="r_first", last_name="s_last")
+        receiver = User.objects.filter(username='testreceiver').first()
     
     # test sending a message
     def test_send_message(self):
         message = {
-            "receiver_id": 11,
+            "receiver_id": receiver.id,
             "text": "Do you have the product in the attachment?",
             "attachment": "https://www.adidas.com.tr/tr/superstar-ayakkab%C4%B1/EG4959.html"
         }
