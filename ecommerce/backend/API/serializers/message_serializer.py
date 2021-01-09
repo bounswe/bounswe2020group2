@@ -1,8 +1,7 @@
 from API.serializers.account_serializer import UserSerializer
-from API.models.user import Customer
 from rest_framework import serializers
-from ..models import User, Message
-
+from ..models import User, Message, Customer, Vendor
+from ..utils import Role
 # Formats the Message objects taken from the database for GET requests and combines the phone columns into a single object.
 class MessageResponseSerializer(serializers.ModelSerializer):
     sent_by_me = serializers.SerializerMethodField('get_sent_by_me')
@@ -21,11 +20,15 @@ class ConversationSerializer(serializers.ModelSerializer):
         fields = ('counterpart', 'messages')
     
     def get_counterpart(self, obj):
-        # all objects in the objects list has the same receiver_id
-        counterpart_id = obj.user1.id if self.context["sender"].id == obj.user2.id else obj.user2.id
-        user_serializer = UserSerializer(User.objects.get(id=counterpart_id))
-        full_name = user_serializer.data.get("first_name") + " " + user_serializer.data.get("last_name")
-        return {'id': counterpart_id, 'name': full_name}
+        counterpart = obj.user1 if self.context["sender"].id == obj.user2.id else obj.user2
+        full_name = counterpart.role
+        if counterpart.role == Role.CUSTOMER.value:
+            customer = Customer.objects.filter(user=counterpart).first()
+            full_name = customer.first_name + " " + customer.last_name
+        elif counterpart.role == Role.VENDOR.value:
+            vendor = Vendor.objects.filter(user=counterpart).first()
+            full_name = vendor.first_name + " " + vendor.last_name
+        return {'id': counterpart.id, 'name': full_name}
     
     def get_messages(self, obj):
         messages = Message.objects.filter(conversation=obj)
@@ -36,4 +39,4 @@ class ConversationSerializer(serializers.ModelSerializer):
 class MessageRequestSerializer(serializers.Serializer):
     receiver_id = serializers.IntegerField()
     text = serializers.CharField()
-    attachment_url = serializers.CharField()
+    attachment = serializers.CharField()

@@ -32,7 +32,7 @@ class MessageTest(TestCase):
         message = {
             "receiver_id": 11,
             "text": "Do you have the product in the attachment?",
-            "attachment_url": "https://www.adidas.com.tr/tr/superstar-ayakkab%C4%B1/EG4959.html"
+            "attachment": "https://www.adidas.com.tr/tr/superstar-ayakkab%C4%B1/EG4959.html"
         }
         # get the response for a POST request to the /messages endpoint
         response = self.client.post(reverse(manage_messages), message, 'json')
