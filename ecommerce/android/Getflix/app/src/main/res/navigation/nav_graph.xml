@@ -51,6 +51,9 @@
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
         <action
+            android:id="@+id/action_profileFragment_to_custMessagesFragment"
+            app:destination="@id/custMessagesFragment" />
+        <action
             android:id="@+id/action_profileFragment_to_addressFragment"
             app:destination="@id/addressFragment"
             app:enterAnim="@anim/enter_left_to_right"
@@ -314,6 +317,14 @@
     <argument
         android:name="product"
         app:argType="com.example.getflix.models.ProductModel" />
+    </fragment>
+    <fragment
+        android:id="@+id/custMessagesFragment"
+        android:name="com.example.getflix.ui.fragments.CustMessagesFragment"
+        tools:layout="@layout/fragment_cust_messages">
+    <action
+        android:id="@+id/action_custMessagesFragment_to_profileFragment"
+        app:destination="@id/profileFragment" />
     </fragment>
 
 
