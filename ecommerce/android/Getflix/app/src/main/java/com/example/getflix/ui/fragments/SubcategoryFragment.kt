@@ -39,7 +39,17 @@ class SubcategoryFragment : Fragment() {
         )
 
         val args = SubcategoryFragmentArgs.fromBundle(requireArguments())
+        viewModel = ViewModelProvider(this).get(SubCategoryViewModel::class.java)
+
+        val query = args.query
         val subId = args.subId
+        if(query!=null) {
+            viewModel.searchByQuery(query)
+            println("xx " + query)
+        }
+        else
+            viewModel.searchBySubcategory(subId)
+
         val brandsl = args.brands?.toList()
         val vendorsl = args.vendors?.toList()
         val rating = args.rating?.toFloat()
@@ -52,8 +62,8 @@ class SubcategoryFragment : Fragment() {
             println("xxx" + rating.toString())
         if (prices != null)
             println("xxx" + prices.toString())
-        viewModel = ViewModelProvider(this).get(SubCategoryViewModel::class.java)
-        viewModel.searchBySubcategory(subId)
+
+        //viewModel.searchBySubcategory(subId)
         val recView = binding?.productList as RecyclerView
 
         val manager = GridLayoutManager(activity, 2)

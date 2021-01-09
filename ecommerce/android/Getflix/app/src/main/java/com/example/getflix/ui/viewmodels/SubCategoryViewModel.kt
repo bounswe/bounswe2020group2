@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.getflix.models.AddressModel
 import com.example.getflix.models.ProductModel
 import com.example.getflix.service.GetflixApi
+import com.example.getflix.service.requests.ProSearchByQueryRequest
 import com.example.getflix.service.requests.ProSearchBySubcategoryRequest
 import com.example.getflix.service.requests.ProSearchSortRequest
 import com.example.getflix.service.responses.ProSearchBySubcategoryResponse
@@ -76,6 +77,27 @@ class SubCategoryViewModel : ViewModel() {
                 override fun onResponse(
                     call: Call<ProSearchBySubcategoryResponse>,
                     response: Response<ProSearchBySubcategoryResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+                    _productList.value = response.body()!!.data.products as MutableList<ProductModel>
+
+                }
+            }
+            )
+    }
+
+    fun searchByQuery(query: String) {
+        GetflixApi.getflixApiService.searchProductsByQuery(ProSearchByQueryRequest(query))
+            .enqueue(object :
+                Callback<ProSearchByVendorResponse> {
+                override fun onFailure(call: Call<ProSearchByVendorResponse>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<ProSearchByVendorResponse>,
+                    response: Response<ProSearchByVendorResponse>
                 ) {
                     println(response.body().toString())
                     println(response.code())
