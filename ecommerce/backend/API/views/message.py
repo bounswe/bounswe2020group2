@@ -18,13 +18,12 @@ def manage_messages(request):
     if request.method == 'GET':
         # get all conversations
         conversations = Conversation.objects.filter(Q(user1=sender) | Q(user2=sender))
-        # sort with respect to the last message
+        # sort conversations with respect to the last message
         conversation_finaltime_dict = {conv.id: Message.objects.filter(conversation=conv).latest('date').id for conv in conversations}
         conv_ids_latest_first = list(reversed(sorted(conversation_finaltime_dict, key=conversation_finaltime_dict.get)))
         # source: https://stackoverflow.com/questions/4916851/django-get-a-queryset-from-array-of-ids-in-specific-order 
         preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(conv_ids_latest_first)])
         conversations = Conversation.objects.filter(pk__in=conv_ids_latest_first).order_by(preserved)
-        conversations = conversations.filter(id__in=conv_ids_latest_first)
         conversation_serializer = ConversationSerializer(conversations, context={'sender':sender},many=True)
         return Response({'status': {'successful': True, 
             'message': "Successfully retrieved"}, 'conversations': conversation_serializer.data})
@@ -51,6 +50,7 @@ def manage_messages(request):
                 image = Image(image=img_array)
                 image.save()
                 attachment_url = f"/images/{image.pk}"
+            # save message
             message = Message(conversation=conversation, sender=sender, text=text, attachment_url=attachment_url)
             message.save()
             return Response({'status': {'successful': True, 'message': "Message is successfully added"}})

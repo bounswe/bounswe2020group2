@@ -21,6 +21,7 @@ class ConversationSerializer(serializers.ModelSerializer):
         model = Message
         fields = ('counterpart', 'messages')
     
+    # returns the details of the user that sender is in contact with
     def get_counterpart(self, obj):
         counterpart = obj.user1 if self.context["sender"].id == obj.user2.id else obj.user2
         full_name = counterpart.role
@@ -31,9 +32,10 @@ class ConversationSerializer(serializers.ModelSerializer):
             vendor = Vendor.objects.filter(user=counterpart).first()
             full_name = vendor.first_name + " " + vendor.last_name
         return {'id': counterpart.id, 'name': full_name}
-    
+
+    # returns all messages in the conversation
     def get_messages(self, obj):
-        messages = Message.objects.filter(conversation=obj)
+        messages = Message.objects.filter(conversation=obj).order_by('date') # order by date
         serializer = MessageResponseSerializer(messages, context={'sender': self.context["sender"]}, many=True)
         return serializer.data
     
