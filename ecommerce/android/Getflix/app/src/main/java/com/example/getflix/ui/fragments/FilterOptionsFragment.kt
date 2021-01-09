@@ -120,7 +120,7 @@ class FilterOptionsFragment : Fragment() {
         }
 
         binding.complete.setOnClickListener {
-            view?.findNavController()!!.navigate(actionFilterOptionsFragmentToSubcategoryFragment(subId, values.toIntArray(),brands.toTypedArray(),
+            view?.findNavController()!!.navigate(actionFilterOptionsFragmentToSubcategoryFragment(subId, null,values.toIntArray(),brands.toTypedArray(),
             vendors.toTypedArray(),rating.toString()))
         }
 

@@ -23,6 +23,7 @@ import com.example.getflix.databinding.FragmentNewHomeBinding
 import com.example.getflix.hideKeyboard
 import com.example.getflix.ui.adapters.*
 import com.example.getflix.ui.fragments.HomePageFragment.StaticData.recyclerViewFirstPosition
+import com.example.getflix.ui.fragments.HomePageFragmentDirections.Companion.actionHomePageFragmentToSubcategoryFragment
 import com.example.getflix.ui.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -62,11 +63,6 @@ class HomePageFragment : Fragment() {
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         binding.lifecycleOwner = this
 
-        /*activity?.search!!.setOnTouchListener { v, _ ->
-            v.isFocusable = true
-            v.isFocusableInTouchMode = true
-            false
-        } */
 
         activity?.search!!.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
@@ -76,7 +72,9 @@ class HomePageFragment : Fragment() {
 
         activity?.btn_search!!.setOnClickListener {
             println(activity?.search!!.text)
+            var query = activity?.search!!.text.toString()
             activity?.search!!.text.clear()
+            view?.findNavController()!!.navigate(actionHomePageFragmentToSubcategoryFragment(-1,query,null,null,null,null))
         }
 
 

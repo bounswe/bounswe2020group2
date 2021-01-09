@@ -16,6 +16,10 @@
         <action
             android:id="@+id/action_homePageFragment_to_productFragment2"
             app:destination="@id/productFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_subcategoryFragment"
+            app:destination="@id/subcategoryFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -124,6 +128,10 @@
         <argument
             android:name="subId"
             app:argType="integer" />
+        <argument
+            android:name="query"
+            app:argType="string"
+            app:nullable="true"/>
         <argument
             android:name="prices"
             app:argType="integer[]"
