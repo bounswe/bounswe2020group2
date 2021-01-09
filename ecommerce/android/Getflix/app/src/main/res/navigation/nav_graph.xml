@@ -127,7 +127,8 @@
         tools:layout="@layout/list_horizontalsubs">
         <argument
             android:name="subId"
-            app:argType="integer" />
+            app:argType="string"
+            app:nullable="true"/>
         <argument
             android:name="query"
             app:argType="string"
@@ -137,12 +138,12 @@
             app:argType="string"
             app:nullable="true"/>
         <argument
-            android:name="brands"
-            app:argType="string[]"
+            android:name="brand"
+            app:argType="string"
             app:nullable="true"/>
         <argument
-            android:name="vendors"
-            app:argType="string[]"
+            android:name="vendor"
+            app:argType="string"
             app:nullable="true"/>
         <argument
             android:name="rating"
@@ -166,13 +167,20 @@
         tools:layout="@layout/fragment_filter_options">
         <argument
             android:name="subId"
-            app:argType="integer" />
+            app:argType="string"
+            app:nullable="true"/>
         <argument
-            android:name="brands"
-            app:argType="string[]" />
+            android:name="query"
+            app:argType="string"
+            app:nullable="true"/>
         <argument
-            android:name="vendors"
-            app:argType="string[]" />
+            android:name="sortBy"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="sortOrder"
+            app:argType="string"
+            app:nullable="true"/>
         <action
             android:id="@+id/action_filterOptionsFragment_to_subcategoryFragment"
             app:destination="@id/subcategoryFragment" />

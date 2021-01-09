@@ -25,7 +25,6 @@ import kotlinx.android.synthetic.main.fragment_subcategory.*
 class SubcategoryFragment : Fragment() {
 
     private lateinit var viewModel: SubCategoryViewModel
-    private var filter = false
     private lateinit var binding: FragmentSubcategoryBinding
 
 
@@ -42,26 +41,32 @@ class SubcategoryFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(SubCategoryViewModel::class.java)
 
         val query = args.query
-        val subId = args.subId
-        if(query!=null) {
-            viewModel.searchByQuery(query)
-            println("xx " + query)
-        }
-        else
-            viewModel.searchBySubcategory(subId)
-
-        val brandsl = args.brands?.toList()
-        val vendorsl = args.vendors?.toList()
+        var sub = args.subId
+        val brand = args.brand
+        val vendor = args.vendor
         val rating = args.rating?.toFloat()
-        val prices = args.prices?.toList()
-        if (brandsl != null)
-            println("xxx" + brandsl.toString())
-        if (vendorsl != null)
-            println("xxx" + vendorsl.toString())
-        if (rating != null)
-            println("xxx" + rating.toString())
-        if (prices != null)
-            println("xxx" + prices.toString())
+        val price = args.prices
+        var sortBy: String? = null
+        var sortOrder: String? = null
+        var subId: Int? = null
+
+        if(sub=="null")
+            subId=null
+        else if(sub!=null)
+            subId = sub.toInt()
+
+
+        viewModel.searchByFilter(
+            query,
+            subId,
+            vendor?.toInt(),
+            rating?.toDouble(),
+            price?.toDouble(),
+            null,
+            null
+        )
+
+
 
         //viewModel.searchBySubcategory(subId)
         val recView = binding?.productList as RecyclerView
@@ -69,28 +74,19 @@ class SubcategoryFragment : Fragment() {
         val manager = GridLayoutManager(activity, 2)
         recView.layoutManager = manager
 
-        val brands = arrayListOf<String>()
-        val vendors = arrayListOf<String>()
+
         viewModel.productList.observe(viewLifecycleOwner, {
             val productListAdapter = SubCategoryAdapter(it!!, this)
             recView.adapter = productListAdapter
             recView.setHasFixedSize(true)
-            for (product in it!!) {
-                if (!brands.contains(product.brand.name))
-                    brands.add(product.brand.name)
-                if (!vendors.contains(product.vendor.name))
-                    vendors.add(product.vendor.name)
-            }
-            println(brands)
-            println(vendors)
+
         })
 
 
         binding.btnFilter.setOnClickListener {
-            filter = true
             view?.findNavController()!!.navigate(
                 actionSubcategoryFragmentToFilterOptionsFragment(
-                    subId, brands.toTypedArray(), vendors.toTypedArray()
+                    subId.toString(),query,sortBy,sortOrder
                 )
             )
         }
@@ -116,17 +112,61 @@ class SubcategoryFragment : Fragment() {
                 id: Long
             ) {
                 if (position == 1) {
-                    viewModel.sort(subId, "best-sellers", "decreasing")
+                    sortBy = "best-sellers"
+                    sortOrder = "decreasing"
+                    viewModel.searchByFilter(
+                        query,
+                        subId,
+                        null,
+                        null,
+                        null,
+                        sortBy,
+                        sortOrder
+                    )
                 } else if (position == 2) {
-                    viewModel.sort(subId, "newest-arrivals", "decreasing")
+                    sortBy = "newest-arrivals"
+                    sortOrder = "decreasing"
+                    viewModel.searchByFilter(
+                        query,
+                        subId,
+                        null,
+                        null,
+                        null,
+                        sortBy,
+                        sortOrder
+                    )
                 } else if (position == 3) {
-                    viewModel.sort(subId, "price", "increasing")
+                    sortBy = "price"
+                    sortOrder = "increasing"
+                    viewModel.searchByFilter(query, subId, null, null, null, sortBy, sortOrder)
                 } else if (position == 4) {
-                    viewModel.sort(subId, "price", "decreasing")
+                    sortBy = "price"
+                    sortOrder = "decreasing"
+                    viewModel.searchByFilter(query, subId, null, null, null, sortBy, sortOrder)
                 } else if (position == 5) {
-                    viewModel.sort(subId, "average-customer-review", "decreasing")
+                    sortBy = "average-customer-review"
+                    sortOrder = "decreasing"
+                    viewModel.searchByFilter(
+                        query,
+                        subId,
+                        null,
+                        null,
+                        null,
+                        sortBy,
+                        sortOrder
+                    )
                 } else if (position == 6) {
-                    viewModel.sort(subId, "number-of-comments", "decreasing")
+                    sortBy = "number-of-comments"
+                    sortOrder = "decreasing"
+                    viewModel.searchByFilter(
+                        query,
+                        subId,
+                        null,
+                        null,
+                        null,
+                        sortBy,
+                        sortOrder
+                    )
                 }
 
             }

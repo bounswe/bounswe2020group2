@@ -44,7 +44,7 @@ class SubCategoryViewModel : ViewModel() {
 
 
 
-    fun sort(subId: Int,sortBy: String, sortOrder: String) {
+    fun sort(subId: Int?,sortBy: String, sortOrder: String) {
         GetflixApi.getflixApiService.searchProductsSort(ProSearchSortRequest(sortBy, sortOrder,subId))
             .enqueue(object :
                 Callback<ProSearchByVendorResponse> {
@@ -66,8 +66,8 @@ class SubCategoryViewModel : ViewModel() {
     }
 
 
-    fun searchBySubcategory(subId: Int) {
-        GetflixApi.getflixApiService.searchProductsBySubcategory(ProSearchBySubcategoryRequest(subId))
+    fun searchByFilter(query: String?,subId: Int?, vendor: Int?, rating: Double?, price: Double?, sortBy: String?, sortOrder: String?) {
+        GetflixApi.getflixApiService.searchProductsBySubcategory(ProSearchBySubcategoryRequest(query,subId,vendor,rating,price,sortBy,sortOrder))
             .enqueue(object :
                 Callback<ProSearchBySubcategoryResponse> {
                 override fun onFailure(call: Call<ProSearchBySubcategoryResponse>, t: Throwable) {
@@ -87,24 +87,5 @@ class SubCategoryViewModel : ViewModel() {
             )
     }
 
-    fun searchByQuery(query: String) {
-        GetflixApi.getflixApiService.searchProductsByQuery(ProSearchByQueryRequest(query))
-            .enqueue(object :
-                Callback<ProSearchByVendorResponse> {
-                override fun onFailure(call: Call<ProSearchByVendorResponse>, t: Throwable) {
 
-                }
-
-                override fun onResponse(
-                    call: Call<ProSearchByVendorResponse>,
-                    response: Response<ProSearchByVendorResponse>
-                ) {
-                    println(response.body().toString())
-                    println(response.code())
-                    _productList.value = response.body()!!.data.products as MutableList<ProductModel>
-
-                }
-            }
-            )
-    }
 }

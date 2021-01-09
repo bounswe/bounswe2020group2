@@ -74,7 +74,7 @@ class HomePageFragment : Fragment() {
             println(activity?.search!!.text)
             var query = activity?.search!!.text.toString()
             activity?.search!!.text.clear()
-            view?.findNavController()!!.navigate(actionHomePageFragmentToSubcategoryFragment(-1,query,null,null,null,null))
+            view?.findNavController()!!.navigate(actionHomePageFragmentToSubcategoryFragment(null,query,null,null,null,null))
         }
 
 

@@ -7,5 +7,5 @@ data class ProSearchSortRequest(
     var sortBy: String,
     @SerializedName("sort_order")
     var sortOrder: String,
-    var subcategory: Int
+    var subcategory: Int?
 )
