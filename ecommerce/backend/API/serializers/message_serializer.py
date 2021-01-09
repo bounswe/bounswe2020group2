@@ -14,23 +14,22 @@ class MessageResponseSerializer(serializers.ModelSerializer):
         return obj.sender == self.context["sender"]
 
 class ConversationSerializer(serializers.ModelSerializer):
-    receiver = serializers.SerializerMethodField('get_receiver')
+    counterpart = serializers.SerializerMethodField('get_counterpart')
     messages = serializers.SerializerMethodField('get_messages')
     class Meta:
         model = Message
-        fields = ('receiver', 'messages')
+        fields = ('counterpart', 'messages')
     
-    def get_receiver(self, obj):
+    def get_counterpart(self, obj):
         # all objects in the objects list has the same receiver_id
-        user_serializer = UserSerializer(User.objects.get(obj.receiver.id))
-        if user_serializer.is_valid():
-            full_name = user_serializer.validated_data.get("first_name") + " " 
-            + user_serializer.validated_data.get("last_name")
-            return {'id': obj["receiver_id"], 'name': full_name}
+        counterpart_id = obj.user1.id if self.context["sender"].id == obj.user2.id else obj.user2.id
+        user_serializer = UserSerializer(User.objects.get(id=counterpart_id))
+        full_name = user_serializer.data.get("first_name") + " " + user_serializer.data.get("last_name")
+        return {'id': counterpart_id, 'name': full_name}
     
     def get_messages(self, obj):
-        messages = Message.objects.filter(sender_id=obj["sender_id"]).filter(receiver_id=obj["receiver_id"])
-        serializer = MessageResponseSerializer(messages, context={'sender': obj["sender_id"]}, many=True)
+        messages = Message.objects.filter(conversation=obj)
+        serializer = MessageResponseSerializer(messages, context={'sender': self.context["sender"]}, many=True)
         return serializer.data
     
 # Formats the body of the POST request to make it compatible with the Message model in the database
