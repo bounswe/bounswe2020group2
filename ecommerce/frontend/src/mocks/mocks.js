@@ -891,7 +891,7 @@ export const notifications = [
     },
     {
         id: 3,
-        text: 'A product in your wishlist Summer is now 33% cheaper',
+        text: 'Your order status has changed',
         date: '2020-12-20T14:48:00.000Z',
         is_seen: false,
         type: 'order_status_change',
@@ -951,7 +951,7 @@ export const notifications = [
     },
     {
         id: 5,
-        text: 'A product in your wishlist Classic Guitars is now 9% cheaper',
+        text: 'Your order status has changed',
         date: '2020-11-05T14:48:00.000Z',
         is_seen: true,
         type: 'order_status_change',
