@@ -27,7 +27,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/open_sans_semibold"
-                android:text="@string/price_range"
+                android:text="Max Price: "
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -46,7 +46,7 @@
 
         </LinearLayout>
 
-        <com.google.android.material.slider.RangeSlider
+        <com.google.android.material.slider.Slider
             android:id="@+id/price_slider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

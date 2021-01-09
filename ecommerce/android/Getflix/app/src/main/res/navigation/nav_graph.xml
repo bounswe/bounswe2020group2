@@ -134,7 +134,7 @@
             app:nullable="true"/>
         <argument
             android:name="prices"
-            app:argType="integer[]"
+            app:argType="string"
             app:nullable="true"/>
         <argument
             android:name="brands"

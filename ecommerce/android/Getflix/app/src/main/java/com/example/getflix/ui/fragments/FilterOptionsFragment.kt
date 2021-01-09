@@ -1,5 +1,6 @@
 package com.example.getflix.ui.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.example.getflix.databinding.FragmentFilterOptionsBinding
 import com.example.getflix.ui.fragments.FilterOptionsFragmentDirections.Companion.actionFilterOptionsFragmentToSubcategoryFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.slider.RangeSlider
+import com.google.android.material.slider.Slider
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
@@ -34,7 +36,7 @@ class FilterOptionsFragment : Fragment() {
 
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.filter_options)
-        binding.priceSlider.setValues(0.0f, 100.0f)
+        binding.priceSlider.value = 0.0f
         val args = FilterOptionsFragmentArgs.fromBundle(requireArguments())
         val brandsl = args.brands.toList()
         val vendorsl = args.vendors.toList()
@@ -49,18 +51,14 @@ class FilterOptionsFragment : Fragment() {
             }
         }
 
-
-        var values = arrayListOf<Int>()
-        binding.priceSlider.addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener {
-            override fun onStartTrackingTouch(slider: RangeSlider) {
+        var value = 0.0
+        binding.priceSlider.addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
+            override fun onStartTrackingTouch(slider: Slider) {
                 // TODO("Not yet implemented")
             }
-
-            override fun onStopTrackingTouch(slider: RangeSlider) {
-                values = arrayListOf<Int>()
-                for (price in binding.priceSlider.values)
-                    values.add(price.toInt())
-                binding.price.text = values[0].toString() + " - " + values[1].toString() + " TL"
+            override fun onStopTrackingTouch(slider: Slider) {
+                value = binding.priceSlider.value.toString().toDouble()
+                binding.price.text = "$value TL"
             }
         })
 
@@ -120,7 +118,7 @@ class FilterOptionsFragment : Fragment() {
         }
 
         binding.complete.setOnClickListener {
-            view?.findNavController()!!.navigate(actionFilterOptionsFragmentToSubcategoryFragment(subId, null,values.toIntArray(),brands.toTypedArray(),
+            view?.findNavController()!!.navigate(actionFilterOptionsFragmentToSubcategoryFragment(subId, null,value.toString(),brands.toTypedArray(),
             vendors.toTypedArray(),rating.toString()))
         }
 
