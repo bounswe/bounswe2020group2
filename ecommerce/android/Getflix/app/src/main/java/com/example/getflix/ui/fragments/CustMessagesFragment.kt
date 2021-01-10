@@ -4,16 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentCustMessagesBinding
+import com.example.getflix.ui.fragments.CustMessagesFragmentDirections.Companion.actionCustMessagesFragmentToCustChatFragment
 import com.example.getflix.ui.fragments.CustMessagesFragmentDirections.Companion.actionCustMessagesFragmentToProfileFragment
 import com.squareup.picasso.Picasso
-import com.stfalcon.chatkit.commons.ImageLoader
 import com.stfalcon.chatkit.commons.models.IDialog
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter.OnDialogClickListener
@@ -39,7 +38,9 @@ class CustMessagesFragment : Fragment() {
 
         val dialogsListAdapter: DialogsListAdapter<*> =
             DialogsListAdapter<IDialog<*>> { imageView, url, payload ->
-                Picasso.get().load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG8VkAXFHGYAhHTEy4wAV5RBdB1V6qTU9JVA&usqp=CAU.jpg/format:webp").into(imageView)
+                Picasso.get().load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG8VkAXFHGYAhHTEy4wAV5RBdB1V6qTU9JVA&usqp=CAU.jpg/format:webp").into(
+                    imageView
+                )
             }
 
         binding.dialogsList.setAdapter(dialogsListAdapter)
@@ -57,7 +58,7 @@ class CustMessagesFragment : Fragment() {
         dialogsListAdapter.setItems(dialogs as List<Nothing>?)
 
         dialogsListAdapter.setOnDialogClickListener {
-            //On item click action
+            view?.findNavController()!!.navigate(actionCustMessagesFragmentToCustChatFragment(it.lastMessage.user.id))
         }
 
         activity?.onBackPressedDispatcher!!.addCallback(

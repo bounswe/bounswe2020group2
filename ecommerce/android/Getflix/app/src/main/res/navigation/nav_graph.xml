@@ -325,6 +325,17 @@
     <action
         android:id="@+id/action_custMessagesFragment_to_profileFragment"
         app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_custMessagesFragment_to_custChatFragment"
+            app:destination="@id/custChatFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/custChatFragment"
+        android:name="com.example.getflix.ui.fragments.CustChatFragment"
+        tools:layout="@layout/fragment_cust_chat">
+    <argument
+        android:name="sender"
+        app:argType="string" />
     </fragment>
 
 
