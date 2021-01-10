@@ -7,7 +7,14 @@ import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.CardModel
 import com.example.getflix.models.MessageListModel
 import com.example.getflix.service.GetflixApi
+import com.example.getflix.service.requests.CardAddRequest
+import com.example.getflix.service.requests.SendMessageRequest
+import com.example.getflix.service.responses.AddressDeleteResponse
+import com.example.getflix.service.responses.CardAddResponse
 import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CustMessagesViewModel: ViewModel() {
 
@@ -31,6 +38,28 @@ class CustMessagesViewModel: ViewModel() {
                 }
             }
         }
+    }
+
+    fun sendMessage(messageRequest: SendMessageRequest) {
+        GetflixApi.getflixApiService.sendMessage("Bearer " + MainActivity.StaticData.user!!.token,messageRequest)
+            .enqueue(object :
+                Callback<AddressDeleteResponse> {
+                override fun onFailure(call: Call<AddressDeleteResponse>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<AddressDeleteResponse>,
+                    response: Response<AddressDeleteResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+                    if (response.code()==200) {
+                        println(response.body().toString())
+                    }
+                }
+            }
+            )
     }
 
 }

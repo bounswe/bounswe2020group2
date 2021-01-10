@@ -158,6 +158,10 @@ interface GetflixApiService {
 
     @GET("messages")
     suspend fun getMessages(@Header("Authorization") token: String): Response<MessageListModel>
+
+    @Headers("Content-Type: application/json")
+    @POST("messages")
+    fun sendMessage(@Header("Authorization") token: String, @Body messageData: SendMessageRequest): Call<AddressDeleteResponse>
 }
 
 object GetflixApi {

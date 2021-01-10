@@ -50,7 +50,7 @@ class CustMessagesFragment : Fragment() {
             var listOfMessageLists = arrayListOf<ArrayList<MessageModel>>()
             var i = 0
             for(conversation in it.conversations) {
-                dialogList.add(Dialog(i.toString(),conversation.counterpart.name,null,Message(conversation.messages[conversation.messages.size-1].toString(),Author("2", conversation.counterpart.name, null),conversation.messages[conversation.messages.size-1].text)))
+                dialogList.add(Dialog(i.toString(),conversation.counterpart.name,null,Message(conversation.messages[conversation.messages.size-1].toString(),Author(conversation.counterpart.id.toString(), conversation.counterpart.name, null),conversation.messages[conversation.messages.size-1].text)))
                 i++;
                 listOfMessageLists.add(conversation.messages as ArrayList<MessageModel>)
             }
@@ -71,7 +71,7 @@ class CustMessagesFragment : Fragment() {
             dialogsListAdapter.setOnDialogClickListener {
                 println(it!!.dialogName)
                 view?.findNavController()!!
-                    .navigate(actionCustMessagesFragmentToCustChatFragment("1",listOfMessageLists[it.id.toInt()].toTypedArray(),dialogList[it.id.toInt()].dialogName))
+                    .navigate(actionCustMessagesFragmentToCustChatFragment(it.lastMessage.user.id,listOfMessageLists[it.id.toInt()].toTypedArray(),dialogList[it.id.toInt()].dialogName))
             }
 
             activity?.onBackPressedDispatcher!!.addCallback(

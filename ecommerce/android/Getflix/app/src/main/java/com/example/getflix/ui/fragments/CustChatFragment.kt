@@ -23,7 +23,9 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
 
 
     private lateinit var adapter: MessagesListAdapter<Message>
+    private lateinit var autid: String
     private lateinit var id: String
+    private lateinit var name: String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,7 +38,8 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
         id = args.sender
         var messagesl = args.messages.toCollection(ArrayList())
         println(messagesl.toString())
-        var name = args.name
+        println("SENDER   " + id)
+        name = args.name
 
 
         binding.input.setInputListener(this)
@@ -52,16 +55,15 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
         activity?.toolbar!!.toolbar_title.text = name
         var messages = arrayListOf<Message>()
         adapter = MessagesListAdapter<Message>("0", imageLoader)
-        messagesl[0].sentByMe=false
         for(message in messagesl) {
             if(message.sentByMe) {
-                id = "1"
+                autid = "0"
             }
             else {
-                id = "0"
+                autid = "1"
             }
             messages.add(Message("0", Author(
-                id,
+                autid,
                 name,
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVH3uxAhDbIZZqSLcgPoc3kpM1S0Vsy5VXg&usqp=CAU.jpg/format:webp",
             ), message.text))
@@ -87,7 +89,7 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
 
     override fun onSubmit(input: CharSequence) : Boolean {
         adapter.addToStart(
-            Message("1", Author("0", "Samsung", null), input.toString()),
+            Message("1", Author("0", name, null), input.toString()),
             true
         )
         return true
