@@ -79,7 +79,6 @@ interface GetflixApiService {
     @GET("categories")
     suspend fun getCategories(): Response<CategoryListModel>
 
-
     @GET("customer/{customerId}/addresses")
     suspend fun getCustomerAddresses(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Response<AddressListModel>
 
@@ -157,7 +156,8 @@ interface GetflixApiService {
     @PUT("vendor/product")
     fun updateVendorProduct(@Header("Authorization") token: String, @Body vendorProData: VendorProUpdateRequest): Call<VendorProUpdateResponse>
 
-
+    @GET("messages")
+    suspend fun getMessages(@Header("Authorization") token: String): Response<MessageListModel>
 }
 
 object GetflixApi {

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentCustMessagesBinding
@@ -15,6 +16,7 @@ import com.example.getflix.models.Dialog
 import com.example.getflix.models.Message
 import com.example.getflix.ui.fragments.CustMessagesFragmentDirections.Companion.actionCustMessagesFragmentToCustChatFragment
 import com.example.getflix.ui.fragments.CustMessagesFragmentDirections.Companion.actionCustMessagesFragmentToProfileFragment
+import com.example.getflix.ui.viewmodels.CustMessagesViewModel
 import com.squareup.picasso.Picasso
 import com.stfalcon.chatkit.commons.models.IDialog
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter
@@ -26,6 +28,7 @@ class CustMessagesFragment : Fragment() {
 
 
     private lateinit var binding: FragmentCustMessagesBinding
+    private lateinit var messagesViewModel: CustMessagesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +40,14 @@ class CustMessagesFragment : Fragment() {
         )
 
         activity?.toolbar!!.toolbar_title.text = "Messages"
+        messagesViewModel = ViewModelProvider(this).get(CustMessagesViewModel::class.java)
+        messagesViewModel.getMessages()
+
+        messagesViewModel.messageList.observe(viewLifecycleOwner, {
+            println(it.toString())
+            println("heyyy")
+        })
+
 
         val dialogsListAdapter: DialogsListAdapter<*> =
             DialogsListAdapter<IDialog<*>> { imageView, url, payload ->
