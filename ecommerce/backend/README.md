@@ -6,10 +6,13 @@ To setup your development environment:
 
 3. Install all requirements `pip install -r requirements.txt`
 
-4. Add the values in the secrets.json as environment variable. You will reach to database from Aws so no need to create db instance in your local
+4. Create the last version of the aws db in your local using the updated version of dump.sql using `psql testdb < dump.sql` command.
 
 5. Create migration files `python manage.py makemigrations`
 
 6. Handle database migrations if any `python manage.py migrate`
 
 7. Run development server `python manage.py runserver`
+
+8. Run unit tests at the end  `python manage.py test`
+

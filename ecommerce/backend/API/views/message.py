@@ -14,6 +14,9 @@ from ..serializers.message_serializer import *
 @permission_classes([permissions.AllowAnonymous])
 def manage_messages(request):
     sender = request.user
+    # if user is not logged in, return 403_FORBIDDEN
+    if not sender.id:
+        return Response(status=status.HTTP_403_FORBIDDEN)
     # get all conversations
     if request.method == 'GET':
         # get all conversations
