@@ -5,24 +5,24 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.getflix.databinding.FavproductLayoutBinding
-import com.example.getflix.models.ProductModel
+import com.example.getflix.databinding.ListItemLayoutBinding
+import com.example.getflix.models.ListModel
 
-class FavoritesAdapter(
-        private val productList: ArrayList<ProductModel>?,
-) : ListAdapter<ProductModel, FavoritesAdapter.RowHolder>(FavoritesDiffCallback()) {
+class ListsAdapter(
+        private val listList: ArrayList<ListModel>?,
+) : ListAdapter<ListModel, ListsAdapter.RowHolder>(ListsDiffCallback()) {
 
-    class RowHolder(val binding: FavproductLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    class RowHolder(val binding: ListItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(product: ProductModel, position: Int) {
-            binding.product = product
+        fun bind(list: ListModel, position: Int) {
+            binding.list = list
 
         }
 
         companion object {
             fun from(parent: ViewGroup): RowHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = FavproductLayoutBinding.inflate(layoutInflater, parent, false)
+                val binding = ListItemLayoutBinding.inflate(layoutInflater, parent, false)
                 return RowHolder(binding)
             }
         }
@@ -42,18 +42,18 @@ class FavoritesAdapter(
 
 
     override fun onBindViewHolder(holder: RowHolder, position: Int) {
-        productList?.get(position)?.let { holder.bind(it, position) }
+        listList?.get(position)?.let { holder.bind(it, position) }
     }
 
 
 }
 
-class FavoritesDiffCallback : DiffUtil.ItemCallback<ProductModel>() {
-    override fun areItemsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
+class ListsDiffCallback : DiffUtil.ItemCallback<ListModel>() {
+    override fun areItemsTheSame(oldItem: ListModel, newItem: ListModel): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
+    override fun areContentsTheSame(oldItem: ListModel, newItem: ListModel): Boolean {
         return oldItem == newItem
     }
 
