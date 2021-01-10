@@ -2,7 +2,6 @@ package com.example.getflix.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +10,7 @@ import com.example.getflix.models.ListModel
 import com.example.getflix.ui.fragments.ListsFragmentDirections
 
 class ListsAdapter(
-        private val listList: ArrayList<ListModel>?,
+        private val listList: ArrayList<ListModel>?
 ) : ListAdapter<ListModel, ListsAdapter.RowHolder>(ListsDiffCallback()) {
 
     class RowHolder(val binding: ListItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
