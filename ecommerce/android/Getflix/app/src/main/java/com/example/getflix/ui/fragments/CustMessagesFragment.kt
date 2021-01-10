@@ -10,12 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentCustMessagesBinding
+import com.example.getflix.models.Author
+import com.example.getflix.models.Dialog
+import com.example.getflix.models.Message
 import com.example.getflix.ui.fragments.CustMessagesFragmentDirections.Companion.actionCustMessagesFragmentToCustChatFragment
 import com.example.getflix.ui.fragments.CustMessagesFragmentDirections.Companion.actionCustMessagesFragmentToProfileFragment
 import com.squareup.picasso.Picasso
 import com.stfalcon.chatkit.commons.models.IDialog
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter
-import com.stfalcon.chatkit.dialogs.DialogsListAdapter.OnDialogClickListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
@@ -47,18 +49,18 @@ class CustMessagesFragment : Fragment() {
         var dialogs = listOf(
             (Dialog(
                 "1", "Samsung", null, arrayListOf<Author>(
-                    Author("1", "Ali", null, true)
-                ), Message("1", Author("2", "Ayse", null, false), "hello"), 2
+                    Author("1", "Ali", null)
+                ), Message("1", Author("2", "Ayse", null), "hello")
             )), Dialog(
                 "1", "Adidas", null, arrayListOf<Author>(
-                    Author("1", "Ali", null, true)
-                ), Message("1", Author("2", "Ayse", null, false), "hello"), 2
+                    Author("1", "Ali", null)
+                ), Message("1", Author("2", "Ayse", null), "hello")
             )
         )
         dialogsListAdapter.setItems(dialogs as List<Nothing>?)
 
         dialogsListAdapter.setOnDialogClickListener {
-            view?.findNavController()!!.navigate(actionCustMessagesFragmentToCustChatFragment(it.lastMessage.user.id))
+            view?.findNavController()!!.navigate(actionCustMessagesFragmentToCustChatFragment(it.dialogName))
         }
 
         activity?.onBackPressedDispatcher!!.addCallback(

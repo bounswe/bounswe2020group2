@@ -134,7 +134,7 @@
                     android:id="@+id/messages"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_baseline_location_on_24"
+                    android:drawableLeft="@drawable/ic_messagescust"
                     android:drawableRight="@drawable/ic_arrow_forward"
                     android:drawablePadding="10dp"
                     android:fontFamily="@font/open_sans_semibold"

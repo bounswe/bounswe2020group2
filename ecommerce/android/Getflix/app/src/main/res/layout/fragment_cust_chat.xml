@@ -16,6 +16,7 @@
             android:id="@+id/messagesList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:outcomingDefaultBubbleColor="@color/initGold"
             android:layout_above="@+id/input"/>
 
         <View

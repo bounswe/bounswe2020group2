@@ -1,4 +1,4 @@
-package com.example.getflix.ui.fragments
+package com.example.getflix.models
 
 import com.stfalcon.chatkit.commons.models.IUser
 
@@ -6,7 +6,6 @@ class Author(
     private val id: String,
     private val name: String,
     private val avatar: String?,
-    val isOnline: Boolean
 ) :
     IUser {
 

@@ -1,20 +1,18 @@
-package com.example.getflix.ui.fragments
+package com.example.getflix.models
 
 import com.stfalcon.chatkit.commons.models.IDialog
 
 
 class Dialog(
     private val id: String, private val dialogName: String, private val dialogPhoto: String?,
-    users: ArrayList<Author>, lastMessage: Message, unreadCount: Int
+    users: ArrayList<Author>, lastMessage: Message
 ) :
     IDialog<Message>  {
     private val users: ArrayList<Author> = users
     private var lastMessage: Message
-    private var unreadCount: Int
 
     init {
         this.lastMessage = lastMessage
-        this.unreadCount = unreadCount
     }
 
 
@@ -43,11 +41,7 @@ class Dialog(
     }
 
     override fun getUnreadCount(): Int {
-        return unreadCount
-    }
-
-    fun setUnreadCount(unreadCount: Int) {
-        this.unreadCount = unreadCount
+      return 0
     }
 
 
