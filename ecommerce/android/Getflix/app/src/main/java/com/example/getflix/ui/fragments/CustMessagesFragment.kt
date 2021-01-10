@@ -14,6 +14,7 @@ import com.example.getflix.databinding.FragmentCustMessagesBinding
 import com.example.getflix.models.Author
 import com.example.getflix.models.Dialog
 import com.example.getflix.models.Message
+import com.example.getflix.models.MessageModel
 import com.example.getflix.ui.fragments.CustMessagesFragmentDirections.Companion.actionCustMessagesFragmentToCustChatFragment
 import com.example.getflix.ui.fragments.CustMessagesFragmentDirections.Companion.actionCustMessagesFragmentToProfileFragment
 import com.example.getflix.ui.viewmodels.CustMessagesViewModel
@@ -44,49 +45,48 @@ class CustMessagesFragment : Fragment() {
         messagesViewModel.getMessages()
 
         messagesViewModel.messageList.observe(viewLifecycleOwner, {
-            println(it.toString())
-            println("heyyy")
-        })
-
-
-        val dialogsListAdapter: DialogsListAdapter<*> =
-            DialogsListAdapter<IDialog<*>> { imageView, url, payload ->
-                Picasso.get().load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG8VkAXFHGYAhHTEy4wAV5RBdB1V6qTU9JVA&usqp=CAU.jpg/format:webp").into(
-                    imageView
-                )
+            //println(it.toString())
+            var dialogList = arrayListOf<Dialog>()
+            var listOfMessageLists = arrayListOf<ArrayList<MessageModel>>()
+            var i = 0
+            for(conversation in it.conversations) {
+                dialogList.add(Dialog(i.toString(),conversation.counterpart.name,null,Message(conversation.messages[conversation.messages.size-1].toString(),Author("2", conversation.counterpart.name, null),conversation.messages[conversation.messages.size-1].text)))
+                i++;
+                listOfMessageLists.add(conversation.messages as ArrayList<MessageModel>)
             }
 
-        binding.dialogsList.setAdapter(dialogsListAdapter)
-        var dialogs = listOf(
-            (Dialog(
-                "1", "Samsung", null, arrayListOf<Author>(
-                    Author("1", "Ali", null)
-                ), Message("1", Author("2", "Ayse", null), "hello")
-            )), Dialog(
-                "1", "Adidas", null, arrayListOf<Author>(
-                    Author("1", "Ali", null)
-                ), Message("1", Author("2", "Ayse", null), "hello")
-            )
-        )
-        dialogsListAdapter.setItems(dialogs as List<Nothing>?)
 
-        dialogsListAdapter.setOnDialogClickListener {
-            view?.findNavController()!!.navigate(actionCustMessagesFragmentToCustChatFragment(it.dialogName))
-        }
+            val dialogsListAdapter: DialogsListAdapter<*> =
+                DialogsListAdapter<IDialog<*>> { imageView, url, payload ->
+                    Picasso.get()
+                        .load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG8VkAXFHGYAhHTEy4wAV5RBdB1V6qTU9JVA&usqp=CAU.jpg/format:webp")
+                        .into(
+                            imageView
+                        )
+                }
 
-        activity?.onBackPressedDispatcher!!.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    if (isEnabled) {
-                        isEnabled = false
-                        view?.findNavController()!!
-                            .navigate(actionCustMessagesFragmentToProfileFragment())
+            binding.dialogsList.setAdapter(dialogsListAdapter)
+            dialogsListAdapter.setItems(dialogList.toList() as List<Nothing>?)
+
+            dialogsListAdapter.setOnDialogClickListener {
+                println(it!!.dialogName)
+                view?.findNavController()!!
+                    .navigate(actionCustMessagesFragmentToCustChatFragment("1",listOfMessageLists[it.id.toInt()].toTypedArray(),dialogList[it.id.toInt()].dialogName))
+            }
+
+            activity?.onBackPressedDispatcher!!.addCallback(
+                viewLifecycleOwner,
+                object : OnBackPressedCallback(true) {
+                    override fun handleOnBackPressed() {
+                        if (isEnabled) {
+                            isEnabled = false
+                            view?.findNavController()!!
+                                .navigate(actionCustMessagesFragmentToProfileFragment())
+                        }
                     }
                 }
-            }
-        )
-
+            )
+        })
 
         return binding.root
     }

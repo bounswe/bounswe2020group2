@@ -34,6 +34,10 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
         )
         val args = CustChatFragmentArgs.fromBundle(requireArguments())
         id = args.sender
+        var messagesl = args.messages.toCollection(ArrayList())
+        println(messagesl.toString())
+        var name = args.name
+
 
         binding.input.setInputListener(this)
         binding.input.setAttachmentsListener(this)
@@ -45,39 +49,24 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
             Picasso.get().load(url).into(imageView)
         }
 
-        activity?.toolbar!!.toolbar_title.text = id
-
+        activity?.toolbar!!.toolbar_title.text = name
+        var messages = arrayListOf<Message>()
         adapter = MessagesListAdapter<Message>("0", imageLoader)
-        var messages = arrayListOf<Message>(
-            Message(
-                "1", Author(
-                    "0",
-                    "Samsung",
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVH3uxAhDbIZZqSLcgPoc3kpM1S0Vsy5VXg&usqp=CAU.jpg/format:webp",
-                ), "0"
-            ),
-            Message(
-                "2", Author(
-                    "6",
-                    "Samsung",
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVH3uxAhDbIZZqSLcgPoc3kpM1S0Vsy5VXg&usqp=CAU.jpg/format:webp",
-                ), "6"
-            ),
-            Message(
-                "3", Author(
-                    "2",
-                    "Samsung",
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVH3uxAhDbIZZqSLcgPoc3kpM1S0Vsy5VXg&usqp=CAU.jpg/format:webp",
-                ), "2"
-            ),
-            Message(
-                "4", Author(
-                    "7",
-                    "Samsung",
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVH3uxAhDbIZZqSLcgPoc3kpM1S0Vsy5VXg&usqp=CAU.jpg/format:webp",
-                ), "7"
-            )
-        )
+        messagesl[0].sentByMe=false
+        for(message in messagesl) {
+            if(message.sentByMe) {
+                id = "1"
+            }
+            else {
+                id = "0"
+            }
+            messages.add(Message("0", Author(
+                id,
+                name,
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVH3uxAhDbIZZqSLcgPoc3kpM1S0Vsy5VXg&usqp=CAU.jpg/format:webp",
+            ), message.text))
+        }
+
         // komple sağa ekliyor
         adapter.addToEnd(messages, true)
 
