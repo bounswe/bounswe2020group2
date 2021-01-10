@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
-import com.example.getflix.databinding.FragmentFavoritesBinding
+import com.example.getflix.databinding.FragmentListsBinding
 import com.example.getflix.models.*
 import com.example.getflix.ui.adapters.ListsAdapter
 import com.example.getflix.ui.viewmodels.ListViewModel
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 
-class FavoritesFragment : Fragment() {
+class ListsFragment : Fragment() {
 
     private lateinit var viewModel: ListViewModel
 
@@ -26,15 +26,15 @@ class FavoritesFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentFavoritesBinding>(
-                inflater, R.layout.fragment_favorites,
+        val binding = DataBindingUtil.inflate<FragmentListsBinding>(
+                inflater, R.layout.fragment_lists,
                 container, false
         )
 
         viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
         binding.viewmodel = ListViewModel()
         activity?.toolbar!!.toolbar_title.text = getString(R.string.lists)
-        val recView = binding?.favoritesList as RecyclerView
+        val recView = binding?.listsList as RecyclerView
         /*var zaraJacket1 =
                 ProductModel(10, "Jacket", "222", "1", "Zara", 1, 1, 1, "Nice jacket", "1", "1", "1", "1")
         var zaraJacket2 =
@@ -57,9 +57,11 @@ class FavoritesFragment : Fragment() {
             4.545454545454546,
             list1, 10504.045, false)
         val products = arrayListOf(product)
-        var list =
-            ListModel(10, "My List", products)
-        val lists = arrayListOf<ListModel>()
+        var list3 =
+            ListModel(10, "My Summer Collection", products)
+        var list4 =
+            ListModel(20, "My Winter Collection", products)
+        val lists = arrayListOf<ListModel>(list3, list4)
         val listAdapter = ListsAdapter(lists)
         recView.adapter = listAdapter
         recView.setHasFixedSize(true)

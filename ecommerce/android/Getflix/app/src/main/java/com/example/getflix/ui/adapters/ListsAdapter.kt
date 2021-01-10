@@ -16,7 +16,6 @@ class ListsAdapter(
 
         fun bind(list: ListModel, position: Int) {
             binding.list = list
-
         }
 
         companion object {
