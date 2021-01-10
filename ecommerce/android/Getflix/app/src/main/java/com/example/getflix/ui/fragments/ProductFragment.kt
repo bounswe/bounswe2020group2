@@ -71,8 +71,8 @@ class ProductFragment : Fragment() {
         val indicator: CircleIndicator2 = binding.circleIndicator
         indicator.attachToRecyclerView(binding.images, pagerSnapHelper)
 
-        binding.like.setOnClickListener {
-            productViewModel.onLikeClick()
+        binding.save.setOnClickListener {
+            productViewModel.onSaveClick()
         }
         binding.imageView7.setOnClickListener {
             val scrollView = binding.scrollView
@@ -141,11 +141,11 @@ class ProductFragment : Fragment() {
             }
 
         })
-        productViewModel.isLiked.observe(viewLifecycleOwner, Observer {
+        productViewModel.isSaved.observe(viewLifecycleOwner, Observer {
             if (it) {
-                binding.like.setImageResource(R.drawable.ic_filled_like)
+                binding.save.setImageResource(R.drawable.saved_product)
             } else {
-                binding.like.setImageResource(R.drawable.ic_like)
+                binding.save.setImageResource(R.drawable.nonsaved_product)
             }
         })
 
