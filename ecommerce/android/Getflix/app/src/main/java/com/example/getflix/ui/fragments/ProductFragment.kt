@@ -15,12 +15,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
+import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentProductBinding
 import com.example.getflix.doneAlert
 import com.example.getflix.ui.adapters.CommentAdapter
 import com.example.getflix.ui.adapters.ImageAdapter
 import com.example.getflix.ui.adapters.RecommenderAdapter
 import com.example.getflix.ui.viewmodels.ProductViewModel
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 import me.relex.circleindicator.CircleIndicator2
 
 
@@ -32,13 +35,15 @@ class ProductFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate<FragmentProductBinding>(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_product,
             container, false
         )
         val args = ProductFragmentArgs.fromBundle(requireArguments())
         productViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
         productViewModel.getProduct(args.productId)
+
+        activity?.toolbar_lay!!.visibility = View.GONE
 
         val recommenderAdapter = RecommenderAdapter()
         val imageAdapter = ImageAdapter()
@@ -143,6 +148,11 @@ class ProductFragment : Fragment() {
                 binding.like.setImageResource(R.drawable.ic_like)
             }
         })
+
+        binding.btnBack.setOnClickListener {
+            view?.findNavController()!!.popBackStack()
+        }
+
         return binding.root
 
     }
@@ -167,6 +177,11 @@ class ProductFragment : Fragment() {
         if (rating.toInt() == 5) {
             binding.star5.setImageResource(R.drawable.ic_filled_star)
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        activity?.toolbar_lay!!.visibility = View.VISIBLE
     }
 
 }
