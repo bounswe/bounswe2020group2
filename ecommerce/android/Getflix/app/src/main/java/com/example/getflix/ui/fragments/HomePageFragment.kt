@@ -1,9 +1,11 @@
 package com.example.getflix.ui.fragments
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -16,11 +18,12 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.getflix.R
-
 import com.example.getflix.categories
 import com.example.getflix.databinding.FragmentNewHomeBinding
+import com.example.getflix.hideKeyboard
 import com.example.getflix.ui.adapters.*
 import com.example.getflix.ui.fragments.HomePageFragment.StaticData.recyclerViewFirstPosition
+import com.example.getflix.ui.fragments.HomePageFragmentDirections.Companion.actionHomePageFragmentToSubcategoryFragment
 import com.example.getflix.ui.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -35,6 +38,7 @@ class HomePageFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,9 +56,26 @@ class HomePageFragment : Fragment() {
         activity?.toolbar_lay!!.visibility = View.VISIBLE
         activity?.toolbar!!.toolbar_title.text = getString(R.string.home)
         activity?.toolbar!!.btn_notification.visibility = View.VISIBLE
+        activity?.search!!.visibility = View.VISIBLE
+        activity?.btn_search!!.visibility = View.VISIBLE
+        activity?.toolbar!!.toolbar_title.visibility = View.GONE
 
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         binding.lifecycleOwner = this
+
+
+        activity?.search!!.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                activity?.toolbar!!.requestFocus()
+            }
+        }
+
+        activity?.btn_search!!.setOnClickListener {
+            println(activity?.search!!.text)
+            var query = activity?.search!!.text.toString()
+            activity?.search!!.text.clear()
+            view?.findNavController()!!.navigate(actionHomePageFragmentToSubcategoryFragment(null,query,null,null,null,null))
+        }
 
 
         val adapterForHomeCategories = HomeCategoriesAdapter(viewLifecycleOwner)
@@ -103,7 +124,7 @@ class HomePageFragment : Fragment() {
 
         val indicator: CircleIndicator2 = binding.indicator
         indicator.attachToRecyclerView(binding.todaysDeals, pagerSnapHelper)
-        indicator.createIndicators(4,0);
+        indicator.createIndicators(4, 0);
 
 
         binding.homeRecommendedProducts.adapter = adapterForRecommendedProducts
@@ -113,11 +134,9 @@ class HomePageFragment : Fragment() {
 
 
         binding.editorPicks.adapter = adapterForEditorsPicks
-        binding.editorPicks.setLayoutManager(
-            StaggeredGridLayoutManager(
-                2,
-                StaggeredGridLayoutManager.VERTICAL
-            )
+        binding.editorPicks.layoutManager = StaggeredGridLayoutManager(
+            2,
+            StaggeredGridLayoutManager.VERTICAL
         )
 
         val decoration = SpaceGenerator(18)
@@ -138,10 +157,14 @@ class HomePageFragment : Fragment() {
         })
 
         HomeViewModel.onProductClick.observe(viewLifecycleOwner, Observer {
-            if(it!=null){
+            if (it != null) {
                 val productId = it.id
                 HomeViewModel.onProductClick.value = null
-                view?.findNavController()?.navigate(HomePageFragmentDirections.actionHomePageFragmentToProductFragment2(productId))
+                view?.findNavController()?.navigate(
+                    HomePageFragmentDirections.actionHomePageFragmentToProductFragment2(
+                        productId
+                    )
+                )
 
             }
         })
@@ -151,5 +174,8 @@ class HomePageFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         activity?.toolbar!!.btn_notification.visibility = View.GONE
+        activity?.search!!.visibility = View.GONE
+        activity?.btn_search!!.visibility = View.GONE
+        activity?.toolbar!!.toolbar_title.visibility = View.VISIBLE
     }
 }

@@ -30,7 +30,8 @@ class SubCategoryAdapter(
             binding.product = product
             Picasso.get().load(product.images[0]).into(binding.productImage)
 
-            var amount = binding.amountRecProduct.text.toString().toInt()
+            //var amount = binding.amountRecProduct.text.toString().toInt()
+            binding.rating.rating = product.rating.toFloat()
 
             binding.product = product
             if (product.price.toString().length > 5) {
@@ -48,7 +49,7 @@ class SubCategoryAdapter(
                 binding.productPrice.text = product.priceDiscounted.toString() + " TL"
 
             }
-            if (MainActivity.StaticData.isCustomer) {
+            /*if (MainActivity.StaticData.isCustomer) {
                 binding.addShopping.setOnClickListener {
                     addToShoppingCart(amount, 1, product.id)
                 }
@@ -63,7 +64,7 @@ class SubCategoryAdapter(
                 amount = amount.inc()
                 binding.amountRecProduct.text = amount.toString()
 
-            }
+            } */
 
         }
 

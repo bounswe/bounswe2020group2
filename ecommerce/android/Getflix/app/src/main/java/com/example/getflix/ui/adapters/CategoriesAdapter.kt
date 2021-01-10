@@ -42,7 +42,7 @@ class CategoriesAdapter(groups: List<ExpandableGroup<*>>?, fragment: CategoriesF
         holder?.bind(subCat)
         holder?.itemView!!.setOnClickListener {
             val subId = subCat.id
-            fragment.findNavController().navigate(actionCategoriesFragmentToSubcategoryFragment(subId))
+            fragment.findNavController().navigate(actionCategoriesFragmentToSubcategoryFragment(subId.toString(),null,null,null,null,null))
         }
 
 
