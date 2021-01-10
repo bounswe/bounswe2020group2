@@ -3,13 +3,14 @@ package com.example.getflix.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.ListProductItemBinding
 import com.example.getflix.models.ListProductModel
 
 class ListProductsAdapter(
     private val listProductList: ArrayList<ListProductModel>?
-) : ListProductsAdapter<ListProductModel, ListProductsAdapter.RowHolder>(ListProductsDiffCallback()) {
+) : ListAdapter<ListProductModel, ListProductsAdapter.RowHolder>(ListProductsDiffCallback()) {
 
     class RowHolder(val binding: ListProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
 

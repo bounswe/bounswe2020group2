@@ -53,10 +53,6 @@ class ListsAdapter(
     }
 
 
-    override fun onBindViewHolder(holder: RowHolder, position: Int) {
-        listList?.get(position)?.let { holder.bind(it, position) }
-    }
-
 
 }
 
