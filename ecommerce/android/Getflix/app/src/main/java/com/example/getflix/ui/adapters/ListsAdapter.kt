@@ -2,11 +2,13 @@ package com.example.getflix.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.ListItemLayoutBinding
 import com.example.getflix.models.ListModel
+import com.example.getflix.ui.fragments.ListsFragmentDirections
 
 class ListsAdapter(
         private val listList: ArrayList<ListModel>?,
@@ -38,6 +40,18 @@ class ListsAdapter(
         }
         return 0;
     }*/
+
+    override fun onBindViewHolder(holder: ListsAdapter.RowHolder, position: Int) {
+        listList?.get(position)?.let {
+            holder.bind(it, position)
+            holder?.itemView!!.setOnClickListener {
+                fragment.findNavController().navigate(
+                    ListsFragmentDirections.actionFavoritesFragmentToListProductsFragment(
+                        listList?.get(position)!!)
+                )
+            }
+        }
+    }
 
 
     override fun onBindViewHolder(holder: RowHolder, position: Int) {
