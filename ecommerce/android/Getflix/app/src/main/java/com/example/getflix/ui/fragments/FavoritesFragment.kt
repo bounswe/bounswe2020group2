@@ -11,16 +11,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentFavoritesBinding
-import com.example.getflix.models.ProductModel
-import com.example.getflix.ui.adapters.FavoritesAdapter
-import com.example.getflix.ui.viewmodels.FavoritesViewModel
+import com.example.getflix.models.ListModel
+import com.example.getflix.ui.adapters.ListsAdapter
+import com.example.getflix.ui.viewmodels.ListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 
 class FavoritesFragment : Fragment() {
 
-    private lateinit var viewModel: FavoritesViewModel
+    private lateinit var viewModel: ListViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -31,9 +31,9 @@ class FavoritesFragment : Fragment() {
                 container, false
         )
 
-        viewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
-        binding.viewmodel = FavoritesViewModel()
-        activity?.toolbar!!.toolbar_title.text = getString(R.string.favorites)
+        viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
+        binding.viewmodel = ListViewModel()
+        activity?.toolbar!!.toolbar_title.text = getString(R.string.lists)
         val recView = binding?.favoritesList as RecyclerView
         /*var zaraJacket1 =
                 ProductModel(10, "Jacket", "222", "1", "Zara", 1, 1, 1, "Nice jacket", "1", "1", "1", "1")
@@ -48,18 +48,18 @@ class FavoritesFragment : Fragment() {
         var zaraSkirt3 =
                 ProductModel(6, "Skirt", "102", "1", "Zara", 1, 1, 1, "Amazing skirt", "1", "1", "1", "1")
         val products = arrayListOf(zaraSkirt3, zaraJacket1, zaraSkirt2, zaraJacket2, zaraSkirt1, zaraJacket3)*/
-        val products = arrayListOf<ProductModel>()
-        val productListAdapter = FavoritesAdapter(products)
-        recView.adapter = productListAdapter
+        val lists = arrayListOf<ListModel>()
+        val listAdapter = ListsAdapter(lists)
+        recView.adapter = listAdapter
         recView.setHasFixedSize(true)
 
-        for (product in products) {
-            viewModel.addProduct(product)
+        for (list in lists) {
+            viewModel.addList(list)
         }
 
-        viewModel.productList.observe(viewLifecycleOwner, Observer {
+        viewModel.listList.observe(viewLifecycleOwner, Observer {
             it?.let {
-                productListAdapter.submitList(it)
+                listAdapter.submitList(it)
             }
         })
 
