@@ -13,3 +13,6 @@ To setup your development environment:
 6. Handle database migrations if any `python manage.py migrate`
 
 7. Run development server `python manage.py runserver`
+
+8. Run unit tests at the end  `python manage.py test`
+
