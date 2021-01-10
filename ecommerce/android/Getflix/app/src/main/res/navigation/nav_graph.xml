@@ -118,9 +118,13 @@
             app:popExitAnim="@anim/exit_right_to_left" />
     </fragment>
     <fragment
-        android:id="@+id/favoritesFragment"
+        android:id="@+id/listsFragment"
         android:name="com.example.getflix.ui.fragments.ListsFragment"
-        tools:layout="@layout/fragment_lists" />
+        tools:layout="@layout/fragment_lists" >
+        <action
+            android:id="@+id/action_listsFragment_to_listProductsFragment"
+            app:destination="@id/listProductsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/subcategoryFragment"
         android:name="com.example.getflix.ui.fragments.SubcategoryFragment"
@@ -315,6 +319,11 @@
         android:name="product"
         app:argType="com.example.getflix.models.ProductModel" />
     </fragment>
+    <fragment
+        android:id="@+id/listProductsFragment"
+        android:name="com.example.getflix.ui.fragments.ListProductsFragment"
+        android:label="fragment_list_products"
+        tools:layout="@layout/fragment_list_products" />
 
 
 </navigation>
