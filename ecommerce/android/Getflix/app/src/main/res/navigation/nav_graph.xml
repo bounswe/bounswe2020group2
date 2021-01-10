@@ -119,8 +119,8 @@
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.example.getflix.ui.fragments.FavoritesFragment"
-        tools:layout="@layout/fragment_favorites" />
+        android:name="com.example.getflix.ui.fragments.ListsFragment"
+        tools:layout="@layout/fragment_lists" />
     <fragment
         android:id="@+id/subcategoryFragment"
         android:name="com.example.getflix.ui.fragments.SubcategoryFragment"
