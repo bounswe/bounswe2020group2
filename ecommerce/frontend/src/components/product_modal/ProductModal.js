@@ -1,10 +1,11 @@
 import { Form, Modal, Spin } from "antd"
 import { useState } from "react"
+import { ProductModalInner } from "./ProductModalInner"
 
 export const ProductModal = ({
     product,
     mode = 'add',
-    visible = true,
+    visible = true, // don't forget to make this false later
     onCancel = () => { },
     onSuccess = () => { } }) => {
 
@@ -30,7 +31,7 @@ export const ProductModal = ({
             cancelText="Cancel"
             okText={mode === 'add' ? 'Add' : 'Edit'}>
             <Spin spinning={isLoading}>
-                hey
+                <ProductModalInner />
             </Spin>
         </Modal>
     )
