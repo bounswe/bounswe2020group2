@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentFavoritesBinding
-import com.example.getflix.models.ListModel
+import com.example.getflix.models.*
 import com.example.getflix.ui.adapters.ListsAdapter
 import com.example.getflix.ui.viewmodels.ListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -46,8 +46,19 @@ class FavoritesFragment : Fragment() {
         var zaraSkirt2 =
                 ProductModel(5, "Skirt", "93", "1", "Zara", 1, 1, 1, "Cool skirt", "1", "1", "1", "1")
         var zaraSkirt3 =
-                ProductModel(6, "Skirt", "102", "1", "Zara", 1, 1, 1, "Amazing skirt", "1", "1", "1", "1")
-        val products = arrayListOf(zaraSkirt3, zaraJacket1, zaraSkirt2, zaraJacket2, zaraSkirt1, zaraJacket3)*/
+                ProductModel(6, "Skirt", "102", "1", "Zara", 1, 1, 1, "Amazing skirt", "1", "1", "1", "1")*/
+        val list1 = listOf<String>()
+        val list2 = mutableListOf<SubcategoryModel>()
+        var product= ProductModel(27, "Samsung S20 Ultra", 10999.0, "2020-12-26T10:47:38.961041Z", 50, 11, 50,
+        "Ekran Boyutu: 6.2', Ekran Çözünürlüğü: 1440x3200 px, Arka Kamera: 12 MP, Üçlü Kamera, Ön Kamera: 10 MP, 4G, Dahili Hafıza: 128 GB",
+        SubcategoryModel("Cell Phones & Accessories", 2),
+        "Galaxy S serisi akıllı cep telefonlarıyla nefes kesici teknolojik yenilikleri sergileyen Samsung, sinematik kare/saniye oranlarında ve 8K çözünürlükte video kaydı yapan",
+            0.045 , CategoryModel("Electronics", 1, list2), BrandModel("Samsung",18), VendorModel(0.0,3, "Can Batuk"),
+            4.545454545454546,
+            list1, 10504.045, false)
+        val products = arrayListOf(product)
+        var list =
+            ListModel(10, "My List", products)
         val lists = arrayListOf<ListModel>()
         val listAdapter = ListsAdapter(lists)
         recView.adapter = listAdapter
