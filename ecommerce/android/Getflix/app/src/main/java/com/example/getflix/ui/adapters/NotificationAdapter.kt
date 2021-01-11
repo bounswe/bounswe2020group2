@@ -3,13 +3,14 @@ package com.example.getflix.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.NotificationItemBinding
 import com.example.getflix.models.NotificationModel
 
 class NotificationAdapter(
     private val notificationlist: ArrayList<NotificationModel>?,
-) : NotificationAdapter<NotificationModel, NotificationAdapter.RowHolder>(NotificationsDiffCallback()) {
+) : ListAdapter<NotificationModel, NotificationAdapter.RowHolder>(NotificationsDiffCallback()) {
 
     class RowHolder(val binding: NotificationItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
