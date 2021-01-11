@@ -40,9 +40,9 @@ class NotificationFragment : Fragment() {
         val recView = binding?.notificationList as RecyclerView
 
         var not1 =
-            NotificationModel(10, "Discount!")
+            NotificationModel(10, "2 items in your shopping cart are now on sale! Don't miss out - order now!")
         var not2 =
-            NotificationModel(10, "Discount!")
+            NotificationModel(10, "Sale today on all winter items! Come into the store for a special %30 discount.")
         val nots = arrayListOf<NotificationModel>(not1, not2)
         val notAdapter = NotificationAdapter(nots)
         recView.adapter = notAdapter
