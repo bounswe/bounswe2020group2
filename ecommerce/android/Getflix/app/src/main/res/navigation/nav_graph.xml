@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homePageFragment_to_subcategoryFragment"
             app:destination="@id/subcategoryFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
 
     </fragment>
     <fragment
@@ -315,6 +318,9 @@
         android:name="product"
         app:argType="com.example.getflix.models.ProductModel" />
     </fragment>
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.example.getflix.ui.fragments.NotificationFragment" />
 
 
 </navigation>
