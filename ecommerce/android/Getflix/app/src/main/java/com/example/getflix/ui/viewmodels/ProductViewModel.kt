@@ -17,7 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProductViewModel:  ViewModel() {
+class ProductViewModel : ViewModel() {
     private val _recommendedProducts = MutableLiveData<MutableList<ProductModel>?>()
     val recommendedProducts: LiveData<MutableList<ProductModel>?>
         get() = _recommendedProducts
@@ -35,15 +35,13 @@ class ProductViewModel:  ViewModel() {
     val navigateBack: LiveData<Boolean>
         get() = _navigateBack
 
-    private val _isLiked = MutableLiveData<Boolean>()
-    val isLiked: LiveData<Boolean>
-        get() = _isLiked
+    private val _isSaved = MutableLiveData<Boolean>()
+    val isSaved: LiveData<Boolean>
+        get() = _isSaved
 
-    private val _reviews= MutableLiveData<List<ReviewModel>?>()
+    private val _reviews = MutableLiveData<List<ReviewModel>?>()
     val reviews: LiveData<List<ReviewModel>?>
         get() = _reviews
-
-
 
 
     private val _product = MutableLiveData<ProductModel?>()
@@ -53,13 +51,14 @@ class ProductViewModel:  ViewModel() {
     private val _addedToShoppingCart = MutableLiveData<Boolean>()
     val addedToShoppingCart: LiveData<Boolean>
         get() = _addedToShoppingCart
+
     init {
         _amount.value = 1
-        _isLiked.value = false
+        _isSaved.value = false
         _product.value = null
         _addedToShoppingCart.value = false
         _recommendedProducts.value = null
-        _reviews.value =null
+        _reviews.value = null
         getRecommendedProducts(5)
     }
 
@@ -86,28 +85,32 @@ class ProductViewModel:  ViewModel() {
 
     fun getProduct(productId: Int) {
         GetflixApi.getflixApiService.getProduct(productId)
-                .enqueue(object :
-                        Callback<ProductModel> {
-                    override fun onFailure(call: Call<ProductModel>, t: Throwable) {
-                        _product.value = null
-                    }
+            .enqueue(object :
+                Callback<ProductModel> {
+                override fun onFailure(call: Call<ProductModel>, t: Throwable) {
+                    _product.value = null
+                }
 
-                    override fun onResponse(
-                            call: Call<ProductModel>,
-                            response: Response<ProductModel>
-                    ) {
-                        _product.value = response.body()
-                        if(_product.value!=null) {
-                            getProductReviews()
-                        }
+                override fun onResponse(
+                    call: Call<ProductModel>,
+                    response: Response<ProductModel>
+                ) {
+                    _product.value = response.body()
+                    if (_product.value != null) {
+                        getProductReviews()
                     }
                 }
-                )
+            }
+            )
 
     }
 
     fun addCustomerCartProduct(amount: Int, proId: Int) {
-        GetflixApi.getflixApiService.addCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, CardProAddRequest(proId, amount))
+        GetflixApi.getflixApiService.addCustomerCartProduct(
+            "Bearer " + MainActivity.StaticData.user!!.token,
+            MainActivity.StaticData.user!!.id,
+            CardProAddRequest(proId, amount)
+        )
             .enqueue(object :
                 Callback<CardProAddResponse> {
                 override fun onFailure(call: Call<CardProAddResponse>, t: Throwable) {
@@ -120,15 +123,17 @@ class ProductViewModel:  ViewModel() {
                 ) {
                     println(response.body().toString())
                     println(response.code())
-                    _navigateBack.value=true
+                    _navigateBack.value = true
                 }
             }
             )
     }
 
     fun addToShoppingCart(shoppingCartId: Int, productId: Int) {
-        GetflixApi.getflixApiService.updateCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,
-            MainActivity.StaticData.user!!.id, shoppingCartId, CardProUpdateRequest(productId,
+        GetflixApi.getflixApiService.updateCustomerCartProduct(
+            "Bearer " + MainActivity.StaticData.user!!.token,
+            MainActivity.StaticData.user!!.id, shoppingCartId, CardProUpdateRequest(
+                productId,
                 _amount.value!!
             )
         )
@@ -147,8 +152,9 @@ class ProductViewModel:  ViewModel() {
             }
             )
     }
+
     fun decreaseAmount() {
-        if(_amount.value!! > 1) {
+        if (_amount.value!! > 1) {
             _amount.value = _amount.value?.dec()
         }
     }
@@ -157,9 +163,11 @@ class ProductViewModel:  ViewModel() {
 
         _amount.value = _amount.value?.inc()
     }
-    fun onLikeClick(){
-        _isLiked.value = _isLiked.value?.not()
+
+    fun onSaveClick() {
+        _isSaved.value = _isSaved.value?.not()
     }
+
     fun getRecommendedProducts(numberOfProducts: Int) {
         GetflixApi.getflixApiService.getProducts(numberOfProducts)
             .enqueue(object :
