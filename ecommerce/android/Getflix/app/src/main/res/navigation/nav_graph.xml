@@ -323,7 +323,11 @@
         android:id="@+id/listProductsFragment"
         android:name="com.example.getflix.ui.fragments.ListProductsFragment"
         android:label="fragment_list_products"
-        tools:layout="@layout/fragment_list_products" />
+        tools:layout="@layout/fragment_list_products">
+    <argument
+        android:name="products"
+        app:argType="com.example.getflix.models.ProductModel[]" />
+    </fragment>
 
 
 </navigation>

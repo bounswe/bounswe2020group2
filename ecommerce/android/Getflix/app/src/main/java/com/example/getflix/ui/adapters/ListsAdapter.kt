@@ -11,11 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.ListItemLayoutBinding
 import com.example.getflix.models.ListModel
 import com.example.getflix.ui.fragments.AddressFragment
+import com.example.getflix.ui.fragments.ListsFragment
 import com.example.getflix.ui.fragments.ListsFragmentDirections
 
 class ListsAdapter(
         private val listList: ArrayList<ListModel>?,
-        fragment: ListFragment
+        fragment: ListsFragment
 ) : ListAdapter<ListModel, ListsAdapter.RowHolder>(ListsDiffCallback()) {
 
     // mutable live data for deleted item position
@@ -59,7 +60,7 @@ class ListsAdapter(
             holder?.itemView!!.setOnClickListener {
                 fragment.findNavController().navigate(
                     ListsFragmentDirections.actionListsFragmentToListProductsFragment(
-                        listList?.get(position)!!)
+                        listList?.get(position)!!.products.toTypedArray())
                 )
             }
         }

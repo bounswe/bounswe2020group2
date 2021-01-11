@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
+import com.example.getflix.databinding.FragmentListProductsBinding
 import com.example.getflix.databinding.FragmentListsBinding
 import com.example.getflix.models.*
 import com.example.getflix.ui.adapters.ListProductsAdapter
@@ -27,15 +28,19 @@ class ListProductsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentListsBinding>(
+        val binding = DataBindingUtil.inflate<FragmentListProductsBinding>(
             inflater, R.layout.fragment_list_products,
             container, false
         )
         activity?.toolbar!!.toolbar_title.text = getString(R.string.products)
 
         viewModel = ViewModelProvider(this).get(ListProductViewModel::class.java)
-        binding.viewmodel = ListViewModel()
-        val recView = binding?.listsList as RecyclerView
+        val recView = binding?.listProductList as RecyclerView
+
+        // takes arguments and prints products here
+        val args = ListProductsFragmentArgs.fromBundle(requireArguments())
+        val productList = args.products.toCollection(ArrayList())
+        println(productList.toString())
 
         val list1 = listOf<String>()
         val list2 = mutableListOf<SubcategoryModel>()
