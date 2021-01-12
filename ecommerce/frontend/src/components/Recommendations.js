@@ -4,15 +4,17 @@ import { formatProduct } from '../utils'
 import { notification, Spin } from 'antd'
 import { api } from '../api'
 import { ProductCard } from './product_card/ProductCard'
+import { useAppContext } from '../context/AppContext'
 
 export const Recommendations = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [products, setProducts] = useState([])
+    const { user } = useAppContext() 
 
     useEffect(() => {
         const fetch = async () => {
             setIsLoading(true)
-            const { data } = await api.get(`/recommendations`)
+            const { data } = await api.get(`/recommendations/${user.id}`)
             setProducts(data.map(formatProduct))
             console.log(data)
         }

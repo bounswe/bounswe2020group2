@@ -853,42 +853,6 @@ export const accounts = {
 
 export const recommendations = [
     {
-        id: 3,
-        name: "Skechers Men's Afterburn Memory-Foam Lace-up Sneaker",
-        price_after_discount: 45,
-        creation_date: '2020-08-11T08:22:34Z',
-        total_rating: 50,
-        rating_count: 10,
-        stock_amount: 22,
-        short_description: '100% Leather/Synthetic, Heel measures approximately 2", Memory Foam Insole',
-        subcategory: {
-            name: 'Sports & Outdoor',
-            id: 5,
-        },
-        long_description: 'long description',
-        discount: 0.1,
-        category: {
-            id: 2,
-            name: 'Health & Households',
-        },
-        brand: {
-            name: 'Skechers ',
-            id: 2,
-        },
-        vendor: {
-            rating: 4.666666666666667,
-            id: 1,
-            name: 'omerfaruk deniz',
-        },
-        rating: 5.0,
-        images: [
-            'https://i.ebayimg.com/images/g/vOMAAOSwpeBeTK2g/s-l640.jpg',
-            'https://www.shoes.com/pm/skech/skech681268_41824_jb1.jpg',
-            'https://i.ebayimg.com/images/g/lGMAAOSwAH1dOw-U/s-l640.jpg',
-        ],
-        price: 50,
-    },
-    {
         id: 1,
         name: "Under Armour Men's Tech 2.0 Short Sleeve T-Shirt",
         price_after_discount: 18,
@@ -923,6 +887,42 @@ export const recommendations = [
             'https://images-na.ssl-images-amazon.com/images/I/51tb0KkLYqL._AC_UX679_.jpg',
         ],
         price: 20,
+    },
+    {
+        id: 3,
+        name: "Skechers Men's Afterburn Memory-Foam Lace-up Sneaker",
+        price_after_discount: 45,
+        creation_date: '2020-08-11T08:22:34Z',
+        total_rating: 50,
+        rating_count: 10,
+        stock_amount: 22,
+        short_description: '100% Leather/Synthetic, Heel measures approximately 2", Memory Foam Insole',
+        subcategory: {
+            name: 'Sports & Outdoor',
+            id: 5,
+        },
+        long_description: 'long description',
+        discount: 0.1,
+        category: {
+            id: 2,
+            name: 'Health & Households',
+        },
+        brand: {
+            name: 'Skechers ',
+            id: 2,
+        },
+        vendor: {
+            rating: 4.666666666666667,
+            id: 1,
+            name: 'omerfaruk deniz',
+        },
+        rating: 5.0,
+        images: [
+            'https://i.ebayimg.com/images/g/vOMAAOSwpeBeTK2g/s-l640.jpg',
+            'https://www.shoes.com/pm/skech/skech681268_41824_jb1.jpg',
+            'https://i.ebayimg.com/images/g/lGMAAOSwAH1dOw-U/s-l640.jpg',
+        ],
+        price: 50,
     },
     {
         id: 7,
