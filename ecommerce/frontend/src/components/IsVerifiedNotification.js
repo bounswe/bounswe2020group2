@@ -16,7 +16,7 @@ export const IsVerifiedNotification = () => {
                 },
             } = await api.post('/user/verify', {})
             if (successful) {
-                notification.success({ description: 'Successfully verified account' })
+                notification.success({ description: message })
                 setUser({ ...user, is_verified: true })
             }
         } catch (error) {
