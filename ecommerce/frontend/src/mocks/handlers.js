@@ -10,7 +10,7 @@ import {
     cards,
     verifications,
     accounts,
-    recommendations
+    recommendations,
 } from './mocks'
 import { orderStatusMap } from '../utils'
 import * as moment from 'moment'

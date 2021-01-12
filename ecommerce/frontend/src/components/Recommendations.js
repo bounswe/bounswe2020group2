@@ -10,7 +10,7 @@ export const Recommendations = () => {
     const [products, setProducts] = useState([])
 
     useEffect(() => {
-        const fetch = async() => {
+        const fetch = async () => {
             setIsLoading(true)
             const { data } = await api.get(`/recommendations`)
             setProducts(data.map(formatProduct))
@@ -18,7 +18,7 @@ export const Recommendations = () => {
         }
         try {
             fetch()
-        } catch(error) {
+        } catch (error) {
             console.log(error)
             notification.error({ description: 'Failed to load recommendations' })
         } finally {
