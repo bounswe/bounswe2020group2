@@ -10,6 +10,7 @@ import { SearchInput } from '../SearchInput'
 import { SearchInputWrapper } from '../search/SearchInputWrapper'
 import { format } from 'prettier'
 import { HorizontalProductList } from '../HorizontalProductList'
+import { Recommendations } from '../Recommendations'
 
 export const HomePage = () => {
     // example usage
@@ -58,17 +59,20 @@ const HomePage_MainContent = () => {
     }, [])
 
     return (
-        <Spin spinning={isLoading}>
-            <div className="trending-grid-wrapper">
-                {categories.map(category => {
-                    const filters = {
-                        category: category.id,
-                        sortBy: 'best-sellers',
-                        type: 'products',
-                    }
-                    return <HorizontalProductList key={category.id} filters={filters} />
-                })}
-            </div>
-        </Spin>
+        <div>
+            <Spin spinning={isLoading}>
+                <div className="home-page-horizontal-lists">
+                    {categories.map(category => {
+                        const filters = {
+                            category: category.id,
+                            sortBy: 'best-sellers',
+                            type: 'products',
+                        }
+                        return <HorizontalProductList key={category.id} filters={filters} />
+                    })}
+                    <Recommendations />
+                </div>
+            </Spin>
+        </div>
     )
 }
