@@ -9,7 +9,7 @@ import { useAppContext } from '../context/AppContext'
 export const Recommendations = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [products, setProducts] = useState([])
-    const { user } = useAppContext() 
+    const { user } = useAppContext()
 
     useEffect(() => {
         const fetch = async () => {
