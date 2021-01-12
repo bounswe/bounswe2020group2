@@ -1,4 +1,4 @@
-import { Button, Col, InputNumber, Popconfirm, Row } from 'antd'
+import { InputNumber, Popconfirm } from 'antd'
 import './ShoppingCartItem.less'
 import { DeleteOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'

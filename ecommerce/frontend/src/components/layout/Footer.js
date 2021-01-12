@@ -1,5 +1,5 @@
 import './Layout_common.less'
-import { Layout, Menu } from 'antd'
+import { Layout } from 'antd'
 
 export const Footer = () => {
     const cols = [

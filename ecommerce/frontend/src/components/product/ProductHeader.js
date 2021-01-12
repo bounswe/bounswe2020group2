@@ -9,7 +9,6 @@ import { ProductExtra } from './ProductExtra'
 import { ChooseListModalInner } from '../ChooseListModalInner'
 import { useAppContext } from '../../context/AppContext'
 import { round } from '../../utils'
-import { UserReviews } from '../UserReview/UserReviews'
 
 export const ProductHeader = ({ product, loading = false }) => {
     const { addShoppingCartItem } = useAppContext()
