@@ -2,12 +2,7 @@ import { useAppContext } from '../../context/AppContext'
 import React, { useEffect, useState } from 'react'
 import { Spin, Button, Rate } from 'antd'
 import { api } from '../../api'
-import { HorizontalProductList } from '../HorizontalProductList'
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import { Tabs } from 'antd'
-import { UserReviews } from '../UserReview/UserReviews'
-import { SearchResults } from '../search/SearchResults'
-import { VendorPageContent } from '../VendorContent/VendorPageContent'
+import { EditOutlined } from '@ant-design/icons'
 import './VendorSplash.less'
 
 const getVendorRatingLevel = rating => {
@@ -22,7 +17,7 @@ const getVendorRatingLevel = rating => {
     return 'high'
 }
 
-export const VendorSplash = ({ vendorId }) => {
+export const VendorSplash = ({ vendorId }, onChangeEditMode) => {
     const vendorHeaderDetails = {
         title: 'SAMSUNG',
         imageUrl:

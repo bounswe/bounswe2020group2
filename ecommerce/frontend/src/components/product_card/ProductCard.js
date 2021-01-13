@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import './ProductCard.less'
 import { useAppContext } from '../../context/AppContext'
 import { round, truncate } from '../../utils'
+import { ISO_8601 } from 'moment'
 
 export const ProductCard = ({ product, width = 350, editable = false }) => {
     const { addShoppingCartItem } = useAppContext()
@@ -24,7 +25,7 @@ export const ProductCard = ({ product, width = 350, editable = false }) => {
     const { title, rating, price, price_after_discount, currency = '₺', images, id, vendor } = product
     const { user } = useAppContext()
     const isVendor = user.type === 'vendor'
-    const isVendorAndOwner = isVendor && vendor.id === user.id.toString()
+    const isVendorAndOwner = isVendor && vendor.id === user.id
     let editableProduct = editable && isVendorAndOwner
     return (
         <div className="whole-card" style={{ minWidth: width, minHeight: width, maxWidth: width }}>

@@ -125,8 +125,8 @@ function useApp() {
             const { data } = await api.get('/init', {
                 headers: { authorization: 'Bearer ' + localStorage.getItem('token') },
             })
-            const { token, id, email, firstname, lastname, role, is_verified } = data
-            const newUser = { id, type: role.toLowerCase(), email, name: firstname, lastname, is_verified }
+            const { id, token, email, firstname, lastname, role, is_verified } = data
+            const newUser = { id: 3, type: role.toLowerCase(), email, name: firstname, lastname, is_verified }
             console.log('AppContext:init:user', newUser)
             console.log('AppContext:init:token', token)
             setUser(newUser)
@@ -157,7 +157,7 @@ function useApp() {
             const { token, id, email, firstname, lastname, is_verified, role } = data.user
             if (successful) {
                 localStorage.setItem('token', token)
-                setUser({ id, email, name: firstname, lastname, is_verified, type: role.toLowerCase() })
+                setUser({ id: 3, email, name: firstname, lastname, is_verified, type: role.toLowerCase() })
                 notification.success({ message: `Welcome back, ${firstname}!` })
 
                 return true

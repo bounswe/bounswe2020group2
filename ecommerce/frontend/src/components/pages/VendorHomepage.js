@@ -16,6 +16,7 @@ function callback(key) {
 
 export const VendorHomepage = props => {
     const { vendorId } = props.match.params
+
     return (
         <div>
             <VendorSplash vendorId={vendorId} />
@@ -36,7 +37,6 @@ export const VendorHomepage = props => {
 const VendorMainContent = () => {
     const [trendingProducts, setTrendingProducts] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    const { categories } = useAppContext()
 
     useEffect(() => {
         async function fetch() {

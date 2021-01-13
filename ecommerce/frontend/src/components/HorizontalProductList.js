@@ -7,7 +7,7 @@ import { formatProduct, formatSearchQueryParams } from '../utils'
 import { ProductCard } from './product_card/ProductCard'
 import './HorizontalProductList.less'
 
-export const HorizontalProductList = ({ filters, editable = false }) => {
+export const HorizontalProductList = ({ filters }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [products, setProducts] = useState([])
     const { categories } = useAppContext()
@@ -52,7 +52,7 @@ export const HorizontalProductList = ({ filters, editable = false }) => {
 
                 <div className="best-sellers-content">
                     {products.map(product => (
-                        <ProductCard key={product.id} product={product} editable={editable} />
+                        <ProductCard key={product.id} product={product} />
                     ))}
                 </div>
             </div>
