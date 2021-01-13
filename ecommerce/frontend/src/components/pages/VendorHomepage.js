@@ -7,6 +7,9 @@ import './VendorHomepage.less'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { Tabs } from 'antd'
 import { UserReviews } from '../UserReview/UserReviews'
+import { SearchResults } from '../search/SearchResults'
+import { VendorPageContent } from './VendorPageContent'
+import { formatProduct, formatSearchQueryParams } from '../../utils'
 
 const { TabPane } = Tabs
 function callback(key) {
@@ -94,9 +97,13 @@ const VendorMainContent = () => {
         async function fetch() {
             try {
                 setIsLoading(true)
-
-                const { data } = await api.get(`/products/homepage/${5}`)
-                setTrendingProducts(data)
+                const {
+                    data: {
+                        data: { pagination, products },
+                    },
+                } = await api.post(`/search/products`, {})
+                console.log(products)
+                setTrendingProducts(products.map(formatProduct))
             } catch (error) {
                 console.error('failed to load trending products', error)
             } finally {
@@ -110,15 +117,7 @@ const VendorMainContent = () => {
     return (
         <Spin spinning={isLoading}>
             <div className="vendor-page-trending-grid-wrapper">
-                {categories.map(category => {
-                    const filters = {
-                        category: category.id,
-                        sortBy: 'best-sellers',
-                        type: 'products',
-                        // vendorId: user.id
-                    }
-                    return <HorizontalProductList key={category.id} filters={filters} editable={true} />
-                })}
+                <VendorPageContent products={trendingProducts} />
             </div>
         </Spin>
     )

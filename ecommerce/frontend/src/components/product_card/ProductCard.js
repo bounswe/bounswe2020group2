@@ -22,12 +22,10 @@ export const ProductCard = ({ product, width = 350, editable = false }) => {
     const onAddToList = product => {}
 
     const { title, rating, price, price_after_discount, currency = '₺', images, id, vendor } = product
-
     const { user } = useAppContext()
     const isVendor = user.type === 'vendor'
     const isVendorAndOwner = isVendor && vendor.id === user.id.toString()
     let editableProduct = editable && isVendorAndOwner
-
     return (
         <div className="whole-card" style={{ minWidth: width, minHeight: width, maxWidth: width }}>
             <div>
