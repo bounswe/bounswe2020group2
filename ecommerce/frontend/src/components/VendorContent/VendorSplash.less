@@ -21,13 +21,54 @@
     object-fit: contain;
 }
 
-.vendor-slogan {
-    font-size: 1.5em;
-}
-
 .vendor-header {
     display: flex;
     width: 100%;
     justify-content: space-between;
     align-items: center;
+}
+
+.vendor-header-content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 64px;
+    font-size: 1em;
+}
+
+.product-header-vendor-rating {
+    font-weight: bold;
+    font-size: medium;
+    display: inline-block;
+    width: fit-content;
+    text-align: center;
+    padding: 0px 6px;
+    color: white;
+    border-radius: 6px;
+    &__high {
+        background: rgb(11, 184, 25);
+    }
+
+    &__medium {
+        background: darkgoldenrod;
+    }
+
+    &__low {
+        background: rgb(184, 11, 11);
+    }
+}
+.vendor-edit-button {
+    margin-left: auto;
+    margin-right: 10%;
+}
+
+.vendor-name {
+    font-family: 'Work Sans';
+    font-weight: 800;
+}
+
+.vendor-slogan {
+    font-family: 'Work Sans';
+    font-weight: 300;
+    font-style: italic;
+    font-size: 1.5em;
 }
