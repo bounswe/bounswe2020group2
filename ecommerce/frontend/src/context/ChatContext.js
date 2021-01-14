@@ -31,7 +31,11 @@ function useChat() {
         console.log('sendMessage message', message)
         setIsLoading(true)
         try {
-            const { data } = await api.post(`/messages`, message)
+            const { data } = await api.post(`/messages`, {
+                receiver_id: message.receiver_id,
+                text: message?.text ?? null,
+                attachment: message?.attachment ?? null,
+            })
             if (!data?.status?.successful) throw new Error(data)
             await getConversations()
         } catch (error) {

@@ -4,9 +4,19 @@ import 'react-chat-elements/dist/main.css'
 import { ChatList } from 'react-chat-elements'
 
 import { getRetroAvatarUrl } from '../../utils'
+import { Skeleton } from 'antd'
 
 export const ConversationList = ({ className, conversations, onSelectConversation }) => {
-    if (conversations === null) return null
+    if (conversations === null) {
+        return (
+            <div className={className}>
+                <Skeleton active title paragraph={{ rows: 1 }} avatar />
+                <Skeleton active title paragraph={{ rows: 2 }} avatar />
+                <Skeleton active title paragraph={{ rows: 1 }} avatar />
+                <Skeleton active title paragraph={{ rows: 2 }} avatar />
+            </div>
+        )
+    }
 
     const formatConversation = conversation => {
         const lastMessage = conversation.messages[conversation.messages.length - 1]

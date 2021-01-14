@@ -1,3 +1,20 @@
 .conversation-message-list {
     height: 100%;
 }
+
+.conversation-skeleton {
+    display: flex;
+    flex-direction: column;
+
+    padding-left: 8px;
+
+    &_left {
+        width: 50%;
+    }
+
+    &_right {
+        width: 50%;
+        margin-left: auto;
+        transform: scaleX(-1);
+    }
+}

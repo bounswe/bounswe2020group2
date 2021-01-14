@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { useChatContext } from '../../context/ChatContext'
 import { Conversation } from './Conversation'
 import { ConversationList } from './ConversationList'
+import { Spin } from 'antd'
 
 export const Conversations = () => {
     const { conversations, getConversations, conversation, setConversation } = useChatContext()
@@ -17,6 +18,10 @@ export const Conversations = () => {
     useEffect(() => {
         getConversations()
     }, [])
+
+    // if (conversations === null) {
+    //     return <Spin spinning={true} />
+    // }
 
     return (
         <div className="conversations">

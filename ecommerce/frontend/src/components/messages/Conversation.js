@@ -2,10 +2,11 @@ import './Conversation.less'
 import 'react-chat-elements/dist/main.css'
 
 import { UploadOutlined } from '@ant-design/icons'
-import { Button, Input, Upload } from 'antd'
+import { Button, Input, Skeleton, Upload } from 'antd'
 import { getBase64 } from 'image-blobber'
 import { useEffect, useRef, useState } from 'react'
 import { MessageList } from 'react-chat-elements'
+import cls from 'classnames'
 
 import { useChatContext } from '../../context/ChatContext'
 
@@ -15,7 +16,22 @@ export const Conversation = ({ className, conversation }) => {
     const [loading, setLoading] = useState(false)
     const { sendMessage } = useChatContext()
 
-    if (conversation === null) return null
+    if (conversation === null) {
+        return (
+            <div className={cls(className, 'conversation-skeleton')}>
+                <Skeleton className={'conversation-skeleton_left'} active title={false} paragraph={{ rows: 2 }} />
+                <Skeleton className={'conversation-skeleton_right'} active title={false} paragraph={{ rows: 1 }} />
+                <Skeleton className={'conversation-skeleton_left'} active title={false} paragraph={{ rows: 1 }} />
+                <Skeleton className={'conversation-skeleton_left'} active title={false} paragraph={{ rows: 2 }} />
+                <Skeleton className={'conversation-skeleton_right'} active title={false} paragraph={{ rows: 1 }} />
+                <Skeleton className={'conversation-skeleton_right'} active title={false} paragraph={{ rows: 2 }} />
+                <Skeleton className={'conversation-skeleton_left'} active title={false} paragraph={{ rows: 1 }} />
+                <Skeleton className={'conversation-skeleton_left'} active title={false} paragraph={{ rows: 1 }} />
+                <Skeleton className={'conversation-skeleton_left'} active title={false} paragraph={{ rows: 1 }} />
+                <Skeleton className={'conversation-skeleton_right'} active title={false} paragraph={{ rows: 2 }} />
+            </div>
+        )
+    }
 
     const formatMessage = message => {
         const type = message.attachment_url !== null ? 'photo' : 'text'
