@@ -5,7 +5,7 @@ import { UploadOutlined } from '@ant-design/icons'
 import { Button, Input, Skeleton, Upload } from 'antd'
 import cls from 'classnames'
 import { getBase64 } from 'image-blobber'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, Fragment } from 'react'
 import { MessageList } from 'react-chat-elements'
 
 import { useChatContext } from '../../context/ChatContext'
@@ -47,7 +47,7 @@ export const Conversation = ({ className, conversation }) => {
         return (
             <>
                 {arr.map((el, i) => {
-                    return el
+                    return <Fragment key={i}>{el}</Fragment>
                 })}
             </>
         )
