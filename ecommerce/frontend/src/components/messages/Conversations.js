@@ -16,7 +16,10 @@ export const Conversations = () => {
     }
 
     useEffect(() => {
-        getConversations()
+        async function fetch() {
+            await getConversations()
+        }
+        fetch()
     }, [])
 
     return (

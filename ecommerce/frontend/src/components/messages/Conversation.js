@@ -53,8 +53,6 @@ export const Conversation = ({ className, conversation }) => {
         )
     }
 
-    console.log(user)
-
     const formatMessage = message => {
         const type = message.attachment_url !== null ? 'photo' : 'text'
         return {
