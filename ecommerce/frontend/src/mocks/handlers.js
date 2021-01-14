@@ -152,8 +152,17 @@ export const handlers = [
     // rest.get(url('/customer/:userId/cards'), (req, res, ctx) => {
     //     return res(ctx.json({ status, cards }))
     // }),
-    rest.get(url('/messages'), (req, res, ctx) => {
-        return res(ctx.json(conversations))
+    // rest.get(url('/messages'), (req, res, ctx) => {
+    //     return res(
+    //         ctx.json({
+    //             conversations,
+    //             status: { successful: true, messages: null },
+    //         }),
+    //     )
+    // }),
+    rest.post(url('/messages'), (req, res, ctx) => {
+        console.log(req.body)
+        return res(ctx.json({}))
     }),
 ]
 

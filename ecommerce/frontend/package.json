@@ -13,6 +13,7 @@
         "constate": "^3.1.0",
         "craco-less": "^1.17.0",
         "eslint": "^7.13.0",
+        "image-blobber": "^1.2.0",
         "moment": "^2.29.1",
         "query-string": "^6.13.7",
         "ramda": "^0.27.1",

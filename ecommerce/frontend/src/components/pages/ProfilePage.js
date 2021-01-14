@@ -8,6 +8,7 @@ import { Conversations } from '../messages/Conversations'
 import { CreditCardList } from '../cardlist/CreditCardList'
 import { OrdersList } from '../order/OrdersList'
 import { ProfileContent } from '../profile/ProfileContent'
+import { ChatContextProvider } from '../../context/ChatContext'
 
 const { TabPane } = Tabs
 
@@ -48,7 +49,9 @@ export const ProfilePage = props => {
                 </TabPane>
                 <TabPane tab="Messages" key="messages" forceRender>
                     <Alert.ErrorBoundary>
-                        <Conversations />
+                        <ChatContextProvider>
+                            <Conversations />
+                        </ChatContextProvider>
                     </Alert.ErrorBoundary>
                 </TabPane>
             </Tabs>

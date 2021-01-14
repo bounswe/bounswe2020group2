@@ -1,10 +1,13 @@
-import { List, notification, Avatar } from 'antd'
-import { useEffect, useState } from 'react'
+import { List, notification, Avatar, Input, Button, Upload } from 'antd'
+import { useEffect, useRef, useState } from 'react'
+import { useChatContext } from '../../context/ChatContext'
 import { api } from '../../api'
-import { formatConversation } from '../../utils'
+import { formatConversation, getRetroAvatarUrl } from '../../utils'
 import './Conversations.less'
 import { MessageList, ChatList } from 'react-chat-elements'
+import { UploadOutlined } from '@ant-design/icons'
 import 'react-chat-elements/dist/main.css'
+import { getBase64 } from 'image-blobber'
 
 export const ConversationList = ({ className, conversations, onSelectConversation }) => {
     if (conversations === null) return null
@@ -14,7 +17,7 @@ export const ConversationList = ({ className, conversations, onSelectConversatio
 
         return {
             conversation,
-            avatar: 'https://facebook.github.io/react/img/logo.svg',
+            avatar: getRetroAvatarUrl(conversation.counterpart.id),
             alt: conversation.counterpart.name,
             title: conversation.counterpart.name,
             subtitle: lastMessage.text,
@@ -33,6 +36,11 @@ export const ConversationList = ({ className, conversations, onSelectConversatio
 }
 
 export const Conversation = ({ className, conversation }) => {
+    const [file, setFile] = useState(null)
+    const [value, setValue] = useState('')
+    const [loading, setLoading] = useState(false)
+    const { sendMessage } = useChatContext()
+
     if (conversation === null) return null
 
     const formatMessage = message => {
@@ -46,6 +54,31 @@ export const Conversation = ({ className, conversation }) => {
         }
     }
 
+    const onInputChange = event => {
+        setValue(event.target.value)
+    }
+
+    const onSendMessage = async () => {
+        let message = {
+            receiver_id: conversation.counterpart.id,
+            text: value.trim(),
+        }
+
+        if (file) {
+            const image = await getBase64(file)
+            message.attachment = image.base64
+        }
+
+        try {
+            setLoading(true)
+            await sendMessage(message)
+            setValue('')
+            setFile(null)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     return (
         <div className={className}>
             <MessageList
@@ -54,36 +87,43 @@ export const Conversation = ({ className, conversation }) => {
                 toBottomHeight={'100%'}
                 dataSource={conversation.messages.map(formatMessage)}
             />
+            <div style={{ display: 'flex' }}>
+                <Upload
+                    listType="picture"
+                    maxCount={1}
+                    fileList={[file].filter(Boolean)}
+                    beforeUpload={file => {
+                        setFile(file)
+                        return false
+                    }}>
+                    <Button icon={<UploadOutlined />}>Upload</Button>
+                </Upload>
+                <Input value={value} onChange={onInputChange} onPressEnter={onSendMessage} />
+                <Button type="primary" onClick={onSendMessage} loading={loading}>
+                    Send
+                </Button>
+            </div>
+            {/* <Input
+                ref={inputRef}
+                placeholder="Type here..."
+                defaultValue={value}
+                onChange={onInputChange}
+                onPressEnter={console.log}
+                rightButtons={<Button color="white" backgroundColor="black" text="Send" />}
+            /> */}
         </div>
     )
 }
 
 export const Conversations = () => {
-    const [conversations, setConversations] = useState(null)
-    const [isLoading, setIsLoading] = useState(true)
-
-    const [conversation, setConversation] = useState(null)
-
-    const fetch = async () => {
-        setIsLoading(true)
-        try {
-            const { data: conversations } = await api.get(`/messages`)
-            setConversations(conversations.map(formatConversation))
-            setConversation(conversations.map(formatConversation)[0])
-        } catch (error) {
-            notification.warning({ message: 'There was an error while fetching messages' })
-            console.error(error)
-        } finally {
-            setIsLoading(false)
-        }
-    }
+    const { conversations, getConversations, conversation, setConversation } = useChatContext()
 
     const onSelectConversation = conversation => {
         setConversation(conversation)
     }
 
     useEffect(() => {
-        fetch()
+        getConversations()
     }, [])
 
     return (
@@ -93,7 +133,7 @@ export const Conversations = () => {
                 conversations={conversations}
                 onSelectConversation={onSelectConversation}
             />
-            <Conversation className={'conversation-messages'} conversation={conversation} />
+            <Conversation className={'conversations-messages'} conversation={conversation} />
         </div>
     )
 }

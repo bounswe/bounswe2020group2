@@ -922,7 +922,7 @@ export const conversations = [
                 text: 'afdsadsadasd',
                 sent_by_me: false,
                 date: '2021-01-07T14:28:49+0000',
-                attachment_url: 'https://www.quill.com/is/image/Quill/s0807665_s7?$img400$',
+                attachment_url: null,
             },
             {
                 id: 3,

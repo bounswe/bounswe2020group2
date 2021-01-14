@@ -198,3 +198,7 @@ export const formatMessage = obj => {
 export const formatConversation = obj => {
     return { ...obj, messages: obj?.messages.map(formatMessage) }
 }
+
+export const getRetroAvatarUrl = id => {
+    return `http://www.gravatar.com/avatar/${id}?s=64&d=retro&r=PG`
+}
