@@ -13,7 +13,7 @@ export const VendorPageContent = ({ products }) => {
         <div className="vendor-page-results">
             <div className="vendor-page-results-product-grid">
                 {products.map(product => (
-                    <ProductCard key={product.id} product={product} />
+                    <ProductCard key={product.id} product={product} editable={false} />
                 ))}
             </div>
         </div>
