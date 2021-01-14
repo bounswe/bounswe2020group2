@@ -160,10 +160,10 @@ export const handlers = [
     //         }),
     //     )
     // }),
-    rest.post(url('/messages'), (req, res, ctx) => {
-        console.log(req.body)
-        return res(ctx.json({}))
-    }),
+    // rest.post(url('/messages'), (req, res, ctx) => {
+    //     console.log(req.body)
+    //     return res(ctx.json({}))
+    // }),
 ]
 
 if (process.env.NODE_ENV === 'development') {

@@ -14,6 +14,7 @@ function useChat() {
         setIsLoading(true)
         try {
             const { data } = await api.get(`/messages`)
+            if (!data.successful) throw new Error(data)
             const conversations = data.conversations.map(formatConversation)
 
             setConversations(conversations)
@@ -29,10 +30,11 @@ function useChat() {
     const sendMessage = async message => {
         setIsLoading(true)
         try {
-            await api.post(`/messages`, message)
+            const { data } = await api.post(`/messages`, message)
+            if (!data.successful) throw new Error(data)
             await getConversations()
         } catch (error) {
-            notification.warning({ message: 'There was an error while fetching messages' })
+            notification.error({ message: 'There was an error while fetching messages' })
             console.error(error)
         } finally {
             setIsLoading(false)

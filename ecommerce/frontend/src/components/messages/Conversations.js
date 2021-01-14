@@ -71,6 +71,7 @@ export const Conversation = ({ className, conversation }) => {
 
         try {
             setLoading(true)
+            console.log('message', message)
             await sendMessage(message)
             setValue('')
             setFile(null)
