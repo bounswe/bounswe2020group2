@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.example.getflix.ui.viewmodels.FavoritesViewModel" />
+            type="com.example.getflix.ui.viewmodels.ListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/favorites_list"
+            android:id="@+id/lists_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

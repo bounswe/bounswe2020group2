@@ -57,10 +57,11 @@
     <string-array name="SortBy">
         <item>---</item>
         <item>Best Sellers</item>
-        <item>Newest Arrivals</item>
-        <item>Price</item>
-        <item>Average Customer Review</item>
-        <item>Number of Comments</item>
+        <item>New Arrivals</item>
+        <item>Price (Inc.)</item>
+        <item>Price (Dec.)</item>
+        <item>Avg. Cust. Review</item>
+        <item>Num. of Comments</item>
     </string-array>
     <string name="sort">Sort By:</string>
     <string name="vendors">Vendors:</string>
@@ -157,4 +158,6 @@
     <string name="edittext_discount"><font size="35">Discount</font></string>
     <string name="edittext_brandid"><font size="35">Brand Id</font></string>
     <string name="edittext_subcategoryid"><font size="35">Subcategory Id</font></string>
+    <string name="lists">Lists</string>
+    <string name="notifications">Notifications</string>
 </resources>

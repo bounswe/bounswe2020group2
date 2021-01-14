@@ -124,14 +124,14 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/favorite"
+                    android:id="@+id/save"
                     android:layout_width="40dp"
                     android:layout_height="32dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/product_image"
-                    app:srcCompat="@drawable/ic_yellow_heart"
+                    app:srcCompat="@drawable/nonsaved_product"
                     tools:ignore="VectorDrawableCompat" />
 
                 <ImageView

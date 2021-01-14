@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -63,7 +64,7 @@ class VendorHomeFragment : Fragment() {
 
 
         var brands = arrayListOf<BrandModel>()
-        viewModel.productList.observe(viewLifecycleOwner, {
+        viewModel.productList.observe(viewLifecycleOwner, Observer{
             for(product in it) {
                 if(!brands.contains(product.brand))
                     brands.add(product.brand)
