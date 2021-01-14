@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from 'react'
 import { MessageList } from 'react-chat-elements'
 
 import { useChatContext } from '../../context/ChatContext'
+import { useAppContext } from '../../context/AppContext'
 
 const { TextArea } = Input
 
@@ -16,6 +17,7 @@ export const Conversation = ({ className, conversation }) => {
     const [file, setFile] = useState(null)
     const [value, setValue] = useState('')
     const [loading, setLoading] = useState(false)
+    const { user } = useAppContext()
     const { sendMessage } = useChatContext()
 
     if (conversation === null) {
@@ -51,13 +53,19 @@ export const Conversation = ({ className, conversation }) => {
         )
     }
 
+    console.log(user)
+
     const formatMessage = message => {
         const type = message.attachment_url !== null ? 'photo' : 'text'
         return {
             position: message.sent_by_me ? 'right' : 'left',
             type,
+            titleColor: message.sent_by_me ? '#472836' : '#e2be5a',
+            title: message.sent_by_me
+                ? [user.name, user.lastname].filter(Boolean).join(' ')
+                : [conversation.counterpart.name, conversation.counterpart.lastname].filter(Boolean).join(' '),
             text: formatText(message.text),
-            date: message.date,
+            date: message.date.toDate(),
             notch: true,
             ...(type === 'photo' ? { data: { uri: message.attachment_url } } : {}),
         }
@@ -92,6 +100,7 @@ export const Conversation = ({ className, conversation }) => {
 
     return (
         <div className={className}>
+            {/* <h2>{conversation.counterpart.name}</h2> */}
             <MessageList
                 className="conversation-message-list"
                 lockable={true}
