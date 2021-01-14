@@ -19,10 +19,6 @@ export const Conversations = () => {
         getConversations()
     }, [])
 
-    // if (conversations === null) {
-    //     return <Spin spinning={true} />
-    // }
-
     return (
         <div className="conversations">
             <ConversationList

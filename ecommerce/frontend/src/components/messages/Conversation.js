@@ -33,12 +33,28 @@ export const Conversation = ({ className, conversation }) => {
         )
     }
 
+    const formatText = text => {
+        let arr = []
+        for (const line of text.split('\n')) {
+            arr.push(line)
+            arr.push(<br />)
+        }
+
+        return (
+            <>
+                {arr.map((el, i) => {
+                    return el
+                })}
+            </>
+        )
+    }
+
     const formatMessage = message => {
         const type = message.attachment_url !== null ? 'photo' : 'text'
         return {
             position: message.sent_by_me ? 'right' : 'left',
             type,
-            text: message.text,
+            text: formatText(message.text),
             date: message.date,
             ...(type === 'photo' ? { data: { uri: message.attachment_url } } : {}),
         }
