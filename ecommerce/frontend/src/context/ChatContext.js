@@ -2,6 +2,7 @@ import { notification } from 'antd'
 import constate from 'constate'
 import { useState } from 'react'
 
+import moment from 'moment'
 import { api } from '../api'
 import { formatConversation } from '../utils'
 
@@ -43,6 +44,7 @@ function useChat() {
     const [conversations, setConversations] = useState(null)
     const [counterpart, setCounterpart] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
+    const [lastFetch, setLastFetch] = useState(moment())
 
     const setConversation = conversation => {
         setCounterpart(conversation.counterpart.id)
@@ -58,8 +60,8 @@ function useChat() {
             const { data } = await api.get(`/messages`)
             if (!data?.status?.successful) throw new Error(data)
             const conversations = data.conversations.map(formatConversation)
-
             setConversations(conversations)
+            setLastFetch(moment())
         } catch (error) {
             notification.warning({ message: 'There was an error while fetching messages' })
             console.error(error)
@@ -94,6 +96,7 @@ function useChat() {
         conversations,
         getConversations,
         sendMessage,
+        lastFetch,
     }
 }
 

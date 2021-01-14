@@ -18,7 +18,7 @@ export const Conversation = ({ className, conversation }) => {
     const [value, setValue] = useState('')
     const [loading, setLoading] = useState(false)
     const { user } = useAppContext()
-    const { sendMessage } = useChatContext()
+    const { lastFetch, sendMessage } = useChatContext()
 
     if (conversation === null) {
         return (
@@ -98,7 +98,7 @@ export const Conversation = ({ className, conversation }) => {
 
     return (
         <div className={className}>
-            {/* <h2>{conversation.counterpart.name}</h2> */}
+            <div>Last updated at: {lastFetch.format('hh:mm:ss')}</div>
             <MessageList
                 className="conversation-message-list"
                 lockable={true}
