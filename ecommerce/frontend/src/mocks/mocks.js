@@ -893,7 +893,8 @@ export const conversations = [
                     "Dear Furkan,\n\n I have ordered an iPhone 11 two weeks ago but the order status still shows Accepted. I had hoped it would change to At Cargo in a couple days but it hasn't changed and I started to worry. Could you please tell me if there is any problem? Thanks",
                 sent_by_me: true,
                 date: '2021-01-07T14:24:49+0000',
-                attachment_url: null,
+                attachment_url:
+                    'https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125077794/125077794_1_MC/47116323.jpg',
             },
             {
                 id: 2,
@@ -901,7 +902,7 @@ export const conversations = [
                     'Dear Mehdi,\n\n As you know, we are affected by the current COVID pandemic and are having trouble with our distribution partner. We have reached out to the cargo company and we were promised that your cargo will be delivered within two to three working days at most. We apologize for the delay. Thank you for trusting us.',
                 sent_by_me: false,
                 date: '2021-01-07T14:28:49+0000',
-                attachment_url: 'https://www.quill.com/is/image/Quill/s0807665_s7?$img400$',
+                attachment_url: null,
             },
         ],
     },

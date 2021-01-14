@@ -3,12 +3,14 @@ import 'react-chat-elements/dist/main.css'
 
 import { UploadOutlined } from '@ant-design/icons'
 import { Button, Input, Skeleton, Upload } from 'antd'
+import cls from 'classnames'
 import { getBase64 } from 'image-blobber'
 import { useEffect, useRef, useState } from 'react'
 import { MessageList } from 'react-chat-elements'
-import cls from 'classnames'
 
 import { useChatContext } from '../../context/ChatContext'
+
+const { TextArea } = Input
 
 export const Conversation = ({ className, conversation }) => {
     const [file, setFile] = useState(null)
@@ -56,6 +58,7 @@ export const Conversation = ({ className, conversation }) => {
             type,
             text: formatText(message.text),
             date: message.date,
+            notch: true,
             ...(type === 'photo' ? { data: { uri: message.attachment_url } } : {}),
         }
     }
@@ -64,7 +67,9 @@ export const Conversation = ({ className, conversation }) => {
         setValue(event.target.value)
     }
 
-    const onSendMessage = async () => {
+    const onSendMessage = async event => {
+        if (event.shiftKey) return
+
         let message = {
             receiver_id: conversation.counterpart.id,
             text: value.trim(),
@@ -93,7 +98,7 @@ export const Conversation = ({ className, conversation }) => {
                 toBottomHeight={'100%'}
                 dataSource={conversation.messages.map(formatMessage)}
             />
-            <div style={{ display: 'flex' }}>
+            <div style={{ display: 'flex', marginTop: 8 }}>
                 <Upload
                     listType="picture"
                     maxCount={1}
@@ -104,7 +109,16 @@ export const Conversation = ({ className, conversation }) => {
                     }}>
                     <Button icon={<UploadOutlined />}>Upload</Button>
                 </Upload>
-                <Input value={value} onChange={onInputChange} onPressEnter={onSendMessage} />
+
+                <TextArea
+                    value={value}
+                    onChange={onInputChange}
+                    onPressEnter={onSendMessage}
+                    placeholder="Enter your message here..."
+                    autoSize
+                />
+
+                {/* <Input value={value} onChange={onInputChange} onPressEnter={onSendMessage} /> */}
                 <Button type="primary" onClick={onSendMessage} loading={loading}>
                     Send
                 </Button>

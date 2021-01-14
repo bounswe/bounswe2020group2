@@ -1,10 +1,54 @@
-.conversation-message-list {
-    height: 100%;
+@import '../../common.less';
 
+.conversation-message-list {
+    height: 550px;
 }
 
-.rce-mbox.rce-mbox-right {
+.rce-mbox {
     max-width: 60% !important;
+    background: @Eggplant !important;
+    color: white !important;
+    .rce-mbox-time {
+        background: none !important;
+        color: rgba(255, 255, 255, 0.65);
+    }
+}
+
+.rce-mbox-photo--img {
+    height: 200px;
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+        user-select: none;
+    }
+}
+
+.rce-mbox-right {
+    background: @Old_Champagne !important;
+    color: black !important;
+
+    .rce-mbox-time-block {
+        background: none !important;
+        color: rgba(0, 0, 0, 0.45);
+    }
+}
+
+.rce-mbox-left-notch {
+    fill: @Eggplant !important;
+}
+
+.rce-mbox-right-notch {
+    fill: @Old_Champagne !important;
+}
+
+.rce-mbox-photo .rce-mbox-text {
+    max-width: initial;
+    padding: 5px;
+}
+
+.rce-mbox-photo {
 }
 
 .conversation-skeleton {
