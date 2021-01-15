@@ -78,9 +78,11 @@ class CartFragment : Fragment() {
                 productListAdapter.resetPos()
             }
         })
-        viewModel.onSubmit.observe(viewLifecycleOwner, Observer {
-            if (it) {
+        viewModel.cardProducts.observe(viewLifecycleOwner, Observer {
+            if (it!=null) {
                 productListAdapter.submitList(viewModel.cardProducts.value)
+            }else{
+                productListAdapter.submitList(mutableListOf())
             }
 
         })

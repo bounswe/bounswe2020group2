@@ -99,17 +99,4 @@ class CompleteOrderViewModel : ViewModel() {
         _navigateHome.value = false
     }
 
-    fun getCustomerCartPrice() {
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getCustomerCartPrice("Bearer " + MainActivity.StaticData.user!!.token)
-            withContext(Dispatchers.Main + exceptionHandler) {
-                if (response.isSuccessful) {
-                    response.body().let { it ->
-                        println("burda mısınn")
-                        println(it.toString())
-                    }
-                }
-            }
-        }
-    }
 }
