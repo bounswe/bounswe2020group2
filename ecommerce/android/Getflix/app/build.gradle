@@ -128,6 +128,8 @@ dependencies {
 
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:26.2.0')
+    // Firebase authentication
+    implementation 'com.firebaseui:firebase-ui-auth:6.4.0'
 
     // For example, declare the dependencies for Firebase Authentication and Cloud Firestore
     implementation 'com.google.firebase:firebase-auth-ktx'

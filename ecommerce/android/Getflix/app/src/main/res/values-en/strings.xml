@@ -160,4 +160,5 @@
     <string name="edittext_subcategoryid"><font size="35">Subcategory Id</font></string>
     <string name="lists">Lists</string>
     <string name="notifications">Notifications</string>
+    <string name="user_already_exists">You already have an existing account!</string>
 </resources>
