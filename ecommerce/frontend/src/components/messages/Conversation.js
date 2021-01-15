@@ -2,7 +2,7 @@ import './Conversation.less'
 import 'react-chat-elements/dist/main.css'
 
 import { UploadOutlined } from '@ant-design/icons'
-import { Button, Input, Skeleton, Upload } from 'antd'
+import { Button, Input, Skeleton, Upload, Image } from 'antd'
 import cls from 'classnames'
 import { getBase64 } from 'image-blobber'
 import { useEffect, useRef, useState, Fragment } from 'react'
@@ -19,6 +19,7 @@ export const Conversation = ({ className, conversation }) => {
     const [loading, setLoading] = useState(false)
     const { user } = useAppContext()
     const { lastFetch, sendMessage } = useChatContext()
+    const [image, setImage] = useState(null)
 
     if (conversation === null) {
         return (
@@ -96,6 +97,10 @@ export const Conversation = ({ className, conversation }) => {
         }
     }
 
+    const onImageOpen = (data, event) => {
+        setImage(data.data.uri)
+    }
+
     return (
         <div className={className}>
             <div>Last updated at: {lastFetch.format('hh:mm:ss')}</div>
@@ -104,6 +109,18 @@ export const Conversation = ({ className, conversation }) => {
                 lockable={true}
                 toBottomHeight={'100%'}
                 dataSource={conversation.messages.map(formatMessage)}
+                onOpen={onImageOpen}
+            />
+
+            <Image
+                height={0}
+                width={0}
+                src={image}
+                preview={{
+                    visible: !!image,
+                    onVisibleChange: (o, n) => setImage(null),
+                    src: image,
+                }}
             />
             <div style={{ display: 'flex', marginTop: 8 }}>
                 <Upload
