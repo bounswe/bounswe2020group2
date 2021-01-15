@@ -2,7 +2,9 @@ package com.example.getflix.ui.fragments
 
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
@@ -10,14 +12,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
+import com.example.getflix.activities.MainActivity.StaticData.auth
 import com.example.getflix.databinding.FragmentLoginBinding
 import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToHomePageFragment
 import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToRegisterFragment
@@ -82,6 +88,7 @@ class LoginFragment : Fragment() {
 
 
 
+
         loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         binding.loginViewModel = loginViewModel
         binding.lifecycleOwner = this
@@ -95,6 +102,7 @@ class LoginFragment : Fragment() {
                 binding.lang.text = "TR"
             }
         }
+
 
 
         binding.login.setOnClickListener {
@@ -154,6 +162,26 @@ class LoginFragment : Fragment() {
 
         }
 
+        binding.forgotPassword.setOnClickListener{
+            var resetMail  = EditText(it.context)
+            var passwordResetDialog = AlertDialog.Builder(requireContext())
+            passwordResetDialog.setTitle("DO YOU WANT TO RESET PASSWORD?")
+            passwordResetDialog.setMessage("Please enter your email address to be received the reset link.")
+            passwordResetDialog.setView(resetMail)
+            passwordResetDialog.setPositiveButton("YES", DialogInterface.OnClickListener { dialog, which ->
+                val mail = resetMail.text.toString()
+                auth.sendPasswordResetEmail(mail).addOnSuccessListener {
+                    Toast.makeText(requireContext(),"We just sent the reset link to your email address.",Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener {
+                    Toast.makeText(requireContext(),"Sorry, we are not able to send the reset link now because " + it.message,Toast.LENGTH_SHORT).show()
+                }
+            })
+            passwordResetDialog.setNegativeButton("NO", DialogInterface.OnClickListener { dialog, which ->
+
+            })
+            passwordResetDialog.create().show()
+
+        }
         binding.guestButton.setOnClickListener {
             MainActivity.StaticData.isVisitor = true
             (activity as MainActivity).decideBottomNav(false)
@@ -189,6 +217,8 @@ class LoginFragment : Fragment() {
         }
     }
 
+
+
     private fun setLocale(localeName: String) {
         var currentLanguage = ""
         var currentLang = ""
@@ -205,8 +235,6 @@ class LoginFragment : Fragment() {
             )
             refresh.putExtra(currentLang, localeName)
             startActivity(refresh)
-        } else {
-
         }
     }
 
