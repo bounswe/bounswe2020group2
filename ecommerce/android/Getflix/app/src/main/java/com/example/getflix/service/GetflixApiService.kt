@@ -59,7 +59,7 @@ interface GetflixApiService {
     fun getProduct(@Path("productId") productId: Int): Call<ProductModel>
 
     @GET("customer/{customerId}/shoppingcart")
-    suspend fun getCustomerAllCartProducts(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Response<CartProductListModel>
+    fun getCustomerAllCartProducts(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Call<CartProductListModel?>
 
     @GET("customer/{customerId}/shoppingcart/{sc_item_id}")
     suspend fun getCustomerCartProduct(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Path("sc_item_id") sc_item_id: Int): Response<CartProductSingleModel>
@@ -136,7 +136,7 @@ interface GetflixApiService {
 
     // get prices of shopping cart
     @GET("checkout/details")
-    suspend fun getCustomerCartPrice(@Header("Authorization") token: String): Response<CustomerCartPriceModel>
+    fun getCustomerCartPrice(@Header("Authorization") token: String): Call<CustomerCartPriceModel?>
 
     @GET("review")
     fun getReviewOfProduct(@Query("product") productId: Int) : Call<ProductReviewListModel>
