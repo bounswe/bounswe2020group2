@@ -16,6 +16,7 @@ import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.acti
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToBankAccountFragment
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToLoginFragment
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToOrderInfoFragment
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
@@ -74,7 +75,9 @@ class ProfileFragment : Fragment() {
 
         binding.buttonLogout.setOnClickListener {
             if (!MainActivity.StaticData.isVisitor) {
-                askAlert(this, getString(R.string.logout_warning), ::navigateLogin)
+                //askAlert(this, getString(R.string.logout_warning), ::navigateLogin)
+                FirebaseAuth.getInstance().signOut()
+                view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
             } else {
                 resetData()
                 view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())

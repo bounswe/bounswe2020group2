@@ -1,11 +1,15 @@
 package com.example.getflix.ui.viewmodels
 
 import android.app.Application
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.getflix.activities.MainActivity
+import com.example.getflix.activities.MainActivity.StaticData.auth
 import com.example.getflix.service.requests.SignUpRequest
 import com.example.getflix.service.responses.SignUpResponse
 import com.example.getflix.service.GetflixApi
@@ -23,39 +27,59 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     val canSignUp: LiveData<SignUpResponse?>
         get() = _canSignUp
 
-    fun setSignUpCredentials(fragment: Fragment, username: String, mail: String, password: String, firstName: String, lastName: String, phoneNumber: String, conPassword: String): Boolean {
-        if (username.isEmpty() or mail.isEmpty() or password.isEmpty() or firstName.isEmpty() or lastName.isEmpty() or phoneNumber.isEmpty() or conPassword.isEmpty()) {
-            fragment.requireActivity().loading_progress!!.visibility = View.GONE
-            return false
-        }
-        if (password!=conPassword) {
-            fragment.requireActivity().loading_progress!!.visibility = View.GONE
-            return false
-        }
-        if (password.length<8 || username.length<6 || firstName.length<2 || lastName.length<2) {
-            fragment.requireActivity().loading_progress!!.visibility = View.GONE
-            return false
-        }
-        _signUpCredentials.value = SignUpRequest(username, mail, password, firstName, lastName, phoneNumber)
+    fun setSignUpCredentials(
+        fragment: Fragment,
+        username: String,
+        mail: String,
+        password: String,
+        firstName: String,
+        lastName: String,
+        phoneNumber: String,
+        conPassword: String
+    ): Boolean {
+
+        _signUpCredentials.value =
+            SignUpRequest(username, mail, password, firstName, lastName, phoneNumber)
         signUp()
         return true
     }
-
+    init{
+        _canSignUp.value = null
+    }
     private fun signUp() {
-        GetflixApi.getflixApiService.signUp(_signUpCredentials.value!!)
-                .enqueue(object :
-                        Callback<SignUpResponse> {
-                    override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
-                        _canSignUp.value = null
-                    }
 
-                    override fun onResponse(call: Call<SignUpResponse>, response: Response<SignUpResponse>) {
-                        _canSignUp.value = response.body()
-                        println(response.body().toString())
-                    }
-                }
+                    // Sign in success, update UI with the signed-in user's information
+                    GetflixApi.getflixApiService.signUp(_signUpCredentials.value!!)
+                        .enqueue(object :
+                            Callback<SignUpResponse> {
+                            override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
+                                _canSignUp.value = null
+                            }
 
-                )
+                            override fun onResponse(
+                                call: Call<SignUpResponse>,
+                                response: Response<SignUpResponse>
+                            ) {
+                                _canSignUp.value = response.body()
+                                println(response.message())
+                                auth.createUserWithEmailAndPassword(
+                                    _signUpCredentials.value!!.email,
+                                    _signUpCredentials.value!!.password
+                                )
+                                    .addOnCompleteListener {
+                                        if (it.isSuccessful || response.body()?.message == "Username is already in use" ) {
+                                            println("Çalışma")
+                                        }
+                                        else {
+                                            println("Hata1" + response.body()?.message)
+                                            _canSignUp.value = null
+                                        }
+                                    }
+
+                            }
+                        }
+
+                        )
     }
 }
 
