@@ -3,10 +3,14 @@ import './ProductPage.less'
 import React, { useEffect, useState } from 'react'
 
 import { api } from '../../api'
+import { ProductCard } from '../product_card/ProductCard'
 import { sleep } from '../../utils'
 import { ProductHeader } from '../product/ProductHeader'
 import { notification, Spin } from 'antd'
 import { UserReviews } from '../UserReview/UserReviews'
+import * as R from 'ramda'
+import { formatProduct } from '../../utils'
+import { HorizontalProductList } from '../HorizontalProductList'
 
 export const ProductPage = props => {
     const [product, setProduct] = useState()
@@ -19,10 +23,8 @@ export const ProductPage = props => {
                 setLoading(true)
                 console.log('fetching product', productId)
                 const { data } = await api.get(`/product/${productId}`)
-                console.log('received product data', data)
                 setProduct(data)
             } catch (error) {
-                console.error('failed to load trending products', error)
                 notification.error({ description: `Failed to get product ${productId}` })
             } finally {
                 setLoading(false)
@@ -30,6 +32,13 @@ export const ProductPage = props => {
         }
         fetch()
     }, [])
+
+    const filters = {
+        category: product?.category.id,
+        sortBy: 'best-sellers',
+        subcategory: product?.subcategory.id,
+        type: 'products',
+    }
 
     return (
         <div className="product-page">
@@ -39,6 +48,7 @@ export const ProductPage = props => {
             <div className="product-page-reviews">
                 <UserReviews productId={productId} />
             </div>
+            <div className="product-page-best-sellers">{product && <HorizontalProductList filters={filters} />}</div>
         </div>
     )
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.getflix.R
@@ -50,7 +51,7 @@ class UpdateCreditCardFragment : Fragment() {
             viewModel.updateCustomerCard(creditCard.id,updateRequest)
         }
 
-        viewModel.navigateOrder.observe(viewLifecycleOwner, {
+        viewModel.navigateOrder.observe(viewLifecycleOwner, Observer{
             if(it) {
                 doneAlert(this, "Credit card is updated successfully", ::navigateBack)
                 viewModel.resetNavigate()

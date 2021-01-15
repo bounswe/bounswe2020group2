@@ -16,24 +16,28 @@ from ..utils import permissions, Role
 from ..models import Product,Vendor,ImageUrls,Category,Subcategory
 from ..serializers.product_serializer import ProductResponseSerializer
 
+# returns the details of the product having the given product_id
 @api_view(['GET'])
 @permission_classes([permissions.AllowAnonymous])
 def get_product_detail(request, product_id):
-    # if product not found
+    # return 400_BAD_REQUEST if product is not found
     if Product.objects.filter(id=product_id).first() is None:
         return Response(status=status.HTTP_400_BAD_REQUEST)
-
-    product = Product.objects.filter(id=product_id).first()
+    # filter products that are not soft deleted and have the given product_id
+    product = Product.objects.filter(id=product_id).filter(is_deleted=False).first()
     if product is None:
         return Response({'successful': False, 'message': "No such product is found"})
+    # serialize it as a single json object
     product = ProductResponseSerializer(product)
     return Response(product.data)
 
-
+# returns the given number(num) of non-deleted products
 @api_view(['GET'])
 @permission_classes([permissions.AllowAnonymous])
 def get_homepage_products(request, num):
-    products = Product.objects.all()[:num]
+    # get all the products that are non-deleted and select according to the given num variable
+    products = Product.objects.filter(is_deleted=False)[:num]
+    # serialize them as a json array
     serializer = ProductResponseSerializer(products, many=True)
     return Response(serializer.data)
 

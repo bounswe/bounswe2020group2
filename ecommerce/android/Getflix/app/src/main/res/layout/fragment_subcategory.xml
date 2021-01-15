@@ -5,9 +5,6 @@
 
     <data>
 
-        <variable
-            name="viewmodel"
-            type="com.example.getflix.ui.viewmodels.SubCategoryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,30 +17,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!-- <androidx.appcompat.widget.Toolbar
-                 android:id="@+id/toolbar"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:background="@color/initGold"
-                 android:minHeight="?attr/actionBarSize"
-                 android:theme="?attr/actionBarTheme"
-                 app:layout_constraintBottom_toBottomOf="parent"
-                 app:layout_constraintEnd_toEndOf="parent"
-                 app:layout_constraintStart_toStartOf="parent"
-                 app:layout_constraintTop_toTopOf="parent"
-                 app:layout_constraintVertical_bias="0.0">
-
-                 <TextView
-                     android:id="@+id/toolbar_title"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_gravity="center"
-                     android:fontFamily="@font/shadows_into_light_two"
-                     android:textColor="@color/initPurple"
-                     android:textSize="25sp"
-                     android:textStyle="bold" />
-
-             </androidx.appcompat.widget.Toolbar> -->
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/spinner_layout"
@@ -60,7 +33,7 @@
                     android:drawableLeft="@drawable/ic_filter"
                     android:text="@string/filter"
                     android:textAllCaps="false"
-                    android:textColor="@color/initPurple"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -75,12 +48,12 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="@string/sort"
-                    android:textColor="@color/initPurple"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/btn_filter"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.58"
+                    app:layout_constraintHorizontal_bias="0.54"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/btn_filter" />
 

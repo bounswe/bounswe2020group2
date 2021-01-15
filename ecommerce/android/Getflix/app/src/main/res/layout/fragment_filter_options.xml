@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="?attr/actionBarSize">
 
 
         <LinearLayout
@@ -25,8 +26,9 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="@string/price_range"
-                android:textColor="@color/initPurple"
+                android:fontFamily="@font/open_sans_semibold"
+                android:text="Max Price: "
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -44,18 +46,18 @@
 
         </LinearLayout>
 
-        <com.google.android.material.slider.RangeSlider
+        <com.google.android.material.slider.Slider
             android:id="@+id/price_slider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:stepSize="1"
             android:valueFrom="0.0"
-            android:valueTo="100.0"
+            android:valueTo="20000.0"
             app:haloColor="@color/colorPrimary"
             app:thumbColor="@color/initGold"
-            app:tickColor="@color/initPurple"
-            app:trackColor="@color/initPurple" />
+            app:tickColor="@color/black"
+            app:trackColor="@color/black" />
 
         <View
             android:layout_width="match_parent"
@@ -67,12 +69,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:fontFamily="@font/open_sans_semibold"
             android:text="@string/pro_rating"
-            android:textColor="@color/initPurple"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <RelativeLayout
+        <!-- <RelativeLayout
             android:id="@+id/rl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -92,7 +95,7 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="10dp"
                     android:text="0 +"
-                    android:textColor="@color/initPurple" />
+                    android:textColor="@color/black" />
 
                 <RadioButton
                     android:id="@+id/rb_1"
@@ -101,7 +104,7 @@
                     android:buttonTint="@color/initPurple"
                     android:paddingRight="10dp"
                     android:text="1 +"
-                    android:textColor="@color/initPurple" />
+                    android:textColor="@color/black" />
 
                 <RadioButton
                     android:id="@+id/rb_2"
@@ -110,7 +113,7 @@
                     android:buttonTint="@color/initPurple"
                     android:paddingRight="10dp"
                     android:text="2 +"
-                    android:textColor="@color/initPurple" />
+                    android:textColor="@color/black" />
 
                 <RadioButton
                     android:id="@+id/rb_3"
@@ -119,7 +122,7 @@
                     android:buttonTint="@color/initPurple"
                     android:paddingRight="10dp"
                     android:text="3 +"
-                    android:textColor="@color/initPurple" />
+                    android:textColor="@color/black" />
 
                 <RadioButton
                     android:id="@+id/rb_4"
@@ -128,9 +131,35 @@
                     android:buttonTint="@color/initPurple"
                     android:paddingRight="10dp"
                     android:text="4 +"
-                    android:textColor="@color/initPurple" />
+                    android:textColor="@color/black" />
             </RadioGroup>
-        </RelativeLayout>
+        </RelativeLayout> -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RatingBar
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:progressTint="@color/black"
+                android:gravity="center_vertical"
+                android:stepSize="0.1" />
+
+            <TextView
+                android:id="@+id/rating_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:layout_marginBottom="15dp"
+                android:fontFamily="@font/open_sans_semibold"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="17dp"
+                android:textStyle="bold|italic" />
+
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -148,8 +177,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="10dp"
+                android:fontFamily="@font/open_sans_semibold"
                 android:text="@string/brands"
-                android:textColor="@color/initPurple"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -167,8 +197,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
+            android:fontFamily="sans-serif-condensed"
             android:text="None"
-            android:textColor="@color/initPurple"
+            android:textColor="@color/black"
             android:textSize="17sp"
             android:textStyle="bold|italic" />
 
@@ -188,8 +219,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="10dp"
+                android:fontFamily="@font/open_sans_semibold"
                 android:text="@string/vendors"
-                android:textColor="@color/initPurple"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -206,8 +238,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
+            android:fontFamily="sans-serif-condensed"
             android:text="None"
-            android:textColor="@color/initPurple"
+            android:textColor="@color/black"
             android:textSize="17sp"
             android:textStyle="bold|italic" />
 

@@ -10,15 +10,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
+import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentProductBinding
+import com.example.getflix.doneAlert
 import com.example.getflix.ui.adapters.CommentAdapter
 import com.example.getflix.ui.adapters.ImageAdapter
 import com.example.getflix.ui.adapters.RecommenderAdapter
 import com.example.getflix.ui.viewmodels.ProductViewModel
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 import me.relex.circleindicator.CircleIndicator2
 
 
@@ -30,13 +35,15 @@ class ProductFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate<FragmentProductBinding>(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_product,
             container, false
         )
         val args = ProductFragmentArgs.fromBundle(requireArguments())
         productViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
         productViewModel.getProduct(args.productId)
+
+        activity?.toolbar_lay!!.visibility = View.GONE
 
         val recommenderAdapter = RecommenderAdapter()
         val imageAdapter = ImageAdapter()
@@ -64,12 +71,12 @@ class ProductFragment : Fragment() {
         val indicator: CircleIndicator2 = binding.circleIndicator
         indicator.attachToRecyclerView(binding.images, pagerSnapHelper)
 
-        binding.like.setOnClickListener {
-            productViewModel.onLikeClick()
+        binding.save.setOnClickListener {
+            productViewModel.onSaveClick()
         }
         binding.imageView7.setOnClickListener {
             val scrollView = binding.scrollView
-            val targetView = binding.longDescription
+            val targetView = binding.detailsTitle
             scrollView.scrollTo(0, targetView.top)
         }
         binding.imageView6.setOnClickListener {
@@ -85,8 +92,16 @@ class ProductFragment : Fragment() {
             productViewModel.increaseAmount()
         }
         binding.addToCart.setOnClickListener {
-            productViewModel.addToShoppingCart(1, args.productId)
+            //productViewModel.addToShoppingCart(1, args.productId)
+            productViewModel.addCustomerCartProduct(binding.amount.text.toString().toInt(), args.productId)
         }
+
+        productViewModel.navigateBack.observe(viewLifecycleOwner, Observer{
+            if(it) {
+                doneAlert(this, "Product is added to your shopping cart!", ::navigateBack)
+                productViewModel.resetNavigate()
+            }
+        })
 
         productViewModel.amount.observe(viewLifecycleOwner, Observer {
             binding.amount.text = it?.toString()
@@ -96,11 +111,17 @@ class ProductFragment : Fragment() {
             recommenderAdapter.submitList(it)
         })
 
-        val comments = listOf<String>(
-            "A user review refers to a review written by a user or consumer of a product or a service based on her experience as a user of the reviewed product. Popular sources for consumer reviews are e-commerce sites like Amazon.com, Zappos or lately in the Yoga field for schools such as Banjaara Yoga and Ayurveda, and social media sites like TripAdvisor and Yelp. E-commerce sites often have consumer reviews for products and sellers separately. Usually, consumer reviews are in the form of several lines of texts accompanied by a numerical rating. This text is meant to aid in shopping decision of a prospective buyer. A consumer review of a product usually comments on how well the product measures up to expectations based on the specifications provided by the manufacturer or seller. It talks about performance, reliability, quality defects, if any, and value for money. Consumer review, also called 'word of mouth' and 'user generated content' differs from 'marketer generated content' in its evaluation from consumer or user point of view. Often it includes comparative evaluations against competing products. Observations are factual as well as subjective in nature. Consumer review of sellers usually comment on service experienced, and dependability or trustworthiness of the seller. Usually, it comments on factors such as timeliness of delivery, packaging, and correctness of delivered items, shipping charges, return services against promises made, and so on."
-        )
+
+        productViewModel.reviews.observe(viewLifecycleOwner, Observer{
+            if (it!= null) {
+                commentAdapter.submitList(it)
+            }
+        })
+
+
         productViewModel.product.observe(viewLifecycleOwner, Observer {
             if (it != null) {
+                productViewModel.getProductReviews()
                 binding.product = it
                 binding.brand.text = it.brand.name
                 binding.productName.text = it.name
@@ -117,19 +138,27 @@ class ProductFragment : Fragment() {
                 binding.productSubcategory.text = it.subcategory.name
                 binding.circleIndicator.createIndicators(it.images.size, 0)
                 setProductRating(it.rating)
-                commentAdapter.submitList(comments)
             }
 
         })
-        productViewModel.isLiked.observe(viewLifecycleOwner, Observer {
+        productViewModel.isSaved.observe(viewLifecycleOwner, Observer {
             if (it) {
-                binding.like.setImageResource(R.drawable.ic_filled_like)
+                binding.save.setImageResource(R.drawable.saved_product)
             } else {
-                binding.like.setImageResource(R.drawable.ic_like)
+                binding.save.setImageResource(R.drawable.nonsaved_product)
             }
         })
+
+        binding.btnBack.setOnClickListener {
+            view?.findNavController()!!.popBackStack()
+        }
+
         return binding.root
 
+    }
+
+    private fun navigateBack() {
+        view?.findNavController()!!.popBackStack()
     }
 
     fun setProductRating(rating: Double) {
@@ -148,6 +177,11 @@ class ProductFragment : Fragment() {
         if (rating.toInt() == 5) {
             binding.star5.setImageResource(R.drawable.ic_filled_star)
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        activity?.toolbar_lay!!.visibility = View.VISIBLE
     }
 
 }

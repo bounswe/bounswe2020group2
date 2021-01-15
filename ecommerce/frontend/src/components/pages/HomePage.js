@@ -9,6 +9,7 @@ import { api } from '../../api'
 import { SearchInput } from '../SearchInput'
 import { SearchInputWrapper } from '../search/SearchInputWrapper'
 import { format } from 'prettier'
+import { HorizontalProductList } from '../HorizontalProductList'
 
 export const HomePage = () => {
     // example usage
@@ -37,6 +38,7 @@ const HomePage_Splash = () => {
 const HomePage_MainContent = () => {
     const [trendingProducts, setTrendingProducts] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const { categories } = useAppContext()
 
     useEffect(() => {
         async function fetch() {
@@ -56,10 +58,17 @@ const HomePage_MainContent = () => {
     }, [])
 
     return (
-        <div className="trending-grid-wrapper">
-            {/* <Spin spinning={isLoading}>
-                <TrendingGrid trendingProducts={trendingProducts} />
-            </Spin> */}
-        </div>
+        <Spin spinning={isLoading}>
+            <div className="trending-grid-wrapper">
+                {categories.map(category => {
+                    const filters = {
+                        category: category.id,
+                        sortBy: 'best-sellers',
+                        type: 'products',
+                    }
+                    return <HorizontalProductList key={category.id} filters={filters} />
+                })}
+            </div>
+        </Spin>
     )
 }

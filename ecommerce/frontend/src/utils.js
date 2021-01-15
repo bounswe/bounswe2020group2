@@ -1,4 +1,5 @@
 import { config } from './config'
+import * as R from 'ramda'
 
 export const productSortBy = {
     'best-sellers': 'Best sellers',
@@ -82,7 +83,6 @@ export function formatProduct({
 }
 
 export function formatImageUrl(imageUrl) {
-    console.log(imageUrl)
     if (imageUrl.startsWith('/image/')) return config.apiUrl + imageUrl
     return imageUrl
 }
@@ -99,8 +99,93 @@ export function round(num, decimalPlaces = 2) {
 }
 
 export function truncate(input, limit = 50) {
-    if (input.length > limit) {
-        return input.substring(0, limit) + '...'
-    }
+    if (input.length > limit) return input.substring(0, limit) + '...'
     return input
 }
+
+export const orderStatusMap = {
+    cancelled: -1,
+    accepted: 0,
+    at_cargo: 1,
+    delivered: 2,
+}
+
+export const orderStatusInvMap = {
+    '-1': 'cancelled',
+    0: 'accepted',
+    1: 'at_cargo',
+    2: 'delivered',
+}
+
+export function formatPurchase(purchase) {
+    return {
+        ...purchase,
+        product: formatProduct(purchase.product),
+        status: orderStatusMap[purchase.status],
+    }
+}
+
+export function formatOrderStatus(status) {
+    const statusMapping = {
+        cancelled: 'Cancelled',
+        accepted: 'In progress',
+        at_cargo: 'At cargo',
+        delivered: 'Delivered',
+    }
+    return statusMapping[orderStatusInvMap[status]]
+}
+
+export function formatOrder(order) {
+    return {
+        id: order.order_id,
+        purchases: order.order_all_purchase.map(formatPurchase),
+        ...R.omit(['order_id', 'purchases'], order),
+    } // temporary solution
+}
+
+export const formatSearchQueryParams = values => ({
+    query: values.search?.query,
+    // query: this can be undefined it means doesn't matter
+    // query: for now, case-insensitive search in title or description
+
+    category: values.filters?.category,
+    // category: if missing, assume all products
+
+    subcategory: values.filters?.subcategory,
+    // subcategory: if missing, assume all subcategories of the category
+    // subcategory: subcategory cannot be given without specifying category
+
+    brand: values.filters?.brands,
+    // brand: OR semantic
+    // brand: these are brand ids I get from the database
+    // brand: if brand is undefined or empty array then consider it as any brand
+
+    max_price: values.filters?.maxPrice,
+    // max_price: if missing, assume +infinity
+
+    min_rating: values.filters?.rating,
+    // min_rating: if missing, assume 0
+    // min_rating: min 0, max 5
+    // min_rating: >= semantic
+
+    // == sorting ==
+    sort_by: values.filters?.sortBy,
+    // sort_by: if missing, assume 'best-sellers'
+
+    sort_order: 'increasing',
+    // sort_order: if missing, assume 'increasing'
+    // sort_order: decreasing best-sellers -> best sellers shown first
+    // sort_order: decreasing newest-arrivals -> newest arrivals shown first
+    // sort_order: increasing price -> low price products first
+    // sort_order: increasing average-customer-review -> low review first
+    // sort_order: increasing number-of-comments -> low comments first
+
+    // == pagination ==
+    page: values.pagination?.current,
+    // page: pages start from 0
+    // page: if missing, assume 0
+
+    page_size: values.pagination?.pageSize,
+    // page_size: smallest page_size should 1, biggest should be 100
+    // page_size: if missing, assume 10
+})

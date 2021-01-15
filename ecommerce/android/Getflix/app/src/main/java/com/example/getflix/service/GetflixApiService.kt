@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 
-const val BASE_URL = "http://ec2-18-189-28-20.us-east-2.compute.amazonaws.com:8000/"
+const val BASE_URL = "http://ec2-18-223-113-236.us-east-2.compute.amazonaws.com:8000/"
 
 private val requestInterceptor = Interceptor { chain ->
 
@@ -137,6 +137,25 @@ interface GetflixApiService {
     // get prices of shopping cart
     @GET("checkout/details")
     suspend fun getCustomerCartPrice(@Header("Authorization") token: String): Response<CustomerCartPriceModel>
+
+    @GET("review")
+    fun getReviewOfProduct(@Query("product") productId: Int) : Call<ProductReviewListModel>
+
+    @Headers("Content-Type: application/json")
+    @POST("search/products")
+    fun searchProductsByVendor(@Body cardData: ProSearchByVendorRequest): Call<ProSearchByVendorResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("search/products")
+    fun searchProductsByQuery(@Body cardData: ProSearchByQueryRequest): Call<ProSearchByVendorResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("search/products")
+    fun searchProductsSort(@Body cardData: ProSearchSortRequest): Call<ProSearchByVendorResponse>
+
+    @Headers("Content-Type: application/json")
+    @PUT("vendor/product")
+    fun updateVendorProduct(@Header("Authorization") token: String, @Body vendorProData: VendorProUpdateRequest): Call<VendorProUpdateResponse>
 
 
 }

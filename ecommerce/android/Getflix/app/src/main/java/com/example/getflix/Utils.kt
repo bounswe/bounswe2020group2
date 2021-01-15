@@ -1,10 +1,17 @@
 package com.example.getflix
 
+import android.app.Activity
+import android.content.Context
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.view.inputmethod.InputMethodManager.*
 import androidx.fragment.app.Fragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.getflix.activities.MainActivity
+import com.example.getflix.models.CategoryModel
+import com.example.getflix.models.SubcategoryModel
 import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.CardProUpdateRequest
 import com.example.getflix.service.responses.CardProUpdateResponse
@@ -13,6 +20,50 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
+
+
+
+val categories = listOf<CategoryModel>(
+        CategoryModel(
+                "Electronics",
+                1, listOf(SubcategoryModel("Computers", 1),
+                SubcategoryModel("Camera & Photo", 1),
+                SubcategoryModel("Cell Phones & Accessories", 1),
+                SubcategoryModel("Digital Videos", 1),
+                SubcategoryModel("Software", 1)) as MutableList<SubcategoryModel>
+        ),
+        CategoryModel(
+        "Health & Households", 1,
+        listOf(SubcategoryModel("Sports & Outdoor", 1),
+                SubcategoryModel("Beauty & Personal Care", 1)) as MutableList<SubcategoryModel>
+), CategoryModel(
+        "Home & Garden", 1,
+        listOf(SubcategoryModel("Luggage", 1),
+                SubcategoryModel("Pet Supplies", 1),
+                SubcategoryModel("Furniture", 1)) as MutableList<SubcategoryModel>
+), CategoryModel(
+        "Clothing", 1,
+        listOf(SubcategoryModel("Men's Fashion", 1),
+                SubcategoryModel("Women's Fashion", 1),
+                SubcategoryModel("Boys' Fashion", 1),
+                SubcategoryModel("Girls' Fashion", 1),
+                SubcategoryModel("Baby", 1)) as MutableList<SubcategoryModel>
+), CategoryModel(
+        "Hobbies", 1,
+        listOf(SubcategoryModel("Books", 1),
+                SubcategoryModel("Music & CDs", 1),
+                SubcategoryModel("Movies & TVs", 1),
+                SubcategoryModel("Toys & Games", 1),
+                SubcategoryModel("Video Games", 1),
+                SubcategoryModel("Arts & Crafts", 1)) as MutableList<SubcategoryModel>
+), CategoryModel(
+        "Others", 1,
+        listOf(SubcategoryModel("Automotive", 1),
+                SubcategoryModel("Industrial & Scientific", 1)) as MutableList<SubcategoryModel>
+)
+)
+
 
 fun getProductImage(productId: Int): Int {
     return when (productId) {
@@ -38,6 +89,17 @@ fun getProductImage(productId: Int): Int {
     }
 
 }
+fun getCategoryImage(category: String) : Int {
+    return when (category) {
+        "Electronics" -> R.drawable.ic_electronics
+        "Health & Households" -> R.drawable.ic_health
+        "Home & Garden" -> R.drawable.ic_furniture
+        "Clothing" -> R.drawable.ic_fashion
+        "Hobbies" -> R.drawable.ic_movie
+        else -> R.drawable.ic_automative
+
+    }
+}
 
 fun infoAlert(fragment: Fragment, message: String) {
     MaterialAlertDialogBuilder(fragment.requireContext(), R.style.MaterialAlertDialog_color)
@@ -59,6 +121,8 @@ fun doneAlert(fragment: Fragment, message: String, func: (() -> Unit)) {
             .setIcon(R.drawable.ic_check)
             .show()
 }
+
+
 
 
 fun addToShoppingCart(amount : Int,shoppingCartId: Int, productId: Int) {
@@ -97,32 +161,18 @@ fun askAlert(fragment: Fragment, message: String, func: () -> Unit) {
             .show()
 }
 
-/* - **Electronics**
-  - Computers
-  - Camera & Photo
-  - Cell Phones & Accessories
-  - Digital Videos
-  - Software
-- **Health & Households**
-  - Sports & Outdoor
-  - Beauty & Personal Care
-- **Home & Garden**
-  - Luggage
-  - Pet Supplies
-  - Furniture
-- **Clothing**
-  - Men's Fashion
-  - Women's Fashion
-  - Boys' Fashion
-  - Girls' Fashion
-  - Baby
-- **Hobbies**
-  - Books
-  - Music & CDs
-  - Movies & TVs
-  - Toys & Games
-  - Video Games
-  - Arts & Crafts
-- **Others**
-  - Automotive
-  - Industrial & Scientific  */
+fun hideKeyboard(activity: Activity) {
+    val inputManager: InputMethodManager = activity
+        .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+    // check if no view has focus:
+    val currentFocusedView: View? = activity.currentFocus
+    if (currentFocusedView != null) {
+        inputManager.hideSoftInputFromWindow(
+            currentFocusedView.windowToken,
+            HIDE_NOT_ALWAYS
+        )
+    }
+}
+
+

@@ -18,7 +18,7 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder
 
 
 class CategoriesAdapter(groups: List<ExpandableGroup<*>>?, fragment: CategoriesFragment) :
-        ExpandableRecyclerViewAdapter<CategoryViewHolder, SubCategoryViewHolder>(groups) {
+    ExpandableRecyclerViewAdapter<CategoryViewHolder, SubCategoryViewHolder>(groups) {
 
     val fragment = fragment
 
@@ -33,16 +33,16 @@ class CategoriesAdapter(groups: List<ExpandableGroup<*>>?, fragment: CategoriesF
     }
 
     override fun onBindChildViewHolder(
-            holder: SubCategoryViewHolder?,
-            flatPosition: Int,
-            group: ExpandableGroup<*>?,
-            childIndex: Int
+        holder: SubCategoryViewHolder?,
+        flatPosition: Int,
+        group: ExpandableGroup<*>?,
+        childIndex: Int
     ) {
         val subCat: SubcategoryModel = group?.items?.get(childIndex) as SubcategoryModel
         holder?.bind(subCat)
         holder?.itemView!!.setOnClickListener {
             val subId = subCat.id
-            fragment.findNavController().navigate(actionCategoriesFragmentToSubcategoryFragment(subId))
+            fragment.findNavController().navigate(actionCategoriesFragmentToSubcategoryFragment(subId.toString(),null,null,null,null,null))
         }
 
 
@@ -50,9 +50,9 @@ class CategoriesAdapter(groups: List<ExpandableGroup<*>>?, fragment: CategoriesF
 
 
     override fun onBindGroupViewHolder(
-            holder: CategoryViewHolder?,
-            flatPosition: Int,
-            group: ExpandableGroup<*>?
+        holder: CategoryViewHolder?,
+        flatPosition: Int,
+        group: ExpandableGroup<*>?
     ) {
         val continent: CategoryModel = group as CategoryModel
         holder?.bind(continent)
@@ -101,7 +101,6 @@ class CategoryViewHolder(val binding: ListCategoryBinding) : GroupViewHolder(bin
     }
 
 }
-
 
 
 

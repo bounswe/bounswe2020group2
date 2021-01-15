@@ -57,10 +57,11 @@
     <string-array name="SortBy">
         <item>---</item>
         <item>Best Sellers</item>
-        <item>Newest Arrivals</item>
-        <item>Price</item>
-        <item>Average Customer Review</item>
-        <item>Number of Comments</item>
+        <item>New Arrivals</item>
+        <item>Price (Inc.)</item>
+        <item>Price (Dec.)</item>
+        <item>Avg. Cust. Review</item>
+        <item>Num. of Comments</item>
     </string-array>
     <string name="sort">Sort By:</string>
     <string name="vendors">Vendors:</string>
@@ -103,6 +104,10 @@
     <string name="username_char_limit">Your username should contain at least 6 characters.</string>
     <string name="valid_name">Please enter a valid name and surname.</string>
     <string name="register_success">You have registered successfully! You are redirected to the login page.</string>
+    <string name="slogan1">The biggest marketplace in the world.</string>
+    <string name="todays_deals">Todays Deals</string>
+    <string name="trending_products">Trending Products</string>
+    <string name="recommended_for_you_title">Recommended For You</string>
     <string name="remember_me">Remember Me</string>
     <string name="register_back">Back To Login</string>
     <string name="loading">Please Wait…</string>
@@ -120,6 +125,7 @@
     <string name="choose_credit">Choose a credit card to pay</string>
     <string name="choose_address">Choose an address</string>
     <string name="add_credit">Add new credit card</string>
+    <string name="you_might_like">You might like...</string>
     <string name="edittext_title"><font size="35">Title</font></string>
     <string name="edittext_name"><font size="35">Name</font></string>
     <string name="edittext_surname"><font size="35">Surname</font></string>
@@ -138,4 +144,20 @@
     <string name="category_title">Category</string>
     <string name="subcategory_title">Subcategory</string>
     <string name="comments_title">Comments</string>
+    <string name="product_">Urun: </string>
+    <string name="delivery_">Gonderim Adresi: </string>
+    <string name="delivery_status">Teslimat Durumu: </string>
+    <string name="proceed_with_the_payment">PROCEED WITH THE PAYMENT</string>
+    <string name="accept">ACCEPT</string>
+    <string name="edittext_id"><font size="35">Product Id</font></string>
+    <string name="edittext_pname"><font size="35">Product Name</font></string>
+    <string name="edittext_price"><font size="35">Price</font></string>
+    <string name="edittext_stockamount"><font size="35">Stock Amount</font></string>
+    <string name="edittext_shortdescription"><font size="35">Short Description</font></string>
+    <string name="edittext_longdescription"><font size="35">Long Description</font></string>
+    <string name="edittext_discount"><font size="35">Discount</font></string>
+    <string name="edittext_brandid"><font size="35">Brand Id</font></string>
+    <string name="edittext_subcategoryid"><font size="35">Subcategory Id</font></string>
+    <string name="lists">Lists</string>
+    <string name="notifications">Notifications</string>
 </resources>

@@ -43,12 +43,36 @@ class CategoriesViewModel : ViewModel() {
     val addresslist: LiveData<AddressListModel>?
         get() = _addresslist
 
+    private val _orderlist = MutableLiveData<List<OrderModel>>()
+    val orderlist: LiveData<List<OrderModel>>?
+        get() = _orderlist
+
 
     var categories = arrayListOf<CategoryModel>()
 
     private var job: Job? = null
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         println("Error ${throwable.localizedMessage}")
+    }
+
+
+
+    fun getProducts(numberOfProducts: Int) {
+        GetflixApi.getflixApiService.getProducts(numberOfProducts)
+            .enqueue(object :
+                Callback<List<ProductModel>> {
+                override fun onFailure(call: Call<List<ProductModel>>, t: Throwable) {
+                    _products.value = null
+                }
+
+                override fun onResponse(
+                    call: Call<List<ProductModel>>,
+                    response: Response<List<ProductModel>>
+                ) {
+                    _products.value = response.body()
+                }
+            }
+            )
     }
 
 
@@ -66,6 +90,8 @@ class CategoriesViewModel : ViewModel() {
             }
         }
     }
+
+
 
     fun getSingleCartProduct(sc_id: Int) {
         job = CoroutineScope(Dispatchers.IO).launch {
@@ -112,7 +138,7 @@ class CategoriesViewModel : ViewModel() {
     }
 
 
-   
+
 
     fun getCustomerCard(cardId: Int) {
         job = CoroutineScope(Dispatchers.IO).launch {
@@ -130,47 +156,10 @@ class CategoriesViewModel : ViewModel() {
 
 
 
-    fun updateCustomerCartProduct(amount: Int, scId: Int, proId: Int) {
-        GetflixApi.getflixApiService.updateCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, scId, CardProUpdateRequest(proId, amount))
-                .enqueue(object :
-                        Callback<CardProUpdateResponse> {
-                    override fun onFailure(call: Call<CardProUpdateResponse>, t: Throwable) {
 
-                    }
 
-                    override fun onResponse(
-                            call: Call<CardProUpdateResponse>,
-                            response: Response<CardProUpdateResponse>
-                    ) {
-                        println(response.body().toString())
-                        println(response.code())
-                        if (response.body()!!.status.succcesful)
-                            println(response.body().toString())
-                    }
-                }
-                )
-    }
 
-    fun deleteCustomerCartProduct(scId: Int) {
-        GetflixApi.getflixApiService.deleteCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, scId)
-                .enqueue(object :
-                        Callback<CardProDeleteResponse> {
-                    override fun onFailure(call: Call<CardProDeleteResponse>, t: Throwable) {
-                        println("failure")
-                    }
 
-                    override fun onResponse(
-                            call: Call<CardProDeleteResponse>,
-                            response: Response<CardProDeleteResponse>
-                    ) {
-                        println(response.body().toString())
-                        println(response.code())
-                        if (response.body()!!.status.succcesful)
-                            println(response.body().toString())
-                    }
-                }
-                )
-    }
 
     /*fun addCustomerCartProduct(amount: Int, proId: Int) {
         GetflixApi.getflixApiService.addCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, CardProAddRequest(proId, amount))
@@ -192,6 +181,7 @@ class CategoriesViewModel : ViewModel() {
             }
             )
     } */
+
 
     fun addCustomerCartProduct(amount: Int, proId: Int) {
         GetflixApi.getflixApiService.addCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, CardProAddRequest(proId, amount))
@@ -216,8 +206,6 @@ class CategoriesViewModel : ViewModel() {
 
 
 
-
-
     fun addCategory(categoryModel: CategoryModel) {
         if (_categoriesList.value != null) {
             val categories = _categoriesList.value
@@ -233,30 +221,7 @@ class CategoriesViewModel : ViewModel() {
 
 
 
-    fun setCategories(products: MutableList<ProductModel>) {
-        val catList = arrayListOf<CategoryModel>()
-        for (pro in products) {
-            if (!catList.any { pro.category.name == it.name }) {
-                val subCats = arrayListOf<SubcategoryModel>()
-                val products = arrayListOf<ProductModel>()
-                products.add(pro)
-               // subCats.add(SubcategoryModel(pro.subcategory, products))
-               // catList.add(CategoryModel(pro.category, subCats))
-            } else {
-                for (cat in catList) {
-                    if (cat.name == pro.category.name) {
-                        var ind = catList.indexOf(cat)
-                        if (!catList[ind].subcategories!!.any { pro.subcategory.name == it.name }) {
-                            val products = arrayListOf<ProductModel>()
-                            products.add(pro)
-                           // catList[ind].subCats.add(SubcategoryModel(pro.subcategory, products))
-                        }
-                    }
-                }
-            }
-        }
-        _categoriesList.value = catList
-    }
+
 
     fun getCustomerCards() {
         job = CoroutineScope(Dispatchers.IO).launch {
@@ -278,11 +243,16 @@ class CategoriesViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     response.body().let { it ->
                         println(it.toString())
+                        if (it != null) {
+                            _orderlist.value = it.cartProducts
+                        }
                     }
                 }
             }
         }
     }
+
+
 
 
 
@@ -306,18 +276,7 @@ class CategoriesViewModel : ViewModel() {
             )
     }
 
-    fun getCustomerCartPrice() {
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getCustomerCartPrice("Bearer " + MainActivity.StaticData.user!!.token)
-            withContext(Dispatchers.Main + exceptionHandler) {
-                if (response.isSuccessful) {
-                    response.body().let { it ->
-                        println(it.toString())
-                    }
-                }
-            }
-        }
-    }
+
 
 
 
@@ -325,23 +284,23 @@ class CategoriesViewModel : ViewModel() {
 
     fun deleteCustomerCard(cardId: Int) {
         GetflixApi.getflixApiService.deleteCustomerCard("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, cardId)
-                .enqueue(object :
-                        Callback<CardDeleteResponse> {
-                    override fun onFailure(call: Call<CardDeleteResponse>, t: Throwable) {
-                        println("failure")
-                    }
-
-                    override fun onResponse(
-                            call: Call<CardDeleteResponse>,
-                            response: Response<CardDeleteResponse>
-                    ) {
-                        println(response.body().toString())
-                        println(response.code())
-                        if (response.body()!!.status.succcesful)
-                            println(response.body().toString())
-                    }
+            .enqueue(object :
+                Callback<CardDeleteResponse> {
+                override fun onFailure(call: Call<CardDeleteResponse>, t: Throwable) {
+                    println("failure")
                 }
-                )
+
+                override fun onResponse(
+                    call: Call<CardDeleteResponse>,
+                    response: Response<CardDeleteResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+                    if (response.body()!!.status.succcesful)
+                        println(response.body().toString())
+                }
+            }
+            )
     }
 
 }

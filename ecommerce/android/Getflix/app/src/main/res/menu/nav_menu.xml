@@ -12,8 +12,8 @@
 
     <item
         android:id="@+id/favoritesFragment"
-        android:icon="@drawable/menu_favorite"
-        android:title="@string/favorites" />
+        android:icon="@drawable/ic_baseline_format_list_bulleted_24"
+        android:title="@string/lists" />
 
     <item
         android:id="@+id/cartFragment"
