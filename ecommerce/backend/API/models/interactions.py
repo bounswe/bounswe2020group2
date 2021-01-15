@@ -25,3 +25,10 @@ class Message(models.Model):
     text = models.CharField(max_length=2000)
     date = models.DateTimeField(auto_now_add=True)
     attachment_url = models.CharField(max_length=1000, null=True)
+
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    notification_type = models.IntegerField(default=1)
+    date = models.DateTimeField(auto_now_add=True)
+    argument = models.CharField(max_length=500)
+    is_seen = models.BooleanField(default=False)
