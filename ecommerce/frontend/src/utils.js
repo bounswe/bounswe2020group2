@@ -192,7 +192,11 @@ export const formatSearchQueryParams = values => ({
 })
 
 export const formatMessage = obj => {
-    return { ...obj, date: moment.utc(obj.date) }
+    return {
+        ...obj,
+        date: moment.utc(obj.date),
+        attachment_url: obj.attachment_url ? formatImageUrl(obj.attachment_url) : null,
+    }
 }
 
 export const formatConversation = obj => {
