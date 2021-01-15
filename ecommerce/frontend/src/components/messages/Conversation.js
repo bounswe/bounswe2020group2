@@ -83,7 +83,7 @@ export const Conversation = ({ className, conversation }) => {
 
         if (file) {
             const image = await getBase64(file)
-            message.attachment = image.base64
+            message.attachment = image.base64.split(',')[1]
         }
 
         try {
