@@ -52,7 +52,7 @@ def manage_messages(request):
                 img_array = base64.b64decode(attachment)
                 image = Image(image=img_array)
                 image.save()
-                attachment_url = f"/images/{image.pk}"
+                attachment_url = f"/image/{image.pk}"
             # save message
             message = Message(conversation=conversation, sender=sender, text=text, attachment_url=attachment_url)
             message.save()
