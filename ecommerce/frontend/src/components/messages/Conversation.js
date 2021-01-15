@@ -2,7 +2,7 @@ import './Conversation.less'
 import 'react-chat-elements/dist/main.css'
 
 import { UploadOutlined } from '@ant-design/icons'
-import { Button, Input, Skeleton, Upload, Image } from 'antd'
+import { Button, Input, Skeleton, Upload, Image, Empty } from 'antd'
 import cls from 'classnames'
 import { getBase64 } from 'image-blobber'
 import { useEffect, useRef, useState, Fragment } from 'react'
@@ -18,10 +18,10 @@ export const Conversation = ({ className, conversation }) => {
     const [value, setValue] = useState('')
     const [loading, setLoading] = useState(false)
     const { user } = useAppContext()
-    const { lastFetch, sendMessage } = useChatContext()
+    const { lastFetch, sendMessage, conversations } = useChatContext()
     const [image, setImage] = useState(null)
 
-    if (conversation === null) {
+    if (conversations === null) {
         return (
             <div className={cls(className, 'conversation-skeleton')}>
                 <Skeleton className={'conversation-skeleton_left'} active title={false} paragraph={{ rows: 2 }} />
@@ -36,6 +36,10 @@ export const Conversation = ({ className, conversation }) => {
                 <Skeleton className={'conversation-skeleton_right'} active title={false} paragraph={{ rows: 2 }} />
             </div>
         )
+    }
+
+    if (conversation === null) {
+        return <Empty description={'Please select a conversation'} />
     }
 
     const formatText = text => {

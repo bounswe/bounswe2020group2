@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 import { useChatContext } from '../../context/ChatContext'
 import { Conversation } from './Conversation'
 import { ConversationList } from './ConversationList'
-import { Spin } from 'antd'
+import { Empty } from 'antd'
 
 export const Conversations = () => {
     const { conversations, getConversations, conversation, setConversation } = useChatContext()
@@ -21,6 +21,14 @@ export const Conversations = () => {
         }
         fetch()
     }, [])
+
+    if (conversations !== null && !conversations.length) {
+        return (
+            <div className="conversations-empty">
+                <Empty description={'You have no conversations'} />
+            </div>
+        )
+    }
 
     return (
         <div className="conversations">

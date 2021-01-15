@@ -4,7 +4,7 @@ import 'react-chat-elements/dist/main.css'
 import { ChatList } from 'react-chat-elements'
 
 import { getRetroAvatarUrl } from '../../utils'
-import { Skeleton } from 'antd'
+import { Empty, Skeleton } from 'antd'
 
 export const ConversationList = ({ className, conversations, onSelectConversation }) => {
     if (conversations === null) {
