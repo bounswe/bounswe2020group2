@@ -126,7 +126,7 @@ export const Conversation = ({ className, conversation }) => {
                     src: image,
                 }}
             />
-            <div style={{ display: 'flex', marginTop: 8 }}>
+            <div className="conversation-input-container">
                 <Upload
                     listType="picture"
                     maxCount={1}
