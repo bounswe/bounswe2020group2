@@ -11,6 +11,7 @@ import {
     verifications,
     accounts,
     conversations,
+    vendorOrders,
 } from './mocks'
 import { orderStatusMap } from '../utils'
 import * as moment from 'moment'
@@ -164,6 +165,9 @@ export const handlers = [
     //     console.log(req.body)
     //     return res(ctx.json({}))
     // }),
+    rest.get(url('/vendor/order'), (req, res, ctx) => {
+        return res(ctx.json({ status: { successful: true, message: '' }, orders: vendorOrders }))
+    }),
 ]
 
 if (process.env.NODE_ENV === 'development') {

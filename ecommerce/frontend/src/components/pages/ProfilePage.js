@@ -33,7 +33,9 @@ export const ProfilePage = props => {
                     </Alert.ErrorBoundary>
                 </TabPane>
                 <TabPane tab="Orders" key="orders" forceRender>
-                    <Alert.ErrorBoundary>TODO: will be adapted to vendor</Alert.ErrorBoundary>
+                    <Alert.ErrorBoundary>
+                        <OrdersList />
+                    </Alert.ErrorBoundary>
                 </TabPane>
                 {user.type === 'customer' && (
                     <TabPane tab="Cards" key="cards" forceRender>
