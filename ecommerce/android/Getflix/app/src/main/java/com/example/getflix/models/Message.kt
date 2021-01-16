@@ -37,10 +37,10 @@ data class Message(
     }
 
     override fun getImageUrl(): String? {
-        if(image.url==null) {
+        if(image.url==null || image.url=="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG8VkAXFHGYAhHTEy4wAV5RBdB1V6qTU9JVA&usqp=CAU.jpg/format:webp") {
             return null
         }
-        return "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125077794/125077794_1_MC/47116323.jpg"
+        return image.url
     }
 
     override fun getUser(): Author {

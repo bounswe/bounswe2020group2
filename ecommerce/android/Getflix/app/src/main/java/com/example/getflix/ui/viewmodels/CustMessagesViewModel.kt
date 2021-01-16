@@ -4,13 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.getflix.activities.MainActivity
-import com.example.getflix.models.CardModel
 import com.example.getflix.models.MessageListModel
 import com.example.getflix.service.GetflixApi
-import com.example.getflix.service.requests.CardAddRequest
+import com.example.getflix.service.requests.AddressAddRequest
 import com.example.getflix.service.requests.SendMessageRequest
-import com.example.getflix.service.responses.AddressDeleteResponse
-import com.example.getflix.service.responses.CardAddResponse
+import com.example.getflix.service.responses.AddressAddResponse
+import com.example.getflix.service.responses.SendMessageResponse
 import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,20 +39,40 @@ class CustMessagesViewModel: ViewModel() {
         }
     }
 
-    fun sendMessage(messageRequest: SendMessageRequest) {
-        GetflixApi.getflixApiService.sendMessage("Bearer " + MainActivity.StaticData.user!!.token,messageRequest)
+    /*fun addCustomerAddress(addressRequest: AddressAddRequest) {
+        GetflixApi.getflixApiService.addCustomerAddress("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, addressRequest)
             .enqueue(object :
-                Callback<AddressDeleteResponse> {
-                override fun onFailure(call: Call<AddressDeleteResponse>, t: Throwable) {
+                Callback<AddressAddResponse> {
+                override fun onFailure(call: Call<AddressAddResponse>, t: Throwable) {
 
                 }
 
                 override fun onResponse(
-                    call: Call<AddressDeleteResponse>,
-                    response: Response<AddressDeleteResponse>
+                    call: Call<AddressAddResponse>,
+                    response: Response<AddressAddResponse>
                 ) {
                     println(response.body().toString())
                     println(response.code())
+                    if (response.code()==200)
+                        _navigateBack.value = true
+                }
+            }
+            )
+    } */
+
+
+    fun sendMessage(messageRequest: SendMessageRequest) {
+        GetflixApi.getflixApiService.sendMessage("Bearer " + MainActivity.StaticData.user!!.token,messageRequest)
+            .enqueue(object :
+                Callback<SendMessageResponse> {
+                override fun onFailure(call: Call<SendMessageResponse>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<SendMessageResponse>,
+                    response: Response<SendMessageResponse>
+                ) {
                     if (response.code()==200) {
                         println(response.body().toString())
                     }

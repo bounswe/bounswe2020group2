@@ -48,7 +48,7 @@ class CreditCardViewModel : ViewModel() {
                         println(response.body().toString())
                         println(response.code())
                         getCustomerCards()
-                        if (response.body()!!.status.succcesful)
+                        if (response.body()!!.status.successful)
                             println(response.body().toString())
                     }
                 }

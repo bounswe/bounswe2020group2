@@ -161,7 +161,7 @@ interface GetflixApiService {
 
     @Headers("Content-Type: application/json")
     @POST("messages")
-    fun sendMessage(@Header("Authorization") token: String, @Body messageData: SendMessageRequest): Call<AddressDeleteResponse>
+    fun sendMessage(@Header("Authorization") token: String, @Body messageData: SendMessageRequest): Call<SendMessageResponse>
 }
 
 object GetflixApi {

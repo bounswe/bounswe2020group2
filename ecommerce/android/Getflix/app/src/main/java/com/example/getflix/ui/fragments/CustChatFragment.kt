@@ -127,7 +127,7 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
                 Message.Image(null), LocalDateTime.now()),
             true
         )
-        messagesViewModel.sendMessage(SendMessageRequest(2,"xx", "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125077794/125077794_1_MC/47116323.jpg"))
+        messagesViewModel.sendMessage(SendMessageRequest(2,input.toString(),"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG8VkAXFHGYAhHTEy4wAV5RBdB1V6qTU9JVA&usqp=CAU.jpg/format:webp"))
         println(LocalDateTime.now().toString())
         return true
     }

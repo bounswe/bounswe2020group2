@@ -17,6 +17,7 @@ import com.example.getflix.models.Author
 import com.example.getflix.models.Dialog
 import com.example.getflix.models.Message
 import com.example.getflix.models.MessageModel
+import com.example.getflix.service.requests.SendMessageRequest
 import com.example.getflix.ui.fragments.CustMessagesFragmentDirections.Companion.actionCustMessagesFragmentToCustChatFragment
 import com.example.getflix.ui.fragments.CustMessagesFragmentDirections.Companion.actionCustMessagesFragmentToProfileFragment
 import com.example.getflix.ui.viewmodels.CustMessagesViewModel
@@ -51,6 +52,9 @@ class CustMessagesFragment : Fragment() {
         activity?.toolbar!!.toolbar_title.text = "Messages"
         messagesViewModel = ViewModelProvider(this).get(CustMessagesViewModel::class.java)
         messagesViewModel.getMessages()
+        //val request = SendMessageRequest(2,"xxx","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG8VkAXFHGYAhHTEy4wAV5RBdB1V6qTU9JVA&usqp=CAU.jpg/format:webp")
+        //messagesViewModel.sendMessage(request)
+
 
         messagesViewModel.messageList.observe(viewLifecycleOwner, {
             println("aaaa")
