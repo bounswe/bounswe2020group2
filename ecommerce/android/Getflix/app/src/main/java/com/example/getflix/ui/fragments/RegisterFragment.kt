@@ -32,8 +32,7 @@ class RegisterFragment : Fragment() {
         binding.lifecycleOwner = this
         var customer = true
 
-        binding.check.setOnClickListener {
-            if(binding.check.isChecked)
+        binding.checkText.setOnClickListener {
             infoAlert(this,getString(R.string.terms_conditions))
         }
 
