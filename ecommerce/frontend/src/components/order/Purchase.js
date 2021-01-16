@@ -8,7 +8,76 @@ import { formatOrderStatus, orderStatusInvMap } from '../../utils'
 import { HeaderLabel } from '../HeaderLabel'
 import { UserReviewPost } from '../UserReview/UserReviewPost'
 
-export const Purchase = ({ purchase }) => {
+export const PurchaseVendor = ({ purchase }) => {
+    const { product, status } = purchase
+    const [messageModalVisible, setMessageModalVisible] = useState(false)
+
+    const receiver = [purchase.address.name, purchase.address.surname].filter(Boolean).join(' ')
+
+    const statusName = orderStatusInvMap[status]
+
+    const onMessageClick = event => {
+        event.stopPropagation()
+        setMessageModalVisible(true)
+    }
+
+    const onMessageEnd = () => {
+        setMessageModalVisible(false)
+    }
+
+    return (
+        <>
+            <Collapse defaultActiveKey="purchase">
+                <Collapse.Panel
+                    className={`purchase-panel-header--${statusName}`}
+                    key="purchase"
+                    showArrow={false}
+                    header={
+                        <div className="purchase-header">
+                            <HeaderLabel label="Date">
+                                {moment.utc(purchase.purchase_date).format('DD/MM/YYYY HH:mm ')}
+                            </HeaderLabel>
+                            <HeaderLabel label="Status">{formatOrderStatus(status)}</HeaderLabel>
+                            <HeaderLabel label="Address">{purchase.address.title}</HeaderLabel>
+                            <HeaderLabel label="Price">
+                                {purchase.unit_price} {purchase.currency ?? 'TL'}
+                            </HeaderLabel>
+                            <HeaderLabel label="Amount">{purchase.amount}</HeaderLabel>
+                            <HeaderLabel label="Receiver">{receiver}</HeaderLabel>
+                            <Button className="purchase-header-extra" onClick={onMessageClick} type="primary">
+                                Message
+                            </Button>
+                        </div>
+                    }>
+                    <div className="purchase-product">
+                        <div className="purchase-product-picture">
+                            <Link to={`/product/${product.id}`}>
+                                <img alt={product.name} width={'100%'} src={product.images[0]}></img>
+                            </Link>
+                        </div>
+                        <div className="purchase-product-details">
+                            <div className="purchase-product-details-title">
+                                <Link to={`/product/${product.id}`}>{product.title}</Link>
+                            </div>
+                            <div className="purchase-product-details-description">{product.short_description}</div>
+                        </div>
+                    </div>
+                </Collapse.Panel>
+            </Collapse>
+            <Modal
+                destroyOnClose
+                title={'Send a message to'}
+                visible={true}
+                onOk={onMessageClick}
+                onCancel={onMessageEnd}
+                footer={null}>
+                <MessageModalInner receiverId={1} onFinish={onMessageEnd} />
+            </Modal>
+        </>
+    )
+}
+
+export const PurchaseCustomer = ({ purchase }) => {
     const { product, status } = purchase
 
     const [reviewModalVisible, setReviewModalVisible] = useState()

@@ -34,7 +34,9 @@ export const ProfilePage = props => {
                 </TabPane>
                 <TabPane tab="Orders" key="orders" forceRender>
                     <Alert.ErrorBoundary>
-                        <OrdersList />
+                        <ChatContextProvider>
+                            <OrdersList />
+                        </ChatContextProvider>
                     </Alert.ErrorBoundary>
                 </TabPane>
                 {user.type === 'customer' && (
