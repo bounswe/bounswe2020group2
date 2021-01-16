@@ -135,7 +135,7 @@ export const VendorHeaderContent = () => {
 
     return (
         <div className="header-customer">
-            <Link to="/shoppingCart" className="header-vendor-orders">
+            <Link to="/profile/orders" className="header-vendor-orders">
                 <Button
                     className="header-vendor-orders"
                     icon={<AppstoreOutlined className="header-vendor-orders-icon" />}
