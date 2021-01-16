@@ -137,7 +137,7 @@ export const Conversation = ({ className, conversation }) => {
             />
             <div className="conversation-input-container">
                 <Upload
-                    accept=".jpg"
+                    accept="image/*"
                     listType={fileList.length ? 'picture-card' : 'picture'}
                     fileList={fileList}
                     onPreview={handlePreview}
