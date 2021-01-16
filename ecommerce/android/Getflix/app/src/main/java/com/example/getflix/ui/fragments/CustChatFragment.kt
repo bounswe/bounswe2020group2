@@ -71,7 +71,9 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
             else {
                 autid = "1"
             }
-            if(message.text!=null && message.attachmentUrl!=null) {
+            /*if(message.text!=null && (message.attachmentUrl!=null || message.attachmentUrl!="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG8VkAXFHGYAhHTEy4wAV5RBdB1V6qTU9JVA&usqp=CAU.jpg/format:webp")) {
+
+               println("IFFFTEEEE")
                 messages.add(Message("0", Author(
                     autid,
                     name,
@@ -86,20 +88,20 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
                 ), "", Message.Image(message.attachmentUrl), LocalDateTime.parse(message.date,
                     DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")))
                 )
-            } else {
+            } else { */
                 messages.add(
                     Message(
                         "0", Author(
                             autid,
                             name,
                             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVH3uxAhDbIZZqSLcgPoc3kpM1S0Vsy5VXg&usqp=CAU.jpg/format:webp",
-                        ), message.text, Message.Image(message.attachmentUrl), LocalDateTime.parse(
+                        ), message.text, Message.Image(null), LocalDateTime.parse(
                             message.date,
                             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")
                         )
                     )
                 )
-            }
+            //}
         }
 
         // komple sağa ekliyor
