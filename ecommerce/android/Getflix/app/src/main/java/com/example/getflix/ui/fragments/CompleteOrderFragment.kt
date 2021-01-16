@@ -73,12 +73,18 @@ class CompleteOrderFragment : Fragment() {
                 creditCardAdapter.submitList(it)
                 activity?.loading_progress!!.visibility = View.GONE
             }
+            else{
+                creditCardAdapter.submitList(mutableListOf())
+            }
         })
 
         viewModel.addressList.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                orderAddressAddressAdapter.submitList(it) 
+                orderAddressAddressAdapter.submitList(it as ArrayList<AddressModel>?)
+            }else{
+                orderAddressAddressAdapter.submitList(arrayListOf())
             }
+
         })
 
         var addressId =-1
