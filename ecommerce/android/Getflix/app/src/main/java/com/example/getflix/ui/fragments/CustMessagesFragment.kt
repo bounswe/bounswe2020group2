@@ -1,10 +1,12 @@
 package com.example.getflix.ui.fragments
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -23,6 +25,11 @@ import com.stfalcon.chatkit.commons.models.IDialog
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class CustMessagesFragment : Fragment() {
@@ -31,6 +38,7 @@ class CustMessagesFragment : Fragment() {
     private lateinit var binding: FragmentCustMessagesBinding
     private lateinit var messagesViewModel: CustMessagesViewModel
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,12 +53,16 @@ class CustMessagesFragment : Fragment() {
         messagesViewModel.getMessages()
 
         messagesViewModel.messageList.observe(viewLifecycleOwner, {
-            //println(it.toString())
+            println("aaaa")
+            println(it.toString())
             var dialogList = arrayListOf<Dialog>()
             var listOfMessageLists = arrayListOf<ArrayList<MessageModel>>()
             var i = 0
             for(conversation in it.conversations) {
-                dialogList.add(Dialog(i.toString(),conversation.counterpart.name,null,Message(conversation.messages[conversation.messages.size-1].toString(),Author(conversation.counterpart.id.toString(), conversation.counterpart.name, null),conversation.messages[conversation.messages.size-1].text)))
+                dialogList.add(Dialog(i.toString(),conversation.counterpart.name,null,Message(conversation.messages[conversation.messages.size-1].id.toString(),Author(conversation.counterpart.id.toString(), conversation.counterpart.name, null),conversation.messages[conversation.messages.size-1].text,
+                    Message.Image(conversation.messages[conversation.messages.size - 1].attachmentUrl),
+                    LocalDateTime.parse(conversation.messages[conversation.messages.size-1].date,
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")))))
                 i++;
                 listOfMessageLists.add(conversation.messages as ArrayList<MessageModel>)
             }

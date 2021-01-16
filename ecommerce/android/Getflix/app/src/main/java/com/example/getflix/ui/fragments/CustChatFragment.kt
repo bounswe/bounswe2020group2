@@ -1,9 +1,11 @@
 package com.example.getflix.ui.fragments
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.getflix.R
@@ -16,6 +18,8 @@ import com.stfalcon.chatkit.messages.MessageInput
 import com.stfalcon.chatkit.messages.MessagesListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class CustChatFragment : Fragment(), MessageInput.InputListener,
@@ -26,6 +30,7 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
     private lateinit var autid: String
     private lateinit var id: String
     private lateinit var name: String
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,7 +71,9 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
                 autid,
                 name,
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVH3uxAhDbIZZqSLcgPoc3kpM1S0Vsy5VXg&usqp=CAU.jpg/format:webp",
-            ), message.text))
+            ), message.text, Message.Image(message.attachmentUrl), LocalDateTime.parse(message.date,
+                DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")))
+            )
         }
 
         // komple sağa ekliyor
@@ -87,11 +94,13 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onSubmit(input: CharSequence) : Boolean {
         adapter.addToStart(
-            Message("1", Author("0", name, null), input.toString()),
+            Message("1", Author("0", name, null), input.toString(), null, LocalDateTime.now()),
             true
         )
+        println(LocalDateTime.now().toString())
         return true
     }
 

@@ -1,19 +1,24 @@
 package com.example.getflix.models
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.stfalcon.chatkit.commons.models.IMessage
 import com.stfalcon.chatkit.commons.models.MessageContentType
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.util.*
 
 
-
-class Message(private val id: String, user: Author, private var text: String, createdAt: Date?) :
+data class Message(
+    private val id: String,
+    private var user: Author,
+    private var text: String,
+    private var image: Image?,
+    private var createdAt: LocalDateTime
+) :
     IMessage, MessageContentType.Image,
     MessageContentType  {
-    private var createdAt: Date
-    private val user: Author
-    private var image: Image? = null
 
-    constructor(id: String, user: Author, text: String) : this(id, user, text, Date()) {}
 
     override fun getId(): String {
         return id
@@ -23,37 +28,24 @@ class Message(private val id: String, user: Author, private var text: String, cr
         return text
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun getCreatedAt(): Date {
-        return createdAt
+        val localDateTime = createdAt
+        val zonedDateTime = localDateTime.atZone(ZoneOffset.systemDefault())
+        val instant = zonedDateTime.toInstant()
+        return Date.from(instant);
+    }
+
+    override fun getImageUrl(): String? {
+        return image!!.url
     }
 
     override fun getUser(): Author {
         return user
     }
 
-    override fun getImageUrl(): String? {
-        return if (image == null) null else image!!.url
-    }
 
-    val status: String
-        get() = "Sent"
+    data class Image(val url: String?)
 
-    fun setText(text: String) {
-        this.text = text
-    }
 
-    fun setCreatedAt(createdAt: Date) {
-        this.createdAt = createdAt
-    }
-
-    fun setImage(image: Image?) {
-        this.image = image
-    }
-
-    class Image(val url: String)
-
-    init {
-        this.user = user
-        this.createdAt = createdAt!!
-    }
 }
