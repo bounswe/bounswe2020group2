@@ -32,6 +32,11 @@ class RegisterFragment : Fragment() {
         binding.lifecycleOwner = this
         var customer = true
 
+        binding.check.setOnClickListener {
+            if(binding.check.isChecked)
+            infoAlert(this,getString(R.string.terms_conditions))
+        }
+
         binding.radioGroup.setOnCheckedChangeListener(
                 RadioGroup.OnCheckedChangeListener { group, checkedId ->
                     when (checkedId) {

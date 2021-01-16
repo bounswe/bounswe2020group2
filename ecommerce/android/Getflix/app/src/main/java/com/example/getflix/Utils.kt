@@ -102,8 +102,11 @@ fun getCategoryImage(category: String) : Int {
 }
 
 fun infoAlert(fragment: Fragment, message: String) {
+    var title = "Info"
+    if(fragment.javaClass.name.contains("Register"))
+        title = "Terms & Conditions"
     MaterialAlertDialogBuilder(fragment.requireContext(), R.style.MaterialAlertDialog_color)
-            .setTitle("Info")
+            .setTitle(title)
             .setMessage(message)
             .setPositiveButton("Ok") { dialog, which ->
             }

@@ -8,10 +8,13 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentCustChatBinding
 import com.example.getflix.models.Author
 import com.example.getflix.models.Message
+import com.example.getflix.service.requests.SendMessageRequest
+import com.example.getflix.ui.viewmodels.CustMessagesViewModel
 import com.squareup.picasso.Picasso
 import com.stfalcon.chatkit.commons.ImageLoader
 import com.stfalcon.chatkit.messages.MessageInput
@@ -25,7 +28,7 @@ import java.time.format.DateTimeFormatter
 class CustChatFragment : Fragment(), MessageInput.InputListener,
     MessageInput.AttachmentsListener  {
 
-
+    private lateinit var messagesViewModel: CustMessagesViewModel
     private lateinit var adapter: MessagesListAdapter<Message>
     private lateinit var autid: String
     private lateinit var id: String
@@ -45,6 +48,7 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
         println(messagesl.toString())
         println("SENDER   " + id)
         name = args.name
+        messagesViewModel = ViewModelProvider(this).get(CustMessagesViewModel::class.java)
 
 
         binding.input.setInputListener(this)
@@ -67,13 +71,35 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
             else {
                 autid = "1"
             }
-            messages.add(Message("0", Author(
-                autid,
-                name,
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVH3uxAhDbIZZqSLcgPoc3kpM1S0Vsy5VXg&usqp=CAU.jpg/format:webp",
-            ), message.text, Message.Image(message.attachmentUrl), LocalDateTime.parse(message.date,
-                DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")))
-            )
+            if(message.text!=null && message.attachmentUrl!=null) {
+                messages.add(Message("0", Author(
+                    autid,
+                    name,
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVH3uxAhDbIZZqSLcgPoc3kpM1S0Vsy5VXg&usqp=CAU.jpg/format:webp",
+                ), message.text, Message.Image(null), LocalDateTime.parse(message.date,
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")))
+                )
+                messages.add(Message("0", Author(
+                    autid,
+                    name,
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVH3uxAhDbIZZqSLcgPoc3kpM1S0Vsy5VXg&usqp=CAU.jpg/format:webp",
+                ), "", Message.Image(message.attachmentUrl), LocalDateTime.parse(message.date,
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")))
+                )
+            } else {
+                messages.add(
+                    Message(
+                        "0", Author(
+                            autid,
+                            name,
+                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVH3uxAhDbIZZqSLcgPoc3kpM1S0Vsy5VXg&usqp=CAU.jpg/format:webp",
+                        ), message.text, Message.Image(message.attachmentUrl), LocalDateTime.parse(
+                            message.date,
+                            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")
+                        )
+                    )
+                )
+            }
         }
 
         // komple sağa ekliyor
@@ -97,9 +123,11 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onSubmit(input: CharSequence) : Boolean {
         adapter.addToStart(
-            Message("1", Author("0", name, null), input.toString(), null, LocalDateTime.now()),
+            Message("1", Author("0", name, null), input.toString(),
+                Message.Image(null), LocalDateTime.now()),
             true
         )
+        messagesViewModel.sendMessage(SendMessageRequest(2,"xx", "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125077794/125077794_1_MC/47116323.jpg"))
         println(LocalDateTime.now().toString())
         return true
     }

@@ -13,7 +13,7 @@ data class Message(
     private val id: String,
     private var user: Author,
     private var text: String,
-    private var image: Image?,
+    private var image: Image,
     private var createdAt: LocalDateTime
 ) :
     IMessage, MessageContentType.Image,
@@ -37,7 +37,10 @@ data class Message(
     }
 
     override fun getImageUrl(): String? {
-        return image!!.url
+        if(image.url==null) {
+            return null
+        }
+        return "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125077794/125077794_1_MC/47116323.jpg"
     }
 
     override fun getUser(): Author {
