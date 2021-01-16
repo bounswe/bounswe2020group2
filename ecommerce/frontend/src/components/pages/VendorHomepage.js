@@ -1,6 +1,6 @@
 import { useAppContext } from '../../context/AppContext'
 import React, { useEffect, useState } from 'react'
-import { Spin } from 'antd'
+import { Spin, Button } from 'antd'
 import { UserReviews } from '../UserReview/UserReviews'
 import { VendorPageContent } from '../VendorContent/VendorPageContent'
 import { formatProduct, formatSearchQueryParams } from '../../utils'
@@ -8,6 +8,7 @@ import { VendorSplash } from '../VendorContent/VendorSplash'
 import { api } from '../../api'
 import { Tabs } from 'antd'
 import './VendorHomepage.less'
+import { PlusCircleOutlined } from '@ant-design/icons'
 
 const { TabPane } = Tabs
 function callback(key) {
@@ -22,11 +23,20 @@ export const VendorHomepage = props => {
         setEditMode(checked)
     }
 
+    const onAddProduct = () => {
+        console.log('Adding product here')
+    }
+    const addProductButton = (
+        <Button type="primary" icon={<PlusCircleOutlined />} onClick={onAddProduct}>
+            Add Product
+        </Button>
+    )
+
     return (
         <div>
             <VendorSplash vendorId={vendorId} editable={editMode} onEditModeChange={onEditModeChange} />
             <div style={{ margin: '32px 64px 0 64px' }}>
-                <Tabs onChange={callback} type="card">
+                <Tabs onChange={callback} type="card" tabBarExtraContent={addProductButton}>
                     <TabPane tab="Products" key="vendor-products">
                         <VendorMainContent editMode={editMode} />
                     </TabPane>
