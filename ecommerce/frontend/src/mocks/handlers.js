@@ -64,7 +64,7 @@ export const handlers = [
     //     const { token } = params
     //     return res(ctx.json({ data: { message: verifications[Math.floor(Math.random() * verifications.length)] } }))
     // }),
-    rest.get(url('/recommendations/:userId'), (req, res, ctx) => {
+    rest.get(url('/recommendations'), (req, res, ctx) => {
         return res(ctx.json(recommendations))
     }),
     // rest.get(url('/review'), (req, res, ctx) => {

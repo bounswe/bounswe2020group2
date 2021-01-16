@@ -14,7 +14,7 @@ export const Recommendations = () => {
     useEffect(() => {
         const fetch = async () => {
             setIsLoading(true)
-            const { data } = await api.get(`/recommendations/${user.id}`)
+            const { data } = await api.get(`/recommendations`)
             setProducts(data.map(formatProduct))
             console.log(data)
         }
