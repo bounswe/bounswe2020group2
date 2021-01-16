@@ -3,9 +3,10 @@ package com.example.getflix.ui.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.getflix.activities.MainActivity
+import com.example.getflix.activities.MainActivity.StaticData.user
 import com.example.getflix.models.*
 import com.example.getflix.service.GetflixApi
+import com.example.getflix.service.GetflixApi.getflixApiService
 import com.example.getflix.service.requests.*
 import com.example.getflix.service.responses.*
 import kotlinx.coroutines.*
@@ -39,9 +40,9 @@ class CategoriesViewModel : ViewModel() {
     val address: LiveData<AddressSingleModel>?
         get() = _address
 
-    private val _addresslist = MutableLiveData<AddressListModel>()
-    val addresslist: LiveData<AddressListModel>?
-        get() = _addresslist
+    private val _addressList = MutableLiveData<AddressListModel?>()
+    val addressList: LiveData<AddressListModel?>
+        get() = _addressList
 
     private val _orderlist = MutableLiveData<List<OrderModel>>()
     val orderlist: LiveData<List<OrderModel>>?
@@ -58,7 +59,7 @@ class CategoriesViewModel : ViewModel() {
 
 
     fun getProducts(numberOfProducts: Int) {
-        GetflixApi.getflixApiService.getProducts(numberOfProducts)
+        getflixApiService.getProducts(numberOfProducts)
             .enqueue(object :
                 Callback<List<ProductModel>> {
                 override fun onFailure(call: Call<List<ProductModel>>, t: Throwable) {
@@ -95,7 +96,8 @@ class CategoriesViewModel : ViewModel() {
 
     fun getSingleCartProduct(sc_id: Int) {
         job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id,sc_id)
+            val response = getflixApiService.getCustomerCartProduct("Bearer " + user!!.token,
+                user!!.id,sc_id)
             withContext(Dispatchers.Main + exceptionHandler) {
                 if (response.isSuccessful) {
                     response.body().let { it ->
@@ -108,24 +110,31 @@ class CategoriesViewModel : ViewModel() {
     }
 
     fun getCustomerAddresses() {
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getCustomerAddresses("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id)
-            withContext(Dispatchers.Main + exceptionHandler) {
-                if (response.isSuccessful) {
-                    response.body().let { it ->
-                        _addresslist.value = it
-                        println(_addresslist.value.toString())
+
+        getflixApiService.getCustomerAddresses("Bearer " +user!!.token, user!!.id)
+            .enqueue(object : Callback<AddressListModel> {
+                override fun onFailure(call: Call<AddressListModel>, t: Throwable) {
+                    _addressList.value = null
+                }
+
+                override fun onResponse(
+                    call: Call<AddressListModel>,
+                    response: Response<AddressListModel>
+                ) {
+                    if (response.body() != null) {
+                        _addressList.value = response.body()
                     }
                 }
-            }
-        }
+
+            })
     }
 
 
 
     fun getCustomerAddress(addressId: Int) {
         job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getCustomerAddress("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, addressId)
+            val response = getflixApiService.getCustomerAddress("Bearer " + user!!.token,
+                user!!.id, addressId)
             withContext(Dispatchers.Main + exceptionHandler) {
                 if (response.isSuccessful) {
                     response.body().let { it ->
@@ -142,7 +151,8 @@ class CategoriesViewModel : ViewModel() {
 
     fun getCustomerCard(cardId: Int) {
         job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getCustomerCard("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, cardId)
+            val response = getflixApiService.getCustomerCard("Bearer " + user!!.token,
+                user!!.id, cardId)
             withContext(Dispatchers.Main + exceptionHandler) {
                 if (response.isSuccessful) {
                     response.body().let { it ->
@@ -184,7 +194,8 @@ class CategoriesViewModel : ViewModel() {
 
 
     fun addCustomerCartProduct(amount: Int, proId: Int) {
-        GetflixApi.getflixApiService.addCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, CardProAddRequest(proId, amount))
+        GetflixApi.getflixApiService.addCustomerCartProduct("Bearer " + user!!.token,
+            user!!.id, CardProAddRequest(proId, amount))
             .enqueue(object :
                 Callback<CardProAddResponse> {
                 override fun onFailure(call: Call<CardProAddResponse>, t: Throwable) {
@@ -222,23 +233,9 @@ class CategoriesViewModel : ViewModel() {
 
 
 
-
-    fun getCustomerCards() {
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getCustomerCards("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id)
-            withContext(Dispatchers.Main + exceptionHandler) {
-                if (response.isSuccessful) {
-                    response.body().let { it ->
-                        println(it.toString())
-                    }
-                }
-            }
-        }
-    }
-
     fun getCustomerOrders() {
         job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getCustomerOrders("Bearer " + MainActivity.StaticData.user!!.token)
+            val response = GetflixApi.getflixApiService.getCustomerOrders("Bearer " + user!!.token)
             withContext(Dispatchers.Main + exceptionHandler) {
                 if (response.isSuccessful) {
                     response.body().let { it ->
@@ -257,7 +254,7 @@ class CategoriesViewModel : ViewModel() {
 
 
     fun customerCancelCheckout(orderId: Int) {
-        GetflixApi.getflixApiService.customerCancelCheckout("Bearer " + MainActivity.StaticData.user!!.token, orderId)
+        GetflixApi.getflixApiService.customerCancelCheckout("Bearer " + user!!.token, orderId)
             .enqueue(object :
                 Callback<CustomerCheckoutResponse> {
                 override fun onFailure(call: Call<CustomerCheckoutResponse>, t: Throwable) {
@@ -283,7 +280,7 @@ class CategoriesViewModel : ViewModel() {
 
 
     fun deleteCustomerCard(cardId: Int) {
-        GetflixApi.getflixApiService.deleteCustomerCard("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, cardId)
+        GetflixApi.getflixApiService.deleteCustomerCard("Bearer " + user!!.token, user!!.id, cardId)
             .enqueue(object :
                 Callback<CardDeleteResponse> {
                 override fun onFailure(call: Call<CardDeleteResponse>, t: Throwable) {
