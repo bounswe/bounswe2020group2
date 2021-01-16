@@ -22,7 +22,7 @@ export const Conversations = () => {
         fetch()
     }, [])
 
-    if (conversations !== null && !conversations.length) {
+    if (conversations && !conversations.length) {
         return (
             <div className="conversations-empty">
                 <Empty description={'You have no conversations'} />

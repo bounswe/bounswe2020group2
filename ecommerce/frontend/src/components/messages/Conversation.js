@@ -21,7 +21,7 @@ export const Conversation = ({ className, conversation }) => {
     const { lastFetch, sendMessage, conversations } = useChatContext()
     const [image, setImage] = useState(null)
 
-    if (conversations === null) {
+    if (!conversations) {
         return (
             <div className={cls(className, 'conversation-skeleton')}>
                 <Skeleton className={'conversation-skeleton_left'} active title={false} paragraph={{ rows: 2 }} />
@@ -38,7 +38,7 @@ export const Conversation = ({ className, conversation }) => {
         )
     }
 
-    if (conversation === null) {
+    if (!conversation) {
         return <Empty description={'Please select a conversation'} />
     }
 
