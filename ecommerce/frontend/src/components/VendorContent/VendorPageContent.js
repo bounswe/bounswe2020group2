@@ -8,7 +8,6 @@ import { useAppContext } from '../../context/AppContext'
 
 export const VendorPageContent = ({ products, editMode }) => {
     const { user } = useAppContext()
-    console.log('editMode vendor page content:', editMode)
     return (
         <div className="vendor-page-results">
             <div className="vendor-page-results-product-grid">

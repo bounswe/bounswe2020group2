@@ -7,7 +7,6 @@ import { round } from '../../utils'
 import './VendorSplash.less'
 
 const getVendorRatingLevel = ({ rating }) => {
-    console.log(rating)
     if (rating <= 5.0) {
         return 'low'
     }
