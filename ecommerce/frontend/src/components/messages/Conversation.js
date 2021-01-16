@@ -107,7 +107,7 @@ export const Conversation = ({ className, conversation }) => {
 
     return (
         <div className={className}>
-            <div>Last updated at: {lastFetch.format('hh:mm:ss')}</div>
+            <div className={'conversation-header'}>Last updated at: {lastFetch.format('hh:mm:ss')}</div>
             <MessageList
                 className="conversation-message-list"
                 lockable={true}
