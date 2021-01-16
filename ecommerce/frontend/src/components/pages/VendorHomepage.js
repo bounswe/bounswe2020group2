@@ -16,14 +16,19 @@ function callback(key) {
 
 export const VendorHomepage = props => {
     const { vendorId } = props.match.params
+    const [editMode, setEditMode] = useState(true)
+
+    const onEditModeChange = checked => {
+        setEditMode(checked)
+    }
 
     return (
         <div>
-            <VendorSplash vendorId={vendorId} />
+            <VendorSplash vendorId={vendorId} editable={editMode} onEditModeChange={onEditModeChange} />
             <div style={{ margin: '32px 64px 0 64px' }}>
                 <Tabs onChange={callback} type="card">
                     <TabPane tab="Products" key="vendor-products">
-                        <VendorMainContent />
+                        <VendorMainContent editMode={editMode} />
                     </TabPane>
                     <TabPane tab="Reviews" key="vendor-reviews">
                         <UserReviews productId={1} />
@@ -34,7 +39,7 @@ export const VendorHomepage = props => {
     )
 }
 
-const VendorMainContent = () => {
+const VendorMainContent = ({ editMode }) => {
     const [trendingProducts, setTrendingProducts] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
@@ -62,7 +67,7 @@ const VendorMainContent = () => {
     return (
         <Spin spinning={isLoading}>
             <div className="vendor-page-trending-grid-wrapper">
-                <VendorPageContent products={trendingProducts} />
+                <VendorPageContent products={trendingProducts} editMode={editMode} />
             </div>
         </Spin>
         // Pagination

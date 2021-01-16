@@ -1,6 +1,6 @@
 import { useAppContext } from '../../context/AppContext'
 import React, { useEffect, useState } from 'react'
-import { Spin, Button, Rate } from 'antd'
+import { Spin, Button, Rate, Switch } from 'antd'
 import { api } from '../../api'
 import { EditOutlined } from '@ant-design/icons'
 import { round } from '../../utils'
@@ -17,7 +17,7 @@ const getVendorRatingLevel = ({ rating }) => {
     return 'high'
 }
 
-export const VendorSplash = ({ vendorId }, onChangeEditMode) => {
+export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
     const vendorHeaderDetails = {
         title: 'SAMSUNG',
         imageUrl:
@@ -46,9 +46,10 @@ export const VendorSplash = ({ vendorId }, onChangeEditMode) => {
                 </div>
                 <div className="vendor-edit-button">
                     {isVendorAndOwner ? (
-                        <Button type="primary" icon={<EditOutlined />} href="/profile">
-                            Edit Page
-                        </Button>
+                        <div className="vendor-edit-mode-open">
+                            <p>{editable ? 'Edit Mode' : 'Seeing as Customer'}</p>
+                            <Switch defaultChecked={true} onChange={onEditModeChange} />
+                        </div>
                     ) : (
                         <Button type="primary" icon={<EditOutlined />} href="/profile/messages">
                             Send a message

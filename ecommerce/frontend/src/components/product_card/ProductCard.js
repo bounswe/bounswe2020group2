@@ -7,7 +7,7 @@ import { useAppContext } from '../../context/AppContext'
 import { round, truncate } from '../../utils'
 import { ISO_8601 } from 'moment'
 
-export const ProductCard = ({ product, width = 350, editable = false }) => {
+export const ProductCard = ({ product, width = 350, editMode = false }) => {
     const { addShoppingCartItem } = useAppContext()
 
     const onAddToCart = product => {
@@ -26,7 +26,8 @@ export const ProductCard = ({ product, width = 350, editable = false }) => {
     const { user } = useAppContext()
     const isVendor = user.type === 'vendor'
     const isVendorAndOwner = isVendor && vendor.id === user.id
-    let editableProduct = editable && isVendorAndOwner
+    let editableProduct = editMode && isVendorAndOwner
+    console.log(editMode)
     return (
         <div className="whole-card" style={{ minWidth: width, minHeight: width, maxWidth: width }}>
             <div>
