@@ -18,6 +18,8 @@ function callback(key) {
 export const VendorHomepage = props => {
     const { vendorId } = props.match.params
     const [editMode, setEditMode] = useState(true)
+    const { user } = useAppContext()
+    const isVendorAndOwner = user.type === 'vendor' && vendorId === user.id.toString()
 
     const onEditModeChange = checked => {
         setEditMode(checked)
@@ -36,7 +38,7 @@ export const VendorHomepage = props => {
         <div>
             <VendorSplash vendorId={vendorId} editable={editMode} onEditModeChange={onEditModeChange} />
             <div style={{ margin: '32px 64px 0 64px' }}>
-                <Tabs onChange={callback} type="card" tabBarExtraContent={addProductButton}>
+                <Tabs onChange={callback} type="card" tabBarExtraContent={isVendorAndOwner ? addProductButton : null}>
                     <TabPane tab="Products" key="vendor-products">
                         <VendorMainContent editMode={editMode} />
                     </TabPane>
