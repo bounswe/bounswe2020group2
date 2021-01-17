@@ -6,7 +6,7 @@
         android:title="@string/home" />
 
     <item
-        android:id="@+id/messagesFragment"
+        android:id="@+id/vendorMessagesFragment"
         android:icon="@drawable/menu_messages"
         android:title="@string/messages" />
 

@@ -39,8 +39,11 @@ class VendorHomeFragment : Fragment() {
 
         activity?.bottom_nav!!.visibility = View.VISIBLE
         activity?.toolbar_lay!!.visibility = View.VISIBLE
+        activity?.toolbar_title!!.visibility = View.VISIBLE
         activity?.toolbar!!.toolbar_title.text = getString(R.string.home)
         activity?.toolbar!!.btn_notification.visibility = View.VISIBLE
+        activity?.search!!.visibility = View.GONE
+        activity?.btn_search!!.visibility = View.GONE
         viewModel = ViewModelProvider(this).get(VendorHomeViewModel::class.java)
 
 

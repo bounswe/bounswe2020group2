@@ -2,15 +2,16 @@ package com.example.getflix.ui.fragments
 
 import android.os.Build
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.getflix.R
-import com.example.getflix.databinding.FragmentCustChatBinding
+import com.example.getflix.activities.MainActivity
+import com.example.getflix.databinding.FragmentVendorChatBinding
 import com.example.getflix.models.Author
 import com.example.getflix.models.Message
 import com.example.getflix.service.requests.SendMessageRequest
@@ -25,30 +26,34 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 
-class CustChatFragment : Fragment(), MessageInput.InputListener,
-    MessageInput.AttachmentsListener  {
+class VendorChatFragment : Fragment(), MessageInput.InputListener,
+    MessageInput.AttachmentsListener {
 
-    private lateinit var messagesViewModel: MessagesViewModel
+    private lateinit var viewModel: MessagesViewModel
+    private lateinit var binding: FragmentVendorChatBinding
     private lateinit var adapter: MessagesListAdapter<Message>
     private lateinit var autid: String
     private lateinit var id: String
     private lateinit var name: String
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentCustChatBinding>(
-            inflater, R.layout.fragment_cust_chat,
+
+        binding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_vendor_chat,
             container, false
         )
-        val args = CustChatFragmentArgs.fromBundle(requireArguments())
+        viewModel = ViewModelProvider(this).get(MessagesViewModel::class.java)
+        val args = VendorChatFragmentArgs.fromBundle(requireArguments())
         id = args.sender
         var messagesl = args.messages.toCollection(ArrayList())
         println(messagesl.toString())
         println("SENDER   " + id)
         name = args.name
-        messagesViewModel = ViewModelProvider(this).get(MessagesViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MessagesViewModel::class.java)
 
 
         binding.input.setInputListener(this)
@@ -89,18 +94,18 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
                     DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")))
                 )
             } else { */
-                messages.add(
-                    Message(
-                        "0", Author(
-                            autid,
-                            name,
-                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVH3uxAhDbIZZqSLcgPoc3kpM1S0Vsy5VXg&usqp=CAU.jpg/format:webp",
-                        ), message.text, Message.Image(null), LocalDateTime.parse(
-                            message.date,
-                            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")
-                        )
+            messages.add(
+                Message(
+                    "0", Author(
+                        autid,
+                        name,
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVH3uxAhDbIZZqSLcgPoc3kpM1S0Vsy5VXg&usqp=CAU.jpg/format:webp",
+                    ), message.text, Message.Image(null), LocalDateTime.parse(
+                        message.date,
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")
                     )
                 )
+            )
             //}
         }
 
@@ -129,7 +134,7 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
                 Message.Image(null), LocalDateTime.now()),
             true
         )
-        messagesViewModel.sendMessage(SendMessageRequest(id.toInt(),input.toString(),"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG8VkAXFHGYAhHTEy4wAV5RBdB1V6qTU9JVA&usqp=CAU.jpg/format:webp"))
+        viewModel.sendMessage(SendMessageRequest(id.toInt(),input.toString(),"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG8VkAXFHGYAhHTEy4wAV5RBdB1V6qTU9JVA&usqp=CAU.jpg/format:webp"))
         println(LocalDateTime.now().toString())
         return true
     }
@@ -137,10 +142,6 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
     override fun onAddAttachments() {
 
     }
-
-
-
-
 
 
 }
