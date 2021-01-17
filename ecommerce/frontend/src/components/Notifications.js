@@ -1,15 +1,10 @@
 import './Notifications.less'
-import { useAppContext } from '../context/AppContext'
 import { useEffect, useState } from 'react'
 import { Button, Spin } from 'antd'
-import { formatProduct, productSortBy, sleep } from '../utils'
 import { api } from '../api'
-import { format } from 'prettier'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
-import { EditOutlined, BellOutlined, BellTwoTone, DeleteOutlined, DeleteTwoTone, EditTwoTone } from '@ant-design/icons'
-
-import { notifications } from '../mocks/mocks'
+import { BellTwoTone, DeleteTwoTone } from '@ant-design/icons'
 import './Notifications.less'
 
 const onSeenAllNotifications = () => {}
@@ -24,7 +19,6 @@ export const Notifications = () => {
         const fetch = async () => {
             const { data } = await api.get('/notifications')
             setNotifications(data)
-            console.log(data)
         }
         try {
             fetch()
@@ -58,10 +52,8 @@ export const Notifications = () => {
             </div>
             <div className="notifications-container">
                 {notifications.map(notification => {
-                    console.log(notification)
                     const product =
                         notification.type === 'price_change' ? notification.argument : notification.argument.product
-                    console.log('product: ', product)
                     return (
                         <div key={notification.id} className="notification-item">
                             <div
