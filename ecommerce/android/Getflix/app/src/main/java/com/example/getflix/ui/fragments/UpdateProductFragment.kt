@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.getflix.R
@@ -60,7 +61,7 @@ class UpdateProductFragment : Fragment() {
             viewModel.updateVendorProduct(updateRequest)
         }
 
-        viewModel.navigateBack.observe(viewLifecycleOwner, {
+        viewModel.navigateBack.observe(viewLifecycleOwner, Observer{
             if(it) {
                 doneAlert(this, "Address is updated successfully", ::navigateBack)
                 viewModel.resetNavigate()

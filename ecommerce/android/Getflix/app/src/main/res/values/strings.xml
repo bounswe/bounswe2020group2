@@ -213,4 +213,8 @@
     This agreement shall enter into force on the date of electronic approval.</string>
 
     <string name="terms_conditions_checkout_aggree">I have read <b><u>the Distant Sales Agreement and Pre-Information Form</u></b></string>
+    <string name="lists">Listeler</string>
+    <string name="notifications">Bildirimler</string>
+    <string name="your_addresses">Your address</string>
+    <string name="your_cards">Your credit card</string>
 </resources>

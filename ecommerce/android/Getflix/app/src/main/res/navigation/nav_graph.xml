@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homePageFragment_to_subcategoryFragment"
             app:destination="@id/subcategoryFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
 
     </fragment>
     <fragment
@@ -122,8 +125,8 @@
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.example.getflix.ui.fragments.FavoritesFragment"
-        tools:layout="@layout/fragment_favorites" />
+        android:name="com.example.getflix.ui.fragments.ListsFragment"
+        tools:layout="@layout/fragment_lists" />
     <fragment
         android:id="@+id/subcategoryFragment"
         android:name="com.example.getflix.ui.fragments.SubcategoryFragment"
@@ -131,27 +134,27 @@
         <argument
             android:name="subId"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"/>
         <argument
             android:name="query"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"/>
         <argument
             android:name="prices"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"/>
         <argument
             android:name="brand"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"/>
         <argument
             android:name="vendor"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"/>
         <argument
             android:name="rating"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"/>
         <action
             android:id="@+id/action_subcategoryFragment_to_filterOptionsFragment"
             app:destination="@id/filterOptionsFragment" />
@@ -171,19 +174,19 @@
         <argument
             android:name="subId"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"/>
         <argument
             android:name="query"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"/>
         <argument
             android:name="sortBy"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"/>
         <argument
             android:name="sortOrder"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"/>
         <action
             android:id="@+id/action_filterOptionsFragment_to_subcategoryFragment"
             app:destination="@id/subcategoryFragment" />
@@ -361,6 +364,9 @@
             android:name="name"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.example.getflix.ui.fragments.NotificationFragment" />
 
 
 </navigation>

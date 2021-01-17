@@ -9,3 +9,4 @@ from .verify import *
 from .address import *
 from .card import *
 from .order import *
+from .message import *
