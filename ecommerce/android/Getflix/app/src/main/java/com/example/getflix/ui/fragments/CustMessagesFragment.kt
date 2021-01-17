@@ -13,8 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentCustMessagesBinding
-import com.example.getflix.models.Author
-import com.example.getflix.models.Dialog
+import com.example.getflix.models.AuthorModel
+import com.example.getflix.models.DialogModel
 import com.example.getflix.models.Message
 import com.example.getflix.models.MessageModel
 import com.example.getflix.ui.fragments.CustMessagesFragmentDirections.Companion.actionCustMessagesFragmentToCustChatFragment
@@ -29,7 +29,10 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.collections.ArrayList
 
-
+/**
+While writing this data class, I examined the sample code in the library, converted it to Kotlin
+language and adapted it according to our app's needs.
+Sample code can be found here: https://github.com/stfalcon-studio/ChatKit/blob/master/sample/src/main/java/com/stfalcon/chatkit/sample/features/demo/def/DefaultDialogsActivity.java ***/
 class CustMessagesFragment : Fragment() {
 
 
@@ -49,16 +52,14 @@ class CustMessagesFragment : Fragment() {
         activity?.toolbar!!.toolbar_title.text = "Messages"
         messagesViewModel = ViewModelProvider(this).get(MessagesViewModel::class.java)
         messagesViewModel.getMessages()
-        //val request = SendMessageRequest(2,"xxx","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG8VkAXFHGYAhHTEy4wAV5RBdB1V6qTU9JVA&usqp=CAU.jpg/format:webp")
-        //messagesViewModel.sendMessage(request)
 
 
         messagesViewModel.messageList.observe(viewLifecycleOwner, {
-            var dialogList = arrayListOf<Dialog>()
+            var dialogList = arrayListOf<DialogModel>()
             var listOfMessageLists = arrayListOf<ArrayList<MessageModel>>()
             var i = 0
             for(conversation in it.conversations) {
-                dialogList.add(Dialog(i.toString(),conversation.counterpart.name,null,Message(conversation.messages[conversation.messages.size-1].id.toString(),Author(conversation.counterpart.id.toString(), conversation.counterpart.name, null),conversation.messages[conversation.messages.size-1].text,
+                dialogList.add(DialogModel(i.toString(),conversation.counterpart.name,null,Message(conversation.messages[conversation.messages.size-1].id.toString(),AuthorModel(conversation.counterpart.id.toString(), conversation.counterpart.name, null),conversation.messages[conversation.messages.size-1].text,
                     Message.Image(conversation.messages[conversation.messages.size - 1].attachmentUrl),
                     LocalDateTime.parse(conversation.messages[conversation.messages.size-1].date,
                         DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")))))

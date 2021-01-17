@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentCustChatBinding
-import com.example.getflix.models.Author
+import com.example.getflix.models.AuthorModel
 import com.example.getflix.models.Message
 import com.example.getflix.service.requests.SendMessageRequest
 import com.example.getflix.ui.viewmodels.MessagesViewModel
@@ -24,7 +24,10 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-
+/**
+While writing this data class, I examined the sample code in the library, converted it to Kotlin
+language and adapted it according to our app's needs.
+Sample code can be found here: https://github.com/stfalcon-studio/ChatKit/blob/master/sample/src/main/java/com/stfalcon/chatkit/sample/features/demo/def/DefaultMessagesActivity.java ***/
 class CustChatFragment : Fragment(), MessageInput.InputListener,
     MessageInput.AttachmentsListener  {
 
@@ -91,7 +94,7 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
             } else { */
                 messages.add(
                     Message(
-                        "0", Author(
+                        "0", AuthorModel(
                             autid,
                             name,
                             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVH3uxAhDbIZZqSLcgPoc3kpM1S0Vsy5VXg&usqp=CAU.jpg/format:webp",
@@ -125,7 +128,7 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onSubmit(input: CharSequence) : Boolean {
         adapter.addToStart(
-            Message("1", Author("0", name, null), input.toString(),
+            Message("1", AuthorModel("0", name, null), input.toString(),
                 Message.Image(null), LocalDateTime.now()),
             true
         )

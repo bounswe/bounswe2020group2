@@ -12,8 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentVendorMessagesBinding
-import com.example.getflix.models.Author
-import com.example.getflix.models.Dialog
+import com.example.getflix.models.AuthorModel
+import com.example.getflix.models.DialogModel
 import com.example.getflix.models.Message
 import com.example.getflix.models.MessageModel
 import com.example.getflix.ui.fragments.VendorMessagesFragmentDirections.Companion.actionVendorMessagesFragmentToVendorChatFragment
@@ -26,7 +26,10 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-
+/**
+While writing this data class, I examined the sample code in the library, converted it to Kotlin
+language and adapted it according to our app's needs.
+Sample code can be found here: https://github.com/stfalcon-studio/ChatKit/blob/master/sample/src/main/java/com/stfalcon/chatkit/sample/features/demo/def/DefaultDialogsActivity.java ***/
 class VendorMessagesFragment : Fragment() {
 
     private lateinit var viewModel: MessagesViewModel
@@ -48,14 +51,14 @@ class VendorMessagesFragment : Fragment() {
         viewModel.getMessages()
 
         viewModel.messageList.observe(viewLifecycleOwner, {
-            var dialogList = arrayListOf<Dialog>()
+            var dialogList = arrayListOf<DialogModel>()
             var listOfMessageLists = arrayListOf<ArrayList<MessageModel>>()
             var i = 0
             for(conversation in it.conversations) {
                 dialogList.add(
-                    Dialog(i.toString(),conversation.counterpart.name,null,
+                    DialogModel(i.toString(),conversation.counterpart.name,null,
                         Message(conversation.messages[conversation.messages.size-1].id.toString(),
-                            Author(conversation.counterpart.id.toString(), conversation.counterpart.name, null),conversation.messages[conversation.messages.size-1].text,
+                            AuthorModel(conversation.counterpart.id.toString(), conversation.counterpart.name, null),conversation.messages[conversation.messages.size-1].text,
                     Message.Image(conversation.messages[conversation.messages.size - 1].attachmentUrl),
                     LocalDateTime.parse(conversation.messages[conversation.messages.size-1].date,
                         DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")))
