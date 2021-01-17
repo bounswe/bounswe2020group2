@@ -19,6 +19,7 @@ import com.example.getflix.R
 import com.example.getflix.databinding.FragmentCompleteOrderBinding
 import com.example.getflix.doneAlert
 import com.example.getflix.infoAlert
+import com.example.getflix.models.AddressModel
 import com.example.getflix.ui.adapters.CreditCardAdapter
 import com.example.getflix.ui.adapters.OrderAddressAdapter
 import com.example.getflix.ui.fragments.CompleteOrderFragmentDirections.Companion.actionCompleteOrderFragmentToAddAddressFragment
@@ -87,7 +88,7 @@ class CompleteOrderFragment : Fragment() {
 
         viewModel.addressList.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                orderAddressAddressAdapter.submitList(it as ArrayList<AddressModel>?)
+                orderAddressAddressAdapter.submitList(it as ArrayList<AddressModel>? as List<AddressModel>?)
             } else {
                 orderAddressAddressAdapter.submitList(arrayListOf())
             }
