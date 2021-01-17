@@ -35,9 +35,9 @@ export const VendorHomepage = props => {
     )
 
     return (
-        <div>
+        <div className="vendor-homepage">
             <VendorSplash vendorId={vendorId} editable={editMode} onEditModeChange={onEditModeChange} />
-            <div style={{ margin: '32px 64px 0 64px' }}>
+            <div>
                 <Tabs onChange={callback} type="card" tabBarExtraContent={isVendorAndOwner ? addProductButton : null}>
                     <TabPane tab="Products" key="vendor-products">
                         <VendorMainContent editMode={editMode} />
