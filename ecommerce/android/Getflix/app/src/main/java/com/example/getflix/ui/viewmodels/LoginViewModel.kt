@@ -2,6 +2,7 @@ package com.example.getflix.ui.viewmodels
 
 
 import android.view.View
+import android.widget.Toast
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -26,53 +27,44 @@ class LoginViewModel : ViewModel() {
 
     private val _logReq = MutableLiveData<LoginRequest?>()
 
-    private val _onLogin = MutableLiveData<Boolean>()
-    val onLogin: LiveData<Boolean>
-        get() = _onLogin
 
-    private val _user = MutableLiveData<User>()
-    val user: LiveData<User>
+    private val _onMailVerificationSent = MutableLiveData<Boolean>()
+    val onMailVerificationSent: LiveData<Boolean>
+        get() = _onMailVerificationSent
+
+    private val _user = MutableLiveData<User?>()
+    val user: LiveData<User?>
         get() = _user
 
 
     private fun getUserFromBackend(fragment: Fragment) {
-        /*
-          val user = MainActivity.StaticData.auth.currentUser
-          var emailVerified = user?.isEmailVerified
 
-          if (emailVerified != null) {
-              if (emailVerified.not()){
-                  _logReq.value = null
-                  infoAlert(fragment, fragment.requireContext().getString(R.string.login_info))
-                  fragment.requireActivity().loading_progress!!.visibility = View.GONE
-                  return
-              }
-          }
-  */
         GetflixApi.getflixApiService.getUserInformation(_logReq.value!!)
             .enqueue(object :
                 Callback<LoginResponse> {
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    val currentUser = call.execute().body()?.user
-                    if (currentUser != null) {
-                        auth.signInWithEmailAndPassword(
-                            currentUser.email,
-                            _logReq.value!!.password
-                        ).addOnCompleteListener {
-                            if (it.isSuccessful) {
-                                _onLogin.value = true
+                    println("onFailure")
+                    /*      val currentUser = call.execute().body()?.user
+                          if (currentUser != null) {
+                              println("onFailure")
+                              auth.signInWithEmailAndPassword(
+                                  _logReq.email,
+                                  _logReq.value!!.password
+                              ).addOnCompleteListener {
+                                  if (it.isSuccessful) {
+                                      _onLogin.value = true
 
-                            } else {
-                                _user.value = null
-                            }
-                        }
-                    } else {
+                                  } else {
+                                      _user.value = null
+                                  }
+                              }
+                          } else {
 
-                        _user.value = null
-                    }
+                              _user.value = null
+                          }*/
+                    _user.value = null
                     _logReq.value = null
-                    _onLogin.value = false
-
+                    println("On failure")
                 }
 
                 override fun onResponse(
@@ -80,7 +72,7 @@ class LoginViewModel : ViewModel() {
                     response: Response<LoginResponse>
 
                 ) {
-
+                    println("On response giriş :" + response.body())
                     if (response.body() != null && response.body()!!.status.message == "Giriş başarılı") {
                         val currentUser = response.body()?.user
                         if (currentUser != null) {
@@ -89,43 +81,71 @@ class LoginViewModel : ViewModel() {
                                 _logReq.value!!.password
                             ).addOnCompleteListener {
                                 if (it.isSuccessful) {
+                                    //println("Loginde firebase giriş")
                                     _user.value = currentUser
-                                    _onLogin.value = true
-
                                 } else {
+                                    //println(it.exception?.message)
+                                    //println("Loginde firebase giriş olmadı")
                                     _user.value = null
-                                    _onLogin.value = false
                                 }
                             }
+                            if (currentUser.isVerified) {
+                                _onMailVerificationSent.value = false
+                            } else {
+                                _onMailVerificationSent.value = true
+                                verifyMailAddress()
+                            }
                         } else {
-                            _onLogin.value = false
+                            Toast.makeText(
+                                fragment.requireContext(), response.message(), Toast.LENGTH_LONG
+                            )
+                            //println("Login fragmenntta response null olduğu için giremedi")
                             _user.value = null
                         }
                     } else {
-                        _onLogin.value = false
+                        //println("Login fragmenntta response body giriş hiç olmadı " + response.body())
                         _user.value = null
                         infoAlert(
                             fragment,
                             fragment.requireContext().getString(R.string.login_info)
                         )
-                        fragment.requireActivity().loading_progress!!.visibility = View.GONE
+                        // fragment.requireActivity().loading_progress!!.visibility = View.GONE
                     }
                 }
             }
             )
     }
 
-    init {
-        _onLogin.value = false
+    fun verifyMailAddress() {
+        val firebaseUser = auth.currentUser
+        if (firebaseUser?.isEmailVerified == false) {
+            firebaseUser.let {
+                it.sendEmailVerification().addOnSuccessListener {
+                    //println("Şu an fire base register maili attı")
+                    _onMailVerificationSent.value = true
+                }.addOnFailureListener {
+                    //println("Şu an firebase register maili atamadı")
+                    _onMailVerificationSent.value = false
+                }
+            }
+        } else {
+            _user.value?.isVerified = true
+            MainActivity.StaticData.user?.isVerified = true
+            _onMailVerificationSent.value = false
+        }
     }
+
+    init {
+        _onMailVerificationSent.value = false
+    }
+
 
     fun setUser(fragment: Fragment, userName: String, password: String) {
         _logReq.value = LoginRequest(userName, password)
         getUserFromBackend(fragment)
     }
 
-    fun setOnLogin(canLogin: Boolean) {
-        _onLogin.value = canLogin
+    fun onMailVerificationComplete() {
+        _onMailVerificationSent.value = false
     }
-
 }
