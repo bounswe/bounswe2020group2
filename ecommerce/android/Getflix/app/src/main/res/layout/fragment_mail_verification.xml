@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/circle_background"
+            android:layout_width="320dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="64dp"
+            android:src="@drawable/circle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/mail_box"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_mail_box"
+            app:layout_constraintBottom_toBottomOf="@+id/circle_background"
+            app:layout_constraintEnd_toEndOf="@+id/circle_background"
+            app:layout_constraintStart_toStartOf="@+id/circle_background"
+            app:layout_constraintTop_toTopOf="@+id/circle_background"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/mail_verification_title"
+            android:text="@string/verify_your_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/open_sans_condensed_bold"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/circle_background"
+            app:layout_constraintStart_toStartOf="@+id/circle_background"
+            app:layout_constraintTop_toBottomOf="@+id/circle_background" />
+
+        <TextView
+            android:id="@+id/mail_verification_text"
+            android:text="@string/verification_first_body"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_condensed_bold"
+            android:textColor="#000000"
+            android:layout_marginTop="16dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="@+id/circle_background"
+            app:layout_constraintStart_toStartOf="@+id/circle_background"
+            app:layout_constraintTop_toBottomOf="@+id/mail_verification_title" />
+
+        <TextView
+            android:id="@+id/reset_mail_button"
+            android:text="@string/resent_email"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:textColor="@color/colorPrimary"
+            android:background="#000000"
+            android:gravity="center"
+            android:fontFamily="sans-serif-condensed"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="@+id/circle_background"
+            app:layout_constraintStart_toStartOf="@+id/circle_background"
+            app:layout_constraintTop_toBottomOf="@+id/mail_verification_end_text" />
+
+        <TextView
+            android:id="@+id/verification_mail"
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/initGold"
+            android:gravity="center"
+            android:fontFamily="@font/open_sans_condensed_bold"
+            android:textSize="18sp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mail_verification_text" />
+
+        <TextView
+            android:id="@+id/mail_verification_end_text"
+            android:text="@string/mail_verification_second_body"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:fontFamily="@font/open_sans_condensed_bold"
+            android:textSize="18sp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/circle_background"
+            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintStart_toStartOf="@+id/circle_background"
+            app:layout_constraintTop_toBottomOf="@+id/verification_mail" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
