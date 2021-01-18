@@ -45,6 +45,9 @@
             app:exitAnim="@anim/exit_left_to_right"
             app:popEnterAnim="@anim/enter_right_to_left"
             app:popExitAnim="@anim/exit_right_to_left" />
+        <action
+            android:id="@+id/action_loginFragment_to_mailVerificationFragment"
+            app:destination="@id/mailVerificationFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -94,6 +97,9 @@
         <action
             android:id="@+id/action_registerFragment_to_homePageFragment"
             app:destination="@id/homePageFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_mailVerificationFragment"
+            app:destination="@id/mailVerificationFragment" />
     </fragment>
 
 
@@ -321,6 +327,17 @@
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.example.getflix.ui.fragments.NotificationFragment" />
+    <fragment
+        android:id="@+id/mailVerificationFragment"
+        android:name="com.example.getflix.ui.fragments.MailVerificationFragment"
+        android:label="MailVerificationFragment" >
+        <action
+            android:id="@+id/action_mailVerificationFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
+        <action
+            android:id="@+id/action_mailVerificationFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
 
 </navigation>

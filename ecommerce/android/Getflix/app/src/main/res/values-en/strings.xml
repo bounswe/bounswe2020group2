@@ -161,4 +161,8 @@
     <string name="lists">Lists</string>
     <string name="notifications">Notifications</string>
     <string name="user_already_exists">You already have an existing account!</string>
+    <string name="verification_first_body">Your account has been successfully registered. We sent a confirmation email to</string>
+    <string name="verify_your_email">Confirm Your Email Address</string>
+    <string name="resent_email">RESEND EMAIL</string>
+    <string name="mail_verification_second_body">To complete the process, please check your email for a validation request.</string>
 </resources>
