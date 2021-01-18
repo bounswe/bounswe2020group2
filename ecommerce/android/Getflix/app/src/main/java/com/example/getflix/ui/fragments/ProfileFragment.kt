@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
-import com.example.getflix.askAlert
 import com.example.getflix.databinding.FragmentProfileBinding
 import com.example.getflix.infoAlert
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToAddressFragment
@@ -46,7 +45,8 @@ class ProfileFragment : Fragment() {
         } else {
             binding.name.text =
                 MainActivity.StaticData.user!!.firstName + " " + MainActivity.StaticData.user!!.lastName
-            binding.fullName.text = MainActivity.StaticData.user!!.firstName + " " + MainActivity.StaticData.user!!.lastName
+            binding.fullName.text =
+                MainActivity.StaticData.user!!.firstName + " " + MainActivity.StaticData.user!!.lastName
             binding.mail.text = MainActivity.StaticData.user!!.email
         }
 
@@ -83,11 +83,8 @@ class ProfileFragment : Fragment() {
                 view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
             }
         }
-
         return binding.root
-
     }
-
 
 
     private fun resetData() {
@@ -101,10 +98,8 @@ class ProfileFragment : Fragment() {
 
     private fun navigateLogin() {
         view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
-        if(MainActivity.StaticData.isGoogleUser)
-        MainActivity.StaticData.mGoogleSignInClient!!.signOut()
+        if (MainActivity.StaticData.isGoogleUser)
+            MainActivity.StaticData.mGoogleSignInClient!!.signOut()
     }
-
-
 
 }
