@@ -327,6 +327,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/reg_agree"
+                        android:focusable="false"
                         android:layout_gravity="center"
                         android:textColor="@color/black"
                         />

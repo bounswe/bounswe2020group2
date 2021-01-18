@@ -157,8 +157,7 @@
                     android:text="@string/terms_conditions_checkout_aggree"
                     android:textColor="@color/black"
                     android:buttonTint="@color/black"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
+                    android:focusable="false"
                    />
 
                 </LinearLayout>
