@@ -34,30 +34,37 @@ class CreditCardViewModel : ViewModel() {
     }
 
     fun deleteCustomerCard(cardId: Int) {
-        GetflixApi.getflixApiService.deleteCustomerCard("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, cardId)
-                .enqueue(object :
-                        Callback<CardDeleteResponse> {
-                    override fun onFailure(call: Call<CardDeleteResponse>, t: Throwable) {
-                        println("failure")
-                    }
-
-                    override fun onResponse(
-                            call: Call<CardDeleteResponse>,
-                            response: Response<CardDeleteResponse>
-                    ) {
-                        println(response.body().toString())
-                        println(response.code())
-                        getCustomerCards()
-                        if (response.body()!!.status.succcesful)
-                            println(response.body().toString())
-                    }
+        GetflixApi.getflixApiService.deleteCustomerCard(
+            "Bearer " + MainActivity.StaticData.user!!.token,
+            MainActivity.StaticData.user!!.id,
+            cardId
+        )
+            .enqueue(object :
+                Callback<CardDeleteResponse> {
+                override fun onFailure(call: Call<CardDeleteResponse>, t: Throwable) {
+                    println("failure")
                 }
-                )
+
+                override fun onResponse(
+                    call: Call<CardDeleteResponse>,
+                    response: Response<CardDeleteResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+                    getCustomerCards()
+                    if (response.body()!!.status.succcesful)
+                        println(response.body().toString())
+                }
+            }
+            )
     }
 
     fun getCustomerCards() {
         job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getCustomerCards("Bearer " + MainActivity.StaticData.user!!.token, MainActivity.StaticData.user!!.id)
+            val response = GetflixApi.getflixApiService.getCustomerCards(
+                "Bearer " + MainActivity.StaticData.user!!.token,
+                MainActivity.StaticData.user!!.id
+            )
             withContext(Dispatchers.Main + exceptionHandler) {
                 if (response.isSuccessful) {
                     response.body().let { it ->
@@ -69,7 +76,11 @@ class CreditCardViewModel : ViewModel() {
     }
 
     fun addCustomerCard(cardRequest: CardAddRequest) {
-        GetflixApi.getflixApiService.addCustomerCard("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, cardRequest)
+        GetflixApi.getflixApiService.addCustomerCard(
+            "Bearer " + MainActivity.StaticData.user!!.token,
+            MainActivity.StaticData.user!!.id,
+            cardRequest
+        )
             .enqueue(object :
                 Callback<CardAddResponse> {
                 override fun onFailure(call: Call<CardAddResponse>, t: Throwable) {
@@ -82,10 +93,10 @@ class CreditCardViewModel : ViewModel() {
                 ) {
                     println(response.body().toString())
                     println(response.code())
-                    if (response.code()==200) {
+                    if (response.code() == 200) {
                         println(response.body().toString())
                         _navigateOrder.value = true
-                        println(_navigateOrder.value)
+                        // println(_navigateOrder.value)
                         //doneAlert(fragment,"Credit card added successfully",::navigateOrder)
                     }
                 }
@@ -93,8 +104,13 @@ class CreditCardViewModel : ViewModel() {
             )
     }
 
-    fun updateCustomerCard(cardId: Int,cardRequest: CardUpdateRequest) {
-        GetflixApi.getflixApiService.updateCustomerCard("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, cardId,cardRequest)
+    fun updateCustomerCard(cardId: Int, cardRequest: CardUpdateRequest) {
+        GetflixApi.getflixApiService.updateCustomerCard(
+            "Bearer " + MainActivity.StaticData.user!!.token,
+            MainActivity.StaticData.user!!.id,
+            cardId,
+            cardRequest
+        )
             .enqueue(object :
                 Callback<CardUpdateResponse> {
                 override fun onFailure(call: Call<CardUpdateResponse>, t: Throwable) {
@@ -107,7 +123,7 @@ class CreditCardViewModel : ViewModel() {
                 ) {
                     println(response.body().toString())
                     println(response.code())
-                    if (response.code()==200)
+                    if (response.code() == 200)
                         _navigateOrder.value = true
                 }
             }
