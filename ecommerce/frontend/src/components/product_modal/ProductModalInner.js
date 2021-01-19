@@ -1,7 +1,9 @@
-import { Button, Cascader, Form, Input, Steps } from "antd"
+import { Button, Cascader, Form, Input, Modal, Steps, Upload } from "antd"
 import { useState } from "react"
 import "./ProductModalInner.less"
+import { PlusOutlined } from '@ant-design/icons';
 import { useAppContext } from '../../context/AppContext'
+import { getBase64 } from 'image-blobber'
 
 // Renders the product information form
 const ProductModalInnerForm = ({ form, initialValues }) => {
@@ -110,16 +112,72 @@ const ProductModalInnerForm = ({ form, initialValues }) => {
             ]}>
             <Cascader options={categoryOptions} />
         </Form.Item>
-       
-        
-        
-        
+
+
+
+
     </Form>
 }
 
 // Renders the picture selection form
-const ProductModalInnerPictureSelect = () => {
-    return "Hello from picture select"
+const ProductModalInnerPictureSelect = (pictures, onChange) => {
+    // const picturesToFileList = pictures => pictures.map(picture => {
+    //     return { 
+
+    //     }
+    // })
+    const [previewVisible, setPreviewVisible] = useState(false)
+    const [previewImage, setPreviewImage] = useState('')
+    const [previewTitle, setPreviewTitle] = useState('')
+    const [fileList, setFileList] = useState([])
+
+    const onCancel = () => setPreviewVisible(false)
+
+    const handlePreview = async file => {
+        console.log(file)
+        if (!file.url && !file.preview) {
+            file.preview = await getBase64(file.originFileObj);
+        }
+        setPreviewImage(file.preview)
+        setPreviewVisible(true)
+        setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1))
+    }
+
+    const handleChange = ({ fileList }) => {
+        setFileList(fileList)
+        //onChange(format(fileList)) gibi bir sey gerekecek buraya
+    }
+
+    const uploadButton = (
+        <div>
+            <PlusOutlined />
+            <div style={{ marginTop: 8 }}>Upload</div>
+        </div>
+    );
+
+    return <>
+        <Upload
+            accept="image/*"
+            listType="picture-card"
+            fileList={fileList}
+            onPreview={handlePreview}
+            onChange={handleChange}
+            beforeUpload={file => { 
+                setFileList([...fileList, file])
+                return false
+            }}
+        >
+            {fileList.length >= 5 ? null : uploadButton}
+        </Upload>
+        <Modal
+            visible={previewVisible}
+            title={previewTitle}
+            footer={null}
+            onCancel={onCancel}
+        >
+            <img alt="image-preview" style={{ width: '100%' }} src={previewImage.base64 || previewImage} />
+        </Modal>
+    </>
 }
 
 export const ProductModalInner = ({ form, product }) => {
