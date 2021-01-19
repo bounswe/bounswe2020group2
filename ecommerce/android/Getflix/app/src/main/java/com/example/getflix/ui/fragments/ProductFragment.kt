@@ -3,6 +3,7 @@ package com.example.getflix.ui.fragments
 
 import android.graphics.Paint
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,9 @@ import com.example.getflix.ui.adapters.CommentAdapter
 import com.example.getflix.ui.adapters.ImageAdapter
 import com.example.getflix.ui.adapters.RecommenderAdapter
 import com.example.getflix.ui.viewmodels.ProductViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import me.relex.circleindicator.CircleIndicator2
@@ -71,9 +75,29 @@ class ProductFragment : Fragment() {
 
         val indicator: CircleIndicator2 = binding.circleIndicator
         indicator.attachToRecyclerView(binding.images, pagerSnapHelper)
-
+        var listNames = arrayListOf<String>()
+        listNames.add("List 1")
+        listNames.add("List 2")
+        var checkedList = 0
         binding.save.setOnClickListener {
-            productViewModel.onSaveClick()
+            //productViewModel.onSaveClick()
+            MaterialAlertDialogBuilder(requireContext(), R.style.MaterialAlertDialog_color)
+                .setTitle("Select a List")
+                .setSingleChoiceItems(
+                    listNames.toTypedArray(),
+                    checkedList
+                ) { dialog, which ->
+                    checkedList = which
+                }
+                .setPositiveButton("Ok") { dialog, which ->
+                }
+                .setNegativeButton("Cancel") { dialog, which ->
+                }
+                .setNeutralButton("Add New List") { dialog, which ->
+                }
+
+                .setIcon(R.drawable.ic_info)
+                .show()
         }
         binding.imageView7.setOnClickListener {
             val scrollView = binding.scrollView
@@ -190,5 +214,6 @@ class ProductFragment : Fragment() {
         super.onStop()
         activity?.toolbar_lay!!.visibility = View.VISIBLE
     }
+
 
 }
