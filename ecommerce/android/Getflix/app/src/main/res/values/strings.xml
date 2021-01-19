@@ -162,5 +162,6 @@
     <string name="notifications">Bildirimler</string>
     <string name="your_addresses">Your address</string>
     <string name="your_cards">Your credit card</string>
+    <string name="order_products">Products of Order</string>
 
 </resources>
