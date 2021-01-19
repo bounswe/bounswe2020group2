@@ -36,13 +36,11 @@ class RegisterFragment : Fragment() {
                 RadioGroup.OnCheckedChangeListener { group, checkedId ->
                     when (checkedId) {
                         R.id.vendor -> {
-                            binding.addressZip.visibility = View.VISIBLE
-                            binding.cityState.visibility = View.VISIBLE
+                            binding.addressPart.visibility = View.VISIBLE
                             customer = false
                         }
                         R.id.customer -> {
-                            binding.addressZip.visibility = View.GONE
-                            binding.cityState.visibility = View.GONE
+                            binding.addressPart.visibility = View.GONE
                             customer = true
 
                         }
@@ -98,7 +96,7 @@ class RegisterFragment : Fragment() {
                 activity?.loading_progress!!.visibility = View.GONE
             }
             if (!customer) {
-                if (!binding.maddress.text.toString().isEmpty()) {
+                if (!binding.name2.text.toString().isEmpty()) {
                     binding.maddress.error = getString(R.string.reg_error)
                     activity?.loading_progress!!.visibility = View.GONE
                 }
