@@ -162,4 +162,5 @@
     <string name="notifications">Notifications</string>
     <string name="your_addresses">Your address</string>
     <string name="your_cards">Your credit card</string>
+    <string name="address_enter">Enter address info</string>
 </resources>
