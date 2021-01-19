@@ -97,19 +97,43 @@ class RegisterFragment : Fragment() {
             }
             if (!customer) {
                 if (!binding.name2.text.toString().isEmpty()) {
-                    binding.maddress.error = getString(R.string.reg_error)
+                    binding.name2.error = getString(R.string.reg_error)
                     activity?.loading_progress!!.visibility = View.GONE
                 }
-                if (!binding.zipCode.text.toString().isEmpty()) {
-                    binding.maddress.error = getString(R.string.reg_error)
+                if (!binding.countryCode.text.toString().isEmpty())  {
+                    binding.countryCode.error = getString(R.string.reg_error)
+                    activity?.loading_progress!!.visibility = View.GONE
+                }
+                if (!binding.phone.text.toString().isEmpty()) {
+                    binding.phone.error = getString(R.string.reg_error)
+                    activity?.loading_progress!!.visibility = View.GONE
+                }
+                if (!binding.firstname.text.toString().isEmpty()) {
+                    binding.firstname.error = getString(R.string.reg_error)
+                    activity?.loading_progress!!.visibility = View.GONE
+                }
+                if (!binding.surname2.text.toString().isEmpty()) {
+                    binding.surname2.error = getString(R.string.reg_error)
+                    activity?.loading_progress!!.visibility = View.GONE
+                }
+                if (!binding.addressInfo.text.toString().isEmpty()) {
+                    binding.addressInfo.error = getString(R.string.reg_error)
+                    activity?.loading_progress!!.visibility = View.GONE
+                }
+                if (!binding.province.text.toString().isEmpty()) {
+                    binding.province.error = getString(R.string.reg_error)
                     activity?.loading_progress!!.visibility = View.GONE
                 }
                 if (!binding.city.text.toString().isEmpty()) {
                     binding.city.error = getString(R.string.reg_error)
                     activity?.loading_progress!!.visibility = View.GONE
                 }
-                if (!binding.state.text.toString().isEmpty()) {
-                    binding.state.error = getString(R.string.reg_error)
+                if (!binding.country.text.toString().isEmpty()) {
+                    binding.country.error = getString(R.string.reg_error)
+                    activity?.loading_progress!!.visibility = View.GONE
+                }
+                if (!binding.zipCode.toString().isEmpty()) {
+                    binding.zipCode.error = getString(R.string.reg_error)
                     activity?.loading_progress!!.visibility = View.GONE
                 }
             }
