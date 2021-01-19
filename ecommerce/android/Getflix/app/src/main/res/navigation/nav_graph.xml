@@ -321,6 +321,10 @@
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.example.getflix.ui.fragments.NotificationFragment" />
+    <fragment
+        android:id="@+id/orderProductsFragment"
+        android:name="com.example.getflix.ui.fragments.OrderProductsFragment"
+        tools:layout="@layout/fragment_order_products" />
 
 
 </navigation>
