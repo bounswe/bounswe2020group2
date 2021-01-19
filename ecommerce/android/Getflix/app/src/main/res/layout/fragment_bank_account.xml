@@ -34,6 +34,7 @@
             android:layout_marginRight="40dp"
             android:layout_marginBottom="80dp"
             android:src="@drawable/ic_baseline_add_24"
+            app:borderWidth="0dp"
             android:backgroundTint="@color/colorPrimary"
             app:layout_anchorGravity="bottom|right|end" />
 
