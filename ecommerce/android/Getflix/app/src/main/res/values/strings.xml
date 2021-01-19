@@ -162,5 +162,5 @@
     <string name="notifications">Bildirimler</string>
     <string name="your_addresses">Your address</string>
     <string name="your_cards">Your credit card</string>
-
+    <string name="address_enter">Adres bilgilerinizi giriniz</string>
 </resources>
