@@ -18,6 +18,7 @@ import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentProductBinding
 import com.example.getflix.doneAlert
+import com.example.getflix.infoAlert
 import com.example.getflix.ui.adapters.CommentAdapter
 import com.example.getflix.ui.adapters.ImageAdapter
 import com.example.getflix.ui.adapters.RecommenderAdapter
@@ -92,8 +93,14 @@ class ProductFragment : Fragment() {
             productViewModel.increaseAmount()
         }
         binding.addToCart.setOnClickListener {
-            //productViewModel.addToShoppingCart(1, args.productId)
-            productViewModel.addCustomerCartProduct(binding.amount.text.toString().toInt(), args.productId)
+            if(MainActivity.StaticData.isVisitor) {
+                infoAlert(this, "You should be logged in to add product to your shopping cart")
+            } else {
+                productViewModel.addCustomerCartProduct(
+                    binding.amount.text.toString().toInt(),
+                    args.productId
+                )
+            }
         }
 
         productViewModel.navigateBack.observe(viewLifecycleOwner, Observer{
