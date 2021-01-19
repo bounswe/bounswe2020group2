@@ -14,8 +14,13 @@ class OrderProductsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_order_products, container, false)
+        val binding = DataBindingUtil.inflate<FragmentOrderProductsBinding>(
+            inflater, R.layout.fragment_order_products,
+            container, false
+        )
+        activity?.toolbar!!.toolbar_title.text = getString(R.string.order_products)
+        viewModel = ViewModelProvider(this).get(OrderProductViewModel::class.java)
+        val recView = binding?.listProductList as RecyclerView
     }
 
 }
