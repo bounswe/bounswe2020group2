@@ -195,7 +195,7 @@
 
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/phone"
+                        android:id="@+id/phone2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="phone" />
@@ -204,113 +204,243 @@
 
 
                 <LinearLayout
-                    android:id="@+id/city_state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="gone"
-                    android:weightSum="2">
+                    android:layout_margin="5dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="164dp"
+                    android:paddingTop="50dp"
+                    android:orientation="vertical">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/city_lay"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:hint="@string/city"
-                        android:textColorHint="@color/black"
-                        app:boxStrokeColor="@color/black"
-                        app:hintTextColor="@color/black">
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="8dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="@string/address_enter"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/city"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:inputType="text" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/state_lay"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:hint="@string/state"
-                        android:textColorHint="@color/black"
-                        app:boxStrokeColor="@color/black"
-                        app:hintTextColor="@color/black">
+                        android:id="@+id/address_part"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:orientation="vertical">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/state"
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text" />
+                            android:hint="@string/adress_title"
+                            android:textColorHint="@color/black"
+                            app:boxStrokeColor="@color/black"
+                            app:hintTextColor="@color/black">
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/name2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text" />
 
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/address_zip"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="gone"
-                    android:weightSum="5">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/mainAddress_lay"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:hint="@string/address"
-                        android:textColorHint="@color/black"
-                        app:boxStrokeColor="@color/black"
-                        app:hintTextColor="@color/black">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/maddress"
+                        <LinearLayout
+                            android:id="@+id/code_address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text" />
+                            android:orientation="horizontal"
+                            android:weightSum="5">
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/address_lay"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:hint="Country Code"
+                                android:textColorHint="@color/black"
+                                app:boxStrokeColor="@color/black"
+                                app:hintTextColor="@color/black">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/zipCode_lay"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:hint="@string/zip"
-                        android:textColorHint="@color/black"
-                        app:boxStrokeColor="@color/black"
-                        app:hintTextColor="@color/black">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/country_code"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:inputType="phone" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/zipCode"
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/state_lay"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:hint="@string/phone_num"
+                                android:textColorHint="@color/black"
+                                app:boxStrokeColor="@color/black"
+                                app:hintTextColor="@color/black">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/phone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="phone" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="number" />
+                            android:hint="@string/name"
+                            android:textColorHint="@color/black"
+                            app:boxStrokeColor="@color/black"
+                            app:hintTextColor="@color/black">
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/firstname"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text" />
 
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/surname"
+                            android:textColorHint="@color/black"
+                            app:boxStrokeColor="@color/black"
+                            app:hintTextColor="@color/black">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/surname2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/address_"
+                            android:textColorHint="@color/black"
+                            app:boxStrokeColor="@color/black"
+                            app:hintTextColor="@color/black">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/address_info"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:hint="@string/province"
+                            android:textColorHint="@color/black"
+                            app:boxStrokeColor="@color/black"
+                            app:hintTextColor="@color/black">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/province"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:hint="@string/city"
+                            android:textColorHint="@color/black"
+                            app:boxStrokeColor="@color/black"
+                            app:hintTextColor="@color/black">
+
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/city"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:hint="@string/country"
+                            android:textColorHint="@color/black"
+                            app:boxStrokeColor="@color/black"
+                            app:hintTextColor="@color/black">
+
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/country"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:hint="Zip Code"
+                            android:textColorHint="@color/black"
+                            app:boxStrokeColor="@color/black"
+                            app:hintTextColor="@color/black">
+
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/zip_code"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
                 </LinearLayout>
 
 
