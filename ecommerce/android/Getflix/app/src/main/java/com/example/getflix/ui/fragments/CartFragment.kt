@@ -51,12 +51,16 @@ class CartFragment : Fragment() {
 
 
         binding.acceptOrder.setOnClickListener {
-            if(MainActivity.StaticData.isVisitor) {
-                infoAlert(this, "You should be logged in to make a purchase.")
-            } else {
-                activity?.loading_progress!!.visibility = View.VISIBLE
-                view?.findNavController()?.navigate(actionCartFragmentToCompleteOrderFragment())
-            }
+            viewModel.cardPrices.observe(viewLifecycleOwner, Observer {
+                if (MainActivity.StaticData.isVisitor) {
+                    infoAlert(this, "You should be logged in to make a purchase.")
+                } else if(it.productsPrice==0.0) {
+                    infoAlert(this, "You don't have any products in your shopping cart.")
+                } else {
+                    activity?.loading_progress!!.visibility = View.VISIBLE
+                    view?.findNavController()?.navigate(actionCartFragmentToCompleteOrderFragment())
+                }
+            })
         }
 
 
