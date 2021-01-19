@@ -23,5 +23,5 @@ def product_list_create(request):
     product_list = ProductList(user_id=user.pk, name=list_name)
     product_list.save()
 
-    return Response({'id': product_list.pk, 'status': { 'successful': True, 'message': "Payment process is successfully satisfied."}})
+    return Response({'id': product_list.pk, 'status': { 'successful': True, 'message': "List is successfully created."}})
     
