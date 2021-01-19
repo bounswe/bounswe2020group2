@@ -8,6 +8,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -75,7 +76,7 @@ class SubcategoryFragment : Fragment() {
         recView.layoutManager = manager
 
 
-        viewModel.productList.observe(viewLifecycleOwner, {
+        viewModel.productList.observe(viewLifecycleOwner, Observer{
             val productListAdapter = SubCategoryAdapter(it!!, this)
             recView.adapter = productListAdapter
             recView.setHasFixedSize(true)

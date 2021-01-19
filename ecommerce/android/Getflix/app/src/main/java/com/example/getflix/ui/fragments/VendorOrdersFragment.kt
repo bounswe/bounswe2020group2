@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentVendorOrdersBinding
@@ -52,7 +53,7 @@ class VendorOrdersFragment : Fragment() {
         recView.adapter = orderListAdapter
         recView.setHasFixedSize(true)
 
-        viewModel.orderList.observe(viewLifecycleOwner,  {
+        viewModel.orderList.observe(viewLifecycleOwner,  Observer{
             it?.let {
                 val orderListAdapter = VendorOrdersAdapter(it!!)
                 recView.adapter = orderListAdapter
