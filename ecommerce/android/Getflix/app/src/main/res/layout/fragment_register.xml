@@ -7,6 +7,10 @@
 
     </data>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,13 +39,6 @@
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold" />
-
-            <ScrollView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/root_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -363,7 +360,7 @@
                 </LinearLayout>
 
             </LinearLayout>
-            </ScrollView>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
 </layout>
