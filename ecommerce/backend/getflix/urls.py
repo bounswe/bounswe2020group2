@@ -47,5 +47,6 @@ urlpatterns = [
     path('checkout/cancelorder/<int:id>', views.checkout.checkout_cancel_order),
     path('customer/orders', views.order.customer_order),
     path('messages', views.message.manage_messages),
-    path('notifications', views.notification.manage_notifications, name="notifications")
+    path('notifications', views.notification.manage_notifications, name="notifications"),
+    path('lists', views.product_list.product_list_create)
 ]
