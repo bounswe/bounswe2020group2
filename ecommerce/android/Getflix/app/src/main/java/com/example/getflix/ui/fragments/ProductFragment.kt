@@ -1,6 +1,8 @@
 package com.example.getflix.ui.fragments
 
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.graphics.Paint
 import android.os.Bundle
 import android.text.InputType
@@ -19,6 +21,7 @@ import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentProductBinding
 import com.example.getflix.doneAlert
+import com.example.getflix.hideKeyboard
 import com.example.getflix.infoAlert
 import com.example.getflix.ui.adapters.CommentAdapter
 import com.example.getflix.ui.adapters.ImageAdapter
@@ -91,12 +94,24 @@ class ProductFragment : Fragment() {
                 }
                 .setPositiveButton("Ok") { dialog, which ->
                 }
+                .setIcon(R.drawable.accepted_list)
                 .setNegativeButton("Cancel") { dialog, which ->
                 }
                 .setNeutralButton("Add New List") { dialog, which ->
+                    var dialog = AlertDialog.Builder(context,R.style.MaterialAlertDialog_color)
+                    var dialogView = layoutInflater.inflate(R.layout.custom_dialog,null)
+                    var edit = dialogView.findViewById<TextInputEditText>(R.id.name)
+                    dialog.setView(dialogView)
+                    dialog.setCancelable(true)
+                    dialog.setIcon(R.drawable.ic_pencil)
+                    dialog.setTitle("Add A List")
+                    dialog.setNegativeButton("Cancel") { dialogInterface: DialogInterface, i: Int -> }
+                    dialog.setPositiveButton("Create") { dialogInterface: DialogInterface, i: Int ->
+                        println(edit.text.toString())
+                        hideKeyboard(requireActivity())
+                    }
+                    dialog.show()
                 }
-
-                .setIcon(R.drawable.ic_info)
                 .show()
         }
         binding.imageView7.setOnClickListener {
