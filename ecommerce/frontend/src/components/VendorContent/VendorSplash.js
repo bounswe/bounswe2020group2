@@ -2,6 +2,7 @@ import { useAppContext } from '../../context/AppContext'
 import React, { useEffect, useState } from 'react'
 import { Spin, Button, Rate, Switch } from 'antd'
 import { api } from '../../api'
+import { useHistory } from 'react-router-dom'
 import { EditOutlined } from '@ant-design/icons'
 import { round } from '../../utils'
 import './VendorSplash.less'
@@ -24,9 +25,19 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
         description: 'Create the future, Save the planet ',
         rating: 8.7,
     }
+
     const { title, imageUrl, description, rating } = vendorHeaderDetails
     const { user } = useAppContext()
     const isVendorAndOwner = user.type === 'vendor' && vendorId === user.id.toString()
+    const history = useHistory()
+
+    const onSendMessage = ({ vendorId }) => {
+        // Send message modal popup
+        // Sends the message from modal
+        // Go to profile/messages
+        history.push('/profile/messages/')
+    }
+
     return (
         <div className="vendor-splash">
             <div className="vendor-image">
@@ -50,7 +61,12 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
                             <Switch defaultChecked={true} onChange={onEditModeChange} />
                         </div>
                     ) : (
-                        <Button type="primary" icon={<EditOutlined />} href="/profile/messages">
+                        <Button
+                            type="primary"
+                            icon={<EditOutlined />}
+                            onClick={() => {
+                                onSendMessage(vendorId)
+                            }}>
                             Send a message
                         </Button>
                     )}
