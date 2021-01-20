@@ -89,7 +89,7 @@ class ListsFragment : Fragment() {
 
         viewModel.listList.observe(viewLifecycleOwner, Observer {
             it?.let {
-                var size = 0
+                var size = 1
                 if (size == 0) {
                     binding.btnAddList.visibility = View.VISIBLE
                     binding.listImage.visibility = View.VISIBLE
