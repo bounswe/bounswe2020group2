@@ -35,7 +35,7 @@ export const VendorHomepage = props => {
         <div className="vendor-homepage">
             <VendorSplash vendorId={vendorId} editable={editMode} onEditModeChange={onEditModeChange} />
             <div>
-                <Tabs onChange={callback} type="card" tabBarExtraContent={isVendorAndOwner ? addProductButton : null}>
+                <Tabs type="card" tabBarExtraContent={isVendorAndOwner ? addProductButton : null}>
                     <TabPane tab="Products" key="vendor-products">
                         <VendorMainContent editMode={editMode} />
                     </TabPane>
