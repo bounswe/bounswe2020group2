@@ -41,3 +41,19 @@ def product_list_create(request):
                                 })
 
         return Response({'status': {'successful': True, 'message':'Product Lists are uccessfully sent'},'lists':response_product_list})
+
+
+@api_view(['DELETE'])
+@permission_classes([permissions.AllowAnonymous])
+def product_list_delete(request, list_id):
+    jwt = authentication.JWTAuthentication()
+    user = jwt.authenticate(request=request)[0]
+
+    product_list = ProductList.objects.filter(id=int(list_id))
+    if len(product_list) == 0:
+        return Response({'status': { 'successful': False, 'message': "This product list is invalid."}})
+    else:
+        product_list.delete()
+
+    return Response({'status': { 'successful': True, 'message': "This product list is successfully deleted."}})
+
