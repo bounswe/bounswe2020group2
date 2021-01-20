@@ -74,3 +74,14 @@ def manage_product_list_item(request, list_id, product_id):
 
         return Response({'status': { 'successful': True, 'message': "Product is successfully added to list."}})
 
+    elif request.method == "DELETE":
+        product_list = ProductList.objects.filter(id=int(list_id))
+        if len(product_list) == 0:
+            return Response({'status': { 'successful': False, 'message': "This product list is invalid."}})
+
+        product_list_item = ProductListItem.objects.filter(product_list_id=product_list.first().pk, product_id=int(product_id))
+        if len(product_list_item) == 0:
+            return Response({'status': { 'successful': False, 'message': "Product is not find in list"}})
+
+        product_list_item.delete()
+        return Response({'status': { 'successful': True, 'message': "Product is successfully deleted from list."}})
