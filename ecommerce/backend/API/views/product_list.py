@@ -69,6 +69,10 @@ def manage_product_list_item(request, list_id, product_id):
         if len(product_list) == 0:
             return Response({'status': { 'successful': False, 'message': "This product list is invalid."}})
 
+        product_list_item = ProductListItem.objects.filter(product_list_id=product_list.first().pk, product_id=int(product_id))
+        if len(product_list_item) > 0:
+            return Response({'status': { 'successful': False, 'message': "This product is already added to list."}})
+
         product_list_item = ProductListItem(product_list_id=product_list.first().pk, product_id=int(product_id))
         product_list_item.save()
 

@@ -74,7 +74,7 @@ class ProductListTest(TestCase):
     def product_list(self):
         ProductList.objects.create(id=list_id_for_test, user_id=customer_id_for_test, name=list_name)
         ProductListItem.objects.create(product_list_id=list_id_for_test, product_id=product_id_for_test)
-        ProductListItem.objects.create(product_list_id=list_id_for_test, product_id=product_id_for_test)
+        ProductListItem.objects.create(product_list_id=list_id_for_test, product_id=product_2_id_for_test)
 
     def test_get_product_list(self):
         self.product_list()
@@ -116,3 +116,25 @@ class ProductListTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["status"]["successful"], True)
         self.assertEqual(len(product_list_items), 1)
+
+    def test_already_add_product_to_list(self):
+        self.product_list()
+
+        client.credentials(HTTP_AUTHORIZATION='Bearer {}'.format(self.login_credentials_settings()))
+        response = client.post(reverse(manage_product_list_item, args = [list_id_for_test, product_id_for_test]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], False)
+        self.assertEqual(response.data["status"]["message"], "This product is already added to list.")
+
+    def test_delete_product_from_list(self):
+        self.product_list()
+
+        client.credentials(HTTP_AUTHORIZATION='Bearer {}'.format(self.login_credentials_settings()))
+        response = client.delete(reverse(manage_product_list_item, args = [list_id_for_test, product_id_for_test]))
+
+        product_list_items = ProductListItem.objects.filter(product_list_id=list_id_for_test, product_id=product_id_for_test)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
+        self.assertEqual(len(product_list_items), 0)
