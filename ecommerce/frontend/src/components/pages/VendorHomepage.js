@@ -11,9 +11,6 @@ import './VendorHomepage.less'
 import { PlusCircleOutlined } from '@ant-design/icons'
 
 const { TabPane } = Tabs
-function callback(key) {
-    console.log(key)
-}
 
 export const VendorHomepage = props => {
     const { vendorId } = props.match.params
