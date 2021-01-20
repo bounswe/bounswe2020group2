@@ -26,7 +26,7 @@ export const ProductCard = ({ product, width = 350, editMode = false }) => {
     const { user } = useAppContext()
     const isVendor = user.type === 'vendor'
     const isVendorAndOwner = isVendor && vendor.id === user.id
-    let editableProduct = editMode && isVendorAndOwner
+    const editableProduct = editMode && isVendorAndOwner
     return (
         <div className="whole-card" style={{ minWidth: width, minHeight: width, maxWidth: width }}>
             <div>
