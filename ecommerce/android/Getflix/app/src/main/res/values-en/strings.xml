@@ -162,4 +162,10 @@
     <string name="notifications">Notifications</string>
     <string name="your_addresses">Your address</string>
     <string name="your_cards">Your credit card</string>
+    <string-array name="order_status">
+        <item>Accepted</item>
+        <item>At cargo</item>
+        <item>Delivered</item>
+        <item>Cancelled</item>
+    </string-array>
 </resources>
