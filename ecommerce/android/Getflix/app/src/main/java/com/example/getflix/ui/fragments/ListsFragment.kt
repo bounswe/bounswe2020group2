@@ -1,5 +1,7 @@
 package com.example.getflix.ui.fragments
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,9 +13,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentListsBinding
+import com.example.getflix.hideKeyboard
 import com.example.getflix.models.*
 import com.example.getflix.ui.adapters.ListsAdapter
 import com.example.getflix.ui.viewmodels.ListViewModel
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
@@ -72,9 +76,40 @@ class ListsFragment : Fragment() {
 
         viewModel.listList.observe(viewLifecycleOwner, Observer {
             it?.let {
-                listAdapter.submitList(it)
+                var size = 0
+                if(size==0) {
+                    binding.btnAddList.visibility = View.VISIBLE
+                    binding.listImage.visibility = View.VISIBLE
+                    binding.listText.visibility = View.VISIBLE
+                    binding.listsList.visibility = View.GONE
+                } else {
+                    binding.btnAddList.visibility = View.GONE
+                    binding.listImage.visibility = View.GONE
+                    binding.listText.visibility = View.GONE
+                    binding.listsList.visibility = View.VISIBLE
+                    listAdapter.submitList(it)
+                }
+
             }
         })
+
+            binding.btnAddList.setOnClickListener {
+                if(binding.btnAddList.visibility == View.VISIBLE) {
+                var dialog = AlertDialog.Builder(context, R.style.MaterialAlertDialog_color)
+                var dialogView = layoutInflater.inflate(R.layout.custom_dialog, null)
+                var edit = dialogView.findViewById<TextInputEditText>(R.id.name)
+                dialog.setView(dialogView)
+                dialog.setCancelable(true)
+                dialog.setIcon(R.drawable.ic_pencil)
+                dialog.setTitle("Add A List")
+                dialog.setNegativeButton("Cancel") { dialogInterface: DialogInterface, i: Int -> }
+                dialog.setPositiveButton("Create") { dialogInterface: DialogInterface, i: Int ->
+                    println(edit.text.toString())
+                    hideKeyboard(requireActivity())
+                }
+                dialog.show()
+            }
+        }
 
         return binding.root
     }
