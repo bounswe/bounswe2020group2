@@ -4,7 +4,7 @@ from rest_framework import status
 from django.test import TestCase, Client
 from django.urls import reverse
 
-from ..models import Product, Category, Subcategory, User, Vendor, Brand, ShoppingCartItem, Customer, Address, Purchase, Order, Card, ProductList
+from ..models import Product, Category, Subcategory, User, Vendor, Brand, ShoppingCartItem, Customer, Address, Purchase, Order, Card, ProductList, ProductListItem
 from ..views.product_list import product_list_create
 from ..utils.crypto import Crypto
 from ..utils import order_status
@@ -15,13 +15,12 @@ product_2_id_for_test = 2
 customer_id_for_test = 1
 vendor_id_for_test = 3
 address_id_for_test = 1
-order_id_for_test = 1
-card_id_for_test = 1
+list_id_for_test = 1
+list_name = "My favourite list"
 
 vendor_pk_for_test = 1
 
 unit_price = 100
-delivery_price = 7.9
 amount = 2
 discount = 0.1
 crypto = Crypto()
@@ -71,3 +70,20 @@ class ProductListTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["status"]["successful"], True)
         self.assertEqual(int(response.data["id"]), product_list.pk)
+
+    def product_list(self):
+        ProductList.objects.create(id=list_id_for_test, user_id=customer_id_for_test, name=list_name)
+        ProductListItem.objects.create(product_list_id=list_id_for_test, product_id=product_id_for_test)
+        ProductListItem.objects.create(product_list_id=list_id_for_test, product_id=product_2_id_for_test)
+
+    def test_check_duplicate_list_name(self):
+        self.product_list()
+
+        client.credentials(HTTP_AUTHORIZATION='Bearer {}'.format(self.login_credentials_settings()))
+
+        body = {'name': 'My favourite list'}
+        response = client.post(reverse(product_list_create), body, 'json')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], False)
+        self.assertEqual(response.data["status"]["message"], "User already has a list with that name.")

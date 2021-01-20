@@ -19,7 +19,7 @@ def product_list_create(request):
     user = jwt.authenticate(request=request)[0]
 
     list_name = request.data.get("name")
-   if ProductList.objects.filter(user_id=user.pk, name=list_name):
+    if ProductList.objects.filter(user_id=user.pk, name=list_name):
        return Response({ 'status': { 'successful': False, 'message': "User already has a list with that name."}})
     product_list = ProductList(user_id=user.pk, name=list_name)
     product_list.save()
