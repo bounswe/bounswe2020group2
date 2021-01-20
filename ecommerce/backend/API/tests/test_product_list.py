@@ -70,3 +70,19 @@ class ProductListTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["status"]["successful"], True)
         self.assertEqual(int(response.data["id"]), product_list.pk)
+
+    def product_list(self):
+        ProductList.objects.create(id=list_id_for_test, user_id=customer_id_for_test, name=list_name)
+        ProductListItem.objects.create(product_list_id=list_id_for_test, product_id=product_id_for_test)
+        ProductListItem.objects.create(product_list_id=list_id_for_test, product_id=product_id_for_test)
+
+    def test_get_product_list(self):
+        self.product_list()
+
+        client.credentials(HTTP_AUTHORIZATION='Bearer {}'.format(self.login_credentials_settings()))
+        response = client.get(reverse(product_list_create))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
+        self.assertEqual(int(response.data["lists"][0]["list_id"]), list_id_for_test)
+        self.assertEqual(response.data["lists"][0]["name"], list_name)
