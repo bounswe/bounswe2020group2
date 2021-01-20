@@ -8,11 +8,11 @@ from rest_framework.parsers import JSONParser
 
 from ..utils import permissions, Role
 from ..models import User, ShoppingCartItem, Product, Address, Order, Purchase, Card, ProductList, ProductListItem
-from ..serializers import product_serializer
+from ..serializers.product_list_serializer import ProductListResponseSerializer
 from ..utils import authentication, order_status
 
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 @permission_classes([permissions.AllowAnonymous])
 def product_list_create(request):
     jwt = authentication.JWTAuthentication()
@@ -28,16 +28,16 @@ def product_list_create(request):
 
     elif request.method == "GET":
         response_product_list = []
-        product_lists = ProductList.objects.filter(user_id=user.pk, many=True)
+        product_lists = ProductList.objects.filter(user_id=user.pk)
 
         for list in product_lists:
-            list_item = ProductListItem.objects.filter(product_list_id=list.pk, many=True)
-            products_serializer = product_serializer.ProductResponseSerializer(list_item, many=True)
+            list_item = ProductListItem.objects.filter(product_list_id=list.pk)
+            products_serializer = ProductListResponseSerializer(list_item, many=True)
 
-            product_lists.append({
+            response_product_list.append({
                                 'list_id':list.pk, 
                                 'name':list.name,
                                 'products': products_serializer.data 
                                 })
 
-        return Response({'status': {'successful': True, 'message':'Product Lists are uccessfully sent'},'lists':product_lists})
+        return Response({'status': {'successful': True, 'message':'Product Lists are uccessfully sent'},'lists':response_product_list})

@@ -4,7 +4,7 @@ from rest_framework import status
 from django.test import TestCase, Client
 from django.urls import reverse
 
-from ..models import Product, Category, Subcategory, User, Vendor, Brand, ShoppingCartItem, Customer, Address, Purchase, Order, Card, ProductList
+from ..models import Product, Category, Subcategory, User, Vendor, Brand, ShoppingCartItem, Customer, Address, Purchase, Order, Card, ProductList, ProductListItem
 from ..views.product_list import product_list_create
 from ..utils.crypto import Crypto
 from ..utils import order_status
@@ -15,13 +15,12 @@ product_2_id_for_test = 2
 customer_id_for_test = 1
 vendor_id_for_test = 3
 address_id_for_test = 1
-order_id_for_test = 1
-card_id_for_test = 1
+list_id_for_test = 1
+list_name = "My favourite list"
 
 vendor_pk_for_test = 1
 
 unit_price = 100
-delivery_price = 7.9
 amount = 2
 discount = 0.1
 crypto = Crypto()
