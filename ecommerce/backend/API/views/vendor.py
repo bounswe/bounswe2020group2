@@ -10,7 +10,6 @@ from ..models import Vendor,ImageUrls
 @api_view(['GET'])
 @permission_classes([permissions.AllowAnonymous]) 
 def vendor_details(request,vendor_id):
-    #print(vendor_id)
     vendor = Vendor.objects.filter(id=vendor_id).first()
     if vendor is None:
         return Response(status=status.HTTP_400_BAD_REQUEST)
