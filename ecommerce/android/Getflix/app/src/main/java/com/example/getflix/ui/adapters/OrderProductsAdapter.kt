@@ -11,7 +11,7 @@ import com.example.getflix.ui.viewmodels.OrderPurchasedViewModel
 
 class OrderProductsAdapter(
     private val orderPurchasedList: ArrayList<OrderPurchasedViewModel>?
-) : ListAdapter<OrderPurchasedModel, OrderProductsAdapter.RowHolder>(ListProductsDiffCallback()) {
+) : ListAdapter<OrderPurchasedModel, OrderProductsAdapter.RowHolder>(OrderProductsDiffCallback()) {
 
     class RowHolder(val binding: OrderProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -40,7 +40,7 @@ class OrderProductsAdapter(
 
 }
 
-class ListProductsDiffCallback : DiffUtil.ItemCallback<OrderPurchasedModel>() {
+class OrderProductsDiffCallback : DiffUtil.ItemCallback<OrderPurchasedModel>() {
     override fun areItemsTheSame(oldItem: OrderPurchasedModel, newItem: OrderPurchasedModel): Boolean {
         return oldItem.id == newItem.id
     }
