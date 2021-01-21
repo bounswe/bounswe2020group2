@@ -5,7 +5,7 @@ from django.test import TestCase, Client
 from django.urls import reverse
 
 from ..models import Product, Category, Subcategory, User, Vendor, Brand, ShoppingCartItem, Customer, Address, Purchase, Order, Card, ProductList, ProductListItem
-from ..views.product_list import product_list_create
+from ..views.product_list import product_list_create, product_list_delete
 from ..utils.crypto import Crypto
 from ..utils import order_status
 
@@ -75,7 +75,7 @@ class ProductListTest(TestCase):
         ProductList.objects.create(id=list_id_for_test, user_id=customer_id_for_test, name=list_name)
         ProductListItem.objects.create(product_list_id=list_id_for_test, product_id=product_id_for_test)
         ProductListItem.objects.create(product_list_id=list_id_for_test, product_id=product_2_id_for_test)
-        
+  
     def test_check_duplicate_list_name(self):
         self.product_list()
 
@@ -97,5 +97,19 @@ class ProductListTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["status"]["successful"], True)
         self.assertEqual(int(response.data["lists"][0]["list_id"]), list_id_for_test)
-        self.assertEqual(response.data["lists"][0]["name"], list_name)        
-   
+        self.assertEqual(response.data["lists"][0]["name"], list_name)   
+
+    def test_delete_product_list(self):
+        self.product_list()
+
+        client.credentials(HTTP_AUTHORIZATION='Bearer {}'.format(self.login_credentials_settings()))
+        response = client.delete(reverse(product_list_delete, args = [list_id_for_test]))
+
+        product_list = ProductList.objects.filter(id=list_id_for_test)
+        product_list_items = ProductListItem.objects.filter(product_list_id=list_id_for_test)
+
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
+        self.assertEqual(len(product_list), 0)
+        self.assertEqual(len(product_list_items), 0)
