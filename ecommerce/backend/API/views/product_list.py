@@ -20,7 +20,9 @@ def product_list_create(request):
     
     if request.method == "POST":
         list_name = request.data.get("name")
-
+        
+        if ProductList.objects.filter(user_id=user.pk, name=list_name):
+           return Response({ 'status': { 'successful': False, 'message': "User already has a list with that name."}})
         product_list = ProductList(user_id=user.pk, name=list_name)
         product_list.save()
 
@@ -51,7 +53,7 @@ def product_list_delete(request, list_id):
 
     product_list = ProductList.objects.filter(id=int(list_id))
     if len(product_list) == 0:
-        return Response({'status': { 'successful': False, 'message': "This product list is invalid."}})
+        return Response({'status': { 'successful': False, 'message': "User has no list with that id."}})
     else:
         product_list.delete()
 
@@ -69,11 +71,9 @@ def manage_product_list_item(request, list_id, product_id):
         if len(product_list) == 0:
             return Response({'status': { 'successful': False, 'message': "This product list is invalid."}})
 
-        product_list_item = ProductListItem.objects.filter(product_list_id=product_list.first().pk, product_id=int(product_id))
-        if len(product_list_item) > 0:
-            return Response({'status': { 'successful': False, 'message': "This product is already added to list."}})
-
-        product_list_item = ProductListItem(product_list_id=product_list.first().pk, product_id=int(product_id))
+        if ProductListItem.objects.filter(product_list_id=int(list_id), product_id=int(product_id)):
+            return Response({'status': { 'successful': False, 'message': f"Product with id={product_id} is already in the Product List with id={list_id}."}})
+        product_list_item = ProductListItem(product_list_id=list_id, product_id=int(product_id))
         product_list_item.save()
 
         return Response({'status': { 'successful': True, 'message': "Product is successfully added to list."}})
@@ -89,3 +89,4 @@ def manage_product_list_item(request, list_id, product_id):
 
         product_list_item.delete()
         return Response({'status': { 'successful': True, 'message': "Product is successfully deleted from list."}})
+        
