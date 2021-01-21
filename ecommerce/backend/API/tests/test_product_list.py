@@ -74,7 +74,19 @@ class ProductListTest(TestCase):
     def product_list(self):
         ProductList.objects.create(id=list_id_for_test, user_id=customer_id_for_test, name=list_name)
         ProductListItem.objects.create(product_list_id=list_id_for_test, product_id=product_id_for_test)
-        ProductListItem.objects.create(product_list_id=list_id_for_test, product_id=product_id_for_test)
+        ProductListItem.objects.create(product_list_id=list_id_for_test, product_id=product_2_id_for_test)
+  
+    def test_check_duplicate_list_name(self):
+        self.product_list()
+
+        client.credentials(HTTP_AUTHORIZATION='Bearer {}'.format(self.login_credentials_settings()))
+
+        body = {'name': 'My favourite list'}
+        response = client.post(reverse(product_list_create), body, 'json')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], False)
+        self.assertEqual(response.data["status"]["message"], "User already has a list with that name.")
 
     def test_get_product_list(self):
         self.product_list()
