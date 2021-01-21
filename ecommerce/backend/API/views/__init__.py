@@ -9,7 +9,6 @@ from .verify import *
 from .address import *
 from .card import *
 from .order import *
-from .message import *
 from .vendor import *
 from .notification import *
 from .product_list import *
