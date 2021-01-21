@@ -55,12 +55,17 @@ class VendorMessagesFragment : Fragment() {
             var listOfMessageLists = arrayListOf<ArrayList<MessageModel>>()
             var i = 0
             for(conversation in it.conversations) {
+                var rtime = conversation.messages[conversation.messages.size-1].date
+                var index = rtime.indexOf("T")
+                var hour = (rtime[index+1].toString()+ rtime[index+2].toString()).toInt()
+                hour += 3
+                rtime = conversation.messages[conversation.messages.size-1].date.subSequence(0,index+1).toString() + hour.toString() + conversation.messages[conversation.messages.size-1].date.subSequence(index+3,rtime.length).toString()
                 dialogList.add(
                     DialogModel(i.toString(),conversation.counterpart.name,null,
                         Message(conversation.messages[conversation.messages.size-1].id.toString(),
                             AuthorModel(conversation.counterpart.id.toString(), conversation.counterpart.name, null),conversation.messages[conversation.messages.size-1].text,
                     Message.Image(conversation.messages[conversation.messages.size - 1].attachmentUrl),
-                    LocalDateTime.parse(conversation.messages[conversation.messages.size-1].date,
+                    LocalDateTime.parse(rtime,
                         DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")))
                     )
                 )

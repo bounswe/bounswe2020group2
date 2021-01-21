@@ -74,24 +74,11 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
             else {
                 autid = "1"
             }
-            /*if(message.text!=null && (message.attachmentUrl!=null || message.attachmentUrl!="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG8VkAXFHGYAhHTEy4wAV5RBdB1V6qTU9JVA&usqp=CAU.jpg/format:webp")) {
-
-               println("IFFFTEEEE")
-                messages.add(Message("0", Author(
-                    autid,
-                    name,
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVH3uxAhDbIZZqSLcgPoc3kpM1S0Vsy5VXg&usqp=CAU.jpg/format:webp",
-                ), message.text, Message.Image(null), LocalDateTime.parse(message.date,
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")))
-                )
-                messages.add(Message("0", Author(
-                    autid,
-                    name,
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVH3uxAhDbIZZqSLcgPoc3kpM1S0Vsy5VXg&usqp=CAU.jpg/format:webp",
-                ), "", Message.Image(message.attachmentUrl), LocalDateTime.parse(message.date,
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")))
-                )
-            } else { */
+            var rtime = message.date
+            var index = rtime.indexOf("T")
+            var hour = (rtime[index+1].toString()+ rtime[index+2].toString()).toInt()
+            hour += 3
+            rtime = message.date.subSequence(0,index+1).toString() + hour.toString() + message.date.subSequence(index+3,rtime.length).toString()
                 messages.add(
                     Message(
                         "0", AuthorModel(
@@ -99,7 +86,7 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
                             name,
                             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVH3uxAhDbIZZqSLcgPoc3kpM1S0Vsy5VXg&usqp=CAU.jpg/format:webp",
                         ), message.text, Message.Image(null), LocalDateTime.parse(
-                            message.date,
+                            rtime,
                             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")
                         )
                     )
