@@ -7,3 +7,5 @@ from .review_serializer import *
 from .card_serializer import *
 from .address_serializer import *
 from .purchase_serializer import *
+from .notification_serializer import *
+from .product_list_serializer import *
