@@ -58,3 +58,22 @@ def product_list_delete(request, list_id):
         product_list.delete()
 
     return Response({'status': { 'successful': True, 'message': "This product list is successfully deleted."}})
+
+
+@api_view(['POST', 'DELETE'])
+@permission_classes([permissions.AllowAnonymous])
+def manage_product_list_item(request, list_id, product_id):
+    jwt = authentication.JWTAuthentication()
+    user = jwt.authenticate(request=request)[0]
+    
+    if request.method == "POST":
+        product_list = ProductList.objects.filter(id=int(list_id))
+        if len(product_list) == 0:
+            return Response({'status': { 'successful': False, 'message': "This product list is invalid."}})
+
+        if ProductListItem.objects.filter(product_list_id=int(list_id), product_id=int(product_id)):
+            return Response({'status': { 'successful': False, 'message': f"Product with id={product_id} is already in the Product List with id={list_id}."}})
+        product_list_item = ProductListItem(product_list_id=list_id, product_id=int(product_id))
+        product_list_item.save()
+
+        return Response({'status': { 'successful': True, 'message': "Product is successfully added to list."}})
