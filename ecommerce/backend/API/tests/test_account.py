@@ -164,4 +164,15 @@ class TestAccount(TestCase):
         # if the response returns a 200 and a status is not successful, then test is passed
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["status"]["successful"], False)
+        
+    # test changing the password without logging in
+    def test_password_change_without_login(self):
+        change_password_body = {
+            'password': '12345678',
+            'new_password': '87654321'
+        }
+        # post a request to changepassword endpoint
+        response = self.client.post(reverse('changepassword'), change_password_body, 'json')
+        # if the response returns a 403, then test is passed
+        self.assertEqual(response.status_code, 403)
     
