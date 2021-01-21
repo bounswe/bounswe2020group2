@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.getflix.models.OrderPurchasedModel
 
-class OrderProductViewModel : ViewModel()  {
+class OrderPurchasedViewModel : ViewModel()  {
 
     private val _purchasedProductList = MutableLiveData<MutableList<OrderPurchasedModel>>()
     val purchasedProductList: LiveData<MutableList<OrderPurchasedModel>>
