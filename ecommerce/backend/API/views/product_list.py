@@ -51,9 +51,8 @@ def product_list_delete(request, list_id):
 
     product_list = ProductList.objects.filter(id=int(list_id))
     if len(product_list) == 0:
-        return Response({'status': { 'successful': False, 'message': "This product list is invalid."}})
+        return Response({'status': { 'successful': False, 'message': "User has no list with that id."}})
     else:
         product_list.delete()
 
     return Response({'status': { 'successful': True, 'message': "This product list is successfully deleted."}})
-
