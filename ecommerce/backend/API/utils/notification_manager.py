@@ -3,6 +3,8 @@ from ..utils import order_status_to_str
 import json
 
 def notifyStatusChange(old_order_status, purchase_to_change):
+    image_url_obj = ImageUrls.objects.filter(product=purchase_to_change.product).filter(index=0).first()
+    image_url = image_url_obj.image_url if image_url_obj is not None else None
     argument = {
         "purchase_id": purchase_to_change.pk,
         "old_status": order_status_to_str(old_order_status),
@@ -12,7 +14,7 @@ def notifyStatusChange(old_order_status, purchase_to_change):
             "title": purchase_to_change.product.name,
             "price": purchase_to_change.unit_price,
             "amount": purchase_to_change.amount,
-            "image_url": ImageUrls.objects.filter(product=purchase_to_change.product).filter(index=0).first().image_url,
+            "image_url": image_url,
             "vendor": {
                 "id": purchase_to_change.vendor.pk,
                 "name": purchase_to_change.vendor.first_name + " " + purchase_to_change.vendor.last_name

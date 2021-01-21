@@ -176,6 +176,19 @@ def vendor_product(request):
         product.stock_amount = request.data["stock_amount"]
         product.brand = brand
         product.subcategory = subcategory
+
+        for image_url in request.data["image_urls_delete"]:
+            ImageUrls.objects.filter(image_url=image_url).first().delete()
+
+        index = ImageUrls.objects.filter(product=product).order_by('-index').first().index + 1
+        for image_b64 in request.data["images"]:
+            img_array = base64.b64decode(image_b64)
+            image = Image(image=img_array)
+            image.save()
+            image_url = ImageUrls(product=new_product, image_url="/image/"+str(image.pk), index = index)
+            image_url.save()
+            index += 1
+
         product.save()
         response = VendorProductResponseSerializer(
             product,
