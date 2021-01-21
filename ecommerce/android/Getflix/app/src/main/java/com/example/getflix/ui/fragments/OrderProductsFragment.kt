@@ -13,14 +13,14 @@ import com.example.getflix.R
 import com.example.getflix.databinding.FragmentOrderProductsBinding
 import com.example.getflix.models.*
 import com.example.getflix.ui.adapters.OrderProductsAdapter
-import com.example.getflix.ui.viewmodels.OrderProductViewModel
+import com.example.getflix.ui.viewmodels.OrderPurchasedViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 
 class OrderProductsFragment : Fragment() {
 
-    private lateinit var viewModel: OrderProductViewModel
+    private lateinit var viewModel: OrderPurchasedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +32,7 @@ class OrderProductsFragment : Fragment() {
         )
         activity?.toolbar!!.toolbar_title.text = getString(R.string.order_products)
 
-        viewModel = ViewModelProvider(this).get(OrderProductViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(OrderPurchasedViewModel::class.java)
         val recView = binding?.listProductList as RecyclerView
 
         val list1 = listOf<String>()
@@ -53,7 +53,7 @@ class OrderProductsFragment : Fragment() {
         recView.setHasFixedSize(true)
 
         for (product in listproducts) {
-            viewModel.addList(product)
+            viewModel.addOrderPurchased(product)
         }
 
         viewModel.purchasedProductList.observe(viewLifecycleOwner, Observer {
