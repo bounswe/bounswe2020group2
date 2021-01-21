@@ -13,3 +13,4 @@ from .message import *
 from .vendor import *
 from .notification import *
 from .product_list import *
+from .recommendation import*
