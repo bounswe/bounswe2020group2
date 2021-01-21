@@ -166,7 +166,7 @@ def login(request):
         return Response(user_serializer.data)
 
 @api_view(['POST'])
-@permission_classes([permissions.AllowAnonymous])
+@permission_classes([permissions.IsAuthenticated])
 def change_password(request):
     # get the from the request
     user = request.user
