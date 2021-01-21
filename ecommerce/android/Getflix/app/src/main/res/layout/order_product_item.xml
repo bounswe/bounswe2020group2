@@ -7,8 +7,8 @@
     <data>
 
         <variable
-            name="viewmodel"
-            type="com.example.getflix.ui.viewmodels.OrderPurchasedViewModel" />
+            name="listproduct"
+            type="com.example.getflix.models.OrderPurchasedModel" />
     </data>
 
 
