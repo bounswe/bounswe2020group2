@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.OrderProductItemBinding
 import com.example.getflix.models.OrderPurchasedModel
-import com.example.getflix.ui.viewmodels.OrderProductViewModel
+import com.example.getflix.ui.viewmodels.OrderPurchasedViewModel
 
 class OrderProductsAdapter(
-    private val orderPurchasedList: ArrayList<OrderPurchasedModel>?
+    private val orderPurchasedList: ArrayList<OrderPurchasedViewModel>?
 ) : ListAdapter<OrderPurchasedModel, OrderProductsAdapter.RowHolder>(ListProductsDiffCallback()) {
 
     class RowHolder(val binding: OrderProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(orderPurchased: OrderProductViewModel, position: Int) {
+        fun bind(orderPurchased: OrderPurchasedViewModel, position: Int) {
             binding.viewmodel = orderPurchased
         }
 
