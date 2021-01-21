@@ -10,13 +10,13 @@ import com.example.getflix.models.OrderPurchasedModel
 import com.example.getflix.ui.viewmodels.OrderPurchasedViewModel
 
 class OrderProductsAdapter(
-    private val orderPurchasedList: ArrayList<OrderPurchasedViewModel>?
+    private val orderPurchasedList: ArrayList<OrderPurchasedModel>?
 ) : ListAdapter<OrderPurchasedModel, OrderProductsAdapter.RowHolder>(OrderProductsDiffCallback()) {
 
     class RowHolder(val binding: OrderProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(orderPurchased: OrderPurchasedViewModel, position: Int) {
-            binding.viewmodel = orderPurchased
+        fun bind(orderPurchased: OrderPurchasedModel, position: Int) {
+            binding.listproduct = orderPurchased
         }
 
         companion object {
