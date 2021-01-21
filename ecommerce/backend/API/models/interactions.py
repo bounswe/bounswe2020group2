@@ -21,3 +21,14 @@ class Notification(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     argument = models.CharField(max_length=500)
     is_seen = models.BooleanField(default=False)
+
+class Conversation(models.Model):
+    user1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user1', null=True)
+    user2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user2', null=True)
+
+class Message(models.Model):
+    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE, null=True)
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    text = models.CharField(max_length=2000)
+    date = models.DateTimeField(auto_now_add=True)
+    attachment_url = models.CharField(max_length=1000, null=True)
