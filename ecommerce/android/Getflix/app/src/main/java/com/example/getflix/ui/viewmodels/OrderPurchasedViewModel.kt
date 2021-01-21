@@ -11,14 +11,14 @@ class OrderPurchasedViewModel : ViewModel()  {
     val purchasedProductList: LiveData<MutableList<OrderPurchasedModel>>
         get() = _purchasedProductList
 
-    fun addList(listPrdoductModel: OrderPurchasedModel) {
+    fun addOrderPurchased(purchasedPrdoductModel: OrderPurchasedModel) {
         if (_purchasedProductList.value != null) {
             val purchasedProducts = _purchasedProductList.value
-            purchasedProducts?.add(listPrdoductModel)
+            purchasedProducts?.add(purchasedPrdoductModel)
             _purchasedProductList.value = purchasedProducts
         } else {
             val purchasedProducts = arrayListOf<OrderPurchasedModel>()
-            purchasedProducts.add(listPrdoductModel)
+            purchasedProducts.add(purchasedPrdoductModel)
             _purchasedProductList.value = purchasedProducts
         }
 
