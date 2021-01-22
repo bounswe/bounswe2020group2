@@ -1,12 +1,12 @@
 import { Form, Modal, notification, Spin } from 'antd'
 import { useState } from 'react'
 import { ProductModalInner } from './ProductModalInner'
-import { products } from '../../mocks/mocks'
+import { vendorOrders } from '../../mocks/mocks'
 import { api } from '../../api'
 import { getBase64 } from 'image-blobber'
 
 export const ProductModal = ({
-    product = products[0],
+    product = vendorOrders[0].product,
     mode = 'edit',
     visible = true, // don't forget to make this false later
     onCancel = () => {},
@@ -15,8 +15,31 @@ export const ProductModal = ({
     const [form] = Form.useForm()
     const [isLoading, setIsLoading] = useState(false)
 
+    const formatProductForSend = async values => {
+        const images = await Promise.all(
+            values.images.map(async image => {
+                if (image.originFileObj) return (await getBase64(image.originFileObj)).base64.split(',')[1]
+                return image.preview
+            }),
+        )
+
+        const [category_id, subcategory_id] = values.category
+
+        const finalValues = {
+            ...values,
+            images,
+            subcategory_id,
+        }
+
+        delete finalValues.category
+
+        return finalValues
+    }
+
     const onAdd = async () => {
         const values = await form.validateFields()
+        const finalValues = await formatProductForSend(values)
+        console.log('onAdd finalValues', finalValues)
 
         try {
             setIsLoading(true)
@@ -31,17 +54,8 @@ export const ProductModal = ({
 
     const onEdit = async () => {
         const values = await form.validateFields()
-
-        const images = await Promise.all(
-            values.images.map(async image => {
-                if (image.originFileObj) return (await getBase64(image.originFileObj)).base64.split(',')[1]
-                return image.preview
-            }),
-        )
-
-        const finalValues = { ...values, images }
-
-        console.log(finalValues)
+        const finalValues = await formatProductForSend(values)
+        console.log('onEdit finalValues', finalValues)
 
         try {
             setIsLoading(true)
