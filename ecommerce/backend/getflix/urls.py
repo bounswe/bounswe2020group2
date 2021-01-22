@@ -23,6 +23,7 @@ urlpatterns = [
     path('regularsignup', views.account.register, name="register"),
     path('regularlogin', views.account.login, name="login"),
     path('init', views.account.init, name="init"),
+    path('changepassword', views.account.change_password, name="changepassword"),
     path('products/homepage/<int:num>', views.product.get_homepage_products),
     path('product/<int:product_id>', views.product.get_product_detail),
     path('categories', views.category.get_categories),
