@@ -17,8 +17,8 @@ from ..utils.order_status import OrderStatus
 def recommend_products(request):
 
     # get user
-    user = User.objects.filter(user=request.user).first()
-    user_id = user.id
+    user = request.user
+    user_id = request.user.id
 
     # define subcategories that this user purchased a product from
     purchased_subcategories = []
@@ -58,12 +58,14 @@ def recommend_products(request):
 
                 products_I_didnt_buy.append(product)
 
-        product_from_this_subcategory = random.choice(products_I_didnt_buy)
+        # if there are some products that i did not buy in this subcategory, add one of them to "recommended_products" list
+        if len(products_I_didnt_buy)!=0:
+            product_from_this_subcategory = random.choice(products_I_didnt_buy)
 
-        serializer = ProductResponseSerializer(product_from_this_subcategory)
-        serialized_product = serializer.data
+            serializer = ProductResponseSerializer(product_from_this_subcategory)
+            serialized_product = serializer.data
 
-        recommended_products.append(serialized_product)
+            recommended_products.append(serialized_product)
 
     # if recommended_products list is empty
     if(len(recommended_products)==0):
