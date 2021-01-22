@@ -1,10 +1,10 @@
 import { useAppContext } from '../../context/AppContext'
 import React, { useEffect, useState } from 'react'
 import { Spin, Button } from 'antd'
-import { UserReviews } from '../UserReview/UserReviews'
 import { VendorPageContent } from '../VendorContent/VendorPageContent'
 import { formatProduct, formatSearchQueryParams } from '../../utils'
 import { VendorSplash } from '../VendorContent/VendorSplash'
+import { VendorReviews } from '../VendorContent/VendorReviews'
 import { api } from '../../api'
 import { Tabs } from 'antd'
 import './VendorHomepage.less'
@@ -40,7 +40,7 @@ export const VendorHomepage = props => {
                         <VendorMainContent editMode={editMode} />
                     </TabPane>
                     <TabPane tab="Reviews" key="vendor-reviews">
-                        <UserReviews productId={1} />
+                        <VendorReviews vendorId={vendorId} />
                     </TabPane>
                 </Tabs>
             </div>
