@@ -311,6 +311,7 @@
                     android:layout_marginEnd="16dp"
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="right"
+                    android:clickable="true"
                     android:text="@string/vendor_example"
                     android:textColor="@color/subtitle"
                     android:textSize="18sp"

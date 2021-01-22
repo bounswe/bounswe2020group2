@@ -26,6 +26,7 @@ import com.example.getflix.infoAlert
 import com.example.getflix.ui.adapters.CommentAdapter
 import com.example.getflix.ui.adapters.ImageAdapter
 import com.example.getflix.ui.adapters.RecommenderAdapter
+import com.example.getflix.ui.fragments.ProductFragmentDirections.Companion.actionProductFragmentToVendorPageFragment
 import com.example.getflix.ui.viewmodels.ProductViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
@@ -126,6 +127,11 @@ class ProductFragment : Fragment() {
         }
         binding.decrease.setOnClickListener {
             productViewModel.decreaseAmount()
+        }
+
+        binding.vendorDetail.setOnClickListener {
+            var id = 3
+            view?.findNavController()!!.navigate(actionProductFragmentToVendorPageFragment(id))
         }
 
         binding.increase.setOnClickListener {
