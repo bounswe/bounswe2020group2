@@ -860,7 +860,7 @@ export const notifications = [
         argument: {
             title: 'Product Title',
             old_price: 100,
-            'new_ price': 95.4,
+            new_price: 95.4,
             id: 12,
             shord_description: 'afsasdsad',
             image_url: 'https://images-na.ssl-images-amazon.com/images/I/71wxRBAHZmL._AC_SL1500_.jpg',
@@ -879,7 +879,7 @@ export const notifications = [
         argument: {
             title: 'Product Title',
             old_price: 100,
-            'new_ price': 95.4,
+            new_price: 95.4,
             id: 12,
             shord_description: 'afsasdsad',
             image_url: 'https://images-na.ssl-images-amazon.com/images/I/71wxRBAHZmL._AC_SL1500_.jpg',
@@ -920,7 +920,7 @@ export const notifications = [
         argument: {
             title: 'Product Title',
             old_price: 100,
-            'new_ price': 95.4,
+            new_price: 95.4,
             id: 12,
             shord_description: 'afsasdsad',
             image_url: 'https://images-na.ssl-images-amazon.com/images/I/71wxRBAHZmL._AC_SL1500_.jpg',
@@ -939,7 +939,7 @@ export const notifications = [
         argument: {
             title: 'Product Title',
             old_price: 100,
-            'new_ price': 95.4,
+            new_price: 95.4,
             id: 12,
             shord_description: 'afsasdsad',
             image_url: 'https://images-na.ssl-images-amazon.com/images/I/71wxRBAHZmL._AC_SL1500_.jpg',

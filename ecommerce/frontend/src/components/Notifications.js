@@ -14,10 +14,10 @@ const onSeenNotification = () => {}
 const onDeleteAllNotifications = () => {}
 
 const priceChangeTextTemplate = (title, old_price, new_price) => {
-    return <p>{`Price of ${title} has changed from ${old_price}TL to ${new_price}TL`}</p>
+    return `Price of ${title} has changed from ${old_price}TL to ${new_price}TL`
 }
 const orderStatusChangeTextTemplate = (title, old_status, new_status) => {
-    return <p>{`A status of your order has changed from ${old_status} to ${new_status}`}</p>
+    return `A status of your order has changed from ${old_status} to ${new_status}`
 }
 
 const priceChangeDetail = product => {
@@ -32,7 +32,7 @@ const orderStatusChangeDetail = order => {
     return {
         title: orderStatusChangeTextTemplate(order.title, order.old_status, order.new_status),
         link: order.id,
-        image_url: order.product.image_url,
+        image_url: 'https://github.com/bounswe/bounswe2020group2/blob/master/images/order_update.jpg?raw=true',
     }
 }
 export const Notifications = () => {
@@ -43,6 +43,7 @@ export const Notifications = () => {
         const fetch = async () => {
             setIsLoading(true)
             const { data } = await api.get('/notifications')
+            console.log('notif', data)
             setNotifications(data)
         }
         try {
@@ -81,8 +82,6 @@ export const Notifications = () => {
             <div className="notifications-container">
                 <Spin spinning={isLoading}>
                     {notifications.map(notification => {
-                        const product =
-                            notification.type === 'price_change' ? notification.argument : notification.argument.product
                         const notificationDetail =
                             notification.type === 'price_change'
                                 ? priceChangeDetail(notification.argument)
@@ -95,11 +94,11 @@ export const Notifications = () => {
                                         notification.is_seen ? 'seen' : 'unseen'
                                     }`}></div>
                                 <div className="notification-image">
-                                    <Link to={`/product/${product.id}`}>
+                                    <Link to={`/product/${notificationDetail.link}`}>
                                         <img
                                             src={
                                                 notification.type === 'price_change'
-                                                    ? product.image_url
+                                                    ? notificationDetail.image_url
                                                     : 'https://github.com/bounswe/bounswe2020group2/blob/master/images/order_update.jpg?raw=true'
                                             }
                                         />
@@ -107,14 +106,8 @@ export const Notifications = () => {
                                 </div>
                                 <div className="notification-message">
                                     <div>
-                                        <p>
-                                            {priceChangeTextTemplate(
-                                                product.title,
-                                                product.old_price,
-                                                product.new_price,
-                                            )}
-                                        </p>
-                                        <Link to={`/product/${product.id}`}>See new deal now. </Link>{' '}
+                                        <p>{notificationDetail.title}</p>
+                                        <Link to={`/product/${notificationDetail.link}`}>See new deal now. </Link>{' '}
                                     </div>
                                     <div className="notification-date">{moment(notification.date).fromNow()}</div>
                                 </div>
