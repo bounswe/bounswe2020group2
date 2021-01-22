@@ -26,6 +26,16 @@ const url = u => config.apiUrl + u
 // comment the handler when done with it, DO NOT REMOVE IT
 
 export const handlers = [
+    rest.get(url('/vendor/:id/details'), (req, res, ctx) => {
+        const { params } = req
+        const { id } = params
+        console.log('returns: ', vendorDetails[id])
+        return res(
+            ctx.json({
+                data: vendorDetails[id],
+            }),
+        )
+    }),
     // url(...) is important here !!
     // rest.get(url('/example/user/:userId'), (req, res, ctx) => {
     //     const { params, body } = req
@@ -152,15 +162,6 @@ export const handlers = [
     // rest.get(url('/customer/:userId/cards'), (req, res, ctx) => {
     //     return res(ctx.json({ status, cards }))
     // }),
-    rest.get(url('/vendor/:id/details'), (req, res, ctx) => {
-        const { params } = req
-        const { id } = params
-        return res(
-            ctx.json({
-                data: vendorDetails[id],
-            }),
-        )
-    }),
 ]
 
 if (process.env.NODE_ENV === 'development') {
