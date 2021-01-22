@@ -13,11 +13,17 @@ const onSeenNotification = () => {}
 
 const onDeleteAllNotifications = () => {}
 
+const priceChangeTextTemplate = (title, old_price, new_price) => {
+    return <p>{`Price of a product in your wishlist ( ${title} ) has changed from ${old_price}TL to ${new_price}TL`}</p>
+}
+
 export const Notifications = () => {
     const [notifications, setNotifications] = useState([])
+
     useEffect(() => {
         const fetch = async () => {
             const { data } = await api.get('/notifications')
+            console.log('notification', data)
             setNotifications(data)
         }
         try {
@@ -27,6 +33,7 @@ export const Notifications = () => {
         }
     }, [])
     const unseenNotifications = notifications.filter(item => !item.is_seen)
+
     return (
         <div>
             <div className="notifications-header">
@@ -61,17 +68,21 @@ export const Notifications = () => {
                                     notification.is_seen ? 'seen' : 'unseen'
                                 }`}></div>
                             <div className="notification-image">
-                                <img
-                                    src={
-                                        notification.type === 'price_change'
-                                            ? product.image_url
-                                            : 'https://github.com/bounswe/bounswe2020group2/blob/master/images/order_update.jpg?raw=true'
-                                    }
-                                />
+                                <Link to={`/product/${product.id}`}>
+                                    <img
+                                        src={
+                                            notification.type === 'price_change'
+                                                ? product.image_url
+                                                : 'https://github.com/bounswe/bounswe2020group2/blob/master/images/order_update.jpg?raw=true'
+                                        }
+                                    />
+                                </Link>{' '}
                             </div>
                             <div className="notification-message">
                                 <div>
-                                    <p>{notification.text}</p>
+                                    <p>
+                                        {priceChangeTextTemplate(product.title, product.old_price, product.new_price)}
+                                    </p>
                                     <Link to={`/product/${product.id}`}>See new deal now. </Link>{' '}
                                 </div>
                                 <div className="notification-date">{moment(notification.date).fromNow()}</div>
