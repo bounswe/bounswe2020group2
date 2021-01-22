@@ -279,7 +279,16 @@
     <fragment
         android:id="@+id/vendorOrdersFragment"
         android:name="com.example.getflix.ui.fragments.VendorOrdersFragment"
-        tools:layout="@layout/fragment_vendor_orders" />
+        tools:layout="@layout/fragment_vendor_orders">
+        <action
+            android:id="@+id/action_vendorOrdersFragment_to_VendorOrderFragment"
+            app:destination="@id/vendorOrderFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/vendorOrderFragment"
+        android:name="com.example.getflix.ui.fragments.VendorOrderFragment"
+        tools:layout="@layout/fragment_vendor_order" />
     <fragment
         android:id="@+id/addAddressFragment"
         android:name="com.example.getflix.ui.fragments.AddAddressFragment"

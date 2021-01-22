@@ -4,6 +4,9 @@
     package="com.example.getflix">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
 
     <application
         android:allowBackup="true"
@@ -14,6 +17,9 @@
         android:supportsRtl="true"
         tools:replace="android:label"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/map_key" />
         <activity android:name="com.example.getflix.activities.SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
