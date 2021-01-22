@@ -34,3 +34,16 @@ class MessageTest(TestCase):
                                             password_salt=salt, password_hash=password_hash, is_verified=True)
         Customer.objects.create(user=sender, first_name="r_first", last_name="s_last")
         receiver = User.objects.filter(username='testreceiver').first()
+
+    # test sending a message
+    def test_send_message(self):
+        message = {
+            "receiver_id": receiver.id,
+            "text": "Do you have the product in the attachment?",
+            "attachment": "https://www.adidas.com.tr/tr/superstar-ayakkab%C4%B1/EG4959.html"
+        }
+        # get the response for a POST request to the /messages endpoint
+        response = self.client.post(reverse(manage_messages), message, 'json')
+        # if the response returns a 200 and a status is successful, then test is passed
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
