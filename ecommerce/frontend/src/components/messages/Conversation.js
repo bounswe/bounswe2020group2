@@ -14,14 +14,14 @@ import { useAppContext } from '../../context/AppContext'
 const { TextArea } = Input
 
 export const Conversation = ({ className, conversation }) => {
-    const [file, setFile] = useState(null)
+    const [fileList, setFileList] = useState([])
     const [value, setValue] = useState('')
     const [loading, setLoading] = useState(false)
     const { user } = useAppContext()
     const { lastFetch, sendMessage, conversations } = useChatContext()
     const [image, setImage] = useState(null)
 
-    if (conversations === null) {
+    if (!conversations) {
         return (
             <div className={cls(className, 'conversation-skeleton')}>
                 <Skeleton className={'conversation-skeleton_left'} active title={false} paragraph={{ rows: 2 }} />
@@ -38,7 +38,7 @@ export const Conversation = ({ className, conversation }) => {
         )
     }
 
-    if (conversation === null) {
+    if (!conversation) {
         return <Empty description={'Please select a conversation'} />
     }
 
@@ -86,8 +86,8 @@ export const Conversation = ({ className, conversation }) => {
             text: value.trim(),
         }
 
-        if (file) {
-            const image = await getBase64(file)
+        if (fileList.length) {
+            const image = await getBase64(fileList[0].originFileObj)
             message.attachment = image.base64.split(',')[1]
         }
 
@@ -95,7 +95,7 @@ export const Conversation = ({ className, conversation }) => {
             setLoading(true)
             await sendMessage(message)
             setValue('')
-            setFile(null)
+            setFileList([])
         } finally {
             setLoading(false)
         }
@@ -105,9 +105,18 @@ export const Conversation = ({ className, conversation }) => {
         setImage(data.data.uri)
     }
 
+    const handlePreview = async file => {
+        if (!file.preview) {
+            const image = await getBase64(file.originFileObj)
+            file.preview = image.base64
+        }
+
+        setImage(file.preview)
+    }
+
     return (
         <div className={className}>
-            <div>Last updated at: {lastFetch.format('hh:mm:ss')}</div>
+            <div className={'conversation-header'}>Last updated at: {lastFetch.format('hh:mm:ss')}</div>
             <MessageList
                 className="conversation-message-list"
                 lockable={true}
@@ -126,18 +135,25 @@ export const Conversation = ({ className, conversation }) => {
                     src: image,
                 }}
             />
-            <div style={{ display: 'flex', marginTop: 8 }}>
+            <div className="conversation-input-container">
                 <Upload
-                    listType="picture"
-                    maxCount={1}
-                    fileList={[file].filter(Boolean)}
+                    accept="image/*"
+                    listType={fileList.length ? 'picture-card' : 'picture'}
+                    fileList={fileList}
+                    onPreview={handlePreview}
+                    onChange={async ({ fileList }) => {
+                        if (!fileList.length) return setFileList([])
+
+                        const file = fileList[fileList.length - 1]
+
+                        setFileList([file])
+                    }}
                     beforeUpload={file => {
-                        setFile(file)
+                        setFileList([file])
                         return false
                     }}>
-                    <Button icon={<UploadOutlined />}>Upload</Button>
+                    {!fileList.length && <Button icon={<UploadOutlined />}>Upload</Button>}
                 </Upload>
-
                 <TextArea
                     value={value}
                     onChange={onInputChange}
@@ -145,8 +161,6 @@ export const Conversation = ({ className, conversation }) => {
                     placeholder="Enter your message here..."
                     autoSize
                 />
-
-                {/* <Input value={value} onChange={onInputChange} onPressEnter={onSendMessage} /> */}
                 <Button type="primary" onClick={onSendMessage} loading={loading}>
                     Send
                 </Button>

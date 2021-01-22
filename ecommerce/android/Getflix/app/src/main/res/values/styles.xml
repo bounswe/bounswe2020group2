@@ -48,13 +48,8 @@
         <item name="android:textColor">#3b5998</item>
     </style>
 
-    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
-
-    </style>
-
-    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
-
-
+    <style name="ToolbarVendorTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="color">@color/initGold</item>
     </style>
 
 

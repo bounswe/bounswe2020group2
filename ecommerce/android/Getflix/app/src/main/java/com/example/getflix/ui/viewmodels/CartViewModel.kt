@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.getflix.activities.MainActivity
+import com.example.getflix.models.CartProductListModel
 import com.example.getflix.models.CartProductModel
 import com.example.getflix.models.CustomerCartPriceModel
 import com.example.getflix.service.GetflixApi
@@ -17,59 +18,67 @@ import retrofit2.Response
 
 class CartViewModel : ViewModel() {
 
-    private val _cardProducts = MutableLiveData<MutableList<CartProductModel>>()
-    val cardProducts: LiveData<MutableList<CartProductModel>>
+    private val _cardProducts = MutableLiveData<MutableList<CartProductModel>?>()
+    val cardProducts: LiveData<MutableList<CartProductModel>?>
         get() = _cardProducts
 
     private val _cardPrices = MutableLiveData<CustomerCartPriceModel>()
     val cardPrices: LiveData<CustomerCartPriceModel>
         get() = _cardPrices
 
-    private var job: Job? = null
-    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        println("Error ${throwable.localizedMessage}")
-    }
-    val onSubmit = MutableLiveData<Boolean>()
+
     init {
-        onSubmit.value = false
+        _cardPrices.value = CustomerCartPriceModel(0.0, 0.0, 0.0, 0.0)
     }
 
     fun getCustomerCartPrice() {
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val response =
-                GetflixApi.getflixApiService.getCustomerCartPrice("Bearer " + MainActivity.StaticData.user!!.token)
-            withContext(Dispatchers.Main + exceptionHandler) {
-                if (response.isSuccessful) {
-                    response.body().let { it ->
-                        _cardPrices.value = it
+        if (MainActivity.StaticData.user != null) {
+            GetflixApi.getflixApiService.getCustomerCartPrice("Bearer " + MainActivity.StaticData.user!!.token)
+                .enqueue(
+                    object : Callback<CustomerCartPriceModel?> {
+                        override fun onFailure(call: Call<CustomerCartPriceModel?>, t: Throwable) {
+                            _cardPrices.value = CustomerCartPriceModel(0.0, 0.0, 0.0, 0.0)
+                        }
+
+                        override fun onResponse(
+                            call: Call<CustomerCartPriceModel?>,
+                            response: Response<CustomerCartPriceModel?>
+                        ) {
+                            if (response.body() != null) {
+                                _cardPrices.value = response.body()
+                            } else {
+                                _cardPrices.value = CustomerCartPriceModel(0.0, 0.0, 0.0, 0.0)
+                            }
+                        }
+
                     }
-                    if(onSubmit.value==false){
-                        onSubmit.value = true
-                    }
-                }
-            }
+                )
         }
     }
 
     fun getCustomerCartProducts() {
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getCustomerAllCartProducts(
+        if (MainActivity.StaticData.user != null) {
+            GetflixApi.getflixApiService.getCustomerAllCartProducts(
                 "Bearer " + MainActivity.StaticData.user!!.token,
                 MainActivity.StaticData.user!!.id
             )
-            withContext(Dispatchers.Main + exceptionHandler) {
-                if (response.isSuccessful) {
-                    println("succesfull mu")
-                    response.body().let { it ->
-                        _cardProducts.value =
-                            response.body()!!.cartProducts as MutableList<CartProductModel>
-                        println(_cardProducts.value.toString())
+                .enqueue(object :
+                    Callback<CartProductListModel?> {
+                    override fun onFailure(call: Call<CartProductListModel?>, t: Throwable) {
+                        _cardProducts.value = null
                     }
-                    if(onSubmit.value==false){
-                        onSubmit.value = true
+
+                    override fun onResponse(
+                        call: Call<CartProductListModel?>,
+                        response: Response<CartProductListModel?>
+                    ) {
+                        response.body().let {
+                            _cardProducts.value = it?.cartProducts as MutableList<CartProductModel>?
+                        }
+
                     }
                 }
-            }
+                )
         }
     }
 
@@ -98,7 +107,11 @@ class CartViewModel : ViewModel() {
     }
 
     fun deleteCustomerCartProduct(scId: Int) {
-        GetflixApi.getflixApiService.deleteCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,MainActivity.StaticData.user!!.id, scId)
+        GetflixApi.getflixApiService.deleteCustomerCartProduct(
+            "Bearer " + MainActivity.StaticData.user!!.token,
+            MainActivity.StaticData.user!!.id,
+            scId
+        )
             .enqueue(object :
                 Callback<CardProDeleteResponse> {
                 override fun onFailure(call: Call<CardProDeleteResponse>, t: Throwable) {
@@ -120,3 +133,4 @@ class CartViewModel : ViewModel() {
 
 
 }
+
