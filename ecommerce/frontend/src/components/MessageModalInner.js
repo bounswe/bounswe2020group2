@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Modal, Form, Spin, notification, Button, Upload, Input } from 'antd'
+import { notification, Button, Upload, Input } from 'antd'
 import { useChatContext } from '../context/ChatContext'
 import { UploadOutlined } from '@ant-design/icons'
 import { getBase64, getImageData } from 'image-blobber'
@@ -7,9 +7,6 @@ import './MessageModalInner.less'
 
 const { TextArea } = Input
 
-/** Assumed receiver object
- *  receiver: {id, firstname, lastname}
- */
 export const MessageModalInner = ({ receiverId, onFinish }) => {
     const { sendMessage } = useChatContext()
     const [isLoading, setIsLoading] = useState(false)
@@ -22,7 +19,7 @@ export const MessageModalInner = ({ receiverId, onFinish }) => {
             setIsLoading(true)
 
             let message = {
-                receiver_id: 9,
+                receiver_id: receiverId,
                 text: text.trim(),
             }
 
@@ -31,8 +28,7 @@ export const MessageModalInner = ({ receiverId, onFinish }) => {
                 message.attachment = image.base64.split(',')[1]
             }
 
-            await sendMessage(message)
-            onFinish()
+            if (await sendMessage(message)) onFinish()
         } catch (error) {
             notification.error({ description: 'There was an error with your request.' })
         } finally {

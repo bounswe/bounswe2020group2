@@ -66,6 +66,7 @@ export const OrdersList = () => {
     }
 
     const onOrderCancelled = fetch
+    const onPurchaseUpdated = fetch
 
     useEffect(() => {
         fetch()
@@ -80,7 +81,7 @@ export const OrdersList = () => {
                         if (user.type === 'customer')
                             return <Order key={order.id} order={order} onOrderCancelled={onOrderCancelled} />
 
-                        return <Purchase key={order.id} purchase={order} />
+                        return <Purchase key={order.id} purchase={order} onPurchaseUpdated={onPurchaseUpdated} />
                     })}
                 </div>
             </Spin>

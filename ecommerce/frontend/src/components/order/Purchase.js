@@ -1,19 +1,21 @@
 import './Purchase.less'
 
-import { Button, Collapse, Modal } from 'antd'
+import { Button, Collapse, Modal, notification, Select } from 'antd'
 import moment from 'moment'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import { api } from '../../api'
 import { useAppContext } from '../../context/AppContext'
-import { formatOrderStatus, orderStatusInvMap } from '../../utils'
+import { formatOrderStatus, orderStatusInvMap, orderStatusDisplayMapping } from '../../utils'
 import { HeaderLabel } from '../HeaderLabel'
 import { MessageModalInner } from '../MessageModalInner'
 import { UserReviewPost } from '../UserReview/UserReviewPost'
 
-export const PurchaseVendor = ({ purchase }) => {
+export const PurchaseVendor = ({ purchase, onPurchaseUpdated = () => {} }) => {
     const { product, status } = purchase
     const [messageModalVisible, setMessageModalVisible] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     const receiver = [purchase.address.name, purchase.address.surname].filter(Boolean).join(' ')
 
@@ -29,9 +31,34 @@ export const PurchaseVendor = ({ purchase }) => {
     }
 
     const user = {
-        receiverId: 1,
+        receiverId: 9,
         name: receiver,
     }
+    const onChangeOrderStatus = async newStatus => {
+        try {
+            setIsLoading(true)
+            const {
+                data: { status },
+            } = await api.put(`/vendor/order`, {
+                orderId: purchase.id,
+                orderStatus: newStatus,
+            })
+            if (status.successful) {
+                notification.success({ message: status.message })
+                onPurchaseUpdated()
+            } else {
+                notification.warning({ message: status.message })
+            }
+        } catch (error) {
+            notification.error({ description: 'There was an error with your request.' })
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+    // const orderStatusOptions = Object.entries(orderStatusDisplayMapping).map(([key, value]) => {
+    //     key, value
+    // })
 
     return (
         <>
@@ -45,7 +72,21 @@ export const PurchaseVendor = ({ purchase }) => {
                             <HeaderLabel label="Date">
                                 {moment.utc(purchase.purchase_date).format('DD/MM/YYYY HH:mm ')}
                             </HeaderLabel>
-                            <HeaderLabel label="Status">{formatOrderStatus(status)}</HeaderLabel>
+                            <HeaderLabel label="Status">
+                                <Select
+                                    loading={isLoading}
+                                    onClick={e => e.stopPropagation()}
+                                    value={statusName}
+                                    onChange={onChangeOrderStatus}>
+                                    {Object.entries(orderStatusDisplayMapping).map(([k, v]) => {
+                                        return (
+                                            <Select.Option key={k} value={k}>
+                                                {v}
+                                            </Select.Option>
+                                        )
+                                    })}
+                                </Select>
+                            </HeaderLabel>
                             <HeaderLabel label="Address">{purchase.address.title}</HeaderLabel>
                             <HeaderLabel label="Price">
                                 {purchase.unit_price} {purchase.currency ?? 'TL'}
@@ -158,7 +199,7 @@ export const PurchaseCustomer = ({ purchase }) => {
     )
 }
 
-export const Purchase = ({ purchase }) => {
+export const Purchase = ({ purchase, onPurchaseUpdated }) => {
     const { user } = useAppContext()
 
     if (user.type === 'customer') {
@@ -166,7 +207,7 @@ export const Purchase = ({ purchase }) => {
     }
 
     if (user.type === 'vendor') {
-        return <PurchaseVendor purchase={purchase} />
+        return <PurchaseVendor purchase={purchase} onPurchaseUpdated={onPurchaseUpdated} />
     }
 
     return null
