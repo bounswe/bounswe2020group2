@@ -43,7 +43,6 @@ export const Notifications = () => {
         const fetch = async () => {
             setIsLoading(true)
             const { data } = await api.get('/notifications')
-            console.log('notif', data)
             setNotifications(data)
         }
         try {
@@ -86,7 +85,6 @@ export const Notifications = () => {
                             notification.type === 'price_change'
                                 ? priceChangeDetail(notification.argument)
                                 : orderStatusChangeDetail(notification.argument)
-                        console.log(notificationDetail)
                         return (
                             <div key={notification.id} className="notification-item">
                                 <div
@@ -95,13 +93,7 @@ export const Notifications = () => {
                                     }`}></div>
                                 <div className="notification-image">
                                     <Link to={`/product/${notificationDetail.link}`}>
-                                        <img
-                                            src={
-                                                notification.type === 'price_change'
-                                                    ? notificationDetail.image_url
-                                                    : 'https://github.com/bounswe/bounswe2020group2/blob/master/images/order_update.jpg?raw=true'
-                                            }
-                                        />
+                                        <img src={notificationDetail.image_url} />
                                     </Link>{' '}
                                 </div>
                                 <div className="notification-message">
