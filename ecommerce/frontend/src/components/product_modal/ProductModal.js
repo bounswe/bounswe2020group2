@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { ProductModalInner } from './ProductModalInner'
 import { products } from '../../mocks/mocks'
 import { api } from '../../api'
+import { getBase64 } from 'image-blobber'
 
 export const ProductModal = ({
     product = products[0],
@@ -15,8 +16,7 @@ export const ProductModal = ({
     const [isLoading, setIsLoading] = useState(false)
 
     const onAdd = async () => {
-        const store = await form.validateFields()
-        console.log(store)
+        const values = await form.validateFields()
 
         try {
             setIsLoading(true)
@@ -30,9 +30,18 @@ export const ProductModal = ({
     }
 
     const onEdit = async () => {
-        const store = await form.validateFields()
-        const values = form.getFieldsValue()
-        console.log(values)
+        const values = await form.validateFields()
+
+        const images = await Promise.all(
+            values.images.map(async image => {
+                if (image.originFileObj) return (await getBase64(image.originFileObj)).base64.split(',')[1]
+                return image.preview
+            }),
+        )
+
+        const finalValues = { ...values, images }
+
+        console.log(finalValues)
 
         try {
             setIsLoading(true)
