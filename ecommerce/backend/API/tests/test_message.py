@@ -73,3 +73,19 @@ class MessageTest(TestCase):
         response = self.client.post(reverse(manage_messages), message, 'json')
         # if the response returns a 403, then test is passed
         self.assertEqual(response.status_code, 403)
+
+    # test getting all conversations of a logged in user from the database
+    def test_get_all_conversations_with_login(self):
+        # get the response for a GET request to the /messages endpoint
+        response = self.client.get(reverse(manage_messages))
+        # if the response returns a 200 and a status is successful, then test is passed
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
+
+    # test getting all conversations of a non-logged in user from the database
+    def test_get_all_conversations_without_login(self):
+        self.client.credentials(HTTP_AUTHORIZATION=None)
+        # get the response for a GET request to the /messages endpoint
+        response = self.client.get(reverse(manage_messages))
+        # if the response returns a 403, then test is passed
+        self.assertEqual(response.status_code, 403)
