@@ -69,5 +69,4 @@ class NotificationTest(TestCase):
         }
         response = self.client.put(reverse('vendor_product'), body, 'json')
         notification = Notification.objects.filter(user=self.c_user).first()
-        print(notification.argument)
         self.assertNotEqual(notification, None)
