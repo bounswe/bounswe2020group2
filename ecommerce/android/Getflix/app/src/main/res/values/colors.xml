@@ -6,4 +6,5 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="subtitle">#404040</color>
+    <color name="vendor_background">#F51F1F1F</color>
 </resources>
