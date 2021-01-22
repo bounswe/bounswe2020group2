@@ -181,7 +181,7 @@ const ProductModalInnerPictureSelect = ({ form }) => {
             <Form.Item dependencies={['images']}>
                 {form => {
                     const fileList = form.getFieldValue('images') || []
-                    console.log(fileList)
+                    // console.log(fileList)
                     return (
                         <Form.Item name="images" label="Image" valuePropName="fileList" getValueFromEvent={normFile}>
                             <Upload

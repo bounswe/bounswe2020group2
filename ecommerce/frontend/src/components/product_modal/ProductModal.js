@@ -23,12 +23,18 @@ export const ProductModal = ({
             }),
         )
 
+        const oldImages = new Set(product.images)
+        const remainingUrlImages = new Set(images.filter(image => image.startsWith('http')))
+        const newImages = new Set(images.filter(image => !image.startsWith('http')))
+        const deletedImages = new Set([...oldImages].filter(image => !remainingUrlImages.has(image)))
+
         const [category_id, subcategory_id] = values.category
 
         const finalValues = {
             ...values,
-            images,
             subcategory_id,
+            images: [...newImages],
+            image_urls_delete: [...deletedImages],
         }
 
         delete finalValues.category
