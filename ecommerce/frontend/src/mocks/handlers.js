@@ -14,6 +14,7 @@ import {
 } from './mocks'
 import { orderStatusMap } from '../utils'
 import * as moment from 'moment'
+import { min } from 'ramda'
 
 // preprend config.apiUrl
 const url = u => config.apiUrl + u
@@ -29,10 +30,11 @@ export const handlers = [
     rest.get(url('/vendor/:id/details'), (req, res, ctx) => {
         const { params } = req
         const { id } = params
-        console.log('returns: ', vendorDetails[id])
+        const minId = min(id, vendorDetails.length - 1) // If request vendorId=55 then get 4 (last element)
+        console.log('returns: ', minId, vendorDetails[minId])
         return res(
             ctx.json({
-                data: vendorDetails[id],
+                data: vendorDetails[minId],
             }),
         )
     }),
