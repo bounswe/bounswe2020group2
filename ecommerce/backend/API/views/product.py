@@ -15,6 +15,7 @@ from ..utils import validate_product_add_request
 from ..utils import permissions, Role
 from ..models import Product,Vendor,ImageUrls,Category,Subcategory
 from ..serializers.product_serializer import ProductResponseSerializer
+from ..utils import notifyPriceChange
 
 # returns the details of the product having the given product_id
 @api_view(['GET'])
@@ -165,6 +166,8 @@ def vendor_product(request):
         subcategory = Subcategory.objects.filter(pk=request.data["subcategory_id"]).first()
         if brand is None or subcategory is None:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        previous_price = product.price * (1 - product.discount)
         discount = request.data["discount"]
         if discount is None:
             discount = 0
@@ -180,7 +183,8 @@ def vendor_product(request):
         for image_url in request.data["image_urls_delete"]:
             ImageUrls.objects.filter(image_url=image_url).first().delete()
 
-        index = ImageUrls.objects.filter(product=product).order_by('-index').first().index + 1
+        index_image_url = ImageUrls.objects.filter(product=product).order_by('-index').first()
+        index = index_image_url.image_url if index_image_url is not None else None
         for image_b64 in request.data["images"]:
             img_array = base64.b64decode(image_b64)
             image = Image(image=img_array)
@@ -190,6 +194,12 @@ def vendor_product(request):
             index += 1
 
         product.save()
+
+        new_price = product.price * (1 - product.discount)
+
+        if(new_price < previous_price):
+            notifyPriceChange(product, new_price, previous_price)
+        
         response = VendorProductResponseSerializer(
             product,
             context = { 'is_successful': True,
