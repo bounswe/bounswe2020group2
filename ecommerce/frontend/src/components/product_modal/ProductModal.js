@@ -1,24 +1,20 @@
-import { Form, Modal, Spin } from "antd"
-import { useState } from "react"
-import { ProductModalInner } from "./ProductModalInner"
+import { Form, Modal, Spin } from 'antd'
+import { useState } from 'react'
+import { ProductModalInner } from './ProductModalInner'
+import { products } from '../../mocks/mocks'
 
 export const ProductModal = ({
-    product,
-    mode = 'add',
+    product = products[0],
+    mode = 'edit',
     visible = true, // don't forget to make this false later
-    onCancel = () => { },
-    onSuccess = () => { } }) => {
-
+    onCancel = () => {},
+    onSuccess = () => {},
+}) => {
     const [form] = Form.useForm()
     const [isLoading, setIsLoading] = useState(false)
 
-    const onAdd = () => {
-
-    }
-    const onEdit = () => {
-
-    }
-
+    const onAdd = () => {}
+    const onEdit = () => {}
 
     return (
         <Modal
@@ -31,9 +27,12 @@ export const ProductModal = ({
             cancelText="Cancel"
             okText={mode === 'add' ? 'Add' : 'Edit'}>
             <Spin spinning={isLoading}>
-                <ProductModalInner />
+                {mode === 'edit' ? (
+                    <ProductModalInner form={form} product={product} />
+                ) : (
+                    <ProductModalInner form={form} />
+                )}
             </Spin>
         </Modal>
     )
-
 }
