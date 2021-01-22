@@ -34,9 +34,13 @@ class AddressFragment : Fragment() {
 
     ): View? {
         activity?.toolbar!!.toolbar_title.text = getString(R.string.addressInfo)
+        activity?.loading_progress!!.visibility = View.VISIBLE
+
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_address,
             container, false)
+        binding.fab.visibility = View.GONE
+
         binding.fab.setOnClickListener {
             if(binding.fab.visibility == View.VISIBLE)
             view?.findNavController()?.navigate(actionAddressFragmentToAddAddressFragment())
@@ -56,6 +60,7 @@ class AddressFragment : Fragment() {
 
         viewModel.addressList.observe(viewLifecycleOwner, Observer {
             it?.let {
+                activity?.loading_progress!!.visibility = View.GONE
                 if (it.size != 0) {
                     binding.btnAddAddress.visibility = View.GONE
                     binding.addressImage.visibility = View.GONE

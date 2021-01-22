@@ -34,8 +34,7 @@ class BankAccountFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         activity?.toolbar!!.toolbar_title.text = getString(R.string.bankAccounts)
-
-
+        activity?.loading_progress!!.visibility = View.VISIBLE
 
 
         activity?.onBackPressedDispatcher!!.addCallback(
@@ -55,6 +54,7 @@ class BankAccountFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bank_account,
                 container, false)
 
+        binding.addFab.visibility = View.GONE
 
 
         binding.addFab.setOnClickListener {
@@ -80,6 +80,7 @@ class BankAccountFragment : Fragment() {
 
         viewModel.creditList.observe(viewLifecycleOwner, Observer { list ->
             list?.let {
+                activity?.loading_progress!!.visibility = View.GONE
                 if(it.size!=0) {
                     binding.btnAddCard.visibility = View.GONE
                     binding.creditImage.visibility = View.GONE
