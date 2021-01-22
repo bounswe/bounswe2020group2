@@ -28,10 +28,6 @@ class VendorOrdersViewModel : ViewModel() {
     val orders: LiveData<MutableList<VendorOrderModel>>
         get() = _orders
 
-    private val _onLogin = MutableLiveData<Boolean>()
-    val onLogin: LiveData<Boolean>
-        get() = _onLogin
-
     init {
         getOrders()
     }
@@ -79,7 +75,7 @@ class VendorOrdersViewModel : ViewModel() {
                     call: Call<Status>,
                     response: Response<Status>
                 ) {
-                    getOrders()
+
                 }
             }
             )

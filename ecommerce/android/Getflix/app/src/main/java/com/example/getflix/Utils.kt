@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.CategoryModel
 import com.example.getflix.models.SubcategoryModel
+import com.example.getflix.models.VendorOrderModel
 import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.CardProUpdateRequest
 import com.example.getflix.service.responses.CardProUpdateResponse
@@ -21,6 +22,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+var vendorOrderModel : VendorOrderModel? = null
 
 val categories = listOf<CategoryModel>(
     CategoryModel(
