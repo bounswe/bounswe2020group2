@@ -47,3 +47,15 @@ class MessageTest(TestCase):
         # if the response returns a 200 and a status is successful, then test is passed
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["status"]["successful"], True)
+
+    # test sending a message
+    def test_send_message_with_invalid_data(self):
+        message = {
+            "receiver_id": receiver.id,
+            "attachment": "https://www.adidas.com.tr/tr/superstar-ayakkab%C4%B1/EG4959.html"
+        }
+        # get the response for a POST request to the /messages endpoint
+        response = self.client.post(reverse(manage_messages), message, 'json')
+        # if the response returns a 200 and a status is false, then test is passed
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], False)
