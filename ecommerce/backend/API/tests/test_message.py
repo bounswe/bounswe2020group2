@@ -1,7 +1,7 @@
 from rest_framework.test import APIClient
 from django.test import TestCase
 from django.urls import reverse
-from ..models import User
+from ..models import User, Customer
 from ..views.message import *
 from ..utils.crypto import Crypto
 
@@ -34,9 +34,10 @@ class MessageTest(TestCase):
                                             password_salt=salt, password_hash=password_hash, is_verified=True)
         Customer.objects.create(user=sender, first_name="r_first", last_name="s_last")
         receiver = User.objects.filter(username='testreceiver').first()
-    
+
     # test sending a message
     def test_send_message(self):
+        global receiver
         message = {
             "receiver_id": receiver.id,
             "text": "Do you have the product in the attachment?",
@@ -47,12 +48,28 @@ class MessageTest(TestCase):
         # if the response returns a 200 and a status is successful, then test is passed
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["status"]["successful"], True)
-    
-    # test getting all messages of a user from the database
-    def test_get_all_messages(self):
-        # get the response for a GET request to the /messages endpoint
-        response = self.client.get(reverse(manage_messages))
-        # if the response returns a 200 and a status is successful, then test is passed
+
+    # test sending a message with invalid data
+    def test_send_message_with_invalid_data(self):
+        message = {
+            "receiver_id": receiver.id,
+            "attachment": "https://www.adidas.com.tr/tr/superstar-ayakkab%C4%B1/EG4959.html"
+        }
+        # get the response for a POST request to the /messages endpoint
+        response = self.client.post(reverse(manage_messages), message, 'json')
+        # if the response returns a 200 and a status is false, then test is passed
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data["status"]["successful"], True)
-        
+        self.assertEqual(response.data["status"]["successful"], False)
+
+    # test sending a message without login
+    def test_send_message_without_login(self):
+        message = {
+            "receiver_id": receiver.id,
+            "text": "Do you have the product in the attachment?",
+            "attachment": "https://www.adidas.com.tr/tr/superstar-ayakkab%C4%B1/EG4959.html"
+        }
+        self.client.credentials(HTTP_AUTHORIZATION=None)
+        # get the response for a POST request to the /messages endpoint
+        response = self.client.post(reverse(manage_messages), message, 'json')
+        # if the response returns a 403, then test is passed
+        self.assertEqual(response.status_code, 403)
