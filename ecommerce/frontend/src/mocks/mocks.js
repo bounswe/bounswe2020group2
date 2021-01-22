@@ -905,7 +905,7 @@ export const conversations = [
                 attachment_url: null,
             },
         ],
-    }
+    },
 ]
 
 export const vendorOrders = [

@@ -1,11 +1,14 @@
 import './Purchase.less'
 
 import { Button, Collapse, Modal } from 'antd'
+import moment from 'moment'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import { useAppContext } from '../../context/AppContext'
 import { formatOrderStatus, orderStatusInvMap } from '../../utils'
 import { HeaderLabel } from '../HeaderLabel'
+import { MessageModalInner } from '../MessageModalInner'
 import { UserReviewPost } from '../UserReview/UserReviewPost'
 
 export const PurchaseVendor = ({ purchase }) => {
@@ -23,6 +26,11 @@ export const PurchaseVendor = ({ purchase }) => {
 
     const onMessageEnd = () => {
         setMessageModalVisible(false)
+    }
+
+    const user = {
+        receiverId: 1,
+        name: receiver,
     }
 
     return (
@@ -66,12 +74,12 @@ export const PurchaseVendor = ({ purchase }) => {
             </Collapse>
             <Modal
                 destroyOnClose
-                title={'Send a message to'}
-                visible={true}
+                title={`Send a message to ${user.name}`}
+                visible={messageModalVisible}
                 onOk={onMessageClick}
                 onCancel={onMessageEnd}
                 footer={null}>
-                <MessageModalInner receiverId={1} onFinish={onMessageEnd} />
+                <MessageModalInner receiverId={user.receiverId} onFinish={onMessageEnd} />
             </Modal>
         </>
     )
@@ -148,4 +156,18 @@ export const PurchaseCustomer = ({ purchase }) => {
             </Modal>
         </>
     )
+}
+
+export const Purchase = ({ purchase }) => {
+    const { user } = useAppContext()
+
+    if (user.type === 'customer') {
+        return <PurchaseCustomer purchase={purchase} />
+    }
+
+    if (user.type === 'vendor') {
+        return <PurchaseVendor purchase={purchase} />
+    }
+
+    return null
 }
