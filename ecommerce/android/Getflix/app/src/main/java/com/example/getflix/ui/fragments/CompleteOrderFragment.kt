@@ -41,8 +41,10 @@ class CompleteOrderFragment : Fragment() {
         activity?.toolbar!!.toolbar_title.text = getString(R.string.order_complete)
 
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_complete_order,
-                container, false)
+        binding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_complete_order,
+            container, false
+        )
 
 
         viewModel = ViewModelProvider(this).get(CompleteOrderViewModel::class.java)
@@ -50,7 +52,8 @@ class CompleteOrderFragment : Fragment() {
         viewModel.getCustomerAddresses()
 
         binding.btnAddCredit.setOnClickListener {
-            view?.findNavController()?.navigate(actionCompleteOrderFragmentToAddCreditCardFragment())
+            view?.findNavController()
+                ?.navigate(actionCompleteOrderFragmentToAddCreditCardFragment())
         }
 
         binding.btnAddAddress.setOnClickListener {
@@ -72,40 +75,52 @@ class CompleteOrderFragment : Fragment() {
             if (it != null) {
                 creditCardAdapter.submitList(it)
                 activity?.loading_progress!!.visibility = View.GONE
+            } else {
+                creditCardAdapter.submitList(mutableListOf())
             }
         })
 
         viewModel.addressList.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                orderAddressAddressAdapter.submitList(it) 
+                orderAddressAddressAdapter.submitList(it as ArrayList<AddressModel>?)
+            } else {
+
+                orderAddressAddressAdapter.submitList(arrayListOf())
             }
+
         })
 
-        var addressId =-1
+        var addressId = -1
         var cardId = -1
         CompleteOrderViewModel.currentAddress.observe(viewLifecycleOwner, Observer {
-            binding.currentOrderAddress.text = it?.title
-            addressId = it?.id!!
+            if (it != null) {
+                binding.currentOrderAddress.text = it.title
+                addressId = it.id
+            } else {
+                binding.currentOrderAddress.text = "Your address"
+            }
         })
         CompleteOrderViewModel.currentCreditCard.observe(viewLifecycleOwner, Observer {
-            binding.currentCreditCart.text = it?.name
-            cardId = it?.id!!
+            if (it != null) {
+                binding.currentCreditCart.text = it?.name
+                cardId = it?.id!!
+            } else {
+                binding.currentCreditCart.text = "Your credit card"
+            }
         })
-
-       
-
+        
         binding.pay.setOnClickListener {
-            viewModel.makePurchase(addressId,cardId)
+            viewModel.makePurchase(addressId, cardId)
         }
 
-        viewModel.navigateHome.observe(viewLifecycleOwner, Observer{
-            if(it) {
+        viewModel.navigateHome.observe(viewLifecycleOwner, Observer {
+            if (it) {
                 doneAlert(this, "Your checkout is done, thank you for choosing us!", ::navigateHome)
                 viewModel.resetNavigate()
             }
         })
 
-    return binding.root
+        return binding.root
     }
 
     private fun navigateHome() {

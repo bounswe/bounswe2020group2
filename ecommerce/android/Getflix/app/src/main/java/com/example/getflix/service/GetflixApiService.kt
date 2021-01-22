@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 
-const val BASE_URL = "http://ec2-18-189-28-20.us-east-2.compute.amazonaws.com:8000/"
+const val BASE_URL = "http://ec2-18-223-113-236.us-east-2.compute.amazonaws.com:8000/"
 
 private val requestInterceptor = Interceptor { chain ->
 
@@ -59,7 +59,7 @@ interface GetflixApiService {
     fun getProduct(@Path("productId") productId: Int): Call<ProductModel>
 
     @GET("customer/{customerId}/shoppingcart")
-    suspend fun getCustomerAllCartProducts(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Response<CartProductListModel>
+    fun getCustomerAllCartProducts(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Call<CartProductListModel?>
 
     @GET("customer/{customerId}/shoppingcart/{sc_item_id}")
     suspend fun getCustomerCartProduct(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Path("sc_item_id") sc_item_id: Int): Response<CartProductSingleModel>
@@ -81,7 +81,7 @@ interface GetflixApiService {
 
 
     @GET("customer/{customerId}/addresses")
-    suspend fun getCustomerAddresses(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Response<AddressListModel>
+    fun getCustomerAddresses(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Call<AddressListModel>
 
     @Headers("Content-Type: application/json")
     @POST("customer/{customerId}/addresses")
@@ -99,7 +99,7 @@ interface GetflixApiService {
     fun deleteCustomerAddress(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Path("address_id") address_id: Int): Call<AddressDeleteResponse>
 
     @GET("customer/{customerId}/cards")
-    suspend fun getCustomerCards(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Response<CardListModel>
+    fun getCustomerCards(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Call<CardListModel>
 
     @Headers("Content-Type: application/json")
     @POST("customer/{customerId}/cards")
@@ -136,7 +136,7 @@ interface GetflixApiService {
 
     // get prices of shopping cart
     @GET("checkout/details")
-    suspend fun getCustomerCartPrice(@Header("Authorization") token: String): Response<CustomerCartPriceModel>
+    fun getCustomerCartPrice(@Header("Authorization") token: String): Call<CustomerCartPriceModel?>
 
     @GET("review")
     fun getReviewOfProduct(@Query("product") productId: Int) : Call<ProductReviewListModel>
@@ -144,6 +144,14 @@ interface GetflixApiService {
     @Headers("Content-Type: application/json")
     @POST("search/products")
     fun searchProductsByVendor(@Body cardData: ProSearchByVendorRequest): Call<ProSearchByVendorResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("search/products")
+    fun searchProductsByQuery(@Body cardData: ProSearchByQueryRequest): Call<ProSearchByVendorResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("search/products")
+    fun searchProductsSort(@Body cardData: ProSearchSortRequest): Call<ProSearchByVendorResponse>
 
     @Headers("Content-Type: application/json")
     @PUT("vendor/product")

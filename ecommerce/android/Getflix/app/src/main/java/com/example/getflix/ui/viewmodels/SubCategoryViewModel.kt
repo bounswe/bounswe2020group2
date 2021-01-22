@@ -6,8 +6,11 @@ import androidx.lifecycle.ViewModel
 import com.example.getflix.models.AddressModel
 import com.example.getflix.models.ProductModel
 import com.example.getflix.service.GetflixApi
+import com.example.getflix.service.requests.ProSearchByQueryRequest
 import com.example.getflix.service.requests.ProSearchBySubcategoryRequest
+import com.example.getflix.service.requests.ProSearchSortRequest
 import com.example.getflix.service.responses.ProSearchBySubcategoryResponse
+import com.example.getflix.service.responses.ProSearchByVendorResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,19 +42,32 @@ class SubCategoryViewModel : ViewModel() {
 
     }
 
-    fun sort(sortS: String?) {
-        _sortBy.value = sortS
-        if (sortS == "Price")
-            sortPrice()
+
+
+    fun sort(subId: Int?,sortBy: String, sortOrder: String) {
+        GetflixApi.getflixApiService.searchProductsSort(ProSearchSortRequest(sortBy, sortOrder,subId))
+            .enqueue(object :
+                Callback<ProSearchByVendorResponse> {
+                override fun onFailure(call: Call<ProSearchByVendorResponse>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<ProSearchByVendorResponse>,
+                    response: Response<ProSearchByVendorResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+                    _productList.value = response.body()!!.data.products as MutableList<ProductModel>
+
+                }
+            }
+            )
     }
 
-    private fun sortPrice() {
-        val sorted: MutableList<ProductModel> = _productList.value!!.sortedBy { it.price.toInt() } as MutableList<ProductModel>
-        _productList.value = sorted
-    }
 
-    fun searchBySubcategory(subId: Int) {
-        GetflixApi.getflixApiService.searchProductsBySubcategory(ProSearchBySubcategoryRequest(subId))
+    fun searchByFilter(query: String?,subId: Int?, vendor: Int?, rating: Double?, price: Double?, sortBy: String?, sortOrder: String?) {
+        GetflixApi.getflixApiService.searchProductsBySubcategory(ProSearchBySubcategoryRequest(query,subId,vendor,rating,price,sortBy,sortOrder))
             .enqueue(object :
                 Callback<ProSearchBySubcategoryResponse> {
                 override fun onFailure(call: Call<ProSearchBySubcategoryResponse>, t: Throwable) {
@@ -70,4 +86,6 @@ class SubCategoryViewModel : ViewModel() {
             }
             )
     }
+
+
 }

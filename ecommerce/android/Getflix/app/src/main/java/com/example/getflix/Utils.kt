@@ -1,5 +1,10 @@
 package com.example.getflix
 
+import android.app.Activity
+import android.content.Context
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.view.inputmethod.InputMethodManager.*
 import androidx.fragment.app.Fragment
 
 import androidx.lifecycle.ViewModel
@@ -17,35 +22,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-/* - **Electronics**
-  - Computers
-  - Camera & Photo
-  - Cell Phones & Accessories
-  - Digital Videos
-  - Software
-- **Health & Households**
-  - Sports & Outdoor
-  - Beauty & Personal Care
-- **Home & Garden**
-  - Luggage
-  - Pet Supplies
-  - Furniture
-- **Clothing**
-  - Men's Fashion
-  - Women's Fashion
-  - Boys' Fashion
-  - Girls' Fashion
-  - Baby
-- **Hobbies**
-  - Books
-  - Music & CDs
-  - Movies & TVs
-  - Toys & Games
-  - Video Games
-  - Arts & Crafts
-- **Others**
-  - Automotive
-  - Industrial & Scientific  */
+
 
 val categories = listOf<CategoryModel>(
         CategoryModel(
@@ -182,6 +159,20 @@ fun askAlert(fragment: Fragment, message: String, func: () -> Unit) {
             }
             .setIcon(R.drawable.ic_warning)
             .show()
+}
+
+fun hideKeyboard(activity: Activity) {
+    val inputManager: InputMethodManager = activity
+        .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+    // check if no view has focus:
+    val currentFocusedView: View? = activity.currentFocus
+    if (currentFocusedView != null) {
+        inputManager.hideSoftInputFromWindow(
+            currentFocusedView.windowToken,
+            HIDE_NOT_ALWAYS
+        )
+    }
 }
 
 
