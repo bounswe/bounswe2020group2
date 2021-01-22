@@ -3,6 +3,7 @@ package com.example.getflix.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +12,7 @@ import com.example.getflix.databinding.ItemMyOrderBinding
 import com.example.getflix.models.OrderModel
 import com.example.getflix.models.OrderPurchasedModel
 import com.example.getflix.ui.fragments.OrderInfoFragment
+import com.example.getflix.ui.fragments.OrderInfoFragmentDirections
 
 
 class OrdersAdapter(
@@ -65,7 +67,10 @@ class OrdersAdapter(
         orderList?.get(position)?.let {
             holder.bind(it, position)
             holder?.itemView!!.setOnClickListener {
-                    orderList?.get(position)!!
+                holder?.itemView!!.setOnClickListener {
+                    fragment.findNavController()!!.navigate(OrderInfoFragmentDirections.actionOrderInfoFragmentToOrderProductsFragment(orderList?.get(position).order_all_purchase.toTypedArray()))
+
+                }
             }
         }
     }

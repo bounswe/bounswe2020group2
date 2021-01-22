@@ -15,10 +15,10 @@ import com.example.getflix.ui.viewmodels.OrderPurchasedViewModel
 import com.example.getflix.ui.fragments.OrderInfoFragmentDirections
 
 class OrderProductsAdapter(
-    private val orderPurchasedList: ArrayList<OrderPurchasedModel>?, fragment: OrderInfoFragment
+    private val orderPurchasedList: ArrayList<OrderPurchasedModel>?
 ) : ListAdapter<OrderPurchasedModel, OrderProductsAdapter.RowHolder>(OrderProductsDiffCallback()) {
 
-    val fragment = fragment
+
 
     class RowHolder(val binding: OrderProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -44,11 +44,7 @@ class OrderProductsAdapter(
     override fun onBindViewHolder(holder: RowHolder, position: Int) {
         orderPurchasedList?.get(position)?.let {
             holder.bind(it, position)
-            holder?.itemView!!.setOnClickListener {
-                fragment.findNavController().navigate(
-                    fragment.findNavController().navigate(OrderInfoFragmentDirections.actionOrderInfoFragmentToOrderProductsFragment())
-                    orderPurchasedList?.get(position)!!)
-            }
+
         }
     }
 

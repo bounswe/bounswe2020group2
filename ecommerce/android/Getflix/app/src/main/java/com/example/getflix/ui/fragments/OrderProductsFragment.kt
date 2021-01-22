@@ -34,6 +34,9 @@ class OrderProductsFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(OrderPurchasedViewModel::class.java)
         val recView = binding?.listProductList as RecyclerView
+        val args = OrderProductsFragmentArgs.fromBundle(requireArguments())
+        val productList = args.products.toCollection(ArrayList())
+        println(productList.toString())
 
         val list1 = listOf<String>()
         val list2 = mutableListOf<SubcategoryModel>()
