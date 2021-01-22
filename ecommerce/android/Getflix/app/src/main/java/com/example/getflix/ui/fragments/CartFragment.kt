@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
+import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentCartBinding
+import com.example.getflix.infoAlert
 
 import com.example.getflix.models.*
 
@@ -49,8 +51,16 @@ class CartFragment : Fragment() {
 
 
         binding.acceptOrder.setOnClickListener {
-            activity?.loading_progress!!.visibility = View.VISIBLE
-            view?.findNavController()?.navigate(actionCartFragmentToCompleteOrderFragment())
+            viewModel.cardPrices.observe(viewLifecycleOwner, Observer {
+                if (MainActivity.StaticData.isVisitor) {
+                    infoAlert(this, "You should be logged in to make a purchase.")
+                } else if(it.productsPrice==0.0) {
+                    infoAlert(this, "You don't have any products in your shopping cart.")
+                } else {
+                    activity?.loading_progress!!.visibility = View.VISIBLE
+                    view?.findNavController()?.navigate(actionCartFragmentToCompleteOrderFragment())
+                }
+            })
         }
 
 
