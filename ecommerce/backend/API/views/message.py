@@ -10,12 +10,9 @@ from ..serializers.message_serializer import *
 
 # serves POST requests for /messages endpoint
 @api_view(['POST'])
-@permission_classes([permissions.AllowAnonymous])
+@permission_classes([permissions.IsAuthenticated])
 def manage_messages(request):
     sender = request.user
-    # if user is not logged in, return 403_FORBIDDEN
-    if not sender.id:
-        return Response(status=status.HTTP_403_FORBIDDEN)
     serializer = MessageRequestSerializer(data=request.data)
     # check if the formatted data is valid
     if serializer.is_valid():
