@@ -9,3 +9,4 @@ from .address_serializer import *
 from .purchase_serializer import *
 from .notification_serializer import *
 from .product_list_serializer import *
+from .message_serializer import *
