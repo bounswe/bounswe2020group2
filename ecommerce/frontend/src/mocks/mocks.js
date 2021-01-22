@@ -851,3 +851,20 @@ export const accounts = {
         role: 'CUSTOMER',
     },
 }
+
+export const vendorDetails = {
+    1: {
+        title: 'Osman Sasmaz',
+        rating: 4.7,
+        descriptipn: 'Discounts everyday',
+        image_url: 'images/45',
+        rating_count: 15,
+    },
+    3: {
+        title: 'Can Batuk',
+        rating: 4.7,
+        descriptipn: 'Almadın battuk',
+        image_url: 'images/45',
+        rating_count: 15,
+    },
+}

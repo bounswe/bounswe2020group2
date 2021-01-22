@@ -10,6 +10,7 @@ import {
     cards,
     verifications,
     accounts,
+    vendorDetails,
 } from './mocks'
 import { orderStatusMap } from '../utils'
 import * as moment from 'moment'
@@ -151,6 +152,15 @@ export const handlers = [
     // rest.get(url('/customer/:userId/cards'), (req, res, ctx) => {
     //     return res(ctx.json({ status, cards }))
     // }),
+    rest.get(url('/vendor/:id/details'), (req, res, ctx) => {
+        const { params } = req
+        const { id } = params
+        return res(
+            ctx.json({
+                data: vendorDetails[id],
+            }),
+        )
+    }),
 ]
 
 if (process.env.NODE_ENV === 'development') {
