@@ -90,11 +90,13 @@ class VendorProductTest(TestCase):
             "discount": 0.18,
             "brand_id": 1,
             "subcategory_id": 11,
-            "images": []
+            "images": [],
+            "image_urls_delete": []
         }
         response = self.client.put(reverse('vendor_product'), body, 'json')
         self.assertEqual(response.data["status"]["successful"], True)
         response = self.client.get(reverse(get_product_detail, args = [pid]))
+        
         self.assertEqual(response.data["name"], "Los Angeles Lakers Old School v3")
         self.assertEqual(response.data["subcategory"]["name"], "Sports")
 
@@ -121,7 +123,7 @@ class VendorProductTest(TestCase):
             "stock_amount": 450,
             "short_description": "Sarı mor içsaha forması LA LAKERS",
             "long_description": "anoacnancacnoewcnwocnoınvroeı3vnoıwvnroeıvnıoernvoernvoernvoıenvoıernvoerınvıernvoıernvoıernvroeınvoıernvorıenvoeırnvoıernvoıernvenvoernvoıernverı",
-            "discount": 0.12,
+            "discount": 0.1,
             "brand_id": 1,
             "subcategory_id": 10,
             "images": []
