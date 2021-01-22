@@ -21,7 +21,6 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
     const [vendorHeaderDetails, setVendorHeaderDetails] = useState({})
     const [isLoading, setIsLoading] = useState(true)
 
-    // const { title, imageUrl, description, rating } = vendorHeaderDetails
     const { user } = useAppContext()
     const isVendorAndOwner = user.type === 'vendor' && vendorId === user.id.toString()
     const history = useHistory()
@@ -34,9 +33,6 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
                     data: { data },
                 } = await api.get(`/vendor/${vendorId}/details`)
                 setVendorHeaderDetails(data)
-                console.log('vendor data:', data)
-                const { title, image_url, description, rating } = data
-                console.log(title, image_url, description, rating)
             } catch (error) {
                 console.error(error)
             } finally {
