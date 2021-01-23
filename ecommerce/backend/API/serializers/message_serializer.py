@@ -1,7 +1,11 @@
-from API.serializers.account_serializer import UserSerializer
 from rest_framework import serializers
-from ..models import User, Message, Customer, Vendor
+from ..models import Message, Customer, Vendor
 from ..utils import Role
+# Formats the body of the POST request to make it compatible with the Message model in the database
+class MessageRequestSerializer(serializers.Serializer):
+    receiver_id = serializers.IntegerField()
+    text = serializers.CharField()
+    attachment = serializers.CharField(allow_null = True)
 
 # Formats the Message objects taken from the database for GET requests
 class MessageResponseSerializer(serializers.ModelSerializer):
@@ -38,9 +42,3 @@ class ConversationSerializer(serializers.ModelSerializer):
         messages = Message.objects.filter(conversation=obj).order_by('date') # order by date
         serializer = MessageResponseSerializer(messages, context={'sender': self.context["sender"]}, many=True)
         return serializer.data
-    
-# Formats the body of the POST request to make it compatible with the Message model in the database
-class MessageRequestSerializer(serializers.Serializer):
-    receiver_id = serializers.IntegerField()
-    text = serializers.CharField()
-    attachment = serializers.CharField(allow_null = True)

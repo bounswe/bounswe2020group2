@@ -116,3 +116,63 @@ class TestAccount(TestCase):
     def test_auth(self):
         response = self.client.get(reverse('api'))
         self.assertEqual(response.status_code, 403)
+    
+    # test changing the password
+    def test_password_change(self):
+        # log in the user
+        body = {
+            'username': 'testuser',
+            'password': '12345678'
+        }
+        # post a request to login endpoint
+        response = self.client.post(reverse('login'), body, 'json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
+        token = response.data["user"]["token"]
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + token)
+
+        change_password_body = {
+            'password': '12345678',
+            'new_password': '87654321'
+        }
+        # post a request to changepassword endpoint
+        response = self.client.post(reverse('changepassword'), change_password_body, 'json')
+        # if the response returns a 200 and a status is successful, then test is passed
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
+        
+    # test changing the password with wrong current password
+    def test_password_change_with_wrong_password(self):
+        # log in the user
+        body = {
+            'username': 'testuser',
+            'password': '12345678'
+        }
+        # post a request to login endpoint
+        response = self.client.post(reverse('login'), body, 'json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
+        token = response.data["user"]["token"]
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + token)
+
+        change_password_body = {
+            'password': '12345678_wrong',
+            'new_password': '87654321'
+        }
+        # post a request to changepassword endpoint
+        response = self.client.post(reverse('changepassword'), change_password_body, 'json')
+        # if the response returns a 200 and a status is not successful, then test is passed
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], False)
+        
+    # test changing the password without logging in
+    def test_password_change_without_login(self):
+        change_password_body = {
+            'password': '12345678',
+            'new_password': '87654321'
+        }
+        # post a request to changepassword endpoint
+        response = self.client.post(reverse('changepassword'), change_password_body, 'json')
+        # if the response returns a 403, then test is passed
+        self.assertEqual(response.status_code, 403)
+    
