@@ -40,10 +40,10 @@ def single_notification_seen(request, notification_id):
 
     notification = Notification.objects.filter(pk=notification_id).first()
     if notification is None:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response({'status': {'successful': True, 'message':'All notifications of user made seen successfully.'}}, status=status.HTTP_404_NOT_FOUND)
     
     if notification.user != user:
-        return Response(status=status.HTTP_403_FORBIDDEN)
+        return Response({'status': {'successful': True, 'message':'All notifications of user made seen successfully.'}}, status=status.HTTP_403_FORBIDDEN)
 
     notification.is_seen = True
     notification.save()
