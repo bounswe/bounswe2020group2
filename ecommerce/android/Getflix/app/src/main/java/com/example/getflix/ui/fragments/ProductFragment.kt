@@ -53,7 +53,6 @@ class ProductFragment : Fragment() {
         )
         val args = ProductFragmentArgs.fromBundle(requireArguments())
         productViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
-        println("BURDASINNN " + args.productId)
         productViewModel.getProduct(args.productId)
 
         listViewModel = ViewModelProvider(this).get(ListViewModel::class.java)

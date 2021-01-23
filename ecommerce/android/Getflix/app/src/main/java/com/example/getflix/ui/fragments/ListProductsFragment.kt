@@ -41,7 +41,7 @@ class ListProductsFragment : Fragment() {
         val productList = args.products.toCollection(ArrayList())
         val listId = args.listId
         println(productList.toString())
-        val listAdapter = ListProductsAdapter(productList)
+        val listAdapter = ListProductsAdapter(productList, this)
         recView.adapter = listAdapter
         recView.setHasFixedSize(true)
         val itemTouchHelper =
@@ -60,6 +60,7 @@ class ListProductsFragment : Fragment() {
                 listAdapter.resetPos()
             }
         })
+
 
 
 
