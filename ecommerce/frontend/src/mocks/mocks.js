@@ -1094,3 +1094,151 @@ export const vendorOrders = [
         },
     },
 ]
+
+export const productLists = [
+    {
+        list_id: 1,
+        name: 'I will buy those!',
+        products: [
+            {
+                id: 1,
+                product: {
+                    id: 27,
+                    name: 'Samsung S20 Ultra 128GB',
+                    creation_date: '2020-12-26T10:47:38.961041Z',
+                    discount: 0.15,
+                    price: 10999,
+                    price_after_discount: 9349.15,
+                    total_rating: 50,
+                    rating_count: 11,
+                    rating: 4.545454545454546,
+                    stock_amount: 450,
+                    short_description:
+                        "Ekran Boyutu: 6.2', Ekran Çözünürlüğü: 1440x3200 px, Arka Kamera: 12 MP, Üçlü Kamera, Ön Kamera: 10 MP, 4G, Dahili Hafıza: 128 GB",
+                    long_description:
+                        'Galaxy S serisi akıllı cep telefonlarıyla nefes kesici teknolojik yenilikleri sergileyen Samsung, sinematik kare/saniye oranlarında ve 8K çözünürlükte video kaydı yapan dünyanın ilk telefonu olan Galaxy S20 ile teknoloji dünyasında yeniden gündemi belirliyor. Tasarım hatlarını Galaxy Note 10 ailesinden alan ve birçok donanımsal geliştirmeyle kullanıcıların karşısına çıkan Samsung Galaxy S20 128 GB modelleri, çoklu arka kamera kurulumu ve güçlü donanımıyla beğeni topluyor. Android 10 işletim sistemi ve Samsung one UI 2.0 kullanıcı arayüzüyle gelen ürün, çift SIM kart desteği sunuyor. Samsung Galaxy S20 128 GB fiyatları bakımından, yeni nesil amiral gemisi sınıfında yer alan telefonlarla benzerlik gösteriyor.',
+                    category: {
+                        id: 1,
+                        name: 'Electronics',
+                    },
+                    subcategory: {
+                        id: 2,
+                        name: 'Cell Phones & Accessories',
+                    },
+                    brand: {
+                        id: 22,
+                        name: 'Huawei',
+                    },
+                    vendor: {
+                        id: 3,
+                        name: 'Can Batuk',
+                        rating: null,
+                    },
+                    images: [
+                        'https://productimages.hepsiburada.net/s/35/550/10486446719026.jpg/format:webp',
+                        'https://productimages.hepsiburada.net/s/35/550/10486446751794.jpg/format:webp',
+                        'https://productimages.hepsiburada.net/s/35/550/10486446784562.jpg/format:webp',
+                    ],
+                    is_deleted: false,
+                },
+            },
+            {
+                id: 2,
+                product: {
+                    id: 28,
+                    name: 'Spigen Samsung Galaxy S20 Kılıf Liquid Crystal 4 Tarafı Tam Koruma',
+                    creation_date: '2020-12-26T10:51:48.110085Z',
+                    discount: 0.11,
+                    price: 100,
+                    price_after_discount: 89,
+                    total_rating: 32,
+                    rating_count: 8,
+                    rating: 4,
+                    stock_amount: 410,
+                    short_description:
+                        'Spigen Samsung Galaxy S20 Kılıf Liquid Crystal 4 Tarafı Tam Koruma / Crystal Clear - ACS00789',
+                    long_description:
+                        'Air Cushin Technology ile Mil-grade sertifikali, benzersiz tasarim ve olaganustu gorunum, kablosuz sarj ile uyumlu, esnek yapisi ile kavrama konforu',
+                    category: {
+                        id: 1,
+                        name: 'Electronics',
+                    },
+                    subcategory: {
+                        id: 2,
+                        name: 'Cell Phones & Accessories',
+                    },
+                    brand: {
+                        id: 19,
+                        name: 'Spigen',
+                    },
+                    vendor: {
+                        id: 3,
+                        name: 'Can Batuk',
+                        rating: null,
+                    },
+                    images: [
+                        'https://images-na.ssl-images-amazon.com/images/I/61yC3SEbEhL._AC_SL1000_.jpg',
+                        'https://images-na.ssl-images-amazon.com/images/I/51TRgY8UWoL._AC_SL1000_.jpg',
+                        'https://images-na.ssl-images-amazon.com/images/I/61v-0J60JLL._AC_SL1000_.jpg',
+                        'https://images-na.ssl-images-amazon.com/images/I/71EDU-yXpLL._AC_SL1000_.jpg',
+                    ],
+                    is_deleted: false,
+                },
+            },
+        ],
+    },
+    {
+        list_id: 3,
+        name: 'MySecondList',
+        products: [
+            {
+                id: 4,
+                product: {
+                    id: 28,
+                    name: 'Spigen Samsung Galaxy S20 Kılıf Liquid Crystal 4 Tarafı Tam Koruma',
+                    creation_date: '2020-12-26T10:51:48.110085Z',
+                    discount: 0.11,
+                    price: 100,
+                    price_after_discount: 89,
+                    total_rating: 32,
+                    rating_count: 8,
+                    rating: 4,
+                    stock_amount: 410,
+                    short_description:
+                        'Spigen Samsung Galaxy S20 Kılıf Liquid Crystal 4 Tarafı Tam Koruma / Crystal Clear - ACS00789',
+                    long_description:
+                        'Air Cushin Technology ile Mil-grade sertifikali, benzersiz tasarim ve olaganustu gorunum, kablosuz sarj ile uyumlu, esnek yapisi ile kavrama konforu',
+                    category: {
+                        id: 1,
+                        name: 'Electronics',
+                    },
+                    subcategory: {
+                        id: 2,
+                        name: 'Cell Phones & Accessories',
+                    },
+                    brand: {
+                        id: 19,
+                        name: 'Spigen',
+                    },
+                    vendor: {
+                        id: 3,
+                        name: 'Can Batuk',
+                        rating: null,
+                    },
+                    images: [
+                        'https://images-na.ssl-images-amazon.com/images/I/61yC3SEbEhL._AC_SL1000_.jpg',
+                        'https://images-na.ssl-images-amazon.com/images/I/51TRgY8UWoL._AC_SL1000_.jpg',
+                        'https://images-na.ssl-images-amazon.com/images/I/61v-0J60JLL._AC_SL1000_.jpg',
+                        'https://images-na.ssl-images-amazon.com/images/I/71EDU-yXpLL._AC_SL1000_.jpg',
+                    ],
+                    is_deleted: false,
+                },
+            },
+        ],
+    },
+    {
+        list_id: 5,
+        name: 'NewList',
+        products: [],
+    },
+]

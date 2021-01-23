@@ -17,6 +17,7 @@ import { SearchPage } from '../pages/SearchPage'
 import { ShoppingCartPage } from '../pages/ShoppingCartPage'
 import { SignupPage } from '../pages/SignupPage'
 import { ProductModal } from '../product_modal/ProductModal'
+import { ListModal } from '../product_list_modal/ListModal'
 
 export const Content = () => {
     const { user } = useAppContext()
@@ -32,6 +33,7 @@ export const Content = () => {
             {!location.pathname.startsWith('/profile') && isUser && !user.is_verified && <IsVerifiedNotification />}
 
             <Switch>
+                <Route path="/productListModal" component={ListModal} />
                 {isUser && <Route path="/verify/:id" component={EmailVerification} />}
                 <Route path="/search/:type" component={SearchPage} />
                 <Route path="/product/:productId" component={ProductPage} />

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 
 import { useAppContext } from '../../context/AppContext'
 import { round } from '../../utils'
-import { ChooseListModalInner } from '../ChooseListModalInner'
+import { ListModalInner } from '../product_list_modal/ListModalInner'
 import { ProductExtra } from './ProductExtra'
 import { ProductImageGallery } from './ProductImageGallery'
 
@@ -118,15 +118,6 @@ export const ProductHeader = ({ product, loading = false }) => {
                     </Button>
                     <Button onClick={onAddToListClicked} size="large" icon={<HeartOutlined />} />
                 </div>
-                <Modal
-                    visible={isChooseListModalVisible}
-                    onCancel={onClose}
-                    onOk={onClose}
-                    cancelButtonProps={{ style: { display: 'none' } }}
-                    title="Choose a list"
-                    destroyOnClose>
-                    <ChooseListModalInner product={product} />
-                </Modal>
             </div>
         </div>
     )
