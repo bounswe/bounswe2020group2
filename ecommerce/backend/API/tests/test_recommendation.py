@@ -72,5 +72,7 @@ class TestRecommendation(TestCase):
         response = self.client.get(reverse(recommend_products))
 
         self.assertEqual(len(response.data["products"]), 2)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
 
 
