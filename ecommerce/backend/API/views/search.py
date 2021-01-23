@@ -56,11 +56,7 @@ def semantic_search_for(query):
 @api_view(['POST'])
 @permission_classes([permissions.AllowAnonymous])
 def products(request):
-    semantic_search_for('telephone')
-#    print(request)
     query_data=JSONParser().parse(request)
-#    product_search_serializer = search_serializer.SearchProductsSerializer(request)
-#    print(query_data)
     query_set = Product.objects.all()
     if "query" in query_data:
         query_set = semantic_search_for(query_data["query"])
@@ -100,20 +96,19 @@ def products(request):
         query_set = query_set.order_by(s_order+"price")
     elif query_data["sort_by"]=="rating":
         query_set = query_set.order_by(s_order+"rating")
-    # TODO Comment Count and Best Sellers ordering
+
     page = 0
     page_size = 10
     if "page" in query_data:
-        page = query_data["page"];
+        page = query_data["page"]
     if "page_size" in query_data:
-        page_size = query_data["page_size"];
-    #LIMIT MIGHT PASS THE NUMBER OF ELEMENTS
+        page_size = query_data["page_size"]
+
     total_items=query_set.count()
     query_set=query_set[page*page_size:(page+1)*(page_size)]
-#    user_serializer = search_serializer.SearchProductSerializer(request)
-#    print(query_set)
+
     serializer = ProductResponseSerializer(query_set, many=True)
-#    print(serializer.data)
+
     response_data = {"pagination":{"page":page,"page_size":page_size,"total_items":total_items},"products":serializer.data}
     return Response( { "data":response_data} )
 @api_view(['POST'])
