@@ -70,3 +70,25 @@ class NotificationTest(TestCase):
         response = self.client.put(reverse('vendor_product'), body, 'json')
         notification = Notification.objects.filter(user=self.c_user).first()
         self.assertNotEqual(notification, None)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
+
+    def test_price_change_notification_same_price(self):
+        body = {
+            "id": 10,
+            "name": "Los Angeles Lakers Old School v4",
+            "price": 799.9,
+            "stock_amount": 450,
+            "short_description": "Sarı mor içsaha forması LA LAKERS",
+            "long_description": "anoacnancacnoewcnwocnoınvroeı3vnoıwvnroeıvnıoernvoernvoernvoıenvoıernvoerınvıernvoıernvoıernvroeınvoıernvorıenvoeırnvoıernvoıernvenvoernvoıernverı",
+            "discount": 0.1,
+            "brand_id": 1,
+            "subcategory_id": 11,
+            "images": [],
+            "image_urls_delete": []
+        }
+        response = self.client.put(reverse('vendor_product'), body, 'json')
+        notification = Notification.objects.filter(user=self.c_user).first()
+        self.assertEqual(notification, None)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
