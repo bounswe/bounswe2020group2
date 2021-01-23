@@ -25,9 +25,9 @@ class Admin (models.Model):
 #vendor
 class Vendor (models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=255)
-    description = models.TextField(max_length=255,default='vendor description')
-    image_url = models.CharField(max_length=255,default='/images/1')
+    title = models.CharField(max_length=255, default='')
+    description = models.TextField(max_length=255,default='')
+    image_url = models.CharField(max_length=255,default='')
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     total_rating = models.IntegerField(default=0)
