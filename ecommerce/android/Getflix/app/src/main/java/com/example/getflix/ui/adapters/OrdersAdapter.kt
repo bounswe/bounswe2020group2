@@ -1,6 +1,7 @@
 package com.example.getflix.ui.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
@@ -34,14 +35,13 @@ class OrdersAdapter(
             binding.name.setText(order.order_all_purchase[0].product.name)
             binding.address.setText(order.order_all_purchase[0].address.title)
             binding.status.setText(order.order_all_purchase[0].status)
-            binding.date.setText(order.order_all_purchase[0].purchase_date.take(10))
-            /*
-            binding.name.text = order.name
-            binding.ownerName.text ="Owner: " + credit.owner_name
-            binding.serialNum.text = credit.serial_number
+            binding.date.setText("Date: "+order.order_all_purchase[0].purchase_date.take(10))
 
-             */
+            if(!order.order_all_purchase[0].status.equals("delivered"))
+                binding.reviewButton.visibility = View.GONE
+            
         }
+
 
         companion object {
             fun from(parent: ViewGroup): RowHolder {
