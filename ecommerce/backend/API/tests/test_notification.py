@@ -1,6 +1,7 @@
 from rest_framework.test import APIClient
 from django.test import TestCase
 from django.urls import reverse
+import datetime
 from ..models import *
 
 class NotificationTest(TestCase):
@@ -51,6 +52,8 @@ class NotificationTest(TestCase):
         self.customer = Customer.objects.create(user = self.c_user, first_name= "customer", last_name = "user")
         product_list = ProductList.objects.create(user = self.c_user, name="I will buy !!")
         ProductListItem.objects.create(product=p1, product_list=product_list)
+        Notification.objects.create(id = 1499, user=self.u, notification_type=1, date=datetime.date.today(), argument="")
+        Notification.objects.create(id = 1500, user=self.u, notification_type=2, date=datetime.date.today(), argument="")
 
 
     def test_price_change_notification(self):
@@ -92,3 +95,19 @@ class NotificationTest(TestCase):
         self.assertEqual(notification, None)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["status"]["successful"], True)
+
+    def test_single_notification_seen(self):
+        response = self.client.post(reverse('single_notification_seen', args=[1499]))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
+
+        notification = Notification.objects.filter(pk=1499).first()
+        self.assertEqual(notification.is_seen, True)
+
+    def test_all_notifications_seen(self):
+        response = self.client.post(reverse('notifications_seen'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
+
+        notification = Notification.objects.filter(pk=1500).first()
+        self.assertEqual(notification.is_seen, True)
