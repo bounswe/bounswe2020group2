@@ -1,10 +1,15 @@
-import { Button, Cascader, Form, Input, Modal, Steps, Upload } from 'antd'
-import { useState } from 'react'
 import './ProductModalInner.less'
+
 import { PlusOutlined } from '@ant-design/icons'
-import { useAppContext } from '../../context/AppContext'
+import { AutoComplete, Button, Cascader, Form, Input, Modal, Steps, Upload, Select } from 'antd'
 import { getBase64 } from 'image-blobber'
 import * as R from 'ramda'
+import { useState } from 'react'
+
+import { api } from '../../api'
+import { useAppContext } from '../../context/AppContext'
+
+import { debounce } from 'debounce'
 
 // Renders the product information form
 const ProductModalInnerForm = ({ form, initialValues }) => {
@@ -40,13 +45,41 @@ const ProductModalInnerForm = ({ form, initialValues }) => {
             },
         },
     }
+
+    const [isBrandLoading, setIsBrandLoading] = useState(false)
+    const [brandOptions, setBrandOptions] = useState([])
+
+    const onSearchBrand = debounce(async query => {
+        console.log('search', query)
+        const _query = query.trim()
+        try {
+            setIsBrandLoading(true)
+            const {
+                data: { data },
+            } = await api.post('/search/brands', { query: _query })
+            console.log('data', data)
+            const brands = data.brands.map(brand => ({ value: brand.id, label: brand.name.trim() }))
+
+            if (brands.length === 1)
+                if (brands[0].label.toUpperCase() !== _query.toUpperCase())
+                    brands.push({ value: _query, label: _query })
+            if (brands.length === 0) brands.push({ value: _query, label: _query })
+
+            setBrandOptions(brands)
+        } catch (err) {
+            console.error(err)
+        } finally {
+            setIsBrandLoading(false)
+        }
+    }, 200)
+
     return (
         <Form
             {...formItemLayout}
             layout="horizontal"
             form={form}
             name={'productForm' + initialValues?.id}
-            onValuesChange={console.log}
+            //onValuesChange={console.log}
             scrollToFirstError
             initialValues={initialValues}>
             <Form.Item
@@ -143,6 +176,35 @@ const ProductModalInnerForm = ({ form, initialValues }) => {
                 ]}>
                 <Cascader options={categoryOptions} />
             </Form.Item>
+
+            <Form.Item
+                name={'brand'}
+                label="Brand"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please select or enter a brand',
+                    },
+                ]}>
+                <Select
+                    showSearch
+                    onSearch={onSearchBrand}
+                    labelInValue
+                    notFoundContent={null}
+                    filterOption={false}
+                    showArrow={false}
+                    defaultActiveFirstOption={false}
+                    autoClearSearchValue={false}
+                    loading={isBrandLoading}>
+                    {brandOptions.map(({ label, value }) => {
+                        return (
+                            <Select.Option key={value} value={value}>
+                                {label}
+                            </Select.Option>
+                        )
+                    })}
+                </Select>
+            </Form.Item>
         </Form>
     )
 }
@@ -218,6 +280,7 @@ export const ProductModalInner = ({ form, product }) => {
               ...R.pick(['name', 'discount', 'price', 'stock_amount', 'short_description'], product),
               category: [product.category.id, product.subcategory.id],
               images: product.images.map(formatImageAsFile),
+              brand: { value: product.brand.id, label: product.brand.name },
           }
         : undefined
 

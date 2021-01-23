@@ -33,11 +33,13 @@ export const ProductModal = ({
         const finalValues = {
             ...values,
             subcategory_id,
+            brand_id: values.brand.value,
             images: [...newImages],
             image_urls_delete: [...deletedImages],
         }
 
         delete finalValues.category
+        delete finalValues.brand
 
         return finalValues
     }
