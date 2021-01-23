@@ -1,41 +1,30 @@
 import { Form, Modal, notification, Spin } from 'antd'
-import { useState, useEffect } from 'react'
-import { ProductModalInner } from './ProductModalInner'
-import { vendorOrders } from '../../mocks/mocks'
-import { api } from '../../api'
 import { getBase64 } from 'image-blobber'
-import { formatProduct } from '../../utils'
+import { useEffect, useState } from 'react'
 
-export const ProductModal = ({
-    // product = vendorOrders[0].product,
-    // productId = 27,
-    productId = 31,
-    // productId = undefined,
-    mode = 'edit',
-    // mode = 'add',
-    visible = true, // don't forget to make this false later
-    onCancel = () => {},
-    onSuccess = () => {},
-}) => {
+import { api } from '../../api'
+import { ProductModalInner } from './ProductModalInner'
+
+export const ProductModal = ({ mode = 'add', product, visible = false, onCancel = () => {}, onSuccess = () => {} }) => {
     const [form] = Form.useForm()
     const [isLoading, setIsLoading] = useState(false)
-    const [product, setProduct] = useState(null)
+    // const [product, setProduct] = useState(null)
 
-    useEffect(() => {
-        async function fetch() {
-            try {
-                setIsLoading(true)
-                console.log('fetching product', productId)
-                const { data } = await api.get(`/product/${productId}`)
-                setProduct(formatProduct(data))
-            } catch (error) {
-                notification.error({ description: `Failed to get product ${productId}` })
-            } finally {
-                setIsLoading(false)
-            }
-        }
-        if (productId !== undefined) fetch()
-    }, [])
+    // useEffect(() => {
+    //     async function fetch() {
+    //         try {
+    //             setIsLoading(true)
+    //             console.log('fetching product', productId)
+    //             const { data } = await api.get(`/product/${productId}`)
+    //             setProduct(formatProduct(data))
+    //         } catch (error) {
+    //             notification.error({ description: `Failed to get product ${productId}` })
+    //         } finally {
+    //             setIsLoading(false)
+    //         }
+    //     }
+    //     if (productId !== undefined) fetch()
+    // }, [])
 
     const formatProductForSend = async values => {
         const images = await Promise.all(
@@ -56,7 +45,7 @@ export const ProductModal = ({
             const finalValues = {
                 ...values,
                 name: values.title,
-                id: productId,
+                id: product.id,
                 subcategory_id,
                 brand_id: values.brand.value,
                 discount: Number.parseFloat(values.discount) / 100,
@@ -99,7 +88,10 @@ export const ProductModal = ({
         try {
             setIsLoading(true)
             const { data } = await api.post('/vendor/product', finalValues)
-            onSuccess()
+
+            if (data.status.successful) {
+                onSuccess()
+            }
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })
         } finally {
@@ -115,7 +107,9 @@ export const ProductModal = ({
         try {
             setIsLoading(true)
             const { data } = await api.put('/vendor/product', finalValues)
-            onSuccess()
+            if (data.status.successful) {
+                onSuccess()
+            }
         } catch (error) {
             notification.warning({ message: 'There was an error with your request.' })
         } finally {
@@ -134,13 +128,14 @@ export const ProductModal = ({
             okText={mode === 'add' ? 'Add' : 'Edit'}
             onCancel={onCancel}
             cancelText="Cancel">
-            {product && (
+            {mode === 'add' && (
                 <Spin spinning={isLoading}>
-                    {mode === 'edit' ? (
-                        <ProductModalInner form={form} product={product} />
-                    ) : (
-                        <ProductModalInner form={form} />
-                    )}
+                    <ProductModalInner form={form} />
+                </Spin>
+            )}
+            {mode === 'edit' && (
+                <Spin spinning={isLoading}>
+                    <ProductModalInner form={form} product={product} />
                 </Spin>
             )}
         </Modal>

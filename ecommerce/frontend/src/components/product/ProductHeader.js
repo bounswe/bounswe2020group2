@@ -4,12 +4,12 @@ import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import { Button, Modal, Result, Skeleton } from 'antd'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ProductImageGallery } from './ProductImageGallery'
-import { ProductExtra } from './ProductExtra'
-import { ChooseListModalInner } from '../ChooseListModalInner'
+
 import { useAppContext } from '../../context/AppContext'
 import { round } from '../../utils'
-import { UserReviews } from '../UserReview/UserReviews'
+import { ChooseListModalInner } from '../ChooseListModalInner'
+import { ProductExtra } from './ProductExtra'
+import { ProductImageGallery } from './ProductImageGallery'
 
 export const ProductHeader = ({ product, loading = false }) => {
     const { addShoppingCartItem } = useAppContext()
