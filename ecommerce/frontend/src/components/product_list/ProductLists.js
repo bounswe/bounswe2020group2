@@ -1,17 +1,19 @@
 import './ProductLists.less'
 
-import { notification, Spin } from 'antd'
+import { Button, Form, Input, notification, Spin } from 'antd'
 import { useEffect, useState } from 'react'
 
 import { api } from '../../api'
 import { useAppContext } from '../../context/AppContext'
 import { formatList } from '../../utils'
 import { ProductList } from './ProductList'
+
 // import { Purchase } from './Purchase'
 
 export const ProductLists = () => {
     const [lists, setLists] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const [form] = Form.useForm()
     const { user } = useAppContext()
 
     const fetch = async () => {
@@ -40,9 +42,45 @@ export const ProductLists = () => {
 
     const c = x => 'product-lists-' + x
 
+    const [createLoading, setCreateLoading] = useState(false)
+
+    const onFinish = async values => {
+        form.resetFields()
+    }
+
     return (
         <div className={'product-lists'}>
-            <div className={c('header')}>Product Lists</div>
+            <div className={c('header')}>
+                <span className={c('header-title')}>Product Lists</span>
+                <Form form={form} layout="inline" requiredMark={'optional'} onFinish={onFinish}>
+                    <Form.Item
+                        name="name"
+                        label="Create a new product list"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please enter the name of the list',
+                            },
+                            {
+                                message: 'Make sure the list has at least 3 characters',
+                                validator: (rule, val) => {
+                                    const _val = val.trim()
+                                    if (!_val) return Promise.reject(false)
+                                    if (_val.length < 3) return Promise.reject(false)
+                                    return Promise.resolve(true)
+                                },
+                            },
+                        ]}>
+                        <Input />
+                    </Form.Item>
+
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit" loading={createLoading}>
+                            Create
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </div>
             <Spin spinning={isLoading}>
                 <div className={c('content')}>
                     {lists.map(list => {

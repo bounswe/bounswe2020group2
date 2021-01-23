@@ -1,12 +1,11 @@
 import './ProductList.less'
 
 import { StopOutlined } from '@ant-design/icons'
-import { Button, Collapse, Modal, notification, Popconfirm } from 'antd'
+import { Button, Collapse, Modal, notification } from 'antd'
 import { useState } from 'react'
 
 import { api } from '../../api'
 import { ProductListItem } from './ProductListItem'
-import useModal from 'antd/lib/modal/useModal'
 
 export const ProductList = ({ list }) => {
     const [deleteLoading, setDeleteLoading] = useState(false)
