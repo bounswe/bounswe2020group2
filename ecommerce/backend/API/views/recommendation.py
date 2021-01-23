@@ -20,6 +20,10 @@ def recommend_products(request):
     user = request.user
     user_id = request.user.id
 
+    # if there is no token or no user with this token
+    if not user:
+        return Response({'status': {'successful': False, 'message': "No user found"}})
+
     # define subcategories that this user purchased a product from
     purchased_subcategories = []
 
