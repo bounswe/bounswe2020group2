@@ -13,6 +13,8 @@ import com.example.getflix.ui.fragments.OrderInfoFragment
 import com.example.getflix.ui.fragments.OrderProductsFragment
 import com.example.getflix.ui.viewmodels.OrderPurchasedViewModel
 import com.example.getflix.ui.fragments.OrderInfoFragmentDirections
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_product.view.*
 
 class OrderProductsAdapter(
     private val orderPurchasedList: ArrayList<OrderPurchasedModel>?
@@ -24,6 +26,13 @@ class OrderProductsAdapter(
 
         fun bind(orderPurchased: OrderPurchasedModel, position: Int) {
             binding.listproduct = orderPurchased
+            binding.cartProductName.setText(orderPurchased.product.name)
+            binding.cartProductPrice.setText(orderPurchased.product.price.toString())
+            binding.totalPriceCartProduct.setText((orderPurchased.unit_price*orderPurchased.amount).toString())
+            binding.amount.setText("Amount: "+orderPurchased.amount)
+
+            if(!orderPurchased.product.images.isNullOrEmpty())
+                Picasso.get().load(orderPurchased.product.images[0]).into(binding.cartProductImage)
         }
 
         companion object {
