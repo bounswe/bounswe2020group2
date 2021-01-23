@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentListsBinding
+import com.example.getflix.doneAlert
 
 import com.example.getflix.hideKeyboard
 import com.example.getflix.models.*
@@ -97,6 +98,7 @@ class ListsFragment : Fragment() {
                     println(edit.text.toString())
                     hideKeyboard(requireActivity())
                     viewModel.createList(CreateListRequest(edit.text.toString()))
+                    doneAlert(this,"A new list is created successfully!",null)
                 }
                 dialog.show()
             }

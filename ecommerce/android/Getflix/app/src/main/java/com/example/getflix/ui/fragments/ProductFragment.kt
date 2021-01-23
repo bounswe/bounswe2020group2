@@ -111,6 +111,7 @@ class ProductFragment : Fragment() {
                     println(listIds[checkedList])
 
                     listViewModel.addProductToList(listIds[checkedList],args.productId)
+                    doneAlert(this,"The product is added to your list successfully!",null)
                 }
                 .setIcon(R.drawable.accepted_list)
                 .setNegativeButton("Cancel") { dialog, which ->
@@ -128,6 +129,7 @@ class ProductFragment : Fragment() {
                         println(edit.text.toString())
                         hideKeyboard(requireActivity())
                         listViewModel.createList(CreateListRequest(edit.text.toString()))
+                        doneAlert(this,"A new list is created successfully!",null)
                     }
                     dialog.show()
                 }
