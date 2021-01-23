@@ -67,14 +67,14 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/like"
+                    android:id="@+id/save"
                     android:layout_width="27dp"
                     android:layout_height="27dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_like"
+                    app:srcCompat="@drawable/nonsaved_product"
                     tools:ignore="VectorDrawableCompat" />
 
                 <ImageView
@@ -83,7 +83,7 @@
                     android:layout_height="27dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toEndOf="@+id/like"
+                    app:layout_constraintStart_toEndOf="@+id/save"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_filled_comment"
                     tools:ignore="VectorDrawableCompat" />
@@ -110,7 +110,7 @@
                     android:textColor="#000000"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/like" />
+                    app:layout_constraintTop_toBottomOf="@+id/save" />
 
                 <TextView
                     android:id="@+id/short_description"
@@ -311,6 +311,7 @@
                     android:layout_marginEnd="16dp"
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="right"
+                    android:clickable="true"
                     android:text="@string/vendor_example"
                     android:textColor="@color/subtitle"
                     android:textSize="18sp"

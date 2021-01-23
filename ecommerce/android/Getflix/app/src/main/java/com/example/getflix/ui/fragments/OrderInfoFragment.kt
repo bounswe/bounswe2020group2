@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.getflix.R
@@ -61,7 +62,7 @@ class OrderInfoFragment : Fragment() {
         //binding.ordersList.adapter = orderAdapter
         binding.ordersList.setHasFixedSize(true)
 
-        cviewModel.orderlist!!.observe(viewLifecycleOwner, {
+        cviewModel.orderlist!!.observe(viewLifecycleOwner, Observer{
             val orderAdapter = OrdersAdapter(it!!,this)
             binding.ordersList.adapter = orderAdapter
             binding.ordersList.setHasFixedSize(true)

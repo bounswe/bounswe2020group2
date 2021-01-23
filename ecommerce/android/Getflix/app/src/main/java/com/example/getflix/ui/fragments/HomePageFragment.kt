@@ -23,6 +23,7 @@ import com.example.getflix.databinding.FragmentNewHomeBinding
 import com.example.getflix.hideKeyboard
 import com.example.getflix.ui.adapters.*
 import com.example.getflix.ui.fragments.HomePageFragment.StaticData.recyclerViewFirstPosition
+import com.example.getflix.ui.fragments.HomePageFragmentDirections.Companion.actionHomePageFragmentToNotificationFragment
 import com.example.getflix.ui.fragments.HomePageFragmentDirections.Companion.actionHomePageFragmentToSubcategoryFragment
 import com.example.getflix.ui.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -63,7 +64,6 @@ class HomePageFragment : Fragment() {
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         binding.lifecycleOwner = this
 
-
         activity?.search!!.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
                 activity?.toolbar!!.requestFocus()
@@ -75,6 +75,10 @@ class HomePageFragment : Fragment() {
             var query = activity?.search!!.text.toString()
             activity?.search!!.text.clear()
             view?.findNavController()!!.navigate(actionHomePageFragmentToSubcategoryFragment(null,query,null,null,null,null))
+        }
+
+        activity?.btn_notification!!.setOnClickListener{
+            view?.findNavController()!!.navigate(actionHomePageFragmentToNotificationFragment())
         }
 
 
@@ -89,6 +93,7 @@ class HomePageFragment : Fragment() {
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.categories.layoutManager = layoutManagerForCategoriesAdapter
         adapterForHomeCategories.submitList(categories)
+
 
         recyclerViewFirstPosition.value = 0
         binding.categories.addOnScrollListener(object : RecyclerView.OnScrollListener() {
