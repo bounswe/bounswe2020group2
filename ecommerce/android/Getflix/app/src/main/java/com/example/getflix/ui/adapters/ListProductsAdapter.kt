@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.ListProductItemBinding
 import com.example.getflix.models.ListProductModel
+import com.squareup.picasso.Picasso
 
 class ListProductsAdapter(
     private val listProductList: ArrayList<ListProductModel>?
@@ -16,6 +17,11 @@ class ListProductsAdapter(
 
         fun bind(listProduct: ListProductModel, position: Int) {
             binding.listproduct = listProduct
+            binding.cartProductName.setText(listProduct.product.name)
+            binding.cartProductPrice.setText(listProduct.product.price.toString()+" TL")
+
+            if(!listProduct.product.images.isNullOrEmpty())
+                Picasso.get().load(listProduct.product.images[0]).into(binding.cartProductImage)
         }
 
         companion object {
