@@ -51,13 +51,13 @@ export const ProfilePage = props => {
                         <AddressList />
                     </Alert.ErrorBoundary>
                 </TabPane>
-                {/* <TabPane tab="Messages" key="messages" forceRender>
+                <TabPane tab="Messages" key="messages" forceRender>
                     <Alert.ErrorBoundary>
                         <ChatContextProvider>
                             <Conversations />
                         </ChatContextProvider>
                     </Alert.ErrorBoundary>
-                </TabPane> */}
+                </TabPane>
             </Tabs>
         </div>
     )

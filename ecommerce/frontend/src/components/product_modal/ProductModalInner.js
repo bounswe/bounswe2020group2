@@ -281,7 +281,6 @@ const ProductModalInnerPictureSelect = ({ form }) => {
             <Form.Item dependencies={['images']}>
                 {form => {
                     const fileList = form.getFieldValue('images') || []
-                    // console.log(fileList)
                     return (
                         <Form.Item name="images" label="Image" valuePropName="fileList" getValueFromEvent={normFile}>
                             <Upload
@@ -338,9 +337,7 @@ export const ProductModalInner = ({ form, product }) => {
                 <div style={currentStep ? undefined : { display: 'none' }}>
                     <ProductModalInnerPictureSelect form={form} initialValues={initialValues} />
                 </div>
-                {/* {!currentStep ? (
-                ) : (
-                )} */}
+                
             </div>
 
             {/* This div contains the step controls (next, previous) */}
