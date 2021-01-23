@@ -85,7 +85,7 @@ class ListsFragment : Fragment() {
             ListModel(20, "My Winter Collection", products)
         val lists = arrayListOf<ListModel>(list3, list4)
 
-        val listAdapter = ListsAdapter(lists)
+        val listAdapter = ListsAdapter(lists,this)
         recView.adapter = listAdapter
         recView.setHasFixedSize(true)
 
