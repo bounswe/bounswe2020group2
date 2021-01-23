@@ -16,6 +16,19 @@ import urllib.request
 
 API_URL = "https://api.datamuse.com/words?ml="
 
+# these are the stopwords of the NLTK library, taken from https://gist.github.com/sebleier/554280
+with open('stopwords.txt', 'r', encoding='latin-1') as f:   
+    stopwords = [line.strip() for line in f.readlines()]
+
+# preprocess the sentence by applyin case-folding, punctutation removal and tokenization
+def preprocess(sentence):
+    global stopwords
+    sentence = sentence.casefold() # case-folding
+    sentence = sentence.translate(str.maketrans(string.punctuation, ' '*len(string.punctuation))) #punctuation removal
+    sentence = sentence.split() #tokenization
+    sentence = [word for word in sentence if not word in stopwords] # stopword removal
+    return sentence
+
 def get_synoynms_from_datamuse(query):
     processed_query = '+'.join(query)
     r = urllib.request.urlopen(API_URL+processed_query)
@@ -24,6 +37,8 @@ def get_synoynms_from_datamuse(query):
     results = JSONParser().parse(results)
     similar_queries = [d['word'] for d in results[:10]]
     return similar_queries
+
+
 
 @api_view(['POST'])
 @permission_classes([permissions.AllowAnonymous])
