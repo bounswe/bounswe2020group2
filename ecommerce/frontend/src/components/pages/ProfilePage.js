@@ -59,11 +59,13 @@ export const ProfilePage = props => {
                         </ChatContextProvider>
                     </Alert.ErrorBoundary>
                 </TabPane>
-                <TabPane tab="Lists" key="lists" forceRender>
-                    <Alert.ErrorBoundary>
-                        <ProductLists />
-                    </Alert.ErrorBoundary>
-                </TabPane>
+                {user.type === 'customer' && (
+                    <TabPane tab="Lists" key="lists" forceRender>
+                        <Alert.ErrorBoundary>
+                            <ProductLists />
+                        </Alert.ErrorBoundary>
+                    </TabPane>
+                )}
             </Tabs>
         </div>
     )
