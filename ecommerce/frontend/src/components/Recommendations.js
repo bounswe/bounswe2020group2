@@ -11,27 +11,26 @@ export const Recommendations = () => {
     const [products, setProducts] = useState([])
 
     useEffect(() => {
-        const fetch = async () => {
+        fetch()
+    }, [])
+
+    async function fetch() {
+        try {
+            setIsLoading(true)
             const {
                 data: { status, products },
             } = await api.get(`/recommendation`)
             if (status.successful) {
                 setProducts(products.map(formatProduct))
-                console.log(products)
             } else {
                 notification.warning({ message: status.message })
             }
-        }
-        try {
-            setIsLoading(true)
-            fetch()
-        } catch (error) {
-            console.log(error)
+        } catch {
             notification.error({ description: 'Failed to load recommendations' })
         } finally {
             setIsLoading(false)
         }
-    }, [])
+    }
 
     return (
         <Spin spinning={isLoading}>
