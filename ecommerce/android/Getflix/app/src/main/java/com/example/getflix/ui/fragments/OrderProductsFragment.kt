@@ -38,6 +38,7 @@ class OrderProductsFragment : Fragment() {
         val productList = args.products.toCollection(ArrayList())
         println(productList.toString())
 
+        /*
         val list1 = listOf<String>()
         val list2 = mutableListOf<SubcategoryModel>()
         var address = AddressModel(10, "Second Home", PhoneModel("90", "55555"),
@@ -51,11 +52,13 @@ class OrderProductsFragment : Fragment() {
             list1, 10504.045, false)
         var purchasedModel = OrderPurchasedModel(1, 1, product, "",1,"",VendorModel(0.0,3, "Can Batuk"),address)
         val listproducts = arrayListOf(purchasedModel)
-        val listAdapter = OrderProductsAdapter(listproducts)
+
+         */
+        val listAdapter = OrderProductsAdapter(productList)
         recView.adapter = listAdapter
         recView.setHasFixedSize(true)
 
-        for (product in listproducts) {
+        for (product in productList) {
             viewModel.addOrderPurchased(product)
         }
 
