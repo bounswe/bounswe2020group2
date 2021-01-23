@@ -1,0 +1,22 @@
+.product-list-items {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.product-list-header {
+    display: flex;
+
+    & div {
+        flex: 1 0 auto;
+    }
+    &-title {
+        font-weight: bold;
+        font-size: large;
+    }
+
+    & &-details {
+        text-align: end;
+        align-self: center;
+    }
+}
