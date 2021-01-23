@@ -39,18 +39,26 @@ def get_similar_queries(query):
     r = requests.get(API_URL+processed_query)
     results = r.content
     results = json.loads(results)
+    # sort wrt to the highest score which means semantically more similar
+    results = sorted(results, key= lambda x:x['score'], reverse=True)
     # return words of the top 10 results
     similar_queries = [d['word'] for d in results[:10]]
     return similar_queries
 
 # conduct semantic search for the given query
 def semantic_search_for(query):
+    # queries are sorted wrt to decreasing semantic similarity
     similar_queries = get_similar_queries(query)
+    product_indexes = ProductIndex.objects.all()
     or_filter = Q()
+    filtered_ids_ranked = []
+    # first found and added to the list objects are most semantically similar so will be at front of the list
     for query in similar_queries:
-        or_filter |= Q(text__icontains=query)
-    filtered_ids = ProductIndex.objects.all().filter(or_filter).select_related('product').values_list('product_id', flat=True)
-    return Product.objects.filter(id__in=filtered_ids)
+        filtered_ids_ranked.extend(product_indexes.filter(text__icontains=query).
+            select_related('product').values_list('product_id', flat=True))
+    # remove the duplicates from the back of the list
+    filtered_ids_ranked = [id for i, id in enumerate(filtered_ids_ranked) if i not in filtered_ids_ranked[i+1:]] 
+    return Product.objects.filter(id__in=filtered_ids_ranked)
 
 @api_view(['POST'])
 @permission_classes([permissions.AllowAnonymous])
