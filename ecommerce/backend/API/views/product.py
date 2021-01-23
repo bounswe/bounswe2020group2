@@ -218,7 +218,7 @@ def vendor_product(request):
             img_array = base64.b64decode(image_b64)
             image = Image(image=img_array)
             image.save()
-            image_url = ImageUrls(product=new_product, image_url="/image/"+str(image.pk), index = index)
+            image_url = ImageUrls(product=product, image_url="/image/"+str(image.pk), index = index)
             image_url.save()
             index += 1
 
