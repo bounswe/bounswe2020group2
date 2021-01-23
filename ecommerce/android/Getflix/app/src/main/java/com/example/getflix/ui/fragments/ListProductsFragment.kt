@@ -13,9 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentListProductsBinding
 import com.example.getflix.ui.adapters.ListProductsAdapter
-import com.example.getflix.ui.adapters.SwipeToDeleteAddress
 import com.example.getflix.ui.adapters.SwipeToDeleteListProduct
-import com.example.getflix.ui.viewmodels.ListProductViewModel
 import com.example.getflix.ui.viewmodels.ListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*

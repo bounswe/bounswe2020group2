@@ -186,6 +186,8 @@ interface GetflixApiService {
     @GET("recommendation")
     suspend fun getRecommendations(@Header("Authorization") token: String): Response<RecommendationModel>
 
+    @GET("notifications")
+    suspend fun getNotifications(@Header("Authorization") token: String): Response<List<NotificationModel>>
 }
 
 object GetflixApi {

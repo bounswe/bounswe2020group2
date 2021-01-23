@@ -9,13 +9,29 @@ import com.example.getflix.databinding.NotificationItemBinding
 import com.example.getflix.models.NotificationModel
 
 class NotificationAdapter(
-    private val notificationlist: ArrayList<NotificationModel>?,
+    private val notificationlist: List<NotificationModel>,
 ) : ListAdapter<NotificationModel, NotificationAdapter.RowHolder>(NotificationsDiffCallback()) {
 
     class RowHolder(val binding: NotificationItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(notification: NotificationModel, position: Int) {
-            binding.notification = notification
+            var type = notification.type
+            var argument = notification.argument
+            if(type=="order_status_change") {
+                if(argument.newStatus=="at_cargo") {
+                    binding.notText.text = "Your order is now on the way."
+                } else if(argument.newStatus=="delivered") {
+                    binding.notText.text = "Your order is delivered. Enjoy!"
+                } else if(argument.newStatus=="accepted") {
+                    binding.notText.text = "Your order is accepted."
+                }
+            } else if(type=="price_change") {
+                if(argument.new_price>argument.old_price) {
+                    binding.notText.text = "Price of a product in your wishlist has changed."
+                } else if(argument.new_price<argument.old_price) {
+                    binding.notText.text = "A product in your wishlist is now cheaper. Don’t miss out!"
+                }
+            }
         }
 
         companion object {
