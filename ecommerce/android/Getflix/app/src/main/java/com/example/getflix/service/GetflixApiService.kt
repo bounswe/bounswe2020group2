@@ -164,6 +164,8 @@ interface GetflixApiService {
     @PUT("vendor/order")
     fun updateOrderStatus(@Header("Authorization")token : String , @Body vendorOrderStatusRequest: VendorOrderStatusRequest): Call<Status>
 
+    @GET("lists")
+    suspend fun getLists(@Header("Authorization") token: String): Response<ListsModel>
 
 }
 

@@ -39,22 +39,13 @@ class ListsFragment : Fragment() {
         )
 
         viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
-        binding.viewmodel = ListViewModel()
+        viewModel.getCustomerLists()
+
         activity?.toolbar!!.toolbar_title.text = getString(R.string.lists)
         val recView = binding?.listsList as RecyclerView
-        /*var zaraJacket1 =
-                ProductModel(10, "Jacket", "222", "1", "Zara", 1, 1, 1, "Nice jacket", "1", "1", "1", "1")
-        var zaraJacket2 =
-                ProductModel(11, "Jacket", "231", "1", "Zara", 1, 1, 1, "Cool jacket", "1", "1", "1", "1")
-        var zaraJacket3 =
-                ProductModel(12, "Jacket", "321", "1", "Zara", 1, 1, 1, "Amazing jacket", "1", "1", "1", "1")
-        var zaraSkirt1 =
-                ProductModel(4, "Skirt", "79", "1", "Zara", 1, 1, 1, "Nice skirt", "1", "1", "1", "1")
-        var zaraSkirt2 =
-                ProductModel(5, "Skirt", "93", "1", "Zara", 1, 1, 1, "Cool skirt", "1", "1", "1", "1")
-        var zaraSkirt3 =
-                ProductModel(6, "Skirt", "102", "1", "Zara", 1, 1, 1, "Amazing skirt", "1", "1", "1", "1")*/
-        val list1 = listOf<String>()
+
+
+      /*  val list1 = listOf<String>()
         val list2 = mutableListOf<SubcategoryModel>()
 
         var product = ProductModel(
@@ -83,21 +74,15 @@ class ListsFragment : Fragment() {
             ListModel(10, "My Summer Collection", products)
         var list4 =
             ListModel(20, "My Winter Collection", products)
-        val lists = arrayListOf<ListModel>(list3, list4)
+        val lists = arrayListOf<ListModel>(list3, list4) */
 
-        val listAdapter = ListsAdapter(lists,this)
-        recView.adapter = listAdapter
-        recView.setHasFixedSize(true)
 
-        for (list in lists) {
-            viewModel.addList(list)
-        }
 
-        viewModel.listList.observe(viewLifecycleOwner, Observer {
+
+
+        viewModel.listOfLists.observe(viewLifecycleOwner, Observer {
             it?.let {
-
-                var size = 1
-                if (size == 0) {
+                if (it.lists.isEmpty()) {
                     binding.btnAddList.visibility = View.VISIBLE
                     binding.listImage.visibility = View.VISIBLE
                     binding.listText.visibility = View.VISIBLE
@@ -109,7 +94,10 @@ class ListsFragment : Fragment() {
                     binding.listText.visibility = View.GONE
                     binding.listsList.visibility = View.VISIBLE
                     binding.addFab.visibility = View.VISIBLE
-                    listAdapter.submitList(it)
+                    val listAdapter = ListsAdapter(it.lists,this)
+                    recView.adapter = listAdapter
+                    recView.setHasFixedSize(true)
+                    listAdapter.submitList(it.lists)
                 }
 
             }
