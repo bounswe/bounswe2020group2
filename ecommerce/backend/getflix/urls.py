@@ -23,6 +23,7 @@ urlpatterns = [
     path('regularsignup', views.account.register, name="register"),
     path('regularlogin', views.account.login, name="login"),
     path('init', views.account.init, name="init"),
+    path('changepassword', views.account.change_password, name="changepassword"),
     path('products/homepage/<int:num>', views.product.get_homepage_products),
     path('product/<int:product_id>', views.product.get_product_detail),
     path('categories', views.category.get_categories),
@@ -50,5 +51,8 @@ urlpatterns = [
     path('messages', views.message.manage_messages),
     path('notifications', views.notification.manage_notifications, name="notifications"),
     path('lists', views.product_list.product_list_create),
-    path('recommendation', views.recommendation.recommend_products)
+    path('recommendation', views.recommendation.recommend_products),
+    path('lists/<int:list_id>', views.product_list.product_list_delete),
+    path('lists/<int:list_id>/product/<int:product_id>', views.product_list.manage_product_list_item)
+
 ]

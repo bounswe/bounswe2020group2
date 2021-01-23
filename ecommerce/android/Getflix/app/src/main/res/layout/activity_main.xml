@@ -39,6 +39,7 @@
 
                 <EditText
                     android:id="@+id/search"
+                    android:visibility="gone"
                     android:layout_width="270dp"
                     android:layout_height="40dp"
                     android:paddingStart="12dp"
@@ -59,6 +60,7 @@
                     android:id="@+id/btn_search"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
+                    android:visibility="gone"
                     android:layout_margin="5dp"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/ic_search" />

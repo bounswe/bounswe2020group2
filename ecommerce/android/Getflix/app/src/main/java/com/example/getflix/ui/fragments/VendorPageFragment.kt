@@ -28,6 +28,9 @@ class VendorPageFragment : Fragment() {
             container, false
         )
 
+        val args = VendorPageFragmentArgs.fromBundle(requireArguments())
+        var vendorId = args.vendorId
+
         vendorPageViewModel = ViewModelProvider(this).get(VendorPageViewModel::class.java)
         activity?.toolbar_lay!!.visibility = View.GONE
         binding.lifecycleOwner = this
