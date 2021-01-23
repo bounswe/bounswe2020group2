@@ -6,12 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.ProductModel
 import com.example.getflix.service.GetflixApi
-import com.example.getflix.service.requests.CardProUpdateRequest
-import com.example.getflix.service.requests.ProSearchBySubcategoryRequest
-import com.example.getflix.service.requests.ProSearchByVendorRequest
 import com.example.getflix.service.requests.VendorProUpdateRequest
-import com.example.getflix.service.responses.CardProUpdateResponse
-import com.example.getflix.service.responses.ProSearchBySubcategoryResponse
 import com.example.getflix.service.responses.ProSearchByVendorResponse
 import com.example.getflix.service.responses.VendorProUpdateResponse
 import retrofit2.Call
@@ -54,7 +49,7 @@ class VendorHomeViewModel: ViewModel() {
     }
 
     fun searchByVendor(vendorId: Int) {
-        GetflixApi.getflixApiService.searchProductsByVendor(ProSearchByVendorRequest(vendorId))
+        GetflixApi.getflixApiService.searchProductsByVendor(vendorId)
             .enqueue(object :
                 Callback<ProSearchByVendorResponse> {
                 override fun onFailure(call: Call<ProSearchByVendorResponse>, t: Throwable) {

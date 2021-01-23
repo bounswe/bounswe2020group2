@@ -143,7 +143,7 @@ interface GetflixApiService {
 
     @Headers("Content-Type: application/json")
     @POST("search/products")
-    fun searchProductsByVendor(@Body cardData: ProSearchByVendorRequest): Call<ProSearchByVendorResponse>
+    fun searchProductsByVendor(@Body vendorId: Int): Call<ProSearchByVendorResponse>
 
     @Headers("Content-Type: application/json")
     @POST("search/products")

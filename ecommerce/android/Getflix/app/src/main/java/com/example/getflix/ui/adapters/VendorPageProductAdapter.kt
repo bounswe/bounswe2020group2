@@ -21,10 +21,12 @@ class VendorPageProductAdapter :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
+        println("Buraya giriyor")
         holder.bind(item)
     }
 
     private fun ViewHolder.bind(product: ProductModel) {
+        /*
         Picasso.get().load(product.images[0]).into(binding.productImage)
         binding.root.setOnClickListener {
             HomeViewModel.onProductClick.value = product
@@ -66,7 +68,7 @@ class VendorPageProductAdapter :
         binding.save.setOnClickListener {
                 //binding.save.setImageResource(R.drawable.saved_product)
                 //binding.save.setImageResource(R.drawable.nonsaved_product)
-        }
+        }*/
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
