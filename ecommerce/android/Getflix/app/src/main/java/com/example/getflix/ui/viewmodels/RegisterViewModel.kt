@@ -20,9 +20,6 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     val canSignUp: LiveData<SignUpResponse?>
         get() = _canSignUp
 
-    private val _emailVerificationSent = MutableLiveData<Boolean>()
-    val emailVerificationSent: LiveData<Boolean>
-        get() = _emailVerificationSent
 
     fun setSignUpCredentials(
         fragment: Fragment,
@@ -42,7 +39,6 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     }
 
     init {
-        _emailVerificationSent.value = false
         _canSignUp.value = null
     }
 
@@ -64,48 +60,25 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                     _canSignUp.value = response.body()
                     println("Şu an backend endpointi doğru girdi.")
                     println(response.body())
-                    if (response.body() != null && response.body()!!.successful) {
+
+                    if (response.body() != null && response.body()!!.successful && response.body()!!.message.equals("Username is already in use").not()) {
                         auth.createUserWithEmailAndPassword(
                             _signUpCredentials.value!!.email,
                             _signUpCredentials.value!!.password
                         )
                             .addOnCompleteListener {
                                 println("Şu an fire base register'a girdi")
-                                val firebaseUser = auth.currentUser
-                                if (firebaseUser?.isEmailVerified == false) {
-                                    firebaseUser.let {
-                                        it.sendEmailVerification().addOnSuccessListener {
-                                            println("Şu an fire base register maili attı")
-                                            _emailVerificationSent.value = true
-                                        }.addOnFailureListener {
-                                            println("Şu an firebase register maili atamadı")
-                                            _emailVerificationSent.value = false
-                                        }
-                                    }
-                                }
 
-                                if (it.isSuccessful || response.body()?.message == "Username is already in use") {
-                                    println("Aynı  kullanıcı var veya başarılı kısmına girdi on responseda")
-
-                                } else {
-                                    println("Hata kısmındayız şu an on responnseun hata:" + response.body()?.message)
-                                    _canSignUp.value = null
-                                }
                             }.addOnFailureListener {
-                                println("Fire base mail atamama hatası :" + it.message)
+                                println("Fire base signup olammama hatası :" + it.message)
                                 _canSignUp.value = null
                             }
-
 
                     }
                 }
             })
     }
 
-
-    fun onEmailVerificationMailComplete() {
-        _emailVerificationSent.value = null
-    }
 }
 
 

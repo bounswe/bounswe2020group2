@@ -18,9 +18,10 @@ class MailVerificationViewModel : ViewModel() {
 
     init {
         _onMailVerified.value = false
+        sendMailVerification()
     }
 
-    fun resendMail() {
+    fun sendMailVerification() {
 
         val firebaseUser = auth.currentUser
         val userId = firebaseUser?.uid
@@ -31,6 +32,8 @@ class MailVerificationViewModel : ViewModel() {
             println("Mail verification  view model maili atamadı ")
         }
     }
+
+
 
 /*
    fun checkIsMailVerified() {

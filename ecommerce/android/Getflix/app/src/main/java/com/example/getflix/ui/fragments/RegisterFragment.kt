@@ -165,28 +165,14 @@ class RegisterFragment : Fragment() {
                 println("Username is already in use login fragment")
             } else if (it != null && it.successful) {
                 // doneAlert()
-                println("Login olabildi, register fragmennt")
-                if(registerViewModel.emailVerificationSent.value!!){
-                    registerViewModel.onEmailVerificationMailComplete()
-                    view?.findNavController()?.navigate(actionRegisterFragmentToMailVerificationFragment())
-                }
+                println("Register olabildi")
+                view?.findNavController()?.navigate(actionRegisterFragmentToMailVerificationFragment())
+
             } else {
                 println("Login olamadı")
             }
         })
-        registerViewModel.emailVerificationSent.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                if (it) {
-                    Toast.makeText(context,"Please, verify the mail we have just sent!",Toast.LENGTH_SHORT)
-                    println("RegisterFragment:Verification olması için registerda mail yollandı")
-                } else {
-                    Toast.makeText(context,"Oops! Something went wrong... Please, try again!",Toast.LENGTH_SHORT)
-                    println("RegisterFragment:Verification olması için registerda mail yollanmaya çalıştı ama olmadı")
-                }
-                registerViewModel.onEmailVerificationMailComplete()
-            }
-        }
-        )
+
 
         binding.btnBack.setOnClickListener {
             view?.findNavController()?.popBackStack()
