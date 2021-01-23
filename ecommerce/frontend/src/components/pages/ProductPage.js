@@ -7,6 +7,7 @@ import { ProductHeader } from '../product/ProductHeader'
 import { notification, Spin } from 'antd'
 import { UserReviews } from '../UserReview/UserReviews'
 import { HorizontalProductList } from '../HorizontalProductList'
+import { formatProduct } from '../../utils'
 
 export const ProductPage = props => {
     const [product, setProduct] = useState()
