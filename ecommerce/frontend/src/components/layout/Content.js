@@ -33,7 +33,6 @@ export const Content = () => {
             {!location.pathname.startsWith('/profile') && isUser && !user.is_verified && <IsVerifiedNotification />}
 
             <Switch>
-                <Route path="/productListModal" component={ListModal} />
                 {isUser && <Route path="/verify/:id" component={EmailVerification} />}
                 <Route path="/search/:type" component={SearchPage} />
                 <Route path="/product/:productId" component={ProductPage} />

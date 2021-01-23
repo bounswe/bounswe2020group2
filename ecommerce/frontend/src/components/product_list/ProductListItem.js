@@ -1,21 +1,32 @@
 import { InputNumber, Popconfirm } from 'antd'
-import './ShoppingCartItem.less'
+import './ProductListItem.less'
 import { DeleteOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { useAppContext } from '../../context/AppContext'
 import { useState } from 'react'
 import { round } from '../../utils'
+import { api } from '../../api'
 
-export const ShoppingCartItem = ({ cartItem: { id, amount, product } }) => {
-    const [itemAmount, setItemAmount] = useState(amount)
-
-    const onClickDelete = () => {
-        deleteShoppingCartItem(id)
+export const ProductListItem = ({ listId, product }) => {
+    const onClickDelete = async () => {
+        //setIsLoading(true)
+        try {
+            const {
+                data: { status },
+            } = await api.delete(`/lists/${listId}/product/${product.id}`)
+            if (status.successful) {
+                notification.success({ message: status.message })
+                onAddressInfoChange()
+            } else {
+                notification.warning({ message: status.message })
+            }
+        } catch (error) {
+            notification.warning({ message: 'There was an error with your request.' })
+            console.error(error)
+        } finally {
+            // setIsLoading(false)
+        }
     }
-
-    const onAmountChange = value => setItemAmount(value)
-
-    const onPressEnterAmount = () => updateShoppingCartItem(id, product.id, itemAmount)
 
     return (
         <div className="product-list-item-container">
@@ -43,18 +54,6 @@ export const ShoppingCartItem = ({ cartItem: { id, amount, product } }) => {
                     </p>
                 </div>
                 <div className="product-list-item-controls">
-                    <div className="product-list-item-amount">
-                        <div className="product-list-item-amount-text">Amount:</div>
-                        <div className="product-list-item-amount-input">
-                            <InputNumber
-                                min={1}
-                                onChange={onAmountChange}
-                                className="product-list-item-amount-counter"
-                                defaultValue={itemAmount}
-                                onPressEnter={onPressEnterAmount}
-                            />
-                        </div>
-                    </div>
                     <div className="product-list-item-price">
                         {round(product.price_after_discount, 2)}&nbsp;{product.currency ?? 'TL'}
                     </div>

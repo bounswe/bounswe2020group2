@@ -100,9 +100,9 @@ export const handlers = [
     //         }),
     //     )
     // }),
-    rest.get(url('/init'), (req, res, ctx) => {
-        return res(ctx.json(accounts.ozdenz))
-    }),
+    // rest.get(url('/init'), (req, res, ctx) => {
+    //     return res(ctx.json(accounts.ozdenz))
+    // }),
     rest.get(url('/categories'), (req, res, ctx) => {
         return res(ctx.json({ categories }))
     }),
