@@ -34,7 +34,7 @@ class Product (models.Model):
 
 class ProductIndex (models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    text = models.CharField()
+    text = models.CharField(max_length=5000)
 
 #img urls
 class ImageUrls (models.Model):
