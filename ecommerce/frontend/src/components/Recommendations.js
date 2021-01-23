@@ -9,16 +9,22 @@ import { useAppContext } from '../context/AppContext'
 export const Recommendations = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [products, setProducts] = useState([])
-    const { user } = useAppContext()
 
     useEffect(() => {
         const fetch = async () => {
-            setIsLoading(true)
-            const { data } = await api.get(`/recommendations`)
-            setProducts(data.map(formatProduct))
-            console.log(data)
+            const {
+                data: { status, products},
+            } = await api.get(`/recommendation`)
+            if (status.successful) {
+                setProducts(products.map(formatProduct))
+                console.log(products)
+            } else {
+                notification.warning({ message: status.message })
+            }
+            
         }
         try {
+            setIsLoading(true)
             fetch()
         } catch (error) {
             console.log(error)
