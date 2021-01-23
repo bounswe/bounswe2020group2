@@ -11,6 +11,20 @@ from django.db.models import Q
 from API.serializers.product_serializer import ProductResponseSerializer
 from API.serializers.vendor_serializer import VendorResponseSerializer
 
+import string
+import urllib.request
+
+API_URL = "https://api.datamuse.com/words?ml="
+
+def get_synoynms_from_datamuse(query):
+    processed_query = '+'.join(query)
+    r = urllib.request.urlopen(API_URL+processed_query)
+    r.close()
+    results = r.read().decode("utf8")
+    results = JSONParser().parse(results)
+    similar_queries = [d['word'] for d in results[:10]]
+    return similar_queries
+
 @api_view(['POST'])
 @permission_classes([permissions.AllowAnonymous])
 def products(request):
