@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.ListItemLayoutBinding
+import com.example.getflix.models.AddressModel
 import com.example.getflix.models.ListModel
 import com.example.getflix.ui.fragments.ListsFragment
 import com.example.getflix.ui.fragments.ListsFragmentDirections
@@ -52,12 +53,21 @@ class ListsAdapter(
         return 0;
     }
 
+    fun resetPos() {
+        pos.value = -1
+    }
+
+    fun deleteItem(position: Int): ListModel {
+        pos.value = position
+        return listList?.get(position)!!
+    }
+
     override fun onBindViewHolder(holder: ListsAdapter.RowHolder, position: Int) {
         listList?.get(position)?.let {
             holder.bind(it, position)
             holder?.itemView!!.setOnClickListener {
                 fragment.findNavController().navigate(
-                    ListsFragmentDirections.actionListsFragmentToListProductsFragment(
+                    ListsFragmentDirections.actionListsFragmentToListProductsFragment(listList?.get(position)?.id,
                         listList?.get(position)!!.products.toTypedArray())
                 )
             }

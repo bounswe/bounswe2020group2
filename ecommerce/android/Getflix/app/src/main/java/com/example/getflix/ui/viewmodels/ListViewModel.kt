@@ -9,10 +9,7 @@ import com.example.getflix.models.ListsModel
 import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.AddressAddRequest
 import com.example.getflix.service.requests.CreateListRequest
-import com.example.getflix.service.responses.AddProductToListResponse
-import com.example.getflix.service.responses.AddressAddResponse
-import com.example.getflix.service.responses.CardDeleteResponse
-import com.example.getflix.service.responses.CreateListResponse
+import com.example.getflix.service.responses.*
 import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -86,6 +83,52 @@ class ListViewModel : ViewModel() {
                     println(response.code())
                     if (response.body()!!.status.succcesful)
                         println(response.body().toString())
+                }
+            }
+            )
+    }
+
+    fun deleteList(listId: Int) {
+        GetflixApi.getflixApiService.deleteList(
+            "Bearer " + MainActivity.StaticData.user!!.token, listId
+        )
+            .enqueue(object :
+                Callback<ListDeleteResponse> {
+                override fun onFailure(call: Call<ListDeleteResponse>, t: Throwable) {
+                    println("failure")
+                }
+
+                override fun onResponse(
+                    call: Call<ListDeleteResponse>,
+                    response: Response<ListDeleteResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+                    getCustomerLists()
+
+                }
+            }
+            )
+    }
+
+    fun deleteProductInList(listId: Int, proId: Int) {
+        GetflixApi.getflixApiService.deleteProductInList(
+            "Bearer " + MainActivity.StaticData.user!!.token, listId, proId
+        )
+            .enqueue(object :
+                Callback<DeleteProductInListResponse> {
+                override fun onFailure(call: Call<DeleteProductInListResponse>, t: Throwable) {
+                    println("failure")
+                }
+
+                override fun onResponse(
+                    call: Call<DeleteProductInListResponse>,
+                    response: Response<DeleteProductInListResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+                    getCustomerLists()
+
                 }
             }
             )

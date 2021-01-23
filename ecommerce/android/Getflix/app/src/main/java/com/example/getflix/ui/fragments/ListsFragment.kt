@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentListsBinding
@@ -19,6 +20,8 @@ import com.example.getflix.hideKeyboard
 import com.example.getflix.models.*
 import com.example.getflix.service.requests.CreateListRequest
 import com.example.getflix.ui.adapters.ListsAdapter
+import com.example.getflix.ui.adapters.SwipeToDeleteList
+import com.example.getflix.ui.adapters.SwipeToDeleteListProduct
 import com.example.getflix.ui.viewmodels.ListViewModel
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_main.*
@@ -65,6 +68,16 @@ class ListsFragment : Fragment() {
                     recView.adapter = listAdapter
                     recView.setHasFixedSize(true)
                     listAdapter.submitList(it.lists)
+                    val itemTouchHelper =
+                        ItemTouchHelper(SwipeToDeleteList(listAdapter))
+                    itemTouchHelper.attachToRecyclerView(recView)
+                    listAdapter.pos.observe(viewLifecycleOwner, Observer {
+                        if (it != -1) {
+                            val id = listAdapter.deleteItem(it).id
+                            viewModel.deleteList(id)
+                            listAdapter.resetPos()
+                        }
+                    })
                 }
 
             }

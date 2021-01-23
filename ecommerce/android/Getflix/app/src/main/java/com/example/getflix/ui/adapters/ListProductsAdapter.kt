@@ -2,10 +2,12 @@ package com.example.getflix.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.ListProductItemBinding
+import com.example.getflix.models.ListModel
 import com.example.getflix.models.ListProductModel
 import com.example.getflix.models.ProductModel
 import com.squareup.picasso.Picasso
@@ -13,6 +15,13 @@ import com.squareup.picasso.Picasso
 class ListProductsAdapter(
     private val listProductList: ArrayList<ListProductModel>
 ) : ListAdapter<ListProductModel, ListProductsAdapter.RowHolder>(ListProductsDiffCallback()) {
+
+    // mutable live data for deleted item position
+    val pos = MutableLiveData<Int>()
+
+    init {
+        pos.value = -1
+    }
 
     class RowHolder(val binding: ListProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -41,9 +50,22 @@ class ListProductsAdapter(
         return RowHolder.from(parent)
     }
 
+    fun deleteItem(position: Int) {
+        pos.value = position
+    }
+
+
+
+    fun resetPos() {
+        pos.value = -1
+    }
+
+
     override fun getItemCount(): Int {
-        super.getItemCount()
-        return listProductList!!.size
+        if (listProductList != null) {
+            return listProductList.count()
+        }
+        return 0;
     }
 
 
