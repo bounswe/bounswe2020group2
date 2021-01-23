@@ -46,12 +46,11 @@ def get_similar_queries(query):
 # conduct semantic search for the given query
 def semantic_search_for(query):
     similar_queries = get_similar_queries(query)
-    indexed_products = ProductIndex.objects.all()
     or_filter = Q()
     for query in similar_queries:
         or_filter |= Q(text__icontains=query)
-    indexed_products = indexed_products.filter(or_filter).all().distinct()
-    return indexed_products
+    filtered_ids = ProductIndex.objects.all().filter(or_filter).select_related('product').values_list('product_id', flat=True)
+    return Product.objects.filter(id__in=filtered_ids)
 
 @api_view(['POST'])
 @permission_classes([permissions.AllowAnonymous])
