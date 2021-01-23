@@ -1,8 +1,11 @@
 package com.example.getflix.ui.fragments
 
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.graphics.Paint
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,10 +21,16 @@ import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentProductBinding
 import com.example.getflix.doneAlert
+import com.example.getflix.hideKeyboard
+import com.example.getflix.infoAlert
 import com.example.getflix.ui.adapters.CommentAdapter
 import com.example.getflix.ui.adapters.ImageAdapter
 import com.example.getflix.ui.adapters.RecommenderAdapter
+import com.example.getflix.ui.fragments.ProductFragmentDirections.Companion.actionProductFragmentToVendorPageFragment
 import com.example.getflix.ui.viewmodels.ProductViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import me.relex.circleindicator.CircleIndicator2
@@ -70,9 +79,41 @@ class ProductFragment : Fragment() {
 
         val indicator: CircleIndicator2 = binding.circleIndicator
         indicator.attachToRecyclerView(binding.images, pagerSnapHelper)
-
+        var listNames = arrayListOf<String>()
+        listNames.add("List 1")
+        listNames.add("List 2")
+        var checkedList = 0
         binding.save.setOnClickListener {
-            productViewModel.onSaveClick()
+            //productViewModel.onSaveClick()
+            MaterialAlertDialogBuilder(requireContext(), R.style.MaterialAlertDialog_color)
+                .setTitle("Select a List")
+                .setSingleChoiceItems(
+                    listNames.toTypedArray(),
+                    checkedList
+                ) { dialog, which ->
+                    checkedList = which
+                }
+                .setPositiveButton("Ok") { dialog, which ->
+                }
+                .setIcon(R.drawable.accepted_list)
+                .setNegativeButton("Cancel") { dialog, which ->
+                }
+                .setNeutralButton("Add New List") { dialog, which ->
+                    var dialog = AlertDialog.Builder(context,R.style.MaterialAlertDialog_color)
+                    var dialogView = layoutInflater.inflate(R.layout.custom_dialog,null)
+                    var edit = dialogView.findViewById<TextInputEditText>(R.id.name)
+                    dialog.setView(dialogView)
+                    dialog.setCancelable(true)
+                    dialog.setIcon(R.drawable.ic_pencil)
+                    dialog.setTitle("Add A List")
+                    dialog.setNegativeButton("Cancel") { dialogInterface: DialogInterface, i: Int -> }
+                    dialog.setPositiveButton("Create") { dialogInterface: DialogInterface, i: Int ->
+                        println(edit.text.toString())
+                        hideKeyboard(requireActivity())
+                    }
+                    dialog.show()
+                }
+                .show()
         }
         binding.imageView7.setOnClickListener {
             val scrollView = binding.scrollView
@@ -88,12 +129,23 @@ class ProductFragment : Fragment() {
             productViewModel.decreaseAmount()
         }
 
+        binding.vendorDetail.setOnClickListener {
+            var id = 3
+            view?.findNavController()!!.navigate(actionProductFragmentToVendorPageFragment(id))
+        }
+
         binding.increase.setOnClickListener {
             productViewModel.increaseAmount()
         }
         binding.addToCart.setOnClickListener {
-            //productViewModel.addToShoppingCart(1, args.productId)
-            productViewModel.addCustomerCartProduct(binding.amount.text.toString().toInt(), args.productId)
+            if(MainActivity.StaticData.isVisitor) {
+                infoAlert(this, "You should be logged in to add product to your shopping cart")
+            } else {
+                productViewModel.addCustomerCartProduct(
+                    binding.amount.text.toString().toInt(),
+                    args.productId
+                )
+            }
         }
 
         productViewModel.navigateBack.observe(viewLifecycleOwner, Observer{
@@ -183,5 +235,6 @@ class ProductFragment : Fragment() {
         super.onStop()
         activity?.toolbar_lay!!.visibility = View.VISIBLE
     }
+
 
 }

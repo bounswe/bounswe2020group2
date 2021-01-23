@@ -16,6 +16,7 @@ import { ProfilePage } from '../pages/ProfilePage'
 import { SearchPage } from '../pages/SearchPage'
 import { ShoppingCartPage } from '../pages/ShoppingCartPage'
 import { SignupPage } from '../pages/SignupPage'
+import { ProductModal } from '../product_modal/ProductModal'
 
 export const Content = () => {
     const { user } = useAppContext()

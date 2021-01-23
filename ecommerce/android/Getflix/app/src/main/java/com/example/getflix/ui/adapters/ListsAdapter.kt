@@ -2,15 +2,30 @@ package com.example.getflix.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.ListFragment
+import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.ListItemLayoutBinding
 import com.example.getflix.models.ListModel
+import com.example.getflix.ui.fragments.AddressFragment
+import com.example.getflix.ui.fragments.ListsFragment
+import com.example.getflix.ui.fragments.ListsFragmentDirections
 
 class ListsAdapter(
-        private val listList: ArrayList<ListModel>?,
+    private val listList: ArrayList<ListModel>?,
+    fragment: ListsFragment
 ) : ListAdapter<ListModel, ListsAdapter.RowHolder>(ListsDiffCallback()) {
+
+    // mutable live data for deleted item position
+    val pos = MutableLiveData<Int>()
+    val fragment = fragment
+
+    init {
+        pos.value = -1
+    }
 
     class RowHolder(val binding: ListItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -32,17 +47,25 @@ class ListsAdapter(
         return RowHolder.from(parent)
     }
 
-    /*override fun getItemCount(): Int {
-        if (productList != null) {
-            return productList.count()
+    override fun getItemCount(): Int {
+        if (listList != null) {
+            return listList.count()
         }
         return 0;
-    }*/
-
-
-    override fun onBindViewHolder(holder: RowHolder, position: Int) {
-        listList?.get(position)?.let { holder.bind(it, position) }
     }
+
+    override fun onBindViewHolder(holder: ListsAdapter.RowHolder, position: Int) {
+        listList?.get(position)?.let {
+            holder.bind(it, position)
+            holder?.itemView!!.setOnClickListener {
+                fragment.findNavController().navigate(
+                    ListsFragmentDirections.actionListsFragmentToListProductsFragment(
+                        listList?.get(position)!!.products.toTypedArray())
+                )
+            }
+        }
+    }
+
 
 
 }
