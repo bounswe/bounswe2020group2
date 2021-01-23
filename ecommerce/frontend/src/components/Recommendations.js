@@ -13,7 +13,7 @@ export const Recommendations = () => {
     useEffect(() => {
         const fetch = async () => {
             const {
-                data: { status, products},
+                data: { status, products },
             } = await api.get(`/recommendation`)
             if (status.successful) {
                 setProducts(products.map(formatProduct))
@@ -21,7 +21,6 @@ export const Recommendations = () => {
             } else {
                 notification.warning({ message: status.message })
             }
-            
         }
         try {
             setIsLoading(true)
