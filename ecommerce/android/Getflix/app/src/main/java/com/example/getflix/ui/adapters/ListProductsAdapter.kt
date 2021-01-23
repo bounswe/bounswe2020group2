@@ -7,21 +7,24 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.ListProductItemBinding
 import com.example.getflix.models.ListProductModel
+import com.example.getflix.models.ProductModel
 import com.squareup.picasso.Picasso
 
 class ListProductsAdapter(
-    private val listProductList: ArrayList<ListProductModel>?
-) : ListAdapter<ListProductModel, ListProductsAdapter.RowHolder>(ListProductsDiffCallback()) {
+    private val listProductList: ArrayList<ProductModel>
+) : ListAdapter<ProductModel, ListProductsAdapter.RowHolder>(ListProductsDiffCallback()) {
 
     class RowHolder(val binding: ListProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(listProduct: ListProductModel, position: Int) {
+        fun bind(listProduct: ProductModel, position: Int) {
             binding.listproduct = listProduct
-            binding.cartProductName.setText(listProduct.product.name)
-            binding.cartProductPrice.setText(listProduct.product.price.toString()+" TL")
+            println(listProduct.toString())
+            println("bindd")
+            binding.cartProductName.text = listProduct.id.toString()
+            binding.cartProductPrice.text = listProduct.price.toString()+" TL"
 
-            if(!listProduct.product.images.isNullOrEmpty())
-                Picasso.get().load(listProduct.product.images[0]).into(binding.cartProductImage)
+            if(!listProduct.images.isNullOrEmpty())
+                Picasso.get().load(listProduct.images[0]).into(binding.cartProductImage)
         }
 
         companion object {
@@ -38,6 +41,11 @@ class ListProductsAdapter(
         return RowHolder.from(parent)
     }
 
+    override fun getItemCount(): Int {
+        super.getItemCount()
+        return listProductList!!.size
+    }
+
 
     override fun onBindViewHolder(holder: RowHolder, position: Int) {
         listProductList?.get(position)?.let { holder.bind(it, position) }
@@ -45,12 +53,12 @@ class ListProductsAdapter(
 
 }
 
-class ListProductsDiffCallback : DiffUtil.ItemCallback<ListProductModel>() {
-    override fun areItemsTheSame(oldItem: ListProductModel, newItem: ListProductModel): Boolean {
+class ListProductsDiffCallback : DiffUtil.ItemCallback<ProductModel>() {
+    override fun areItemsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: ListProductModel, newItem: ListProductModel): Boolean {
+    override fun areContentsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
         return oldItem == newItem
     }
 
