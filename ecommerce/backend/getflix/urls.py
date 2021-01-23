@@ -51,6 +51,8 @@ urlpatterns = [
     path('messages', views.message.manage_messages),
     path('notifications', views.notification.manage_notifications, name="notifications"),
     path('lists', views.product_list.product_list_create),
+    path('recommendation', views.recommendation.recommend_products),
     path('lists/<int:list_id>', views.product_list.product_list_delete),
     path('lists/<int:list_id>/product/<int:product_id>', views.product_list.manage_product_list_item)
+
 ]
