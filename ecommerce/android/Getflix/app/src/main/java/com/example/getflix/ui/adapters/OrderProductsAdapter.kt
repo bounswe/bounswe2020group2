@@ -27,8 +27,8 @@ class OrderProductsAdapter(
         fun bind(orderPurchased: OrderPurchasedModel, position: Int) {
             binding.listproduct = orderPurchased
             binding.cartProductName.setText(orderPurchased.product.name)
-            binding.cartProductPrice.setText(orderPurchased.product.price.toString())
-            binding.totalPriceCartProduct.setText((orderPurchased.unit_price*orderPurchased.amount).toString())
+            binding.cartProductPrice.setText(orderPurchased.product.price.toString()+" TL")
+            binding.totalPriceCartProduct.setText((orderPurchased.unit_price*orderPurchased.amount).toString()+" TL")
             binding.amount.setText("Amount: "+orderPurchased.amount)
 
             if(!orderPurchased.product.images.isNullOrEmpty())
