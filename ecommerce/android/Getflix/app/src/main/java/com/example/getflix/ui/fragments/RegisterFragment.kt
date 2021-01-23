@@ -30,6 +30,8 @@ class RegisterFragment : Fragment() {
                 container, false)
         registerViewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
         binding.lifecycleOwner = this
+        binding.addressPart.visibility = View.GONE
+        binding.addressTitle.visibility = View.GONE
         var customer = true
 
         binding.radioGroup.setOnCheckedChangeListener(
@@ -37,10 +39,12 @@ class RegisterFragment : Fragment() {
                     when (checkedId) {
                         R.id.vendor -> {
                             binding.addressPart.visibility = View.VISIBLE
+                            binding.addressTitle.visibility = View.VISIBLE
                             customer = false
                         }
                         R.id.customer -> {
                             binding.addressPart.visibility = View.GONE
+                            binding.addressTitle.visibility = View.GONE
                             customer = true
 
                         }
