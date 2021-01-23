@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 
 import { api } from '../../api'
 import { useAppContext } from '../../context/AppContext'
-import { formatOrder } from '../../utils'
+import { formatOrder, formatPurchase } from '../../utils'
 import { Order } from './Order'
 import { Purchase } from './Purchase'
 
@@ -41,12 +41,12 @@ export const OrdersList = () => {
         // todo
         setIsLoading(true)
         try {
-            const {
-                data: { status, orders },
-            } = await api.get(`/vendor/order`)
+            const response = await api.get(`/vendor/order`)
+            console.log('/vendor/order', response.data)
+            const { status, orders } = response.data
 
             if (status.successful) {
-                const sortedOrder = orders.map(formatOrder)
+                const sortedOrder = orders.map(formatPurchase)
                 sortedOrder.reverse()
 
                 setOrders(sortedOrder)
@@ -66,6 +66,7 @@ export const OrdersList = () => {
     }
 
     const onOrderCancelled = fetch
+    const onPurchaseUpdated = fetch
 
     useEffect(() => {
         fetch()
@@ -80,7 +81,7 @@ export const OrdersList = () => {
                         if (user.type === 'customer')
                             return <Order key={order.id} order={order} onOrderCancelled={onOrderCancelled} />
 
-                        return <Purchase key={order.id} purchase={order} />
+                        return <Purchase key={order.id} purchase={order} onPurchaseUpdated={onPurchaseUpdated} />
                     })}
                 </div>
             </Spin>
