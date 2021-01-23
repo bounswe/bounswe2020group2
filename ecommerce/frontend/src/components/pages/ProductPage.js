@@ -23,7 +23,7 @@ export const ProductPage = props => {
                 setLoading(true)
                 console.log('fetching product', productId)
                 const { data } = await api.get(`/product/${productId}`)
-                setProduct(data)
+                setProduct(formatProduct(data))
             } catch (error) {
                 notification.error({ description: `Failed to get product ${productId}` })
             } finally {
