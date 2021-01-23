@@ -1,36 +1,44 @@
 import './ProductList.less'
 
 import { StopOutlined } from '@ant-design/icons'
-import { Button, Collapse, notification, Popconfirm } from 'antd'
+import { Button, Collapse, Modal, notification, Popconfirm } from 'antd'
 import { useState } from 'react'
 
 import { api } from '../../api'
 import { ProductListItem } from './ProductListItem'
+import useModal from 'antd/lib/modal/useModal'
 
 export const ProductList = ({ list }) => {
     const [deleteLoading, setDeleteLoading] = useState(false)
-    const onListDelete = async () => {
-        setDeleteLoading(true)
-        try {
-            const {
-                data: { status },
-            } = await api.delete(`/lists/${list.id}`)
-            if (status.successful) {
-                notification.success({ message: status.message })
-                // onAddressInfoChange()
-            } else {
-                notification.warning({ message: status.message })
-            }
-        } catch (error) {
-            notification.warning({ message: 'There was an error with your request.' })
-            console.error(error)
-        } finally {
-            setDeleteLoading(false)
-        }
+    const onListDelete = async e => {
+        e.stopPropagation()
+
+        Modal.confirm({
+            content: 'Are you sure you want to delete the product list?',
+            onOk: async () => {
+                try {
+                    setDeleteLoading(true)
+                    const {
+                        data: { status },
+                    } = await api.delete(`/lists/${list.id}`)
+                    if (status.successful) {
+                        notification.success({ message: status.message })
+                        // onAddressInfoChange()
+                    } else {
+                        notification.warning({ message: status.message })
+                    }
+                } catch (error) {
+                    notification.warning({ message: 'There was an error with your request.' })
+                    console.error(error)
+                } finally {
+                    setDeleteLoading(false)
+                }
+            },
+        })
     }
 
     return (
-        <Collapse defaultActiveKey="list" collapsible={false}>
+        <Collapse defaultActiveKey="" collapsible={false}>
             <Collapse.Panel
                 key="list"
                 collapsible={false}
@@ -39,21 +47,9 @@ export const ProductList = ({ list }) => {
                     <div className="product-list-header">
                         <div className={'product-list-header-title'}>{list.name}</div>
                         <div className="product-list-header-details">
-                            {
-                                <Popconfirm
-                                    title="Delete this list?"
-                                    onConfirm={onListDelete}
-                                    okText="Yes"
-                                    cancelText="No">
-                                    <Button
-                                        danger
-                                        icon={<StopOutlined />}
-                                        onClick={e => e.stopPropagation()}
-                                        loading={deleteLoading}>
-                                        Delete list
-                                    </Button>
-                                </Popconfirm>
-                            }
+                            <Button danger icon={<StopOutlined />} loading={deleteLoading} onClick={onListDelete}>
+                                Delete list
+                            </Button>
                         </div>
                     </div>
                 }>
