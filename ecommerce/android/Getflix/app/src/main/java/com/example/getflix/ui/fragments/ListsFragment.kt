@@ -1,5 +1,6 @@
 package com.example.getflix.ui.fragments
 
+
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentListsBinding
+
 import com.example.getflix.hideKeyboard
 import com.example.getflix.models.*
 import com.example.getflix.ui.adapters.ListsAdapter
@@ -27,6 +29,7 @@ class ListsFragment : Fragment() {
     private lateinit var viewModel: ListViewModel
 
     override fun onCreateView(
+
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
@@ -53,6 +56,7 @@ class ListsFragment : Fragment() {
                 ProductModel(6, "Skirt", "102", "1", "Zara", 1, 1, 1, "Amazing skirt", "1", "1", "1", "1")*/
         val list1 = listOf<String>()
         val list2 = mutableListOf<SubcategoryModel>()
+
         var product = ProductModel(
             27,
             "Samsung S20 Ultra",
@@ -73,13 +77,15 @@ class ListsFragment : Fragment() {
             10504.045,
             false
         )
+
         val products = arrayListOf(product)
         var list3 =
             ListModel(10, "My Summer Collection", products)
         var list4 =
             ListModel(20, "My Winter Collection", products)
         val lists = arrayListOf<ListModel>(list3, list4)
-        val listAdapter = ListsAdapter(lists)
+
+        val listAdapter = ListsAdapter(lists,this)
         recView.adapter = listAdapter
         recView.setHasFixedSize(true)
 
@@ -89,6 +95,7 @@ class ListsFragment : Fragment() {
 
         viewModel.listList.observe(viewLifecycleOwner, Observer {
             it?.let {
+
                 var size = 1
                 if (size == 0) {
                     binding.btnAddList.visibility = View.VISIBLE
@@ -143,6 +150,7 @@ class ListsFragment : Fragment() {
                 dialog.show()
             }
         }
+
 
         return binding.root
     }
