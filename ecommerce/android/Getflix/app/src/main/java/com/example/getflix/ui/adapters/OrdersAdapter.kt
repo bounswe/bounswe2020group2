@@ -34,6 +34,7 @@ class OrdersAdapter(
             binding.name.setText(order.order_all_purchase[0].product.name)
             binding.address.setText(order.order_all_purchase[0].address.title)
             binding.status.setText(order.order_all_purchase[0].status)
+            binding.date.setText(order.order_all_purchase[0].purchase_date.take(10))
             /*
             binding.name.text = order.name
             binding.ownerName.text ="Owner: " + credit.owner_name
