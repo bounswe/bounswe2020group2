@@ -182,6 +182,10 @@ interface GetflixApiService {
     @Headers("Content-Type: application/json")
     @DELETE("lists/{id}/product/{product_id}")
     fun deleteProductInList(@Header("Authorization") token: String, @Path("id") id: Int, @Path("product_id") productId: Int): Call<DeleteProductInListResponse>
+
+    @GET("recommendation")
+    suspend fun getRecommendations(@Header("Authorization") token: String): Response<RecommendationModel>
+
 }
 
 object GetflixApi {

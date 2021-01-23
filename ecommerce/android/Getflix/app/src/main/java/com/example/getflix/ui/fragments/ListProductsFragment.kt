@@ -39,7 +39,6 @@ class ListProductsFragment : Fragment() {
         val recView = binding?.listProductList as RecyclerView
 
 
-        // takes arguments and prints products here
         val args = ListProductsFragmentArgs.fromBundle(requireArguments())
         val productList = args.products.toCollection(ArrayList())
         val listId = args.listId
@@ -57,9 +56,6 @@ class ListProductsFragment : Fragment() {
                 println(it)
                 println(listAdapter.itemCount)
                 val id = productList[it].product.id
-                println("AAAAA")
-                println(id)
-                println(listId)
                 viewModel.deleteProductInList(listId,id)
                 productList.removeAt(it)
                 listAdapter!!.notifyDataSetChanged()
@@ -68,12 +64,6 @@ class ListProductsFragment : Fragment() {
         })
 
 
-
-        /*viewModel.listList.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                listAdapter.submitList(it)
-            }
-        })  */
 
 
         return binding.root
