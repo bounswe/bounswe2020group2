@@ -337,7 +337,6 @@ export const ProductModalInner = ({ form, product }) => {
                 <div style={currentStep ? undefined : { display: 'none' }}>
                     <ProductModalInnerPictureSelect form={form} initialValues={initialValues} />
                 </div>
-                
             </div>
 
             {/* This div contains the step controls (next, previous) */}

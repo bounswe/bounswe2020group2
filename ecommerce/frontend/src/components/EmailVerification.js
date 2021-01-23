@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { api } from '../api'
-import { Result, Button } from 'antd'
-import { sleep } from '../utils'
+import { Result } from 'antd'
 import './EmailVerification.less'
 import { LoadingOutlined } from '@ant-design/icons'
 import { useAppContext } from '../context/AppContext'

@@ -1,7 +1,7 @@
 import './ProductExtra.less'
 
 import { Rate, Skeleton } from 'antd'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { round } from '../../utils'
 
 export const ProductExtra = ({ product, loading = false }) => {
