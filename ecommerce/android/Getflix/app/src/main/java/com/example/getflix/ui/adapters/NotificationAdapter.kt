@@ -5,8 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.getflix.R
 import com.example.getflix.databinding.NotificationItemBinding
 import com.example.getflix.models.NotificationModel
+import com.squareup.picasso.Picasso
 
 class NotificationAdapter(
     private val notificationlist: List<NotificationModel>,
@@ -18,6 +20,7 @@ class NotificationAdapter(
             var type = notification.type
             var argument = notification.argument
             if(type=="order_status_change") {
+                Picasso.get().load(argument.image_url).into(binding.productImage)
                 if(argument.newStatus=="at_cargo") {
                     binding.notText.text = "Your order is now on the way."
                 } else if(argument.newStatus=="delivered") {
@@ -26,6 +29,7 @@ class NotificationAdapter(
                     binding.notText.text = "Your order is accepted."
                 }
             } else if(type=="price_change") {
+                Picasso.get().load(argument.image_url).into(binding.productImage)
                 if(argument.new_price>argument.old_price) {
                     binding.notText.text = "Price of a product in your wishlist has changed."
                 } else if(argument.new_price<argument.old_price) {
