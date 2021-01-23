@@ -62,6 +62,7 @@ const HomePage_MainContent = () => {
         <div>
             <Spin spinning={isLoading}>
                 <div className="home-page-horizontal-lists">
+                    <Recommendations />
                     {categories.map(category => {
                         const filters = {
                             category: category.id,
@@ -70,7 +71,6 @@ const HomePage_MainContent = () => {
                         }
                         return <HorizontalProductList key={category.id} filters={filters} />
                     })}
-                    <Recommendations />
                 </div>
             </Spin>
         </div>
