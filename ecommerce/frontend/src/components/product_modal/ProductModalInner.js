@@ -83,12 +83,21 @@ const ProductModalInnerForm = ({ form, initialValues }) => {
             scrollToFirstError
             initialValues={initialValues}>
             <Form.Item
-                name="name"
+                name="title"
                 label="Product Name"
                 rules={[
                     {
                         required: true,
                         message: 'Please input your product name!',
+                    },
+                    {
+                        message: 'Product name should be at least 3 characters',
+                        validator: (rule, val) => {
+                            const _val = val.trim()
+                            if (!_val) return Promise.reject(false)
+                            if (_val.length < 3) return Promise.reject(false)
+                            return Promise.resolve(true)
+                        },
                     },
                 ]}>
                 <Input />
@@ -104,10 +113,10 @@ const ProductModalInnerForm = ({ form, initialValues }) => {
                     {
                         message: 'Price must be a number',
                         validator: (rule, val) => {
-                            if (!val) return Promise.resolve(true)
-                            return Number.parseFloat(val)
-                                ? Promise.resolve(true)
-                                : Promise.reject('Price format is incorrect!')
+                            const _val = Number.parseFloat(val)
+                            if (Number.isNaN(_val)) return Promise.reject(false)
+                            if (_val <= 0) return Promise.reject(false)
+                            return Promise.resolve(true)
                         },
                     },
                 ]}>
@@ -124,10 +133,11 @@ const ProductModalInnerForm = ({ form, initialValues }) => {
                     {
                         message: 'Stock amount must be an integer',
                         validator: (rule, val) => {
-                            if (!val) return Promise.resolve(true)
-                            return /^\d+$/.test(val)
-                                ? Promise.resolve(true)
-                                : Promise.reject('Stock amount is not an integer')
+                            const _val = Number.parseInt(val)
+                            if (Number(val) !== _val) return Promise.reject(false)
+                            if (Number.isNaN(_val)) return Promise.reject(false)
+                            if (_val <= 0) return Promise.reject(false)
+                            return Promise.resolve(true)
                         },
                     },
                 ]}>
@@ -135,11 +145,40 @@ const ProductModalInnerForm = ({ form, initialValues }) => {
             </Form.Item>
             <Form.Item
                 name={'short_description'}
-                label="Description"
+                label="Short description"
                 rules={[
                     {
                         required: true,
                         message: 'Please enter a short description for your product!',
+                    },
+                    {
+                        message: 'Short description needs to be at least 16 characters',
+                        validator: (rule, val) => {
+                            const _val = val.trim()
+                            if (!_val) return Promise.reject(false)
+                            if (_val.length < 16) return Promise.reject(false)
+                            return Promise.resolve(true)
+                        },
+                    },
+                ]}>
+                <Input.TextArea />
+            </Form.Item>
+            <Form.Item
+                name={'long_description'}
+                label="Long description"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please enter a long description for your product!',
+                    },
+                    {
+                        message: 'Long description needs to be at least 64 characters',
+                        validator: (rule, val) => {
+                            const _val = val.trim()
+                            if (!_val) return Promise.reject(false)
+                            if (_val.length < 64) return Promise.reject(false)
+                            return Promise.resolve(true)
+                        },
                     },
                 ]}>
                 <Input.TextArea />
@@ -277,7 +316,10 @@ export const ProductModalInner = ({ form, product }) => {
 
     const initialValues = product
         ? {
-              ...R.pick(['name', 'discount', 'price', 'stock_amount', 'short_description'], product),
+              ...R.pick(
+                  ['title', 'discount', 'price', 'stock_amount', 'long_description', 'short_description'],
+                  product,
+              ),
               category: [product.category.id, product.subcategory.id],
               images: product.images.map(formatImageAsFile),
               brand: { value: product.brand.id, label: product.brand.name },

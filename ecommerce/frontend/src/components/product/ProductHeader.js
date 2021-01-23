@@ -90,7 +90,7 @@ export const ProductHeader = ({ product, loading = false }) => {
                     <ProductImageGallery product={product} />
                 </div>
                 <div className="product-header-main">
-                    <h1 className="product-header-main-title">{product.name}</h1>
+                    <h1 className="product-header-main-title">{product.title}</h1>
                     <p>{product.short_description}</p>
                 </div>
                 <div className="product-header-vendor">
