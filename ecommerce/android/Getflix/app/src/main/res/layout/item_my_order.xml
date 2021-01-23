@@ -11,7 +11,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="170dp"
         android:padding="10dp"
         android:theme="@style/Theme.MaterialComponents.Light"
         app:cardElevation="3dp"
@@ -111,6 +111,23 @@
                     app:layout_constraintStart_toStartOf="@+id/product_info"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.79" />
+                <TextView
+                    android:id="@+id/review_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:text="@string/review"
+                    android:textColor="@color/colorPrimary"
+                    android:background="@drawable/button_circle3"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    />
             </LinearLayout>
 
 
