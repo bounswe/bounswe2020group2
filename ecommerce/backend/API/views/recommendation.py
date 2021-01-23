@@ -78,4 +78,4 @@ def recommend_products(request):
 
             recommended_products.append(serialized_product)
 
-    return Response({'products':recommended_products})
+    return Response({'status': {'successful': True, 'message': "Successfully retrieved the recommendations."}, 'products':recommended_products})
