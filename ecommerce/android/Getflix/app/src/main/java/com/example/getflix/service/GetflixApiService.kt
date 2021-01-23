@@ -171,6 +171,10 @@ interface GetflixApiService {
     @POST("lists")
     fun createList(@Header("Authorization") token: String, @Body listData: CreateListRequest): Call<CreateListResponse>
 
+    @Headers("Content-Type: application/json")
+    @POST("lists/{id}/product/{product_id}")
+    fun addProductToList(@Header("Authorization") token: String, @Path("id") id: Int, @Path("product_id") product_id: Int): Call<AddProductToListResponse>
+
 }
 
 object GetflixApi {

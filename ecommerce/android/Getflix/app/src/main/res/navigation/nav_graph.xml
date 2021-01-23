@@ -340,7 +340,7 @@
         tools:layout="@layout/fragment_list_products">
     <argument
         android:name="products"
-        app:argType="com.example.getflix.models.ProductModel[]" />
+        app:argType="com.example.getflix.models.ListProductModel[]" />
     </fragment>
     <fragment
         android:id="@+id/notificationFragment"

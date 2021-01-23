@@ -53,9 +53,11 @@ class ProductFragment : Fragment() {
         )
         val args = ProductFragmentArgs.fromBundle(requireArguments())
         productViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
+        println("BURDASINNN " + args.productId)
         productViewModel.getProduct(args.productId)
 
         listViewModel = ViewModelProvider(this).get(ListViewModel::class.java)
+        listViewModel.getCustomerLists()
 
         activity?.toolbar_lay!!.visibility = View.GONE
 
@@ -85,11 +87,18 @@ class ProductFragment : Fragment() {
         val indicator: CircleIndicator2 = binding.circleIndicator
         indicator.attachToRecyclerView(binding.images, pagerSnapHelper)
         var listNames = arrayListOf<String>()
-        listNames.add("List 1")
-        listNames.add("List 2")
+        var listIds = arrayListOf<Int>()
         var checkedList = 0
         binding.save.setOnClickListener {
             //productViewModel.onSaveClick()
+            listViewModel.listOfLists.observe(viewLifecycleOwner, Observer {
+                for(list in it.lists) {
+                    if(!listNames.contains(list.name)) {
+                        listNames.add(list.name)
+                        listIds.add(list.id)
+                    }
+                }
+
             MaterialAlertDialogBuilder(requireContext(), R.style.MaterialAlertDialog_color)
                 .setTitle("Select a List")
                 .setSingleChoiceItems(
@@ -99,6 +108,10 @@ class ProductFragment : Fragment() {
                     checkedList = which
                 }
                 .setPositiveButton("Ok") { dialog, which ->
+                    println(checkedList.toString())
+                    println(listIds[checkedList])
+
+                    listViewModel.addProductToList(listIds[checkedList],args.productId)
                 }
                 .setIcon(R.drawable.accepted_list)
                 .setNegativeButton("Cancel") { dialog, which ->
@@ -120,6 +133,7 @@ class ProductFragment : Fragment() {
                     dialog.show()
                 }
                 .show()
+            })
         }
         binding.imageView7.setOnClickListener {
             val scrollView = binding.scrollView

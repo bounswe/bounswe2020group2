@@ -11,20 +11,20 @@ import com.example.getflix.models.ProductModel
 import com.squareup.picasso.Picasso
 
 class ListProductsAdapter(
-    private val listProductList: ArrayList<ProductModel>
-) : ListAdapter<ProductModel, ListProductsAdapter.RowHolder>(ListProductsDiffCallback()) {
+    private val listProductList: ArrayList<ListProductModel>
+) : ListAdapter<ListProductModel, ListProductsAdapter.RowHolder>(ListProductsDiffCallback()) {
 
     class RowHolder(val binding: ListProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(listProduct: ProductModel, position: Int) {
+        fun bind(listProduct: ListProductModel, position: Int) {
             binding.listproduct = listProduct
             println(listProduct.toString())
             println("bindd")
             binding.cartProductName.text = listProduct.id.toString()
-            binding.cartProductPrice.text = listProduct.price.toString()+" TL"
+            binding.cartProductPrice.text = listProduct.product.price.toString()+" TL"
 
-            if(!listProduct.images.isNullOrEmpty())
-                Picasso.get().load(listProduct.images[0]).into(binding.cartProductImage)
+            if(!listProduct.product.images.isNullOrEmpty())
+                Picasso.get().load(listProduct.product.images[0]).into(binding.cartProductImage)
         }
 
         companion object {
@@ -53,12 +53,12 @@ class ListProductsAdapter(
 
 }
 
-class ListProductsDiffCallback : DiffUtil.ItemCallback<ProductModel>() {
-    override fun areItemsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
+class ListProductsDiffCallback : DiffUtil.ItemCallback<ListProductModel>() {
+    override fun areItemsTheSame(oldItem: ListProductModel, newItem: ListProductModel): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: ProductModel, newItem: ProductModel): Boolean {
+    override fun areContentsTheSame(oldItem: ListProductModel, newItem: ListProductModel): Boolean {
         return oldItem == newItem
     }
 

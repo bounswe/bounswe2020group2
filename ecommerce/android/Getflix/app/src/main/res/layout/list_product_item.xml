@@ -7,7 +7,7 @@
 
         <variable
             name="listproduct"
-            type="com.example.getflix.models.ProductModel" />
+            type="com.example.getflix.models.ListProductModel" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -44,7 +44,7 @@
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="left"
                 android:paddingTop="3dp"
-
+                android:text="@{listproduct.product.name}"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold"

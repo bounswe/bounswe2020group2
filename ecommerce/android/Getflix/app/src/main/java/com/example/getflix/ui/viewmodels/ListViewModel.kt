@@ -9,7 +9,9 @@ import com.example.getflix.models.ListsModel
 import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.AddressAddRequest
 import com.example.getflix.service.requests.CreateListRequest
+import com.example.getflix.service.responses.AddProductToListResponse
 import com.example.getflix.service.responses.AddressAddResponse
+import com.example.getflix.service.responses.CardDeleteResponse
 import com.example.getflix.service.responses.CreateListResponse
 import kotlinx.coroutines.*
 import retrofit2.Call
@@ -26,6 +28,8 @@ class ListViewModel : ViewModel() {
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         println("Error ${throwable.localizedMessage}")
     }
+
+
 
 
     fun getCustomerLists() {
@@ -61,6 +65,27 @@ class ListViewModel : ViewModel() {
                     println(response.code())
                     if (response.code() == 200)
                       getCustomerLists()
+                }
+            }
+            )
+    }
+
+    fun addProductToList(listId: Int, productId: Int) {
+        GetflixApi.getflixApiService.addProductToList("Bearer " + MainActivity.StaticData.user!!.token, listId, productId)
+            .enqueue(object :
+                Callback<AddProductToListResponse> {
+                override fun onFailure(call: Call<AddProductToListResponse>, t: Throwable) {
+                    println("failure")
+                }
+
+                override fun onResponse(
+                    call: Call<AddProductToListResponse>,
+                    response: Response<AddProductToListResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+                    if (response.body()!!.status.succcesful)
+                        println(response.body().toString())
                 }
             }
             )
