@@ -34,7 +34,7 @@ export const ProductLists = () => {
     }
 
     // const onListCancelled = fetch
-    // const onPurchaseUpdated = fetch
+    const onChange = fetch
 
     useEffect(() => {
         fetch()
@@ -45,7 +45,20 @@ export const ProductLists = () => {
     const [createLoading, setCreateLoading] = useState(false)
 
     const onFinish = async values => {
-        form.resetFields()
+        try {
+            setCreateLoading(true)
+            const {
+                data: { id },
+            } = await api.post('/lists', values)
+            form.resetFields()
+            await fetch()
+        } catch (error) {
+            console.error(error)
+            notification.error({ description: 'Failed to create product list' })
+        } finally {
+            setCreateLoading(false)
+        }
+        console.log(values)
     }
 
     return (
@@ -84,7 +97,7 @@ export const ProductLists = () => {
             <Spin spinning={isLoading}>
                 <div className={c('content')}>
                     {lists.map(list => {
-                        return <ProductList key={list.id} list={list} />
+                        return <ProductList key={list.id} list={list} onChange={onChange} />
                     })}
                 </div>
             </Spin>

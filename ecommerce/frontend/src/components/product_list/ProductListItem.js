@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 import { api } from '../../api'
 import { round } from '../../utils'
 
-export const ProductListItem = ({ listId, product }) => {
+export const ProductListItem = ({ listId, product, onChange }) => {
     const [deleteLoading, setDeleteLoading] = useState(false)
 
     const onClickDelete = async () => {
@@ -19,6 +19,7 @@ export const ProductListItem = ({ listId, product }) => {
             } = await api.delete(`/lists/${listId}/product/${product.id}`)
             if (status.successful) {
                 notification.success({ message: status.message })
+                onChange()
                 // onAddressInfoChange()
             } else {
                 notification.warning({ message: status.message })

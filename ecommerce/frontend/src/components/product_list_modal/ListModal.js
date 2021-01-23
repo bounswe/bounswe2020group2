@@ -54,7 +54,7 @@ export const ListModal = ({ product = vendorOrders[0].product, visible = true, o
             setLoadingList(list)
             await api.post(`/lists/${list.id}/product/${product.id}`)
         } catch (error) {
-            notification.error({ description: 'Failed to remove product from list' })
+            notification.error({ description: 'Failed to add product to list' })
         } finally {
             setLoadingList(null)
         }
@@ -81,7 +81,7 @@ export const ListModal = ({ product = vendorOrders[0].product, visible = true, o
             await getLists(product, false)
         } catch (error) {
             console.error(error)
-            notification.error({ description: 'Failed to remove product from list' })
+            notification.error({ description: 'Failed to create product list' })
         } finally {
             setCreateLoading(false)
         }

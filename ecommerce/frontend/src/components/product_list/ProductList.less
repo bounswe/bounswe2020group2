@@ -7,16 +7,21 @@
 .product-list-header {
     display: flex;
 
-    & div {
-        flex: 1 0 auto;
-    }
+    // & div {
+    //     flex: 1 0 auto;
+    // }
+
     &-title {
         font-weight: bold;
         font-size: large;
     }
 
-    & &-details {
-        text-align: end;
-        align-self: center;
+    &-details {
+        margin-left: auto;
+        display: flex;
+        gap: 4px;
+        align-self: end;
+        // text-align: end;
+        // align-self: center;
     }
 }
