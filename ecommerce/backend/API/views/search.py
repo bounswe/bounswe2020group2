@@ -5,7 +5,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 
 from API.utils import permissions, Role
-from API.models import Product, Subcategory, Vendor, Brand
+from API.models import Product, ProductIndex, Subcategory, Vendor, Brand
 from django.db.models import Q
 #from API.serializers import search_serializer
 from API.serializers.product_serializer import ProductResponseSerializer
@@ -13,6 +13,9 @@ from API.serializers.vendor_serializer import VendorResponseSerializer
 
 import string
 import urllib.request
+import ssl
+import json
+import requests
 
 API_URL = "https://api.datamuse.com/words?ml="
 
@@ -33,24 +36,34 @@ def preprocess(sentence):
 def get_similar_queries(query):
     processed_query = '+'.join(preprocess(query))
     # get the content of the API
-    r = urllib.request.urlopen(API_URL+processed_query)
-    r.close()
-    results = r.read().decode("utf8")
-    results = JSONParser().parse(results)
+    r = requests.get(API_URL+processed_query)
+    results = r.content
+    results = json.loads(results)
     # return words of the top 10 results
     similar_queries = [d['word'] for d in results[:10]]
     return similar_queries
 
+# conduct semantic search for the given query
+def semantic_search_for(query):
+    similar_queries = get_similar_queries(query)
+    indexed_products = ProductIndex.objects.all()
+    or_filter = Q()
+    for query in similar_queries:
+        or_filter |= Q(text__icontains=query)
+    indexed_products = indexed_products.filter(or_filter).all().distinct()
+    return indexed_products
+
 @api_view(['POST'])
 @permission_classes([permissions.AllowAnonymous])
 def products(request):
+    semantic_search_for('telephone')
 #    print(request)
     query_data=JSONParser().parse(request)
 #    product_search_serializer = search_serializer.SearchProductsSerializer(request)
 #    print(query_data)
     query_set = Product.objects.all()
     if "query" in query_data:
-        query_set = query_set.filter(name__icontains=query_data["query"])
+        query_set = semantic_search_for(query_data["query"])
     if "subcategory" in query_data:
         query_set = query_set.filter(subcategory_id=query_data["subcategory"])
     elif "category" in query_data:
