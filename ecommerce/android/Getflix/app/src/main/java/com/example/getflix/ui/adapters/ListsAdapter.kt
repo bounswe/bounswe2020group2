@@ -47,12 +47,12 @@ class ListsAdapter(
         return RowHolder.from(parent)
     }
 
-    /*override fun getItemCount(): Int {
-        if (productList != null) {
-            return productList.count()
+    override fun getItemCount(): Int {
+        if (listList != null) {
+            return listList.count()
         }
         return 0;
-    }*/
+    }
 
     override fun onBindViewHolder(holder: ListsAdapter.RowHolder, position: Int) {
         listList?.get(position)?.let {
