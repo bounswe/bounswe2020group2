@@ -214,6 +214,7 @@ def vendor_product(request):
 
         index_image_url = ImageUrls.objects.filter(product=product).order_by('-index').first()
         index = index_image_url.index if index_image_url is not None else 0
+
         for image_b64 in request.data["images"]:
             img_array = base64.b64decode(image_b64)
             image = Image(image=img_array)
