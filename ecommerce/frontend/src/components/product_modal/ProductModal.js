@@ -59,7 +59,7 @@ export const ProductModal = ({
                 id: productId,
                 subcategory_id,
                 brand_id: values.brand.value,
-                discount: Number.parseFloat(values.discount),
+                discount: Number.parseFloat(values.discount) / 100,
                 price: Number.parseFloat(values.price),
                 stock_amount: Number.parseFloat(values.stock_amount),
                 images: newImages,
@@ -78,7 +78,7 @@ export const ProductModal = ({
             name: values.title,
             subcategory_id,
             brand_id: values.brand.value,
-            discount: Number.parseFloat(values.discount),
+            discount: Number.parseFloat(values.discount) / 100,
             price: Number.parseFloat(values.price),
             stock_amount: Number.parseFloat(values.stock_amount),
             images,
@@ -127,6 +127,7 @@ export const ProductModal = ({
         <Modal
             forceRender
             destroyOnClose
+            width={700}
             visible={visible}
             title={mode === 'add' ? 'Add a new product' : 'Edit your product'}
             onOk={mode === 'add' ? onAdd : onEdit}

@@ -1,15 +1,14 @@
 import './ProductModalInner.less'
 
-import { PlusOutlined } from '@ant-design/icons'
-import { AutoComplete, Button, Cascader, Form, Input, Modal, Steps, Upload, Select } from 'antd'
+import { PercentageOutlined, PlusOutlined } from '@ant-design/icons'
+import { Button, Cascader, Form, Input, Modal, Select, Steps, Upload } from 'antd'
+import { debounce } from 'debounce'
 import { getBase64 } from 'image-blobber'
 import * as R from 'ramda'
 import { useState } from 'react'
 
 import { api } from '../../api'
 import { useAppContext } from '../../context/AppContext'
-
-import { debounce } from 'debounce'
 
 // Renders the product information form
 const ProductModalInnerForm = ({ form, initialValues }) => {
@@ -104,7 +103,7 @@ const ProductModalInnerForm = ({ form, initialValues }) => {
             </Form.Item>
             <Form.Item
                 name="price"
-                label="Price (TL)"
+                label="Price"
                 rules={[
                     {
                         required: true,
@@ -120,7 +119,7 @@ const ProductModalInnerForm = ({ form, initialValues }) => {
                         },
                     },
                 ]}>
-                <Input />
+                <Input suffix={'TL'} />
             </Form.Item>
             <Form.Item
                 name="stock_amount"
@@ -161,7 +160,7 @@ const ProductModalInnerForm = ({ form, initialValues }) => {
                         },
                     },
                 ]}>
-                <Input.TextArea />
+                <Input.TextArea autoSize={{ minRows: 2, maxRows: 4 }} />
             </Form.Item>
             <Form.Item
                 name={'long_description'}
@@ -181,7 +180,7 @@ const ProductModalInnerForm = ({ form, initialValues }) => {
                         },
                     },
                 ]}>
-                <Input.TextArea />
+                <Input.TextArea autoSize={{ minRows: 3, maxRows: 6 }} />
             </Form.Item>
             <Form.Item
                 name={'discount'}
@@ -192,17 +191,17 @@ const ProductModalInnerForm = ({ form, initialValues }) => {
                         message: 'Please enter your discount percentage',
                     },
                     {
-                        message: 'Discount must be a number between 0 and 1',
+                        message: 'Discount must be a number between 0 and 100',
                         validator: (rule, val) => {
                             if (!val) return Promise.resolve(true)
                             const value = Number.parseFloat(val)
-                            return !Number.isNaN(value) && 0.0 <= value && value <= 1.0
+                            return !Number.isNaN(value) && 0.0 <= value && value <= 100.0
                                 ? Promise.resolve(true)
                                 : Promise.reject('Discount format is incorrect!')
                         },
                     },
                 ]}>
-                <Input />
+                <Input suffix={<PercentageOutlined />} />
             </Form.Item>
             <Form.Item
                 name={'category'}
@@ -316,10 +315,8 @@ export const ProductModalInner = ({ form, product }) => {
 
     const initialValues = product
         ? {
-              ...R.pick(
-                  ['title', 'discount', 'price', 'stock_amount', 'long_description', 'short_description'],
-                  product,
-              ),
+              ...R.pick(['title', 'price', 'stock_amount', 'long_description', 'short_description'], product),
+              discount: product.discount * 100,
               category: [product.category.id, product.subcategory.id],
               images: product.images.map(formatImageAsFile),
               brand: { value: product.brand.id, label: product.brand.name },
