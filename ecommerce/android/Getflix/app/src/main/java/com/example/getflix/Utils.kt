@@ -6,16 +6,14 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.view.inputmethod.InputMethodManager.*
 import androidx.fragment.app.Fragment
-
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.CategoryModel
 import com.example.getflix.models.SubcategoryModel
+
+import com.example.getflix.models.VendorModel
 import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.CardProUpdateRequest
 import com.example.getflix.service.responses.CardProUpdateResponse
-import com.example.getflix.ui.viewmodels.ProductViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,6 +21,7 @@ import retrofit2.Response
 
 
 
+var vendorModel : VendorModel? = null
 
 val categories = listOf<CategoryModel>(
         CategoryModel(

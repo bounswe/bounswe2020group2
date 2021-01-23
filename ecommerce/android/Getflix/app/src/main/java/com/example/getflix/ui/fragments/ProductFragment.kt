@@ -21,7 +21,9 @@ import com.example.getflix.doneAlert
 import com.example.getflix.ui.adapters.CommentAdapter
 import com.example.getflix.ui.adapters.ImageAdapter
 import com.example.getflix.ui.adapters.RecommenderAdapter
+import com.example.getflix.ui.fragments.ProductFragmentDirections.Companion.actionProductFragmentToVendorPageFragment
 import com.example.getflix.ui.viewmodels.ProductViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import me.relex.circleindicator.CircleIndicator2
@@ -71,9 +73,6 @@ class ProductFragment : Fragment() {
         val indicator: CircleIndicator2 = binding.circleIndicator
         indicator.attachToRecyclerView(binding.images, pagerSnapHelper)
 
-        binding.save.setOnClickListener {
-            productViewModel.onSaveClick()
-        }
         binding.imageView7.setOnClickListener {
             val scrollView = binding.scrollView
             val targetView = binding.detailsTitle
@@ -86,6 +85,12 @@ class ProductFragment : Fragment() {
         }
         binding.decrease.setOnClickListener {
             productViewModel.decreaseAmount()
+        }
+
+
+        binding.vendorDetail.setOnClickListener {
+            val vendor = productViewModel.product.value!!.vendor
+            view?.findNavController()!!.navigate(actionProductFragmentToVendorPageFragment(vendor))
         }
 
         binding.increase.setOnClickListener {
