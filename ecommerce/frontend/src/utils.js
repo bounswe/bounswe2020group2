@@ -126,14 +126,15 @@ export function formatPurchase(purchase) {
     }
 }
 
+export const orderStatusDisplayMapping = {
+    cancelled: 'Cancelled',
+    accepted: 'In progress',
+    at_cargo: 'At cargo',
+    delivered: 'Delivered',
+}
+
 export function formatOrderStatus(status) {
-    const statusMapping = {
-        cancelled: 'Cancelled',
-        accepted: 'In progress',
-        at_cargo: 'At cargo',
-        delivered: 'Delivered',
-    }
-    return statusMapping[orderStatusInvMap[status]]
+    return orderStatusDisplayMapping[orderStatusInvMap[status]]
 }
 
 export function formatOrder(order) {
