@@ -28,7 +28,7 @@ class OrderProductsAdapter(
             binding.listproduct = orderPurchased
             binding.cartProductName.setText(orderPurchased.product.name)
             binding.cartProductPrice.setText(orderPurchased.product.price.toString()+" TL")
-            binding.totalPriceCartProduct.setText((orderPurchased.unit_price*orderPurchased.amount).toString()+" TL")
+            binding.totalPriceCartProduct.setText("Total: "+(orderPurchased.unit_price*orderPurchased.amount).toString()+" TL")
             binding.amount.setText("Amount: "+orderPurchased.amount)
 
             if(!orderPurchased.product.images.isNullOrEmpty())
