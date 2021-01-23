@@ -29,16 +29,17 @@ def preprocess(sentence):
     sentence = [word for word in sentence if not word in stopwords] # stopword removal
     return sentence
 
-def get_synoynms_from_datamuse(query):
-    processed_query = '+'.join(query)
+# gets similar queries from the Datamuse API
+def get_similar_queries(query):
+    processed_query = '+'.join(preprocess(query))
+    # get the content of the API
     r = urllib.request.urlopen(API_URL+processed_query)
     r.close()
     results = r.read().decode("utf8")
     results = JSONParser().parse(results)
+    # return words of the top 10 results
     similar_queries = [d['word'] for d in results[:10]]
     return similar_queries
-
-
 
 @api_view(['POST'])
 @permission_classes([permissions.AllowAnonymous])
