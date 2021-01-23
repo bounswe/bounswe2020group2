@@ -23,10 +23,12 @@ import com.example.getflix.databinding.FragmentProductBinding
 import com.example.getflix.doneAlert
 import com.example.getflix.hideKeyboard
 import com.example.getflix.infoAlert
+import com.example.getflix.service.requests.CreateListRequest
 import com.example.getflix.ui.adapters.CommentAdapter
 import com.example.getflix.ui.adapters.ImageAdapter
 import com.example.getflix.ui.adapters.RecommenderAdapter
 import com.example.getflix.ui.fragments.ProductFragmentDirections.Companion.actionProductFragmentToVendorPageFragment
+import com.example.getflix.ui.viewmodels.ListViewModel
 import com.example.getflix.ui.viewmodels.ProductViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
@@ -39,6 +41,7 @@ import me.relex.circleindicator.CircleIndicator2
 class ProductFragment : Fragment() {
     private lateinit var binding: FragmentProductBinding
     private lateinit var productViewModel: ProductViewModel
+    private lateinit var listViewModel: ListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +54,8 @@ class ProductFragment : Fragment() {
         val args = ProductFragmentArgs.fromBundle(requireArguments())
         productViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
         productViewModel.getProduct(args.productId)
+
+        listViewModel = ViewModelProvider(this).get(ListViewModel::class.java)
 
         activity?.toolbar_lay!!.visibility = View.GONE
 
@@ -110,6 +115,7 @@ class ProductFragment : Fragment() {
                     dialog.setPositiveButton("Create") { dialogInterface: DialogInterface, i: Int ->
                         println(edit.text.toString())
                         hideKeyboard(requireActivity())
+                        listViewModel.createList(CreateListRequest(edit.text.toString()))
                     }
                     dialog.show()
                 }

@@ -167,6 +167,10 @@ interface GetflixApiService {
     @GET("lists")
     suspend fun getLists(@Header("Authorization") token: String): Response<ListsModel>
 
+    @Headers("Content-Type: application/json")
+    @POST("lists")
+    fun createList(@Header("Authorization") token: String, @Body listData: CreateListRequest): Call<CreateListResponse>
+
 }
 
 object GetflixApi {

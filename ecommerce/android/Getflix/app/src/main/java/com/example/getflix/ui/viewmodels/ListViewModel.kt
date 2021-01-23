@@ -7,7 +7,14 @@ import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.ListModel
 import com.example.getflix.models.ListsModel
 import com.example.getflix.service.GetflixApi
+import com.example.getflix.service.requests.AddressAddRequest
+import com.example.getflix.service.requests.CreateListRequest
+import com.example.getflix.service.responses.AddressAddResponse
+import com.example.getflix.service.responses.CreateListResponse
 import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ListViewModel : ViewModel() {
 
@@ -34,6 +41,29 @@ class ListViewModel : ViewModel() {
                 }
             }
         }
+    }
+
+    fun createList(createListRequest: CreateListRequest) {
+        GetflixApi.getflixApiService.createList(
+            "Bearer " + MainActivity.StaticData.user!!.token, createListRequest
+        )
+            .enqueue(object :
+                Callback<CreateListResponse> {
+                override fun onFailure(call: Call<CreateListResponse>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<CreateListResponse>,
+                    response: Response<CreateListResponse>
+                ) {
+                    println(response.body().toString())
+                    println(response.code())
+                    if (response.code() == 200)
+                      getCustomerLists()
+                }
+            }
+            )
     }
 
 

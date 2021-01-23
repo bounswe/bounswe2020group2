@@ -17,6 +17,7 @@ import com.example.getflix.databinding.FragmentListsBinding
 
 import com.example.getflix.hideKeyboard
 import com.example.getflix.models.*
+import com.example.getflix.service.requests.CreateListRequest
 import com.example.getflix.ui.adapters.ListsAdapter
 import com.example.getflix.ui.viewmodels.ListViewModel
 import com.google.android.material.textfield.TextInputEditText
@@ -43,40 +44,6 @@ class ListsFragment : Fragment() {
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.lists)
         val recView = binding?.listsList as RecyclerView
-
-
-      /*  val list1 = listOf<String>()
-        val list2 = mutableListOf<SubcategoryModel>()
-
-        var product = ProductModel(
-            27,
-            "Samsung S20 Ultra",
-            10999.0,
-            "2020-12-26T10:47:38.961041Z",
-            50,
-            11,
-            50,
-            "Ekran Boyutu: 6.2', Ekran Çözünürlüğü: 1440x3200 px, Arka Kamera: 12 MP, Üçlü Kamera, Ön Kamera: 10 MP, 4G, Dahili Hafıza: 128 GB",
-            SubcategoryModel("Cell Phones & Accessories", 2),
-            "Galaxy S serisi akıllı cep telefonlarıyla nefes kesici teknolojik yenilikleri sergileyen Samsung, sinematik kare/saniye oranlarında ve 8K çözünürlükte video kaydı yapan",
-            0.045,
-            CategoryModel("Electronics", 1, list2),
-            BrandModel("Samsung", 18),
-            VendorModel(0.0, 3, "Can Batuk"),
-            4.545454545454546,
-            list1,
-            10504.045,
-            false
-        )
-
-        val products = arrayListOf(product)
-        var list3 =
-            ListModel(10, "My Summer Collection", products)
-        var list4 =
-            ListModel(20, "My Winter Collection", products)
-        val lists = arrayListOf<ListModel>(list3, list4) */
-
-
 
 
 
@@ -116,6 +83,7 @@ class ListsFragment : Fragment() {
                 dialog.setPositiveButton("Create") { dialogInterface: DialogInterface, i: Int ->
                     println(edit.text.toString())
                     hideKeyboard(requireActivity())
+                    viewModel.createList(CreateListRequest(edit.text.toString()))
                 }
                 dialog.show()
             }
@@ -134,6 +102,7 @@ class ListsFragment : Fragment() {
                 dialog.setPositiveButton("Create") { dialogInterface: DialogInterface, i: Int ->
                     println(edit.text.toString())
                     hideKeyboard(requireActivity())
+                    viewModel.createList(CreateListRequest(edit.text.toString()))
                 }
                 dialog.show()
             }
