@@ -32,9 +32,11 @@
                     android:layout_height="200dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:background="@drawable/vendor_comment_background"
+                    android:padding="30dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/new_year3" />
+                    app:srcCompat="@drawable/ic_user" />
 
                 <TextView
                     android:id="@+id/vendor_name"
@@ -117,6 +119,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#EAEAEA"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/vendor_image">
@@ -127,7 +130,6 @@
                     android:id="@+id/tabLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/divider1"
