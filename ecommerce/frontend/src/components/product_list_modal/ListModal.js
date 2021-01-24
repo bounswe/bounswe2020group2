@@ -100,6 +100,7 @@ export const ListModal = ({ product = vendorOrders[0].product, visible = true, o
             width={700}
             visible={visible}
             onOk={onOk}
+            onCancel={onOk}
             okText={'Done'}
             cancelButtonProps={{ style: { display: 'none' } }}>
             <ListModalInner
