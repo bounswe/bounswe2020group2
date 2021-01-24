@@ -12,7 +12,7 @@ import { ProductImageGallery } from './ProductImageGallery'
 import { ListModal } from '../product_list_modal/ListModal'
 
 export const ProductHeader = ({ product, loading = false }) => {
-    const { addShoppingCartItem } = useAppContext()
+    const { addShoppingCartItem, user } = useAppContext()
     const [addLoading, setAddLoading] = useState(false)
     const [isProductListModalVisible, setProductListModalVisible] = useState(false)
 
