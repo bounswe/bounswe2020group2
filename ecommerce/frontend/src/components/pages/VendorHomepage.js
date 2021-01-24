@@ -39,6 +39,11 @@ export const VendorHomepage = props => {
         setModalVisibility(true)
     }
 
+    const onAddProduct = () => {
+        setModalType('add')
+        setModalVisibility(true)
+    }
+
     const onSuccessModal = () => {
         setModalVisibility(false)
     }
@@ -51,10 +56,6 @@ export const VendorHomepage = props => {
         setEditMode(checked)
     }
 
-    const onAddProduct = () => {
-        setModalType('add')
-        setModalVisibility(true)
-    }
     const addProductButton = (
         <Button type="primary" icon={<PlusCircleOutlined />} onClick={onAddProduct}>
             Add Product

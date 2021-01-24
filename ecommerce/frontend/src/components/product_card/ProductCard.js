@@ -41,7 +41,9 @@ export const ProductCard = ({
                         <Button
                             type="link"
                             icon={<DeleteOutlined />}
-                            onClick={onDeleteProductCard}
+                            onClick={() => {
+                                onDeleteProductCard(product.id)
+                            }}
                             style={{
                                 color: '#472836',
                                 backgroundColor: '#e2be5a',
