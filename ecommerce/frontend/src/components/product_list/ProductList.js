@@ -10,13 +10,18 @@ import { useAppContext } from '../../context/AppContext'
 
 export const ProductList = ({ list, onChange }) => {
     const [deleteLoading, setDeleteLoading] = useState(false)
-    const { addShoppingCartItem } = useAppContext()
     const [addLoading, setAddLoading] = useState(false)
+    const { user } = useAppContext()
 
-    const onAddListToShoppingCart = async () => {
+    const onAddListToShoppingCart = async e => {
+        e.stopPropagation()
         try {
             setAddLoading(true)
-            await Promise.all(list.product.map(({ product }) => async () => await addShoppingCartItem(product, 1)))
+            await Promise.all(
+                list.products.map(({ product }) =>
+                    api.post(`/customer/${user.id}/shoppingcart`, { product_id: product.id, amount: 1 }),
+                ),
+            )
         } catch (error) {
             // error is probably already caught inside addShoppingCartItem
             console.error(error)
@@ -39,7 +44,6 @@ export const ProductList = ({ list, onChange }) => {
                     if (status.successful) {
                         notification.success({ message: status.message })
                         onChange()
-                        // onAddressInfoChange()
                     } else {
                         notification.warning({ message: status.message })
                     }

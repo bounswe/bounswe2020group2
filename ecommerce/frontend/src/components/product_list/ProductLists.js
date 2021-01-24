@@ -8,8 +8,6 @@ import { useAppContext } from '../../context/AppContext'
 import { formatList } from '../../utils'
 import { ProductList } from './ProductList'
 
-// import { Purchase } from './Purchase'
-
 export const ProductLists = () => {
     const [lists, setLists] = useState([])
     const [isLoading, setIsLoading] = useState(false)
