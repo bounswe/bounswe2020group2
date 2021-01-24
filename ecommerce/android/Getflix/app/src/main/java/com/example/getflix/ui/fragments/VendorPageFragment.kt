@@ -48,7 +48,7 @@ class VendorPageFragment : Fragment() {
             when (position) {
                 0 -> tab.setIcon(R.drawable.ic_squares)
                 1 -> tab.setIcon(R.drawable.ic_grid)
-                else -> tab.setIcon(R.drawable.ic_grid)
+                else -> tab.setIcon(R.drawable.ic_speech_bubble)
             }
         }.attach()
         binding.vendorRating.text = vendor.rating.toString()

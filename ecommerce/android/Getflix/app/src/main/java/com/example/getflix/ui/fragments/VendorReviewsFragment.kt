@@ -40,7 +40,7 @@ class VendorReviewsFragment : Fragment() {
         binding.reviews.adapter = adapter
         val layoutManager = LinearLayoutManager(activity)
         binding.reviews.layoutManager = layoutManager
-        vendorReviewsViewModel.reviews.observe(viewLifecycleOwner, Observer {
+        vendorReviewsViewModel.comments.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 println(it)
                 adapter.submitList(it)

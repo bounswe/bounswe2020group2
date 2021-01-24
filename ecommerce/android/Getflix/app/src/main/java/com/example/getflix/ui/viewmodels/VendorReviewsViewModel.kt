@@ -19,12 +19,14 @@ class VendorReviewsViewModel : ViewModel() {
     val products: LiveData<List<ProductModel>?>
         get() = _products
 
-    private val _reviews = MutableLiveData<MutableList<ReviewModel>>()
-    val reviews: LiveData<MutableList<ReviewModel>?>
-        get() = _reviews
+    private val _comments = MutableLiveData<MutableList<ReviewModel>>()
+    val comments: LiveData<MutableList<ReviewModel>>
+        get() = _comments
+
+
     private var  currentReviews : MutableList<ReviewModel>
     init {
-        _reviews.value = mutableListOf()
+        _comments.value = mutableListOf()
         currentReviews = mutableListOf()
         getProductsOfVendor()
     }
@@ -55,10 +57,11 @@ class VendorReviewsViewModel : ViewModel() {
 
     fun getAllReviewsOfVendor() {
         if (_products.value != null) {
+            /*
             for (product in _products.value!!) {
                 getProductReviews(product.id)
-            }
-
+            }*/
+            getProductReviews(_products.value!!.get(0).id)
         }
     }
 
@@ -76,12 +79,12 @@ class VendorReviewsViewModel : ViewModel() {
                     response: Response<ProductReviewListModel>
                 ) {
                     if (response.body() != null && response.body()!!.reviews != null) {
-                        _reviews.value!!.addAll(response.body()!!.reviews!!)
+                        println(response.body()!!.reviews!!)
+                        _comments.value = (response.body()!!.reviews as MutableList<ReviewModel>?)!!
                     }
                 }
             }
             )
     }
-
-
+    
 }
