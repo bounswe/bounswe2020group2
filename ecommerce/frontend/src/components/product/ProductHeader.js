@@ -12,7 +12,7 @@ import { ProductExtra } from './ProductExtra'
 import { ProductImageGallery } from './ProductImageGallery'
 
 export const ProductHeader = ({ product, loading = false }) => {
-    const { addShoppingCartItem } = useAppContext()
+    const { addShoppingCartItem, user } = useAppContext()
     const [addLoading, setAddLoading] = useState(false)
     const [isChooseListModalVisible, setIsChooseListModalVisible] = useState(false)
 
@@ -107,17 +107,19 @@ export const ProductHeader = ({ product, loading = false }) => {
                 <div className="product-header-extra">
                     <ProductExtra product={product} loading={loading} />
                 </div>
-                <div className="product-header-buttons">
-                    <Button
-                        loading={addLoading}
-                        onClick={onAddToCartClicked}
-                        size="large"
-                        type="primary"
-                        icon={<ShoppingCartOutlined />}>
-                        Add to cart
-                    </Button>
-                    <Button onClick={onAddToListClicked} size="large" icon={<HeartOutlined />} />
-                </div>
+                {user.type === 'customer' && (
+                    <div className="product-header-buttons">
+                        <Button
+                            loading={addLoading}
+                            onClick={onAddToCartClicked}
+                            size="large"
+                            type="primary"
+                            icon={<ShoppingCartOutlined />}>
+                            Add to cart
+                        </Button>
+                        <Button onClick={onAddToListClicked} size="large" icon={<HeartOutlined />} />
+                    </div>
+                )}
                 <Modal
                     visible={isChooseListModalVisible}
                     onCancel={onClose}
