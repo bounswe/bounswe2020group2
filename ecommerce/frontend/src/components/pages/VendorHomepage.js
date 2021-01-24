@@ -21,8 +21,18 @@ export const VendorHomepage = props => {
     const [modalVisibility, setModalVisibility] = useState(false)
     const [modalType, setModalType] = useState('add')
 
-    const onDeleteProductCard = () => {
-        console.log('delete product card')
+    const onDeleteProductCard = productId => {
+        console.log('delete product card', productId)
+        // async function fetch() {
+        //     try {
+        //         const { data } = await api.delete(`/vendor/product`, { productId })
+        //     } catch (error) {
+        //         console.error('failed to delete product', error)
+        //     } finally {
+        //     }
+        // }
+
+        // fetch()
     }
     const onEditProductCard = () => {
         setModalType('edit')
