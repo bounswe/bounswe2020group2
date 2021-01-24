@@ -73,7 +73,6 @@ export const ProductCard = ({
                 <div className="card-new-price">{round(price_after_discount, 1) + ' ' + currency}</div>
             </div>
             {!isVendor && (
-
                 <div className="card-add-button">
                     <Button
                         size="large"
@@ -87,7 +86,6 @@ export const ProductCard = ({
                     <Button size="large" type="ghost" icon={<HeartOutlined />} onClick={() => onAddToList(product)} />
                 </div>
             )}
-            </div>
         </div>
     )
 }
