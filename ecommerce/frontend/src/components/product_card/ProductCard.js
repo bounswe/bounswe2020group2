@@ -7,7 +7,7 @@ import { useAppContext } from '../../context/AppContext'
 import { round, truncate } from '../../utils'
 
 export const ProductCard = ({ product, width = 350 }) => {
-    const { addShoppingCartItem } = useAppContext()
+    const { addShoppingCartItem, user } = useAppContext()
 
     const onAddToCart = product => {
         addShoppingCartItem(product, 1)
@@ -38,17 +38,24 @@ export const ProductCard = ({ product, width = 350 }) => {
                     ) : null}
                     <div className="card-new-price">{round(price_after_discount, 1) + ' ' + currency}</div>
                 </div>
-                <div className="card-add-button">
-                    <Button
-                        size="large"
-                        type="primary"
-                        icon={<PlusCircleOutlined />}
-                        onClick={() => onAddToCart(product)}
-                        block>
-                        Add to cart
-                    </Button>
-                    <Button size="large" type="ghost" icon={<HeartOutlined />} onClick={() => onAddToList(product)} />
-                </div>
+                {user.type === 'customer' && (
+                    <div className="card-add-button">
+                        <Button
+                            size="large"
+                            type="primary"
+                            icon={<PlusCircleOutlined />}
+                            onClick={() => onAddToCart(product)}
+                            block>
+                            Add to cart
+                        </Button>
+                        <Button
+                            size="large"
+                            type="ghost"
+                            icon={<HeartOutlined />}
+                            onClick={() => onAddToList(product)}
+                        />
+                    </div>
+                )}
             </div>
         </div>
     )

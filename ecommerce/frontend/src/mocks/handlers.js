@@ -10,6 +10,7 @@ import {
     cards,
     verifications,
     accounts,
+    recommendations,
     conversations,
     vendorOrders,
 } from './mocks'
@@ -64,6 +65,9 @@ export const handlers = [
     //     const { params, body } = req
     //     const { token } = params
     //     return res(ctx.json({ data: { message: verifications[Math.floor(Math.random() * verifications.length)] } }))
+    // }),
+    // rest.get(url('/recommendations'), (req, res, ctx) => {
+    //     return res(ctx.json(recommendations))
     // }),
     // rest.get(url('/review'), (req, res, ctx) => {
     //     const id = req.url.searchParams.get('product')
