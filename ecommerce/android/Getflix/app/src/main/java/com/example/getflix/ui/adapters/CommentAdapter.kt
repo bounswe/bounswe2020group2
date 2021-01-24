@@ -24,6 +24,8 @@ class CommentAdapter :
     private fun ViewHolder.bind(reviewModel: ReviewModel) {
         val comment = reviewModel.comment
         val profileImage = R.id.profile_image
+        val commentDate = R.id.comment_date
+
         val constraintLayout = binding.constraintLayout
         binding.reviewer.text =
             reviewModel.reviewed_by.firstname + " " + reviewModel.reviewed_by.lastname
@@ -32,7 +34,8 @@ class CommentAdapter :
         } else {
             binding.shortComment.text = comment.substring(0, 180) + "..."
         }
-
+        binding.reviewRate.text =   reviewModel.rating.toString()
+        binding.commentDate.text = reviewModel.review_date.substring(0,10) + " " + reviewModel.review_date.substring(11,19)
         binding.root.setOnClickListener {
             if (comment.length > 180 && binding.shortComment.visibility == View.VISIBLE) {
                 binding.longComment.text = comment
@@ -52,6 +55,21 @@ class CommentAdapter :
                     ConstraintSet.BOTTOM,
                     0
                 )
+                constraintSet.connect(
+                    commentDate,
+                    ConstraintSet.BOTTOM,
+                    R.id.long_comment,
+                    ConstraintSet.TOP,
+                    0
+                )
+                constraintSet.connect(
+                    commentDate,
+                    ConstraintSet.END,
+                    R.id.long_comment,
+                    ConstraintSet.END,
+                    0
+                )
+
                 constraintSet.applyTo(constraintLayout)
                 binding.shortComment.visibility = View.GONE
                 binding.longComment.visibility = View.VISIBLE
@@ -70,6 +88,20 @@ class CommentAdapter :
                     ConstraintSet.BOTTOM,
                     R.id.short_comment,
                     ConstraintSet.BOTTOM,
+                    0
+                )
+                constraintSet.connect(
+                    commentDate,
+                    ConstraintSet.BOTTOM,
+                    R.id.short_comment,
+                    ConstraintSet.TOP,
+                    0
+                )
+                constraintSet.connect(
+                    commentDate,
+                    ConstraintSet.END,
+                    R.id.short_comment,
+                    ConstraintSet.END,
                     0
                 )
                 constraintSet.applyTo(constraintLayout)
