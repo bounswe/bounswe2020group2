@@ -1,10 +1,11 @@
 import { useAppContext } from '../../context/AppContext'
 import React, { useEffect, useState } from 'react'
-import { Spin, Button, Rate, Switch } from 'antd'
+import { Spin, Button, Rate, Switch, Modal } from 'antd'
 import { api } from '../../api'
 import { useHistory } from 'react-router-dom'
 import { EditOutlined } from '@ant-design/icons'
 import { round } from '../../utils'
+import { MessageModalInner } from '../MessageModalInner'
 import './VendorSplash.less'
 
 const getVendorRatingLevel = ({ rating }) => {
@@ -24,14 +25,13 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
     const { user } = useAppContext()
     const isVendorAndOwner = user.type === 'vendor' && vendorId === user.id.toString()
     const history = useHistory()
+    const [messageModalVisible, setMessageModalVisible] = useState(false)
 
     useEffect(() => {
         async function fetch() {
             try {
                 setIsLoading(true)
-                const {
-                    data: { data },
-                } = await api.get(`/vendor/${vendorId}/details`)
+                const { data } = await api.get(`/vendor/${vendorId}/details`)
                 setVendorHeaderDetails(data)
             } catch (error) {
                 console.error(error)
@@ -42,15 +42,31 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
         fetch()
     }, [])
 
-    const onSendMessage = () => {
+    const onMessageEnd = () => {
+        setMessageModalVisible(false)
+        history.push('/profile/messages/')
+    }
+
+    const onMessageClick = event => {
+        event.stopPropagation()
+        setMessageModalVisible(true)
+
         // Send message modal popup
         // Sends the message from modal
         // Go to profile/messages
-        history.push('/profile/messages/')
     }
     const { title, image_url, description, rating } = vendorHeaderDetails
     return (
         <Spin spinning={isLoading}>
+            <Modal
+                destroyOnClose
+                title={`Send a message to ${title}`}
+                visible={messageModalVisible}
+                onOk={onMessageClick}
+                onCancel={onMessageEnd}
+                footer={null}>
+                <MessageModalInner receiverId={user.receiverId} onFinish={onMessageEnd} />
+            </Modal>
             <div className="vendor-splash">
                 <div className="vendor-image">
                     <img src={image_url} className="splash-logo"></img>
@@ -75,12 +91,7 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
                                 <Switch defaultChecked={true} onChange={onEditModeChange} />
                             </div>
                         ) : (
-                            <Button
-                                type="primary"
-                                icon={<EditOutlined />}
-                                onClick={() => {
-                                    onSendMessage()
-                                }}>
+                            <Button type="primary" icon={<EditOutlined />} onClick={onMessageClick}>
                                 Send a message
                             </Button>
                         )}
