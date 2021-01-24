@@ -54,7 +54,7 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = user_model.User
-        fields = ('id', 'email', 'token', 'firstname', 'lastname', 'is_verified', 'role')
+        fields = ('id', 'email', 'username', 'token', 'firstname', 'lastname', 'is_verified', 'role')
     
 
 class LoginResponseSerializer(serializers.ModelSerializer):
