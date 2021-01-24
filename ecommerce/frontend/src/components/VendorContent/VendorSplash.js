@@ -4,7 +4,7 @@ import { Spin, Button, Rate, Switch, Modal } from 'antd'
 import { api } from '../../api'
 import { useHistory } from 'react-router-dom'
 import { EditOutlined } from '@ant-design/icons'
-import { round, getVendorRatingLevel } from '../../utils'
+import { round, getVendorRatingLevel, formatImageUrl } from '../../utils'
 import { MessageModalInner } from '../MessageModalInner'
 import './VendorSplash.less'
 
@@ -21,6 +21,7 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
         async function fetch() {
             try {
                 setIsLoading(true)
+                console.log('asdasd')
                 const { data } = await api.get(`/vendor/${vendorId}/details`)
                 setVendorHeaderDetails(data)
             } catch (error) {
@@ -41,7 +42,8 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
         event.stopPropagation()
         setMessageModalVisible(true)
     }
-    const { title, image_url, description, rating } = vendorHeaderDetails
+    const { title, image_url, description, rating_count } = vendorHeaderDetails
+    const rating = rating_count
     return (
         <Spin spinning={isLoading}>
             <Modal
@@ -55,7 +57,7 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
             </Modal>
             <div className="vendor-splash">
                 <div className="vendor-image">
-                    <img src={image_url} className="splash-logo"></img>
+                    <img src={formatImageUrl(image_url ?? '')} className="splash-logo"></img>
                 </div>
                 <div className="vendor-header">
                     <div className="vendor-header-content">

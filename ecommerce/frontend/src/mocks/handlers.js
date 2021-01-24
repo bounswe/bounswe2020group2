@@ -31,12 +31,12 @@ const url = u => config.apiUrl + u
 // comment the handler when done with it, DO NOT REMOVE IT
 
 export const handlers = [
-    rest.get(url('/vendor/:id/details'), (req, res, ctx) => {
-        const { params } = req
-        const { id } = params
-        const minId = min(id, vendorDetails.length - 1) // If request vendorId=55 then get 4 (last element)
-        return res(ctx.json(vendorDetails[minId]))
-    }),
+    // rest.get(url('/vendor/:id/details'), (req, res, ctx) => {
+    //     const { params } = req
+    //     const { id } = params
+    //     const minId = min(id, vendorDetails.length - 1) // If request vendorId=55 then get 4 (last element)
+    //     return res(ctx.json(vendorDetails[minId]))
+    // }),
     // url(...) is important here !!
     // rest.get(url('/example/user/:userId'), (req, res, ctx) => {
     //     const { params, body } = req
