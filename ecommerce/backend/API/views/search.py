@@ -32,6 +32,14 @@ def preprocess(sentence):
     sentence = [word for word in sentence if not word in stopwords] # stopword removal
     return sentence
 
+# converts the search-related fields into one preprocessed text
+def get_indexed_text_of_product(product):
+    data = ProductResponseSerializer(product).data
+    text = " ".join(preprocess(" ".join([data['name'], data['long_description'],
+        data['short_description'], data['category']['name'], data['subcategory']['name'],
+            data['vendor']['name']])))
+    return text
+
 # gets similar queries from the Datamuse API
 def get_similar_queries(query):
     processed_query = '+'.join(preprocess(query))
