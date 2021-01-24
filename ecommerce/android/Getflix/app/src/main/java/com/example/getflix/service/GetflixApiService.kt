@@ -157,6 +157,9 @@ interface GetflixApiService {
     @PUT("vendor/product")
     fun updateVendorProduct(@Header("Authorization") token: String, @Body vendorProData: VendorProUpdateRequest): Call<VendorProUpdateResponse>
 
+    @Headers("Content-Type: application/json")
+    @POST("changepassword")
+    fun changePassword(@Body password: ForgotPasswordRequest): Call<Status>
 
 }
 
