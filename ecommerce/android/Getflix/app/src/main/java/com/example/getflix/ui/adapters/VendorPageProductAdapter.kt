@@ -26,11 +26,9 @@ class VendorPageProductAdapter :
     }
 
     private fun ViewHolder.bind(product: ProductModel) {
-        /*
+
         Picasso.get().load(product.images[0]).into(binding.productImage)
-        binding.root.setOnClickListener {
-            HomeViewModel.onProductClick.value = product
-        }
+
         var amount = binding.amountRecProduct.text.toString().toInt()
 
         binding.product = product
@@ -40,6 +38,7 @@ class VendorPageProductAdapter :
             binding.oldProductPrice.text = product.price.toString() + " TL"
 
         }
+
         binding.oldProductPrice.setPaintFlags(binding.oldProductPrice.getPaintFlags() or Paint.STRIKE_THRU_TEXT_FLAG)
         if (product.priceDiscounted.toString().length > 5) {
             binding.productPrice.text =
@@ -68,7 +67,7 @@ class VendorPageProductAdapter :
         binding.save.setOnClickListener {
                 //binding.save.setImageResource(R.drawable.saved_product)
                 //binding.save.setImageResource(R.drawable.nonsaved_product)
-        }*/
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

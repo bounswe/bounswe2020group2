@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentNByThreeGridBinding
 import com.example.getflix.ui.adapters.VendorPageProductAdapter
+import com.example.getflix.ui.adapters.VendorPageProductSmallAdapter
 import com.example.getflix.ui.viewmodels.NByThreeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -33,11 +34,10 @@ class NByThreeGridFragment : Fragment() {
 
         activity?.toolbar_lay!!.visibility = View.GONE
         binding.lifecycleOwner = this
-
         nByThreeViewModel = ViewModelProvider(this).get(NByThreeViewModel::class.java)
-        nByThreeViewModel.getProductsOfVendor()
+
         println("Giriş yapıldı")
-        val adapter = VendorPageProductAdapter()
+        val adapter = VendorPageProductSmallAdapter()
         binding.vendorProductsInThreeColumns.adapter = adapter
         val layoutManager = GridLayoutManager(requireContext(),3)
         binding.vendorProductsInThreeColumns.layoutManager = layoutManager

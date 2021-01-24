@@ -32,14 +32,13 @@ class NByTwoGridFragment : Fragment() {
         )
         binding.lifecycleOwner = this
         nByTwoViewModel = ViewModelProvider(this).get(NByTwoViewModel::class.java)
-        nByTwoViewModel.getProductsOfVendor()
+
         val adapter = VendorPageProductAdapter()
         binding.vendorProductsInTwoColumns.adapter = adapter
         val layoutManager = GridLayoutManager(requireContext(),2)
         binding.vendorProductsInTwoColumns.layoutManager = layoutManager
         nByTwoViewModel.products.observe(viewLifecycleOwner, Observer {
             if(it!=null){
-                println("response niyee abdateEdilmiyor")
                 adapter.submitList(it)
             }
         })
