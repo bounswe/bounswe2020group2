@@ -17,9 +17,11 @@
         android:supportsRtl="true"
         tools:replace="android:label"
         android:theme="@style/AppTheme">
-        <meta-data
+
+        <!--<meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/map_key" />
+            android:value="@string/map_key" />-->
+      
         <activity android:name="com.example.getflix.activities.SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>

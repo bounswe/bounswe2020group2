@@ -121,9 +121,13 @@
             app:popExitAnim="@anim/exit_right_to_left" />
     </fragment>
     <fragment
-        android:id="@+id/favoritesFragment"
+        android:id="@+id/listsFragment"
         android:name="com.example.getflix.ui.fragments.ListsFragment"
-        tools:layout="@layout/fragment_lists" />
+        tools:layout="@layout/fragment_lists" >
+        <action
+            android:id="@+id/action_listsFragment_to_listProductsFragment"
+            app:destination="@id/listProductsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/subcategoryFragment"
         android:name="com.example.getflix.ui.fragments.SubcategoryFragment"
@@ -243,6 +247,9 @@
         <action
             android:id="@+id/action_orderInfoFragment_to_profileFragment2"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_orderInfoFragment_to_orderProductsFragment"
+            app:destination="@id/orderProductsFragment" />
     </fragment>
 
     <fragment
@@ -331,8 +338,24 @@
         app:argType="com.example.getflix.models.ProductModel" />
     </fragment>
     <fragment
+        android:id="@+id/listProductsFragment"
+        android:name="com.example.getflix.ui.fragments.ListProductsFragment"
+        tools:layout="@layout/fragment_list_products">
+    <argument
+        android:name="products"
+        app:argType="com.example.getflix.models.ProductModel[]" />
+    </fragment>
+    <fragment
         android:id="@+id/notificationFragment"
         android:name="com.example.getflix.ui.fragments.NotificationFragment" />
+    <fragment
+        android:id="@+id/orderProductsFragment"
+        android:name="com.example.getflix.ui.fragments.OrderProductsFragment"
+        tools:layout="@layout/fragment_order_products">
+    <argument
+        android:name="products"
+        app:argType="com.example.getflix.models.OrderPurchasedModel[]" />
+    </fragment>
     <fragment
         android:id="@+id/vendorPageFragment"
         android:name="com.example.getflix.ui.fragments.VendorPageFragment"
@@ -341,7 +364,6 @@
         android:name="vendorId"
         app:argType="integer" />
     </fragment>
-
 
 
 </navigation>

@@ -11,7 +11,7 @@
         android:title="@string/categories" />
 
     <item
-        android:id="@+id/favoritesFragment"
+        android:id="@+id/listsFragment"
         android:icon="@drawable/ic_baseline_format_list_bulleted_24"
         android:title="@string/lists" />
 
