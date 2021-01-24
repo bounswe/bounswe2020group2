@@ -19,6 +19,7 @@ export const VendorHomepage = props => {
     const { user } = useAppContext()
     const isVendorAndOwner = user.type === 'vendor' && vendorId === user.id.toString()
     const [modalVisibility, setModalVisibility] = useState(false)
+    const [modalType, setModalType] = useState('add')
 
     const onDeleteProductCard = () => {
         console.log('delete product card')
@@ -51,7 +52,12 @@ export const VendorHomepage = props => {
     return (
         <div className="vendor-homepage">
             <VendorSplash vendorId={vendorId} editable={editMode} onEditModeChange={onEditModeChange} />
-            <ProductModal mode="add" visible={modalVisibility} onSuccess={onSuccessModal} onCancel={onCancelModal} />
+            <ProductModal
+                mode={modalType}
+                visible={modalVisibility}
+                onSuccess={onSuccessModal}
+                onCancel={onCancelModal}
+            />
             <div>
                 <Tabs type="card" tabBarExtraContent={isVendorAndOwner ? addProductButton : null}>
                     <TabPane tab="Products" key="vendor-products">
