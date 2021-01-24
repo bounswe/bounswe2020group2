@@ -7,32 +7,81 @@ import { Link } from 'react-router-dom'
 import { BellTwoTone, DeleteTwoTone } from '@ant-design/icons'
 import './Notifications.less'
 
-const onSeenAllNotifications = () => {}
+const onSeenAllNotifications = () => {
+    console.log('mark all as seen: ')
+    const fetch = async () => {
+        const { data } = await api.post('/notifications')
+    }
+    try {
+        fetch()
+    } catch (error) {
+        console.error(error)
+    } finally {
+        // TODO add success message
+    }
+}
 
-const onSeenNotification = () => {}
+const onSeenNotification = notificationId => {
+    console.log('mark as seen: ', notificationId)
+    const fetch = async () => {
+        const { data } = await api.post(`/notifications/${notificationId}`)
+    }
+    try {
+        fetch()
+    } catch (error) {
+        console.error(error)
+    } finally {
+        // TODO add success message
+    }
+}
 
-const onDeleteAllNotifications = () => {}
+const onDeleteAllNotifications = () => {
+    console.log('deleted all')
+    // const fetch = async () => {
+    //     const { data } = await api.post('/notifications')
+    // }
+    // try {
+    //     fetch()
+    // } catch (error) {
+    //     console.error(error)
+    // } finally {
+    //     // TODO add success message
+    // }
+}
 
 const priceChangeTextTemplate = (title, old_price, new_price) => {
-    return `Price of ${title} has changed from ${old_price}TL to ${new_price}TL`
+    if (old_price < new_price) {
+        return 'Price of a product in your wishlist has changed.'
+    } else {
+        return 'A product in your wishlist is now cheaper. Don’t miss out!'
+    }
 }
 const orderStatusChangeTextTemplate = (title, old_status, new_status) => {
-    return `A status of your order has changed from ${old_status} to ${new_status}`
+    if (new_status == 'at_cargo') {
+        return 'Your order is now on the way.'
+    } else if (new_status == 'delivered') {
+        return 'Your order is delivered. Enjoy!'
+    } else if (new_status == 'accepted') {
+        return 'Your order is accepted.'
+    }
+    return `Your order status has changed.`
 }
 
 const priceChangeDetail = product => {
     return {
         title: priceChangeTextTemplate(product.title, product.old_price, product.new_price),
-        link: product.id,
+        link: `/product/${product.id}`,
         image_url: product.image_url,
+        link_text: 'See the product',
     }
 }
 
 const orderStatusChangeDetail = order => {
     return {
         title: orderStatusChangeTextTemplate(order.title, order.old_status, order.new_status),
-        link: order.id,
+        link: '/profile/orders',
         image_url: 'https://github.com/bounswe/bounswe2020group2/blob/master/images/order_update.jpg?raw=true',
+        link_text: 'Go to Orders page',
     }
 }
 export const Notifications = () => {
@@ -99,7 +148,7 @@ export const Notifications = () => {
                                 <div className="notification-message">
                                     <div>
                                         <p>{notificationDetail.title}</p>
-                                        <Link to={`/product/${notificationDetail.link}`}>See new deal now. </Link>{' '}
+                                        <Link to={notificationDetail.link}>{notificationDetail.link_text}</Link>{' '}
                                     </div>
                                     <div className="notification-date">{moment(notification.date).fromNow()}</div>
                                 </div>
@@ -108,7 +157,9 @@ export const Notifications = () => {
                                         <Button
                                             type="default"
                                             icon={<BellTwoTone twoToneColor="#52c41a" />}
-                                            onClick={onSeenNotification}>
+                                            onClick={() => {
+                                                onSeenNotification(notification.id)
+                                            }}>
                                             Mark as Seen
                                         </Button>
                                     </div>
