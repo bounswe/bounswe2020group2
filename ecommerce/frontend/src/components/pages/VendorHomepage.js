@@ -25,7 +25,8 @@ export const VendorHomepage = props => {
         console.log('delete product card')
     }
     const onEditProductCard = () => {
-        console.log('edit product card')
+        setModalType('edit')
+        setModalVisibility(true)
     }
 
     const onSuccessModal = () => {
@@ -41,7 +42,8 @@ export const VendorHomepage = props => {
     }
 
     const onAddProduct = () => {
-        console.log('Adding product here')
+        setModalType('add')
+        setModalVisibility(true)
     }
     const addProductButton = (
         <Button type="primary" icon={<PlusCircleOutlined />} onClick={onAddProduct}>
