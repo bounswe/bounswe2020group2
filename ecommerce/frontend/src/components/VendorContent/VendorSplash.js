@@ -36,7 +36,6 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
             } catch (error) {
                 console.error(error)
             } finally {
-                console.log('hi')
                 setIsLoading(false)
             }
         }
