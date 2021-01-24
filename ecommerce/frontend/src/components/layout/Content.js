@@ -30,7 +30,7 @@ export const Content = () => {
     return (
         <Layout.Content className="content">
             <CategoryBar />
-            {isUser && user.is_verified && <IsVerifiedNotification />}
+            {!location.pathname.startsWith('/profile') && isUser && !user.is_verified && <IsVerifiedNotification />}
 
             <Switch>
                 {isUser && <Route path="/verify/:id" component={EmailVerification} />}
