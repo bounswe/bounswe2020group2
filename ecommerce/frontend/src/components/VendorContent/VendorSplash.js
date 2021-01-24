@@ -13,7 +13,7 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
     const [isLoading, setIsLoading] = useState(true)
 
     const { user } = useAppContext()
-    const isVendorAndOwner = user.type === 'vendor' && vendorId === user.id.toString()
+    const isVendorAndOwner = user.type === 'vendor' && vendorId === user.id
     const history = useHistory()
     const [messageModalVisible, setMessageModalVisible] = useState(false)
 

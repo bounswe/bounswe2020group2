@@ -14,9 +14,10 @@ import { ProductModal } from '../product_modal/ProductModal'
 const { TabPane } = Tabs
 
 export const VendorHomepage = props => {
-    const { vendorId } = props.match.params
+    const { id } = props.match.params
+    const vendorId = parseInt(id)
     const { user } = useAppContext()
-    const isVendorAndOwner = user.type === 'vendor' && vendorId === user.id.toString()
+    const isVendorAndOwner = user.type === 'vendor' && vendorId === user.id
     const [editMode, setEditMode] = useState(isVendorAndOwner)
     const [modalVisibility, setModalVisibility] = useState(false)
     const [modalType, setModalType] = useState('add')
