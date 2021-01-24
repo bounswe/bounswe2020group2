@@ -23,6 +23,7 @@ urlpatterns = [
     path('regularsignup', views.account.register, name="register"),
     path('regularlogin', views.account.login, name="login"),
     path('init', views.account.init, name="init"),
+    path('changepassword', views.account.change_password, name="changepassword"),
     path('products/homepage/<int:num>', views.product.get_homepage_products),
     path('product/<int:product_id>', views.product.get_product_detail),
     path('categories', views.category.get_categories),
@@ -43,7 +44,15 @@ urlpatterns = [
     path('vendor/product', views.product.vendor_product, name="vendor_product"),
     path('vendor/signup', views.account.vendor_register, name="vendor_signup"),
     path('vendor/order', views.order.vendor_orders,name="vendor_orders"),
+    path('vendor/<int:vendor_id>/details', views.vendor.vendor_details,name="vendor_details"),
     path('checkout/payment', views.checkout.checkout_payment),
     path('checkout/cancelorder/<int:id>', views.checkout.checkout_cancel_order),
-    path('customer/orders', views.order.customer_order)
+    path('customer/orders', views.order.customer_order),
+    path('messages', views.message.manage_messages),
+    path('notifications', views.notification.manage_notifications, name="notifications"),
+    path('lists', views.product_list.product_list_create),
+    path('recommendation', views.recommendation.recommend_products),
+    path('lists/<int:list_id>', views.product_list.product_list_delete),
+    path('lists/<int:list_id>/product/<int:product_id>', views.product_list.manage_product_list_item)
+
 ]

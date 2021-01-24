@@ -1,8 +1,11 @@
 package com.example.getflix.ui.fragments
 
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.graphics.Paint
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,12 +18,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
+import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentProductBinding
 import com.example.getflix.doneAlert
+import com.example.getflix.hideKeyboard
+import com.example.getflix.infoAlert
 import com.example.getflix.ui.adapters.CommentAdapter
 import com.example.getflix.ui.adapters.ImageAdapter
 import com.example.getflix.ui.adapters.RecommenderAdapter
+import com.example.getflix.ui.fragments.ProductFragmentDirections.Companion.actionProductFragmentToVendorPageFragment
 import com.example.getflix.ui.viewmodels.ProductViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 import me.relex.circleindicator.CircleIndicator2
 
 
@@ -32,13 +44,15 @@ class ProductFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate<FragmentProductBinding>(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_product,
             container, false
         )
         val args = ProductFragmentArgs.fromBundle(requireArguments())
         productViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
         productViewModel.getProduct(args.productId)
+
+        activity?.toolbar_lay!!.visibility = View.GONE
 
         val recommenderAdapter = RecommenderAdapter()
         val imageAdapter = ImageAdapter()
@@ -65,9 +79,41 @@ class ProductFragment : Fragment() {
 
         val indicator: CircleIndicator2 = binding.circleIndicator
         indicator.attachToRecyclerView(binding.images, pagerSnapHelper)
-
-        binding.like.setOnClickListener {
-            productViewModel.onLikeClick()
+        var listNames = arrayListOf<String>()
+        listNames.add("List 1")
+        listNames.add("List 2")
+        var checkedList = 0
+        binding.save.setOnClickListener {
+            //productViewModel.onSaveClick()
+            MaterialAlertDialogBuilder(requireContext(), R.style.MaterialAlertDialog_color)
+                .setTitle("Select a List")
+                .setSingleChoiceItems(
+                    listNames.toTypedArray(),
+                    checkedList
+                ) { dialog, which ->
+                    checkedList = which
+                }
+                .setPositiveButton("Ok") { dialog, which ->
+                }
+                .setIcon(R.drawable.accepted_list)
+                .setNegativeButton("Cancel") { dialog, which ->
+                }
+                .setNeutralButton("Add New List") { dialog, which ->
+                    var dialog = AlertDialog.Builder(context,R.style.MaterialAlertDialog_color)
+                    var dialogView = layoutInflater.inflate(R.layout.custom_dialog,null)
+                    var edit = dialogView.findViewById<TextInputEditText>(R.id.name)
+                    dialog.setView(dialogView)
+                    dialog.setCancelable(true)
+                    dialog.setIcon(R.drawable.ic_pencil)
+                    dialog.setTitle("Add A List")
+                    dialog.setNegativeButton("Cancel") { dialogInterface: DialogInterface, i: Int -> }
+                    dialog.setPositiveButton("Create") { dialogInterface: DialogInterface, i: Int ->
+                        println(edit.text.toString())
+                        hideKeyboard(requireActivity())
+                    }
+                    dialog.show()
+                }
+                .show()
         }
         binding.imageView7.setOnClickListener {
             val scrollView = binding.scrollView
@@ -83,12 +129,23 @@ class ProductFragment : Fragment() {
             productViewModel.decreaseAmount()
         }
 
+        binding.vendorDetail.setOnClickListener {
+            var id = 3
+            view?.findNavController()!!.navigate(actionProductFragmentToVendorPageFragment(id))
+        }
+
         binding.increase.setOnClickListener {
             productViewModel.increaseAmount()
         }
         binding.addToCart.setOnClickListener {
-            //productViewModel.addToShoppingCart(1, args.productId)
-            productViewModel.addCustomerCartProduct(binding.amount.text.toString().toInt(), args.productId)
+            if(MainActivity.StaticData.isVisitor) {
+                infoAlert(this, "You should be logged in to add product to your shopping cart")
+            } else {
+                productViewModel.addCustomerCartProduct(
+                    binding.amount.text.toString().toInt(),
+                    args.productId
+                )
+            }
         }
 
         productViewModel.navigateBack.observe(viewLifecycleOwner, Observer{
@@ -136,13 +193,18 @@ class ProductFragment : Fragment() {
             }
 
         })
-        productViewModel.isLiked.observe(viewLifecycleOwner, Observer {
+        productViewModel.isSaved.observe(viewLifecycleOwner, Observer {
             if (it) {
-                binding.like.setImageResource(R.drawable.ic_filled_like)
+                binding.save.setImageResource(R.drawable.saved_product)
             } else {
-                binding.like.setImageResource(R.drawable.ic_like)
+                binding.save.setImageResource(R.drawable.nonsaved_product)
             }
         })
+
+        binding.btnBack.setOnClickListener {
+            view?.findNavController()!!.popBackStack()
+        }
+
         return binding.root
 
     }
@@ -168,5 +230,11 @@ class ProductFragment : Fragment() {
             binding.star5.setImageResource(R.drawable.ic_filled_star)
         }
     }
+
+    override fun onStop() {
+        super.onStop()
+        activity?.toolbar_lay!!.visibility = View.VISIBLE
+    }
+
 
 }

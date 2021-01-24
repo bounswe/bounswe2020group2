@@ -11,6 +11,8 @@ import {
     verifications,
     accounts,
     vendorDetails,
+    conversations,
+    vendorOrders,
 } from './mocks'
 import { orderStatusMap } from '../utils'
 import * as moment from 'moment'
@@ -163,6 +165,21 @@ export const handlers = [
     // }),
     // rest.get(url('/customer/:userId/cards'), (req, res, ctx) => {
     //     return res(ctx.json({ status, cards }))
+    // }),
+    // rest.get(url('/messages'), (req, res, ctx) => {
+    //     return res(
+    //         ctx.json({
+    //             conversations,
+    //             status: { successful: true, messages: null },
+    //         }),
+    //     )
+    // }),
+    // rest.post(url('/messages'), (req, res, ctx) => {
+    //     console.log(req.body)
+    //     return res(ctx.json({}))
+    // }),
+    // rest.get(url('/vendor/order'), (req, res, ctx) => {
+    //     return res(ctx.json({ status: { successful: true, message: '' }, orders: vendorOrders }))
     // }),
 ]
 

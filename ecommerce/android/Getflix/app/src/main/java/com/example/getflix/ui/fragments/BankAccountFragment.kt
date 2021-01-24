@@ -34,8 +34,7 @@ class BankAccountFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         activity?.toolbar!!.toolbar_title.text = getString(R.string.bankAccounts)
-
-
+        activity?.loading_progress!!.visibility = View.VISIBLE
 
 
         activity?.onBackPressedDispatcher!!.addCallback(
@@ -55,10 +54,17 @@ class BankAccountFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bank_account,
                 container, false)
 
+        binding.addFab.visibility = View.GONE
 
 
-        binding.fab.setOnClickListener {
+        binding.addFab.setOnClickListener {
+            if(binding.addFab.visibility == View.VISIBLE)
             view?.findNavController()?.navigate(actionBankAccountFragmentToAddCreditCardFragment())
+        }
+
+        binding.btnAddCard.setOnClickListener {
+            if(binding.btnAddCard.visibility == View.VISIBLE)
+                view?.findNavController()?.navigate(actionBankAccountFragmentToAddCreditCardFragment())
         }
 
         val credits = arrayListOf<CardModel>()
@@ -74,20 +80,35 @@ class BankAccountFragment : Fragment() {
 
         viewModel.creditList.observe(viewLifecycleOwner, Observer { list ->
             list?.let {
-                val creditCartsAdapter = CreditCartsAdapter(ArrayList(list!!),this)
-                recView.adapter = creditCartsAdapter
-                recView.setHasFixedSize(true)
-                // creditCartsAdapter.submitList(it)
-                val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCreditCart(creditCartsAdapter!!))
-                itemTouchHelper.attachToRecyclerView(recView)
-                creditCartsAdapter.pos.observe(viewLifecycleOwner, Observer {
-                    if (it != -1) {
-                        val id = creditCartsAdapter.deleteItem(it).id
-                        viewModel.deleteCustomerCard(id)
-                       // viewModel.getCustomerCards()
-                        creditCartsAdapter.resetPos()
-                    }
-                })
+                activity?.loading_progress!!.visibility = View.GONE
+                if(it.size!=0) {
+                    binding.btnAddCard.visibility = View.GONE
+                    binding.creditImage.visibility = View.GONE
+                    binding.creditText.visibility = View.GONE
+                    binding.creditList.visibility = View.VISIBLE
+                    binding.addFab.visibility = View.VISIBLE
+                    val creditCartsAdapter = CreditCartsAdapter(ArrayList(list!!), this)
+                    recView.adapter = creditCartsAdapter
+                    recView.setHasFixedSize(true)
+                    // creditCartsAdapter.submitList(it)
+                    val itemTouchHelper =
+                        ItemTouchHelper(SwipeToDeleteCreditCart(creditCartsAdapter!!))
+                    itemTouchHelper.attachToRecyclerView(recView)
+                    creditCartsAdapter.pos.observe(viewLifecycleOwner, Observer {
+                        if (it != -1) {
+                            val id = creditCartsAdapter.deleteItem(it).id
+                            viewModel.deleteCustomerCard(id)
+                            // viewModel.getCustomerCards()
+                            creditCartsAdapter.resetPos()
+                        }
+                    })
+                } else {
+                    binding.btnAddCard.visibility = View.VISIBLE
+                    binding.creditImage.visibility = View.VISIBLE
+                    binding.creditText.visibility = View.VISIBLE
+                    binding.creditList.visibility = View.GONE
+                    binding.addFab.visibility = View.GONE
+                }
             }
         })
 

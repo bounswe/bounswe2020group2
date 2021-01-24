@@ -11,9 +11,9 @@
         android:title="@string/categories" />
 
     <item
-        android:id="@+id/favoritesFragment"
-        android:icon="@drawable/menu_favorite"
-        android:title="@string/favorites" />
+        android:id="@+id/listsFragment"
+        android:icon="@drawable/ic_baseline_format_list_bulleted_24"
+        android:title="@string/lists" />
 
     <item
         android:id="@+id/cartFragment"

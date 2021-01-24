@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,8 +40,8 @@ class VendorHomeFragment : Fragment() {
 
         activity?.bottom_nav!!.visibility = View.VISIBLE
         activity?.toolbar_lay!!.visibility = View.VISIBLE
+        activity?.toolbar!!.toolbar_title.visibility = View.VISIBLE
         activity?.toolbar!!.toolbar_title.text = getString(R.string.home)
-        activity?.toolbar!!.btn_notification.visibility = View.VISIBLE
         viewModel = ViewModelProvider(this).get(VendorHomeViewModel::class.java)
 
 
@@ -63,7 +64,7 @@ class VendorHomeFragment : Fragment() {
 
 
         var brands = arrayListOf<BrandModel>()
-        viewModel.productList.observe(viewLifecycleOwner, {
+        viewModel.productList.observe(viewLifecycleOwner, Observer{
             for(product in it) {
                 if(!brands.contains(product.brand))
                     brands.add(product.brand)

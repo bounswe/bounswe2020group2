@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="?attr/actionBarSize">
 
 
         <LinearLayout
@@ -26,7 +27,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/open_sans_semibold"
-                android:text="@string/price_range"
+                android:text="Max Price: "
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -45,14 +46,14 @@
 
         </LinearLayout>
 
-        <com.google.android.material.slider.RangeSlider
+        <com.google.android.material.slider.Slider
             android:id="@+id/price_slider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:stepSize="1"
             android:valueFrom="0.0"
-            android:valueTo="100.0"
+            android:valueTo="20000.0"
             app:haloColor="@color/colorPrimary"
             app:thumbColor="@color/initGold"
             app:tickColor="@color/black"
@@ -74,7 +75,7 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <RelativeLayout
+        <!-- <RelativeLayout
             android:id="@+id/rl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -132,7 +133,33 @@
                     android:text="4 +"
                     android:textColor="@color/black" />
             </RadioGroup>
-        </RelativeLayout>
+        </RelativeLayout> -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RatingBar
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:progressTint="@color/black"
+                android:gravity="center_vertical"
+                android:stepSize="0.1" />
+
+            <TextView
+                android:id="@+id/rating_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:layout_marginBottom="15dp"
+                android:fontFamily="@font/open_sans_semibold"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="17dp"
+                android:textStyle="bold|italic" />
+
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -238,7 +265,7 @@
                 android:layout_margin="10dp"
                 android:background="@color/black"
                 android:text="@string/filter"
-                android:textColor="@color/black" />
+                android:textColor="@color/initGold" />
 
         </LinearLayout>
 
