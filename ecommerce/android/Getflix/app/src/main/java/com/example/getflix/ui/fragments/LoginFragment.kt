@@ -137,10 +137,12 @@ class LoginFragment : Fragment() {
                     ?.navigate(actionLoginFragmentToHomePageFragment())
             }
         }
+
+
         loginViewModel.user.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 user = loginViewModel.user.value
-                if (loginViewModel.onMailVerificationSent.value!!.not()) {
+                if (it.isVerified) {
                     user = it
                     if (btn_remember.isChecked) {
                         prefs!!.edit().putString("s_username", binding.username.text.toString())
@@ -162,10 +164,11 @@ class LoginFragment : Fragment() {
                             ?.navigate(actionLoginFragmentToHomePageFragment())
                     }
                 } else {
-                    println("Girdi buuraya")
-                    loginViewModel.onMailVerificationComplete()
-                    view?.findNavController()
-                        ?.navigate(actionLoginFragmentToMailVerificationFragment())
+                        println("Girdi buuraya")
+                        loginViewModel.onMailVerificationComplete()
+                        view?.findNavController()
+                            ?.navigate(actionLoginFragmentToMailVerificationFragment(loginViewModel.user.value))
+
                 }
             }
         })

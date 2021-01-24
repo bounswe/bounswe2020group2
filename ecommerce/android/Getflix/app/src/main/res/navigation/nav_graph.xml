@@ -99,7 +99,8 @@
             app:destination="@id/homePageFragment" />
         <action
             android:id="@+id/action_registerFragment_to_mailVerificationFragment"
-            app:destination="@id/mailVerificationFragment" />
+            app:destination="@id/mailVerificationFragment"
+            app:popUpTo="@id/loginFragment" />
     </fragment>
 
 
@@ -331,13 +332,11 @@
         android:id="@+id/mailVerificationFragment"
         android:name="com.example.getflix.ui.fragments.MailVerificationFragment"
         android:label="MailVerificationFragment" >
-        <action
-            android:id="@+id/action_mailVerificationFragment_to_homePageFragment"
-            app:destination="@id/homePageFragment" />
-        <action
-            android:id="@+id/action_mailVerificationFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+        <argument
+            android:name="email"
+            app:argType="string" />
     </fragment>
+
 
 
 </navigation>

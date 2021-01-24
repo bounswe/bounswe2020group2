@@ -33,17 +33,4 @@ class MailVerificationViewModel : ViewModel() {
         }
     }
 
-
-
-/*
-   fun checkIsMailVerified() {
-       var firebaseUser = auth.currentUser
-       var isMailVerified = firebaseUser?.isEmailVerified
-       while (isMailVerified!!.not()) {
-               firebaseUser?.reload()
-                isMailVerified = firebaseUser?.isEmailVerified
-            println("Hala buradayız")
-       }
-       _onMailVerified.value = isMailVerified
-   }*/
 }
