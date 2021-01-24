@@ -153,7 +153,6 @@ class LoginFragment : Fragment() {
                     } else {
                         prefs!!.edit().clear().apply()
                     }
-                    println("Login fragmentında email verified olduğu için mail verificationa atılmadı")
                     if (it.role != "CUSTOMER") {
                         (activity as MainActivity).decideBottomNav(true)
                         view?.findNavController()
@@ -164,10 +163,9 @@ class LoginFragment : Fragment() {
                             ?.navigate(actionLoginFragmentToHomePageFragment())
                     }
                 } else {
-                        println("Girdi buuraya")
                         loginViewModel.onMailVerificationComplete()
                         view?.findNavController()
-                            ?.navigate(actionLoginFragmentToMailVerificationFragment(loginViewModel.user.value))
+                            ?.navigate(actionLoginFragmentToMailVerificationFragment(it!!.email))
 
                 }
             }

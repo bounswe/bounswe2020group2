@@ -30,6 +30,7 @@ class MailVerificationFragment : Fragment() {
         activity?.toolbar!!.toolbar_title.text = ""
 
         val args = MailVerificationFragmentArgs.fromBundle(requireArguments())
+        binding.verificationMail.text = args.email
         mailVerificationViewModel =
             ViewModelProvider(this).get(MailVerificationViewModel::class.java)
 

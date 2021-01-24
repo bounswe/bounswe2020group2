@@ -166,7 +166,7 @@ class RegisterFragment : Fragment() {
             } else if (it != null && it.successful) {
                 // doneAlert()
                 println("Register olabildi")
-                view?.findNavController()?.navigate(actionRegisterFragmentToMailVerificationFragment())
+                view?.findNavController()?.navigate(actionRegisterFragmentToMailVerificationFragment(binding.mail.text.toString()))
 
             } else {
                 println("Login olamadı")

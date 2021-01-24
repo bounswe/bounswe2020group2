@@ -42,7 +42,6 @@ class LoginViewModel : ViewModel() {
 
                     _user.value = null
                     _logReq.value = null
-                    println("On failure")
                 }
 
                 override fun onResponse(
@@ -50,7 +49,6 @@ class LoginViewModel : ViewModel() {
                     response: Response<LoginResponse>
 
                 ) {
-                    println("On response giriş :" + response.body())
                     if (response.body() != null && response.body()!!.status.message == "Giriş başarılı") {
                         val currentUser = response.body()?.user!!
 
@@ -60,11 +58,8 @@ class LoginViewModel : ViewModel() {
                                 _logReq.value!!.password
                             ).addOnCompleteListener {
                                 if (it.isSuccessful) {
-                                    println("Loginde firebase giriş")
                                     _user.value = currentUser
                                 } else {
-                                    println(it.exception?.message)
-                                    println("Loginde firebase giriş olmadı")
                                     _user.value = null
                                 }
                             }
@@ -72,7 +67,6 @@ class LoginViewModel : ViewModel() {
 
                     }
                     else {
-                        println("Login fragmenntta response body giriş hiç olmadı " + response.body())
                         _user.value = null
                         infoAlert(
                             fragment,
