@@ -3,6 +3,7 @@ package com.example.getflix.service
 import com.example.getflix.models.*
 import com.example.getflix.service.requests.*
 import com.example.getflix.service.responses.*
+import com.google.gson.annotations.SerializedName
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -143,7 +144,7 @@ interface GetflixApiService {
 
     @Headers("Content-Type: application/json")
     @POST("search/products")
-    fun searchProductsByVendor(@Body vendorId: Int): Call<ProSearchByVendorResponse>
+    fun searchProductsByVendor(@Body cardData: ProSearchByVendorRequest): Call<ProSearchByVendorResponse>
 
     @Headers("Content-Type: application/json")
     @POST("search/products")

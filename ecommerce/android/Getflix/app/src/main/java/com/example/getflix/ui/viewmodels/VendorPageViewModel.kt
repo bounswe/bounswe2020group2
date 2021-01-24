@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.example.getflix.models.ProductModel
 import com.example.getflix.models.VendorModel
 import com.example.getflix.service.GetflixApi
+import com.example.getflix.service.requests.ProSearchByVendorRequest
 import com.example.getflix.service.responses.ProSearchByVendorResponse
+import com.example.getflix.vendorModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,7 +29,7 @@ class VendorPageViewModel : ViewModel() {
     }
 
     fun getProductsOfVendor() {
-        GetflixApi.getflixApiService.searchProductsByVendor(_vendor.value!!.id)
+        GetflixApi.getflixApiService.searchProductsByVendor(ProSearchByVendorRequest(_vendor.value!!.id))
             .enqueue(object :
                 Callback<ProSearchByVendorResponse> {
                 override fun onFailure(call: Call<ProSearchByVendorResponse>, t: Throwable) {
