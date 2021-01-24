@@ -43,7 +43,7 @@ def validate_product_add_request(data):
     short_description = data["short_description"]
     long_description = data["long_description"]
     discount = data["discount"]
-    brand_id = data["brand_id"]
+    brand = data.get("brand_id")
     subcategory_id = data["subcategory_id"]
     
     if name is None or name.__len__() < 3:

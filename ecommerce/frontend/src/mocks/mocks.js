@@ -850,3 +850,247 @@ export const accounts = {
         role: 'CUSTOMER',
     },
 }
+
+export const conversations = [
+    {
+        counterpart: {
+            id: 5,
+            name: 'Umut Öksüz',
+        },
+        messages: [
+            {
+                id: 1,
+                text: 'afdsadsadasd',
+                sent_by_me: true,
+                date: '2021-01-07T14:24:49+0000',
+                attachment_url: null,
+            },
+            {
+                id: 2,
+                text: 'afdsadsadasd',
+                sent_by_me: false,
+                date: '2021-01-07T14:28:49+0000',
+                attachment_url: 'https://www.quill.com/is/image/Quill/s0807665_s7?$img400$',
+            },
+            {
+                id: 3,
+                text: 'Okay thanks a lot!',
+                sent_by_me: true,
+                date: '2021-01-07T14:29:49+0000',
+                attachment_url: null,
+            },
+        ],
+    },
+    {
+        counterpart: {
+            id: 6,
+            name: 'Furkan Nane',
+        },
+        messages: [
+            {
+                id: 1,
+                text:
+                    "Dear Furkan,\n\n I have ordered an iPhone 11 two weeks ago but the order status still shows Accepted. I had hoped it would change to At Cargo in a couple days but it hasn't changed and I started to worry. Could you please tell me if there is any problem? Thanks",
+                sent_by_me: true,
+                date: '2021-01-07T14:24:49+0000',
+                attachment_url:
+                    'https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125077794/125077794_1_MC/47116323.jpg',
+            },
+            {
+                id: 2,
+                text:
+                    'Dear Mehdi,\n\n As you know, we are affected by the current COVID pandemic and are having trouble with our distribution partner. We have reached out to the cargo company and we were promised that your cargo will be delivered within two to three working days at most. We apologize for the delay. Thank you for trusting us.',
+                sent_by_me: false,
+                date: '2021-01-07T14:28:49+0000',
+                attachment_url: null,
+            },
+        ],
+    },
+]
+
+export const vendorOrders = [
+    {
+        id: 39,
+        amount: 1,
+        unit_price: 10999,
+        total_price: 10999,
+        status: 'delivered',
+        purchase_date: '2020-12-29T11:45:49.796120Z',
+        address: {
+            id: 24,
+            title: 'Home kadikoy',
+            name: 'Pınar',
+            surname: 'Sarıgül',
+            address: 'Caferaga Mahallesi, Moda Caddesi 3/A',
+            province: 'Kadikoy',
+            city: 'Istanbul',
+            country: 'Turkey',
+            phone: {
+                country_code: '+90',
+                number: '5536975643',
+            },
+            zip_code: '34710',
+        },
+        product: {
+            id: 27,
+            name: 'Samsung S20 Ultra 128GB',
+            creation_date: '2020-12-26T10:47:38.961041Z',
+            discount: 0.045,
+            price: 10999,
+            price_after_discount: 10504.045,
+            total_rating: 50,
+            rating_count: 11,
+            rating: 4.545454545454546,
+            stock_amount: 50,
+            short_description:
+                "Ekran Boyutu: 6.2', Ekran Çözünürlüğü: 1440x3200 px, Arka Kamera: 12 MP, Üçlü Kamera, Ön Kamera: 10 MP, 4G, Dahili Hafıza: 128 GB",
+            long_description:
+                'Galaxy S serisi akıllı cep telefonlarıyla nefes kesici teknolojik yenilikleri sergileyen Samsung, sinematik kare/saniye oranlarında ve 8K çözünürlükte video kaydı yapan dünyanın ilk telefonu olan Galaxy S20 ile teknoloji dünyasında yeniden gündemi belirliyor. Tasarım hatlarını Galaxy Note 10 ailesinden alan ve birçok donanımsal geliştirmeyle kullanıcıların karşısına çıkan Samsung Galaxy S20 128 GB modelleri, çoklu arka kamera kurulumu ve güçlü donanımıyla beğeni topluyor. Android 10 işletim sistemi ve Samsung one UI 2.0 kullanıcı arayüzüyle gelen ürün, çift SIM kart desteği sunuyor. Samsung Galaxy S20 128 GB fiyatları bakımından, yeni nesil amiral gemisi sınıfında yer alan telefonlarla benzerlik gösteriyor.',
+            category: {
+                id: 1,
+                name: 'Electronics',
+            },
+            subcategory: {
+                id: 2,
+                name: 'Cell Phones & Accessories',
+            },
+            brand: {
+                id: 18,
+                name: 'Samsung',
+            },
+            vendor: {
+                id: 3,
+                name: 'Can Batuk',
+                rating: null,
+            },
+            images: [
+                'https://productimages.hepsiburada.net/s/35/550/10486446719026.jpg/format:webp',
+                'https://productimages.hepsiburada.net/s/35/550/10486446751794.jpg/format:webp',
+                'https://productimages.hepsiburada.net/s/35/550/10486446784562.jpg/format:webp',
+                'https://productimages.hepsiburada.net/s/35/550/10486446850098.jpg/format:webp',
+            ],
+            is_deleted: false,
+        },
+    },
+    {
+        id: 41,
+        amount: 2,
+        unit_price: 100,
+        total_price: 200,
+        status: 'at_cargo',
+        purchase_date: '2020-12-29T11:48:56.437368Z',
+        address: {
+            id: 24,
+            title: 'Home kadikoy',
+            name: 'Pınar',
+            surname: 'Sarıgül',
+            address: 'Caferaga Mahallesi, Moda Caddesi 3/A',
+            province: 'Kadikoy',
+            city: 'Istanbul',
+            country: 'Turkey',
+            phone: {
+                country_code: '+90',
+                number: '5536975643',
+            },
+            zip_code: '34710',
+        },
+        product: {
+            id: 28,
+            name: 'Spigen Samsung Galaxy S20 Kılıf Liquid Crystal 4 Tarafı Tam Koruma',
+            creation_date: '2020-12-26T10:51:48.110085Z',
+            discount: 0.11,
+            price: 100,
+            price_after_discount: 89,
+            total_rating: 32,
+            rating_count: 8,
+            rating: 4,
+            stock_amount: 410,
+            short_description:
+                'Spigen Samsung Galaxy S20 Kılıf Liquid Crystal 4 Tarafı Tam Koruma / Crystal Clear - ACS00789',
+            long_description:
+                'Air Cushin Technology ile Mil-grade sertifikali, benzersiz tasarim ve olaganustu gorunum, kablosuz sarj ile uyumlu, esnek yapisi ile kavrama konforu',
+            category: {
+                id: 1,
+                name: 'Electronics',
+            },
+            subcategory: {
+                id: 2,
+                name: 'Cell Phones & Accessories',
+            },
+            brand: {
+                id: 19,
+                name: 'Spigen',
+            },
+            vendor: {
+                id: 3,
+                name: 'Can Batuk',
+                rating: null,
+            },
+            images: [
+                'https://images-na.ssl-images-amazon.com/images/I/61yC3SEbEhL._AC_SL1000_.jpg',
+                'https://images-na.ssl-images-amazon.com/images/I/51TRgY8UWoL._AC_SL1000_.jpg',
+                'https://images-na.ssl-images-amazon.com/images/I/61v-0J60JLL._AC_SL1000_.jpg',
+                'https://images-na.ssl-images-amazon.com/images/I/71EDU-yXpLL._AC_SL1000_.jpg',
+            ],
+            is_deleted: false,
+        },
+    },
+    {
+        id: 43,
+        amount: 2,
+        unit_price: 16000,
+        total_price: 32000,
+        status: 'accepted',
+        purchase_date: '2021-01-12T21:44:38.199018Z',
+        address: {
+            id: 17,
+            title: 'home',
+            name: 'isim',
+            surname: 'soyisim',
+            address: 'bogazici',
+            province: 'sariyer',
+            city: 'istanbul',
+            country: 'Turkiye',
+            phone: {
+                country_code: '+90',
+                number: '5555555555',
+            },
+            zip_code: '34342',
+        },
+        product: {
+            id: 29,
+            name: 'iPhone 12 64 GB',
+            creation_date: '2020-12-28T19:50:33.144932Z',
+            discount: 0.1,
+            price: 16000,
+            price_after_discount: 14400,
+            total_rating: 0,
+            rating_count: 0,
+            rating: null,
+            stock_amount: 10,
+            short_description:
+                'Hızını anlatmaya kelimeler yetişemez.Bir akıllı telefondaki en hızlı çip olan A14 Bionic. Kenarlara kadar uzanan OLED ekran. Ve artık tüm kameralarda yer alan Gece modu.',
+            long_description:
+                "Apple markasına ait olan iPhone cep telefonu ailesine bir yenisi daha ekleniyor. iPhone 11 Pro Max ürününden sonra, şimdi de uzun süredir merakla beklenen iPhone 12 akıllı cep telefonu, kullanıcı karşısında boy göstermek için geri sayıma başladı. iPhone 12 cep telefonunun ilerleyen modellerinin, iPhone 12 Max, iPhone 12 Pro, iPhone 12 Pro Max olacağı yönünde bilgilerin yanı sıra iPhone 12 Max yerine iPhone 12 Mini'nin gelebileceği bilgisi de duyumlar arasında mevcut. iPhone 12 telefonun teknik özellikleri ve tasarımı konusunda henüz lansmanı yapılmadığı için kimse net bilgilere sahip değil fakat en çok duyulan ve güçlü tahminlerle desteklenen bilgileri size sunabiliriz. iPhone 12 akıllı cep telefonu, ekran özelliği olarak süper retina display ekranı destekleyen 5.4 inç ekran boyutu, 4 gb ram hafızaya sahip ve kamera özelliği tarafında 12 mp geniş kamerayla birlikte, telefoto lens kamera ve ultra geniş açıya sahip kameranın olduğu iddia ediliyor. iPhone 12 akıllı cep telefonunun tasarımını, kamerası ve yeni teknik özelliklerini teknolojiyle ilgili olan herkes heyecanla bekliyor. Türkiye'ye geliş tarihi henüz açıklanmamasına rağmen, tanıtımının ilerleyen günlerinde, teknolojiyi yakından takip eden kullanıcıların heyecanla bekledikleri iPhone 12 akıllı cep telefonunun, ön sipariş olarak meraklısı ile buluşması bekleniyor.",
+            category: {
+                id: 1,
+                name: 'Electronics',
+            },
+            subcategory: {
+                id: 2,
+                name: 'Cell Phones & Accessories',
+            },
+            brand: {
+                id: 20,
+                name: 'Apple',
+            },
+            vendor: {
+                id: 3,
+                name: 'Can Batuk',
+                rating: null,
+            },
+            images: ['https://m.media-amazon.com/images/I/71ZOtNdaZCL._FMwebp__.jpg'],
+            is_deleted: false,
+        },
+    },
+]

@@ -162,5 +162,24 @@
     <string name="notifications">Notifications</string>
     <string name="your_addresses">Your address</string>
     <string name="your_cards">Your credit card</string>
-    <string name="order_products">Siparis Urunleri</string>
+    <string name="order_products">Order Products</string>
+    <string name="contact_info">Customer Info</string>
+    <string name="customer_name">Name</string>
+    <string name="customer_surname">Surname</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="address_info">Address Info</string>
+    <string name="customer_address">Address</string>
+    <string name="customer_province">Province</string>
+    <string name="customer_country">Country</string>
+    <string name="customer_zipcode">Zipcode</string>
+    <string name="total_price">TOTAL PRICE</string>
+    <string name="price_before_discount">Price Before Discount</string>
+    <string name="current_price">Current Price</string>
+    <string name="order_status_title">Status</string>
+    <string-array name="order_status">
+        <item>Accepted</item>
+        <item>At cargo</item>
+        <item>Delivered</item>
+        <item>Cancelled</item>
+    </string-array>
 </resources>

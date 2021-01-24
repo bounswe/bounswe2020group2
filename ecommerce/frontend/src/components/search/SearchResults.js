@@ -1,8 +1,5 @@
 import './SearchResults.less'
-
 import { Pagination } from 'antd'
-import { useState } from 'react'
-
 import { ProductCard } from '../product_card/ProductCard'
 
 export const SearchResults = ({ products, pagination, onPaginationChanged }) => {

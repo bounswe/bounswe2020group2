@@ -48,8 +48,10 @@ class AddressViewModel : ViewModel() {
                     response: Response<AddressListModel>
                 ) {
                     response.body().let {
-                        if (it != null) _addressList.value =
-                            it.addresses as MutableList<AddressModel>
+                        if (it != null) {
+                            _addressList.value = it.addresses as MutableList<AddressModel>
+
+                        }
                         else _addressList.value = mutableListOf()
                     }
                 }

@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
+from rest_framework import status
 
 from API.utils import permissions, Role
 from API.utils.jwttoken import generate_access_token, generate_mail_token
@@ -164,3 +165,23 @@ def login(request):
         )
         return Response(user_serializer.data)
 
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+def change_password(request):
+    # get the from the request
+    user = request.user
+    # get crypto and salt
+    crypto = Crypto()
+    salt = crypto.getSalt()
+    # calculate the old password_hash
+    password_hash = crypto.getHashedPassword(request.data["password"], user.password_salt)
+    if password_hash != user.password_hash:
+        return Response({'status': {'successful': False, 'message': "Current password is incorrect."}})
+    # calculate the new password_hash
+    new_password_hash = crypto.getHashedPassword(request.data["new_password"], salt)
+    # update the password fields of the user
+    user.password_salt = salt
+    user.password_hash = new_password_hash
+    # save the new version
+    user.save()
+    return Response({'status': {'successful': True, 'message': "Password is successfully changed."}})
