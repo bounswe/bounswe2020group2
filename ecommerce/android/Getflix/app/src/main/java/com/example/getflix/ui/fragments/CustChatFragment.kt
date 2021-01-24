@@ -78,7 +78,20 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
             var index = rtime.indexOf("T")
             var hour = (rtime[index+1].toString()+ rtime[index+2].toString()).toInt()
             hour += 3
-            rtime = message.date.subSequence(0,index+1).toString() + hour.toString() + message.date.subSequence(index+3,rtime.length).toString()
+            if(hour==24)
+                hour=0
+            else if(hour==25)
+                hour=1
+            else if(hour==26)
+                hour=2
+            var hourS = ""
+
+
+            if(hour<10)
+                hourS = "0$hour"
+            else
+                hourS = hour.toString()
+            rtime = message.date.subSequence(0,index+1).toString() + hourS + message.date.subSequence(index+3,rtime.length).toString()
                 messages.add(
                     Message(
                         "0", AuthorModel(
@@ -119,7 +132,7 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
                 Message.Image(null), LocalDateTime.now()),
             true
         )
-        messagesViewModel.sendMessage(SendMessageRequest(id.toInt(),input.toString(),"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG8VkAXFHGYAhHTEy4wAV5RBdB1V6qTU9JVA&usqp=CAU.jpg/format:webp"))
+        messagesViewModel.sendMessage(SendMessageRequest(id.toInt(),input.toString(),"null"))
         println(LocalDateTime.now().toString())
         return true
     }

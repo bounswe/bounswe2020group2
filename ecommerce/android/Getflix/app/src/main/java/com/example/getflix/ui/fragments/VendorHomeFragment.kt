@@ -48,7 +48,7 @@ class VendorHomeFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(VendorHomeViewModel::class.java)
 
 
-        viewModel.searchByVendor(3)
+        viewModel.searchByVendor(MainActivity.StaticData.user!!.id)
         println("heyy")
         println(MainActivity.StaticData.user!!.token)
 

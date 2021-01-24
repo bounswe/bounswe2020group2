@@ -59,7 +59,20 @@ class VendorMessagesFragment : Fragment() {
                 var index = rtime.indexOf("T")
                 var hour = (rtime[index+1].toString()+ rtime[index+2].toString()).toInt()
                 hour += 3
-                rtime = conversation.messages[conversation.messages.size-1].date.subSequence(0,index+1).toString() + hour.toString() + conversation.messages[conversation.messages.size-1].date.subSequence(index+3,rtime.length).toString()
+                if(hour==24)
+                    hour=0
+                else if(hour==25)
+                    hour=1
+                else if(hour==26)
+                    hour=2
+                var hourS = ""
+
+
+                if(hour<10)
+                    hourS = "0$hour"
+                else
+                    hourS = hour.toString()
+                rtime = conversation.messages[conversation.messages.size-1].date.subSequence(0,index+1).toString() + hourS + conversation.messages[conversation.messages.size-1].date.subSequence(index+3,rtime.length).toString()
                 dialogList.add(
                     DialogModel(i.toString(),conversation.counterpart.name,null,
                         Message(conversation.messages[conversation.messages.size-1].id.toString(),
@@ -77,7 +90,7 @@ class VendorMessagesFragment : Fragment() {
             val dialogsListAdapter: DialogsListAdapter<*> =
                 DialogsListAdapter<IDialog<*>> { imageView, url, payload ->
                     Picasso.get()
-                        .load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG8VkAXFHGYAhHTEy4wAV5RBdB1V6qTU9JVA&usqp=CAU.jpg/format:webp")
+                        .load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVH3uxAhDbIZZqSLcgPoc3kpM1S0Vsy5VXg&usqp=CAU.jpg/format:webp")
                         .into(
                             imageView
                         )
