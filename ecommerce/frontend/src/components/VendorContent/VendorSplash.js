@@ -57,7 +57,12 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
             </Modal>
             <div className="vendor-splash">
                 <div className="vendor-image">
-                    <img src={formatImageUrl(image_url ?? '')} className="splash-logo"></img>
+                    <img
+                        src={formatImageUrl(
+                            image_url ??
+                                'https://github.com/bounswe/bounswe2020group2/raw/master/milestone1/logo_circle.png',
+                        )}
+                        className="splash-logo"></img>
                 </div>
                 <div className="vendor-header">
                     <div className="vendor-header-content">
