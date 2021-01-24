@@ -26,6 +26,7 @@ class NotificationAdapter(
             var type = notification.type
             var argument = notification.argument
             if(type=="order_status_change") {
+                Picasso.get().load(argument.product.imageURL).into(binding.productImage)
                 if(argument.newStatus=="at_cargo") {
                     binding.notText.text = "Your order is now on the way."
                     binding.productImage.setImageResource(R.drawable.ic_atcargo)
@@ -34,7 +35,6 @@ class NotificationAdapter(
                     binding.productImage.setImageResource(R.drawable.ic_box)
                 } else if(argument.newStatus=="accepted") {
                     binding.notText.text = "Your order is accepted."
-                    binding.productImage.setImageResource(R.drawable.ic_accepted)
                 }
             } else if(type=="price_change") {
                 Picasso.get().load(argument.image_url).into(binding.productImage)
@@ -68,6 +68,11 @@ class NotificationAdapter(
                     fragment.findNavController().navigate(
                         NotificationFragmentDirections.actionNotificationFragmentToProductFragment(
                             notificationlist?.get(position)?.argument.id
+                        )
+                    )
+                } else {
+                    fragment.findNavController().navigate(
+                        NotificationFragmentDirections.actionNotificationFragmentToOrderInfoFragment(
                         )
                     )
                 }

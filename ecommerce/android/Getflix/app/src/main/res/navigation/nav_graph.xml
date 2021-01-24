@@ -353,6 +353,9 @@
     <action
         android:id="@+id/action_notificationFragment_to_productFragment"
         app:destination="@id/productFragment" />
+     <action
+            android:id="@+id/action_notificationFragment_to_orderInfoFragment"
+            app:destination="@id/orderInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/orderProductsFragment"
