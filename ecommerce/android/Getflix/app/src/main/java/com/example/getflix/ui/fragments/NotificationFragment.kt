@@ -40,7 +40,7 @@ class NotificationFragment : Fragment() {
 
         viewModel.notificationList.observe(viewLifecycleOwner, Observer {
             it?.let {
-                val notAdapter = NotificationAdapter(it)
+                val notAdapter = NotificationAdapter(it,this)
                 recView.adapter = notAdapter
                 recView.setHasFixedSize(true)
                 notAdapter.submitList(it)

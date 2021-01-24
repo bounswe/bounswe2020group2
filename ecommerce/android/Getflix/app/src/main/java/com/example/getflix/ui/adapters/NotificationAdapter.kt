@@ -2,17 +2,23 @@ package com.example.getflix.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.NotificationItemBinding
 import com.example.getflix.models.NotificationModel
+import com.example.getflix.ui.fragments.ListsFragmentDirections
+import com.example.getflix.ui.fragments.NotificationFragmentDirections
 import com.squareup.picasso.Picasso
 
 class NotificationAdapter(
-    private val notificationlist: List<NotificationModel>,
+    private val notificationlist: List<NotificationModel>, fragment: Fragment
 ) : ListAdapter<NotificationModel, NotificationAdapter.RowHolder>(NotificationsDiffCallback()) {
+
+    var fragment = fragment
 
     class RowHolder(val binding: NotificationItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -55,7 +61,18 @@ class NotificationAdapter(
     }
 
     override fun onBindViewHolder(holder: RowHolder, position: Int) {
-        notificationlist?.get(position)?.let { holder.bind(it, position) }
+        notificationlist?.get(position)?.let {
+            holder.bind(it, position)
+            holder?.itemView!!.setOnClickListener {
+                if(notificationlist?.get(position)?.type == "price_change") {
+                    fragment.findNavController().navigate(
+                        NotificationFragmentDirections.actionNotificationFragmentToProductFragment(
+                            notificationlist?.get(position)?.argument.id
+                        )
+                    )
+                }
+            }
+        }
     }
 
 
