@@ -34,7 +34,9 @@ export const ProductCard = ({
                         <Button
                             type="link"
                             icon={<EditOutlined />}
-                            onClick={onEditProductCard}
+                            onClick={() => {
+                                onEditProductCard(product)
+                            }}
                             style={{ color: '#472836', backgroundColor: '#e2be5a' }}>
                             Edit
                         </Button>

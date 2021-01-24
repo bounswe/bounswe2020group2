@@ -20,12 +20,14 @@ export const VendorHomepage = props => {
     const isVendorAndOwner = user.type === 'vendor' && vendorId === user.id.toString()
     const [modalVisibility, setModalVisibility] = useState(false)
     const [modalType, setModalType] = useState('add')
+    const [modalProduct, setModalProduct] = useState(undefined)
 
     const onDeleteProductCard = productId => {
         console.log('delete product card', productId)
+
         // async function fetch() {
         //     try {
-        //         const { data } = await api.delete(`/vendor/product`, { productId })
+        //         const { data } = await api.delete(`/vendor/product`, { id: productId })
         //     } catch (error) {
         //         console.error('failed to delete product', error)
         //     } finally {
@@ -34,21 +36,26 @@ export const VendorHomepage = props => {
 
         // fetch()
     }
-    const onEditProductCard = () => {
+    const onEditProductCard = product => {
+        setModalProduct(product)
         setModalType('edit')
         setModalVisibility(true)
+        console.log('edit product->', modalProduct)
     }
 
     const onAddProduct = () => {
+        setModalProduct(undefined)
         setModalType('add')
         setModalVisibility(true)
     }
 
     const onSuccessModal = () => {
+        setModalProduct(undefined)
         setModalVisibility(false)
     }
 
     const onCancelModal = () => {
+        setModalProduct(undefined)
         setModalVisibility(false)
     }
 
@@ -68,8 +75,10 @@ export const VendorHomepage = props => {
             <ProductModal
                 mode={modalType}
                 visible={modalVisibility}
+                product={modalProduct}
                 onSuccess={onSuccessModal}
                 onCancel={onCancelModal}
+                key={modalProduct?.id ?? 0}
             />
             <div>
                 <Tabs type="card" tabBarExtraContent={isVendorAndOwner ? addProductButton : null}>
