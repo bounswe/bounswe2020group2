@@ -4,15 +4,15 @@ import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import { Button, Modal, Result, Skeleton } from 'antd'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ProductImageGallery } from './ProductImageGallery'
-import { ProductExtra } from './ProductExtra'
-import { ChooseListModalInner } from '../ChooseListModalInner'
+
 import { useAppContext } from '../../context/AppContext'
 import { round } from '../../utils'
-import { UserReviews } from '../UserReview/UserReviews'
+import { ChooseListModalInner } from '../ChooseListModalInner'
+import { ProductExtra } from './ProductExtra'
+import { ProductImageGallery } from './ProductImageGallery'
 
 export const ProductHeader = ({ product, loading = false }) => {
-    const { addShoppingCartItem } = useAppContext()
+    const { addShoppingCartItem, user } = useAppContext()
     const [addLoading, setAddLoading] = useState(false)
     const [isChooseListModalVisible, setIsChooseListModalVisible] = useState(false)
 
@@ -90,7 +90,7 @@ export const ProductHeader = ({ product, loading = false }) => {
                     <ProductImageGallery product={product} />
                 </div>
                 <div className="product-header-main">
-                    <h1 className="product-header-main-title">{product.name}</h1>
+                    <h1 className="product-header-main-title">{product.title}</h1>
                     <p>{product.short_description}</p>
                 </div>
                 <div className="product-header-vendor">
@@ -107,17 +107,19 @@ export const ProductHeader = ({ product, loading = false }) => {
                 <div className="product-header-extra">
                     <ProductExtra product={product} loading={loading} />
                 </div>
-                <div className="product-header-buttons">
-                    <Button
-                        loading={addLoading}
-                        onClick={onAddToCartClicked}
-                        size="large"
-                        type="primary"
-                        icon={<ShoppingCartOutlined />}>
-                        Add to cart
-                    </Button>
-                    <Button onClick={onAddToListClicked} size="large" icon={<HeartOutlined />} />
-                </div>
+                {user.type === 'customer' && (
+                    <div className="product-header-buttons">
+                        <Button
+                            loading={addLoading}
+                            onClick={onAddToCartClicked}
+                            size="large"
+                            type="primary"
+                            icon={<ShoppingCartOutlined />}>
+                            Add to cart
+                        </Button>
+                        <Button onClick={onAddToListClicked} size="large" icon={<HeartOutlined />} />
+                    </div>
+                )}
                 <Modal
                     visible={isChooseListModalVisible}
                     onCancel={onClose}

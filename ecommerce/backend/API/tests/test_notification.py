@@ -1,6 +1,7 @@
 from rest_framework.test import APIClient
 from django.test import TestCase
 from django.urls import reverse
+import datetime
 from ..models import *
 
 class NotificationTest(TestCase):
@@ -48,9 +49,13 @@ class NotificationTest(TestCase):
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + token)
 
         self.c_user =  User.objects.create(id = 2, email="customer@mailcom", password_hash="", password_salt="", google_register=False,is_verified=False, role=1,username="mycustomer")
+        self.c_user_other =  User.objects.create(id = 3, email="customer1@mailcom", password_hash="", password_salt="", google_register=False,is_verified=False, role=1,username="mycustomer1")
         self.customer = Customer.objects.create(user = self.c_user, first_name= "customer", last_name = "user")
         product_list = ProductList.objects.create(user = self.c_user, name="I will buy !!")
         ProductListItem.objects.create(product=p1, product_list=product_list)
+        Notification.objects.create(id = 1499, user=self.u, notification_type=1, date=datetime.date.today(), argument="")
+        Notification.objects.create(id = 1500, user=self.u, notification_type=2, date=datetime.date.today(), argument="")
+        Notification.objects.create(id = 1501, user=self.c_user_other, notification_type=2, date=datetime.date.today(), argument="")
 
 
     def test_price_change_notification(self):
@@ -92,3 +97,26 @@ class NotificationTest(TestCase):
         self.assertEqual(notification, None)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["status"]["successful"], True)
+
+    def test_single_notification_seen(self):
+        response = self.client.post(reverse('single_notification_seen', args=[1499]))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
+
+        notification = Notification.objects.filter(pk=1499).first()
+        self.assertEqual(notification.is_seen, True)
+
+    def test_all_notifications_seen(self):
+        response = self.client.post(reverse('notifications_seen'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["status"]["successful"], True)
+
+        notification = Notification.objects.filter(pk=1500).first()
+        self.assertEqual(notification.is_seen, True)
+
+    def test_single_notification_seen_forbidden(self):
+        response = self.client.post(reverse('single_notification_seen', args=[1501]))
+        self.assertEqual(response.status_code, 403)
+
+        notification = Notification.objects.filter(pk=1501).first()
+        self.assertEqual(notification.is_seen, False)

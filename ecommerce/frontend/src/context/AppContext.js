@@ -131,7 +131,7 @@ function useApp() {
             console.log('AppContext:init:token', token)
             setUser(newUser)
 
-            notification.success({ message: `Welcome back, ${firstname}!` })
+            // notification.success({ message: `Welcome back, ${firstname}!` })
         } catch (error) {
             console.error('AppContext:init:error', error)
             const status = error?.response?.status
@@ -158,7 +158,7 @@ function useApp() {
             if (successful) {
                 localStorage.setItem('token', token)
                 setUser({ id, email, name: firstname, lastname, is_verified, type: role.toLowerCase() })
-                notification.success({ message: `Welcome back, ${firstname}!` })
+                // notification.success({ message: `Welcome back, ${firstname}!` })
 
                 return true
             } else {
@@ -174,7 +174,7 @@ function useApp() {
 
     const logout = () => {
         try {
-            notification.success({ description: `See you soon, ${user.name}!` })
+            // notification.success({ description: `See you soon, ${user.name}!` })
             setUser(guestUser)
             localStorage.removeItem('token')
         } catch (error) {

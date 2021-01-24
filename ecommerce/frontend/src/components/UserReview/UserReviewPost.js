@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Spin, Button, Input, Rate, notification } from 'antd'
+import React, { useState } from 'react'
+import { Button, Input, Rate, notification } from 'antd'
 import { Link } from 'react-router-dom'
 import './UserReviews.less'
 import { api } from '../../api'

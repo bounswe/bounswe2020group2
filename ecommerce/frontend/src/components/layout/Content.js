@@ -16,6 +16,7 @@ import { ProfilePage } from '../pages/ProfilePage'
 import { SearchPage } from '../pages/SearchPage'
 import { ShoppingCartPage } from '../pages/ShoppingCartPage'
 import { SignupPage } from '../pages/SignupPage'
+import { ProductModal } from '../product_modal/ProductModal'
 
 export const Content = () => {
     const { user } = useAppContext()
@@ -28,7 +29,7 @@ export const Content = () => {
     return (
         <Layout.Content className="content">
             <CategoryBar />
-            {location.pathname.startsWith('/profile') || <IsVerifiedNotification />}
+            {!location.pathname.startsWith('/profile') && isUser && !user.is_verified && <IsVerifiedNotification />}
 
             <Switch>
                 {isUser && <Route path="/verify/:id" component={EmailVerification} />}
