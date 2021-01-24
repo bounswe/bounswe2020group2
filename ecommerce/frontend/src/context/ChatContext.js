@@ -50,9 +50,9 @@ function useChat() {
         setCounterpart(conversation.counterpart.id)
     }
 
-    useInterval(async () => {
-        await getConversations()
-    }, 5000)
+    // useInterval(async () => {
+    //     await getConversations()
+    // }, 10000)
 
     const getConversations = async () => {
         try {
@@ -78,9 +78,11 @@ function useChat() {
             const { data } = await api.post(`/messages`, _msg)
             if (!data?.status?.successful) throw new Error(data)
             await getConversations()
+            return true
         } catch (error) {
             notification.error({ message: 'There was an error while sending message' })
             console.error(error)
+            return false
         }
     }
 

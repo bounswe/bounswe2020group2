@@ -1,7 +1,7 @@
 import './ShoppingCartPage.less'
 
 import { Button, Col, Row, Spin, Statistic } from 'antd'
-import React, { Component, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useAppContext } from '../../context/AppContext'
 import { ShoppingCartItems } from '../ShoppingCart/ShoppingCartItems'

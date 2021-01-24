@@ -10,7 +10,10 @@ import {
     cards,
     verifications,
     accounts,
+    recommendations,
     conversations,
+    vendorOrders,
+    productLists,
 } from './mocks'
 import { orderStatusMap } from '../utils'
 import * as moment from 'moment'
@@ -63,6 +66,9 @@ export const handlers = [
     //     const { params, body } = req
     //     const { token } = params
     //     return res(ctx.json({ data: { message: verifications[Math.floor(Math.random() * verifications.length)] } }))
+    // }),
+    // rest.get(url('/recommendations'), (req, res, ctx) => {
+    //     return res(ctx.json(recommendations))
     // }),
     // rest.get(url('/review'), (req, res, ctx) => {
     //     const id = req.url.searchParams.get('product')
@@ -163,6 +169,12 @@ export const handlers = [
     // rest.post(url('/messages'), (req, res, ctx) => {
     //     console.log(req.body)
     //     return res(ctx.json({}))
+    // }),
+    // rest.get(url('/vendor/order'), (req, res, ctx) => {
+    //     return res(ctx.json({ status: { successful: true, message: '' }, orders: vendorOrders }))
+    // }),
+    // rest.get(url('/lists'), (req, res, ctx) => {
+    //     return res(ctx.json({ status: { successful: true, message: '' }, lists: productLists }))
     // }),
 ]
 
