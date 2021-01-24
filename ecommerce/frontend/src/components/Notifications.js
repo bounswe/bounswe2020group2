@@ -7,36 +7,8 @@ import { Link } from 'react-router-dom'
 import { BellTwoTone, DeleteTwoTone } from '@ant-design/icons'
 import './Notifications.less'
 
-const onSeenAllNotifications = () => {
-    console.log('mark all as seen: ')
-    // const fetch = async () => {
-    //     const { data } = await api.post('/notifications')
-    // }
-    // try {
-    //     fetch()
-    // } catch (error) {
-    //     console.error(error)
-    // } finally {
-    //     // TODO add success message
-    // }
-}
-
-const onSeenNotification = notificationId => {
-    console.log('mark as seen: ', notificationId)
-    // const fetch = async () => {
-    //     const { data } = await api.post(`/notifications/${notificationId}`)
-    // }
-    // try {
-    //     fetch()
-    // } catch (error) {
-    //     console.error(error)
-    // } finally {
-    //     // TODO add success message
-    // }
-}
-
 const onDeleteAllNotifications = () => {
-    console.log('deleted all')
+    console.log('delete all notifications')
     // const fetch = async () => {
     //     const { data } = await api.post('/notifications')
     // }
@@ -87,6 +59,7 @@ const orderStatusChangeDetail = order => {
 export const Notifications = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [notifications, setNotifications] = useState([])
+    const [notificationsRefreshId, setNotificationsRefreshId] = useState(0)
 
     useEffect(() => {
         const fetch = async () => {
@@ -101,8 +74,38 @@ export const Notifications = () => {
         } finally {
             setIsLoading(false)
         }
-    }, [])
+    }, [notificationsRefreshId])
     const unseenNotifications = notifications.filter(item => !item.is_seen)
+
+    const onSeenAllNotifications = () => {
+        console.log('mark all as seen: ')
+        const fetch = async () => {
+            const { data } = await api.post('/notifications/seen/')
+        }
+        try {
+            fetch()
+        } catch (error) {
+            console.error(error)
+        } finally {
+            // TODO add success message
+        }
+        setNotificationsRefreshId(notificationsRefreshId + 1)
+    }
+
+    const onSeenNotification = notificationId => {
+        console.log('mark as seen: ', notificationId)
+        const fetch = async () => {
+            const { data } = await api.post(`/notifications/seen/${notificationId}`)
+        }
+        try {
+            fetch()
+        } catch (error) {
+            console.error(error)
+        } finally {
+            // TODO add success message
+        }
+        setNotificationsRefreshId(notificationsRefreshId + 1)
+    }
 
     return (
         <div>
@@ -141,7 +144,7 @@ export const Notifications = () => {
                                         notification.is_seen ? 'seen' : 'unseen'
                                     }`}></div>
                                 <div className="notification-image">
-                                    <Link to={`/product/${notificationDetail.link}`}>
+                                    <Link to={`${notificationDetail.link}`}>
                                         <img src={notificationDetail.image_url} />
                                     </Link>{' '}
                                 </div>
