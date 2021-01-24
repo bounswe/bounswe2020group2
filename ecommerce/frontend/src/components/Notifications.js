@@ -9,30 +9,30 @@ import './Notifications.less'
 
 const onSeenAllNotifications = () => {
     console.log('mark all as seen: ')
-    const fetch = async () => {
-        const { data } = await api.post('/notifications')
-    }
-    try {
-        fetch()
-    } catch (error) {
-        console.error(error)
-    } finally {
-        // TODO add success message
-    }
+    // const fetch = async () => {
+    //     const { data } = await api.post('/notifications')
+    // }
+    // try {
+    //     fetch()
+    // } catch (error) {
+    //     console.error(error)
+    // } finally {
+    //     // TODO add success message
+    // }
 }
 
 const onSeenNotification = notificationId => {
     console.log('mark as seen: ', notificationId)
-    const fetch = async () => {
-        const { data } = await api.post(`/notifications/${notificationId}`)
-    }
-    try {
-        fetch()
-    } catch (error) {
-        console.error(error)
-    } finally {
-        // TODO add success message
-    }
+    // const fetch = async () => {
+    //     const { data } = await api.post(`/notifications/${notificationId}`)
+    // }
+    // try {
+    //     fetch()
+    // } catch (error) {
+    //     console.error(error)
+    // } finally {
+    //     // TODO add success message
+    // }
 }
 
 const onDeleteAllNotifications = () => {
