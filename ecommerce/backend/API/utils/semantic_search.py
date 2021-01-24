@@ -45,10 +45,11 @@ def get_similar_queries(query):
 def search(query):
     # queries are sorted wrt to decreasing semantic similarity
     similar_queries = get_similar_queries(query)
+    queries = [query] + similar_queries # concat the original query to the beginning
     product_indexes = ProductIndex.objects.all()
     filtered_ids_ranked = []
     # first found and added to the list objects are most semantically similar so will be at front of the list
-    for query in similar_queries:
+    for query in queries:
         filtered_ids_ranked.extend(product_indexes.filter(text__icontains=query).
             select_related('product').values_list('product_id', flat=True))
     # remove the duplicates from the back of the list, this approach preserves ranking order
