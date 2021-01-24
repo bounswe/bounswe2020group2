@@ -3,14 +3,11 @@ import './ProductPage.less'
 import React, { useEffect, useState } from 'react'
 
 import { api } from '../../api'
-import { ProductCard } from '../product_card/ProductCard'
-import { sleep } from '../../utils'
 import { ProductHeader } from '../product/ProductHeader'
 import { notification, Spin } from 'antd'
 import { UserReviews } from '../UserReview/UserReviews'
-import * as R from 'ramda'
-import { formatProduct } from '../../utils'
 import { HorizontalProductList } from '../HorizontalProductList'
+import { formatProduct } from '../../utils'
 
 export const ProductPage = props => {
     const [product, setProduct] = useState()

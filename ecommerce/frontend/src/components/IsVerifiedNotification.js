@@ -1,6 +1,6 @@
 import { useAppContext } from '../context/AppContext'
-import { Alert, Button, notification, Space, Spin } from 'antd'
-import { useEffect, useState } from 'react'
+import { Alert, Button, notification } from 'antd'
+import { useState } from 'react'
 import { api } from './../api'
 
 export const IsVerifiedNotification = () => {
