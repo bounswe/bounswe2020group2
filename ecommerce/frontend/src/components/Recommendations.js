@@ -9,6 +9,7 @@ import { useAppContext } from '../context/AppContext'
 export const Recommendations = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [products, setProducts] = useState([])
+    const { user } = useAppContext()
 
     useEffect(() => {
         fetch()
@@ -35,7 +36,7 @@ export const Recommendations = () => {
     return (
         <Spin spinning={isLoading}>
             <div className="recommendations-wrapper">
-                <h1 className="recommendations-header">Recommended Products For You</h1>
+                <h1 className="recommendations-header">Recommended Products For You {user.name}</h1>
                 <div className="recommendations-content">
                     {products.map(product => (
                         <ProductCard key={product.id} product={product} />
