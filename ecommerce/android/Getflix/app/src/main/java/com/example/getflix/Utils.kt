@@ -124,12 +124,14 @@ fun infoAlert(fragment: Fragment, message: String) {
         .show()
 }
 
-fun doneAlert(fragment: Fragment, message: String, func: (() -> Unit)) {
+fun doneAlert(fragment: Fragment, message: String, func: (() -> Unit)?) {
     MaterialAlertDialogBuilder(fragment.requireContext(), R.style.MaterialAlertDialog_color)
         .setTitle("Success")
         .setMessage(message)
         .setPositiveButton("Ok") { dialog, which ->
-            func()
+            if (func != null) {
+                func()
+            }
         }
         .setIcon(R.drawable.ic_check)
         .show()

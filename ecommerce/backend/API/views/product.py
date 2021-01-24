@@ -16,6 +16,7 @@ from ..utils import permissions, Role
 from ..models import Product,Vendor,ImageUrls,Category,Subcategory
 from ..serializers.product_serializer import ProductResponseSerializer
 from ..utils import notifyPriceChange
+from .search import *
 
 # returns the details of the product having the given product_id
 @api_view(['GET'])
@@ -105,6 +106,11 @@ def vendor_product(request):
             vendor=vendor, brand=brand,stock_amount=request.data["stock_amount"], discount=discount,
             short_description=request.data["short_description"], long_description=request.data["long_description"])
         new_product.save()
+
+        # create ProductIndex for the newly added product
+        new_text = get_indexed_text_of_product(new_product)
+        product_index = ProductIndex(product=new_product, text=new_text)
+        product_index.save()
 
         index = 0
         for image_b64 in request.data["images"]:
@@ -225,6 +231,12 @@ def vendor_product(request):
             index += 1
 
         product.save()
+
+        # update the ProductIndex
+        new_text = get_indexed_text_of_product(product)
+        product_index = ProductIndex.objects.get(product_id=product.id)
+        product_index.text = new_text
+        product_index.save()
 
         new_price = product.price * (1 - product.discount)
 

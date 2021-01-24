@@ -52,6 +52,11 @@ class ProductViewModel : ViewModel() {
     val addedToShoppingCart: LiveData<Boolean>
         get() = _addedToShoppingCart
 
+    private var job: Job? = null
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        println("Error ${throwable.localizedMessage}")
+    }
+
     init {
         _amount.value = 1
         _isSaved.value = false
@@ -59,7 +64,7 @@ class ProductViewModel : ViewModel() {
         _addedToShoppingCart.value = false
         _recommendedProducts.value = null
         _reviews.value = null
-        getRecommendedProducts(5)
+        getRecommendedProducts()
     }
 
     fun getProductReviews() {
@@ -168,24 +173,21 @@ class ProductViewModel : ViewModel() {
         _isSaved.value = _isSaved.value?.not()
     }
 
-    fun getRecommendedProducts(numberOfProducts: Int) {
-        GetflixApi.getflixApiService.getProducts(numberOfProducts)
-            .enqueue(object :
-                Callback<List<ProductModel>> {
-                override fun onFailure(call: Call<List<ProductModel>>, t: Throwable) {
-                    _recommendedProducts.value = null
-
-                }
-
-                override fun onResponse(
-                    call: Call<List<ProductModel>>,
-                    response: Response<List<ProductModel>>
-                ) {
-                    _recommendedProducts.value = response.body() as MutableList<ProductModel>?
+    fun getRecommendedProducts() {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = GetflixApi.getflixApiService.getRecommendations("Bearer " + MainActivity.StaticData.user!!.token)
+            withContext(Dispatchers.Main + exceptionHandler) {
+                if (response.isSuccessful) {
+                    response.body().let { it ->
+                        _recommendedProducts.value = it!!.products as MutableList<ProductModel>
+                        println(_recommendedProducts.value.toString())
+                    }
                 }
             }
-            )
+        }
     }
+
+
 
     fun resetNavigate() {
         _navigateBack.value = false

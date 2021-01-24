@@ -32,6 +32,10 @@ class Product (models.Model):
     discount = models.FloatField(default=0.1)
     is_deleted = models.BooleanField(default=False)
 
+class ProductIndex (models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    text = models.CharField(max_length=5000)
+
 #img urls
 class ImageUrls (models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE) #product id  

@@ -18,6 +18,7 @@ import { ShoppingCartPage } from '../pages/ShoppingCartPage'
 import { SignupPage } from '../pages/SignupPage'
 import { VendorHomepage } from '../pages/VendorHomepage'
 import { ProductModal } from '../product_modal/ProductModal'
+import { ListModal } from '../product_list_modal/ListModal'
 
 export const Content = () => {
     const { user } = useAppContext()

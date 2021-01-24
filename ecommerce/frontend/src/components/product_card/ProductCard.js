@@ -1,11 +1,14 @@
-import React from 'react'
+import './ProductCard.less'
+
 import { Button, Rate } from 'antd'
 import { PlusCircleOutlined, HeartOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import './ProductCard.less'
+
 import { useAppContext } from '../../context/AppContext'
 import { round, truncate } from '../../utils'
 import { ISO_8601 } from 'moment'
+import { ListModal } from '../product_list_modal/ListModal'
 
 export const ProductCard = ({
     product,
@@ -14,18 +17,27 @@ export const ProductCard = ({
     onDeleteProductCard = () => {},
     onEditProductCard = () => {},
 }) => {
-    const { addShoppingCartItem } = useAppContext()
+    const [isProductListModalVisible, setProductListModalVisible] = useState(false)
+    const { addShoppingCartItem, user } = useAppContext()
 
     const onAddToCart = product => {
         addShoppingCartItem(product, 1)
     }
-    const onAddToList = product => {}
 
     const { title, rating, price, price_after_discount, currency = 'TL', images, id, vendor } = product
-    const { user } = useAppContext()
     const isVendor = user.type === 'vendor'
     const isVendorAndOwner = isVendor && vendor.id === user.id
     const editableProduct = editMode && isVendorAndOwner
+
+    const onAddToList = product => {
+        console.log('on add to list', product)
+        setProductListModalVisible(true)
+    }
+
+    const onProductListModalOk = () => {
+        setProductListModalVisible(false)
+    }
+
     return (
         <div className="whole-card" style={{ minWidth: width, minHeight: width, maxWidth: width }}>
             <div>
@@ -86,6 +98,8 @@ export const ProductCard = ({
                     <Button size="large" type="ghost" icon={<HeartOutlined />} onClick={() => onAddToList(product)} />
                 </div>
             )}
+
+            <ListModal product={product} visible={isProductListModalVisible} onOk={onProductListModalOk} />
         </div>
     )
 }
