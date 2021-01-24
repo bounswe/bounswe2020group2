@@ -9,6 +9,7 @@ import { api } from '../../api'
 import { Tabs } from 'antd'
 import './VendorHomepage.less'
 import { PlusCircleOutlined } from '@ant-design/icons'
+import { ProductModal } from '../product_modal/ProductModal'
 
 const { TabPane } = Tabs
 
@@ -17,6 +18,11 @@ export const VendorHomepage = props => {
     const [editMode, setEditMode] = useState(true)
     const { user } = useAppContext()
     const isVendorAndOwner = user.type === 'vendor' && vendorId === user.id.toString()
+    const [modalVisibility, setModalVisibility] = useState(false)
+
+    const onSuccessModal = () => {}
+
+    const onCancelModal = () => {}
 
     const onEditModeChange = checked => {
         setEditMode(checked)
@@ -34,6 +40,7 @@ export const VendorHomepage = props => {
     return (
         <div className="vendor-homepage">
             <VendorSplash vendorId={vendorId} editable={editMode} onEditModeChange={onEditModeChange} />
+            <ProductModal mode="add" visible={modalVisibility} onSuccess={onSuccessModal} onCancel={onCancelModal} />
             <div>
                 <Tabs type="card" tabBarExtraContent={isVendorAndOwner ? addProductButton : null}>
                     <TabPane tab="Products" key="vendor-products">
