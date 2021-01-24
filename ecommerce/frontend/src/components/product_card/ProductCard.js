@@ -59,7 +59,7 @@ export const ProductCard = ({ product, width = 350 }) => {
                     <Button size="large" type="ghost" icon={<HeartOutlined />} onClick={() => onAddToList(product)} />
                 </div>
             </div>
-            <ListModal produt={product} visible={isProductListModalVisible} onOk={onProductListModalOk} />
+            <ListModal product={product} visible={isProductListModalVisible} onOk={onProductListModalOk} />
         </div>
     )
 }

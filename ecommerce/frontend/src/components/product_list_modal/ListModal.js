@@ -7,7 +7,6 @@ import { formatList } from '../../utils'
 import { ListModalInner } from './ListModalInner'
 
 export const ListModal = ({ product = vendorOrders[0].product, visible = true, onOk = () => {} }) => {
-    const [form] = Form.useForm()
     const [loading, setLoading] = useState(false)
     const [createLoading, setCreateLoading] = useState(false)
     const [loadingList, setLoadingList] = useState(null)
@@ -89,12 +88,11 @@ export const ListModal = ({ product = vendorOrders[0].product, visible = true, o
     }
 
     useEffect(() => {
-        getLists(product, true)
-    }, [])
+        if (visible) getLists(product, true)
+    }, [visible])
 
     return (
         <Modal
-            forceRender
             destroyOnClose
             title="Add product to list"
             width={700}
