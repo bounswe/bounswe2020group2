@@ -15,9 +15,9 @@ const { TabPane } = Tabs
 
 export const VendorHomepage = props => {
     const { vendorId } = props.match.params
-    const [editMode, setEditMode] = useState(true)
     const { user } = useAppContext()
     const isVendorAndOwner = user.type === 'vendor' && vendorId === user.id.toString()
+    const [editMode, setEditMode] = useState(isVendorAndOwner)
     const [modalVisibility, setModalVisibility] = useState(false)
     const [modalType, setModalType] = useState('add')
     const [modalProduct, setModalProduct] = useState(undefined)
