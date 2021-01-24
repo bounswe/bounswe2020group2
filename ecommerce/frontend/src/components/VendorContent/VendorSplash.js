@@ -8,6 +8,8 @@ import { round, getVendorRatingLevel, formatImageUrl } from '../../utils'
 import { MessageModalInner } from '../MessageModalInner'
 import './VendorSplash.less'
 
+import { Typography } from 'antd'
+
 export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
     const [vendorHeaderDetails, setVendorHeaderDetails] = useState({})
     const [isLoading, setIsLoading] = useState(true)
@@ -16,6 +18,8 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
     const isVendorAndOwner = user.type === 'vendor' && vendorId === user.id
     const history = useHistory()
     const [messageModalVisible, setMessageModalVisible] = useState(false)
+
+    const { Paragraph } = Typography
 
     useEffect(() => {
         async function fetch() {
@@ -66,14 +70,19 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
                 </div>
                 <div className="vendor-header">
                     <div className="vendor-header-content">
-                        <h1 className="vendor-name">{title}</h1>
-                        <h3 className="vendor-slogan">{description}</h3>
-                        <div
-                            className={`product-header-vendor-rating product-header-vendor-rating__${getVendorRatingLevel(
-                                rating,
-                            )}`}>
-                            {round(rating)}
-                        </div>
+                        <h1 className="vendor-name">
+                            <Paragraph editable={!editable}>{title}</Paragraph>
+                            <div
+                                className={`product-header-vendor-rating product-header-vendor-rating__${getVendorRatingLevel(
+                                    rating,
+                                )}`}>
+                                {round(rating)}
+                            </div>
+                        </h1>
+
+                        <h3 className="vendor-slogan">
+                            <Paragraph editable={!editable}>{description}</Paragraph>
+                        </h3>
                     </div>
                     <div className="vendor-edit-button">
                         {isVendorAndOwner ? (
