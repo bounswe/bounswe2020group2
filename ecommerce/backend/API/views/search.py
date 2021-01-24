@@ -66,13 +66,13 @@ def semantic_search_for(query):
             select_related('product').values_list('product_id', flat=True))
     # remove the duplicates from the back of the list
     filtered_ids_ranked = [id for i, id in enumerate(filtered_ids_ranked) if i not in filtered_ids_ranked[i+1:]] 
-    return Product.objects.filter(id__in=filtered_ids_ranked)
+    return Product.objects.filter(id__in=filtered_ids_ranked).filter(is_deleted=False)
 
 @api_view(['POST'])
 @permission_classes([permissions.AllowAnonymous])
 def products(request):
     query_data=JSONParser().parse(request)
-    query_set = Product.objects.all()
+    query_set = Product.objects.filter(is_deleted=False)
     if "query" in query_data:
         query_set = semantic_search_for(query_data["query"])
     if "subcategory" in query_data:
