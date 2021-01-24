@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,7 @@ import com.example.getflix.service.requests.VendorProUpdateRequest
 import com.example.getflix.ui.adapters.SubCategoryAdapter
 import com.example.getflix.ui.adapters.VendorHomeBrandsAdapter
 import com.example.getflix.ui.adapters.VendorHomeProductsAdapter
+import com.example.getflix.ui.fragments.VendorHomeFragmentDirections.Companion.actionVendorHomeToAddProductFragment
 import com.example.getflix.ui.viewmodels.SubCategoryViewModel
 import com.example.getflix.ui.viewmodels.VendorHomeViewModel
 import com.example.getflix.ui.viewmodels.VendorOrdersViewModel
@@ -51,6 +53,10 @@ class VendorHomeFragment : Fragment() {
             "Galaxy S serisi akıllı cep telefonlarıyla nefes kesici teknolojik yenilikleri sergileyen Samsung, sinematik kare/saniye oranlarında ve 8K çözünürlükte video kaydı yapan dünyanın ilk telefonu olan Galaxy S20 ile teknoloji dünyasında yeniden gündemi belirliyor. Tasarım hatlarını Galaxy Note 10 ailesinden alan ve birçok donanımsal geliştirmeyle kullanıcıların karşısına çıkan Samsung Galaxy S20 128 GB modelleri, çoklu arka kamera kurulumu ve güçlü donanımıyla beğeni topluyor. Android 10 işletim sistemi ve Samsung one UI 2.0 kullanıcı arayüzüyle gelen ürün, çift SIM kart desteği sunuyor. Samsung Galaxy S20 128 GB fiyatları bakımından, yeni nesil amiral gemisi sınıfında yer alan telefonlarla benzerlik gösteriyor.",
             0.045,18,2) */
        // viewModel.updateVendorProduct(updateRequest)
+
+        binding.btnAdd.setOnClickListener {
+            view?.findNavController()!!.navigate(actionVendorHomeToAddProductFragment())
+        }
 
         val recView = binding?.productList as RecyclerView
         val brandsView = binding?.brandList as RecyclerView

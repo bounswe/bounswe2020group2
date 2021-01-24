@@ -196,6 +196,10 @@ interface GetflixApiService {
     @Headers("Content-Type: application/json")
     @POST("notifications/seen/{notification_id}")
     fun readNotification(@Header("Authorization") token: String, @Path("notification_id") id: Int): Call<SeenResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("vendor/product")
+    fun addProduct(@Header("Authorization") token: String, @Body proData: AddProductRequest): Call<AddProductResponse>
 }
 
 object GetflixApi {

@@ -269,6 +269,9 @@
         <action
             android:id="@+id/action_vendorHome_to_updateProductFragment"
             app:destination="@id/updateProductFragment" />
+        <action
+            android:id="@+id/action_vendorHome_to_addProductFragment"
+            app:destination="@id/addProductFragment" />
     </fragment>
     <fragment
         android:id="@+id/vendorProfileFragment"
@@ -373,6 +376,10 @@
             android:name="vendorId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/addProductFragment"
+        android:name="com.example.getflix.ui.fragments.AddProductFragment"
+        tools:layout="@layout/fragment_add_product" />
 
 
 </navigation>

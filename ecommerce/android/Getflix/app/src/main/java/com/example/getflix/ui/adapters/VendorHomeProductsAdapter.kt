@@ -25,6 +25,7 @@ class VendorHomeProductsAdapter(
     class RowHolder(val binding: VendorProductBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: ProductModel, position: Int) {
+            if(product.images.isNotEmpty())
             Picasso.get().load(product.images[0]).into(binding.productImage)
             println("productss heyy")
             binding.product = product
