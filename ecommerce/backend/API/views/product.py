@@ -16,6 +16,8 @@ from ..utils import permissions, Role
 from ..models import Product,Vendor,ImageUrls,Category,Subcategory
 from ..serializers.product_serializer import ProductResponseSerializer
 from ..utils import notifyPriceChange
+from .search import *
+from API.utils import semantic_search
 
 # returns the details of the product having the given product_id
 @api_view(['GET'])
@@ -84,7 +86,7 @@ def vendor_product(request):
                     Product(),
                     context = { 'is_successful': False,
                                 'message': "Brand value cannot be empty"}
-                )
+                ).data
             )
         if isinstance(brand_data, str):
             brand = Brand(name=brand_data)
@@ -106,6 +108,11 @@ def vendor_product(request):
             short_description=request.data["short_description"], long_description=request.data["long_description"])
         new_product.save()
 
+        # create ProductIndex for the newly added product
+        new_text = semantic_search.get_indexed_text_of_product(new_product)
+        product_index = ProductIndex(product=new_product, text=new_text)
+        product_index.save()
+        
         index = 0
         for image_b64 in request.data["images"]:
             img_array = base64.b64decode(image_b64)
@@ -208,12 +215,13 @@ def vendor_product(request):
         product.stock_amount = request.data["stock_amount"]
         product.brand = brand
         product.subcategory = subcategory
-
+        
         for image_url in request.data["image_urls_delete"]:
             ImageUrls.objects.filter(image_url=image_url).first().delete()
 
         index_image_url = ImageUrls.objects.filter(product=product).order_by('-index').first()
-        index = index_image_url.image_url if index_image_url is not None else None
+        index = index_image_url.index if index_image_url is not None else 0
+    
         for image_b64 in request.data["images"]:
             img_array = base64.b64decode(image_b64)
             image = Image(image=img_array)
@@ -223,6 +231,12 @@ def vendor_product(request):
             index += 1
 
         product.save()
+
+        # update the ProductIndex
+        new_text = semantic_search.get_indexed_text_of_product(product)
+        product_index = ProductIndex.objects.get(product_id=product.id)
+        product_index.text = new_text
+        product_index.save()
 
         new_price = product.price * (1 - product.discount)
 

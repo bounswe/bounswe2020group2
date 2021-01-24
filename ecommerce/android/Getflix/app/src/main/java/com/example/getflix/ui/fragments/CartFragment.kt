@@ -22,7 +22,6 @@ import com.example.getflix.models.*
 import com.example.getflix.models.CartProductModel
 
 import com.example.getflix.ui.adapters.CartAdapter
-import com.example.getflix.ui.adapters.SwipeToDeleteAddress
 import com.example.getflix.ui.adapters.SwipeToDeleteCartProduct
 import com.example.getflix.ui.fragments.CartFragmentDirections.Companion.actionCartFragmentToCompleteOrderFragment
 import com.example.getflix.ui.viewmodels.CartViewModel

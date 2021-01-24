@@ -11,8 +11,10 @@ import {
     verifications,
     accounts,
     notifications,
+    recommendations,
     conversations,
     vendorOrders,
+    productLists,
 } from './mocks'
 import { orderStatusMap } from '../utils'
 import * as moment from 'moment'
@@ -68,6 +70,8 @@ export const handlers = [
     // }),
     // rest.get(url('/notifications'), (req, res, ctx) => {
     //     return res(ctx.json(notifications))
+    // rest.get(url('/recommendations'), (req, res, ctx) => {
+    //     return res(ctx.json(recommendations))
     // }),
     // rest.get(url('/review'), (req, res, ctx) => {
     //     const id = req.url.searchParams.get('product')
@@ -171,6 +175,9 @@ export const handlers = [
     // }),
     // rest.get(url('/vendor/order'), (req, res, ctx) => {
     //     return res(ctx.json({ status: { successful: true, message: '' }, orders: vendorOrders }))
+    // }),
+    // rest.get(url('/lists'), (req, res, ctx) => {
+    //     return res(ctx.json({ status: { successful: true, message: '' }, lists: productLists }))
     // }),
 ]
 

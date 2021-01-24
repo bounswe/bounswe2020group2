@@ -23,5 +23,6 @@ data class ProductModel (
     @SerializedName("rating") val rating : Double,
     @SerializedName("images") val images : List<String>,
     @SerializedName("price_after_discount") val priceDiscounted : Double,
-    @SerializedName("is_deleted") val deleted : Boolean
+    @SerializedName("is_deleted") val deleted : Boolean,
+    @SerializedName("image_url") val imageURL : String
 ) : Parcelable

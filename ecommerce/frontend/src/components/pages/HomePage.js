@@ -1,15 +1,11 @@
 import './HomePage.less'
-import { TrendingGrid } from '../TrendingGrid'
 import getflixLogo from '../../assets/logo.png'
 import { useAppContext } from '../../context/AppContext'
 import { useEffect, useState } from 'react'
 import { Spin } from 'antd'
-import { formatProduct, productSortBy, sleep } from '../../utils'
 import { api } from '../../api'
-import { SearchInput } from '../SearchInput'
-import { SearchInputWrapper } from '../search/SearchInputWrapper'
-import { format } from 'prettier'
 import { HorizontalProductList } from '../HorizontalProductList'
+import { Recommendations } from '../Recommendations'
 
 export const HomePage = () => {
     // example usage
@@ -58,17 +54,20 @@ const HomePage_MainContent = () => {
     }, [])
 
     return (
-        <Spin spinning={isLoading}>
-            <div className="trending-grid-wrapper">
-                {categories.map(category => {
-                    const filters = {
-                        category: category.id,
-                        sortBy: 'best-sellers',
-                        type: 'products',
-                    }
-                    return <HorizontalProductList key={category.id} filters={filters} />
-                })}
-            </div>
-        </Spin>
+        <div>
+            <Spin spinning={isLoading}>
+                <div className="home-page-horizontal-lists">
+                    <Recommendations />
+                    {categories.map(category => {
+                        const filters = {
+                            category: category.id,
+                            sortBy: 'best-sellers',
+                            type: 'products',
+                        }
+                        return <HorizontalProductList key={category.id} filters={filters} />
+                    })}
+                </div>
+            </Spin>
+        </div>
     )
 }

@@ -10,6 +10,7 @@ import { OrdersList } from '../order/OrdersList'
 import { ProfileContent } from '../profile/ProfileContent'
 import { Notifications } from '../Notifications'
 import { ChatContextProvider } from '../../context/ChatContext'
+import { ProductLists } from '../product_list/ProductLists'
 
 const { TabPane } = Tabs
 
@@ -66,6 +67,13 @@ export const ProfilePage = props => {
                         </ChatContextProvider>
                     </Alert.ErrorBoundary>
                 </TabPane>
+                {user.type === 'customer' && (
+                    <TabPane tab="Lists" key="lists" forceRender>
+                        <Alert.ErrorBoundary>
+                            <ProductLists />
+                        </Alert.ErrorBoundary>
+                    </TabPane>
+                )}
             </Tabs>
         </div>
     )
