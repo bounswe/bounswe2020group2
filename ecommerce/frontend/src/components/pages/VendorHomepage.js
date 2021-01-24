@@ -40,7 +40,6 @@ export const VendorHomepage = props => {
         setModalProduct(product)
         setModalType('edit')
         setModalVisibility(true)
-        console.log('edit product->', modalProduct)
     }
 
     const onAddProduct = () => {
@@ -111,7 +110,6 @@ const VendorMainContent = ({ editMode, onDeleteProductCard, onEditProductCard })
                         data: { pagination, products },
                     },
                 } = await api.post(`/search/products`, {})
-                console.log(products)
                 setTrendingProducts(products.map(formatProduct))
             } catch (error) {
                 console.error('failed to load trending products', error)
