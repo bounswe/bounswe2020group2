@@ -220,6 +220,7 @@ def vendor_product(request):
             ImageUrls.objects.filter(image_url=image_url).first().delete()
 
         index_image_url = ImageUrls.objects.filter(product=product).order_by('-index').first()
+
         index = index_image_url.index if index_image_url is not None else 0
     
         for image_b64 in request.data["images"]:

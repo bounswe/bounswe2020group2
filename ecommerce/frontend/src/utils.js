@@ -221,3 +221,8 @@ export const getVendorRatingLevel = rating => {
     if (rating <= 8.0) return 'medium'
     return 'high'
 }
+
+export const formatVendorDetails = vendorHeader => ({
+    ...vendorHeader,
+    rating: vendorHeader.total_rating / vendorHeader.rating_count,
+})
