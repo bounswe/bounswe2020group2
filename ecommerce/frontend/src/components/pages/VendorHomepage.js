@@ -20,9 +20,20 @@ export const VendorHomepage = props => {
     const isVendorAndOwner = user.type === 'vendor' && vendorId === user.id.toString()
     const [modalVisibility, setModalVisibility] = useState(false)
 
-    const onSuccessModal = () => {}
+    const onDeleteProductCard = () => {
+        console.log('delete product card')
+    }
+    const onEditProductCard = () => {
+        console.log('edit product card')
+    }
 
-    const onCancelModal = () => {}
+    const onSuccessModal = () => {
+        setModalVisibility(false)
+    }
+
+    const onCancelModal = () => {
+        setModalVisibility(false)
+    }
 
     const onEditModeChange = checked => {
         setEditMode(checked)
@@ -44,7 +55,11 @@ export const VendorHomepage = props => {
             <div>
                 <Tabs type="card" tabBarExtraContent={isVendorAndOwner ? addProductButton : null}>
                     <TabPane tab="Products" key="vendor-products">
-                        <VendorMainContent editMode={editMode} />
+                        <VendorMainContent
+                            editMode={editMode}
+                            onDeleteProductCard={onDeleteProductCard}
+                            onEditProductCard={onEditProductCard}
+                        />
                     </TabPane>
                     <TabPane tab="Reviews" key="vendor-reviews">
                         <VendorReviews vendorId={vendorId} />
@@ -55,7 +70,7 @@ export const VendorHomepage = props => {
     )
 }
 
-const VendorMainContent = ({ editMode }) => {
+const VendorMainContent = ({ editMode, onDeleteProductCard, onEditProductCard }) => {
     const [trendingProducts, setTrendingProducts] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
@@ -83,7 +98,12 @@ const VendorMainContent = ({ editMode }) => {
     return (
         <Spin spinning={isLoading}>
             <div className="vendor-page-trending-grid-wrapper">
-                <VendorPageContent products={trendingProducts} editMode={editMode} />
+                <VendorPageContent
+                    products={trendingProducts}
+                    editMode={editMode}
+                    onDeleteProductCard={onDeleteProductCard}
+                    onEditProductCard={onEditProductCard}
+                />
             </div>
         </Spin>
         // Pagination

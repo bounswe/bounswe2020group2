@@ -7,18 +7,17 @@ import { useAppContext } from '../../context/AppContext'
 import { round, truncate } from '../../utils'
 import { ISO_8601 } from 'moment'
 
-export const ProductCard = ({ product, width = 350, editMode = false }) => {
+export const ProductCard = ({
+    product,
+    width = 350,
+    editMode = false,
+    onDeleteProductCard = () => {},
+    onEditProductCard = () => {},
+}) => {
     const { addShoppingCartItem } = useAppContext()
 
     const onAddToCart = product => {
         addShoppingCartItem(product, 1)
-    }
-
-    const onDeleteProductCard = () => {
-        console.log('delete product card')
-    }
-    const onEditProductCard = () => {
-        console.log('edit product card')
     }
     const onAddToList = product => {}
 
