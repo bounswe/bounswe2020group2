@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 
 import { useAppContext } from '../../context/AppContext'
 import { round, truncate } from '../../utils'
-import { ISO_8601 } from 'moment'
 import { ListModal } from '../product_list_modal/ListModal'
 
 export const ProductCard = ({

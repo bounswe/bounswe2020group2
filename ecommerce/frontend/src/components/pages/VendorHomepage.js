@@ -25,16 +25,16 @@ export const VendorHomepage = props => {
     const onDeleteProductCard = productId => {
         console.log('delete product card', productId)
 
-        // async function fetch() {
-        //     try {
-        //         const { data } = await api.delete(`/vendor/product`, { id: productId })
-        //     } catch (error) {
-        //         console.error('failed to delete product', error)
-        //     } finally {
-        //     }
-        // }
+        async function fetch() {
+            try {
+                const { data } = await api.delete(`/vendor/product`, { id: productId })
+            } catch (error) {
+                console.error('failed to delete product', error)
+            } finally {
+            }
+        }
 
-        // fetch()
+        fetch()
     }
     const onEditProductCard = product => {
         setModalProduct(product)

@@ -50,10 +50,6 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
     const onMessageClick = event => {
         event.stopPropagation()
         setMessageModalVisible(true)
-
-        // Send message modal popup
-        // Sends the message from modal
-        // Go to profile/messages
     }
     const { title, image_url, description, rating } = vendorHeaderDetails
     return (
@@ -65,7 +61,7 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
                 onOk={onMessageClick}
                 onCancel={onMessageEnd}
                 footer={null}>
-                <MessageModalInner receiverId={user.receiverId} onFinish={onMessageEnd} />
+                <MessageModalInner receiverId={vendorId} onFinish={onMessageEnd} />
             </Modal>
             <div className="vendor-splash">
                 <div className="vendor-image">
