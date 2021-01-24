@@ -15,6 +15,7 @@ from ..utils import validate_product_add_request
 from ..utils import permissions, Role
 from ..models import Product,Vendor,ImageUrls,Category,Subcategory
 from ..serializers.product_serializer import ProductResponseSerializer
+from ..utils import notifyPriceChange
 
 # returns the details of the product having the given product_id
 @api_view(['GET'])
@@ -75,8 +76,23 @@ def vendor_product(request):
 
             return Response(response.data)
         
+        brand = None
+        brand_data = request.data.get('brand_id')
+        if brand_data is None:
+            return Response(
+                VendorProductResponseSerializer(
+                    Product(),
+                    context = { 'is_successful': False,
+                                'message': "Brand value cannot be empty"}
+                )
+            )
+        if isinstance(brand_data, str):
+            brand = Brand(name=brand_data)
+            brand.save()
+        else:
+            brand = Brand.objects.filter(pk=int(brand_data)).first()
+
         vendor = Vendor.objects.filter(user=request.user).first()
-        brand = Brand.objects.filter(pk=request.data["brand_id"]).first()
         subcategory = Subcategory.objects.filter(pk=request.data["subcategory_id"]).first()
         
         if brand is None or vendor is None or subcategory is None:
@@ -161,10 +177,26 @@ def vendor_product(request):
 
             return Response(response.data)
         
-        brand = Brand.objects.filter(pk=request.data["brand_id"]).first()
+        brand = None
+        brand_data = request.data.get('brand_id')
+        if brand_data is None:
+            return Response(
+                VendorProductResponseSerializer(
+                    Product(),
+                    context = { 'is_successful': False,
+                                'message': "Brand value cannot be empty"}
+                )
+            )
+        if isinstance(brand_data, str):
+            brand = Brand(name=brand_data)
+            brand.save()
+        else:
+            brand = Brand.objects.filter(pk=int(brand_data)).first()
         subcategory = Subcategory.objects.filter(pk=request.data["subcategory_id"]).first()
         if brand is None or subcategory is None:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        previous_price = product.price * (1 - product.discount)
         discount = request.data["discount"]
         if discount is None:
             discount = 0
@@ -176,7 +208,28 @@ def vendor_product(request):
         product.stock_amount = request.data["stock_amount"]
         product.brand = brand
         product.subcategory = subcategory
+
+        for image_url in request.data["image_urls_delete"]:
+            ImageUrls.objects.filter(image_url=image_url).first().delete()
+
+        index_image_url = ImageUrls.objects.filter(product=product).order_by('-index').first()
+        index = index_image_url.index if index_image_url is not None else 0
+
+        for image_b64 in request.data["images"]:
+            img_array = base64.b64decode(image_b64)
+            image = Image(image=img_array)
+            image.save()
+            image_url = ImageUrls(product=product, image_url="/image/"+str(image.pk), index = index)
+            image_url.save()
+            index += 1
+
         product.save()
+
+        new_price = product.price * (1 - product.discount)
+
+        if(new_price < previous_price):
+            notifyPriceChange(product, new_price, previous_price)
+        
         response = VendorProductResponseSerializer(
             product,
             context = { 'is_successful': True,

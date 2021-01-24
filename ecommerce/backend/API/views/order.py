@@ -10,6 +10,7 @@ from ..serializers.address_serializer import AddressResponseSerializer
 from ..serializers.product_serializer import ProductResponseSerializer
 from ..serializers.purchase_serializer import PurchaseResponseSerializer
 from ..utils.order_status import OrderStatus
+from ..utils import notifyStatusChange
 
 
 @api_view(['GET','PUT'])
@@ -66,6 +67,8 @@ def vendor_orders(request):
         if purchase_to_change.vendor_id != vendor.id:
             return Response({'status': {'successful': False, 'message':'This order does not belong to you'}})
 
+        old_order_status = purchase_to_change.status
+
         if request.data['orderStatus'] == 'cancelled':
             purchase_to_change.status = -1
         elif request.data['orderStatus'] == 'accepted':
@@ -78,6 +81,8 @@ def vendor_orders(request):
             return Response({'status': {'successful': False, 'message':'Please provide a valid orderStatus, options are: cancelled, accepted, at_cargo, delivered'}})
 
         purchase_to_change.save()
+        
+        notifyStatusChange(old_order_status, purchase_to_change)
 
         return Response({'status': {'successful': True, 'message':'Order status is successfully changed'}})
 

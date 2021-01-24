@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ListModel(
-    @SerializedName("id") val id: Int,
+    @SerializedName("list_id") val id: Int,
     @SerializedName("name") val name: String,
-    @SerializedName("products") val products: List<ProductModel>
+    @SerializedName("products") val products: List<ListProductModel>
 ) : Parcelable
