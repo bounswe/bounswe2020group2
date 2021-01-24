@@ -1,8 +1,11 @@
 package com.example.getflix.ui.adapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -12,6 +15,7 @@ import com.example.getflix.databinding.NotificationItemBinding
 import com.example.getflix.models.NotificationModel
 import com.example.getflix.ui.fragments.ListsFragmentDirections
 import com.example.getflix.ui.fragments.NotificationFragmentDirections
+import com.example.getflix.ui.viewmodels.NotificationViewModel
 import com.squareup.picasso.Picasso
 
 class NotificationAdapter(
@@ -19,20 +23,26 @@ class NotificationAdapter(
 ) : ListAdapter<NotificationModel, NotificationAdapter.RowHolder>(NotificationsDiffCallback()) {
 
     var fragment = fragment
+    var viewModel = ViewModelProvider(fragment).get(NotificationViewModel::class.java)
 
     class RowHolder(val binding: NotificationItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(notification: NotificationModel, position: Int) {
             var type = notification.type
+            if(position==1)
+                notification.isSeen = false
+            if(!notification.isSeen) {
+                binding.cardView.setBackgroundColor(Color.GRAY)
+            } else {
+                binding.fab.visibility = View.GONE
+            }
             var argument = notification.argument
             if(type=="order_status_change") {
                 Picasso.get().load(argument.product.imageURL).into(binding.productImage)
                 if(argument.newStatus=="at_cargo") {
                     binding.notText.text = "Your order is now on the way."
-                    binding.productImage.setImageResource(R.drawable.ic_atcargo)
                 } else if(argument.newStatus=="delivered") {
                     binding.notText.text = "Your order is delivered. Enjoy!"
-                    binding.productImage.setImageResource(R.drawable.ic_box)
                 } else if(argument.newStatus=="accepted") {
                     binding.notText.text = "Your order is accepted."
                 }
@@ -63,6 +73,11 @@ class NotificationAdapter(
     override fun onBindViewHolder(holder: RowHolder, position: Int) {
         notificationlist?.get(position)?.let {
             holder.bind(it, position)
+            holder?.binding.fab.setOnClickListener {
+                viewModel.readNotification(notificationlist?.get(position)?.id)
+                holder?.binding.fab.visibility = View.GONE
+                holder?.binding.cardView.setBackgroundColor(Color.WHITE)
+            }
             holder?.itemView!!.setOnClickListener {
                 if(notificationlist?.get(position)?.type == "price_change") {
                     fragment.findNavController().navigate(

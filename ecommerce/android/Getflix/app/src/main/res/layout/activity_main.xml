@@ -74,6 +74,15 @@
                     android:layout_marginEnd="10dp"
                     android:background="@drawable/ic_btn_notification"
                     android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_notification_check"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:layout_gravity="center_horizontal|end"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/ic_check_black"
+                    android:visibility="gone" />
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 

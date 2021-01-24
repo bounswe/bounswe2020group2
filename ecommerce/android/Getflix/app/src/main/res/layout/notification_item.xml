@@ -10,6 +10,7 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:padding="10dp"
@@ -27,8 +28,7 @@
                 android:layout_width="60dp"
                 android:layout_height="70dp"
                 android:layout_marginBottom="9dp"
-                android:layout_marginLeft="15dp"
-                android:src="@drawable/ic_btn_notification"
+                android:layout_marginLeft="13dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.04"
@@ -51,6 +51,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="sub" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fab"
+                app:fabSize="mini"
+                android:layout_gravity="bottom|right"
+                app:srcCompat="@drawable/ic_check_white"
+                app:borderWidth="0dp"
+                app:tint="@null"
+                android:backgroundTint="#000"
+                app:layout_anchorGravity="bottom|right|end"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.95"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.60"
+                tools:ignore="VectorDrawableCompat" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

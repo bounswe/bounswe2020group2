@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 data class NotificationModel(
     @SerializedName("id") val id : Int,
     @SerializedName("type") val type : String,
-    @SerializedName("is_seen") val isSeen : Boolean,
+    @SerializedName("is_seen") var isSeen : Boolean,
     @SerializedName("date") val date : String,
     @SerializedName("argument") val argument : ArgumentModel
 ) : Parcelable

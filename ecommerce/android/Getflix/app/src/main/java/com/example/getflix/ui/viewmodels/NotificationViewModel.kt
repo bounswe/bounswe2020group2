@@ -33,7 +33,6 @@ class NotificationViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     response.body().let { it ->
                         _notificationList.value = it
-                        println("aaaaa")
                         println(_notificationList.value.toString())
                     }
                 }
@@ -57,8 +56,7 @@ class NotificationViewModel : ViewModel() {
                 ) {
                     println(response.body().toString())
                     println(response.code())
-                  //  if (response.code() == 200)
-                      //  _navigateBack.value = true
+                    getNotifications()
                 }
             }
             )
@@ -81,6 +79,7 @@ class NotificationViewModel : ViewModel() {
                     println(response.body().toString())
                     println(response.code())
                     println("aaa")
+                    getNotifications()
                    // if (response.code() == 200)
                    //     _navigateBack.value = true
                 }

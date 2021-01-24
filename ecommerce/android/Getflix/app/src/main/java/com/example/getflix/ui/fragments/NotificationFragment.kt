@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentNotificationBinding
+import com.example.getflix.doneAlert
 import com.example.getflix.models.*
 import com.example.getflix.ui.adapters.NotificationAdapter
 import com.example.getflix.ui.viewmodels.NotificationViewModel
@@ -34,11 +35,16 @@ class NotificationFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(NotificationViewModel::class.java)
         activity?.toolbar!!.toolbar_title.text = getString(R.string.notifications)
         val recView = binding?.notificationList as RecyclerView
+        activity?.toolbar!!.btn_notification_check.visibility = View.VISIBLE
         viewModel.getNotifications()
         viewModel.readAllNotifications()
         viewModel.readNotification(1)
 
 
+        activity?.toolbar!!.btn_notification_check.setOnClickListener {
+            viewModel.readAllNotifications()
+            doneAlert(this,"You've marked all your notifications as seen",null)
+        }
 
         viewModel.notificationList.observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -51,6 +57,11 @@ class NotificationFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    override fun onStop() {
+        super.onStop()
+        activity?.toolbar!!.btn_notification_check.visibility = View.GONE
     }
 
 }
