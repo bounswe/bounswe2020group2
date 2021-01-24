@@ -17,10 +17,7 @@ export const VendorReviews = ({ vendorId }) => {
             try {
                 setIsLoading(true)
                 const {
-                    data: {
-                        reviews,
-                        // pagination: { page_size, page, total_items },
-                    },
+                    data: { reviews },
                 } = await api.get(`/review?vendor=${vendorId}`) // &page_size=${pageSize}&page=${currentPage - 1}
                 setReviews(reviews)
             } catch (error) {
