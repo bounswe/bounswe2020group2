@@ -78,9 +78,11 @@ function useChat() {
             const { data } = await api.post(`/messages`, _msg)
             if (!data?.status?.successful) throw new Error(data)
             await getConversations()
+            return true
         } catch (error) {
             notification.error({ message: 'There was an error while sending message' })
             console.error(error)
+            return false
         }
     }
 

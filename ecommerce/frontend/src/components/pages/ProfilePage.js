@@ -35,14 +35,18 @@ export const ProfilePage = props => {
                 </TabPane>
                 <TabPane tab="Orders" key="orders" forceRender>
                     <Alert.ErrorBoundary>
-                        <OrdersList />
+                        <ChatContextProvider>
+                            <OrdersList />
+                        </ChatContextProvider>
                     </Alert.ErrorBoundary>
                 </TabPane>
-                <TabPane tab="Cards" key="cards" forceRender>
-                    <Alert.ErrorBoundary>
-                        <CreditCardList />
-                    </Alert.ErrorBoundary>
-                </TabPane>
+                {user.type === 'customer' && (
+                    <TabPane tab="Cards" key="cards" forceRender>
+                        <Alert.ErrorBoundary>
+                            <CreditCardList />
+                        </Alert.ErrorBoundary>
+                    </TabPane>
+                )}
                 <TabPane tab="Addresses" key="addresses" forceRender>
                     <Alert.ErrorBoundary>
                         <AddressList />
