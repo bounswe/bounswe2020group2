@@ -4,19 +4,9 @@ import { Spin, Button, Rate, Switch, Modal } from 'antd'
 import { api } from '../../api'
 import { useHistory } from 'react-router-dom'
 import { EditOutlined } from '@ant-design/icons'
-import { round } from '../../utils'
+import { round, getVendorRatingLevel } from '../../utils'
 import { MessageModalInner } from '../MessageModalInner'
 import './VendorSplash.less'
-
-const getVendorRatingLevel = ({ rating }) => {
-    if (rating <= 5.0) {
-        return 'low'
-    }
-    if (rating <= 8.0) {
-        return 'medium'
-    }
-    return 'high'
-}
 
 export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
     const [vendorHeaderDetails, setVendorHeaderDetails] = useState({})
@@ -73,9 +63,7 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
                         <h3 className="vendor-slogan">{description}</h3>
                         <div
                             className={`product-header-vendor-rating product-header-vendor-rating__${getVendorRatingLevel(
-                                {
-                                    rating,
-                                },
+                                rating,
                             )}`}>
                             {round(rating)}
                         </div>
