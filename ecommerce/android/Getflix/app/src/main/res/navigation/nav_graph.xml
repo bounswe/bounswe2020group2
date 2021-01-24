@@ -247,6 +247,9 @@
         <action
             android:id="@+id/action_orderInfoFragment_to_profileFragment2"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_orderInfoFragment_to_orderProductsFragment"
+            app:destination="@id/orderProductsFragment" />
     </fragment>
 
     <fragment
@@ -350,6 +353,14 @@
     <action
         android:id="@+id/action_notificationFragment_to_productFragment"
         app:destination="@id/productFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderProductsFragment"
+        android:name="com.example.getflix.ui.fragments.OrderProductsFragment"
+        tools:layout="@layout/fragment_order_products">
+    <argument
+        android:name="products"
+        app:argType="com.example.getflix.models.OrderPurchasedModel[]" />
     </fragment>
     <fragment
         android:id="@+id/vendorPageFragment"

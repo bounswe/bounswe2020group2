@@ -1,5 +1,4 @@
 import { Button, List, Spin, notification } from 'antd'
-import { sleep } from '../../utils'
 import { api } from '../../api'
 import { useEffect, useState } from 'react'
 import { AddressCard } from './AddressCard'

@@ -52,7 +52,7 @@ function useChat() {
 
     useInterval(async () => {
         await getConversations()
-    }, 5000)
+    }, 10000)
 
     const getConversations = async () => {
         try {
