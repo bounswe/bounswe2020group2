@@ -88,7 +88,7 @@ class VendorProductTest(TestCase):
             "short_description": "Sarı mor içsaha forması LA LAKERS",
             "long_description": "anoacnancacnoewcnwocnoınvroeı3vnoıwvnroeıvnıoernvoernvoernvoıenvoıernvoerınvıernvoıernvoıernvroeınvoıernvorıenvoeırnvoıernvoıernvenvoernvoıernverı",
             "discount": 0.18,
-            "brand_id": 1,
+            "brand_id": "Puma",
             "subcategory_id": 11,
             "images": [],
             "image_urls_delete": []

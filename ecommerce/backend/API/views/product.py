@@ -76,8 +76,23 @@ def vendor_product(request):
 
             return Response(response.data)
         
+        brand = None
+        brand_data = request.data.get('brand_id')
+        if brand_data is None:
+            return Response(
+                VendorProductResponseSerializer(
+                    Product(),
+                    context = { 'is_successful': False,
+                                'message': "Brand value cannot be empty"}
+                )
+            )
+        if isinstance(brand_data, str):
+            brand = Brand(name=brand_data)
+            brand.save()
+        else:
+            brand = Brand.objects.filter(pk=int(brand_data)).first()
+
         vendor = Vendor.objects.filter(user=request.user).first()
-        brand = Brand.objects.filter(pk=request.data["brand_id"]).first()
         subcategory = Subcategory.objects.filter(pk=request.data["subcategory_id"]).first()
         
         if brand is None or vendor is None or subcategory is None:
@@ -162,7 +177,21 @@ def vendor_product(request):
 
             return Response(response.data)
         
-        brand = Brand.objects.filter(pk=request.data["brand_id"]).first()
+        brand = None
+        brand_data = request.data.get('brand_id')
+        if brand_data is None:
+            return Response(
+                VendorProductResponseSerializer(
+                    Product(),
+                    context = { 'is_successful': False,
+                                'message': "Brand value cannot be empty"}
+                )
+            )
+        if isinstance(brand_data, str):
+            brand = Brand(name=brand_data)
+            brand.save()
+        else:
+            brand = Brand.objects.filter(pk=int(brand_data)).first()
         subcategory = Subcategory.objects.filter(pk=request.data["subcategory_id"]).first()
         if brand is None or subcategory is None:
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -189,7 +218,7 @@ def vendor_product(request):
             img_array = base64.b64decode(image_b64)
             image = Image(image=img_array)
             image.save()
-            image_url = ImageUrls(product=new_product, image_url="/image/"+str(image.pk), index = index)
+            image_url = ImageUrls(product=product, image_url="/image/"+str(image.pk), index = index)
             image_url.save()
             index += 1
 
