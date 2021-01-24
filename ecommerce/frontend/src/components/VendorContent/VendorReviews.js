@@ -8,8 +8,6 @@ export const VendorReviews = ({ vendorId }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [currentPage, setCurrentPage] = useState(1)
     const [reviews, setReviews] = useState(null)
-    const [totalPage, setTotalPage] = useState(0)
-    const [pageSize, setPageSize] = useState(10)
 
     useEffect(() => {
         // When current page is changed, makes a call to backend and gets the new reviews.
@@ -31,11 +29,6 @@ export const VendorReviews = ({ vendorId }) => {
 
     if (!isLoading && reviews === null) return null
 
-    const onPaginationChanged = value => {
-        // When page count is changed, current page is set
-        setCurrentPage(value)
-    }
-
     return (
         <div className="vendor-review">
             <Spin spinning={isLoading}>
@@ -51,14 +44,6 @@ export const VendorReviews = ({ vendorId }) => {
                     })}
                 </div>
             </Spin>
-
-            <Pagination
-                className="review-results-pagination"
-                onChange={onPaginationChanged}
-                current={currentPage}
-                defaultPageSize={pageSize}
-                total={totalPage}
-            />
         </div>
     )
 }
