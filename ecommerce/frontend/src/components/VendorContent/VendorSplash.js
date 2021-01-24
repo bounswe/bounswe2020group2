@@ -34,7 +34,7 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
 
     const onMessageEnd = () => {
         setMessageModalVisible(false)
-        history.push('/profile/messages/')
+        // history.push('/profile/messages/')
     }
 
     const onMessageClick = event => {
