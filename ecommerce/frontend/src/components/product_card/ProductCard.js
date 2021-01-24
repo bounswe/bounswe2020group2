@@ -8,15 +8,12 @@ import { Link } from 'react-router-dom'
 import { useAppContext } from '../../context/AppContext'
 import { round, truncate } from '../../utils'
 import { ListModal } from '../product_list_modal/ListModal'
+import { ProductModal } from '../product_modal/ProductModal'
+import { api } from '../../api'
 
-export const ProductCard = ({
-    product,
-    width = 350,
-    editMode = false,
-    onDeleteProductCard = () => {},
-    onEditProductCard = () => {},
-}) => {
+export const ProductCard = ({ product, width = 350, editMode = false, onChange = () => {} }) => {
     const [isProductListModalVisible, setProductListModalVisible] = useState(false)
+    const [isProductModalVisible, setIsProductModalVisible] = useState(false)
     const { addShoppingCartItem, user } = useAppContext()
 
     const onAddToCart = product => {
@@ -37,39 +34,41 @@ export const ProductCard = ({
         setProductListModalVisible(false)
     }
 
+    const onDelete = async () => {
+        try {
+            // DELETE vendor product cannot take id as body, needs to be changed in backend
+            await api.delete(`/vendor/product/${product.id}`)
+            onChange()
+        } catch (error) {
+            console.error('failed to delete product', error)
+        }
+    }
+    const onEditClick = () => {
+        setIsProductModalVisible(true)
+    }
+
+    const onProductModalCancel = () => {
+        setIsProductModalVisible(false)
+    }
+
+    const onProductModalSuccess = () => {
+        setIsProductModalVisible(false)
+        onChange()
+    }
+
     return (
         <div className="whole-card" style={{ minWidth: width, minHeight: width, maxWidth: width }}>
             <div>
                 {editableProduct && (
                     <div className="product-card-editable-icons">
-                        <Button
-                            type="link"
-                            icon={<EditOutlined />}
-                            onClick={() => {
-                                onEditProductCard(product)
-                            }}
-                            style={{ color: '#472836', backgroundColor: '#e2be5a' }}>
-                            Edit
-                        </Button>
-                        <div className="cart-item-delete">
-                            <Popconfirm
-                                title="Are you sure to delete this product?"
-                                onConfirm={() => {
-                                    onDeleteProductCard(product.id)
-                                }}
-                                okText="Yes"
-                                cancelText="No">
-                                <Button
-                                    type="link"
-                                    icon={<DeleteOutlined />}
-                                    style={{
-                                        color: '#472836',
-                                        backgroundColor: '#e2be5a',
-                                    }}>
-                                    Delete
-                                </Button>
-                            </Popconfirm>
-                        </div>
+                        <EditOutlined onClick={onEditClick} />
+                        <Popconfirm
+                            title="Are you sure to delete this product?"
+                            onConfirm={onDelete}
+                            okText="Yes"
+                            cancelText="No">
+                            <DeleteOutlined />
+                        </Popconfirm>
                     </div>
                 )}
                 <Link to={`/product/${id}`}>
@@ -106,6 +105,13 @@ export const ProductCard = ({
             )}
 
             <ListModal product={product} visible={isProductListModalVisible} onOk={onProductListModalOk} />
+            <ProductModal
+                mode={'edit'}
+                product={product}
+                visible={isProductModalVisible}
+                onCancel={onProductModalCancel}
+                onSuccess={onProductModalSuccess}
+            />
         </div>
     )
 }

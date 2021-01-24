@@ -1,6 +1,6 @@
 import { useAppContext } from '../../context/AppContext'
 import React, { useEffect, useState } from 'react'
-import { Spin, Button } from 'antd'
+import { Spin, Button, notification } from 'antd'
 import { VendorPageContent } from '../VendorContent/VendorPageContent'
 import { formatProduct, formatSearchQueryParams } from '../../utils'
 import { VendorSplash } from '../VendorContent/VendorSplash'
@@ -18,37 +18,25 @@ export const VendorHomepage = props => {
     const vendorId = parseInt(id)
     const { user } = useAppContext()
     const isVendorAndOwner = user.type === 'vendor' && vendorId === user.id
-    const [editMode, setEditMode] = useState(isVendorAndOwner)
+    const [editable, setEditable] = useState(isVendorAndOwner)
     const [modalVisibility, setModalVisibility] = useState(false)
-    const [modalType, setModalType] = useState('add')
     const [modalProduct, setModalProduct] = useState(undefined)
+    const [vendorProductRefreshKey, setVendorProductRefreshKey] = useState(0)
 
-    const onDeleteProductCard = productId => {
-        async function fetch() {
-            try {
-                const { data } = await api.delete(`/vendor/product`, { id: productId })
-            } catch (error) {
-                console.error('failed to delete product', error)
-            }
-        }
-
-        fetch()
-    }
-    const onEditProductCard = product => {
-        setModalProduct(product)
-        setModalType('edit')
-        setModalVisibility(true)
+    const onProductChange = () => {
+        setVendorProductRefreshKey(vendorProductRefreshKey + 1)
     }
 
     const onAddProduct = () => {
         setModalProduct(undefined)
-        setModalType('add')
         setModalVisibility(true)
     }
 
     const onSuccessModal = () => {
         setModalProduct(undefined)
         setModalVisibility(false)
+        setVendorProductRefreshKey(vendorProductRefreshKey + 1)
+        notification.success({ message: 'Successfully added a product.' })
     }
 
     const onCancelModal = () => {
@@ -57,7 +45,7 @@ export const VendorHomepage = props => {
     }
 
     const onEditModeChange = checked => {
-        setEditMode(checked)
+        setEditable(checked)
     }
 
     const addProductButton = (
@@ -68,9 +56,9 @@ export const VendorHomepage = props => {
 
     return (
         <div className="vendor-homepage">
-            <VendorSplash vendorId={vendorId} editable={editMode} onEditModeChange={onEditModeChange} />
+            <VendorSplash vendorId={vendorId} editable={editable} onEditModeChange={onEditModeChange} />
             <ProductModal
-                mode={modalType}
+                mode={'add'}
                 visible={modalVisibility}
                 product={modalProduct}
                 onSuccess={onSuccessModal}
@@ -78,12 +66,13 @@ export const VendorHomepage = props => {
                 key={modalProduct?.id ?? 0}
             />
             <div>
-                <Tabs type="card" tabBarExtraContent={isVendorAndOwner ? addProductButton : null}>
+                <Tabs type="card" tabBarExtraContent={isVendorAndOwner && editable ? addProductButton : null}>
                     <TabPane tab="Products" key="vendor-products">
                         <VendorMainContent
-                            editMode={editMode}
-                            onDeleteProductCard={onDeleteProductCard}
-                            onEditProductCard={onEditProductCard}
+                            key={vendorProductRefreshKey}
+                            vendorId={vendorId}
+                            editable={editable}
+                            onChange={onProductChange}
                         />
                     </TabPane>
                     <TabPane tab="Reviews" key="vendor-reviews">
@@ -95,8 +84,8 @@ export const VendorHomepage = props => {
     )
 }
 
-const VendorMainContent = ({ editMode, onDeleteProductCard, onEditProductCard }) => {
-    const [trendingProducts, setTrendingProducts] = useState([])
+const VendorMainContent = ({ editable, vendorId, onChange }) => {
+    const [products, setProducts] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
@@ -107,8 +96,13 @@ const VendorMainContent = ({ editMode, onDeleteProductCard, onEditProductCard })
                     data: {
                         data: { pagination, products },
                     },
-                } = await api.post(`/search/products`, {})
-                setTrendingProducts(products.map(formatProduct))
+                } = await api.post(`/search/products`, {
+                    vendor: vendorId,
+                    sort_by: 'arrival',
+                    sort_order: 'decreasing',
+                    page_size: 100,
+                })
+                setProducts(products.map(formatProduct))
             } catch (error) {
                 console.error('failed to load trending products', error)
             } finally {
@@ -122,12 +116,7 @@ const VendorMainContent = ({ editMode, onDeleteProductCard, onEditProductCard })
     return (
         <Spin spinning={isLoading}>
             <div className="vendor-page-trending-grid-wrapper">
-                <VendorPageContent
-                    products={trendingProducts}
-                    editMode={editMode}
-                    onDeleteProductCard={onDeleteProductCard}
-                    onEditProductCard={onEditProductCard}
-                />
+                <VendorPageContent products={products} editable={editable} onChange={onChange} />
             </div>
         </Spin>
         // Pagination

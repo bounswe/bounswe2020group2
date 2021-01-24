@@ -184,6 +184,9 @@ export const handlers = [
     // rest.get(url('/lists'), (req, res, ctx) => {
     //     return res(ctx.json({ status: { successful: true, message: '' }, lists: productLists }))
     // }),
+    rest.put(url('/vendor/:id/details'), (req, res, ctx) => {
+        return res(ctx.json({ status: { successful: true, message: '' } }))
+    }),
 ]
 
 if (process.env.NODE_ENV === 'development') {

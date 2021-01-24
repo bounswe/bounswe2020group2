@@ -1,14 +1,14 @@
-import { useAppContext } from '../../context/AppContext'
-import React, { useEffect, useState } from 'react'
-import { Spin, Button, Rate, Switch, Modal } from 'antd'
-import { api } from '../../api'
-import { useHistory } from 'react-router-dom'
-import { EditOutlined } from '@ant-design/icons'
-import { round, getVendorRatingLevel, formatImageUrl } from '../../utils'
-import { MessageModalInner } from '../MessageModalInner'
 import './VendorSplash.less'
 
-import { Typography } from 'antd'
+import { EditOutlined } from '@ant-design/icons'
+import { Button, Modal, Spin, Switch, Typography } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+
+import { api } from '../../api'
+import { useAppContext } from '../../context/AppContext'
+import { formatImageUrl, formatVendorDetails, getVendorRatingLevel, round } from '../../utils'
+import { MessageModalInner } from '../MessageModalInner'
 
 export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
     const [vendorHeaderDetails, setVendorHeaderDetails] = useState({})
@@ -16,38 +16,55 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
 
     const { user } = useAppContext()
     const isVendorAndOwner = user.type === 'vendor' && vendorId === user.id
-    const history = useHistory()
     const [messageModalVisible, setMessageModalVisible] = useState(false)
 
     const { Paragraph } = Typography
 
-    useEffect(() => {
-        async function fetch() {
-            try {
-                setIsLoading(true)
-                console.log('asdasd')
-                const { data } = await api.get(`/vendor/${vendorId}/details`)
-                setVendorHeaderDetails(data)
-            } catch (error) {
-                console.error(error)
-            } finally {
-                setIsLoading(false)
-            }
+    const fetch = async () => {
+        try {
+            setIsLoading(true)
+            const { data } = await api.get(`/vendor/${vendorId}/details`)
+            setVendorHeaderDetails(formatVendorDetails(data))
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setIsLoading(false)
         }
+    }
+
+    useEffect(() => {
         fetch()
     }, [])
 
     const onMessageEnd = () => {
         setMessageModalVisible(false)
-        // history.push('/profile/messages/')
     }
 
     const onMessageClick = event => {
         event.stopPropagation()
         setMessageModalVisible(true)
     }
-    const { title, image_url, description, rating_count } = vendorHeaderDetails
-    const rating = rating_count
+    const { title, image_url, description, rating } = vendorHeaderDetails
+
+    const onEdit = field => async value => {
+        const newDetails = {
+            ...vendorHeaderDetails,
+            [field]: value,
+        }
+
+        console.log(newDetails)
+
+        try {
+            setIsLoading(true)
+            await api.put(`/vendor/${vendorId}/details`, newDetails)
+            await fetch()
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
     return (
         <Spin spinning={isLoading}>
             <Modal
@@ -71,7 +88,9 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
                 <div className="vendor-header">
                     <div className="vendor-header-content">
                         <h1 className="vendor-name">
-                            <Paragraph editable={!editable}>{title}</Paragraph>
+                            <Paragraph editable={editable ? { onChange: onEdit('title'), maxLength: 100 } : undefined}>
+                                {title}
+                            </Paragraph>
                             <div
                                 className={`product-header-vendor-rating product-header-vendor-rating__${getVendorRatingLevel(
                                     rating,
@@ -81,7 +100,10 @@ export const VendorSplash = ({ vendorId, onEditModeChange, editable }) => {
                         </h1>
 
                         <h3 className="vendor-slogan">
-                            <Paragraph editable={!editable}>{description}</Paragraph>
+                            <Paragraph
+                                editable={editable ? { onChange: onEdit('description'), maxLength: 100 } : undefined}>
+                                {description}
+                            </Paragraph>
                         </h3>
                     </div>
                     <div className="vendor-edit-button">

@@ -5,36 +5,36 @@
     gap: 10px;
     background: #f1eee2;
     align-items: center;
-    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoejkmzyHcN4VmssORqOq_3-ccrpjAvf5i-g&usqp=CAU');
+    background-image: url('https://www.designbolts.com/wp-content/uploads/2012/12/simple-pattern-white-seamless-website-background.jpg');
     margin-bottom: 8px;
 }
 // https://pub-static.fotor.com/static/web/site/features/backgrounds/images/Fotor-wall-background-image-6.jpg
 // https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoejkmzyHcN4VmssORqOq_3-ccrpjAvf5i-g&usqp=CAU
 .vendor-image {
-    width: 100px;
-    height: 100px;
-    min-width: 100px;
-    min-height: 100px;
+    width: 128px;
+    height: 128px;
+    min-width: 128px;
+    min-height: 128px;
     margin-left: 32px;
 }
 
 .vendor-image img {
-    max-width: 100px;
-    max-height: 100px;
+    width: 128px;
+    height: 128px;
     object-fit: contain;
 }
 
 .vendor-header {
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    justify-content: spaceabetween;
     align-items: center;
 }
 
 .vendor-header-content {
     display: flex;
     flex-direction: column;
-    margin-left: 64px;
+    margin-left: 32px;
     font-size: 1em;
 }
 
@@ -45,6 +45,9 @@
     width: fit-content;
     text-align: center;
     padding: 0px 6px;
+    margin-left: 4px;
+    height: fit-content;
+    margin-top: 8px;
     color: white;
     border-radius: 6px;
     &__high {
@@ -71,13 +74,18 @@
 }
 .vendor-name {
     font-family: 'Work Sans';
-    font-weight: 800;
+    font-weight: 600;
+    font-size: 2em;
     display: inline-flex;
+    gap: 8px;
+    .ant-typography {
+        margin-bottom: unset;
+    }
 }
 
 .vendor-slogan {
     font-family: 'Work Sans';
-    font-weight: 300;
+    font-weight: 400;
     font-style: italic;
-    font-size: 1.5em;
+    font-size: 1.4em;
 }
