@@ -14,7 +14,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="140dp"
         android:elevation="3dp"
         android:padding="1dp">
 
@@ -61,24 +61,42 @@
                 android:fontFamily="sans-serif-condensed-medium"
                 android:gravity="left"
                 android:textColor="@color/subtitle"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 app:layout_constraintStart_toEndOf="@+id/cart_product_image"
                 app:layout_constraintTop_toBottomOf="@+id/cart_product_name" />
 
             <TextView
-                android:id="@+id/amount"
+                android:id="@+id/cart_product_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="15dp"
-                android:fontFamily="@font/open_sans_condensed_bold"
-                android:gravity="right"
-                android:text="Amount: 4"
-                android:textColor="@color/black"
-                android:textSize="18sp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:gravity="left"
+                android:textColor="@color/subtitle"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/cart_product_image"
+                app:layout_constraintTop_toBottomOf="@+id/cart_product_price" />
+
+            <Button
+                android:id="@+id/btn_review"
+                android:layout_width="80dp"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="@font/open_sans_semibold"
+                android:text="Review"
+                android:textColor="#EBD494"
+                app:backgroundTint="#000000"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
+                app:layout_constraintVertical_bias="0.50"
+                app:layout_constraintHorizontal_bias="0.99"/>
 
             <TextView
                 android:id="@+id/total_price_cart_product"
@@ -90,7 +108,7 @@
                 android:fontFamily="@font/open_sans_condensed_bold"
                 android:gravity="right"
                 android:textColor="@color/black"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
