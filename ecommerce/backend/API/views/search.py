@@ -27,7 +27,8 @@ def products(request):
             category_q = (category_q | Q(subcategory_id=sub_id))
         query_set = query_set.filter(category_q)
     if "vendor" in query_data:
-        query_set = query_set.filter(vendor_id=query_data["vendor"])
+        vendor = Vendor.objects.filter(user_id=query_data["vendor"]).first()
+        query_set = query_set.filter(vendor=vendor)
     if "brand" in query_data:
         if not query_data["brand"]:
             pass #brand list is empty, assume no filtering

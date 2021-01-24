@@ -52,7 +52,7 @@ class ProductResponseSerializer(serializers.ModelSerializer):
             vendor_rating = vendor.total_rating / vendor.rating_count
         else:
             vendor_rating = None
-        return { 'id': vendor.id, 'name': vendor_full_name, 'rating': vendor_rating }
+        return { 'id': vendor.user_id, 'name': vendor_full_name, 'rating': vendor_rating }
     
     def get_images(self, obj):
         image_urls = [obj.image_url for obj in ImageUrls.objects.filter(product_id=obj.id).all()]
