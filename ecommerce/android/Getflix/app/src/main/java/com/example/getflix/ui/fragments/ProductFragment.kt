@@ -23,10 +23,12 @@ import com.example.getflix.databinding.FragmentProductBinding
 import com.example.getflix.doneAlert
 import com.example.getflix.hideKeyboard
 import com.example.getflix.infoAlert
+import com.example.getflix.service.requests.CreateListRequest
 import com.example.getflix.ui.adapters.CommentAdapter
 import com.example.getflix.ui.adapters.ImageAdapter
 import com.example.getflix.ui.adapters.RecommenderAdapter
 import com.example.getflix.ui.fragments.ProductFragmentDirections.Companion.actionProductFragmentToVendorPageFragment
+import com.example.getflix.ui.viewmodels.ListViewModel
 import com.example.getflix.ui.viewmodels.ProductViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
@@ -39,6 +41,7 @@ import me.relex.circleindicator.CircleIndicator2
 class ProductFragment : Fragment() {
     private lateinit var binding: FragmentProductBinding
     private lateinit var productViewModel: ProductViewModel
+    private lateinit var listViewModel: ListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +54,9 @@ class ProductFragment : Fragment() {
         val args = ProductFragmentArgs.fromBundle(requireArguments())
         productViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
         productViewModel.getProduct(args.productId)
+
+        listViewModel = ViewModelProvider(this).get(ListViewModel::class.java)
+        listViewModel.getCustomerLists()
 
         activity?.toolbar_lay!!.visibility = View.GONE
 
@@ -80,11 +86,18 @@ class ProductFragment : Fragment() {
         val indicator: CircleIndicator2 = binding.circleIndicator
         indicator.attachToRecyclerView(binding.images, pagerSnapHelper)
         var listNames = arrayListOf<String>()
-        listNames.add("List 1")
-        listNames.add("List 2")
+        var listIds = arrayListOf<Int>()
         var checkedList = 0
         binding.save.setOnClickListener {
             //productViewModel.onSaveClick()
+            listViewModel.listOfLists.observe(viewLifecycleOwner, Observer {
+                for(list in it.lists) {
+                    if(!listNames.contains(list.name)) {
+                        listNames.add(list.name)
+                        listIds.add(list.id)
+                    }
+                }
+
             MaterialAlertDialogBuilder(requireContext(), R.style.MaterialAlertDialog_color)
                 .setTitle("Select a List")
                 .setSingleChoiceItems(
@@ -94,6 +107,11 @@ class ProductFragment : Fragment() {
                     checkedList = which
                 }
                 .setPositiveButton("Ok") { dialog, which ->
+                    println(checkedList.toString())
+                    println(listIds[checkedList])
+
+                    listViewModel.addProductToList(listIds[checkedList],args.productId)
+                    doneAlert(this,"The product is added to your list successfully!",null)
                 }
                 .setIcon(R.drawable.accepted_list)
                 .setNegativeButton("Cancel") { dialog, which ->
@@ -110,10 +128,13 @@ class ProductFragment : Fragment() {
                     dialog.setPositiveButton("Create") { dialogInterface: DialogInterface, i: Int ->
                         println(edit.text.toString())
                         hideKeyboard(requireActivity())
+                        listViewModel.createList(CreateListRequest(edit.text.toString()))
+                        doneAlert(this,"A new list is created successfully!",null)
                     }
                     dialog.show()
                 }
                 .show()
+            })
         }
         binding.imageView7.setOnClickListener {
             val scrollView = binding.scrollView

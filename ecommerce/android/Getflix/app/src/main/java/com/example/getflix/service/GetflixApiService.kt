@@ -164,7 +164,38 @@ interface GetflixApiService {
     @PUT("vendor/order")
     fun updateOrderStatus(@Header("Authorization")token : String , @Body vendorOrderStatusRequest: VendorOrderStatusRequest): Call<Status>
 
+    @GET("lists")
+    suspend fun getLists(@Header("Authorization") token: String): Response<ListsModel>
 
+    @Headers("Content-Type: application/json")
+    @POST("lists")
+    fun createList(@Header("Authorization") token: String, @Body listData: CreateListRequest): Call<CreateListResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("lists/{id}/product/{product_id}")
+    fun addProductToList(@Header("Authorization") token: String, @Path("id") id: Int, @Path("product_id") product_id: Int): Call<AddProductToListResponse>
+
+    @Headers("Content-Type: application/json")
+    @DELETE("lists/{id}")
+    fun deleteList(@Header("Authorization") token: String, @Path("id") id: Int): Call<ListDeleteResponse>
+
+    @Headers("Content-Type: application/json")
+    @DELETE("lists/{id}/product/{product_id}")
+    fun deleteProductInList(@Header("Authorization") token: String, @Path("id") id: Int, @Path("product_id") productId: Int): Call<DeleteProductInListResponse>
+
+    @GET("recommendation")
+    suspend fun getRecommendations(@Header("Authorization") token: String): Response<RecommendationModel>
+
+    @GET("notifications")
+    suspend fun getNotifications(@Header("Authorization") token: String): Response<List<NotificationModel>>
+
+    @Headers("Content-Type: application/json")
+    @POST("notifications/seen")
+    fun readAllNotifications(@Header("Authorization") token: String): Call<SeenResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("notifications/seen/{notification_id}")
+    fun readNotification(@Header("Authorization") token: String, @Path("notification_id") id: Int): Call<SeenResponse>
 }
 
 object GetflixApi {

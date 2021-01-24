@@ -1,20 +1,15 @@
 package com.example.getflix.ui.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.OrderProductItemBinding
 import com.example.getflix.models.OrderPurchasedModel
-import com.example.getflix.ui.fragments.BankAccountFragment
-import com.example.getflix.ui.fragments.OrderInfoFragment
-import com.example.getflix.ui.fragments.OrderProductsFragment
-import com.example.getflix.ui.viewmodels.OrderPurchasedViewModel
-import com.example.getflix.ui.fragments.OrderInfoFragmentDirections
+
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_product.view.*
 
 class OrderProductsAdapter(
     private val orderPurchasedList: ArrayList<OrderPurchasedModel>?
@@ -26,13 +21,24 @@ class OrderProductsAdapter(
 
         fun bind(orderPurchased: OrderPurchasedModel, position: Int) {
             binding.listproduct = orderPurchased
-            binding.cartProductName.setText(orderPurchased.product.name)
-            binding.cartProductPrice.setText(orderPurchased.product.price.toString()+" TL")
-            binding.totalPriceCartProduct.setText("Total: "+(orderPurchased.unit_price*orderPurchased.amount).toString()+" TL")
-            binding.amount.setText("Amount: "+orderPurchased.amount)
+            binding.cartProductName.text = orderPurchased.product.name
+            binding.cartProductPrice.text = orderPurchased.product.price.toString()+" TL    (x" + orderPurchased.amount + ")"
+            var status = orderPurchased.status
+            if(status=="at_cargo")
+                status = "At cargo"
+            else if(status=="accepted")
+                status = "Accepted"
+            if(status=="delivered")
+                status = "Delivered"
+            binding.cartProductStatus.text = status
+            binding.totalPriceCartProduct.text = "Total: "+(orderPurchased.unit_price*orderPurchased.amount).toString()+" TL"
+            //binding.amount.setText("Amount: "+orderPurchased.amount)
 
             if(!orderPurchased.product.images.isNullOrEmpty())
                 Picasso.get().load(orderPurchased.product.images[0]).into(binding.cartProductImage)
+
+            if(orderPurchased.status == "delivered")
+                binding.btnReview.visibility = View.VISIBLE
         }
 
         companion object {
