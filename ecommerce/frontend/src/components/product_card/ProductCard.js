@@ -1,6 +1,6 @@
 import './ProductCard.less'
 
-import { Button, Rate } from 'antd'
+import { Button, Rate, Popconfirm } from 'antd'
 import { PlusCircleOutlined, HeartOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -51,18 +51,25 @@ export const ProductCard = ({
                             style={{ color: '#472836', backgroundColor: '#e2be5a' }}>
                             Edit
                         </Button>
-                        <Button
-                            type="link"
-                            icon={<DeleteOutlined />}
-                            onClick={() => {
-                                onDeleteProductCard(product.id)
-                            }}
-                            style={{
-                                color: '#472836',
-                                backgroundColor: '#e2be5a',
-                            }}>
-                            Delete
-                        </Button>
+                        <div className="cart-item-delete">
+                            <Popconfirm
+                                title="Are you sure to delete this product?"
+                                onConfirm={() => {
+                                    onDeleteProductCard(product.id)
+                                }}
+                                okText="Yes"
+                                cancelText="No">
+                                <Button
+                                    type="link"
+                                    icon={<DeleteOutlined />}
+                                    style={{
+                                        color: '#472836',
+                                        backgroundColor: '#e2be5a',
+                                    }}>
+                                    Delete
+                                </Button>
+                            </Popconfirm>
+                        </div>
                     </div>
                 )}
                 <Link to={`/product/${id}`}>
