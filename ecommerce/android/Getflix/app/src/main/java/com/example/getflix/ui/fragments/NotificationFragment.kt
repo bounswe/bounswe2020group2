@@ -35,6 +35,8 @@ class NotificationFragment : Fragment() {
         activity?.toolbar!!.toolbar_title.text = getString(R.string.notifications)
         val recView = binding?.notificationList as RecyclerView
         viewModel.getNotifications()
+        viewModel.readAllNotifications()
+        viewModel.readNotification(1)
 
 
 

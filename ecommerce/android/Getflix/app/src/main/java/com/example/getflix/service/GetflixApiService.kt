@@ -188,6 +188,14 @@ interface GetflixApiService {
 
     @GET("notifications")
     suspend fun getNotifications(@Header("Authorization") token: String): Response<List<NotificationModel>>
+
+    @Headers("Content-Type: application/json")
+    @POST("notifications/seen")
+    fun readAllNotifications(@Header("Authorization") token: String): Call<SeenResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("notifications/seen/{notification_id}")
+    fun readNotification(@Header("Authorization") token: String, @Path("notification_id") id: Int): Call<SeenResponse>
 }
 
 object GetflixApi {
