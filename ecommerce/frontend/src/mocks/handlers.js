@@ -10,6 +10,7 @@ import {
     cards,
     verifications,
     accounts,
+    notifications,
     vendorDetails,
     recommendations,
     conversations,
@@ -31,6 +32,9 @@ const url = u => config.apiUrl + u
 // comment the handler when done with it, DO NOT REMOVE IT
 
 export const handlers = [
+    // rest.get(url('/notifications'), (req, res, ctx) => {
+    //     return res(ctx.json(notifications))
+    // }),
     // rest.get(url('/vendor/:id/details'), (req, res, ctx) => {
     //     const { params } = req
     //     const { id } = params
@@ -75,6 +79,8 @@ export const handlers = [
     //     const { token } = params
     //     return res(ctx.json({ data: { message: verifications[Math.floor(Math.random() * verifications.length)] } }))
     // }),
+    // rest.get(url('/notifications'), (req, res, ctx) => {
+    //     return res(ctx.json(notifications))
     // rest.get(url('/recommendations'), (req, res, ctx) => {
     //     return res(ctx.json(recommendations))
     // }),
