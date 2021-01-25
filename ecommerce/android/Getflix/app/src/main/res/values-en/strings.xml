@@ -176,6 +176,8 @@
     <string name="price_before_discount">Price Before Discount</string>
     <string name="current_price">Current Price</string>
     <string name="order_status_title">Status</string>
+    <string name="review">REVIEW</string>
+    <string name="cancel">CANCEL</string>
     <string-array name="order_status">
         <item>Accepted</item>
         <item>At cargo</item>
