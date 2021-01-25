@@ -1,5 +1,6 @@
 package com.example.getflix.ui.viewmodels
 
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,27 +14,24 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class VendorPageViewModel : ViewModel() {
-
-    private val _vendor = MutableLiveData<VendorModel>()
-    val vendor: LiveData<VendorModel>
-        get() = _vendor
+class NByTwoViewModel : ViewModel() {
 
     private val _products = MutableLiveData<List<ProductModel>?>()
     val products: LiveData<List<ProductModel>?>
         get() = _products
 
-    fun setVendor(vendorModel: VendorModel) {
-        _vendor.value = vendorModel
+    init {
+        println(vendorModel)
         getProductsOfVendor()
     }
 
-    fun getProductsOfVendor() {
-        GetflixApi.getflixApiService.searchProductsByVendor(ProSearchByVendorRequest(_vendor.value!!.id))
+    private fun getProductsOfVendor() {
+        GetflixApi.getflixApiService.searchProductsByVendor(ProSearchByVendorRequest(vendorModel!!.id))
             .enqueue(object :
                 Callback<ProSearchByVendorResponse> {
                 override fun onFailure(call: Call<ProSearchByVendorResponse>, t: Throwable) {
                     _products.value = null
+                    println("RESPONSE DÖNMÜYOR")
                 }
 
                 override fun onResponse(
@@ -41,8 +39,10 @@ class VendorPageViewModel : ViewModel() {
                     response: Response<ProSearchByVendorResponse>
                 ) {
                     if (response.body() != null) {
+                        println("Response döndü")
                         _products.value = response.body()!!.data.products
                     } else {
+                        println("RESPONSE NULL")
                         _products.value = null
                     }
 
@@ -51,4 +51,5 @@ class VendorPageViewModel : ViewModel() {
             )
 
     }
+
 }
