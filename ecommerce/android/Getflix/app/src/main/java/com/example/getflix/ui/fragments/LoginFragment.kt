@@ -18,6 +18,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
+import com.example.getflix.activities.MainActivity.StaticData.isAdmin
+import com.example.getflix.activities.MainActivity.StaticData.isCustomer
+import com.example.getflix.activities.MainActivity.StaticData.isVendor
+import com.example.getflix.activities.MainActivity.StaticData.isVisitor
 import com.example.getflix.databinding.FragmentLoginBinding
 import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToHomePageFragment
 import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToRegisterFragment
@@ -131,10 +135,18 @@ class LoginFragment : Fragment() {
 
                 if (it.role!="CUSTOMER") {
                     println(it.toString())
+                    isCustomer = false
+                    isVisitor = false
+                    isVendor = true
+                    isAdmin = false
                     activity?.loading_progress!!.visibility = View.GONE
                     (activity as MainActivity).decideBottomNav(true)
                     view?.findNavController()?.navigate(actionLoginFragmentToVendorHomeFragment())
                 } else {
+                    isCustomer = true
+                    isVisitor = false
+                    isVendor = false
+                    isAdmin = false
                     println(it.toString())
                     activity?.loading_progress!!.visibility = View.GONE
                     (activity as MainActivity).decideBottomNav(false)
@@ -155,7 +167,10 @@ class LoginFragment : Fragment() {
         }
 
         binding.guestButton.setOnClickListener {
-            MainActivity.StaticData.isVisitor = true
+            isVisitor = true
+            isCustomer = false
+            isVendor = false
+            isAdmin = false
             (activity as MainActivity).decideBottomNav(false)
             view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
         }
