@@ -130,8 +130,5 @@ class VendorProductTest(TestCase):
         }
         response = self.client.post(reverse('vendor_product'), body, 'json')
         pid = response.data["id"]
-        body = {
-            'id': pid
-        }
-        response = self.client.delete(reverse('vendor_product'), body)
+        response = self.client.delete(reverse('vendor_product_delete', args=[pid]))
         self.assertEqual(response.data["status"]["successful"], True)
