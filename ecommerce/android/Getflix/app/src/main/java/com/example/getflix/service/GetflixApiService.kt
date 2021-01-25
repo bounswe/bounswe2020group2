@@ -81,7 +81,7 @@ interface GetflixApiService {
 
     @Headers("Content-Type: application/json")
     @POST("review")
-    fun addReview(@Header("Authorization") @Body reviewRequest : ReviewRequest ): Call<Status>
+    fun addReview(@Header("Authorization")  token: String, @Body reviewRequest : ReviewRequest ): Call<Status>
 
     @GET("customer/{customerId}/addresses")
     fun getCustomerAddresses(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Call<AddressListModel>
