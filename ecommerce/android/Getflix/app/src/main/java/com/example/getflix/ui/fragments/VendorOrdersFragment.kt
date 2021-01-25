@@ -41,11 +41,14 @@ class VendorOrdersFragment : Fragment() {
         binding.lifecycleOwner = this
 
 
+
         val vendorOrderAdapter = VendorOrderAdapter(requireContext())
         binding.ordersList.adapter = vendorOrderAdapter
         val layoutManager: RecyclerView.LayoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.ordersList.layoutManager = layoutManager
+
+
 
         vendorOrderAdapter.selectedStatus.observe(viewLifecycleOwner, Observer {
             if (it != null) {

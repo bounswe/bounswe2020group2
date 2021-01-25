@@ -183,4 +183,6 @@
         <item>Delivered</item>
         <item>Cancelled</item>
     </string-array>
+    <string name="send_message">SEND MESSAGE</string>
+
 </resources>

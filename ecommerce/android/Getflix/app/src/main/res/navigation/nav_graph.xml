@@ -261,6 +261,7 @@
         <action
             android:id="@+id/action_productFragment_to_vendorPageFragment"
             app:destination="@id/vendorPageFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/vendorHomeFragment"
@@ -373,6 +374,19 @@
             android:name="vendorId"
             app:argType="integer" />
     </fragment>
+
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.example.getflix.ui.fragments.NotificationFragment" />
+    <fragment
+        android:id="@+id/vendorPageFragment"
+        android:name="com.example.getflix.ui.fragments.VendorPageFragment"
+        tools:layout="@layout/fragment_vendor">
+    <argument
+        android:name="vendor"
+        app:argType="com.example.getflix.models.VendorModel" />
+    </fragment>
+
 
 
 </navigation>

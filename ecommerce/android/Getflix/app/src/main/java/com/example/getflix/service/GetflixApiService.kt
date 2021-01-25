@@ -3,6 +3,7 @@ package com.example.getflix.service
 import com.example.getflix.models.*
 import com.example.getflix.service.requests.*
 import com.example.getflix.service.responses.*
+import com.google.gson.annotations.SerializedName
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -12,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 
-const val BASE_URL = "http://ec2-18-223-113-236.us-east-2.compute.amazonaws.com:8000/"
+const val BASE_URL = "http://ec2-3-134-80-26.us-east-2.compute.amazonaws.com:8000/"
 
 private val requestInterceptor = Interceptor { chain ->
 

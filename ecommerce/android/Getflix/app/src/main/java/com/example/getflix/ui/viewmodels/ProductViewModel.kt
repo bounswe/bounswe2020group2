@@ -52,6 +52,7 @@ class ProductViewModel : ViewModel() {
     val addedToShoppingCart: LiveData<Boolean>
         get() = _addedToShoppingCart
 
+
     private var job: Job? = null
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         println("Error ${throwable.localizedMessage}")
@@ -64,7 +65,9 @@ class ProductViewModel : ViewModel() {
         _addedToShoppingCart.value = false
         _recommendedProducts.value = null
         _reviews.value = null
+
         getRecommendedProducts()
+
     }
 
     fun getProductReviews() {
@@ -81,8 +84,6 @@ class ProductViewModel : ViewModel() {
                     response: Response<ProductReviewListModel>
                 ) {
                     _reviews.value = response.body()?.reviews
-                    println(_reviews.value)
-
                 }
             }
             )

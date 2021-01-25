@@ -21,14 +21,14 @@ class VendorPageProductAdapter :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
+        println("Buraya giriyor")
         holder.bind(item)
     }
 
     private fun ViewHolder.bind(product: ProductModel) {
+
         Picasso.get().load(product.images[0]).into(binding.productImage)
-        binding.root.setOnClickListener {
-            HomeViewModel.onProductClick.value = product
-        }
+
         var amount = binding.amountRecProduct.text.toString().toInt()
 
         binding.product = product
@@ -38,6 +38,7 @@ class VendorPageProductAdapter :
             binding.oldProductPrice.text = product.price.toString() + " TL"
 
         }
+
         binding.oldProductPrice.setPaintFlags(binding.oldProductPrice.getPaintFlags() or Paint.STRIKE_THRU_TEXT_FLAG)
         if (product.priceDiscounted.toString().length > 5) {
             binding.productPrice.text =
