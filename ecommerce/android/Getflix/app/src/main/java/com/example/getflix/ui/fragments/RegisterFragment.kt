@@ -158,9 +158,6 @@ class RegisterFragment : Fragment() {
             view?.findNavController()?.popBackStack()
         }
 
-
-
-
         return binding.root
     }
 

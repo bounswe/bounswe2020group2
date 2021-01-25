@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.getflix.activities.MainActivity
+import com.example.getflix.activities.MainActivity.StaticData.isCustomer
 import com.example.getflix.models.ListModel
 import com.example.getflix.models.ListsModel
 import com.example.getflix.service.GetflixApi
@@ -30,18 +31,21 @@ class ListViewModel : ViewModel() {
 
 
     fun getCustomerLists() {
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getLists("Bearer " + MainActivity.StaticData.user!!.token)
-            withContext(Dispatchers.Main + exceptionHandler) {
-                if (response.isSuccessful) {
-                    response.body().let { it ->
-                        _listOfLists.value = it
-                        println("aaaaa")
-                        println(_listOfLists.value.toString())
+        if(isCustomer){
+            job = CoroutineScope(Dispatchers.IO).launch {
+                val response = GetflixApi.getflixApiService.getLists("Bearer " + MainActivity.StaticData.user!!.token)
+                withContext(Dispatchers.Main + exceptionHandler) {
+                    if (response.isSuccessful) {
+                        response.body().let { it ->
+                            _listOfLists.value = it
+                            println("aaaaa")
+                            println(_listOfLists.value.toString())
+                        }
                     }
                 }
             }
         }
+
     }
 
     fun createList(createListRequest: CreateListRequest) {

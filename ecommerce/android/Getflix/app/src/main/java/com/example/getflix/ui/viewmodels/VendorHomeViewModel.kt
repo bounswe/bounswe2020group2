@@ -42,11 +42,11 @@ class VendorHomeViewModel : ViewModel() {
                     call: Call<VendorProUpdateResponse>,
                     response: Response<VendorProUpdateResponse>
                 ) {
+                    println(response.message())
                     if (response.code() == 200) {
                         _navigateBack.value = true
-                        println(response.body()!!.status.message)
-                    }
 
+                    }
                     // searchByVendor(3)
                 }
             }
