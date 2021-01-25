@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.getflix.activities.MainActivity
+import com.example.getflix.activities.MainActivity.StaticData.isCustomer
 import com.example.getflix.models.ProductModel
 import com.example.getflix.models.ProductReviewListModel
 import com.example.getflix.models.ReviewModel
@@ -175,17 +176,45 @@ class ProductViewModel : ViewModel() {
     }
 
     fun getRecommendedProducts() {
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getRecommendations("Bearer " + MainActivity.StaticData.user!!.token)
-            withContext(Dispatchers.Main + exceptionHandler) {
-                if (response.isSuccessful) {
-                    response.body().let { it ->
-                        _recommendedProducts.value = it!!.products as MutableList<ProductModel>
-                        println(_recommendedProducts.value.toString())
+        if(isCustomer){
+            job = CoroutineScope(Dispatchers.IO).launch {
+                val response = GetflixApi.getflixApiService.getRecommendations("Bearer " + MainActivity.StaticData.user!!.token)
+                withContext(Dispatchers.Main + exceptionHandler) {
+                    if (response.isSuccessful) {
+                        response.body().let { it ->
+                            _recommendedProducts.value = it!!.products as MutableList<ProductModel>
+                        }
+                    }else{
+                        _recommendedProducts.value = mutableListOf()
                     }
                 }
             }
         }
+        else{
+            GetflixApi.getflixApiService.getProducts(12)
+                .enqueue(object :
+                    Callback<List<ProductModel>> {
+                    override fun onFailure(call: Call<List<ProductModel>>, t: Throwable) {
+                        _recommendedProducts.value = mutableListOf()
+                    }
+
+                    override fun onResponse(
+                        call: Call<List<ProductModel>>,
+                        response: Response<List<ProductModel>>
+                    ) {
+                        val productsInResponse =  response.body()
+                        if(productsInResponse != null){
+                            _recommendedProducts.value = productsInResponse as MutableList<ProductModel>
+                        }
+                        else{
+                            _recommendedProducts.value = mutableListOf()
+                        }
+
+                    }
+                }
+                )
+        }
+
     }
 
 
