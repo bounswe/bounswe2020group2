@@ -3,6 +3,7 @@ package com.example.getflix.service
 import com.example.getflix.models.*
 import com.example.getflix.service.requests.*
 import com.example.getflix.service.responses.*
+import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -36,7 +37,7 @@ private val okHttpClient = OkHttpClient.Builder()
 private val retrofit = Retrofit.Builder()
         .client(okHttpClient)
         .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create(GsonBuilder().serializeNulls().create()))
         .build()
 
 
