@@ -7,5 +7,5 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class AddressListModel(
         @SerializedName("status") val status: Status,
-        @SerializedName("addresses") val addresses: List<AddressModel>
+        @SerializedName("addresses") val addresses: List<AddressModel>?
 ) : Parcelable

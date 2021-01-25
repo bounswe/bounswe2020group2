@@ -413,8 +413,9 @@ export const products = [
 
 export const product = {
     id: 1,
-    name: "Under Armour Men's Tech 2.0 Short Sleeve T-Shirt",
+    title: "Under Armour Men's Tech 2.0 Short Sleeve T-Shirt",
     price: 18,
+    price_after_discount: 14.2,
     creation_date: '2019-08-20T07:22:34Z',
     total_rating: 80,
     rating_count: 20,
@@ -850,3 +851,695 @@ export const accounts = {
         role: 'CUSTOMER',
     },
 }
+
+export const vendorDetails = [
+    {
+        title: 'Osman Sasmaz',
+        rating: 0.7,
+        descriptipn: 'Discounts everyday',
+        image_url:
+            'data:image/png;base64,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',
+        rating_count: 15,
+    },
+    {
+        title: 'Osman Sasmaz',
+        rating: 2.7,
+        descriptipn: 'Discounts everyday',
+        image_url:
+            'data:image/png;base64,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',
+        rating_count: 15,
+    },
+    {
+        title: 'Osman Sasmaz',
+        rating: 4.7,
+        descriptipn: 'Discounts everyday',
+        image_url:
+            'data:image/png;base64,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',
+        rating_count: 15,
+    },
+    {
+        title: 'Can Batuk',
+        rating: 6.7,
+        descriptipn: 'Almadın battuk',
+        image_url:
+            'data:image/png;base64,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',
+        rating_count: 15,
+    },
+    {
+        title: 'Osman Sasmaz',
+        rating: 8.7,
+        description: 'Discounts everyday',
+        image_url:
+            'data:image/png;base64,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',
+        rating_count: 15,
+    },
+]
+export const recommendations = [
+    {
+        id: 1,
+        name: "Under Armour Men's Tech 2.0 Short Sleeve T-Shirt",
+        price_after_discount: 18,
+        creation_date: '2019-08-20T07:22:34Z',
+        total_rating: 80,
+        rating_count: 20,
+        stock_amount: 10,
+        short_description: '100% Polyester, Machine Washable, Material wicks sweat & dries really fast',
+        subcategory: {
+            name: "Men's Fashion",
+            id: 10,
+        },
+        long_description: 'long description',
+        discount: 0.1,
+        category: {
+            id: 4,
+            name: 'Clothing',
+        },
+        brand: {
+            name: 'Under Armour',
+            id: 1,
+        },
+        vendor: {
+            rating: 4.666666666666667,
+            id: 1,
+            name: 'omerfaruk deniz',
+        },
+        rating: 4.0,
+        images: [
+            'https://underarmour.scene7.com/is/image/Underarmour/V5-1345317-014_FC?rp=standard-0pad|pdpMainDesktop&scl=1&fmt=jpg&qlt=85&resMode=sharp2&cache=on,on&bgc=F0F0F0&wid=566&hei=708&size=566,708',
+            'https://underarmour.scene7.com/is/image/Underarmour/V5-1326413-001_FC_Main?rp=standard-0pad|pdpMainDesktop&scl=1&fmt=jpg&qlt=85&resMode=sharp2&cache=on,on&bgc=F0F0F0&wid=566&hei=708&size=566,708',
+            'https://images-na.ssl-images-amazon.com/images/I/51tb0KkLYqL._AC_UX679_.jpg',
+        ],
+        price: 20,
+    },
+    {
+        id: 3,
+        name: "Skechers Men's Afterburn Memory-Foam Lace-up Sneaker",
+        price_after_discount: 45,
+        creation_date: '2020-08-11T08:22:34Z',
+        total_rating: 50,
+        rating_count: 10,
+        stock_amount: 22,
+        short_description: '100% Leather/Synthetic, Heel measures approximately 2", Memory Foam Insole',
+        subcategory: {
+            name: 'Sports & Outdoor',
+            id: 5,
+        },
+        long_description: 'long description',
+        discount: 0.1,
+        category: {
+            id: 2,
+            name: 'Health & Households',
+        },
+        brand: {
+            name: 'Skechers ',
+            id: 2,
+        },
+        vendor: {
+            rating: 4.666666666666667,
+            id: 1,
+            name: 'omerfaruk deniz',
+        },
+        rating: 5.0,
+        images: [
+            'https://i.ebayimg.com/images/g/vOMAAOSwpeBeTK2g/s-l640.jpg',
+            'https://www.shoes.com/pm/skech/skech681268_41824_jb1.jpg',
+            'https://i.ebayimg.com/images/g/lGMAAOSwAH1dOw-U/s-l640.jpg',
+        ],
+        price: 50,
+    },
+    {
+        id: 7,
+        name: 'Jelly Comb 2.4G Slim Wireless Mouse with Nano Receiver MS001',
+        price_after_discount: 27,
+        creation_date: '2019-08-20T07:22:22Z',
+        total_rating: 80,
+        rating_count: 22,
+        stock_amount: 62,
+        short_description:
+            'Smooth Navigation with Less Noise Mouse Click - Slim ergonomic design and smooth frosted surface for an incredible user experience',
+        subcategory: {
+            name: 'Cell Phones & Accessories',
+            id: 2,
+        },
+        long_description: 'long description',
+        discount: 0.1,
+        category: {
+            id: 1,
+            name: 'Electronics',
+        },
+        brand: {
+            name: 'Jelly Comb',
+            id: 6,
+        },
+        vendor: {
+            rating: 4.666666666666667,
+            id: 1,
+            name: 'omerfaruk deniz',
+        },
+        rating: 3.6363636363636362,
+        images: [
+            'https://images-na.ssl-images-amazon.com/images/I/61lB0Ugp4aL._AC_SY355_.jpg',
+            'https://images-na.ssl-images-amazon.com/images/I/61eVvoANnbL._AC_SY355_.jpg',
+            'https://media.karousell.com/media/photos/products/2020/02/03/brand_new_in_box_jelly_comb_24g_slim_wireless_mouse_with_nano_receiver_less_noise_portable_mobile_op_1580711169_7ce341ddb_progressive',
+        ],
+        price: 30,
+    },
+    {
+        id: 4,
+        name: "Clarks Emslie Women's Warren Slip-on Loafer Leather Shoes",
+        price_after_discount: 40,
+        creation_date: '2017-08-21T07:22:34Z',
+        total_rating: 142,
+        rating_count: 33,
+        stock_amount: 88,
+        short_description: 'Leather, Rubber sole, Heel height 2.16", Button Trims',
+        subcategory: {
+            name: "Women's Fashion",
+            id: 11,
+        },
+        long_description: 'long description',
+        discount: 0.1,
+        category: {
+            id: 4,
+            name: 'Clothing',
+        },
+        brand: {
+            name: 'Clarks Emslie',
+            id: 3,
+        },
+        vendor: {
+            rating: 4.666666666666667,
+            id: 1,
+            name: 'omerfaruk deniz',
+        },
+        rating: 4.303030303030303,
+        images: [
+            'https://i.pinimg.com/originals/84/5c/39/845c39e6deefe168f16130a1dd660af5.jpg',
+            'https://cdn.shopify.com/s/files/1/0717/0341/products/41U7Ff6V9zL_grande.jpg?v=1571842820',
+            'https://i5.walmartimages.com/asr/5d0a32b7-d3b2-4ef1-898e-a44855667f49.005c804e4f253635b68a3366655d0e39.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff',
+        ],
+        price: 45,
+    },
+    {
+        id: 6,
+        name: 'Sony MDRZX110/BLK ZX Series Stereo Headphones',
+        price_after_discount: 22,
+        creation_date: '2019-08-20T08:20:34Z',
+        total_rating: 170,
+        rating_count: 40,
+        stock_amount: 45,
+        short_description: '30 millimeter drivers for rich, full frequency response, Swivel design for portability',
+        subcategory: {
+            name: 'Cell Phones & Accessories',
+            id: 2,
+        },
+        long_description: 'long description',
+        discount: 0.1,
+        category: {
+            id: 1,
+            name: 'Electronics',
+        },
+        brand: {
+            name: 'Sony ',
+            id: 5,
+        },
+        vendor: {
+            rating: 4.666666666666667,
+            id: 1,
+            name: 'omerfaruk deniz',
+        },
+        rating: 4.25,
+        images: [
+            'https://images-na.ssl-images-amazon.com/images/I/71jQZy3ZzxL._AC_SL1500_.jpg',
+            'https://www.quill.com/is/image/Quill/s0807665_s7?$img400$',
+            'https://i.pinimg.com/originals/a8/95/44/a895448083d34a16a472e46707fc946b.jpg',
+        ],
+        price: 25,
+    },
+    {
+        id: 2,
+        name: "Under Armour Women's Tech 2.0 Pants",
+        price_after_discount: 22,
+        creation_date: '2018-08-20T07:21:34Z',
+        total_rating: 85,
+        rating_count: 19,
+        stock_amount: 18,
+        short_description:
+            '84% Polyester 16% Elastane, UA Tech fabric is quick-drying, ultra-soft & has a more natural feel, Open hand pockets',
+        subcategory: {
+            name: "Women's Fashion",
+            id: 11,
+        },
+        long_description: 'long description',
+        discount: 0.1,
+        category: {
+            id: 4,
+            name: 'Clothing',
+        },
+        brand: {
+            name: 'Under Armour',
+            id: 1,
+        },
+        vendor: {
+            rating: 4.666666666666667,
+            id: 1,
+            name: 'omerfaruk deniz',
+        },
+        rating: 4.473684210526316,
+        images: [
+            'https://images-na.ssl-images-amazon.com/images/I/51UexZLE21L._AC_UX385_.jpg',
+            'https://images-na.ssl-images-amazon.com/images/I/71-oozU3bjL._AC_UX342_.jpg',
+            'https://images-na.ssl-images-amazon.com/images/I/71%2BwN9lvTOL.jpg',
+        ],
+        price: 25,
+    },
+    {
+        id: 5,
+        name: 'Travelers Club 4 Piece Midtown Luggage Set',
+        price_after_discount: 89,
+        creation_date: '2019-06-10T07:22:34Z',
+        total_rating: 212,
+        rating_count: 50,
+        stock_amount: 15,
+        short_description:
+            '26" Spinner suitcase: 26" H x 17. 5" L x 11" W, 8. 4 lbs., Features pockets for accessories',
+        subcategory: {
+            name: 'Luggage',
+            id: 7,
+        },
+        long_description: 'long description',
+        discount: 0.1,
+        category: {
+            id: 3,
+            name: 'Home & Garden',
+        },
+        brand: {
+            name: 'Travelers Club',
+            id: 4,
+        },
+        vendor: {
+            rating: 4.666666666666667,
+            id: 1,
+            name: 'omerfaruk deniz',
+        },
+        rating: 4.24,
+        images: [
+            'https://images-na.ssl-images-amazon.com/images/I/91gc9Hk8BXL._AC_UL1500_.jpg',
+            'https://images-na.ssl-images-amazon.com/images/I/91%2Bth70qZPL._AC_UL1500_.jpg',
+            'https://images.homedepot-static.com/productImages/010b8431-d6f3-4a4a-84dc-fe47f6686fba/svn/rose-gold-travelers-club-luggage-sets-tcl-21604-ex-670-64_1000.jpg',
+        ],
+        price: 99,
+    },
+]
+
+export const conversations = [
+    {
+        counterpart: {
+            id: 5,
+            name: 'Umut Öksüz',
+        },
+        messages: [
+            {
+                id: 1,
+                text: 'afdsadsadasd',
+                sent_by_me: true,
+                date: '2021-01-07T14:24:49+0000',
+                attachment_url: null,
+            },
+            {
+                id: 2,
+                text: 'afdsadsadasd',
+                sent_by_me: false,
+                date: '2021-01-07T14:28:49+0000',
+                attachment_url: 'https://www.quill.com/is/image/Quill/s0807665_s7?$img400$',
+            },
+            {
+                id: 3,
+                text: 'Okay thanks a lot!',
+                sent_by_me: true,
+                date: '2021-01-07T14:29:49+0000',
+                attachment_url: null,
+            },
+        ],
+    },
+    {
+        counterpart: {
+            id: 6,
+            name: 'Furkan Nane',
+        },
+        messages: [
+            {
+                id: 1,
+                text:
+                    "Dear Furkan,\n\n I have ordered an iPhone 11 two weeks ago but the order status still shows Accepted. I had hoped it would change to At Cargo in a couple days but it hasn't changed and I started to worry. Could you please tell me if there is any problem? Thanks",
+                sent_by_me: true,
+                date: '2021-01-07T14:24:49+0000',
+                attachment_url:
+                    'https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125077794/125077794_1_MC/47116323.jpg',
+            },
+            {
+                id: 2,
+                text:
+                    'Dear Mehdi,\n\n As you know, we are affected by the current COVID pandemic and are having trouble with our distribution partner. We have reached out to the cargo company and we were promised that your cargo will be delivered within two to three working days at most. We apologize for the delay. Thank you for trusting us.',
+                sent_by_me: false,
+                date: '2021-01-07T14:28:49+0000',
+                attachment_url: null,
+            },
+        ],
+    },
+]
+
+export const vendorOrders = [
+    {
+        id: 39,
+        amount: 1,
+        unit_price: 10999,
+        total_price: 10999,
+        status: 'delivered',
+        purchase_date: '2020-12-29T11:45:49.796120Z',
+        address: {
+            id: 24,
+            title: 'Home kadikoy',
+            name: 'Pınar',
+            surname: 'Sarıgül',
+            address: 'Caferaga Mahallesi, Moda Caddesi 3/A',
+            province: 'Kadikoy',
+            city: 'Istanbul',
+            country: 'Turkey',
+            phone: {
+                country_code: '+90',
+                number: '5536975643',
+            },
+            zip_code: '34710',
+        },
+        product: {
+            id: 27,
+            name: 'Samsung S20 Ultra 128GB',
+            creation_date: '2020-12-26T10:47:38.961041Z',
+            discount: 0.045,
+            price: 10999,
+            price_after_discount: 10504.045,
+            total_rating: 50,
+            rating_count: 11,
+            rating: 4.545454545454546,
+            stock_amount: 50,
+            short_description:
+                "Ekran Boyutu: 6.2', Ekran Çözünürlüğü: 1440x3200 px, Arka Kamera: 12 MP, Üçlü Kamera, Ön Kamera: 10 MP, 4G, Dahili Hafıza: 128 GB",
+            long_description:
+                'Galaxy S serisi akıllı cep telefonlarıyla nefes kesici teknolojik yenilikleri sergileyen Samsung, sinematik kare/saniye oranlarında ve 8K çözünürlükte video kaydı yapan dünyanın ilk telefonu olan Galaxy S20 ile teknoloji dünyasında yeniden gündemi belirliyor. Tasarım hatlarını Galaxy Note 10 ailesinden alan ve birçok donanımsal geliştirmeyle kullanıcıların karşısına çıkan Samsung Galaxy S20 128 GB modelleri, çoklu arka kamera kurulumu ve güçlü donanımıyla beğeni topluyor. Android 10 işletim sistemi ve Samsung one UI 2.0 kullanıcı arayüzüyle gelen ürün, çift SIM kart desteği sunuyor. Samsung Galaxy S20 128 GB fiyatları bakımından, yeni nesil amiral gemisi sınıfında yer alan telefonlarla benzerlik gösteriyor.',
+            category: {
+                id: 1,
+                name: 'Electronics',
+            },
+            subcategory: {
+                id: 2,
+                name: 'Cell Phones & Accessories',
+            },
+            brand: {
+                id: 18,
+                name: 'Samsung',
+            },
+            vendor: {
+                id: 3,
+                name: 'Can Batuk',
+                rating: null,
+            },
+            images: [
+                'https://productimages.hepsiburada.net/s/35/550/10486446719026.jpg/format:webp',
+                'https://productimages.hepsiburada.net/s/35/550/10486446751794.jpg/format:webp',
+                'https://productimages.hepsiburada.net/s/35/550/10486446784562.jpg/format:webp',
+                'https://productimages.hepsiburada.net/s/35/550/10486446850098.jpg/format:webp',
+            ],
+            is_deleted: false,
+        },
+    },
+    {
+        id: 41,
+        amount: 2,
+        unit_price: 100,
+        total_price: 200,
+        status: 'at_cargo',
+        purchase_date: '2020-12-29T11:48:56.437368Z',
+        address: {
+            id: 24,
+            title: 'Home kadikoy',
+            name: 'Pınar',
+            surname: 'Sarıgül',
+            address: 'Caferaga Mahallesi, Moda Caddesi 3/A',
+            province: 'Kadikoy',
+            city: 'Istanbul',
+            country: 'Turkey',
+            phone: {
+                country_code: '+90',
+                number: '5536975643',
+            },
+            zip_code: '34710',
+        },
+        product: {
+            id: 28,
+            name: 'Spigen Samsung Galaxy S20 Kılıf Liquid Crystal 4 Tarafı Tam Koruma',
+            creation_date: '2020-12-26T10:51:48.110085Z',
+            discount: 0.11,
+            price: 100,
+            price_after_discount: 89,
+            total_rating: 32,
+            rating_count: 8,
+            rating: 4,
+            stock_amount: 410,
+            short_description:
+                'Spigen Samsung Galaxy S20 Kılıf Liquid Crystal 4 Tarafı Tam Koruma / Crystal Clear - ACS00789',
+            long_description:
+                'Air Cushin Technology ile Mil-grade sertifikali, benzersiz tasarim ve olaganustu gorunum, kablosuz sarj ile uyumlu, esnek yapisi ile kavrama konforu',
+            category: {
+                id: 1,
+                name: 'Electronics',
+            },
+            subcategory: {
+                id: 2,
+                name: 'Cell Phones & Accessories',
+            },
+            brand: {
+                id: 19,
+                name: 'Spigen',
+            },
+            vendor: {
+                id: 3,
+                name: 'Can Batuk',
+                rating: null,
+            },
+            images: [
+                'https://images-na.ssl-images-amazon.com/images/I/61yC3SEbEhL._AC_SL1000_.jpg',
+                'https://images-na.ssl-images-amazon.com/images/I/51TRgY8UWoL._AC_SL1000_.jpg',
+                'https://images-na.ssl-images-amazon.com/images/I/61v-0J60JLL._AC_SL1000_.jpg',
+                'https://images-na.ssl-images-amazon.com/images/I/71EDU-yXpLL._AC_SL1000_.jpg',
+            ],
+            is_deleted: false,
+        },
+    },
+    {
+        id: 43,
+        amount: 2,
+        unit_price: 16000,
+        total_price: 32000,
+        status: 'accepted',
+        purchase_date: '2021-01-12T21:44:38.199018Z',
+        address: {
+            id: 17,
+            title: 'home',
+            name: 'isim',
+            surname: 'soyisim',
+            address: 'bogazici',
+            province: 'sariyer',
+            city: 'istanbul',
+            country: 'Turkiye',
+            phone: {
+                country_code: '+90',
+                number: '5555555555',
+            },
+            zip_code: '34342',
+        },
+        product: {
+            id: 29,
+            name: 'iPhone 12 64 GB',
+            creation_date: '2020-12-28T19:50:33.144932Z',
+            discount: 0.1,
+            price: 16000,
+            price_after_discount: 14400,
+            total_rating: 0,
+            rating_count: 0,
+            rating: null,
+            stock_amount: 10,
+            short_description:
+                'Hızını anlatmaya kelimeler yetişemez.Bir akıllı telefondaki en hızlı çip olan A14 Bionic. Kenarlara kadar uzanan OLED ekran. Ve artık tüm kameralarda yer alan Gece modu.',
+            long_description:
+                "Apple markasına ait olan iPhone cep telefonu ailesine bir yenisi daha ekleniyor. iPhone 11 Pro Max ürününden sonra, şimdi de uzun süredir merakla beklenen iPhone 12 akıllı cep telefonu, kullanıcı karşısında boy göstermek için geri sayıma başladı. iPhone 12 cep telefonunun ilerleyen modellerinin, iPhone 12 Max, iPhone 12 Pro, iPhone 12 Pro Max olacağı yönünde bilgilerin yanı sıra iPhone 12 Max yerine iPhone 12 Mini'nin gelebileceği bilgisi de duyumlar arasında mevcut. iPhone 12 telefonun teknik özellikleri ve tasarımı konusunda henüz lansmanı yapılmadığı için kimse net bilgilere sahip değil fakat en çok duyulan ve güçlü tahminlerle desteklenen bilgileri size sunabiliriz. iPhone 12 akıllı cep telefonu, ekran özelliği olarak süper retina display ekranı destekleyen 5.4 inç ekran boyutu, 4 gb ram hafızaya sahip ve kamera özelliği tarafında 12 mp geniş kamerayla birlikte, telefoto lens kamera ve ultra geniş açıya sahip kameranın olduğu iddia ediliyor. iPhone 12 akıllı cep telefonunun tasarımını, kamerası ve yeni teknik özelliklerini teknolojiyle ilgili olan herkes heyecanla bekliyor. Türkiye'ye geliş tarihi henüz açıklanmamasına rağmen, tanıtımının ilerleyen günlerinde, teknolojiyi yakından takip eden kullanıcıların heyecanla bekledikleri iPhone 12 akıllı cep telefonunun, ön sipariş olarak meraklısı ile buluşması bekleniyor.",
+            category: {
+                id: 1,
+                name: 'Electronics',
+            },
+            subcategory: {
+                id: 2,
+                name: 'Cell Phones & Accessories',
+            },
+            brand: {
+                id: 20,
+                name: 'Apple',
+            },
+            vendor: {
+                id: 3,
+                name: 'Can Batuk',
+                rating: null,
+            },
+            images: ['https://m.media-amazon.com/images/I/71ZOtNdaZCL._FMwebp__.jpg'],
+            is_deleted: false,
+        },
+    },
+]
+
+export const productLists = [
+    {
+        list_id: 1,
+        name: 'I will buy those!',
+        products: [
+            {
+                id: 1,
+                product: {
+                    id: 27,
+                    name: 'Samsung S20 Ultra 128GB',
+                    creation_date: '2020-12-26T10:47:38.961041Z',
+                    discount: 0.15,
+                    price: 10999,
+                    price_after_discount: 9349.15,
+                    total_rating: 50,
+                    rating_count: 11,
+                    rating: 4.545454545454546,
+                    stock_amount: 450,
+                    short_description:
+                        "Ekran Boyutu: 6.2', Ekran Çözünürlüğü: 1440x3200 px, Arka Kamera: 12 MP, Üçlü Kamera, Ön Kamera: 10 MP, 4G, Dahili Hafıza: 128 GB",
+                    long_description:
+                        'Galaxy S serisi akıllı cep telefonlarıyla nefes kesici teknolojik yenilikleri sergileyen Samsung, sinematik kare/saniye oranlarında ve 8K çözünürlükte video kaydı yapan dünyanın ilk telefonu olan Galaxy S20 ile teknoloji dünyasında yeniden gündemi belirliyor. Tasarım hatlarını Galaxy Note 10 ailesinden alan ve birçok donanımsal geliştirmeyle kullanıcıların karşısına çıkan Samsung Galaxy S20 128 GB modelleri, çoklu arka kamera kurulumu ve güçlü donanımıyla beğeni topluyor. Android 10 işletim sistemi ve Samsung one UI 2.0 kullanıcı arayüzüyle gelen ürün, çift SIM kart desteği sunuyor. Samsung Galaxy S20 128 GB fiyatları bakımından, yeni nesil amiral gemisi sınıfında yer alan telefonlarla benzerlik gösteriyor.',
+                    category: {
+                        id: 1,
+                        name: 'Electronics',
+                    },
+                    subcategory: {
+                        id: 2,
+                        name: 'Cell Phones & Accessories',
+                    },
+                    brand: {
+                        id: 22,
+                        name: 'Huawei',
+                    },
+                    vendor: {
+                        id: 3,
+                        name: 'Can Batuk',
+                        rating: null,
+                    },
+                    images: [
+                        'https://productimages.hepsiburada.net/s/35/550/10486446719026.jpg/format:webp',
+                        'https://productimages.hepsiburada.net/s/35/550/10486446751794.jpg/format:webp',
+                        'https://productimages.hepsiburada.net/s/35/550/10486446784562.jpg/format:webp',
+                    ],
+                    is_deleted: false,
+                },
+            },
+            {
+                id: 2,
+                product: {
+                    id: 28,
+                    name: 'Spigen Samsung Galaxy S20 Kılıf Liquid Crystal 4 Tarafı Tam Koruma',
+                    creation_date: '2020-12-26T10:51:48.110085Z',
+                    discount: 0.11,
+                    price: 100,
+                    price_after_discount: 89,
+                    total_rating: 32,
+                    rating_count: 8,
+                    rating: 4,
+                    stock_amount: 410,
+                    short_description:
+                        'Spigen Samsung Galaxy S20 Kılıf Liquid Crystal 4 Tarafı Tam Koruma / Crystal Clear - ACS00789',
+                    long_description:
+                        'Air Cushin Technology ile Mil-grade sertifikali, benzersiz tasarim ve olaganustu gorunum, kablosuz sarj ile uyumlu, esnek yapisi ile kavrama konforu',
+                    category: {
+                        id: 1,
+                        name: 'Electronics',
+                    },
+                    subcategory: {
+                        id: 2,
+                        name: 'Cell Phones & Accessories',
+                    },
+                    brand: {
+                        id: 19,
+                        name: 'Spigen',
+                    },
+                    vendor: {
+                        id: 3,
+                        name: 'Can Batuk',
+                        rating: null,
+                    },
+                    images: [
+                        'https://images-na.ssl-images-amazon.com/images/I/61yC3SEbEhL._AC_SL1000_.jpg',
+                        'https://images-na.ssl-images-amazon.com/images/I/51TRgY8UWoL._AC_SL1000_.jpg',
+                        'https://images-na.ssl-images-amazon.com/images/I/61v-0J60JLL._AC_SL1000_.jpg',
+                        'https://images-na.ssl-images-amazon.com/images/I/71EDU-yXpLL._AC_SL1000_.jpg',
+                    ],
+                    is_deleted: false,
+                },
+            },
+        ],
+    },
+    {
+        list_id: 3,
+        name: 'MySecondList',
+        products: [
+            {
+                id: 4,
+                product: {
+                    id: 28,
+                    name: 'Spigen Samsung Galaxy S20 Kılıf Liquid Crystal 4 Tarafı Tam Koruma',
+                    creation_date: '2020-12-26T10:51:48.110085Z',
+                    discount: 0.11,
+                    price: 100,
+                    price_after_discount: 89,
+                    total_rating: 32,
+                    rating_count: 8,
+                    rating: 4,
+                    stock_amount: 410,
+                    short_description:
+                        'Spigen Samsung Galaxy S20 Kılıf Liquid Crystal 4 Tarafı Tam Koruma / Crystal Clear - ACS00789',
+                    long_description:
+                        'Air Cushin Technology ile Mil-grade sertifikali, benzersiz tasarim ve olaganustu gorunum, kablosuz sarj ile uyumlu, esnek yapisi ile kavrama konforu',
+                    category: {
+                        id: 1,
+                        name: 'Electronics',
+                    },
+                    subcategory: {
+                        id: 2,
+                        name: 'Cell Phones & Accessories',
+                    },
+                    brand: {
+                        id: 19,
+                        name: 'Spigen',
+                    },
+                    vendor: {
+                        id: 3,
+                        name: 'Can Batuk',
+                        rating: null,
+                    },
+                    images: [
+                        'https://images-na.ssl-images-amazon.com/images/I/61yC3SEbEhL._AC_SL1000_.jpg',
+                        'https://images-na.ssl-images-amazon.com/images/I/51TRgY8UWoL._AC_SL1000_.jpg',
+                        'https://images-na.ssl-images-amazon.com/images/I/61v-0J60JLL._AC_SL1000_.jpg',
+                        'https://images-na.ssl-images-amazon.com/images/I/71EDU-yXpLL._AC_SL1000_.jpg',
+                    ],
+                    is_deleted: false,
+                },
+            },
+        ],
+    },
+    {
+        list_id: 5,
+        name: 'NewList',
+        products: [],
+    },
+]

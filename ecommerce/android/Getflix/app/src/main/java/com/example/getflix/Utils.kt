@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.CategoryModel
 import com.example.getflix.models.SubcategoryModel
+import com.example.getflix.models.VendorOrderModel
 import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.CardProUpdateRequest
 import com.example.getflix.service.responses.CardProUpdateResponse
@@ -21,47 +22,58 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
-
+var vendorOrderModel : VendorOrderModel? = null
 
 val categories = listOf<CategoryModel>(
-        CategoryModel(
-                "Electronics",
-                1, listOf(SubcategoryModel("Computers", 1),
-                SubcategoryModel("Camera & Photo", 1),
-                SubcategoryModel("Cell Phones & Accessories", 1),
-                SubcategoryModel("Digital Videos", 1),
-                SubcategoryModel("Software", 1)) as MutableList<SubcategoryModel>
-        ),
-        CategoryModel(
+    CategoryModel(
+        "Electronics",
+        1, listOf(
+            SubcategoryModel("Computers", 1),
+            SubcategoryModel("Camera & Photo", 1),
+            SubcategoryModel("Cell Phones & Accessories", 1),
+            SubcategoryModel("Digital Videos", 1),
+            SubcategoryModel("Software", 1)
+        ) as MutableList<SubcategoryModel>
+    ),
+    CategoryModel(
         "Health & Households", 1,
-        listOf(SubcategoryModel("Sports & Outdoor", 1),
-                SubcategoryModel("Beauty & Personal Care", 1)) as MutableList<SubcategoryModel>
-), CategoryModel(
+        listOf(
+            SubcategoryModel("Sports & Outdoor", 1),
+            SubcategoryModel("Beauty & Personal Care", 1)
+        ) as MutableList<SubcategoryModel>
+    ), CategoryModel(
         "Home & Garden", 1,
-        listOf(SubcategoryModel("Luggage", 1),
-                SubcategoryModel("Pet Supplies", 1),
-                SubcategoryModel("Furniture", 1)) as MutableList<SubcategoryModel>
-), CategoryModel(
+        listOf(
+            SubcategoryModel("Luggage", 1),
+            SubcategoryModel("Pet Supplies", 1),
+            SubcategoryModel("Furniture", 1)
+        ) as MutableList<SubcategoryModel>
+    ), CategoryModel(
         "Clothing", 1,
-        listOf(SubcategoryModel("Men's Fashion", 1),
-                SubcategoryModel("Women's Fashion", 1),
-                SubcategoryModel("Boys' Fashion", 1),
-                SubcategoryModel("Girls' Fashion", 1),
-                SubcategoryModel("Baby", 1)) as MutableList<SubcategoryModel>
-), CategoryModel(
+        listOf(
+            SubcategoryModel("Men's Fashion", 1),
+            SubcategoryModel("Women's Fashion", 1),
+            SubcategoryModel("Boys' Fashion", 1),
+            SubcategoryModel("Girls' Fashion", 1),
+            SubcategoryModel("Baby", 1)
+        ) as MutableList<SubcategoryModel>
+    ), CategoryModel(
         "Hobbies", 1,
-        listOf(SubcategoryModel("Books", 1),
-                SubcategoryModel("Music & CDs", 1),
-                SubcategoryModel("Movies & TVs", 1),
-                SubcategoryModel("Toys & Games", 1),
-                SubcategoryModel("Video Games", 1),
-                SubcategoryModel("Arts & Crafts", 1)) as MutableList<SubcategoryModel>
-), CategoryModel(
+        listOf(
+            SubcategoryModel("Books", 1),
+            SubcategoryModel("Music & CDs", 1),
+            SubcategoryModel("Movies & TVs", 1),
+            SubcategoryModel("Toys & Games", 1),
+            SubcategoryModel("Video Games", 1),
+            SubcategoryModel("Arts & Crafts", 1)
+        ) as MutableList<SubcategoryModel>
+    ), CategoryModel(
         "Others", 1,
-        listOf(SubcategoryModel("Automotive", 1),
-                SubcategoryModel("Industrial & Scientific", 1)) as MutableList<SubcategoryModel>
-)
+        listOf(
+            SubcategoryModel("Automotive", 1),
+            SubcategoryModel("Industrial & Scientific", 1)
+        ) as MutableList<SubcategoryModel>
+    )
 )
 
 
@@ -89,7 +101,8 @@ fun getProductImage(productId: Int): Int {
     }
 
 }
-fun getCategoryImage(category: String) : Int {
+
+fun getCategoryImage(category: String): Int {
     return when (category) {
         "Electronics" -> R.drawable.ic_electronics
         "Health & Households" -> R.drawable.ic_health
@@ -103,31 +116,33 @@ fun getCategoryImage(category: String) : Int {
 
 fun infoAlert(fragment: Fragment, message: String) {
     MaterialAlertDialogBuilder(fragment.requireContext(), R.style.MaterialAlertDialog_color)
-            .setTitle("Info")
-            .setMessage(message)
-            .setPositiveButton("Ok") { dialog, which ->
-            }
-            .setIcon(R.drawable.ic_info)
-            .show()
+        .setTitle("Info")
+        .setMessage(message)
+        .setPositiveButton("Ok") { dialog, which ->
+        }
+        .setIcon(R.drawable.ic_info)
+        .show()
 }
 
-fun doneAlert(fragment: Fragment, message: String, func: (() -> Unit)) {
+fun doneAlert(fragment: Fragment, message: String, func: (() -> Unit)?) {
     MaterialAlertDialogBuilder(fragment.requireContext(), R.style.MaterialAlertDialog_color)
-            .setTitle("Success")
-            .setMessage(message)
-            .setPositiveButton("Ok") { dialog, which ->
+        .setTitle("Success")
+        .setMessage(message)
+        .setPositiveButton("Ok") { dialog, which ->
+            if (func != null) {
                 func()
             }
-            .setIcon(R.drawable.ic_check)
-            .show()
+        }
+        .setIcon(R.drawable.ic_check)
+        .show()
 }
 
 
-
-
-fun addToShoppingCart(amount : Int,shoppingCartId: Int, productId: Int) {
-    GetflixApi.getflixApiService.updateCustomerCartProduct("Bearer " + MainActivity.StaticData.user!!.token,
-        MainActivity.StaticData.user!!.id, shoppingCartId, CardProUpdateRequest(productId,
+fun addToShoppingCart(amount: Int, shoppingCartId: Int, productId: Int) {
+    GetflixApi.getflixApiService.updateCustomerCartProduct(
+        "Bearer " + MainActivity.StaticData.user!!.token,
+        MainActivity.StaticData.user!!.id, shoppingCartId, CardProUpdateRequest(
+            productId,
             amount
         )
     )
@@ -149,16 +164,16 @@ fun addToShoppingCart(amount : Int,shoppingCartId: Int, productId: Int) {
 
 fun askAlert(fragment: Fragment, message: String, func: () -> Unit) {
     MaterialAlertDialogBuilder(fragment.requireContext(), R.style.MaterialAlertDialog_color)
-            .setTitle(fragment.requireContext().getString(R.string.warning))
-            .setMessage(message)
-            .setPositiveButton(fragment.requireContext().getString(R.string.yes)) { dialog, which ->
-                func()
-            }
+        .setTitle(fragment.requireContext().getString(R.string.warning))
+        .setMessage(message)
+        .setPositiveButton(fragment.requireContext().getString(R.string.yes)) { dialog, which ->
+            func()
+        }
 
-            .setNegativeButton(fragment.requireContext().getString(R.string.no)) { dialog, which ->
-            }
-            .setIcon(R.drawable.ic_warning)
-            .show()
+        .setNegativeButton(fragment.requireContext().getString(R.string.no)) { dialog, which ->
+        }
+        .setIcon(R.drawable.ic_warning)
+        .show()
 }
 
 fun hideKeyboard(activity: Activity) {
@@ -174,5 +189,15 @@ fun hideKeyboard(activity: Activity) {
         )
     }
 }
+
+enum class OrderStatus(val status: String,val value : String) {
+    CANCELLED("cancelled","Cancelled"),
+    ACCEPTED("accepted","Accepted"),
+    AT_CARGO("at_cargo","At cargo"),
+    DELIVERED("delivered","Delivered")
+}
+
+
+
 
 

@@ -15,6 +15,13 @@ class Review(models.Model):
     def __str__(self):
         return self.comment
 
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    notification_type = models.IntegerField(default=1)
+    date = models.DateTimeField(auto_now_add=True)
+    argument = models.CharField(max_length=500)
+    is_seen = models.BooleanField(default=False)
+
 class Conversation(models.Model):
     user1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user1', null=True)
     user2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user2', null=True)

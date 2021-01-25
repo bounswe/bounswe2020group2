@@ -86,7 +86,7 @@ EMAIL_USE_TLS = get_env('EMAIL_USE_TLS', "True") == 'True'  # Do NOT use bool(..
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'wc$0ekguzl&$5gaotf)0!-#znaitq%5jafib)yh494s2a-a5ic'
+SECRET_KEY = get_secret('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = get_debug()

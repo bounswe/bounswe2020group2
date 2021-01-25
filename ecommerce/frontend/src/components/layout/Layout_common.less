@@ -23,7 +23,6 @@
     overflow-x: auto;
 }
 
-
 .header-search-bar {
     flex: 0.5 0 auto;
     align-self: center;
@@ -47,6 +46,14 @@
 
 .footer-col {
     flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.footer-row-main {
+    font-weight: bold;
+    font-size: 1.2em;
 }
 
 .header-customer-info {
@@ -90,6 +97,22 @@
     height: 100%;
 }
 
-.header-customer-cart-icon {
+.header-vendor-orders-icon {
     font-size: 1.5em;
 }
+
+.header-vendor-orders {
+    color: white;
+    display: flex;
+    line-height: normal;
+    align-items: center;
+    height: 100%;
+}
+.header-vendor-quicknavigation {
+    display:flex;
+    flex-direction: row;
+    gap: 8px;
+    height: 100%;
+}
+
+

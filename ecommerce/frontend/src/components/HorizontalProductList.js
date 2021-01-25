@@ -49,6 +49,7 @@ export const HorizontalProductList = ({ filters }) => {
         <Spin spinning={isLoading}>
             <div className="best-sellers">
                 <h1 className="best-sellers-header">Best Sellers in {subcategory?.name ?? category?.name}</h1>
+
                 <div className="best-sellers-content">
                     {products.map(product => (
                         <ProductCard key={product.id} product={product} />

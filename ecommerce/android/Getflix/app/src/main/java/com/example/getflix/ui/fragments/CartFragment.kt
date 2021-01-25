@@ -13,14 +13,15 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
+import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentCartBinding
+import com.example.getflix.infoAlert
 
 import com.example.getflix.models.*
 
 import com.example.getflix.models.CartProductModel
 
 import com.example.getflix.ui.adapters.CartAdapter
-import com.example.getflix.ui.adapters.SwipeToDeleteAddress
 import com.example.getflix.ui.adapters.SwipeToDeleteCartProduct
 import com.example.getflix.ui.fragments.CartFragmentDirections.Companion.actionCartFragmentToCompleteOrderFragment
 import com.example.getflix.ui.viewmodels.CartViewModel
@@ -49,8 +50,16 @@ class CartFragment : Fragment() {
 
 
         binding.acceptOrder.setOnClickListener {
-            activity?.loading_progress!!.visibility = View.VISIBLE
-            view?.findNavController()?.navigate(actionCartFragmentToCompleteOrderFragment())
+            viewModel.cardPrices.observe(viewLifecycleOwner, Observer {
+                if (MainActivity.StaticData.isVisitor) {
+                    infoAlert(this, "You should be logged in to make a purchase.")
+                } else if(it.productsPrice==0.0) {
+                    infoAlert(this, "You don't have any products in your shopping cart.")
+                } else {
+                    activity?.loading_progress!!.visibility = View.VISIBLE
+                    view?.findNavController()?.navigate(actionCartFragmentToCompleteOrderFragment())
+                }
+            })
         }
 
 
@@ -78,9 +87,11 @@ class CartFragment : Fragment() {
                 productListAdapter.resetPos()
             }
         })
-        viewModel.onSubmit.observe(viewLifecycleOwner, Observer {
-            if (it) {
+        viewModel.cardProducts.observe(viewLifecycleOwner, Observer {
+            if (it!=null) {
                 productListAdapter.submitList(viewModel.cardProducts.value)
+            }else{
+                productListAdapter.submitList(mutableListOf())
             }
 
         })
