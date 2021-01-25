@@ -132,7 +132,7 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
                 Message.Image(null), LocalDateTime.now()),
             true
         )
-        messagesViewModel.sendMessage(SendMessageRequest(id.toInt(),input.toString(),"null"))
+        messagesViewModel.sendMessage(SendMessageRequest(id.toInt(),input.toString(),null))
         println(LocalDateTime.now().toString())
         return true
     }
