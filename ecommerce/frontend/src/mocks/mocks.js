@@ -413,8 +413,9 @@ export const products = [
 
 export const product = {
     id: 1,
-    name: "Under Armour Men's Tech 2.0 Short Sleeve T-Shirt",
+    title: "Under Armour Men's Tech 2.0 Short Sleeve T-Shirt",
     price: 18,
+    price_after_discount: 14.2,
     creation_date: '2019-08-20T07:22:34Z',
     total_rating: 80,
     rating_count: 20,
@@ -851,6 +852,48 @@ export const accounts = {
     },
 }
 
+export const vendorDetails = [
+    {
+        title: 'Osman Sasmaz',
+        rating: 0.7,
+        descriptipn: 'Discounts everyday',
+        image_url:
+            'data:image/png;base64,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',
+        rating_count: 15,
+    },
+    {
+        title: 'Osman Sasmaz',
+        rating: 2.7,
+        descriptipn: 'Discounts everyday',
+        image_url:
+            'data:image/png;base64,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',
+        rating_count: 15,
+    },
+    {
+        title: 'Osman Sasmaz',
+        rating: 4.7,
+        descriptipn: 'Discounts everyday',
+        image_url:
+            'data:image/png;base64,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',
+        rating_count: 15,
+    },
+    {
+        title: 'Can Batuk',
+        rating: 6.7,
+        descriptipn: 'Almadın battuk',
+        image_url:
+            'data:image/png;base64,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',
+        rating_count: 15,
+    },
+    {
+        title: 'Osman Sasmaz',
+        rating: 8.7,
+        description: 'Discounts everyday',
+        image_url:
+            'data:image/png;base64,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',
+        rating_count: 15,
+    },
+]
 export const recommendations = [
     {
         id: 1,
@@ -1350,5 +1393,153 @@ export const vendorOrders = [
             images: ['https://m.media-amazon.com/images/I/71ZOtNdaZCL._FMwebp__.jpg'],
             is_deleted: false,
         },
+    },
+]
+
+export const productLists = [
+    {
+        list_id: 1,
+        name: 'I will buy those!',
+        products: [
+            {
+                id: 1,
+                product: {
+                    id: 27,
+                    name: 'Samsung S20 Ultra 128GB',
+                    creation_date: '2020-12-26T10:47:38.961041Z',
+                    discount: 0.15,
+                    price: 10999,
+                    price_after_discount: 9349.15,
+                    total_rating: 50,
+                    rating_count: 11,
+                    rating: 4.545454545454546,
+                    stock_amount: 450,
+                    short_description:
+                        "Ekran Boyutu: 6.2', Ekran Çözünürlüğü: 1440x3200 px, Arka Kamera: 12 MP, Üçlü Kamera, Ön Kamera: 10 MP, 4G, Dahili Hafıza: 128 GB",
+                    long_description:
+                        'Galaxy S serisi akıllı cep telefonlarıyla nefes kesici teknolojik yenilikleri sergileyen Samsung, sinematik kare/saniye oranlarında ve 8K çözünürlükte video kaydı yapan dünyanın ilk telefonu olan Galaxy S20 ile teknoloji dünyasında yeniden gündemi belirliyor. Tasarım hatlarını Galaxy Note 10 ailesinden alan ve birçok donanımsal geliştirmeyle kullanıcıların karşısına çıkan Samsung Galaxy S20 128 GB modelleri, çoklu arka kamera kurulumu ve güçlü donanımıyla beğeni topluyor. Android 10 işletim sistemi ve Samsung one UI 2.0 kullanıcı arayüzüyle gelen ürün, çift SIM kart desteği sunuyor. Samsung Galaxy S20 128 GB fiyatları bakımından, yeni nesil amiral gemisi sınıfında yer alan telefonlarla benzerlik gösteriyor.',
+                    category: {
+                        id: 1,
+                        name: 'Electronics',
+                    },
+                    subcategory: {
+                        id: 2,
+                        name: 'Cell Phones & Accessories',
+                    },
+                    brand: {
+                        id: 22,
+                        name: 'Huawei',
+                    },
+                    vendor: {
+                        id: 3,
+                        name: 'Can Batuk',
+                        rating: null,
+                    },
+                    images: [
+                        'https://productimages.hepsiburada.net/s/35/550/10486446719026.jpg/format:webp',
+                        'https://productimages.hepsiburada.net/s/35/550/10486446751794.jpg/format:webp',
+                        'https://productimages.hepsiburada.net/s/35/550/10486446784562.jpg/format:webp',
+                    ],
+                    is_deleted: false,
+                },
+            },
+            {
+                id: 2,
+                product: {
+                    id: 28,
+                    name: 'Spigen Samsung Galaxy S20 Kılıf Liquid Crystal 4 Tarafı Tam Koruma',
+                    creation_date: '2020-12-26T10:51:48.110085Z',
+                    discount: 0.11,
+                    price: 100,
+                    price_after_discount: 89,
+                    total_rating: 32,
+                    rating_count: 8,
+                    rating: 4,
+                    stock_amount: 410,
+                    short_description:
+                        'Spigen Samsung Galaxy S20 Kılıf Liquid Crystal 4 Tarafı Tam Koruma / Crystal Clear - ACS00789',
+                    long_description:
+                        'Air Cushin Technology ile Mil-grade sertifikali, benzersiz tasarim ve olaganustu gorunum, kablosuz sarj ile uyumlu, esnek yapisi ile kavrama konforu',
+                    category: {
+                        id: 1,
+                        name: 'Electronics',
+                    },
+                    subcategory: {
+                        id: 2,
+                        name: 'Cell Phones & Accessories',
+                    },
+                    brand: {
+                        id: 19,
+                        name: 'Spigen',
+                    },
+                    vendor: {
+                        id: 3,
+                        name: 'Can Batuk',
+                        rating: null,
+                    },
+                    images: [
+                        'https://images-na.ssl-images-amazon.com/images/I/61yC3SEbEhL._AC_SL1000_.jpg',
+                        'https://images-na.ssl-images-amazon.com/images/I/51TRgY8UWoL._AC_SL1000_.jpg',
+                        'https://images-na.ssl-images-amazon.com/images/I/61v-0J60JLL._AC_SL1000_.jpg',
+                        'https://images-na.ssl-images-amazon.com/images/I/71EDU-yXpLL._AC_SL1000_.jpg',
+                    ],
+                    is_deleted: false,
+                },
+            },
+        ],
+    },
+    {
+        list_id: 3,
+        name: 'MySecondList',
+        products: [
+            {
+                id: 4,
+                product: {
+                    id: 28,
+                    name: 'Spigen Samsung Galaxy S20 Kılıf Liquid Crystal 4 Tarafı Tam Koruma',
+                    creation_date: '2020-12-26T10:51:48.110085Z',
+                    discount: 0.11,
+                    price: 100,
+                    price_after_discount: 89,
+                    total_rating: 32,
+                    rating_count: 8,
+                    rating: 4,
+                    stock_amount: 410,
+                    short_description:
+                        'Spigen Samsung Galaxy S20 Kılıf Liquid Crystal 4 Tarafı Tam Koruma / Crystal Clear - ACS00789',
+                    long_description:
+                        'Air Cushin Technology ile Mil-grade sertifikali, benzersiz tasarim ve olaganustu gorunum, kablosuz sarj ile uyumlu, esnek yapisi ile kavrama konforu',
+                    category: {
+                        id: 1,
+                        name: 'Electronics',
+                    },
+                    subcategory: {
+                        id: 2,
+                        name: 'Cell Phones & Accessories',
+                    },
+                    brand: {
+                        id: 19,
+                        name: 'Spigen',
+                    },
+                    vendor: {
+                        id: 3,
+                        name: 'Can Batuk',
+                        rating: null,
+                    },
+                    images: [
+                        'https://images-na.ssl-images-amazon.com/images/I/61yC3SEbEhL._AC_SL1000_.jpg',
+                        'https://images-na.ssl-images-amazon.com/images/I/51TRgY8UWoL._AC_SL1000_.jpg',
+                        'https://images-na.ssl-images-amazon.com/images/I/61v-0J60JLL._AC_SL1000_.jpg',
+                        'https://images-na.ssl-images-amazon.com/images/I/71EDU-yXpLL._AC_SL1000_.jpg',
+                    ],
+                    is_deleted: false,
+                },
+            },
+        ],
+    },
+    {
+        list_id: 5,
+        name: 'NewList',
+        products: [],
     },
 ]

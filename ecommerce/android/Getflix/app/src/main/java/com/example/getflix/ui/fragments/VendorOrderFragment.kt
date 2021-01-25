@@ -34,11 +34,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 
-class VendorOrderFragment : Fragment(), OnMapReadyCallback {
+class VendorOrderFragment : Fragment() {
+    //, OnMapReadyCallback {
     private lateinit var binding: FragmentVendorOrderBinding
     private lateinit var vendorOrderViewModel: VendorOrderViewModel
     private lateinit var currentOrder: VendorOrderModel
-    private lateinit var fragmentGoogleMap: GoogleMap
+    //private lateinit var fragmentGoogleMap: GoogleMap
 
 
     override fun onCreateView(
@@ -179,12 +180,12 @@ class VendorOrderFragment : Fragment(), OnMapReadyCallback {
         binding.orderOwnerZipCode.text = currentOrder.address.zipCode
         binding.phone.text = currentOrder.address.phone.countryCode + " " + currentOrder.address.phone.number
 
-        binding.mapView.onCreate(savedInstanceState)
-        binding.mapView.getMapAsync(this)
+      //  binding.mapView.onCreate(savedInstanceState)
+      //  binding.mapView.getMapAsync(this)
 
         return binding.root
     }
-    override fun onResume() {
+   /* override fun onResume() {
         super.onResume()
         binding.mapView.onResume()
     }
@@ -230,6 +231,6 @@ class VendorOrderFragment : Fragment(), OnMapReadyCallback {
         }
 
 
-    }
+    }   */
 
 }

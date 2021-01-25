@@ -25,7 +25,7 @@ def can_review_product(user_id, product_id):
 
 def can_review_vendor(user_id, vendor_id):
     user = User.objects.filter(pk=user_id).first()
-    vendor = Vendor.objects.filter(pk=vendor_id).first()
+    vendor = Vendor.objects.filter(user_id=vendor_id).first()
     if user is None or vendor is None:
         return (False, "Invalid user or vendor")
     
