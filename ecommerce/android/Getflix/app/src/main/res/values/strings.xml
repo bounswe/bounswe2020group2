@@ -214,11 +214,13 @@
 
     <string name="terms_conditions_checkout_aggree">I have read <b><u>the Distant Sales Agreement and Pre-Information Form</u></b></string>
     <string name="lists">Listeler</string>
+    <string name="send_message">SEND MESSAGE</string>
 
     <string name="notifications">Bildirimler</string>
     <string name="your_addresses">Your address</string>
     <string name="your_cards">Your credit card</string>
 
+    <string name="address_enter">Adres bilgilerinizi giriniz</string>
     <string name="order_products">Products of Order</string>
     <string name="contact_info">Customer Info</string>
     <string name="customer_name">Name</string>

@@ -32,7 +32,8 @@ import com.example.getflix.ui.viewmodels.ListViewModel
 import com.example.getflix.ui.viewmodels.ProductViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
+
+
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import me.relex.circleindicator.CircleIndicator2
@@ -98,44 +99,45 @@ class ProductFragment : Fragment() {
                     }
                 }
 
-            MaterialAlertDialogBuilder(requireContext(), R.style.MaterialAlertDialog_color)
-                .setTitle("Select a List")
-                .setSingleChoiceItems(
-                    listNames.toTypedArray(),
-                    checkedList
-                ) { dialog, which ->
-                    checkedList = which
-                }
-                .setPositiveButton("Ok") { dialog, which ->
-                    println(checkedList.toString())
-                    println(listIds[checkedList])
-
-                    listViewModel.addProductToList(listIds[checkedList],args.productId)
-                    doneAlert(this,"The product is added to your list successfully!",null)
-                }
-                .setIcon(R.drawable.accepted_list)
-                .setNegativeButton("Cancel") { dialog, which ->
-                }
-                .setNeutralButton("Add New List") { dialog, which ->
-                    var dialog = AlertDialog.Builder(context,R.style.MaterialAlertDialog_color)
-                    var dialogView = layoutInflater.inflate(R.layout.custom_dialog,null)
-                    var edit = dialogView.findViewById<TextInputEditText>(R.id.name)
-                    dialog.setView(dialogView)
-                    dialog.setCancelable(true)
-                    dialog.setIcon(R.drawable.ic_pencil)
-                    dialog.setTitle("Add A List")
-                    dialog.setNegativeButton("Cancel") { dialogInterface: DialogInterface, i: Int -> }
-                    dialog.setPositiveButton("Create") { dialogInterface: DialogInterface, i: Int ->
-                        println(edit.text.toString())
-                        hideKeyboard(requireActivity())
-                        listViewModel.createList(CreateListRequest(edit.text.toString()))
-                        doneAlert(this,"A new list is created successfully!",null)
+                var prev = MaterialAlertDialogBuilder(requireContext(), R.style.MaterialAlertDialog_color)
+                    prev.setTitle("Select a List")
+                    prev.setSingleChoiceItems(
+                        listNames.toTypedArray(),
+                        checkedList
+                    ) { dialog, which ->
+                        checkedList = which
                     }
-                    dialog.show()
-                }
-                .show()
+                    prev.setPositiveButton("Ok") { dialog, which ->
+                        println(checkedList.toString())
+                        println(listIds[checkedList])
+                        dialog.dismiss()
+                        listViewModel.addProductToList(listIds[checkedList],args.productId)
+                        doneAlert(this,"The product is added to your list successfully!",null)
+                    }
+                    prev.setIcon(R.drawable.accepted_list)
+                    prev.setNegativeButton("Cancel") { dialog, which ->
+                    }
+                    prev.setNeutralButton("Add New List") { dialog1, which ->
+                        var dialog = AlertDialog.Builder(context,R.style.MaterialAlertDialog_color)
+                        var dialogView = layoutInflater.inflate(R.layout.custom_dialog,null)
+                        var edit = dialogView.findViewById<TextInputEditText>(R.id.name)
+                        dialog.setView(dialogView)
+                        dialog.setCancelable(true)
+                        dialog.setIcon(R.drawable.ic_pencil)
+                        dialog.setTitle("Add A List")
+                        dialog.setNegativeButton("Cancel") { dialogInterface: DialogInterface, i: Int -> }
+                        dialog.setPositiveButton("Create") { dialogInterface: DialogInterface, i: Int ->
+                            println(edit.text.toString())
+                            hideKeyboard(requireActivity())
+                            listViewModel.createList(CreateListRequest(edit.text.toString()))
+                        }
+                        dialog.show()
+                    }
+                  prev.show()
+
             })
         }
+
         binding.imageView7.setOnClickListener {
             val scrollView = binding.scrollView
             val targetView = binding.detailsTitle
@@ -150,9 +152,11 @@ class ProductFragment : Fragment() {
             productViewModel.decreaseAmount()
         }
 
+
+
         binding.vendorDetail.setOnClickListener {
-            var id = 3
-            view?.findNavController()!!.navigate(actionProductFragmentToVendorPageFragment(id))
+            val vendor = productViewModel.product.value!!.vendor
+            view?.findNavController()!!.navigate(actionProductFragmentToVendorPageFragment(vendor))
         }
 
         binding.increase.setOnClickListener {
@@ -204,8 +208,9 @@ class ProductFragment : Fragment() {
                 binding.price.text = it.priceDiscounted.toString() + " TL"
                 binding.longDescription.text = it.long_description
                 binding.shortDescription.text = it.short_description
-                binding.rating.text = it.rating.toString()
+                binding.rating.text = it.rating.toString().subSequence(0,3)
                 binding.totalRating.text = "(" + it.rating_count.toString() + ")"
+                binding.vendorDetail.paintFlags = Paint.UNDERLINE_TEXT_FLAG;
                 binding.vendorDetail.text = it.vendor.name
                 binding.productCategory.text = it.category.name
                 binding.productSubcategory.text = it.subcategory.name

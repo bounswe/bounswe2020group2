@@ -6,7 +6,7 @@ To setup your development environment:
 
 3. Install all requirements `pip install -r requirements.txt`
 
-4. Create the last version of the aws db in your local using the updated version of dump.sql using `psql testdb < dump.sql` command.
+4. Migrate the last version of AWS database to your local using the updated version of dump.sql by typing the `psql testdb < dump.sql` command.
 
 5. Create migration files `python manage.py makemigrations`
 

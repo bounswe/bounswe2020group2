@@ -5,7 +5,7 @@ from rest_framework.renderers import JSONRenderer
 from django.urls import reverse
 from django.test import tag,Client
 from ..models import *
-
+from API.utils import semantic_search
 
 class TestSearchProduct(TestCase):
     def setUp(self):
@@ -52,6 +52,12 @@ class TestSearchProduct(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data["data"]["products"]), 2)
         self.assertEqual(response.data["data"]["products"][1]["id"], 2)
+    
+    @tag('search','search/products')
+    def test_semantic_search_api(self):
+        similar_queries = semantic_search.get_similar_queries("telephone")
+        self.assertGreater(len(similar_queries), 0)
+
 class TestSearchBrand(TestCase):
     def setUp(self):
         self.client = APIClient()

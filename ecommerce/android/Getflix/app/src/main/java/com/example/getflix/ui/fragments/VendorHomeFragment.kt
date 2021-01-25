@@ -52,6 +52,7 @@ class VendorHomeFragment : Fragment() {
         println("heyy")
         println(MainActivity.StaticData.user!!.token)
 
+
         val recView = binding?.productList as RecyclerView
         val brandsView = binding?.brandList as RecyclerView
 
@@ -75,7 +76,6 @@ class VendorHomeFragment : Fragment() {
             val productListAdapter = VendorHomeProductsAdapter(it!!,this)
             recView.adapter = productListAdapter
             recView.setHasFixedSize(true)
-            println(brands.toString())
             val brandListAdapter = VendorHomeBrandsAdapter(brands)
             binding.brandList.adapter = brandListAdapter
             binding.brandList.setHasFixedSize(true)

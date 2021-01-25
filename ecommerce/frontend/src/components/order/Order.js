@@ -67,7 +67,7 @@ export const Order = ({ order, onOrderCancelled }) => {
                         <div className="order-header-details">
                             {canCancel && (
                                 <Popconfirm
-                                    title="Delete this card?"
+                                    title="Cancel this order?"
                                     onConfirm={onCancelOrder}
                                     okText="Yes"
                                     cancelText="No">

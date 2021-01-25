@@ -3,6 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 import datetime
 from ..models import *
+from API.utils import semantic_search
 
 class NotificationTest(TestCase):
 
@@ -40,6 +41,7 @@ class NotificationTest(TestCase):
         p1 = Product.objects.create(id=10, name = "Mavi T-shirt", price = 799.9, discount= 0.1,
             creation_date = "2019-08-20T07:22:34Z", total_rating = 4, 
             rating_count = 20, stock_amount = 10, short_description = "yaza özel", subcategory = self.s, brand = self.b, vendor = self.v)
+        ProductIndex.objects.create(product=p1, text = semantic_search.get_indexed_text_of_product(p1))
         body = {
             'username': 'newvendor',
             'password': '12345678'
