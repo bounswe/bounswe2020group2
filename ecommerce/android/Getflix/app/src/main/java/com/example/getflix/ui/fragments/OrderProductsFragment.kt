@@ -1,10 +1,14 @@
 package com.example.getflix.ui.fragments
 
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.RatingBar
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -21,7 +25,7 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 class OrderProductsFragment : Fragment() {
 
     private lateinit var viewModel: OrderPurchasedViewModel
-
+    private lateinit var dialog: Dialog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -68,6 +72,44 @@ class OrderProductsFragment : Fragment() {
             }
         })
 
+
+        listAdapter.currentOrder.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                dialog = Dialog(requireContext())
+                dialog.setContentView(R.layout.comment_dialog)
+                dialog.window?.setBackgroundDrawableResource(R.drawable.back)
+                dialog.window?.setLayout(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                dialog.setCancelable(true)
+                val reviewButton = dialog.findViewById<TextView>(R.id.review_button)
+                val cancelButton = dialog.findViewById<TextView>(R.id.cancel_button)
+
+                val comment = dialog.findViewById<EditText>(R.id.editTextComment)
+                val ratingBar = dialog.findViewById<RatingBar>(R.id.comment_rating_bar)
+                cancelButton.setOnClickListener {
+                    dialog.dismiss()
+                }
+                val orderPurchasedModel = it
+                reviewButton.setOnClickListener {
+                    viewModel.addReview(
+                        orderPurchasedModel!!.product.id,
+                        orderPurchasedModel.vendor.id,
+                        ratingBar.numStars,
+                        comment.text.toString()
+                    )
+                    dialog.dismiss()
+                }
+                dialog.show()
+
+            }
+        })
+
+        viewModel.onCompleteReview.observe(viewLifecycleOwner, Observer {
+            listAdapter.currentOrder.value = null
+            println(it)
+        })
 
         return binding.root
     }
