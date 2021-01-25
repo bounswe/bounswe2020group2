@@ -9,11 +9,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.databinding.CardCommentBinding
+import com.example.getflix.databinding.CardVendorCommentBinding
 
 import com.example.getflix.models.ReviewModel
 
-class CommentAdapter :
-    ListAdapter<ReviewModel, CommentAdapter.ViewHolder>(CommentDiffCallback()) {
+class VendorCommentAdapter :
+    ListAdapter<ReviewModel, VendorCommentAdapter.ViewHolder>(VendorCommentDiffCallback()) {
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -34,7 +35,6 @@ class CommentAdapter :
         } else {
             binding.shortComment.text = comment.substring(0, 180) + "..."
         }
-        binding.reviewRate.text =   reviewModel.rating.toString()
         binding.commentDate.text = reviewModel.review_date.substring(0,10) + " " + reviewModel.review_date.substring(11,19)
         binding.root.setOnClickListener {
             if (comment.length > 180 && binding.shortComment.visibility == View.VISIBLE) {
@@ -110,18 +110,19 @@ class CommentAdapter :
             }
         }
         setCommentRating(reviewModel.rating)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: CardCommentBinding) :
+    class ViewHolder private constructor(val binding: CardVendorCommentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = CardCommentBinding.inflate(layoutInflater, parent, false)
+                val binding = CardVendorCommentBinding.inflate(layoutInflater, parent, false)
 
                 return ViewHolder(binding)
             }
@@ -148,7 +149,7 @@ class CommentAdapter :
     }
 }
 
-class CommentDiffCallback : DiffUtil.ItemCallback<ReviewModel>() {
+class VendorCommentDiffCallback : DiffUtil.ItemCallback<ReviewModel>() {
     override fun areItemsTheSame(oldItem: ReviewModel, newItem: ReviewModel): Boolean {
         return oldItem === newItem
     }
@@ -158,4 +159,3 @@ class CommentDiffCallback : DiffUtil.ItemCallback<ReviewModel>() {
     }
 
 }
-
