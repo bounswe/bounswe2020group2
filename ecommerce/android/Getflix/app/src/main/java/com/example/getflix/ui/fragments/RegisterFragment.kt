@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.getflix.R
+import com.example.getflix.activities.MainActivity.StaticData.auth
 import com.example.getflix.databinding.FragmentRegisterBinding
 import com.example.getflix.doneAlert
 import com.example.getflix.infoAlert
@@ -163,13 +164,16 @@ class RegisterFragment : Fragment() {
                 infoAlert(this, getString(R.string.user_already_exists))
                 navigateLogin()
                 println("Username is already in use login fragment")
-            } else if (it != null && it.successful) {
+            } else if (registerViewModel.isFirebaseUser.value!!) {
                 // doneAlert()
-                println("Register olabildi")
-                view?.findNavController()?.navigate(actionRegisterFragmentToMailVerificationFragment(binding.mail.text.toString()))
-
-            } else {
-                println("Login olamadı")
+                registerViewModel.isFirebaseUser.value = false
+                val firebaseUser = auth.getCurrentUser()
+                if (firebaseUser != null && firebaseUser.isEmailVerified.not()) {
+                    view?.findNavController()
+                        ?.navigate(actionRegisterFragmentToMailVerificationFragment(binding.mail.text.toString()))
+                } else {
+                    navigateLogin()
+                }
             }
         })
 

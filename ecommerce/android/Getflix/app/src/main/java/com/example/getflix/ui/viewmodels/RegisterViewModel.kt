@@ -19,7 +19,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     private val _canSignUp = MutableLiveData<SignUpResponse?>()
     val canSignUp: LiveData<SignUpResponse?>
         get() = _canSignUp
-
+    val isFirebaseUser = MutableLiveData<Boolean>()
 
     fun setSignUpCredentials(
         fragment: Fragment,
@@ -40,6 +40,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
 
     init {
         _canSignUp.value = null
+        isFirebaseUser.value = true
     }
 
     private fun signUp() {
@@ -61,7 +62,8 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                     println("Şu an backend endpointi doğru girdi.")
                     println(response.body())
 
-                    if (response.body() != null && response.body()!!.successful && response.body()!!.message.equals("Username is already in use").not()) {
+                    if ((response.body() != null && response.body()!!.successful && response.body()!!.message.equals("Username is already in use")).not()) {
+                        isFirebaseUser.value = true
                         auth.createUserWithEmailAndPassword(
                             _signUpCredentials.value!!.email,
                             _signUpCredentials.value!!.password
@@ -70,6 +72,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                                 println("Şu an fire base register'a girdi")
 
                             }.addOnFailureListener {
+                                isFirebaseUser.value = false
                                 println("Fire base signup olammama hatası :" + it.message)
                                 _canSignUp.value = null
                             }
