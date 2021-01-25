@@ -29,8 +29,6 @@ class NotificationAdapter(
 
         fun bind(notification: NotificationModel, position: Int) {
             var type = notification.type
-            if(position==1)
-                notification.isSeen = false
             if(!notification.isSeen) {
                 binding.cardView.setBackgroundColor(Color.GRAY)
             } else {
