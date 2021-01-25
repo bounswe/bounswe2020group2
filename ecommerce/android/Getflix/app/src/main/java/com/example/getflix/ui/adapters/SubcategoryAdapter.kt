@@ -27,7 +27,7 @@ class SubCategoryAdapter(
     class RowHolder(val binding: SubproductLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: ProductModel, position: Int) {
-            //binding.product = product
+            binding.product = product
                 if(product.images[0].contains("/image/"))
                    Picasso.get().load("http://3.134.80.26:8000" + product.images[0]).into(binding.productImage)
                 else
@@ -36,6 +36,8 @@ class SubCategoryAdapter(
                 println("burdasın")
                 println(product.name.length)
                 binding.productName.text = product.name.substring(0, 70)
+            } else {
+                binding.productName.text = product.name
             }
 
             //var amount = binding.amountRecProduct.text.toString().toInt()
