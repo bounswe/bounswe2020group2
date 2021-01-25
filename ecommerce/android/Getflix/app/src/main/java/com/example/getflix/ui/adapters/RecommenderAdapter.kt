@@ -22,6 +22,7 @@ class RecommenderAdapter :
     }
 
     private fun ViewHolder.bind(product: ProductModel) {
+        if(product.images.isNotEmpty())
         Picasso.get().load(product.images[0]).into(binding.productImage)
 
         var amount = binding.amountRecProduct.text.toString().toInt()

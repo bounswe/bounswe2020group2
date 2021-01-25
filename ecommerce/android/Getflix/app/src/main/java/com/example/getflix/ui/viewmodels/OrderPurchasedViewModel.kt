@@ -40,9 +40,8 @@ class OrderPurchasedViewModel : ViewModel()  {
 
     }
 
-    fun addReview(productId : Int, vendorId:Int, rating : Int, comment : String){
-        val reviewRequest = ReviewRequest(user!!.id,productId,vendorId,rating,comment)
-        GetflixApi.getflixApiService.addReview(reviewRequest).enqueue(object :
+    fun addReview(request: ReviewRequest){
+        GetflixApi.getflixApiService.addReview("Bearer " + user!!.token,request).enqueue(object :
             Callback<Status>{
             override fun onFailure(call: Call<Status>, t: Throwable) {
                 _onCompleteReview.value = null
@@ -50,6 +49,9 @@ class OrderPurchasedViewModel : ViewModel()  {
 
             override fun onResponse(call: Call<Status>, response: Response<Status>) {
                 _onCompleteReview.value = response.body()
+                println(response.body())
+                println("aaa")
+                println(response.code())
             }
 
         })

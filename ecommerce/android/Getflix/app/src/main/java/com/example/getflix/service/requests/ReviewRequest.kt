@@ -7,8 +7,8 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class ReviewRequest(
     @SerializedName("user_id") val userId: Int,
-    @SerializedName("product_id") val productId: Int,
-    @SerializedName("vendor_id") val vendorId: Int,
+    @SerializedName("product_id") val productId: Int?,
+    @SerializedName("vendor_id") val vendorId: Int?,
     val rating: Int,
     val comment: String
 

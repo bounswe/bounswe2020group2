@@ -23,6 +23,7 @@ class HomeRecommenderAdapter :
     }
 
     private fun ViewHolder.bind(product: ProductModel) {
+        if(product.images.isNotEmpty())
         Picasso.get().load(product.images[0]).into(binding.productImage)
         binding.root.setOnClickListener {
             HomeViewModel.onProductClick.value = product
