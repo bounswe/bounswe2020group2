@@ -18,6 +18,7 @@ import com.example.getflix.vendorModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 
 class VendorPageFragment : Fragment() {
@@ -39,8 +40,6 @@ class VendorPageFragment : Fragment() {
         val vendor = args.vendor
         vendorModel = vendor
         vendorPageViewModel = ViewModelProvider(this).get(VendorPageViewModel::class.java)
-
-        activity?.toolbar_lay!!.visibility = View.GONE
         binding.lifecycleOwner = this
         binding.vendorName.text = vendor.name
 
@@ -52,7 +51,7 @@ class VendorPageFragment : Fragment() {
                 else -> tab.setIcon(R.drawable.ic_speech_bubble)
             }
         }.attach()
-        binding.vendorRating.text = vendor.rating.toString()
+        binding.vendorRating.text = vendor.rating.toString().subSequence(0,3)
         setVendorRating(vendor.rating)
 
         return binding.root
