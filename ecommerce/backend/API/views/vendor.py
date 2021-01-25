@@ -18,12 +18,15 @@ def vendor_details(request,vendor_id):
 @api_view(['PUT'])
 @permission_classes([permissions.IsVendorUser]) 
 def vendor_profile(request):
-    vendor = User.objects.filter(username=request.user).first()
-    img_array = base64.b64decode(request.data["image"])
-    image = Image(image=img_array)
-    image.save()
-    image_url="/image/"+str(image.pk)
-    Vendor.objects.filter(user_id=vendor.id).update(title=request.data["title"],description=request.data["description"],image_url=image_url)
+    vendor = User.objects.filter(id=request.user.id).first()
+    if "image" in request.data:
+        Vendor.objects.filter(user_id=vendor.id).update(title=request.data["title"],description=request.data["description"])
+    else:
+        img_array = base64.b64decode(request.data["image"])
+        image = Image(image=img_array)
+        image.save()
+        image_url="/image/"+str(image.pk)
+        Vendor.objects.filter(user_id=vendor.id).update(title=request.data["title"],description=request.data["description"],image_url=image_url)
     return Response({
           "status": {
               "successful": "true",

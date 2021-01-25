@@ -23,7 +23,7 @@ class TestVendorDetails(TestCase):
         response = self.client.get(reverse('vendor_details', args = [2]))
         self.assertEqual(response.data["title"],"BURAKTITLE")
 
-class TestVendorDetails(TestCase):
+class TestVendorProfile(TestCase):
     def setUp(self):
         self.client = APIClient()
         body = {
