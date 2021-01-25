@@ -106,7 +106,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="@string/product_name"
+                    android:text=""
                     android:textColor="#000000"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -119,7 +119,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/open_sans_semibold"
-                    android:text="@string/short_description"
+                    android:text=""
                     android:textColor="@color/subtitle"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/product_name" />
@@ -128,14 +128,14 @@
                     android:id="@+id/price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/open_sans_bold"
-                    android:text="@string/price"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/product_name"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+                    app:layout_constraintTop_toTopOf="@+id/product_name" />
 
                 <TextView
                     android:id="@+id/old_price"
@@ -143,9 +143,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="@string/old_price"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="18sp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toTopOf="@+id/add_to_cart"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/price" />
 
@@ -217,8 +219,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:background="@color/colorPrimary"
-                    app:layout_constraintTop_toBottomOf="@+id/buy_now"
-                    tools:layout_editor_absoluteX="0dp" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/buy_now" />
 
                 <TextView
                     android:id="@+id/long_description_title"
@@ -244,7 +247,6 @@
                     android:layout_marginEnd="16dp"
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="left"
-                    android:text="@string/jacket_description"
                     android:textColor="@color/subtitle"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -284,7 +286,6 @@
                     android:layout_marginEnd="16dp"
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="right"
-                    android:text="@string/brand_example"
                     android:textColor="@color/subtitle"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@+id/brand_title"
@@ -312,7 +313,6 @@
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="right"
                     android:clickable="true"
-                    android:text="@string/vendor_example"
                     android:textColor="@color/subtitle"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -386,7 +386,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="TextView"
                     android:textColor="@color/subtitle"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/star_5"
