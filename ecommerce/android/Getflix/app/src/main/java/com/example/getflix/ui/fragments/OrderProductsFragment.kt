@@ -14,8 +14,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
+import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentOrderProductsBinding
+import com.example.getflix.doneAlert
 import com.example.getflix.models.*
+import com.example.getflix.service.requests.ReviewRequest
 import com.example.getflix.ui.adapters.OrderProductsAdapter
 import com.example.getflix.ui.viewmodels.OrderPurchasedViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -78,13 +81,16 @@ class OrderProductsFragment : Fragment() {
                 }
                 val orderPurchasedModel = it
                 reviewButton.setOnClickListener {
-                    viewModel.addReview(
+                    var request = ReviewRequest(
+                        MainActivity.StaticData.user!!.id,
                         orderPurchasedModel!!.product.id,
-                        orderPurchasedModel.vendor.id,
+                        null,
                         ratingBar.numStars,
                         comment.text.toString()
                     )
+                    viewModel.addReview(request)
                     dialog.dismiss()
+                    doneAlert(this,"Thank you for your review!",null)
                 }
                 dialog.show()
 

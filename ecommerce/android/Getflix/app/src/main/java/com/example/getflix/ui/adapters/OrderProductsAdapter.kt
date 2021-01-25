@@ -31,7 +31,7 @@ class OrderProductsAdapter(
             status = "At cargo"
         else if(status=="accepted")
             status = "Accepted"
-        if(status=="delivered")
+        else if(status=="delivered")
             status = "Delivered"
         binding.cartProductStatus.text = status
         binding.totalPriceCartProduct.text = "Total: "+(orderPurchased.unit_price*orderPurchased.amount).toString()+" TL"

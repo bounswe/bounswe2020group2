@@ -46,6 +46,7 @@ class OrderPurchasedViewModel : ViewModel()  {
         GetflixApi.getflixApiService.addReview("Bearer " + MainActivity.StaticData.user!!.token, reviewRequest).enqueue(object :
             Callback<AddReviewResponse>{
             override fun onFailure(call: Call<AddReviewResponse>, t: Throwable) {
+
                 _onCompleteReview.value = null
                 println(t.message)
             }

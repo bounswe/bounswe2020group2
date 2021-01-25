@@ -28,6 +28,7 @@ class SubCategoryAdapter(
 
         fun bind(product: ProductModel, position: Int) {
             binding.product = product
+            if(product.images.isNotEmpty())
             Picasso.get().load(product.images[0]).into(binding.productImage)
 
             //var amount = binding.amountRecProduct.text.toString().toInt()
