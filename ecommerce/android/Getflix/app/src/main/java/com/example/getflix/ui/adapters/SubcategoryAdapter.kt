@@ -27,13 +27,20 @@ class SubCategoryAdapter(
     class RowHolder(val binding: SubproductLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: ProductModel, position: Int) {
-            binding.product = product
-            Picasso.get().load(product.images[0]).into(binding.productImage)
+            //binding.product = product
+            if(product.images[0].contains("/image/"))
+               Picasso.get().load("http://3.134.80.26:8000" + product.images[0]).into(binding.productImage)
+            else
+                Picasso.get().load(product.images[0]).into(binding.productImage)
+            if(product.name.length>70) {
+                println("burdasın")
+                println(product.name.length)
+                binding.productName.text = product.name.substring(0, 70)
+            }
 
             //var amount = binding.amountRecProduct.text.toString().toInt()
             binding.rating.rating = product.rating.toFloat()
 
-            binding.product = product
             if (product.price.toString().length > 5) {
                 binding.oldProductPrice.text = product.price.toString().substring(0, 5) + " TL"
             } else {
@@ -49,22 +56,7 @@ class SubCategoryAdapter(
                 binding.productPrice.text = product.priceDiscounted.toString() + " TL"
 
             }
-            /*if (MainActivity.StaticData.isCustomer) {
-                binding.addShopping.setOnClickListener {
-                    addToShoppingCart(amount, 1, product.id)
-                }
-            }
-            binding.decreaseRecProduct.setOnClickListener {
-                if (amount > 1) {
-                    amount = amount.dec()
-                    binding.amountRecProduct.text = amount.toString()
-                }
-            }
-            binding.increaseRecProduct.setOnClickListener {
-                amount = amount.inc()
-                binding.amountRecProduct.text = amount.toString()
 
-            } */
 
         }
 

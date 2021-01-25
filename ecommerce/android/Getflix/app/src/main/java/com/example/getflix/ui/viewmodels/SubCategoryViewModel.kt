@@ -80,6 +80,7 @@ class SubCategoryViewModel : ViewModel() {
                 ) {
                     println(response.body().toString())
                     println(response.code())
+
                     _productList.value = response.body()!!.data.products as MutableList<ProductModel>
 
                 }

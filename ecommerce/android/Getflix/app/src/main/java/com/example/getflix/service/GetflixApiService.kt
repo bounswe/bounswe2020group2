@@ -41,7 +41,7 @@ private val okHttpClient = OkHttpClient.Builder()
 private val retrofit = Retrofit.Builder()
         .client(okHttpClient)
         .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create(GsonBuilder().serializeNulls().create()))
+        .addConverterFactory(GsonConverterFactory.create())
         .build()
 
 

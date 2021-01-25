@@ -63,8 +63,8 @@ class SubcategoryFragment : Fragment() {
             vendor?.toInt(),
             rating?.toDouble(),
             price?.toDouble(),
-            null,
-            null
+            "",
+            ""
         )
 
 
