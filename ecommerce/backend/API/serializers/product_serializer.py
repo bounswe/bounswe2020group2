@@ -21,7 +21,7 @@ class ProductResponseSerializer(serializers.ModelSerializer):
         if price != 0.0 and discount != 0.0:
             return price * (1 - discount)
         else:
-            return None
+            return None 
 
     def get_rating(self, obj):
         total_rating = obj.total_rating
