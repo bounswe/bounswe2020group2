@@ -109,14 +109,15 @@ class ProductFragment : Fragment() {
                 .setPositiveButton("Ok") { dialog, which ->
                     println(checkedList.toString())
                     println(listIds[checkedList])
-
+                    dialog.dismiss()
                     listViewModel.addProductToList(listIds[checkedList],args.productId)
                     doneAlert(this,"The product is added to your list successfully!",null)
                 }
                 .setIcon(R.drawable.accepted_list)
                 .setNegativeButton("Cancel") { dialog, which ->
                 }
-                .setNeutralButton("Add New List") { dialog, which ->
+                .setNeutralButton("Add New List") { dialog1, which ->
+                    dialog1.dismiss()
                     var dialog = AlertDialog.Builder(context,R.style.MaterialAlertDialog_color)
                     var dialogView = layoutInflater.inflate(R.layout.custom_dialog,null)
                     var edit = dialogView.findViewById<TextInputEditText>(R.id.name)
