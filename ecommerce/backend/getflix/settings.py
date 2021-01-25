@@ -52,6 +52,9 @@ def get_env(key, default=None):
 
 
 secrets = {
+    # DJANGO
+    'SECRET_KEY': get_env('SECRET_KEY'),
+
     # DB
     'DB_HOST': get_env('DB_HOST'),
     'DB_USER': get_env('DB_USER'),
