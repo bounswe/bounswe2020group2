@@ -35,6 +35,9 @@ class OrderProductsAdapter(
             //binding.amount.setText("Amount: "+orderPurchased.amount)
 
             if(!orderPurchased.product.images.isNullOrEmpty())
+                if(orderPurchased.product.images[0].contains("/image/"))
+                    Picasso.get().load("http://3.134.80.26:8000" + orderPurchased.product.images[0]).into(binding.cartProductImage)
+                else
                 Picasso.get().load(orderPurchased.product.images[0]).into(binding.cartProductImage)
 
             if(orderPurchased.status == "delivered")

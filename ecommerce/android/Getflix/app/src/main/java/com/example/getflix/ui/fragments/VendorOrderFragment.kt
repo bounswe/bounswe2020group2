@@ -161,7 +161,8 @@ class VendorOrderFragment : Fragment() {
                 vendorOrderViewModel.onStatusChangeCompleted()
             }
         })
-
+        if(currentOrder.product.images[0].contains("/image/"))
+            Picasso.get().load("http://3.134.80.26:8000" + currentOrder.product.images[0]).into(binding.imageView4)
         Picasso.get().load(currentOrder.product.images[0]).into(binding.imageView4)
         binding.lifecycleOwner = this
         binding.curOrderAmount.text = "x" + currentOrder.amount.toString()

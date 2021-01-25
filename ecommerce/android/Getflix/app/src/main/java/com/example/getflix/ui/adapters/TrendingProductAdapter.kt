@@ -23,6 +23,8 @@ class TrendingProductAdapter :
         binding.root.setOnClickListener {
             HomeViewModel.onProductClick.value = product
         }
+        if(product.images[0].contains("/image/"))
+            Picasso.get().load("http://3.134.80.26:8000" + product.images[0]).into(binding.trendingProductImage)
         Picasso.get().load(product.images[0]).into(binding.trendingProductImage)
     }
 
