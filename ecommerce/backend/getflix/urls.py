@@ -42,6 +42,7 @@ urlpatterns = [
     path('email-verify/<uidb64>', views.verify.email_verify),
     path('image/<int:image_id>', views.product.get_image),
     path('vendor/product', views.product.vendor_product, name="vendor_product"),
+    path('vendor/product/<int:product_id>', views.product.delete_product, name="vendor_product_delete"),
     path('vendor/signup', views.account.vendor_register, name="vendor_signup"),
     path('vendor/order', views.order.vendor_orders,name="vendor_orders"),
     path('vendor/<int:vendor_id>/details', views.vendor.vendor_details,name="vendor_details"),
