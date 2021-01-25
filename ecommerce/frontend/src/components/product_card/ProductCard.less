@@ -8,8 +8,8 @@
     padding-left: 10px;
     padding-right: 10px;
     background-color: white;
+    z-index: 1;
     transition: transform 0.2s; /* Animation */
-
     &:hover {
         transform: scale(1.02); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
     }
@@ -85,4 +85,13 @@
     display: flex;
     gap: 4px;
     padding-bottom: 20px;
+}
+.product-card-editable-icons {
+    padding: 16px 16px 0 16px;
+    top: 0;
+    left: 0;
+    display: flex;
+    gap: 8px;
+    flex-direction: row;
+    justify-content: flex-end;
 }
