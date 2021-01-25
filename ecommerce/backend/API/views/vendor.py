@@ -19,7 +19,7 @@ def vendor_details(request,vendor_id):
 @permission_classes([permissions.IsVendorUser]) 
 def vendor_profile(request):
     vendor = User.objects.filter(id=request.user.id).first()
-    if "image" in request.data:
+    if "image" not in request.data:
         Vendor.objects.filter(user_id=vendor.id).update(title=request.data["title"],description=request.data["description"])
     else:
         img_array = base64.b64decode(request.data["image"])
