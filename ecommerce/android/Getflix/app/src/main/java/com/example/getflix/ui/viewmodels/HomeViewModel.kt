@@ -50,7 +50,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         getHomeProducts(12)
-        getRecommendations()
     }
 
     fun getHomeProducts(numberOfProducts: Int) {
@@ -58,7 +57,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             .enqueue(object :
                 Callback<List<ProductModel>> {
                 override fun onFailure(call: Call<List<ProductModel>>, t: Throwable) {
-                   // _recommendedProducts.value = null
+                    _recommendedProducts.value = null
                     _trendingProducts.value = null
                     _todaysDeals.value = null
                     _editorPicks.value = null
@@ -70,7 +69,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 ) {
                     val rangeLength = numberOfProducts / 3
                     _editorPicks.value = response.body()
-                   // _recommendedProducts.value =  response.body()?.subList(2 * rangeLength, 3 * rangeLength)
+                    _recommendedProducts.value =  response.body()?.subList(2 * rangeLength, 3 * rangeLength)
                     _trendingProducts.value = response.body()?.subList(0, rangeLength)
                     _todaysDeals.value = response.body()?.subList(rangeLength, 2 * rangeLength)
                 }
@@ -78,18 +77,5 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             )
     }
 
-    private fun getRecommendations() {
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getRecommendations("Bearer " + MainActivity.StaticData.user!!.token)
-            withContext(Dispatchers.Main + exceptionHandler) {
-                if (response.isSuccessful) {
-                    response.body().let { it ->
-                        _recommendedProducts.value = it!!.products
-                        println(_recommendedProducts.value.toString())
-                    }
-                }
-            }
-        }
-    }
 
 }
