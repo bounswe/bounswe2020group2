@@ -84,8 +84,6 @@ class ProductViewModel : ViewModel() {
                     response: Response<ProductReviewListModel>
                 ) {
                     _reviews.value = response.body()?.reviews
-                    println(_reviews.value)
-
                 }
             }
             )

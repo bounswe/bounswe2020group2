@@ -33,6 +33,9 @@ import com.example.getflix.ui.viewmodels.ProductViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+
+import com.example.getflix.ui.viewmodels.ProductViewModel
+
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import me.relex.circleindicator.CircleIndicator2
@@ -99,6 +102,7 @@ class ProductFragment : Fragment() {
                 }
 
 
+
         binding.save.setOnClickListener {
          //   productViewModel.onSaveClick()
 
@@ -142,6 +146,7 @@ class ProductFragment : Fragment() {
             })
 
         }
+
         binding.imageView7.setOnClickListener {
             val scrollView = binding.scrollView
             val targetView = binding.detailsTitle
@@ -156,9 +161,11 @@ class ProductFragment : Fragment() {
             productViewModel.decreaseAmount()
         }
 
+
+
         binding.vendorDetail.setOnClickListener {
-            var id = 3
-            view?.findNavController()!!.navigate(actionProductFragmentToVendorPageFragment(id))
+            val vendor = productViewModel.product.value!!.vendor
+            view?.findNavController()!!.navigate(actionProductFragmentToVendorPageFragment(vendor))
         }
 
         binding.increase.setOnClickListener {

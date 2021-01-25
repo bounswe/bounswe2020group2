@@ -11,9 +11,14 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentVendorBinding
+import com.example.getflix.ui.adapters.VendorPageFragmentAdapter
 import com.example.getflix.ui.adapters.VendorPageProductAdapter
 import com.example.getflix.ui.viewmodels.VendorPageViewModel
+import com.example.getflix.vendorModel
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class VendorPageFragment : Fragment() {
     private lateinit var binding: FragmentVendorBinding
@@ -28,18 +33,27 @@ class VendorPageFragment : Fragment() {
             container, false
         )
 
+
+
         val args = VendorPageFragmentArgs.fromBundle(requireArguments())
-        var vendorId = args.vendorId
+        val vendor = args.vendor
+        vendorModel = vendor
         vendorPageViewModel = ViewModelProvider(this).get(VendorPageViewModel::class.java)
+
         activity?.toolbar_lay!!.visibility = View.GONE
         binding.lifecycleOwner = this
-        
-        val adapter = VendorPageProductAdapter()
-        binding.vendorProducts.adapter = adapter
-        val layoutManager = GridLayoutManager(requireContext(),2)
-        binding.vendorProducts.layoutManager = layoutManager
+        binding.vendorName.text = vendor.name
 
-       // setVendorRating(rating)
+        binding.viewPager.adapter = VendorPageFragmentAdapter(requireActivity())
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            when (position) {
+                0 -> tab.setIcon(R.drawable.ic_squares)
+                1 -> tab.setIcon(R.drawable.ic_grid)
+                else -> tab.setIcon(R.drawable.ic_speech_bubble)
+            }
+        }.attach()
+        binding.vendorRating.text = vendor.rating.toString()
+        setVendorRating(vendor.rating)
 
         return binding.root
 
