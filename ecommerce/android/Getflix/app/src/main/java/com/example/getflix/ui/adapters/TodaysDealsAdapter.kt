@@ -27,7 +27,8 @@ class TodaysDealsAdapter :
         }
         if(product.images[0].contains("/image/"))
             Picasso.get().load("http://3.134.80.26:8000" + product.images[0]).into(binding.todaysDealImage)
-        Picasso.get().load(product.images[0]).into(binding.todaysDealImage)
+        else
+            Picasso.get().load(product.images[0]).into(binding.todaysDealImage)
         binding.imageView3.setImageResource(imageSources[position])
     }
 
