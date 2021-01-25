@@ -47,6 +47,12 @@ class VendorPageProductAdapter(var fragment: Fragment) :
         var amount = binding.amountRecProduct.text.toString().toInt()
 
         binding.product = product
+
+        if(product.name.length>70) {
+            binding.productName.text = product.name.substring(0, 70)
+        } else {
+            binding.productName.text = product.name
+        }
         if (product.price.toString().length > 5) {
             binding.oldProductPrice.text = product.price.toString().substring(0, 5) + " TL"
         } else {

@@ -37,7 +37,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="@{product.name}"
                     android:textColor="#000000"
                     android:textSize="14sp"
                     android:layout_marginStart="8dp"
