@@ -142,7 +142,7 @@ class LoginFragment : Fragment() {
         loginViewModel.user.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 user = loginViewModel.user.value
-                if (it.isVerified) {
+              //  if (it.isVerified) {
                     user = it
                     if (btn_remember.isChecked) {
                         prefs!!.edit().putString("s_username", binding.username.text.toString())
@@ -162,12 +162,14 @@ class LoginFragment : Fragment() {
                         view?.findNavController()
                             ?.navigate(actionLoginFragmentToHomePageFragment())
                     }
-                } else {
+               // }
+
+                /*else {
                         loginViewModel.onMailVerificationComplete()
                         view?.findNavController()
                             ?.navigate(actionLoginFragmentToMailVerificationFragment(it!!.email))
 
-                }
+                }*/
             }
         })
 
