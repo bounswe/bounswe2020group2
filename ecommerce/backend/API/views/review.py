@@ -36,7 +36,7 @@ def manage_review(request):
         
         #Get all reviews of a vendor
         elif vendor_id is not None:
-            vendor = Vendor.objects.filter(pk=vendor_id).first()
+            vendor = Vendor.objects.filter(user_id=vendor_id).first()
             if vendor is not None:
                 reviews = Review.objects.filter(vendor=vendor).filter(is_deleted=False).all()
             else:
@@ -87,7 +87,7 @@ def manage_review(request):
             vid = request.data["vendor_id"]
             able_to_review = can_review_vendor(uid, vid)
             if able_to_review[0]:
-                vendor = Vendor.objects.filter(pk=vid).first()
+                vendor = Vendor.objects.filter(user_id=vid).first()
                 vendor.total_rating += request.data["rating"]
                 vendor.rating_count +=1
                 vendor.save()

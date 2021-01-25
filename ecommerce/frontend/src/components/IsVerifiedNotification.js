@@ -16,11 +16,11 @@ export const IsVerifiedNotification = () => {
                 },
             } = await api.post('/user/verify', {})
             if (successful) {
-                notification.success({ description: message })
+                notification.success({ description: 'We have sent a verification email to your inbox.' })
                 setUser({ ...user, is_verified: true })
             }
         } catch (error) {
-            notification.error({ description: 'Failed to verify account' })
+            notification.error({ description: 'Failed to send verification email' })
             console.error(error)
         } finally {
             setIsLoading(false)

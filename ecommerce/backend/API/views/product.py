@@ -129,33 +129,6 @@ def vendor_product(request):
             )
 
         return Response(response.data)
-
-    if request.method == 'DELETE':
-        product_id = request.data["id"]
-        vendor = Vendor.objects.filter(user=request.user).first()
-        if product_id is None:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-        product = Product.objects.filter(pk=product_id).filter(is_deleted=False).first()
-        if product is None:
-            response = VendorProductResponseSerializer(
-            Product(),
-            context = { 'is_successful': False,
-                                'message': "Product not found"}
-            )
-            return Response(response.data)
-
-        if product.vendor != vendor:
-            return Response(status=status.HTTP_403_FORBIDDEN)
-        
-        product.is_deleted = True
-        product.save()
-
-        response = VendorProductResponseSerializer(
-            product,
-            context = { 'is_successful': True,
-                                'message': "Success"}
-            )
-        return Response(response.data)
     
     if request.method == 'PUT':
         product_id = request.data["id"]
@@ -220,6 +193,7 @@ def vendor_product(request):
             ImageUrls.objects.filter(image_url=image_url).first().delete()
 
         index_image_url = ImageUrls.objects.filter(product=product).order_by('-index').first()
+
         index = index_image_url.index if index_image_url is not None else 0
     
         for image_b64 in request.data["images"]:
@@ -249,3 +223,31 @@ def vendor_product(request):
                                 'message': "Success"}
             )
         return Response(response.data)
+
+@api_view(['DELETE'])
+@permission_classes([permissions.IsVendorUser])
+def delete_product(request, product_id):
+    vendor = Vendor.objects.filter(user=request.user).first()
+    if product_id is None:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    product = Product.objects.filter(pk=product_id).filter(is_deleted=False).first()
+    if product is None:
+        response = VendorProductResponseSerializer(
+        Product(),
+        context = { 'is_successful': False,
+                            'message': "Product not found"}
+        )
+        return Response(response.data)
+
+    if product.vendor != vendor:
+        return Response(status=status.HTTP_403_FORBIDDEN)
+    
+    product.is_deleted = True
+    product.save()
+
+    response = VendorProductResponseSerializer(
+        product,
+        context = { 'is_successful': True,
+                            'message': "Success"}
+        )
+    return Response(response.data)

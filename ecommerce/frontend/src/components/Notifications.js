@@ -120,14 +120,14 @@ export const Notifications = () => {
                             Mark All as Seen
                         </Button>
                     )}
-                    {notifications.length != 0 && (
+                    {/* {notifications.length != 0 && (
                         <Button
                             type="text"
                             icon={<DeleteTwoTone twoToneColor="#F35A22" />}
                             onClick={onDeleteAllNotifications}>
                             Delete All
                         </Button>
-                    )}
+                    )} */}
                 </div>
             </div>
             <div className="notifications-container">

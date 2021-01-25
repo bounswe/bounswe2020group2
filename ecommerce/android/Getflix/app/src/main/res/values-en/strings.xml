@@ -162,6 +162,7 @@
     <string name="notifications">Notifications</string>
     <string name="your_addresses">Your address</string>
     <string name="your_cards">Your credit card</string>
+    <string name="address_enter">Enter address info</string>
     <string name="order_products">Order Products</string>
     <string name="contact_info">Customer Info</string>
     <string name="customer_name">Name</string>
@@ -182,4 +183,6 @@
         <item>Delivered</item>
         <item>Cancelled</item>
     </string-array>
+    <string name="send_message">SEND MESSAGE</string>
+
 </resources>
