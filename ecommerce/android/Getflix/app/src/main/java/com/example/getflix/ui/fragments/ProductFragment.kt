@@ -223,6 +223,13 @@ class ProductFragment : Fragment() {
             }
         })
 
+        productViewModel.onCompleteReview.observe(viewLifecycleOwner, Observer {
+            if(it!=null  ) {
+                println(it)
+                productViewModel.getProductReviews()
+            }
+        })
+
         binding.btnBack.setOnClickListener {
             view?.findNavController()!!.popBackStack()
         }

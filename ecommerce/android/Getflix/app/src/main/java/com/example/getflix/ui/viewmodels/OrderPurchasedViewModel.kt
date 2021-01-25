@@ -3,12 +3,14 @@ package com.example.getflix.ui.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.getflix.activities.MainActivity
 import com.example.getflix.activities.MainActivity.StaticData.user
 import com.example.getflix.models.OrderPurchasedModel
 import com.example.getflix.models.ReviewModel
 import com.example.getflix.models.Status
 import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.ReviewRequest
+import com.example.getflix.service.responses.AddReviewResponse
 import com.example.getflix.service.responses.CardProUpdateResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,10 +22,9 @@ class OrderPurchasedViewModel : ViewModel()  {
     val purchasedProductList: LiveData<MutableList<OrderPurchasedModel>>
         get() = _purchasedProductList
 
-    private val _onCompleteReview = MutableLiveData<Status?>()
-    val onCompleteReview: LiveData<Status?>
+    private val _onCompleteReview = MutableLiveData<AddReviewResponse?>()
+    val onCompleteReview: LiveData<AddReviewResponse?>
         get() = _onCompleteReview
-
     init {
         _onCompleteReview.value = null
     }
@@ -41,15 +42,15 @@ class OrderPurchasedViewModel : ViewModel()  {
     }
 
     fun addReview(productId : Int, vendorId:Int, rating : Int, comment : String){
-        val reviewRequest = ReviewRequest(user!!.id,productId,vendorId,rating,comment)
-        GetflixApi.getflixApiService.addReview("Bearer " + user!!.token, reviewRequest).enqueue(object :
-            Callback<Status>{
-            override fun onFailure(call: Call<Status>, t: Throwable) {
+        val reviewRequest = ReviewRequest(MainActivity.StaticData.user!!.id,productId,vendorId,rating,comment)
+        GetflixApi.getflixApiService.addReview("Bearer " + MainActivity.StaticData.user!!.token, reviewRequest).enqueue(object :
+            Callback<AddReviewResponse>{
+            override fun onFailure(call: Call<AddReviewResponse>, t: Throwable) {
                 _onCompleteReview.value = null
                 println(t.message)
             }
 
-            override fun onResponse(call: Call<Status>, response: Response<Status>) {
+            override fun onResponse(call: Call<AddReviewResponse>, response: Response<AddReviewResponse>) {
                 _onCompleteReview.value = response.body()
                 println("response'taaa")
                 println(response.body())
