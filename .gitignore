@@ -493,3 +493,5 @@ dmypy.json
 # End of https://www.gitignore.io/api/node,latex,python,visualstudiocode
 unencrypted-secrets
 encrypt_secrets.sh
+ecommerce/backend/env.production
+ecommerce/backend/env.development
