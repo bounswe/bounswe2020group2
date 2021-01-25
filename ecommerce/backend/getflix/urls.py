@@ -45,6 +45,7 @@ urlpatterns = [
     path('vendor/product/<int:product_id>', views.product.delete_product, name="vendor_product_delete"),
     path('vendor/signup', views.account.vendor_register, name="vendor_signup"),
     path('vendor/order', views.order.vendor_orders,name="vendor_orders"),
+    path('vendor/profile', views.vendor.vendor_profile,name="vendor_profile"),
     path('vendor/<int:vendor_id>/details', views.vendor.vendor_details,name="vendor_details"),
     path('checkout/payment', views.checkout.checkout_payment),
     path('checkout/cancelorder/<int:id>', views.checkout.checkout_cancel_order),
