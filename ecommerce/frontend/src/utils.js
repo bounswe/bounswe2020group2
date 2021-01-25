@@ -207,3 +207,22 @@ export const formatConversation = obj => {
 export const getRetroAvatarUrl = id => {
     return `http://www.gravatar.com/avatar/${id}?s=64&d=retro&r=PG`
 }
+
+export const formatList = ({ list_id, name, products }) => {
+    return {
+        id: list_id,
+        name,
+        products: products.map(entry => ({ ...entry, product: formatProduct(entry.product) })),
+    }
+}
+
+export const getVendorRatingLevel = rating => {
+    if (rating <= 5.0) return 'low'
+    if (rating <= 8.0) return 'medium'
+    return 'high'
+}
+
+export const formatVendorDetails = vendorHeader => ({
+    ...vendorHeader,
+    rating: vendorHeader.total_rating / vendorHeader.rating_count,
+})

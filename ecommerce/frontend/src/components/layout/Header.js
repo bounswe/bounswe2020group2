@@ -1,6 +1,7 @@
 import './Layout_common.less'
 
 import {
+    ShopOutlined,
     AppstoreOutlined,
     CreditCardOutlined,
     HomeOutlined,
@@ -9,6 +10,7 @@ import {
     ProfileOutlined,
     ShoppingCartOutlined,
     UserOutlined,
+    FolderOpenOutlined,
 } from '@ant-design/icons'
 import { Avatar, Button, Dropdown, Layout, Menu } from 'antd'
 import { Link, useHistory } from 'react-router-dom'
@@ -32,7 +34,7 @@ export const GuestHeaderContent = () => {
 export const CustomerHeaderContent = () => {
     const { user, logout } = useAppContext()
     const history = useHistory()
-
+    const isVendor = user.type === 'vendor'
     const onMenuItemClick = ({ key }) => {
         if (key === 'logout') {
             logout()
@@ -63,6 +65,9 @@ export const CustomerHeaderContent = () => {
                 <Menu.Item key="messages" icon={<MessageOutlined />}>
                     Messages
                 </Menu.Item>
+                <Menu.Item key="lists" icon={<FolderOpenOutlined />}>
+                    Lists
+                </Menu.Item>
                 <Menu.Item key="logout" icon={<LogoutOutlined />}>
                     Logout
                 </Menu.Item>
@@ -72,14 +77,16 @@ export const CustomerHeaderContent = () => {
 
     return (
         <div className="header-customer">
-            <Link to="/shoppingCart" className="header-customer-cart">
-                <Button
-                    className="header-customer-cart"
-                    icon={<ShoppingCartOutlined className="header-customer-cart-icon" />}
-                    ghost>
-                    My Cart
-                </Button>
-            </Link>
+            {!isVendor && (
+                <Link to="/shoppingCart" className="header-customer-cart">
+                    <Button
+                        className="header-customer-cart"
+                        icon={<ShoppingCartOutlined className="header-customer-cart-icon" />}
+                        ghost>
+                        My Cart
+                    </Button>
+                </Link>
+            )}
             <Dropdown overlay={dropdownMenu()} placement={'bottomRight'} trigger="click">
                 <Button className="header-customer-info" ghost>
                     <Avatar shape="square" size="large" icon={<UserOutlined />} />
@@ -105,6 +112,8 @@ export const VendorHeaderContent = () => {
             history.push('/')
         } else if (key === 'update-profile') {
             history.push({ pathname: '/profile' })
+        } else if (key === 'homepage') {
+            history.push({ pathname: `/vendor/${user.id}` })
         } else {
             // temp solution
             history.push({ pathname: `/profile/${key}` })
@@ -116,6 +125,9 @@ export const VendorHeaderContent = () => {
             <Menu onClick={onMenuItemClick}>
                 <Menu.Item key="update-profile" icon={<ProfileOutlined />}>
                     Profile Details
+                </Menu.Item>
+                <Menu.Item key="homepage" icon={<ShopOutlined />}>
+                    Shop
                 </Menu.Item>
                 <Menu.Item key="orders" icon={<AppstoreOutlined />}>
                     Orders
@@ -135,14 +147,24 @@ export const VendorHeaderContent = () => {
 
     return (
         <div className="header-customer">
-            <Link to="/profile/orders" className="header-vendor-orders">
-                <Button
-                    className="header-vendor-orders"
-                    icon={<AppstoreOutlined className="header-vendor-orders-icon" />}
-                    ghost>
-                    Orders
-                </Button>
-            </Link>
+            <div className="header-vendor-quicknavigation">
+                <Link to="/profile/orders" className="header-vendor-orders">
+                    <Button
+                        className="header-vendor-orders"
+                        icon={<AppstoreOutlined className="header-vendor-orders-icon" />}
+                        ghost>
+                        Orders
+                    </Button>
+                </Link>
+                <Link to={`/vendor/${user.id}`} className="header-vendor-orders">
+                    <Button
+                        className="header-vendor-orders"
+                        icon={<ShopOutlined className="header-vendor-orders-icon" />}
+                        ghost>
+                        My Shop
+                    </Button>
+                </Link>
+            </div>
             <Dropdown overlay={dropdownMenu()} placement={'bottomRight'} trigger="click">
                 <Button className="header-customer-info" ghost>
                     <Avatar shape="square" size="large" icon={<UserOutlined />} />
