@@ -23,6 +23,7 @@ import com.example.getflix.ui.adapters.OrderProductsAdapter
 import com.example.getflix.ui.viewmodels.OrderPurchasedViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.fragment_register.view.*
 
 
 class OrderProductsFragment : Fragment() {
@@ -82,7 +83,7 @@ class OrderProductsFragment : Fragment() {
                 val orderPurchasedModel = it
                 reviewButton.setOnClickListener {
                     var request = ReviewRequest(
-                        MainActivity.StaticData.user!!.id,
+                        it.customer.id,
                         orderPurchasedModel!!.product.id,
                         null,
                         ratingBar.numStars,

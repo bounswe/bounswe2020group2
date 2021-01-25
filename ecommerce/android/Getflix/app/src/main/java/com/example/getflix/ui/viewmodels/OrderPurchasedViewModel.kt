@@ -41,9 +41,8 @@ class OrderPurchasedViewModel : ViewModel()  {
 
     }
 
-    fun addReview(productId : Int, vendorId:Int, rating : Int, comment : String){
-        val reviewRequest = ReviewRequest(MainActivity.StaticData.user!!.id,productId,vendorId,rating,comment)
-        GetflixApi.getflixApiService.addReview("Bearer " + MainActivity.StaticData.user!!.token, reviewRequest).enqueue(object :
+    fun addReview(reviewRequest: ReviewRequest){
+        GetflixApi.getflixApiService.addReview("Bearer " + user!!.token, reviewRequest).enqueue(object :
             Callback<AddReviewResponse>{
             override fun onFailure(call: Call<AddReviewResponse>, t: Throwable) {
 
