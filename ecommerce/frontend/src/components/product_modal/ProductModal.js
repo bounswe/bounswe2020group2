@@ -90,6 +90,7 @@ export const ProductModal = ({ mode = 'add', product, visible = false, onCancel 
             const { data } = await api.post('/vendor/product', finalValues)
 
             if (data.status.successful) {
+                form.resetFields()
                 onSuccess()
             }
         } catch (error) {
@@ -108,6 +109,7 @@ export const ProductModal = ({ mode = 'add', product, visible = false, onCancel 
             setIsLoading(true)
             const { data } = await api.put('/vendor/product', finalValues)
             if (data.status.successful) {
+                form.resetFields()
                 onSuccess()
             }
         } catch (error) {
