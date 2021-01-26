@@ -34,7 +34,7 @@ export const Order = ({ order, onOrderCancelled }) => {
         event.stopPropagation()
     }
 
-    const firstPurchase = order.order_all_purchase[0]
+    const firstPurchase = order.purchases[0]
 
     const canCancel =
         R.any(purchase => orderStatusInvMap[purchase.status] !== 'cancelled', order.purchases) &&
