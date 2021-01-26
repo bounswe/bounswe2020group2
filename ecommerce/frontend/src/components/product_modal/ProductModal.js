@@ -28,7 +28,7 @@ export const ProductModal = ({ mode = 'add', product, visible = false, onCancel 
 
     const formatProductForSend = async values => {
         const images = await Promise.all(
-            values.images.map(async image => {
+            (values?.images ?? []).map(async image => {
                 if (image.originFileObj) return (await getBase64(image.originFileObj)).base64.split(',')[1]
                 return image.preview
             }),
@@ -37,7 +37,7 @@ export const ProductModal = ({ mode = 'add', product, visible = false, onCancel 
         const [category_id, subcategory_id] = values.category
 
         if (mode === 'edit') {
-            const oldImages = new Set(product.images ?? [])
+            const oldImages = new Set(product?.images ?? [])
             const remainingUrlImages = new Set(images.filter(image => image.startsWith('http')))
             const newImages = new Set(images.filter(image => !image.startsWith('http')))
             const deletedImages = new Set([...oldImages].filter(image => !remainingUrlImages.has(image)))
