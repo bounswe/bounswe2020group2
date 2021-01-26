@@ -30,7 +30,7 @@ export const UserReviews = ({ productId }) => {
             }
         }
         fetch()
-    }, [currentPage])
+    }, [currentPage, productId])
 
     console.log('reviews', reviews)
     if (!isLoading && reviews === null) return null
