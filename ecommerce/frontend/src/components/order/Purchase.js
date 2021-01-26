@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 
 import { api } from '../../api'
 import { useAppContext } from '../../context/AppContext'
-import { formatOrderStatus, orderStatusInvMap, orderStatusDisplayMapping } from '../../utils'
+import { formatOrderStatus, orderStatusInvMap, orderStatusDisplayMapping, formatPrice } from '../../utils'
 import { HeaderLabel } from '../HeaderLabel'
 import { MessageModalInner } from '../MessageModalInner'
 import { UserReviewPost } from '../UserReview/UserReviewPost'
@@ -89,7 +89,7 @@ export const PurchaseVendor = ({ purchase, onPurchaseUpdated = () => {} }) => {
                             </HeaderLabel>
                             <HeaderLabel label="Address">{purchase.address.title}</HeaderLabel>
                             <HeaderLabel label="Price">
-                                {purchase.unit_price} {purchase.currency ?? 'TL'}
+                                {formatPrice(purchase.unit_price)} {purchase.currency ?? 'TL'}
                             </HeaderLabel>
                             <HeaderLabel label="Amount">{purchase.amount}</HeaderLabel>
                             <HeaderLabel label="Receiver">{receiver}</HeaderLabel>
@@ -158,7 +158,7 @@ export const PurchaseCustomer = ({ purchase }) => {
                             <HeaderLabel label="Status">{formatOrderStatus(status)}</HeaderLabel>
                             <HeaderLabel label="Address">{purchase.address.title}</HeaderLabel>
                             <HeaderLabel label="Price">
-                                {purchase.unit_price} {purchase.currency ?? 'TL'}
+                                {formatPrice(purchase.unit_price)} {purchase.currency ?? 'TL'}
                             </HeaderLabel>
                             <HeaderLabel label="Amount">{purchase.amount}</HeaderLabel>
                             <HeaderLabel label="Receiver">{receiver}</HeaderLabel>
