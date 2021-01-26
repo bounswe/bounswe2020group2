@@ -141,7 +141,7 @@ export const PurchaseCustomer = ({ purchase }) => {
     }
 
     const user = {
-        receiverId: purchase.vendor.id,
+        receiverId: 55,
         name: purchase.vendor.name,
     }
 
