@@ -15,8 +15,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
+import com.example.getflix.activities.MainActivity.StaticData.user
 import com.example.getflix.databinding.FragmentOrderProductsBinding
 import com.example.getflix.doneAlert
+import com.example.getflix.infoAlert
 import com.example.getflix.models.*
 import com.example.getflix.service.requests.ReviewRequest
 import com.example.getflix.ui.adapters.OrderProductsAdapter
@@ -83,15 +85,15 @@ class OrderProductsFragment : Fragment() {
                 val orderPurchasedModel = it
                 reviewButton.setOnClickListener {
                     var request = ReviewRequest(
-                        it.customer.id,
+                        user!!.id,
                         orderPurchasedModel!!.product.id,
-                        null,
+                        orderPurchasedModel!!.vendor.id,
                         ratingBar.numStars,
                         comment.text.toString()
                     )
                     viewModel.addReview(request)
                     dialog.dismiss()
-                    doneAlert(this,"Thank you for your review!",null)
+
                 }
                 dialog.show()
 
@@ -99,8 +101,16 @@ class OrderProductsFragment : Fragment() {
         })
 
         viewModel.onCompleteReview.observe(viewLifecycleOwner, Observer {
-            listAdapter.currentOrder.value = null
-            println(it)
+
+            if(it!=null) {
+                listAdapter.currentOrder.value = null
+                if (it != null && it!!.status.succcesful) {
+                    doneAlert(this,"Thank you for your review!",null)
+                } else if (it != null && it.status.succcesful.not()) {
+                    infoAlert(this, it.status!!.message!!)
+                }
+                viewModel.resetOnCompleteReview()
+            }
         })
 
         return binding.root

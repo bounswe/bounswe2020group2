@@ -194,8 +194,8 @@ class ProductViewModel : ViewModel() {
         }
     }
 
-    fun addReview(productId : Int, vendorId:Int, rating : Int, comment : String){
-        val reviewRequest = ReviewRequest(MainActivity.StaticData.user!!.id,productId,vendorId,rating,comment)
+    fun addReview(rating : Int, comment : String){
+        val reviewRequest = ReviewRequest(MainActivity.StaticData.user!!.id,_product.value!!.id,_product.value!!.vendor.id,rating,comment)
         GetflixApi.getflixApiService.addReview("Bearer " + MainActivity.StaticData.user!!.token, reviewRequest).enqueue(object :
             Callback<AddReviewResponse>{
             override fun onFailure(call: Call<AddReviewResponse>, t: Throwable) {
@@ -205,11 +205,14 @@ class ProductViewModel : ViewModel() {
 
             override fun onResponse(call: Call<AddReviewResponse>, response: Response<AddReviewResponse>) {
                 _onCompleteReview.value = response.body()
-                println("response'taaa")
-                println(response.body())
+
             }
 
         })
+    }
+
+    fun resetOnCompleteReview(){
+        _onCompleteReview.value = null
     }
 
     fun resetNavigate() {

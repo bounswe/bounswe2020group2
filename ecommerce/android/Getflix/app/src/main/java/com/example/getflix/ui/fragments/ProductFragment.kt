@@ -223,10 +223,17 @@ class ProductFragment : Fragment() {
             }
         })
 
+        binding.productReviewButton.setOnClickListener {
+            productViewModel.addReview(binding.commentRating.numStars, binding.productCommentText.text.toString())
+        }
         productViewModel.onCompleteReview.observe(viewLifecycleOwner, Observer {
-            if(it!=null  ) {
-                println(it)
+            if(it != null && it!!.status.succcesful) {
+                productViewModel.resetOnCompleteReview()
                 productViewModel.getProductReviews()
+            }
+            else if (it!=null && it.status.succcesful.not()){
+                infoAlert(this, it.status!!.message!!)
+                productViewModel.resetOnCompleteReview()
             }
         })
 

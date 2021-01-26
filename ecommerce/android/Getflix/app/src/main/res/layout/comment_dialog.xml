@@ -10,8 +10,8 @@
         android:id="@+id/editTextComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name"
+        android:inputType="textMultiLine"
+        android:text=""
         android:ems="10"
         android:gravity="left"
         android:layout_marginStart="8dp"
@@ -24,6 +24,8 @@
         android:id="@+id/comment_rating_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:theme="@style/ratBar"
+        android:stepSize="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,4 +50,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextComment" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

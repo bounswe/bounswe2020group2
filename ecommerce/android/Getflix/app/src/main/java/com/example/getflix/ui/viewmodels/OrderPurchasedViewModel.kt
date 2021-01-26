@@ -58,5 +58,7 @@ class OrderPurchasedViewModel : ViewModel()  {
 
         })
     }
-
+    fun resetOnCompleteReview(){
+        _onCompleteReview.value = null
+    }
 }

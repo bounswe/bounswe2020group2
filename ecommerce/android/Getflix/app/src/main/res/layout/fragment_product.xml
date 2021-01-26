@@ -480,7 +480,7 @@
                         app:cardElevation="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ratingBar">
+                        app:layout_constraintTop_toBottomOf="@+id/comment_rating">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -489,7 +489,7 @@
                             android:background="#C8C8C8">
 
                             <EditText
-                                android:id="@+id/editTextTextMultiLine"
+                                android:id="@+id/product_comment_text"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="textMultiLine"
@@ -497,9 +497,8 @@
                                 android:ems="10"
                                 android:layout_marginStart="1dp"
                                 android:layout_marginEnd="1dp"
-                                android:layout_marginTop="1dp"
-                                android:layout_marginBottom="1dp"
                                 android:background="@color/white"
+                                android:layout_marginTop="1dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -509,7 +508,7 @@
                     </com.google.android.material.card.MaterialCardView>
 
                     <TextView
-                        android:id="@+id/pay"
+                        android:id="@+id/product_review_button"
                         android:layout_width="180dp"
                         android:layout_height="40dp"
                         android:background="@color/black"
@@ -519,13 +518,14 @@
                         android:textColor="@color/colorPrimary"
                         android:layout_marginTop="24dp"
                         android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="16dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
 
                     <RatingBar
-                        android:id="@+id/ratingBar"
+                        android:id="@+id/comment_rating"
+                        android:theme="@style/ratBar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"

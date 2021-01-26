@@ -34,6 +34,11 @@
         <item name="cornerSize">8dp</item>
     </style>
 
+    <style name="ratBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#CDCDCD</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+    </style>
+
     <style name="MyTitle_MaterialAlertDialog.MaterialComponents.Title.Text" parent="@style/MaterialAlertDialog.MaterialComponents.Title.Text">
         <item name="android:textColor">@color/initPurple</item>
     </style>
