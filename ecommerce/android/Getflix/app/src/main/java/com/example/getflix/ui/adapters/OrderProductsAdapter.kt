@@ -27,32 +27,6 @@ class OrderProductsAdapter(
 
     class RowHolder(val binding: OrderProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(orderPurchased: OrderPurchasedModel, position: Int) {
-            binding.listproduct = orderPurchased
-            binding.cartProductName.text = orderPurchased.product.name
-            binding.cartProductPrice.text = orderPurchased.product.price.toString()+" TL    (x" + orderPurchased.amount + ")"
-            var status = orderPurchased.status
-            if(status=="at_cargo")
-                status = "At cargo"
-            else if(status=="accepted")
-                status = "Accepted"
-            if(status=="delivered")
-                status = "Delivered"
-            binding.cartProductStatus.text = status
-            binding.totalPriceCartProduct.text = "Total: "+(orderPurchased.unit_price*orderPurchased.amount).toString()+" TL"
-            //binding.amount.setText("Amount: "+orderPurchased.amount)
-
-            if(!orderPurchased.product.images.isNullOrEmpty())
-                if(orderPurchased.product.images[0].contains("/image/"))
-                    Picasso.get().load("http://3.134.80.26:8000" + orderPurchased.product.images[0]).into(binding.cartProductImage)
-                else
-                Picasso.get().load(orderPurchased.product.images[0]).into(binding.cartProductImage)
-
-            if(orderPurchased.status == "delivered")
-                binding.btnReview.visibility = View.VISIBLE
-        }
-    }
-    class RowHolder(val binding: OrderProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
         companion object {
             fun from(parent: ViewGroup): RowHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
@@ -61,7 +35,36 @@ class OrderProductsAdapter(
             }
         }
 
+        fun bind(orderPurchased: OrderPurchasedModel, position: Int) {
+            binding.listproduct = orderPurchased
+            binding.cartProductName.text = orderPurchased.product.name
+            binding.cartProductPrice.text =
+                orderPurchased.product.price.toString() + " TL    (x" + orderPurchased.amount + ")"
+            var status = orderPurchased.status
+            if (status == "at_cargo")
+                status = "At cargo"
+            else if (status == "accepted")
+                status = "Accepted"
+            if (status == "delivered")
+                status = "Delivered"
+            binding.cartProductStatus.text = status
+            binding.totalPriceCartProduct.text =
+                "Total: " + (orderPurchased.unit_price * orderPurchased.amount).toString() + " TL"
+            //binding.amount.setText("Amount: "+orderPurchased.amount)
+
+            if (!orderPurchased.product.images.isNullOrEmpty())
+                if (orderPurchased.product.images[0].contains("/image/"))
+                    Picasso.get().load("http://3.134.80.26:8000" + orderPurchased.product.images[0])
+                        .into(binding.cartProductImage)
+                else
+                    Picasso.get().load(orderPurchased.product.images[0])
+                        .into(binding.cartProductImage)
+
+            if (orderPurchased.status == "delivered")
+                binding.btnReview.visibility = View.VISIBLE
+        }
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowHolder {
         return RowHolder.from(parent)
@@ -70,7 +73,7 @@ class OrderProductsAdapter(
 
     override fun onBindViewHolder(holder: RowHolder, position: Int) {
         orderPurchasedList?.get(position)?.let {
-            holder.bind(it)
+            holder.bind(it,position)
         }
     }
 

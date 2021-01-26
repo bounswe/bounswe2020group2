@@ -104,9 +104,9 @@ class OrderProductsFragment : Fragment() {
 
             if(it!=null) {
                 listAdapter.currentOrder.value = null
-                if (it != null && it!!.status.succcesful) {
+                if (it != null && it!!.status.successful) {
                     doneAlert(this,"Thank you for your review!",null)
-                } else if (it != null && it.status.succcesful.not()) {
+                } else if (it != null && it.status.successful.not()) {
                     infoAlert(this, it.status!!.message!!)
                 }
                 viewModel.resetOnCompleteReview()
