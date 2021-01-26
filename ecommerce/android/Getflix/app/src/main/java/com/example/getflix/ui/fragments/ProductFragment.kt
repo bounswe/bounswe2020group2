@@ -205,7 +205,11 @@ class ProductFragment : Fragment() {
                 binding.price.text = it.priceDiscounted.toString() + " TL"
                 binding.longDescription.text = it.long_description
                 binding.shortDescription.text = it.short_description
-                binding.rating.text = it.rating.toString()
+                val ratingString = it.rating.toString()
+                if(ratingString.length > 4)
+                    binding.rating.text = ratingString.substring(0,5)
+                else
+                    binding.rating.text = ratingString
                 binding.totalRating.text = "(" + it.rating_count.toString() + ")"
                 binding.vendorDetail.text = it.vendor.name
                 binding.productCategory.text = it.category.name

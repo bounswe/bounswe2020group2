@@ -526,6 +526,7 @@
                     <RatingBar
                         android:id="@+id/comment_rating"
                         android:theme="@style/ratBar"
+                        android:stepSize="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
