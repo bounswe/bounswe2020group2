@@ -68,6 +68,7 @@ export const Notifications = () => {
             try {
                 setIsLoading(true)
                 const { data } = await api.get('/notifications')
+                data.sort((b, a) => moment.utc(a.date) - moment.utc(b.date))
                 setNotifications(data)
             } catch (error) {
                 console.error(error)
