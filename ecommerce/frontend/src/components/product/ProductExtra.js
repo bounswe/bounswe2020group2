@@ -2,7 +2,7 @@ import './ProductExtra.less'
 
 import { Rate, Skeleton } from 'antd'
 import React from 'react'
-import { round } from '../../utils'
+import { round, formatPrice } from '../../utils'
 
 export const ProductExtra = ({ product, loading = false }) => {
     const getPriceView = () => {
@@ -19,10 +19,10 @@ export const ProductExtra = ({ product, loading = false }) => {
             return (
                 <div className="product-extra-price">
                     <div className="product-extra-old-price">
-                        {oldPrice} {product.currency ?? 'TL'}
+                        {formatPrice(oldPrice)} {product.currency ?? 'TL'}
                     </div>
                     <div className="product-extra-new-price">
-                        {newPrice} {product.currency ?? 'TL'}
+                        {formatPrice(newPrice)} {product.currency ?? 'TL'}
                     </div>
                 </div>
             )
@@ -31,7 +31,7 @@ export const ProductExtra = ({ product, loading = false }) => {
         return (
             <div className="product-extra-price">
                 <div className="product-extra-new-price">
-                    {round(product.price, 2)} {product.currency ?? 'TL'}
+                    {formatPrice(round(product.price, 2))} {product.currency ?? 'TL'}
                 </div>
             </div>
         )

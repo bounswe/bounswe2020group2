@@ -34,7 +34,7 @@ const HomePage_Splash = () => {
 const HomePage_MainContent = () => {
     const [trendingProducts, setTrendingProducts] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    const { categories } = useAppContext()
+    const { categories, user } = useAppContext()
 
     useEffect(() => {
         async function fetch() {
@@ -57,7 +57,7 @@ const HomePage_MainContent = () => {
         <div>
             <Spin spinning={isLoading}>
                 <div className="home-page-horizontal-lists">
-                    <Recommendations />
+                    {user.type === 'customer' && <Recommendations />}
                     {categories.map(category => {
                         const filters = {
                             category: category.id,

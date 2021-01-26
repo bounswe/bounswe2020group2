@@ -50,9 +50,9 @@ function useChat() {
         setCounterpart(conversation.counterpart.id)
     }
 
-    // useInterval(async () => {
-    //     await getConversations()
-    // }, 10000)
+    useInterval(async () => {
+        await getConversations()
+    }, 10000)
 
     const getConversations = async () => {
         try {

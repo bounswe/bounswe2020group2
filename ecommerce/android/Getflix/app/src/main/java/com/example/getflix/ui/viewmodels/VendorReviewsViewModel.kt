@@ -79,7 +79,6 @@ class VendorReviewsViewModel : ViewModel() {
                     response: Response<ProductReviewListModel>
                 ) {
                     if (response.body() != null && response.body()!!.reviews != null) {
-                        println(response.body()!!.reviews!!)
                         _comments.value = (response.body()!!.reviews as MutableList<ReviewModel>?)!!
                     }
                 }

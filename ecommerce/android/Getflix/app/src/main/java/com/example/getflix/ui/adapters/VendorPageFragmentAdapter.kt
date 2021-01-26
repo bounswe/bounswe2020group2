@@ -16,7 +16,6 @@ class VendorPageFragmentAdapter(fragmentActivity: FragmentActivity) :
     }
 
     override fun createFragment(position: Int): Fragment {
-        println(position.toString() + "Ben şu an adapteeredayım")
         return when(position){
              0-> NByTwoGridFragment()
              1-> NByThreeGridFragment()

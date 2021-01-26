@@ -31,7 +31,6 @@ class NByTwoViewModel : ViewModel() {
                 Callback<ProSearchByVendorResponse> {
                 override fun onFailure(call: Call<ProSearchByVendorResponse>, t: Throwable) {
                     _products.value = null
-                    println("RESPONSE DÖNMÜYOR")
                 }
 
                 override fun onResponse(
@@ -39,10 +38,8 @@ class NByTwoViewModel : ViewModel() {
                     response: Response<ProSearchByVendorResponse>
                 ) {
                     if (response.body() != null) {
-                        println("Response döndü")
                         _products.value = response.body()!!.data.products
                     } else {
-                        println("RESPONSE NULL")
                         _products.value = null
                     }
 

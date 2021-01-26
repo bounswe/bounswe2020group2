@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { useAppContext } from '../../context/AppContext'
-import { round, truncate } from '../../utils'
+import { round, truncate, formatPrice } from '../../utils'
 import { ListModal } from '../product_list_modal/ListModal'
 import { ProductModal } from '../product_modal/ProductModal'
 import { api } from '../../api'
@@ -85,9 +85,9 @@ export const ProductCard = ({ product, width = 350, editMode = false, onChange =
                     <Rate disabled allowHalf defaultValue={rating}></Rate>
                 </div>
                 {round(price, 1) !== round(price_after_discount, 1) ? (
-                    <div className="card-old-price">{round(price, 1) + ' ' + currency}</div>
+                    <div className="card-old-price">{formatPrice(round(price, 1)) + ' ' + currency}</div>
                 ) : null}
-                <div className="card-new-price">{round(price_after_discount, 1) + ' ' + currency}</div>
+                <div className="card-new-price">{formatPrice(round(price_after_discount, 1)) + ' ' + currency}</div>
             </div>
             {!isVendor && (
                 <div className="card-add-button">

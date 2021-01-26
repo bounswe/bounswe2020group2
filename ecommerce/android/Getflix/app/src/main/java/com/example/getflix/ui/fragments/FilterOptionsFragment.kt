@@ -101,7 +101,6 @@ class FilterOptionsFragment : Fragment() {
 
             var checkedBrandItem = 1
             var brandNames = arrayListOf<String>()
-            println("SIZE " + brandsl.size)
             for (brand in brandsl) {
                 var ind = brand.indexOf(" ")
                 var tempbrand = brand.substring(ind + 1)

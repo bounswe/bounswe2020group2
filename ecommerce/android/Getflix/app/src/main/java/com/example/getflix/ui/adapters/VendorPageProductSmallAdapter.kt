@@ -16,12 +16,13 @@ class VendorPageProductSmallAdapter :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        println("Buraya giriyor")
         holder.bind(item)
     }
 
     private fun ViewHolder.bind(product: ProductModel) {
-
+        if(product.images[0].contains("/image/"))
+            Picasso.get().load("http://3.134.80.26:8000" + product.images[0]).into(binding.vendorProductSmallImage)
+        else
         Picasso.get().load(product.images[0]).into(binding.vendorProductSmallImage)
         binding.vendorProductSmallName.text = product.brand.name
 

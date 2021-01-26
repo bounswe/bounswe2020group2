@@ -23,7 +23,11 @@ export const OrdersList = () => {
 
             if (status.successful) {
                 const sortedOrder = orders.map(formatOrder)
-                sortedOrder.reverse()
+                console.log('/customer/orders', sortedOrder)
+
+                sortedOrder.sort((b, a) => a.order_date - b.order_date)
+
+                // sortedOrder.reverse()
 
                 setOrders(sortedOrder)
             } else {
@@ -42,12 +46,12 @@ export const OrdersList = () => {
         setIsLoading(true)
         try {
             const response = await api.get(`/vendor/order`)
-            console.log('/vendor/order', response.data)
             const { status, orders } = response.data
 
             if (status.successful) {
                 const sortedOrder = orders.map(formatPurchase)
-                sortedOrder.reverse()
+                console.log('/vendor/order', sortedOrder)
+                sortedOrder.sort((b, a) => a.purchase_date - b.purchase_date)
 
                 setOrders(sortedOrder)
             } else {

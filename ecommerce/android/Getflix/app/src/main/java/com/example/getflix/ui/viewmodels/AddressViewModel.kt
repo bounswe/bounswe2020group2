@@ -68,15 +68,12 @@ class AddressViewModel : ViewModel() {
             .enqueue(object :
                 Callback<AddressDeleteResponse> {
                 override fun onFailure(call: Call<AddressDeleteResponse>, t: Throwable) {
-                    println("failure")
                 }
 
                 override fun onResponse(
                     call: Call<AddressDeleteResponse>,
                     response: Response<AddressDeleteResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
                     getCustomerAddresses()
 
                 }
@@ -99,8 +96,6 @@ class AddressViewModel : ViewModel() {
                     call: Call<AddressAddResponse>,
                     response: Response<AddressAddResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
                     if (response.code() == 200)
                         _navigateBack.value = true
                 }
@@ -123,8 +118,6 @@ class AddressViewModel : ViewModel() {
                     call: Call<AddressUpdateResponse>,
                     response: Response<AddressUpdateResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
                     if (response.code() == 200)
                         _navigateBack.value = true
                 }

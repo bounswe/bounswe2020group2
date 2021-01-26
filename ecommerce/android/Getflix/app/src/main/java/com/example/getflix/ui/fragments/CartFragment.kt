@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
+import com.example.getflix.activities.MainActivity.StaticData.isCustomer
 import com.example.getflix.databinding.FragmentCartBinding
 import com.example.getflix.infoAlert
 
@@ -42,8 +43,10 @@ class CartFragment : Fragment() {
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.cart)
         viewModel = ViewModelProvider(this).get(CartViewModel::class.java)
-        viewModel.getCustomerCartProducts()
-        viewModel.getCustomerCartPrice()
+        if(isCustomer) {
+            viewModel.getCustomerCartProducts()
+            viewModel.getCustomerCartPrice()
+        }
 
         val recView = binding?.cartList as RecyclerView
 
@@ -77,6 +80,8 @@ class CartFragment : Fragment() {
                     "Delivery Price: " + it.deliveryPrice.toString() + " TL"
                 binding.discount.text = "Discount: " + it.discount.toString() + " TL"
                 binding.totalPrice.text = "Total Price: " + it.totalPrice.toString() + " TL"
+                binding.acceptOrder.visibility = View.VISIBLE
+
             } else {
                 binding.productsPrice.text =
                     "Products Price: " + it.productsPrice.toString() + " TL"
@@ -99,10 +104,14 @@ class CartFragment : Fragment() {
             }
         })
         viewModel.cardProducts.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                productListAdapter.submitList(viewModel.cardProducts.value)
-            } else {
-                productListAdapter.submitList(mutableListOf())
+            if(it!=null){
+                if(isCustomer){
+                    if (it != null) {
+                        productListAdapter.submitList(viewModel.cardProducts.value)
+                    } else {
+                        productListAdapter.submitList(mutableListOf())
+                    }
+                }
             }
 
         })
@@ -114,6 +123,5 @@ class CartFragment : Fragment() {
 
         return binding.root
     }
-
 
 }

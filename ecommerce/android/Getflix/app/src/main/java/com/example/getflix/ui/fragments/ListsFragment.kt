@@ -95,7 +95,6 @@ class ListsFragment : Fragment() {
                 dialog.setTitle("Add A List")
                 dialog.setNegativeButton("Cancel") { dialogInterface: DialogInterface, i: Int -> }
                 dialog.setPositiveButton("Create") { dialogInterface: DialogInterface, i: Int ->
-                    println(edit.text.toString())
                     hideKeyboard(requireActivity())
                     viewModel.createList(CreateListRequest(edit.text.toString()))
                     doneAlert(this,"A new list is created successfully!",null)
@@ -115,7 +114,6 @@ class ListsFragment : Fragment() {
                 dialog.setTitle("Add A List")
                 dialog.setNegativeButton("Cancel") { dialogInterface: DialogInterface, i: Int -> }
                 dialog.setPositiveButton("Create") { dialogInterface: DialogInterface, i: Int ->
-                    println(edit.text.toString())
                     hideKeyboard(requireActivity())
                     viewModel.createList(CreateListRequest(edit.text.toString()))
                 }

@@ -36,7 +36,6 @@ class NByThreeGridFragment : Fragment() {
         binding.lifecycleOwner = this
         nByThreeViewModel = ViewModelProvider(this).get(NByThreeViewModel::class.java)
 
-        println("Giriş yapıldı")
         val adapter = VendorPageProductSmallAdapter()
         binding.vendorProductsInThreeColumns.adapter = adapter
         val layoutManager = GridLayoutManager(requireContext(),3)
@@ -44,7 +43,6 @@ class NByThreeGridFragment : Fragment() {
 
         nByThreeViewModel.products.observe(viewLifecycleOwner, Observer {
             if(it!=null){
-                println("threede submit ettti")
                 adapter.submitList(it)
             }
         })

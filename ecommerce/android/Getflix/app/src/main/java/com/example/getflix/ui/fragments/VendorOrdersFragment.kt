@@ -52,8 +52,6 @@ class VendorOrdersFragment : Fragment() {
 
         vendorOrderAdapter.selectedStatus.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                println(it)
-                println(vendorOrderAdapter.selectedOrder.value.toString())
                 vendorOrdersViewModel.changeStatusOfOrder(
                     vendorOrderAdapter.selectedOrder.value!!,
                     it,

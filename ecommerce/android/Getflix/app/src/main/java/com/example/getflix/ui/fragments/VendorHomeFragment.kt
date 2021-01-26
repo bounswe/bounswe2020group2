@@ -40,17 +40,17 @@ class VendorHomeFragment : Fragment() {
 
         activity?.bottom_nav!!.visibility = View.VISIBLE
         activity?.toolbar_lay!!.visibility = View.VISIBLE
-        activity?.toolbar!!.toolbar_title.visibility = View.VISIBLE
+        activity?.toolbar_title!!.visibility = View.VISIBLE
         activity?.toolbar!!.toolbar_title.text = getString(R.string.home)
+        activity?.toolbar!!.btn_notification.visibility = View.VISIBLE
+        activity?.search!!.visibility = View.GONE
+        activity?.btn_search!!.visibility = View.GONE
         viewModel = ViewModelProvider(this).get(VendorHomeViewModel::class.java)
 
 
         viewModel.searchByVendor(MainActivity.StaticData.user!!.id)
-       /* var updateRequest = VendorProUpdateRequest(27,"Samsung S20 Ultra 128GB",10999.0,
-            50,"Ekran Boyutu: 6.2', Ekran Çözünürlüğü: 1440x3200 px, Arka Kamera: 12 MP, Üçlü Kamera, Ön Kamera: 10 MP, 4G, Dahili Hafıza: 128 GB",
-            "Galaxy S serisi akıllı cep telefonlarıyla nefes kesici teknolojik yenilikleri sergileyen Samsung, sinematik kare/saniye oranlarında ve 8K çözünürlükte video kaydı yapan dünyanın ilk telefonu olan Galaxy S20 ile teknoloji dünyasında yeniden gündemi belirliyor. Tasarım hatlarını Galaxy Note 10 ailesinden alan ve birçok donanımsal geliştirmeyle kullanıcıların karşısına çıkan Samsung Galaxy S20 128 GB modelleri, çoklu arka kamera kurulumu ve güçlü donanımıyla beğeni topluyor. Android 10 işletim sistemi ve Samsung one UI 2.0 kullanıcı arayüzüyle gelen ürün, çift SIM kart desteği sunuyor. Samsung Galaxy S20 128 GB fiyatları bakımından, yeni nesil amiral gemisi sınıfında yer alan telefonlarla benzerlik gösteriyor.",
-            0.045,18,2) */
-       // viewModel.updateVendorProduct(updateRequest)
+
+
 
         val recView = binding?.productList as RecyclerView
         val brandsView = binding?.brandList as RecyclerView

@@ -44,9 +44,8 @@ class VendorHomeViewModel : ViewModel() {
                 ) {
                     if (response.code() == 200) {
                         _navigateBack.value = true
-                        println(response.body()!!.status.message)
-                    }
 
+                    }
                     // searchByVendor(3)
                 }
             }
@@ -65,8 +64,6 @@ class VendorHomeViewModel : ViewModel() {
                     call: Call<ProSearchByVendorResponse>,
                     response: Response<ProSearchByVendorResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
                     _productList.value =
                         response.body()!!.data.products as MutableList<ProductModel>
 

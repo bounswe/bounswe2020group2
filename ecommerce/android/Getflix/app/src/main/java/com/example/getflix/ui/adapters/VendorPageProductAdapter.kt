@@ -3,6 +3,8 @@ package com.example.getflix.ui.adapters
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,26 +14,45 @@ import com.example.getflix.addToShoppingCart
 import com.example.getflix.databinding.CardHomeRecommendedProductBinding
 import com.example.getflix.databinding.CardVendorProductBinding
 import com.example.getflix.models.ProductModel
+import com.example.getflix.ui.fragments.CartFragmentDirections
+import com.example.getflix.ui.fragments.NByTwoGridFragmentDirections
+import com.example.getflix.ui.fragments.NByTwoGridFragmentDirections.Companion.actionNByTwoGridFragmentToProductFragment
+import com.example.getflix.ui.fragments.VendorPageFragmentDirections
 import com.example.getflix.ui.viewmodels.HomeViewModel
 import com.squareup.picasso.Picasso
 
-class VendorPageProductAdapter :
+class VendorPageProductAdapter(var fragment: Fragment) :
     ListAdapter<ProductModel, VendorPageProductAdapter.ViewHolder>(VendorProductDiffCallback()) {
+
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        println("Buraya giriyor")
         holder.bind(item)
+        holder?.itemView!!.setOnClickListener {
+            fragment.view?.findNavController()
+                ?.navigate(VendorPageFragmentDirections.actionVendorFragmentToProductFragment(
+                        item.id
+                    )
+                )
+        }
     }
 
     private fun ViewHolder.bind(product: ProductModel) {
-
-        Picasso.get().load(product.images[0]).into(binding.productImage)
+        if(product.images[0].contains("/image/"))
+            Picasso.get().load("http://3.134.80.26:8000" + product.images[0]).into(binding.productImage)
+        else
+            Picasso.get().load(product.images[0]).into(binding.productImage)
 
         var amount = binding.amountRecProduct.text.toString().toInt()
 
         binding.product = product
+
+        if(product.name.length>70) {
+            binding.productName.text = product.name.substring(0, 70)
+        } else {
+            binding.productName.text = product.name
+        }
         if (product.price.toString().length > 5) {
             binding.oldProductPrice.text = product.price.toString().substring(0, 5) + " TL"
         } else {

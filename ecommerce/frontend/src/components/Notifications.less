@@ -1,0 +1,61 @@
+.notifications-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.notifications-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.notification-item {
+    display: flex;
+    flex-direction: row;
+    border: 2px solid gainsboro;
+    padding: 1px;
+    gap: 5px;
+}
+
+.notification-image {
+    width: 100px;
+    height: 100px;
+    min-width: 100px;
+    min-height: 100px;
+    text-align: center;
+}
+
+.notification-image img {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: contain;
+}
+
+.notification-message {
+    display: flex;
+    flex-direction: column;
+    margin-left: 3px;
+    padding-top: 3px;
+    margin-top: 1px;
+    justify-content: space-between;
+}
+
+.notification-status {
+    width: 10px;
+
+    background-color: aqua;
+
+    &__seen {
+        background: rgba(114, 111, 111, 0.366);
+    }
+
+    &__unseen {
+        background: rgba(239, 146, 135, 0.934);
+    }
+}
+
+.notification-option-icons {
+    display: flex;
+    margin-left: auto;
+    margin-right: 5px;
+    align-items: center;
+}

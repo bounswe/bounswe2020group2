@@ -122,8 +122,6 @@ class CompleteOrderViewModel : ViewModel() {
                     call: Call<CustomerCheckoutResponse>,
                     response: Response<CustomerCheckoutResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
                     _navigateHome.value = true
 
                 }

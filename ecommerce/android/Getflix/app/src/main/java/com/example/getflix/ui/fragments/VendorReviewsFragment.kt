@@ -42,7 +42,6 @@ class VendorReviewsFragment : Fragment() {
         binding.reviews.layoutManager = layoutManager
         vendorReviewsViewModel.comments.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                println(it)
                 adapter.submitList(it)
             }
         })
