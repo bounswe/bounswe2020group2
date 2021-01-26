@@ -13,6 +13,7 @@ import { Purchase } from './Purchase'
 
 export const Order = ({ order, onOrderCancelled }) => {
     const [cancelLoading, setCancelLoading] = useState(false)
+    // const [messageModalVisible, setMessageModalVisible] = useState(false)
 
     const onCancelOrder = async event => {
         event.stopPropagation() // prevent click on collapse
@@ -28,10 +29,6 @@ export const Order = ({ order, onOrderCancelled }) => {
         } finally {
             setCancelLoading(false)
         }
-    }
-
-    const onShowOrderDetails = async event => {
-        event.stopPropagation()
     }
 
     const firstPurchase = order.purchases[0]
@@ -80,10 +77,6 @@ export const Order = ({ order, onOrderCancelled }) => {
                                     </Button>
                                 </Popconfirm>
                             )}
-                            &nbsp;
-                            <Button onClick={onShowOrderDetails} type="dashed">
-                                Details
-                            </Button>
                         </div>
                     </div>
                 }>

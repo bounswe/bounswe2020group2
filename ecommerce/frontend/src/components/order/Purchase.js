@@ -34,6 +34,7 @@ export const PurchaseVendor = ({ purchase, onPurchaseUpdated = () => {} }) => {
         receiverId: 9,
         name: receiver,
     }
+
     const onChangeOrderStatus = async newStatus => {
         try {
             setIsLoading(true)
@@ -55,10 +56,6 @@ export const PurchaseVendor = ({ purchase, onPurchaseUpdated = () => {} }) => {
             setIsLoading(false)
         }
     }
-
-    // const orderStatusOptions = Object.entries(orderStatusDisplayMapping).map(([key, value]) => {
-    //     key, value
-    // })
 
     return (
         <>
@@ -129,7 +126,24 @@ export const PurchaseVendor = ({ purchase, onPurchaseUpdated = () => {} }) => {
 export const PurchaseCustomer = ({ purchase }) => {
     const { product, status } = purchase
 
+    const [messageModalVisible, setMessageModalVisible] = useState(false)
     const [reviewModalVisible, setReviewModalVisible] = useState()
+
+    const statusName = orderStatusInvMap[status]
+
+    const onMessageClick = event => {
+        event.stopPropagation()
+        setMessageModalVisible(true)
+    }
+
+    const onMessageEnd = () => {
+        setMessageModalVisible(false)
+    }
+
+    const user = {
+        receiverId: purchase.vendor.id,
+        name: purchase.vendor.name,
+    }
 
     const receiver = [purchase.address.name, purchase.address.surname].filter(Boolean).join(' ')
 
@@ -143,8 +157,6 @@ export const PurchaseCustomer = ({ purchase }) => {
     const onReviewEnd = () => {
         setReviewModalVisible(false)
     }
-
-    const statusName = orderStatusInvMap[status]
 
     return (
         <>
@@ -167,6 +179,10 @@ export const PurchaseCustomer = ({ purchase }) => {
                                     Review
                                 </Button>
                             )}
+                            &nbsp;
+                            <Button className="purchase-header-extra" onClick={onMessageClick}>
+                                Message
+                            </Button>
                         </div>
                     }>
                     <div className="purchase-product">
@@ -194,6 +210,16 @@ export const PurchaseCustomer = ({ purchase }) => {
             </Collapse>
             <Modal destroyOnClose visible={reviewModalVisible} onOk={onReviewEnd} onCancel={onReviewEnd} footer={null}>
                 <UserReviewPost product={purchase.product} onFinish={onReviewEnd} />
+            </Modal>
+
+            <Modal
+                destroyOnClose
+                title={`Send a message to ${user.name}`}
+                visible={messageModalVisible}
+                onOk={onMessageClick}
+                onCancel={onMessageEnd}
+                footer={null}>
+                <MessageModalInner receiverId={user.receiverId} onFinish={onMessageEnd} />
             </Modal>
         </>
     )
