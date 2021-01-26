@@ -10,6 +10,7 @@ import {
     ProfileOutlined,
     ShoppingCartOutlined,
     UserOutlined,
+    BellOutlined,
     FolderOpenOutlined,
 } from '@ant-design/icons'
 import { Avatar, Button, Dropdown, Layout, Menu } from 'antd'
@@ -61,6 +62,9 @@ export const CustomerHeaderContent = () => {
                 </Menu.Item>
                 <Menu.Item key="addresses" icon={<HomeOutlined />}>
                     Addresses
+                </Menu.Item>
+                <Menu.Item key="notifications" icon={<BellOutlined />}>
+                    Notifications
                 </Menu.Item>
                 <Menu.Item key="messages" icon={<MessageOutlined />}>
                     Messages
