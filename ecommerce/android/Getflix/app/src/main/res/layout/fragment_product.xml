@@ -106,7 +106,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="@string/product_name"
+                    android:text=""
                     android:textColor="#000000"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -119,7 +119,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/open_sans_semibold"
-                    android:text="@string/short_description"
+                    android:text=""
                     android:textColor="@color/subtitle"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/product_name" />
@@ -128,14 +128,14 @@
                     android:id="@+id/price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/open_sans_bold"
-                    android:text="@string/price"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/product_name"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+                    app:layout_constraintTop_toTopOf="@+id/product_name" />
 
                 <TextView
                     android:id="@+id/old_price"
@@ -143,9 +143,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="@string/old_price"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="18sp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toTopOf="@+id/add_to_cart"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/price" />
 
@@ -217,8 +219,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:background="@color/colorPrimary"
-                    app:layout_constraintTop_toBottomOf="@+id/buy_now"
-                    tools:layout_editor_absoluteX="0dp" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/buy_now" />
 
                 <TextView
                     android:id="@+id/long_description_title"
@@ -244,7 +247,6 @@
                     android:layout_marginEnd="16dp"
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="left"
-                    android:text="@string/jacket_description"
                     android:textColor="@color/subtitle"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -284,7 +286,6 @@
                     android:layout_marginEnd="16dp"
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="right"
-                    android:text="@string/brand_example"
                     android:textColor="@color/subtitle"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@+id/brand_title"
@@ -311,7 +312,7 @@
                     android:layout_marginEnd="16dp"
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="right"
-                    android:text="@string/vendor_example"
+                    android:clickable="true"
                     android:textColor="@color/subtitle"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -385,7 +386,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="TextView"
                     android:textColor="@color/subtitle"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/star_5"
@@ -458,17 +458,94 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/subcategory_title" />
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="50dp"
+                    android:background="#222222"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/comments">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/materialCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="8dp"
+                        app:cardCornerRadius="3dp"
+                        app:cardElevation="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/comment_rating">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:background="#C8C8C8">
+
+                            <EditText
+                                android:id="@+id/product_comment_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textMultiLine"
+                                android:gravity="start|top"
+                                android:ems="10"
+                                android:layout_marginStart="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:background="@color/white"
+                                android:layout_marginTop="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:id="@+id/product_review_button"
+                        android:layout_width="180dp"
+                        android:layout_height="40dp"
+                        android:background="@color/black"
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:gravity="center"
+                        android:text="@string/review"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
+                    <RatingBar
+                        android:id="@+id/comment_rating"
+                        android:theme="@style/ratBar"
+                        android:stepSize="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/comments"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="50dp"
-                    android:background="#000000"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:background="#222222"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/comments_title" />
+                    app:layout_constraintTop_toBottomOf="@id/comments_title">
+
+                </androidx.recyclerview.widget.RecyclerView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

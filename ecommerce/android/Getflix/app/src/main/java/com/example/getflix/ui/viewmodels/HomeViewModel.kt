@@ -2,8 +2,10 @@ package com.example.getflix.ui.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.ProductModel
 import com.example.getflix.service.GetflixApi
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,6 +35,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val editorPicks: LiveData<List<ProductModel>>?
         get() = _editorPicks
 
+    private var job: Job? = null
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        println("Error ${throwable.localizedMessage}")
+    }
 
     fun setOnCategoryClick(id: Int) {
         _onCategoryClick.value = id
@@ -70,5 +76,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             }
             )
     }
+
 
 }

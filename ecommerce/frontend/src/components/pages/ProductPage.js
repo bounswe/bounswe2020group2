@@ -3,14 +3,11 @@ import './ProductPage.less'
 import React, { useEffect, useState } from 'react'
 
 import { api } from '../../api'
-import { ProductCard } from '../product_card/ProductCard'
-import { sleep } from '../../utils'
 import { ProductHeader } from '../product/ProductHeader'
 import { notification, Spin } from 'antd'
 import { UserReviews } from '../UserReview/UserReviews'
-import * as R from 'ramda'
-import { formatProduct } from '../../utils'
 import { HorizontalProductList } from '../HorizontalProductList'
+import { formatProduct } from '../../utils'
 
 export const ProductPage = props => {
     const [product, setProduct] = useState()
@@ -23,7 +20,7 @@ export const ProductPage = props => {
                 setLoading(true)
                 console.log('fetching product', productId)
                 const { data } = await api.get(`/product/${productId}`)
-                setProduct(data)
+                setProduct(formatProduct(data))
             } catch (error) {
                 notification.error({ description: `Failed to get product ${productId}` })
             } finally {

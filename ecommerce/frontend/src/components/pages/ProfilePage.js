@@ -4,9 +4,13 @@ import { Alert, Tabs } from 'antd'
 
 import { useAppContext } from '../../context/AppContext'
 import { AddressList } from '../addresslist/AddressList'
+import { Conversations } from '../messages/Conversations'
 import { CreditCardList } from '../cardlist/CreditCardList'
 import { OrdersList } from '../order/OrdersList'
 import { ProfileContent } from '../profile/ProfileContent'
+import { Notifications } from '../Notifications'
+import { ChatContextProvider } from '../../context/ChatContext'
+import { ProductLists } from '../product_list/ProductLists'
 
 const { TabPane } = Tabs
 
@@ -32,22 +36,44 @@ export const ProfilePage = props => {
                 </TabPane>
                 <TabPane tab="Orders" key="orders" forceRender>
                     <Alert.ErrorBoundary>
-                        <OrdersList />
+                        <ChatContextProvider>
+                            <OrdersList />
+                        </ChatContextProvider>
                     </Alert.ErrorBoundary>
                 </TabPane>
-                <TabPane tab="Cards" key="cards" forceRender>
-                    <Alert.ErrorBoundary>
-                        <CreditCardList />
-                    </Alert.ErrorBoundary>
-                </TabPane>
+                {user.type === 'customer' && (
+                    <TabPane tab="Cards" key="cards" forceRender>
+                        <Alert.ErrorBoundary>
+                            <CreditCardList />
+                        </Alert.ErrorBoundary>
+                    </TabPane>
+                )}
                 <TabPane tab="Addresses" key="addresses" forceRender>
                     <Alert.ErrorBoundary>
                         <AddressList />
                     </Alert.ErrorBoundary>
                 </TabPane>
-                <TabPane tab="Messages" key="messages" forceRender>
-                    TO DO: Messages to be implemented
+                <TabPane tab="Notifications" key="notifications" forceRender>
+                    <Alert.ErrorBoundary>
+                        <div className="right-bar-profile-content">
+                            <Notifications key={user.id} user={user} />
+                        </div>
+                    </Alert.ErrorBoundary>
                 </TabPane>
+                <TabPane tab="Messages" key="messages" forceRender>
+                    <Alert.ErrorBoundary>
+                        <ChatContextProvider>
+                            <Conversations />
+                        </ChatContextProvider>
+                    </Alert.ErrorBoundary>
+                </TabPane>
+                {user.type === 'customer' && (
+                    <TabPane tab="Lists" key="lists" forceRender>
+                        <Alert.ErrorBoundary>
+                            <ProductLists />
+                        </Alert.ErrorBoundary>
+                    </TabPane>
+                )}
             </Tabs>
         </div>
     )

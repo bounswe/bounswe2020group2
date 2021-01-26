@@ -1,0 +1,59 @@
+.product-list-item {
+    &-container {
+        border: 1px solid gainsboro;
+        background-color: white;
+        font-family: 'Montserrat', sans-serif;
+        padding: 8px 24px;
+    }
+    &-header {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+    &-title {
+        vertical-align: middle;
+    }
+    &-vendor {
+        font-style: italic;
+    }
+    &-content {
+        display: flex;
+        gap: 8px;
+    }
+    &-picture {
+        width: 100px;
+        height: 100px;
+        min-width: 100px;
+        min-height: 100px;
+        img {
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: contain;
+        }
+    }
+    &-price {
+        text-align: center;
+        margin: auto auto;
+    }
+    &-amount-input {
+        text-align: center;
+        margin: auto auto;
+    }
+    &-amount-counter {
+        width: 50px;
+    }
+    &-description {
+        margin-left: 24px;
+    }
+    &-controls {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+    &-amount {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+    }
+}
+

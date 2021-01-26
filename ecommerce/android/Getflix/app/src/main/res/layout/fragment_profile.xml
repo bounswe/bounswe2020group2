@@ -99,7 +99,7 @@
                 </com.google.android.material.textview.MaterialTextView>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <!--<com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -122,6 +122,28 @@
 
                 </EditText>
 
+            </com.google.android.material.textfield.TextInputLayout> -->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/messages_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/messages"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_messagescust"
+                    android:drawableRight="@drawable/ic_arrow_forward"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="My Messages"
+                    android:textColor="@color/initPurple">
+
+                </com.google.android.material.textview.MaterialTextView>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout

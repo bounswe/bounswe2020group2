@@ -13,14 +13,13 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
+import com.example.getflix.activities.MainActivity
+import com.example.getflix.activities.MainActivity.StaticData.isCustomer
 import com.example.getflix.databinding.FragmentCartBinding
+import com.example.getflix.infoAlert
 
-import com.example.getflix.models.*
-
-import com.example.getflix.models.CartProductModel
 
 import com.example.getflix.ui.adapters.CartAdapter
-import com.example.getflix.ui.adapters.SwipeToDeleteAddress
 import com.example.getflix.ui.adapters.SwipeToDeleteCartProduct
 import com.example.getflix.ui.fragments.CartFragmentDirections.Companion.actionCartFragmentToCompleteOrderFragment
 import com.example.getflix.ui.viewmodels.CartViewModel
@@ -34,38 +33,64 @@ class CartFragment : Fragment() {
     private lateinit var viewModel: CartViewModel
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentCartBinding>(inflater, R.layout.fragment_cart,
-                container, false)
+        val binding = DataBindingUtil.inflate<FragmentCartBinding>(
+            inflater, R.layout.fragment_cart,
+            container, false
+        )
 
         activity?.toolbar!!.toolbar_title.text = getString(R.string.cart)
         viewModel = ViewModelProvider(this).get(CartViewModel::class.java)
-        viewModel.getCustomerCartProducts()
-        viewModel.getCustomerCartPrice()
+        if(isCustomer) {
+            viewModel.getCustomerCartProducts()
+            viewModel.getCustomerCartPrice()
+        }
 
         val recView = binding?.cartList as RecyclerView
 
 
         binding.acceptOrder.setOnClickListener {
-            activity?.loading_progress!!.visibility = View.VISIBLE
-            view?.findNavController()?.navigate(actionCartFragmentToCompleteOrderFragment())
+            viewModel.cardPrices.observe(viewLifecycleOwner, Observer {
+                if (MainActivity.StaticData.isVisitor) {
+                    infoAlert(this, "You should be logged in to make a purchase.")
+                } else if (it.productsPrice == 0.0) {
+                    infoAlert(this, "You don't have any products in your shopping cart.")
+                } else {
+                    activity?.loading_progress!!.visibility = View.VISIBLE
+                    view?.findNavController()?.navigate(actionCartFragmentToCompleteOrderFragment())
+                }
+            })
         }
 
 
         val productListAdapter = CartAdapter(this, viewModel)
-        val layoutManager =  LinearLayoutManager(activity)
+        val layoutManager = LinearLayoutManager(activity)
         recView.adapter = productListAdapter
         recView.layoutManager = layoutManager
         val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCartProduct(productListAdapter))
         itemTouchHelper.attachToRecyclerView(recView)
 
-        viewModel.cardPrices.observe(viewLifecycleOwner, Observer{
-            binding.productsPrice.text = "Products Price: " + it.productsPrice.toString() + " TL"
-            binding.deliveryPrice.text = "Delivery Price: " + it.deliveryPrice.toString()+ " TL"
-            binding.discount.text = "Discount: " + it.discount.toString() + " TL"
-            binding.totalPrice.text = "Total Price: " + it.totalPrice.toString()+ " TL"
+        viewModel.cardPrices.observe(viewLifecycleOwner, Observer {
+            if (it.productsPrice > 0) {
+                binding.productsPrice.text =
+                    "Products Price: " + it.productsPrice.toString() + " TL"
+                binding.deliveryPrice.text =
+                    "Delivery Price: " + it.deliveryPrice.toString() + " TL"
+                binding.discount.text = "Discount: " + it.discount.toString() + " TL"
+                binding.totalPrice.text = "Total Price: " + it.totalPrice.toString() + " TL"
+                binding.acceptOrder.visibility = View.VISIBLE
+
+            } else {
+                binding.productsPrice.text =
+                    "Products Price: " + it.productsPrice.toString() + " TL"
+                binding.deliveryPrice.text = "Delivery Price: 0.0 TL"
+                binding.discount.text = "Discount: 0.0 TL"
+                binding.totalPrice.text = "Total Price: 0.0  TL"
+                binding.acceptOrder.visibility = View.GONE
+            }
+
         })
 
 
@@ -78,9 +103,15 @@ class CartFragment : Fragment() {
                 productListAdapter.resetPos()
             }
         })
-        viewModel.onSubmit.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                productListAdapter.submitList(viewModel.cardProducts.value)
+        viewModel.cardProducts.observe(viewLifecycleOwner, Observer {
+            if(it!=null){
+                if(isCustomer){
+                    if (it != null) {
+                        productListAdapter.submitList(viewModel.cardProducts.value)
+                    } else {
+                        productListAdapter.submitList(mutableListOf())
+                    }
+                }
             }
 
         })
@@ -92,6 +123,5 @@ class CartFragment : Fragment() {
 
         return binding.root
     }
-
 
 }

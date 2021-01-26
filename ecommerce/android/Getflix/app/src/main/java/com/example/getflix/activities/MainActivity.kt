@@ -1,6 +1,7 @@
 package com.example.getflix.activities
 
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -66,11 +67,6 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.findNavController()
         StaticData.auth = Firebase.auth
         setSupportActionBar(toolbar)
-       /* val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()
-        var mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-        var account = GoogleSignIn.getLastSignedInAccount(this); */
 
     }
 
@@ -95,6 +91,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @RequiresApi(Build.VERSION_CODES.M)
     fun decideBottomNav(isVendor: Boolean) {
         NavigationUI.setupWithNavController(bottom_nav, navController)

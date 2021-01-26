@@ -1,6 +1,6 @@
 import { useAppContext } from '../context/AppContext'
-import { Alert, Button, notification, Space, Spin } from 'antd'
-import { useEffect, useState } from 'react'
+import { Alert, Button, notification } from 'antd'
+import { useState } from 'react'
 import { api } from './../api'
 
 export const IsVerifiedNotification = () => {
@@ -16,11 +16,11 @@ export const IsVerifiedNotification = () => {
                 },
             } = await api.post('/user/verify', {})
             if (successful) {
-                notification.success({ description: 'Successfully verified account' })
+                notification.success({ description: 'We have sent a verification email to your inbox.' })
                 setUser({ ...user, is_verified: true })
             }
         } catch (error) {
-            notification.error({ description: 'Failed to verify account' })
+            notification.error({ description: 'Failed to send verification email' })
             console.error(error)
         } finally {
             setIsLoading(false)

@@ -7,4 +7,4 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class CartProductListModel (
     @SerializedName("status") val status : Status,
-    @SerializedName("sc_items") val cartProducts : List<CartProductModel>) : Parcelable
+    @SerializedName("sc_items") val cartProducts : List<CartProductModel>?) : Parcelable

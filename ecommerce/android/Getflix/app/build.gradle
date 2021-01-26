@@ -55,6 +55,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.maps.android:android-maps-utils:2.2.0'
+    implementation 'com.google.maps.android:maps-utils-ktx:2.2.0'
 
 
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.1'
@@ -99,6 +101,7 @@ dependencies {
     // Discrete
     implementation 'com.yarolegovich:discrete-scrollview:1.5.1'
 
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 
     // Circular image view
     implementation 'de.hdodenhof:circleimageview:3.1.0'
@@ -138,6 +141,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
     implementation 'com.github.manojbhadane:PaymentCardView:v1.3'
+
+    implementation 'com.github.stfalcon:chatkit:0.3.3'
 
 }
 

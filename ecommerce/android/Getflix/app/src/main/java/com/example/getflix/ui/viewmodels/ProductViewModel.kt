@@ -4,12 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.getflix.activities.MainActivity
+import com.example.getflix.activities.MainActivity.StaticData.isCustomer
 import com.example.getflix.models.ProductModel
 import com.example.getflix.models.ProductReviewListModel
 import com.example.getflix.models.ReviewModel
+import com.example.getflix.models.Status
 import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.CardProAddRequest
 import com.example.getflix.service.requests.CardProUpdateRequest
+import com.example.getflix.service.requests.ReviewRequest
+import com.example.getflix.service.responses.AddReviewResponse
 import com.example.getflix.service.responses.CardProAddResponse
 import com.example.getflix.service.responses.CardProUpdateResponse
 import kotlinx.coroutines.*
@@ -18,6 +22,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ProductViewModel : ViewModel() {
+    private val _onCompleteReview = MutableLiveData<AddReviewResponse?>()
+    val onCompleteReview: LiveData<AddReviewResponse?>
+        get() = _onCompleteReview
+
     private val _recommendedProducts = MutableLiveData<MutableList<ProductModel>?>()
     val recommendedProducts: LiveData<MutableList<ProductModel>?>
         get() = _recommendedProducts
@@ -52,6 +60,12 @@ class ProductViewModel : ViewModel() {
     val addedToShoppingCart: LiveData<Boolean>
         get() = _addedToShoppingCart
 
+
+    private var job: Job? = null
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        println("Error ${throwable.localizedMessage}")
+    }
+
     init {
         _amount.value = 1
         _isSaved.value = false
@@ -59,7 +73,9 @@ class ProductViewModel : ViewModel() {
         _addedToShoppingCart.value = false
         _recommendedProducts.value = null
         _reviews.value = null
-        getRecommendedProducts(5)
+
+        getRecommendedProducts()
+
     }
 
     fun getProductReviews() {
@@ -76,8 +92,6 @@ class ProductViewModel : ViewModel() {
                     response: Response<ProductReviewListModel>
                 ) {
                     _reviews.value = response.body()?.reviews
-                    println(_reviews.value)
-
                 }
             }
             )
@@ -168,23 +182,67 @@ class ProductViewModel : ViewModel() {
         _isSaved.value = _isSaved.value?.not()
     }
 
-    fun getRecommendedProducts(numberOfProducts: Int) {
-        GetflixApi.getflixApiService.getProducts(numberOfProducts)
-            .enqueue(object :
-                Callback<List<ProductModel>> {
-                override fun onFailure(call: Call<List<ProductModel>>, t: Throwable) {
-                    _recommendedProducts.value = null
-
-                }
-
-                override fun onResponse(
-                    call: Call<List<ProductModel>>,
-                    response: Response<List<ProductModel>>
-                ) {
-                    _recommendedProducts.value = response.body() as MutableList<ProductModel>?
+    fun getRecommendedProducts() {
+        if(isCustomer){
+            job = CoroutineScope(Dispatchers.IO).launch {
+                val response = GetflixApi.getflixApiService.getRecommendations("Bearer " + MainActivity.StaticData.user!!.token)
+                withContext(Dispatchers.Main + exceptionHandler) {
+                    if (response.isSuccessful) {
+                        response.body().let { it ->
+                            _recommendedProducts.value = it!!.products as MutableList<ProductModel>
+                        }
+                    }else{
+                        _recommendedProducts.value = mutableListOf()
+                    }
                 }
             }
-            )
+        }
+        else{
+            GetflixApi.getflixApiService.getProducts(12)
+                .enqueue(object :
+                    Callback<List<ProductModel>> {
+                    override fun onFailure(call: Call<List<ProductModel>>, t: Throwable) {
+                        _recommendedProducts.value = mutableListOf()
+                    }
+
+                    override fun onResponse(
+                        call: Call<List<ProductModel>>,
+                        response: Response<List<ProductModel>>
+                    ) {
+                        val productsInResponse =  response.body()
+                        if(productsInResponse != null){
+                            _recommendedProducts.value = productsInResponse as MutableList<ProductModel>
+                        }
+                        else{
+                            _recommendedProducts.value = mutableListOf()
+                        }
+
+                    }
+                }
+                )
+        }
+
+    }
+
+    fun addReview(rating : Int, comment : String){
+        val reviewRequest = ReviewRequest(MainActivity.StaticData.user!!.id,_product.value!!.id,_product.value!!.vendor.id,rating,comment)
+        GetflixApi.getflixApiService.addReview("Bearer " + MainActivity.StaticData.user!!.token, reviewRequest).enqueue(object :
+            Callback<AddReviewResponse>{
+            override fun onFailure(call: Call<AddReviewResponse>, t: Throwable) {
+                _onCompleteReview.value = null
+                println(t.message)
+            }
+
+            override fun onResponse(call: Call<AddReviewResponse>, response: Response<AddReviewResponse>) {
+                _onCompleteReview.value = response.body()
+
+            }
+
+        })
+    }
+
+    fun resetOnCompleteReview(){
+        _onCompleteReview.value = null
     }
 
     fun resetNavigate() {

@@ -10,12 +10,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
-import com.example.getflix.databinding.FragmentListsBinding
 import com.example.getflix.databinding.FragmentNotificationBinding
+import com.example.getflix.doneAlert
 import com.example.getflix.models.*
-import com.example.getflix.ui.adapters.ListsAdapter
 import com.example.getflix.ui.adapters.NotificationAdapter
-import com.example.getflix.ui.viewmodels.ListViewModel
 import com.example.getflix.ui.viewmodels.NotificationViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -35,31 +33,32 @@ class NotificationFragment : Fragment() {
         )
 
         viewModel = ViewModelProvider(this).get(NotificationViewModel::class.java)
-        binding.viewmodel = ListViewModel()
         activity?.toolbar!!.toolbar_title.text = getString(R.string.notifications)
         val recView = binding?.notificationList as RecyclerView
+        activity?.toolbar!!.btn_notification_check.visibility = View.VISIBLE
+        viewModel.getNotifications()
 
-        var not1 =
-            NotificationModel(10, "2 items in your shopping cart are now on sale! Don't miss out - order now!")
-        var not2 =
-            NotificationModel(10, "Sale today on all winter items! Come into the store for a special %30 discount.")
-        val nots = arrayListOf<NotificationModel>(not1, not2)
-        val notAdapter = NotificationAdapter(nots)
-        recView.adapter = notAdapter
-        recView.setHasFixedSize(true)
-
-        for (not in nots) {
-            viewModel.addList(not)
+        activity?.toolbar!!.btn_notification_check.setOnClickListener {
+            viewModel.readAllNotifications()
+            doneAlert(this,"You've marked all your notifications as seen",null)
         }
 
         viewModel.notificationList.observe(viewLifecycleOwner, Observer {
             it?.let {
+                val notAdapter = NotificationAdapter(it,this)
+                recView.adapter = notAdapter
+                recView.setHasFixedSize(true)
                 notAdapter.submitList(it)
             }
         })
 
 
         return binding.root
+    }
+
+    override fun onStop() {
+        super.onStop()
+        activity?.toolbar!!.btn_notification_check.visibility = View.GONE
     }
 
 }

@@ -36,22 +36,29 @@ class RegisterFragment : Fragment() {
         )
         registerViewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
         binding.lifecycleOwner = this
+        binding.addressPart.visibility = View.GONE
+        binding.addressTitle.visibility = View.GONE
         var customer = true
 
-        binding.radioGroup.setOnCheckedChangeListener(
-            RadioGroup.OnCheckedChangeListener { group, checkedId ->
-                when (checkedId) {
-                    R.id.vendor -> {
-                        binding.addressZip.visibility = View.VISIBLE
-                        binding.cityState.visibility = View.VISIBLE
-                        customer = false
-                    }
-                    R.id.customer -> {
-                        binding.addressZip.visibility = View.GONE
-                        binding.cityState.visibility = View.GONE
-                        customer = true
+        binding.checkText.setOnClickListener {
+            infoAlert(this,getString(R.string.terms_conditions))
+        }
 
-                    }
+        binding.radioGroup.setOnCheckedChangeListener(
+
+                RadioGroup.OnCheckedChangeListener { group, checkedId ->
+                    when (checkedId) {
+                        R.id.vendor -> {
+                            binding.addressPart.visibility = View.VISIBLE
+                            binding.addressTitle.visibility = View.VISIBLE
+                            customer = false
+                        }
+                        R.id.customer -> {
+                            binding.addressPart.visibility = View.GONE
+                            binding.addressTitle.visibility = View.GONE
+                            customer = true
+
+                        }
                 }
             })
 
@@ -123,13 +130,34 @@ class RegisterFragment : Fragment() {
                 binding.check.error = getString(R.string.reg_agree_err)
             }
             if (!customer) {
-                if (!binding.maddress.text.toString().isEmpty()) {
-                    checkFields = false
-                    binding.maddress.error = getString(R.string.reg_error)
+
+                if (!binding.name2.text.toString().isEmpty()) {
+                    binding.name2.error = getString(R.string.reg_error)
+                    activity?.loading_progress!!.visibility = View.GONE
                 }
-                if (!binding.zipCode.text.toString().isEmpty()) {
-                    checkFields = false
-                    binding.maddress.error = getString(R.string.reg_error)
+                if (!binding.countryCode.text.toString().isEmpty())  {
+                    binding.countryCode.error = getString(R.string.reg_error)
+                    activity?.loading_progress!!.visibility = View.GONE
+                }
+                if (!binding.phone.text.toString().isEmpty()) {
+                    binding.phone.error = getString(R.string.reg_error)
+                    activity?.loading_progress!!.visibility = View.GONE
+                }
+                if (!binding.firstname.text.toString().isEmpty()) {
+                    binding.firstname.error = getString(R.string.reg_error)
+                    activity?.loading_progress!!.visibility = View.GONE
+                }
+                if (!binding.surname2.text.toString().isEmpty()) {
+                    binding.surname2.error = getString(R.string.reg_error)
+                    activity?.loading_progress!!.visibility = View.GONE
+                }
+                if (!binding.addressInfo.text.toString().isEmpty()) {
+                    binding.addressInfo.error = getString(R.string.reg_error)
+                    activity?.loading_progress!!.visibility = View.GONE
+                }
+                if (!binding.province.text.toString().isEmpty()) {
+                    binding.province.error = getString(R.string.reg_error)
+                    activity?.loading_progress!!.visibility = View.GONE
                 }
                 if (!binding.city.text.toString().isEmpty()) {
                     checkFields = false
@@ -138,6 +166,14 @@ class RegisterFragment : Fragment() {
                 if (!binding.state.text.toString().isEmpty()) {
                     checkFields = false
                     binding.state.error = getString(R.string.reg_error)
+                }
+                if (!binding.country.text.toString().isEmpty()) {
+                    binding.country.error = getString(R.string.reg_error)
+                    activity?.loading_progress!!.visibility = View.GONE
+                }
+                if (!binding.zipCode.toString().isEmpty()) {
+                    binding.zipCode.error = getString(R.string.reg_error)
+                    activity?.loading_progress!!.visibility = View.GONE
                 }
             }
             if (checkFields && prevAlert.not()) {

@@ -7,7 +7,7 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 
 from ..utils import permissions, Role
-from ..models import User, ShoppingCartItem, Product, Address, Order, Purchase, Card
+from ..models import User, ShoppingCartItem, Product, Address, Order, Purchase, Card, Vendor
 from ..serializers import checkout_product_serializer, checkout_shopping_cart_serializer, address_serializer, shopping_cart_serializer
 from ..utils import authentication, order_status
 
@@ -90,7 +90,8 @@ def checkout_payment(request):
             amount = serializer.get("amount")
             product_id = serializer.get("product")["id"]
             unit_price = serializer.get("product")["price"]
-            vendor_id = serializer.get("product")["vendor"]["id"]
+            vendor_id = serializer.get("product")["vendor"]["id"] # returns user_id from ProductResponseSerializer
+            vendor_id = Vendor.objects.get(user_id=vendor_id).id # get vendor_id for Purchase table
             status = order_status.OrderStatus.ACCEPTED.value
             purchase = Purchase(product_id=product_id, amount=amount, unit_price=unit_price, status=status,\
                                 address_id=address_id, vendor_id=vendor_id, order_id=order.pk)

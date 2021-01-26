@@ -13,6 +13,7 @@ import com.example.getflix.databinding.FragmentProfileBinding
 import com.example.getflix.infoAlert
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToAddressFragment
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToBankAccountFragment
+import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToCustMessagesFragment
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToLoginFragment
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToOrderInfoFragment
 import com.google.firebase.auth.FirebaseAuth
@@ -58,6 +59,14 @@ class ProfileFragment : Fragment() {
             }
         }
 
+        binding.messagesLayout.setOnClickListener {
+            if (MainActivity.StaticData.isVisitor) {
+                infoAlert(this, getString(R.string.order_guest_alert))
+            } else {
+                view?.findNavController()?.navigate(actionProfileFragmentToCustMessagesFragment())
+            }
+        }
+
         binding.addressLayout.setOnClickListener {
             if (MainActivity.StaticData.isVisitor) {
                 infoAlert(this, getString(R.string.address_guest_alert))
@@ -66,11 +75,11 @@ class ProfileFragment : Fragment() {
             }
         }
         binding.bankAccountsLayout.setOnClickListener {
-            /* if(MainActivity.StaticData.isVisitor) {
+             if(MainActivity.StaticData.isVisitor) {
                  infoAlert(this, getString(R.string.bank_guest_alert))
-             } else { */
+             } else {
             view?.findNavController()?.navigate(actionProfileFragmentToBankAccountFragment())
-            //}
+            }
         }
 
         binding.buttonLogout.setOnClickListener {

@@ -1,4 +1,5 @@
 import { config } from './config'
+import moment from 'moment'
 import * as R from 'ramda'
 
 export const productSortBy = {
@@ -125,14 +126,15 @@ export function formatPurchase(purchase) {
     }
 }
 
+export const orderStatusDisplayMapping = {
+    cancelled: 'Cancelled',
+    accepted: 'In progress',
+    at_cargo: 'At cargo',
+    delivered: 'Delivered',
+}
+
 export function formatOrderStatus(status) {
-    const statusMapping = {
-        cancelled: 'Cancelled',
-        accepted: 'In progress',
-        at_cargo: 'At cargo',
-        delivered: 'Delivered',
-    }
-    return statusMapping[orderStatusInvMap[status]]
+    return orderStatusDisplayMapping[orderStatusInvMap[status]]
 }
 
 export function formatOrder(order) {
@@ -188,4 +190,39 @@ export const formatSearchQueryParams = values => ({
     page_size: values.pagination?.pageSize,
     // page_size: smallest page_size should 1, biggest should be 100
     // page_size: if missing, assume 10
+})
+
+export const formatMessage = obj => {
+    return {
+        ...obj,
+        date: moment.utc(obj.date),
+        attachment_url: obj.attachment_url ? formatImageUrl(obj.attachment_url) : null,
+    }
+}
+
+export const formatConversation = obj => {
+    return { ...obj, messages: obj?.messages.map(formatMessage) }
+}
+
+export const getRetroAvatarUrl = id => {
+    return `http://www.gravatar.com/avatar/${id}?s=64&d=retro&r=PG`
+}
+
+export const formatList = ({ list_id, name, products }) => {
+    return {
+        id: list_id,
+        name,
+        products: products.map(entry => ({ ...entry, product: formatProduct(entry.product) })),
+    }
+}
+
+export const getVendorRatingLevel = rating => {
+    if (rating <= 5.0) return 'low'
+    if (rating <= 8.0) return 'medium'
+    return 'high'
+}
+
+export const formatVendorDetails = vendorHeader => ({
+    ...vendorHeader,
+    rating: vendorHeader.total_rating / vendorHeader.rating_count,
 })

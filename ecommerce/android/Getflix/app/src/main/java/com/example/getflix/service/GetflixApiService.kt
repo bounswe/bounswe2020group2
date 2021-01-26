@@ -3,6 +3,11 @@ package com.example.getflix.service
 import com.example.getflix.models.*
 import com.example.getflix.service.requests.*
 import com.example.getflix.service.responses.*
+
+import com.google.gson.GsonBuilder
+
+import com.google.gson.annotations.SerializedName
+
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -59,7 +64,7 @@ interface GetflixApiService {
     fun getProduct(@Path("productId") productId: Int): Call<ProductModel>
 
     @GET("customer/{customerId}/shoppingcart")
-    suspend fun getCustomerAllCartProducts(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Response<CartProductListModel>
+    fun getCustomerAllCartProducts(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Call<CartProductListModel?>
 
     @GET("customer/{customerId}/shoppingcart/{sc_item_id}")
     suspend fun getCustomerCartProduct(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Path("sc_item_id") sc_item_id: Int): Response<CartProductSingleModel>
@@ -80,8 +85,13 @@ interface GetflixApiService {
     suspend fun getCategories(): Response<CategoryListModel>
 
 
+    @Headers("Content-Type: application/json")
+    @POST("review")
+    fun addReview(@Header("Authorization")  token: String, @Body reviewRequest : ReviewRequest ): Call<AddReviewResponse>
+    
+
     @GET("customer/{customerId}/addresses")
-    suspend fun getCustomerAddresses(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Response<AddressListModel>
+    fun getCustomerAddresses(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Call<AddressListModel>
 
     @Headers("Content-Type: application/json")
     @POST("customer/{customerId}/addresses")
@@ -99,7 +109,7 @@ interface GetflixApiService {
     fun deleteCustomerAddress(@Header("Authorization") token: String, @Path("customerId") customerId: Int,@Path("address_id") address_id: Int): Call<AddressDeleteResponse>
 
     @GET("customer/{customerId}/cards")
-    suspend fun getCustomerCards(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Response<CardListModel>
+    fun getCustomerCards(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Call<CardListModel>
 
     @Headers("Content-Type: application/json")
     @POST("customer/{customerId}/cards")
@@ -136,7 +146,7 @@ interface GetflixApiService {
 
     // get prices of shopping cart
     @GET("checkout/details")
-    suspend fun getCustomerCartPrice(@Header("Authorization") token: String): Response<CustomerCartPriceModel>
+    fun getCustomerCartPrice(@Header("Authorization") token: String): Call<CustomerCartPriceModel?>
 
     @GET("review")
     fun getReviewOfProduct(@Query("product") productId: Int) : Call<ProductReviewListModel>
@@ -160,6 +170,53 @@ interface GetflixApiService {
     @Headers("Content-Type: application/json")
     @POST("changepassword")
     fun changePassword(@Body password: ForgotPasswordRequest): Call<Status>
+
+    @GET("messages")
+    suspend fun getMessages(@Header("Authorization") token: String): Response<MessageListModel>
+
+    @Headers("Content-Type: application/json")
+    @POST("messages")
+    fun sendMessage(@Header("Authorization") token: String, @Body messageData: SendMessageRequest): Call<SendMessageResponse>
+
+    @GET("vendor/order")
+    fun getVendorOrders(@Header("Authorization") token: String): Call<VendorOrderResponse>
+
+    @Headers("Content-Type: application/json")
+    @PUT("vendor/order")
+    fun updateOrderStatus(@Header("Authorization")token : String , @Body vendorOrderStatusRequest: VendorOrderStatusRequest): Call<Status>
+
+    @GET("lists")
+    suspend fun getLists(@Header("Authorization") token: String): Response<ListsModel>
+
+    @Headers("Content-Type: application/json")
+    @POST("lists")
+    fun createList(@Header("Authorization") token: String, @Body listData: CreateListRequest): Call<CreateListResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("lists/{id}/product/{product_id}")
+    fun addProductToList(@Header("Authorization") token: String, @Path("id") id: Int, @Path("product_id") product_id: Int): Call<AddProductToListResponse>
+
+    @Headers("Content-Type: application/json")
+    @DELETE("lists/{id}")
+    fun deleteList(@Header("Authorization") token: String, @Path("id") id: Int): Call<ListDeleteResponse>
+
+    @Headers("Content-Type: application/json")
+    @DELETE("lists/{id}/product/{product_id}")
+    fun deleteProductInList(@Header("Authorization") token: String, @Path("id") id: Int, @Path("product_id") productId: Int): Call<DeleteProductInListResponse>
+
+    @GET("recommendation")
+    suspend fun getRecommendations(@Header("Authorization") token: String): Response<RecommendationModel>
+
+    @GET("notifications")
+    suspend fun getNotifications(@Header("Authorization") token: String): Response<List<NotificationModel>>
+
+    @Headers("Content-Type: application/json")
+    @POST("notifications/seen")
+    fun readAllNotifications(@Header("Authorization") token: String): Call<SeenResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("notifications/seen/{notification_id}")
+    fun readNotification(@Header("Authorization") token: String, @Path("notification_id") id: Int): Call<SeenResponse>
 
 }
 

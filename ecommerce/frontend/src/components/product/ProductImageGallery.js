@@ -1,6 +1,6 @@
 import './ProductImageGallery.less'
 
-import { Pagination, Rate, Skeleton } from 'antd'
+import { Pagination, Skeleton } from 'antd'
 import React, { useState } from 'react'
 import cls from 'classnames'
 
