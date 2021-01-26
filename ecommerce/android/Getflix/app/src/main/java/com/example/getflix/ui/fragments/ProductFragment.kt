@@ -237,11 +237,11 @@ class ProductFragment : Fragment() {
             productViewModel.addReview(binding.commentRating.numStars, binding.productCommentText.text.toString())
         }
         productViewModel.onCompleteReview.observe(viewLifecycleOwner, Observer {
-            if(it != null && it!!.status.succcesful) {
+            if(it != null && it!!.status.successful) {
                 productViewModel.resetOnCompleteReview()
                 productViewModel.getProductReviews()
             }
-            else if (it!=null && it.status.succcesful.not()){
+            else if (it!=null && it.status.successful.not()){
                 infoAlert(this, it.status!!.message!!)
                 productViewModel.resetOnCompleteReview()
             }
