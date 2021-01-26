@@ -32,7 +32,6 @@ class CreditCartsAdapter(
         fun bind(credit: CardModel, position: Int) {
             binding.name.text = credit.name
             binding.ownerName.text ="Owner: " + credit.owner_name
-            println(credit.serial_number.length)
             binding.serialNum.text = credit.serial_number
         }
 

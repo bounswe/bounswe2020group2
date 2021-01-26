@@ -108,8 +108,6 @@ class ProductFragment : Fragment() {
                         checkedList = which
                     }
                     prev.setPositiveButton("Ok") { dialog, which ->
-                        println(checkedList.toString())
-                        println(listIds[checkedList])
                         dialog.dismiss()
                         listViewModel.addProductToList(listIds[checkedList],args.productId)
                         doneAlert(this,"The product is added to your list successfully!",null)
@@ -127,7 +125,6 @@ class ProductFragment : Fragment() {
                         dialog.setTitle("Add A List")
                         dialog.setNegativeButton("Cancel") { dialogInterface: DialogInterface, i: Int -> }
                         dialog.setPositiveButton("Create") { dialogInterface: DialogInterface, i: Int ->
-                            println(edit.text.toString())
                             hideKeyboard(requireActivity())
                             listViewModel.createList(CreateListRequest(edit.text.toString()))
                         }

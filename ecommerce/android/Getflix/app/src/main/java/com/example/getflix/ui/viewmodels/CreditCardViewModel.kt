@@ -53,8 +53,7 @@ class CreditCardViewModel : ViewModel() {
                     call: Call<CardDeleteResponse>,
                     response: Response<CardDeleteResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
+
                     getCustomerCards()
 
                     if (response.body()!!.status.successful)
@@ -108,10 +107,7 @@ class CreditCardViewModel : ViewModel() {
                     call: Call<CardAddResponse>,
                     response: Response<CardAddResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
                     if (response.code() == 200) {
-                        println(response.body().toString())
                         _navigateOrder.value = true
 
                         //doneAlert(fragment,"Credit card added successfully",::navigateOrder)
@@ -138,8 +134,6 @@ class CreditCardViewModel : ViewModel() {
                     call: Call<CardUpdateResponse>,
                     response: Response<CardUpdateResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
                     if (response.code() == 200)
                         _navigateOrder.value = true
                 }

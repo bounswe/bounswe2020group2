@@ -48,8 +48,7 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
         val args = CustChatFragmentArgs.fromBundle(requireArguments())
         id = args.sender
         var messagesl = args.messages.toCollection(ArrayList())
-        println(messagesl.toString())
-        println("SENDER   " + id)
+
         name = args.name
         messagesViewModel = ViewModelProvider(this).get(MessagesViewModel::class.java)
 
@@ -133,7 +132,6 @@ class CustChatFragment : Fragment(), MessageInput.InputListener,
             true
         )
         messagesViewModel.sendMessage(SendMessageRequest(id.toInt(),input.toString(),null))
-        println(LocalDateTime.now().toString())
         return true
     }
 

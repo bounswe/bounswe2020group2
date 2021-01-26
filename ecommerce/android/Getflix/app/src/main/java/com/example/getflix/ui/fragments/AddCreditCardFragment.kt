@@ -44,7 +44,6 @@ class AddCreditCardFragment : Fragment() {
                 cardNumber: String,
                 cvv: String
             ) {
-                println(binding.name.text.toString())
                 cardNumber.replace(" ","")
                 var cardRequest = CardAddRequest(binding.name.text.toString(),binding.ownerName.text.toString(),
                 cardNumber, ExpirationDateModel(month.toInt(),year.toInt()),cvv.toInt())

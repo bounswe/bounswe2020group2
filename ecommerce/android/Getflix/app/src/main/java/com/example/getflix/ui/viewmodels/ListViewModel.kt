@@ -38,8 +38,6 @@ class ListViewModel : ViewModel() {
                     if (response.isSuccessful) {
                         response.body().let { it ->
                             _listOfLists.value = it
-                            println("aaaaa")
-                            println(_listOfLists.value.toString())
                         }
                     }
                 }
@@ -62,8 +60,6 @@ class ListViewModel : ViewModel() {
                     call: Call<CreateListResponse>,
                     response: Response<CreateListResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
                     if (response.code() == 200)
                       getCustomerLists()
                 }
@@ -83,8 +79,6 @@ class ListViewModel : ViewModel() {
                     call: Call<AddProductToListResponse>,
                     response: Response<AddProductToListResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
                     if (response.body()!!.status.successful)
                         println(response.body().toString())
                 }
@@ -106,8 +100,6 @@ class ListViewModel : ViewModel() {
                     call: Call<ListDeleteResponse>,
                     response: Response<ListDeleteResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
                     getCustomerLists()
 
                 }
@@ -129,8 +121,6 @@ class ListViewModel : ViewModel() {
                     call: Call<DeleteProductInListResponse>,
                     response: Response<DeleteProductInListResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
                     getCustomerLists()
 
                 }

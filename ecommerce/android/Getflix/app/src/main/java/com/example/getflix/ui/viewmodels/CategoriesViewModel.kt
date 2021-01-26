@@ -85,7 +85,6 @@ class CategoriesViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     response.body().let { it ->
                         _categoriess.value = it
-                        println(_categoriess.value.toString())
                     }
                 }
             }
@@ -102,7 +101,6 @@ class CategoriesViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     response.body().let { it ->
                         _cartproduct.value = it
-                        println(_cartproduct.value.toString())
                     }
                 }
             }
@@ -139,7 +137,6 @@ class CategoriesViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     response.body().let { it ->
                         _address.value = it
-                        println(_address.value.toString())
                     }
                 }
             }
@@ -206,8 +203,7 @@ class CategoriesViewModel : ViewModel() {
                     call: Call<CardProAddResponse>,
                     response: Response<CardProAddResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
+
                     if (response.body()!!.status.successful)
                         println(response.body().toString())
                 }
@@ -239,7 +235,6 @@ class CategoriesViewModel : ViewModel() {
             withContext(Dispatchers.Main + exceptionHandler) {
                 if (response.isSuccessful) {
                     response.body().let { it ->
-                        println(it.toString())
                         if (it != null) {
                             _orderlist.value = it.cartProducts
                         }
@@ -265,8 +260,7 @@ class CategoriesViewModel : ViewModel() {
                     call: Call<CustomerCheckoutResponse>,
                     response: Response<CustomerCheckoutResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
+
 
                 }
             }
@@ -291,8 +285,7 @@ class CategoriesViewModel : ViewModel() {
                     call: Call<CardDeleteResponse>,
                     response: Response<CardDeleteResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
+
                     if (response.body()!!.status.successful)
                         println(response.body().toString())
                 }

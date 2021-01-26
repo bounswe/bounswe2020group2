@@ -123,8 +123,6 @@ class CartViewModel : ViewModel() {
                     call: Call<CardProDeleteResponse>,
                     response: Response<CardProDeleteResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
                     getCustomerCartProducts()
                     getCustomerCartPrice()
                 }

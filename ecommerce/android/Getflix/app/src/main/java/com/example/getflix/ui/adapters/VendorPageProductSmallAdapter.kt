@@ -16,7 +16,6 @@ class VendorPageProductSmallAdapter :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        println("Buraya giriyor")
         holder.bind(item)
     }
 

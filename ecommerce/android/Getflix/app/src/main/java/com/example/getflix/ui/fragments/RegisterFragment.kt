@@ -198,7 +198,6 @@ class RegisterFragment : Fragment() {
             if (it != null && it.message == "Username is already in use") {
                 infoAlert(this, getString(R.string.user_already_exists))
                 navigateLogin()
-                println("Username is already in use login fragment")
             } else if (registerViewModel.isFirebaseUser.value!!) {
                 // doneAlert()
                 registerViewModel.isFirebaseUser.value = false

@@ -156,7 +156,6 @@ class LoginFragment : Fragment() {
                 }
 
                 if (it.role!="CUSTOMER") {
-                    println(it.toString())
                     isCustomer = false
                     isVisitor = false
                     isVendor = true
@@ -169,7 +168,6 @@ class LoginFragment : Fragment() {
                     isVisitor = false
                     isVendor = false
                     isAdmin = false
-                    println(it.toString())
                     activity?.loading_progress!!.visibility = View.GONE
                     (activity as MainActivity).decideBottomNav(false)
                     view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())

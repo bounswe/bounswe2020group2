@@ -9,6 +9,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.getflix.R
@@ -54,7 +55,7 @@ class CustMessagesFragment : Fragment() {
         messagesViewModel.getMessages()
 
 
-        messagesViewModel.messageList.observe(viewLifecycleOwner, {
+        messagesViewModel.messageList.observe(viewLifecycleOwner, Observer{
             var dialogList = arrayListOf<DialogModel>()
             var listOfMessageLists = arrayListOf<ArrayList<MessageModel>>()
             var i = 0
@@ -99,7 +100,6 @@ class CustMessagesFragment : Fragment() {
             dialogsListAdapter.setItems(dialogList.toList() as List<Nothing>?)
 
             dialogsListAdapter.setOnDialogClickListener {
-                println(it!!.dialogName)
                 view?.findNavController()!!
                     .navigate(actionCustMessagesFragmentToCustChatFragment(it.lastMessage.user.id,listOfMessageLists[it.id.toInt()].toTypedArray(),dialogList[it.id.toInt()].dialogName))
             }

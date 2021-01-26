@@ -50,7 +50,6 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
             .enqueue(object :
                 Callback<SignUpResponse> {
                 override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
-                    println("backend endpointi çalışmıyor.")
                     _canSignUp.value = null
                 }
 
@@ -59,8 +58,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                     response: Response<SignUpResponse>
                 ) {
                     _canSignUp.value = response.body()
-                    println("Şu an backend endpointi doğru girdi.")
-                    println(response.body())
+
 
                     if ((response.body() != null && response.body()!!.successful && response.body()!!.message.equals("Username is already in use")).not()) {
                         isFirebaseUser.value = true
@@ -69,11 +67,9 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                             _signUpCredentials.value!!.password
                         )
                             .addOnCompleteListener {
-                                println("Şu an fire base register'a girdi")
 
                             }.addOnFailureListener {
                                 isFirebaseUser.value = false
-                                println("Fire base signup olammama hatası :" + it.message)
                                 _canSignUp.value = null
                             }
 

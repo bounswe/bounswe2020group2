@@ -46,7 +46,6 @@ class OrderProductsFragment : Fragment() {
         val recView = binding?.listProductList as RecyclerView
         val args = OrderProductsFragmentArgs.fromBundle(requireArguments())
         val productList = args.products.toCollection(ArrayList())
-        println(productList.toString())
 
 
         val listAdapter = OrderProductsAdapter(productList)

@@ -52,8 +52,6 @@ class VendorChatFragment : Fragment(), MessageInput.InputListener,
         val args = VendorChatFragmentArgs.fromBundle(requireArguments())
         id = args.sender
         var messagesl = args.messages.toCollection(ArrayList())
-        println(messagesl.toString())
-        println("SENDER   " + id)
         name = args.name
         viewModel = ViewModelProvider(this).get(MessagesViewModel::class.java)
 
@@ -137,7 +135,6 @@ class VendorChatFragment : Fragment(), MessageInput.InputListener,
             true
         )
         viewModel.sendMessage(SendMessageRequest(id.toInt(),input.toString(),null))
-        println(LocalDateTime.now().toString())
         return true
     }
 

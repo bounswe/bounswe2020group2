@@ -26,10 +26,7 @@ class MailVerificationViewModel : ViewModel() {
         val firebaseUser = auth.currentUser
         val userId = firebaseUser?.uid
         firebaseUser!!.sendEmailVerification().addOnSuccessListener {
-            println("Mail verification  view model maili attı ")
         }.addOnFailureListener {
-            println(it.message)
-            println("Mail verification  view model maili atamadı ")
         }
     }
 

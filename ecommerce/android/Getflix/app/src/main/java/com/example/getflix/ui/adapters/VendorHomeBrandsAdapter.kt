@@ -25,8 +25,6 @@ class VendorHomeBrandsAdapter(
 
         fun bind(brand: BrandModel, position: Int) {
             binding.brand = brand
-            println("heyy")
-
         }
 
         companion object {

@@ -34,8 +34,6 @@ class SubCategoryAdapter(
                 else
                 Picasso.get().load(product.images[0]).into(binding.productImage)
             if(product.name.length>70) {
-                println("burdasın")
-                println(product.name.length)
                 binding.productName.text = product.name.substring(0, 70)
             } else {
                 binding.productName.text = product.name

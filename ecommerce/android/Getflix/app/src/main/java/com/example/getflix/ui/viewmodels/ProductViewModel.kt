@@ -135,8 +135,6 @@ class ProductViewModel : ViewModel() {
                     call: Call<CardProAddResponse>,
                     response: Response<CardProAddResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
                     _navigateBack.value = true
                 }
             }
@@ -230,7 +228,6 @@ class ProductViewModel : ViewModel() {
             Callback<AddReviewResponse>{
             override fun onFailure(call: Call<AddReviewResponse>, t: Throwable) {
                 _onCompleteReview.value = null
-                println(t.message)
             }
 
             override fun onResponse(call: Call<AddReviewResponse>, response: Response<AddReviewResponse>) {

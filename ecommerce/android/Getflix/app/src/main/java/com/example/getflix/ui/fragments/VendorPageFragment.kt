@@ -74,7 +74,6 @@ class VendorPageFragment : Fragment() {
             dialog.setTitle("Send A Message")
             dialog.setNegativeButton("Cancel") { dialogInterface: DialogInterface, i: Int -> }
             dialog.setPositiveButton("Send") { dialogInterface: DialogInterface, i: Int ->
-                println(edit.text.toString())
                 messagesViewModel.sendMessage(SendMessageRequest(vendor.id,edit.text.toString(),null))
                 hideKeyboard(requireActivity())
                 doneAlert(this,"Your message is sent succesfully!",null)

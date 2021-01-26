@@ -49,8 +49,7 @@ class VendorHomeFragment : Fragment() {
 
 
         viewModel.searchByVendor(MainActivity.StaticData.user!!.id)
-        println("heyy")
-        println(MainActivity.StaticData.user!!.token)
+
 
 
         val recView = binding?.productList as RecyclerView

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.getflix.R
@@ -50,7 +51,7 @@ class VendorMessagesFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MessagesViewModel::class.java)
         viewModel.getMessages()
 
-        viewModel.messageList.observe(viewLifecycleOwner, {
+        viewModel.messageList.observe(viewLifecycleOwner, Observer{
             var dialogList = arrayListOf<DialogModel>()
             var listOfMessageLists = arrayListOf<ArrayList<MessageModel>>()
             var i = 0
@@ -100,7 +101,6 @@ class VendorMessagesFragment : Fragment() {
             dialogsListAdapter.setItems(dialogList.toList() as List<Nothing>?)
 
             dialogsListAdapter.setOnDialogClickListener {
-                println(it!!.dialogName)
                 view?.findNavController()!!
                     .navigate(actionVendorMessagesFragmentToVendorChatFragment(
                             it.lastMessage.user.id,

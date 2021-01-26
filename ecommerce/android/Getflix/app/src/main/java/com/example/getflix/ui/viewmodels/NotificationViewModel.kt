@@ -80,9 +80,7 @@ class NotificationViewModel : ViewModel() {
                     call: Call<SeenResponse>,
                     response: Response<SeenResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
-                    println("aaa")
+
                     getNotifications()
                    // if (response.code() == 200)
                    //     _navigateBack.value = true

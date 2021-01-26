@@ -57,7 +57,6 @@ class UpdateProductFragment : Fragment() {
                 binding.editableStockamount.text.toString().toInt(),binding.editableShortdescription.text.toString(),
                 binding.editableLongdescription.text.toString(),binding.editableDiscount.text.toString().toDouble(),
                 binding.editableBrandid.text.toString().toInt(),binding.editableSubcategoryid.text.toString().toInt())
-           println(binding.editableLongdescription.text.toString())
             viewModel.updateVendorProduct(updateRequest)
         }
 
