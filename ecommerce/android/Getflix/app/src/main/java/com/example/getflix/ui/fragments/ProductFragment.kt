@@ -207,7 +207,7 @@ class ProductFragment : Fragment() {
                 binding.shortDescription.text = it.short_description
                 val ratingString = it.rating.toString()
                 if(ratingString.length > 4)
-                    binding.rating.text = ratingString.substring(0,5)
+                    binding.rating.text = ratingString.substring(0,4)
                 else
                     binding.rating.text = ratingString
                 binding.totalRating.text = "(" + it.rating_count.toString() + ")"
