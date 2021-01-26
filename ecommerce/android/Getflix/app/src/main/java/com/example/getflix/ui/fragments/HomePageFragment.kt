@@ -71,7 +71,6 @@ class HomePageFragment : Fragment() {
         }
 
         activity?.btn_search!!.setOnClickListener {
-            println(activity?.search!!.text)
             var query = activity?.search!!.text.toString()
             activity?.search!!.text.clear()
             view?.findNavController()!!.navigate(actionHomePageFragmentToSubcategoryFragment(null,query,null,null,null,null))
@@ -79,6 +78,20 @@ class HomePageFragment : Fragment() {
 
         activity?.btn_notification!!.setOnClickListener{
             view?.findNavController()!!.navigate(actionHomePageFragmentToNotificationFragment())
+        }
+
+
+        activity?.search!!.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                activity?.toolbar!!.requestFocus()
+            }
+        }
+
+        activity?.btn_search!!.setOnClickListener {
+            println(activity?.search!!.text)
+            var query = activity?.search!!.text.toString()
+            activity?.search!!.text.clear()
+            view?.findNavController()!!.navigate(actionHomePageFragmentToSubcategoryFragment(null,query,null,null,null,null))
         }
 
 

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RatingBar
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.getflix.R
@@ -60,7 +61,7 @@ class FilterOptionsFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(SubCategoryViewModel::class.java)
         viewModel.searchByFilter(query, subId, null, null, null, sortBy, sortOrder)
 
-        viewModel.productList.observe(viewLifecycleOwner, {
+        viewModel.productList.observe(viewLifecycleOwner, Observer{
 
             for (product in it!!) {
                 if (!brandsl.contains(product.brand.id.toString() + " " + product.brand.name))

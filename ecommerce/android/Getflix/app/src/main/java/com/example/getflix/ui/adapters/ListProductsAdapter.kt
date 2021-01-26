@@ -41,6 +41,9 @@ class ListProductsAdapter(
             binding.cartProductPrice.text = listProduct.product.price.toString()+" TL"
 
             if(!listProduct.product.images.isNullOrEmpty())
+                if(listProduct.product.images[0].contains("/image/"))
+                    Picasso.get().load("http://3.134.80.26:8000" + listProduct.product.images[0]).into(binding.cartProductImage)
+                else
                 Picasso.get().load(listProduct.product.images[0]).into(binding.cartProductImage)
         }
 

@@ -3,6 +3,11 @@ package com.example.getflix.service
 import com.example.getflix.models.*
 import com.example.getflix.service.requests.*
 import com.example.getflix.service.responses.*
+
+import com.google.gson.GsonBuilder
+
+import com.google.gson.annotations.SerializedName
+
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -79,10 +84,12 @@ interface GetflixApiService {
     @GET("categories")
     suspend fun getCategories(): Response<CategoryListModel>
 
+
     @Headers("Content-Type: application/json")
     @POST("review")
     fun addReview(@Header("Authorization")  token: String, @Body reviewRequest : ReviewRequest ): Call<AddReviewResponse>
     
+
     @GET("customer/{customerId}/addresses")
     fun getCustomerAddresses(@Header("Authorization") token: String, @Path("customerId") customerId: Int): Call<AddressListModel>
 
@@ -160,6 +167,14 @@ interface GetflixApiService {
     @PUT("vendor/product")
     fun updateVendorProduct(@Header("Authorization") token: String, @Body vendorProData: VendorProUpdateRequest): Call<VendorProUpdateResponse>
 
+
+    @GET("messages")
+    suspend fun getMessages(@Header("Authorization") token: String): Response<MessageListModel>
+
+    @Headers("Content-Type: application/json")
+    @POST("messages")
+    fun sendMessage(@Header("Authorization") token: String, @Body messageData: SendMessageRequest): Call<SendMessageResponse>
+
     @GET("vendor/order")
     fun getVendorOrders(@Header("Authorization") token: String): Call<VendorOrderResponse>
 
@@ -199,6 +214,7 @@ interface GetflixApiService {
     @Headers("Content-Type: application/json")
     @POST("notifications/seen/{notification_id}")
     fun readNotification(@Header("Authorization") token: String, @Path("notification_id") id: Int): Call<SeenResponse>
+
 }
 
 object GetflixApi {

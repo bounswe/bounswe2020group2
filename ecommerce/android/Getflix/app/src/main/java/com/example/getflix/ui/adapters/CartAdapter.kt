@@ -40,7 +40,9 @@ class CartAdapter(
             binding.cardproduct = cartProductModel
             val product = cartProductModel.product
             var price = product.priceDiscounted
-
+            if(product.images[0].contains("/image/"))
+                Picasso.get().load("http://3.134.80.26:8000" + product.images[0]).into(binding.cartProductImage)
+            else
             Picasso.get().load(product.images[0]).into(binding.cartProductImage)
 
             binding.shoppingCartProductAmount.text = cartProductModel.amount.toString()

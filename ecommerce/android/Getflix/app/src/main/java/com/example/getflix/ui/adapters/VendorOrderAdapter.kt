@@ -100,7 +100,9 @@ class VendorOrderAdapter constructor(context: Context) :
         )
         shapeDrawableForSpinner.elevation = 4.5.toFloat()
         ViewCompat.setBackground(binding.spinnerLayout, shapeDrawableForSpinner)
-
+        if(order.product.images[0].contains("/image/"))
+            Picasso.get().load("http://3.134.80.26:8000" + order.product.images[0]).into(binding.vendorOrderImage)
+        else
         Picasso.get().load(order.product.images[0]).into(binding.vendorOrderImage)
         binding.purchaseDate.text = order.purchaseDate.substring(0, 10) + " " + order.purchaseDate.substring(11, 19)
         binding.vendorOrderAmount.text = order.amount.toString()

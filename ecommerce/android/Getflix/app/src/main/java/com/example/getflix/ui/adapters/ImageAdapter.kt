@@ -21,6 +21,9 @@ class ImageAdapter :
 
     private fun ViewHolder.bind(imageUri: String) {
         val ivBasicImage= binding.productImg
+        if(imageUri.contains("/image/"))
+            Picasso.get().load("http://3.134.80.26:8000" + imageUri).into(ivBasicImage)
+        else
         Picasso.get().load(imageUri).into(ivBasicImage)
     }
 

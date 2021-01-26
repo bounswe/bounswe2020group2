@@ -851,6 +851,128 @@ export const accounts = {
         role: 'CUSTOMER',
     },
 }
+export const notifications = [
+    {
+        id: 1,
+        text: 'A product in your wishlist Summer is now 33% cheaper',
+        date: '2020-12-29T14:48:00.000Z',
+        is_seen: false,
+        type: 'price_change',
+        argument: {
+            title: 'Product Title',
+            old_price: 100,
+            new_price: 95.4,
+            id: 12,
+            shord_description: 'afsasdsad',
+            image_url: 'https://images-na.ssl-images-amazon.com/images/I/71wxRBAHZmL._AC_SL1500_.jpg',
+            vendor: {
+                id: 1,
+                name: 'X Vendor',
+            },
+        },
+    },
+    {
+        id: 2,
+        text: 'A product in your wishlist Gaming is now 15% cheaper',
+        date: '2020-12-27T14:48:00.000Z',
+        is_seen: false,
+        type: 'price_change',
+        argument: {
+            title: 'Product Title',
+            old_price: 100,
+            new_price: 95.4,
+            id: 12,
+            shord_description: 'afsasdsad',
+            image_url: 'https://images-na.ssl-images-amazon.com/images/I/71wxRBAHZmL._AC_SL1500_.jpg',
+            vendor: {
+                id: 1,
+                name: 'X Vendor',
+            },
+        },
+    },
+    {
+        id: 3,
+        text: 'Your order status has changed',
+        date: '2020-12-20T14:48:00.000Z',
+        is_seen: false,
+        type: 'order_status_change',
+        argument: {
+            id: 10,
+            old_status: 'accepted',
+            new_status: 'at_cargo',
+            product: {
+                id: 5,
+                title: 'Product Title',
+                price: 95.4,
+                image_url: 'https://images-na.ssl-images-amazon.com/images/I/71wxRBAHZmL._AC_SL1500_.jpg',
+                vendor: {
+                    id: 1,
+                    name: 'X Vendor',
+                },
+            },
+        },
+    },
+    {
+        id: 4,
+        text: 'A product in your wishlist Classic Guitars is now 9% cheaper',
+        date: '2020-11-29T14:48:00.000Z',
+        is_seen: true,
+        type: 'price_change',
+        argument: {
+            title: 'Product Title',
+            old_price: 100,
+            new_price: 95.4,
+            id: 12,
+            shord_description: 'afsasdsad',
+            image_url: 'https://images-na.ssl-images-amazon.com/images/I/71wxRBAHZmL._AC_SL1500_.jpg',
+            vendor: {
+                id: 1,
+                name: 'X Vendor',
+            },
+        },
+    },
+    {
+        id: 6,
+        text: 'A product in your wishlist Classic Guitars is now 9% cheaper',
+        date: '2020-11-25T14:48:00.000Z',
+        is_seen: true,
+        type: 'price_change',
+        argument: {
+            title: 'Product Title',
+            old_price: 100,
+            new_price: 95.4,
+            id: 12,
+            shord_description: 'afsasdsad',
+            image_url: 'https://images-na.ssl-images-amazon.com/images/I/71wxRBAHZmL._AC_SL1500_.jpg',
+            vendor: {
+                id: 1,
+                name: 'X Vendor',
+            },
+        },
+    },
+    {
+        id: 5,
+        text: 'Your order status has changed',
+        date: '2020-11-05T14:48:00.000Z',
+        is_seen: true,
+        type: 'order_status_change',
+        argument: {
+            id: 10,
+            old_status: 'accepted',
+            new_status: 'at_cargo',
+            product: {
+                id: 5,
+                title: 'Product Title',
+                price: 95.4,
+                image_url: 'https://images-na.ssl-images-amazon.com/images/I/71wxRBAHZmL._AC_SL1500_.jpg',
+                vendor: {
+                    id: 1,
+                    name: 'X Vendor',
+                },
+            },
+        },
+    },
+]
 
 export const vendorDetails = [
     {

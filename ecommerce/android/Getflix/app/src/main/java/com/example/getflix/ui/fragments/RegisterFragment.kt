@@ -34,6 +34,10 @@ class RegisterFragment : Fragment() {
         binding.addressTitle.visibility = View.GONE
         var customer = true
 
+        binding.checkText.setOnClickListener {
+            infoAlert(this,getString(R.string.terms_conditions))
+        }
+
         binding.radioGroup.setOnCheckedChangeListener(
                 RadioGroup.OnCheckedChangeListener { group, checkedId ->
                     when (checkedId) {
@@ -153,9 +157,6 @@ class RegisterFragment : Fragment() {
         binding.btnBack.setOnClickListener {
             view?.findNavController()?.popBackStack()
         }
-
-
-
 
         return binding.root
     }

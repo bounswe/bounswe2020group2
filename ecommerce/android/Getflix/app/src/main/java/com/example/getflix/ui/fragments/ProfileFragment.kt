@@ -14,6 +14,7 @@ import com.example.getflix.databinding.FragmentProfileBinding
 import com.example.getflix.infoAlert
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToAddressFragment
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToBankAccountFragment
+import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToCustMessagesFragment
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToLoginFragment
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToOrderInfoFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -54,6 +55,14 @@ class ProfileFragment : Fragment() {
                 infoAlert(this, getString(R.string.order_guest_alert))
             } else {
                 view?.findNavController()?.navigate(actionProfileFragmentToOrderInfoFragment())
+            }
+        }
+
+        binding.messagesLayout.setOnClickListener {
+            if (MainActivity.StaticData.isVisitor) {
+                infoAlert(this, getString(R.string.order_guest_alert))
+            } else {
+                view?.findNavController()?.navigate(actionProfileFragmentToCustMessagesFragment())
             }
         }
 

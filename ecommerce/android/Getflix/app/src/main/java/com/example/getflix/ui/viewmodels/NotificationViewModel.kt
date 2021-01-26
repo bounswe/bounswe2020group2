@@ -26,6 +26,10 @@ class NotificationViewModel : ViewModel() {
         println("Error ${throwable.localizedMessage}")
     }
 
+    init{
+        _notificationList.value = null
+    }
+
     fun getNotifications() {
         job = CoroutineScope(Dispatchers.IO).launch {
             val response = GetflixApi.getflixApiService.getNotifications("Bearer " + MainActivity.StaticData.user!!.token)
@@ -33,6 +37,7 @@ class NotificationViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     response.body().let { it ->
                         _notificationList.value = it
+                        println(_notificationList.value?.size)
                         println(_notificationList.value.toString())
                     }
                 }
@@ -54,9 +59,8 @@ class NotificationViewModel : ViewModel() {
                     call: Call<SeenResponse>,
                     response: Response<SeenResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
-                    getNotifications()
+
+
                 }
             }
             )
