@@ -444,7 +444,10 @@
                     </LinearLayout>
                 </LinearLayout>
 
-
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
                 <CheckBox
                     android:id="@+id/check"
                     android:layout_width="match_parent"
@@ -452,10 +455,19 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:buttonTint="@color/black"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:text="@string/reg_agree"
                     android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@id/check_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/reg_agree"
+                        android:focusable="false"
+                        android:layout_gravity="center"
+                        android:textColor="@color/black"
+                        />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

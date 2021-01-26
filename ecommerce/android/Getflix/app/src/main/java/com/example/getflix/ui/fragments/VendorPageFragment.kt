@@ -1,5 +1,7 @@
 package com.example.getflix.ui.fragments
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,12 +13,18 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.getflix.R
 import com.example.getflix.databinding.FragmentVendorBinding
+import com.example.getflix.doneAlert
+import com.example.getflix.hideKeyboard
+import com.example.getflix.service.requests.CreateListRequest
+import com.example.getflix.service.requests.SendMessageRequest
 import com.example.getflix.ui.adapters.VendorPageFragmentAdapter
 import com.example.getflix.ui.adapters.VendorPageProductAdapter
+import com.example.getflix.ui.viewmodels.MessagesViewModel
 import com.example.getflix.ui.viewmodels.VendorPageViewModel
 import com.example.getflix.vendorModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
@@ -24,6 +32,7 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 class VendorPageFragment : Fragment() {
     private lateinit var binding: FragmentVendorBinding
     private lateinit var vendorPageViewModel: VendorPageViewModel
+    private lateinit var messagesViewModel: MessagesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +51,7 @@ class VendorPageFragment : Fragment() {
         vendorPageViewModel = ViewModelProvider(this).get(VendorPageViewModel::class.java)
         binding.lifecycleOwner = this
         binding.vendorName.text = vendor.name
+        messagesViewModel = ViewModelProvider(this).get(MessagesViewModel::class.java)
 
         binding.viewPager.adapter = VendorPageFragmentAdapter(requireActivity())
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
@@ -54,13 +64,29 @@ class VendorPageFragment : Fragment() {
         binding.vendorRating.text = vendor.rating.toString().subSequence(0,3)
         setVendorRating(vendor.rating)
 
+        binding.btnMessage.setOnClickListener {
+            var dialog = AlertDialog.Builder(context,R.style.MaterialAlertDialog_color)
+            var dialogView = layoutInflater.inflate(R.layout.custom_messagedialog,null)
+            var edit = dialogView.findViewById<TextInputEditText>(R.id.name)
+            dialog.setView(dialogView)
+            dialog.setCancelable(true)
+            dialog.setIcon(R.drawable.ic_message)
+            dialog.setTitle("Send A Message")
+            dialog.setNegativeButton("Cancel") { dialogInterface: DialogInterface, i: Int -> }
+            dialog.setPositiveButton("Send") { dialogInterface: DialogInterface, i: Int ->
+                println(edit.text.toString())
+                messagesViewModel.sendMessage(SendMessageRequest(vendor.id,edit.text.toString(),null))
+                hideKeyboard(requireActivity())
+                doneAlert(this,"Your message is sent succesfully!",null)
+            }
+            dialog.show()
+        }
+
         return binding.root
 
     }
 
-    private fun navigateBack() {
-        view?.findNavController()!!.popBackStack()
-    }
+
 
     fun setVendorRating(rating: Double) {
         if (rating >= 1) {

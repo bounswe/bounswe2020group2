@@ -54,6 +54,9 @@
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
         <action
+            android:id="@+id/action_profileFragment_to_custMessagesFragment"
+            app:destination="@id/custMessagesFragment" />
+        <action
             android:id="@+id/action_profileFragment_to_addressFragment"
             app:destination="@id/addressFragment"
             app:enterAnim="@anim/enter_left_to_right"
@@ -280,9 +283,13 @@
             app:destination="@id/loginFragment" />
     </fragment>
     <fragment
-        android:id="@+id/messagesFragment"
-        android:name="com.example.getflix.ui.fragments.MessagesFragment"
-        tools:layout="@layout/fragment_messages" />
+        android:id="@+id/vendorMessagesFragment"
+        android:name="com.example.getflix.ui.fragments.VendorMessagesFragment"
+        tools:layout="@layout/fragment_vendor_messages">
+        <action
+            android:id="@+id/action_vendorMessagesFragment_to_vendorChatFragment"
+            app:destination="@id/vendorChatFragment" />
+    </fragment>
     <fragment
         android:id="@+id/vendorOrdersFragment"
         android:name="com.example.getflix.ui.fragments.VendorOrdersFragment"
@@ -338,6 +345,46 @@
             app:argType="com.example.getflix.models.ProductModel" />
     </fragment>
     <fragment
+        android:id="@+id/custMessagesFragment"
+        android:name="com.example.getflix.ui.fragments.CustMessagesFragment"
+        tools:layout="@layout/fragment_cust_messages">
+        <action
+            android:id="@+id/action_custMessagesFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_custMessagesFragment_to_custChatFragment"
+            app:destination="@id/custChatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/custChatFragment"
+        android:name="com.example.getflix.ui.fragments.CustChatFragment"
+        tools:layout="@layout/fragment_cust_chat">
+        <argument
+            android:name="sender"
+            app:argType="string" />
+        <argument
+            android:name="messages"
+            app:argType="com.example.getflix.models.MessageModel[]" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/vendorChatFragment"
+        android:name="com.example.getflix.ui.fragments.VendorChatFragment"
+        tools:layout="@layout/fragment_vendor_chat">
+        <argument
+            android:name="sender"
+            app:argType="string" />
+        <argument
+            android:name="messages"
+            app:argType="com.example.getflix.models.MessageModel[]" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+          </fragment>  
+        <fragment
         android:id="@+id/listProductsFragment"
         android:name="com.example.getflix.ui.fragments.ListProductsFragment"
         tools:layout="@layout/fragment_list_products">
@@ -347,6 +394,7 @@
         <argument
             android:name="products"
             app:argType="com.example.getflix.models.ListProductModel[]" />
+     
     </fragment>
     <fragment
         android:id="@+id/notificationFragment"
@@ -366,18 +414,7 @@
         android:name="products"
         app:argType="com.example.getflix.models.OrderPurchasedModel[]" />
     </fragment>
-    <fragment
-        android:id="@+id/vendorPageFragment"
-        android:name="com.example.getflix.ui.fragments.VendorPageFragment"
-        tools:layout="@layout/fragment_vendor">
-        <argument
-            android:name="vendorId"
-            app:argType="integer" />
-    </fragment>
 
-    <fragment
-        android:id="@+id/notificationFragment"
-        android:name="com.example.getflix.ui.fragments.NotificationFragment" />
     <fragment
         android:id="@+id/vendorPageFragment"
         android:name="com.example.getflix.ui.fragments.VendorPageFragment"
@@ -385,8 +422,20 @@
     <argument
         android:name="vendor"
         app:argType="com.example.getflix.models.VendorModel" />
+    <action
+            android:id="@+id/action_vendorPageFragment_to_custChatFragment"
+            app:destination="@id/custChatFragment" />
+    <action
+            android:id="@+id/action_vendorFragment_to_productFragment"
+            app:destination="@id/productFragment" />
     </fragment>
-
+    <fragment
+        android:id="@+id/NByTwoGridFragment"
+        android:name="com.example.getflix.ui.fragments.NByTwoGridFragment">
+    <action
+        android:id="@+id/action_nByTwoGridFragment_to_productFragment"
+        app:destination="@id/productFragment" />
+    </fragment>
 
 
 </navigation>

@@ -29,6 +29,7 @@ class CartViewModel : ViewModel() {
 
     init {
         _cardPrices.value = CustomerCartPriceModel(0.0, 0.0, 0.0, 0.0)
+        _cardProducts.value = null
     }
 
     fun getCustomerCartPrice() {

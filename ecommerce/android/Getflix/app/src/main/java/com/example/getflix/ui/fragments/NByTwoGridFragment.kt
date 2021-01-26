@@ -33,7 +33,7 @@ class NByTwoGridFragment : Fragment() {
         binding.lifecycleOwner = this
         nByTwoViewModel = ViewModelProvider(this).get(NByTwoViewModel::class.java)
 
-        val adapter = VendorPageProductAdapter()
+        val adapter = VendorPageProductAdapter(this)
         binding.vendorProductsInTwoColumns.adapter = adapter
         val layoutManager = GridLayoutManager(requireContext(),2)
         binding.vendorProductsInTwoColumns.layoutManager = layoutManager

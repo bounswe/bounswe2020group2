@@ -38,7 +38,6 @@ class UpdateProductFragment : Fragment() {
 
         val args = UpdateProductFragmentArgs.fromBundle(requireArguments())
         val product = args.product
-        println(product.toString())
         viewModel = ViewModelProvider(this).get(VendorHomeViewModel::class.java)
 
         binding.editableId.setText(product.id.toString())

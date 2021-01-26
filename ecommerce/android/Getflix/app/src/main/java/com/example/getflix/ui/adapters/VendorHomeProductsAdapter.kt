@@ -26,6 +26,9 @@ class VendorHomeProductsAdapter(
 
         fun bind(product: ProductModel, position: Int) {
             if(product.images.isNotEmpty())
+                if(product.images[0].contains("/image/"))
+                    Picasso.get().load("http://3.134.80.26:8000" + product.images[0]).into(binding.productImage)
+                else
             Picasso.get().load(product.images[0]).into(binding.productImage)
             binding.product = product
             if (product.price.toString().length > 5) {

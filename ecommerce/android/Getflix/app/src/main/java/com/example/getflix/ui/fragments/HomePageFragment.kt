@@ -81,6 +81,20 @@ class HomePageFragment : Fragment() {
         }
 
 
+        activity?.search!!.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                activity?.toolbar!!.requestFocus()
+            }
+        }
+
+        activity?.btn_search!!.setOnClickListener {
+            println(activity?.search!!.text)
+            var query = activity?.search!!.text.toString()
+            activity?.search!!.text.clear()
+            view?.findNavController()!!.navigate(actionHomePageFragmentToSubcategoryFragment(null,query,null,null,null,null))
+        }
+
+
         val adapterForHomeCategories = HomeCategoriesAdapter(viewLifecycleOwner)
         val adapterForTodaysDeals = TodaysDealsAdapter()
         val adapterForRecommendedProducts = HomeRecommenderAdapter()
