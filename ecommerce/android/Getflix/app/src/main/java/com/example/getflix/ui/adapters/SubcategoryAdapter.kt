@@ -28,6 +28,7 @@ class SubCategoryAdapter(
 
         fun bind(product: ProductModel, position: Int) {
             binding.product = product
+
                 if(product.images[0].contains("/image/"))
                    Picasso.get().load("http://3.134.80.26:8000" + product.images[0]).into(binding.productImage)
                 else
@@ -39,6 +40,7 @@ class SubCategoryAdapter(
             } else {
                 binding.productName.text = product.name
             }
+
 
             //var amount = binding.amountRecProduct.text.toString().toInt()
             binding.rating.rating = product.rating.toFloat()

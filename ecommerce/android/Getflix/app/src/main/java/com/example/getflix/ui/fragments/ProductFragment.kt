@@ -208,7 +208,13 @@ class ProductFragment : Fragment() {
                 binding.price.text = it.priceDiscounted.toString() + " TL"
                 binding.longDescription.text = it.long_description
                 binding.shortDescription.text = it.short_description
-                binding.rating.text = it.rating.toString().subSequence(0,3)
+
+                val ratingString = it.rating.toString()
+                if(ratingString.length > 4)
+                    binding.rating.text = ratingString.substring(0,4)
+                else
+                    binding.rating.text = ratingString
+
                 binding.totalRating.text = "(" + it.rating_count.toString() + ")"
                 binding.vendorDetail.paintFlags = Paint.UNDERLINE_TEXT_FLAG;
                 binding.vendorDetail.text = it.vendor.name
@@ -224,6 +230,20 @@ class ProductFragment : Fragment() {
                 binding.save.setImageResource(R.drawable.saved_product)
             } else {
                 binding.save.setImageResource(R.drawable.nonsaved_product)
+            }
+        })
+
+        binding.productReviewButton.setOnClickListener {
+            productViewModel.addReview(binding.commentRating.numStars, binding.productCommentText.text.toString())
+        }
+        productViewModel.onCompleteReview.observe(viewLifecycleOwner, Observer {
+            if(it != null && it!!.status.succcesful) {
+                productViewModel.resetOnCompleteReview()
+                productViewModel.getProductReviews()
+            }
+            else if (it!=null && it.status.succcesful.not()){
+                infoAlert(this, it.status!!.message!!)
+                productViewModel.resetOnCompleteReview()
             }
         })
 

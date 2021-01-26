@@ -23,6 +23,7 @@ class HomeRecommenderAdapter :
     }
 
     private fun ViewHolder.bind(product: ProductModel) {
+
         if(product.images[0].contains("/image/"))
             Picasso.get().load("http://3.134.80.26:8000" + product.images[0]).into(binding.productImage)
         else

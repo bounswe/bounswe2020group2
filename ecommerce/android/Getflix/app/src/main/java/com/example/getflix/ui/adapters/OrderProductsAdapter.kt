@@ -3,11 +3,13 @@ package com.example.getflix.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.databinding.OrderProductItemBinding
 import com.example.getflix.models.OrderPurchasedModel
+import com.example.getflix.models.VendorOrderModel
 
 import com.squareup.picasso.Picasso
 
@@ -15,6 +17,12 @@ class OrderProductsAdapter(
     private val orderPurchasedList: ArrayList<OrderPurchasedModel>?
 ) : ListAdapter<OrderPurchasedModel, OrderProductsAdapter.RowHolder>(OrderProductsDiffCallback()) {
 
+    val currentOrder = MutableLiveData<OrderPurchasedModel?>()
+
+
+    init {
+        currentOrder.value = null
+    }
 
 
     class RowHolder(val binding: OrderProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -43,7 +51,8 @@ class OrderProductsAdapter(
             if(orderPurchased.status == "delivered")
                 binding.btnReview.visibility = View.VISIBLE
         }
-
+    }
+    class RowHolder(val binding: OrderProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
         companion object {
             fun from(parent: ViewGroup): RowHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
@@ -61,8 +70,7 @@ class OrderProductsAdapter(
 
     override fun onBindViewHolder(holder: RowHolder, position: Int) {
         orderPurchasedList?.get(position)?.let {
-            holder.bind(it, position)
-
+            holder.bind(it)
         }
     }
 
