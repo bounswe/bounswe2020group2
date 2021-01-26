@@ -36,8 +36,11 @@ class ListProductsAdapter(
 
         fun bind(listProduct: ListProductModel, position: Int) {
             binding.listproduct = listProduct
-            println(listProduct.toString())
-            binding.cartProductName.text = listProduct.id.toString()
+
+            if(listProduct.product.name.length>70)
+                binding.cartProductName.text = listProduct.product.name.subSequence(0,70)
+            else
+                binding.cartProductName.text = listProduct.product.name
             binding.cartProductPrice.text = listProduct.product.price.toString()+" TL"
 
             if(!listProduct.product.images.isNullOrEmpty())
