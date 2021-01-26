@@ -7,12 +7,13 @@ import * as R from 'ramda'
 import { useState } from 'react'
 
 import { api } from '../../api'
-import { orderStatusInvMap } from '../../utils'
+import { orderStatusInvMap, formatPrice } from '../../utils'
 import { HeaderLabel } from '../HeaderLabel'
 import { Purchase } from './Purchase'
 
 export const Order = ({ order, onOrderCancelled }) => {
     const [cancelLoading, setCancelLoading] = useState(false)
+    // const [messageModalVisible, setMessageModalVisible] = useState(false)
 
     const onCancelOrder = async event => {
         event.stopPropagation() // prevent click on collapse
@@ -30,11 +31,7 @@ export const Order = ({ order, onOrderCancelled }) => {
         }
     }
 
-    const onShowOrderDetails = async event => {
-        event.stopPropagation()
-    }
-
-    const firstPurchase = order.order_all_purchase[0]
+    const firstPurchase = order.purchases[0]
 
     const canCancel =
         R.any(purchase => orderStatusInvMap[purchase.status] !== 'cancelled', order.purchases) &&
@@ -52,13 +49,13 @@ export const Order = ({ order, onOrderCancelled }) => {
                     <div className="order-header">
                         <HeaderLabel label="Order Date">{orderDate}</HeaderLabel>
                         <HeaderLabel label="Total Price">
-                            {order.prices.total_price} {firstPurchase.currency ?? 'TL'}
+                            {formatPrice(order.prices.total_price)} {firstPurchase.currency ?? 'TL'}
                         </HeaderLabel>
                         <HeaderLabel label="Total Discount">
-                            -{order.prices.discount} {firstPurchase.currency ?? 'TL'}
+                            -{formatPrice(order.prices.discount)} {firstPurchase.currency ?? 'TL'}
                         </HeaderLabel>
                         <HeaderLabel label="Delivery fee">
-                            {order.prices.delivery_price} {firstPurchase.currency ?? 'TL'}
+                            {formatPrice(order.prices.delivery_price)} {firstPurchase.currency ?? 'TL'}
                         </HeaderLabel>
                         <HeaderLabel label="Receiver">
                             {[firstPurchase.address.name, firstPurchase.address.surname].filter(Boolean).join(' ')}
@@ -80,10 +77,6 @@ export const Order = ({ order, onOrderCancelled }) => {
                                     </Button>
                                 </Popconfirm>
                             )}
-                            &nbsp;
-                            <Button onClick={onShowOrderDetails} type="dashed">
-                                Details
-                            </Button>
                         </div>
                     </div>
                 }>

@@ -1,11 +1,12 @@
 import './Notifications.less'
-import { useEffect, useState } from 'react'
+
+import { BellTwoTone } from '@ant-design/icons'
 import { Button, Spin } from 'antd'
-import { api } from '../api'
 import moment from 'moment'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { BellTwoTone, DeleteTwoTone } from '@ant-design/icons'
-import './Notifications.less'
+
+import { api } from '../api'
 
 const onDeleteAllNotifications = () => {
     console.log('delete all notifications')
@@ -29,11 +30,11 @@ const priceChangeTextTemplate = (title, old_price, new_price) => {
     }
 }
 const orderStatusChangeTextTemplate = (title, old_status, new_status) => {
-    if (new_status == 'at_cargo') {
+    if (new_status === 'at_cargo') {
         return 'Your order is now on the way.'
-    } else if (new_status == 'delivered') {
+    } else if (new_status === 'delivered') {
         return 'Your order is delivered. Enjoy!'
-    } else if (new_status == 'accepted') {
+    } else if (new_status === 'accepted') {
         return 'Your order is accepted.'
     }
     return `Your order status has changed.`
@@ -56,34 +57,33 @@ const orderStatusChangeDetail = order => {
         link_text: 'Go to Orders page',
     }
 }
+
 export const Notifications = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [notifications, setNotifications] = useState([])
     const [notificationsRefreshId, setNotificationsRefreshId] = useState(0)
 
     useEffect(() => {
-        const fetch = async () => {
-            setIsLoading(true)
-            const { data } = await api.get('/notifications')
-            setNotifications(data)
+        async function fetch() {
+            try {
+                setIsLoading(true)
+                const { data } = await api.get('/notifications')
+                data.sort((b, a) => moment.utc(a.date) - moment.utc(b.date))
+                setNotifications(data)
+            } catch (error) {
+                console.error(error)
+            } finally {
+                setIsLoading(false)
+            }
         }
-        try {
-            fetch()
-        } catch (error) {
-            console.error(error)
-        } finally {
-            setIsLoading(false)
-        }
+        fetch()
     }, [notificationsRefreshId])
     const unseenNotifications = notifications.filter(item => !item.is_seen)
 
-    const onSeenAllNotifications = () => {
+    const onSeenAllNotifications = async () => {
         console.log('mark all as seen: ')
-        const fetch = async () => {
-            const { data } = await api.post('/notifications/seen/')
-        }
         try {
-            fetch()
+            const { data } = await api.post('/notifications/seen/')
         } catch (error) {
             console.error(error)
         } finally {
@@ -92,13 +92,10 @@ export const Notifications = () => {
         setNotificationsRefreshId(notificationsRefreshId + 1)
     }
 
-    const onSeenNotification = notificationId => {
+    const onSeenNotification = async notificationId => {
         console.log('mark as seen: ', notificationId)
-        const fetch = async () => {
-            const { data } = await api.post(`/notifications/seen/${notificationId}`)
-        }
         try {
-            fetch()
+            const { data } = await api.post(`/notifications/seen/${notificationId}`)
         } catch (error) {
             console.error(error)
         } finally {
@@ -112,7 +109,7 @@ export const Notifications = () => {
             <div className="notifications-header">
                 <h3>{'Your notifications (' + unseenNotifications.length + ')'}</h3>
                 <div>
-                    {unseenNotifications.length != 0 && (
+                    {unseenNotifications.length !== 0 && (
                         <Button
                             type="text"
                             icon={<BellTwoTone twoToneColor="#52c41a" />}

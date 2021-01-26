@@ -50,21 +50,21 @@ function useChat() {
         setCounterpart(conversation.counterpart.id)
     }
 
-    // useInterval(async () => {
-    //     await getConversations()
-    // }, 10000)
+    useInterval(async () => {
+        await getConversations()
+    }, 10000)
 
     const getConversations = async () => {
-        // try {
-        //     const { data } = await api.get(`/messages`)
-        //     if (!data?.status?.successful) throw new Error(data)
-        //     const conversations = data.conversations.map(formatConversation)
-        //     setConversations(conversations)
-        //     setLastFetch(moment())
-        // } catch (error) {
-        //     notification.warning({ message: 'There was an error while fetching messages' })
-        //     console.error(error)
-        // }
+        try {
+            const { data } = await api.get(`/messages`)
+            if (!data?.status?.successful) throw new Error(data)
+            const conversations = data.conversations.map(formatConversation)
+            setConversations(conversations)
+            setLastFetch(moment())
+        } catch (error) {
+            notification.warning({ message: 'There was an error while fetching messages' })
+            console.error(error)
+        }
     }
 
     const sendMessage = async message => {

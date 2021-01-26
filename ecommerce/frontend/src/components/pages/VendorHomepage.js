@@ -63,7 +63,6 @@ export const VendorHomepage = props => {
                 product={modalProduct}
                 onSuccess={onSuccessModal}
                 onCancel={onCancelModal}
-                key={modalProduct?.id ?? 0}
             />
             <div>
                 <Tabs type="card" tabBarExtraContent={isVendorAndOwner && editable ? addProductButton : null}>

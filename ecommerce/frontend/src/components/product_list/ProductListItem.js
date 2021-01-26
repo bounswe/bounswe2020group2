@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { api } from '../../api'
-import { round } from '../../utils'
+import { round, formatPrice } from '../../utils'
 
 export const ProductListItem = ({ listId, product, onChange }) => {
     const [deleteLoading, setDeleteLoading] = useState(false)
@@ -60,7 +60,7 @@ export const ProductListItem = ({ listId, product, onChange }) => {
                     </div>
                     <div className="product-list-item-controls">
                         <div className="product-list-item-price">
-                            {round(product.price_after_discount, 2)}&nbsp;{product.currency ?? 'TL'}
+                            {formatPrice(round(product.price_after_discount, 2))}&nbsp;{product.currency ?? 'TL'}
                         </div>
                         <div className="product-list-item-delete">
                             <Popconfirm

@@ -121,6 +121,7 @@ export const orderStatusInvMap = {
 export function formatPurchase(purchase) {
     return {
         ...purchase,
+        purchase_date: moment.utc(purchase.purchase_date),
         product: formatProduct(purchase.product),
         status: orderStatusMap[purchase.status],
     }
@@ -141,7 +142,8 @@ export function formatOrder(order) {
     return {
         id: order.order_id,
         purchases: order.order_all_purchase.map(formatPurchase),
-        ...R.omit(['order_id', 'purchases'], order),
+        order_date: moment.utc((order.order_all_purchase.map(formatPurchase) || [])[0].purchase_date),
+        ...R.omit(['order_id', 'order_all_purchase'], order),
     } // temporary solution
 }
 
@@ -226,3 +228,11 @@ export const formatVendorDetails = vendorHeader => ({
     ...vendorHeader,
     rating: vendorHeader.total_rating / vendorHeader.rating_count,
 })
+
+// source: https://stackoverflow.com/questions/149055/how-to-format-numbers-as-currency-string
+export const formatPrice = price => {
+    const pieces = parseFloat(price).toFixed(2).split('')
+    let ii = pieces.length - 3
+    while ((ii -= 3) > 0) pieces.splice(ii, 0, ',')
+    return pieces.join('')
+}
