@@ -5,6 +5,8 @@ import { Alert, Button, Col, notification, Result, Row, Spin } from 'antd'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import { formatPrice } from '../../utils'
+
 import { api } from '../../api'
 import { AddressList } from '../addresslist/AddressList'
 import { CreditCardList } from '../cardlist/CreditCardList'
@@ -72,25 +74,25 @@ export const CheckoutPage = () => {
                                 <Row>
                                     <Col span={16}>Products:</Col>
                                     <Col span={8} className="price-summary-pricecol">
-                                        {priceSummary?.products_price} TL
+                                        {formatPrice(priceSummary?.products_price)} TL
                                     </Col>
                                 </Row>
                                 <Row>
                                     <Col span={16}>Discount:</Col>
                                     <Col span={8} className="price-summary-pricecol">
-                                        -{priceSummary?.discount} TL
+                                        -{formatPrice(priceSummary?.discount)} TL
                                     </Col>
                                 </Row>
                                 <Row>
                                     <Col span={16}>Delivery Fee:</Col>
                                     <Col span={8} className="price-summary-pricecol">
-                                        {priceSummary?.delivery_price} TL
+                                        {formatPrice(priceSummary?.delivery_price)} TL
                                     </Col>
                                 </Row>
                                 <Row>
                                     <Col span={16}>Total:</Col>
                                     <Col span={8} className="price-summary-pricecol">
-                                        {priceSummary?.total_price} TL
+                                        {formatPrice(priceSummary?.total_price)} TL
                                     </Col>
                                 </Row>
                             </div>

@@ -36,7 +36,7 @@ class VendorProductTest(TestCase):
         self.u = User.objects.create(email="othervendor@mailcom", password_hash="", password_salt="", google_register=False,is_verified=False, role=2,username="othervendor")
         self.v = Vendor.objects.create(user=self.u, first_name="other", last_name="vendor")
         self.c = Category.objects.create(id=4, name="Clothing")
-        self.b = Brand.objects.create(id=1, name="Mavi")
+        self.b = Brand.objects.create(id=1000, name="Mavi")
         self.s = Subcategory.objects.create(id=10, category = self.c, name="Men's Fashion")
         self.s2 = Subcategory.objects.create(id=11, category = self.c, name="Sports")
         p1 = Product.objects.create(id=10, name = "Mavi T-shirt", price = 100, 
@@ -59,7 +59,7 @@ class VendorProductTest(TestCase):
             "short_description": "Sarı mor içsaha forması LA LAKERS",
             "long_description": "anoacnancacnoewcnwocnoınvroeı3vnoıwvnroeıvnıoernvoernvoernvoıenvoıernvoerınvıernvoıernvoıernvroeınvoıernvorıenvoeırnvoıernvoıernvenvoernvoıernverı",
             "discount": 0.12,
-            "brand_id": 1,
+            "brand_id": 1000,
             "subcategory_id": 10,
             "images": []
         }
@@ -74,7 +74,7 @@ class VendorProductTest(TestCase):
             "short_description": "Sarı mor içsaha forması LA LAKERS",
             "long_description": "anoacnancacnoewcnwocnoınvroeı3vnoıwvnroeıvnıoernvoernvoernvoıenvoıernvoerınvıernvoıernvoıernvroeınvoıernvorıenvoeırnvoıernvoıernvenvoernvoıernverı",
             "discount": 0.12,
-            "brand_id": 1,
+            "brand_id": 1000,
             "subcategory_id": 10,
             "images": []
         }
@@ -109,7 +109,7 @@ class VendorProductTest(TestCase):
             "short_description": "Sarı mor içsaha forması LA LAKERS",
             "long_description": "anoacnancacnoewcnwocnoınvroeı3vnoıwvnroeıvnıoernvoernvoernvoıenvoıernvoerınvıernvoıernvoıernvroeınvoıernvorıenvoeırnvoıernvoıernvenvoernvoıernverı",
             "discount": 0.18,
-            "brand_id": 1,
+            "brand_id": 1000,
             "subcategory_id": 11,
             "images": []
         }
@@ -124,14 +124,11 @@ class VendorProductTest(TestCase):
             "short_description": "Sarı mor içsaha forması LA LAKERS",
             "long_description": "anoacnancacnoewcnwocnoınvroeı3vnoıwvnroeıvnıoernvoernvoernvoıenvoıernvoerınvıernvoıernvoıernvroeınvoıernvorıenvoeırnvoıernvoıernvenvoernvoıernverı",
             "discount": 0.1,
-            "brand_id": 1,
+            "brand_id": 1000,
             "subcategory_id": 10,
             "images": []
         }
         response = self.client.post(reverse('vendor_product'), body, 'json')
         pid = response.data["id"]
-        body = {
-            'id': pid
-        }
-        response = self.client.delete(reverse('vendor_product'), body)
+        response = self.client.delete(reverse('vendor_product_delete', args=[pid]))
         self.assertEqual(response.data["status"]["successful"], True)

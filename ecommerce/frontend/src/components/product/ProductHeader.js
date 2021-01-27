@@ -1,20 +1,20 @@
 import './ProductHeader.less'
 
 import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons'
-import { Button, Modal, Result, Skeleton } from 'antd'
+import { Button, Result, Skeleton } from 'antd'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { useAppContext } from '../../context/AppContext'
-import { round } from '../../utils'
-import { ChooseListModalInner } from '../ChooseListModalInner'
+import { getVendorRatingLevel, round } from '../../utils'
 import { ProductExtra } from './ProductExtra'
 import { ProductImageGallery } from './ProductImageGallery'
+import { ListModal } from '../product_list_modal/ListModal'
 
 export const ProductHeader = ({ product, loading = false }) => {
-    const { addShoppingCartItem } = useAppContext()
+    const { addShoppingCartItem, user } = useAppContext()
     const [addLoading, setAddLoading] = useState(false)
-    const [isChooseListModalVisible, setIsChooseListModalVisible] = useState(false)
+    const [isProductListModalVisible, setProductListModalVisible] = useState(false)
 
     const onAddToCartClicked = async () => {
         console.log('add to cart', product)
@@ -31,12 +31,12 @@ export const ProductHeader = ({ product, loading = false }) => {
 
     const onAddToListClicked = () => {
         console.log('on add to list', product)
-        setIsChooseListModalVisible(true)
+        setProductListModalVisible(true)
     }
 
     const onClose = () => {
         console.log('on close choose list')
-        setIsChooseListModalVisible(false)
+        setProductListModalVisible(false)
     }
 
     if (loading) {
@@ -69,18 +69,6 @@ export const ProductHeader = ({ product, loading = false }) => {
 
     if (!loading && !product) {
         return <Result status="500" title="Something is not right..." subTitle="Sorry, we can't find the product" />
-    }
-
-    const getVendorRatingLevel = rating => {
-        if (rating <= 5.0) {
-            return 'low'
-        }
-
-        if (rating <= 8.0) {
-            return 'medium'
-        }
-
-        return 'high'
     }
 
     return (
@@ -117,16 +105,8 @@ export const ProductHeader = ({ product, loading = false }) => {
                         Add to cart
                     </Button>
                     <Button onClick={onAddToListClicked} size="large" icon={<HeartOutlined />} />
+                    <ListModal visible={isProductListModalVisible} onOk={onClose} product={product} />
                 </div>
-                <Modal
-                    visible={isChooseListModalVisible}
-                    onCancel={onClose}
-                    onOk={onClose}
-                    cancelButtonProps={{ style: { display: 'none' } }}
-                    title="Choose a list"
-                    destroyOnClose>
-                    <ChooseListModalInner product={product} />
-                </Modal>
             </div>
         </div>
     )

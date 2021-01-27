@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 
 import { useAppContext } from '../../context/AppContext'
 import { ShoppingCartItems } from '../ShoppingCart/ShoppingCartItems'
-import { round } from '../../utils'
+import { round, formatPrice } from '../../utils'
 import { Link } from 'react-router-dom'
 
 export const ShoppingCartPage = ({ currency = 'TL' }) => {
@@ -43,7 +43,10 @@ export const ShoppingCartPage = ({ currency = 'TL' }) => {
                     <Row gutter={16}>
                         <Col span={12}>
                             <Spin spinning={isLoading}>
-                                <Statistic title="Total Price" value={round(totalPrice, 2) + ' ' + currency} />
+                                <Statistic
+                                    title="Total Price"
+                                    value={formatPrice(round(totalPrice, 2)) + ' ' + currency}
+                                />
                             </Spin>
                         </Col>
                     </Row>

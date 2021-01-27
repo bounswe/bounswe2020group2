@@ -40,7 +40,6 @@ class ListProductsFragment : Fragment() {
         val args = ListProductsFragmentArgs.fromBundle(requireArguments())
         val productList = args.products.toCollection(ArrayList())
         val listId = args.listId
-        println(productList.toString())
         val listAdapter = ListProductsAdapter(productList, this)
         recView.adapter = listAdapter
         recView.setHasFixedSize(true)
@@ -50,9 +49,6 @@ class ListProductsFragment : Fragment() {
 
         listAdapter.pos.observe(viewLifecycleOwner, Observer {
             if (it != -1) {
-                println("---")
-                println(it)
-                println(listAdapter.itemCount)
                 val id = productList[it].product.id
                 viewModel.deleteProductInList(listId,id)
                 productList.removeAt(it)

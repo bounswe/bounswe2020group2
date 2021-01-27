@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { Spin } from 'antd'
 import { api } from '../../api'
 import { HorizontalProductList } from '../HorizontalProductList'
+import { Recommendations } from '../Recommendations'
 
 export const HomePage = () => {
     // example usage
@@ -33,7 +34,7 @@ const HomePage_Splash = () => {
 const HomePage_MainContent = () => {
     const [trendingProducts, setTrendingProducts] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    const { categories } = useAppContext()
+    const { categories, user } = useAppContext()
 
     useEffect(() => {
         async function fetch() {
@@ -53,17 +54,20 @@ const HomePage_MainContent = () => {
     }, [])
 
     return (
-        <Spin spinning={isLoading}>
-            <div className="trending-grid-wrapper">
-                {categories.map(category => {
-                    const filters = {
-                        category: category.id,
-                        sortBy: 'best-sellers',
-                        type: 'products',
-                    }
-                    return <HorizontalProductList key={category.id} filters={filters} />
-                })}
-            </div>
-        </Spin>
+        <div>
+            <Spin spinning={isLoading}>
+                <div className="home-page-horizontal-lists">
+                    {user.type === 'customer' && <Recommendations />}
+                    {categories.map(category => {
+                        const filters = {
+                            category: category.id,
+                            sortBy: 'best-sellers',
+                            type: 'products',
+                        }
+                        return <HorizontalProductList key={category.id} filters={filters} />
+                    })}
+                </div>
+            </Spin>
+        </div>
     )
 }

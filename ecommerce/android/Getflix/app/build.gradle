@@ -101,6 +101,7 @@ dependencies {
     // Discrete
     implementation 'com.yarolegovich:discrete-scrollview:1.5.1'
 
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 
     // Circular image view
     implementation 'de.hdodenhof:circleimageview:3.1.0'
@@ -130,6 +131,8 @@ dependencies {
 
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:26.2.0')
+    // Firebase authentication
+    implementation 'com.firebaseui:firebase-ui-auth:6.4.0'
 
     // For example, declare the dependencies for Firebase Authentication and Cloud Firestore
     implementation 'com.google.firebase:firebase-auth-ktx'
@@ -138,6 +141,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
     implementation 'com.github.manojbhadane:PaymentCardView:v1.3'
+
+    implementation 'com.github.stfalcon:chatkit:0.3.3'
 
 }
 

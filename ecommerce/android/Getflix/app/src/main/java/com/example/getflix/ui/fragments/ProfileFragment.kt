@@ -9,13 +9,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
-import com.example.getflix.askAlert
 import com.example.getflix.databinding.FragmentProfileBinding
 import com.example.getflix.infoAlert
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToAddressFragment
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToBankAccountFragment
+import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToCustMessagesFragment
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToLoginFragment
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToOrderInfoFragment
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
@@ -45,7 +46,8 @@ class ProfileFragment : Fragment() {
         } else {
             binding.name.text =
                 MainActivity.StaticData.user!!.firstName + " " + MainActivity.StaticData.user!!.lastName
-            binding.fullName.text = MainActivity.StaticData.user!!.firstName + " " + MainActivity.StaticData.user!!.lastName
+            binding.fullName.text =
+                MainActivity.StaticData.user!!.firstName + " " + MainActivity.StaticData.user!!.lastName
             binding.mail.text = MainActivity.StaticData.user!!.email
         }
 
@@ -54,6 +56,14 @@ class ProfileFragment : Fragment() {
                 infoAlert(this, getString(R.string.order_guest_alert))
             } else {
                 view?.findNavController()?.navigate(actionProfileFragmentToOrderInfoFragment())
+            }
+        }
+
+        binding.messagesLayout.setOnClickListener {
+            if (MainActivity.StaticData.isVisitor) {
+                infoAlert(this, getString(R.string.order_guest_alert))
+            } else {
+                view?.findNavController()?.navigate(actionProfileFragmentToCustMessagesFragment())
             }
         }
 
@@ -74,17 +84,16 @@ class ProfileFragment : Fragment() {
 
         binding.buttonLogout.setOnClickListener {
             if (!MainActivity.StaticData.isVisitor) {
-                askAlert(this, getString(R.string.logout_warning), ::navigateLogin)
+                //askAlert(this, getString(R.string.logout_warning), ::navigateLogin)
+                FirebaseAuth.getInstance().signOut()
+                view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
             } else {
                 resetData()
                 view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
             }
         }
-
         return binding.root
-
     }
-
 
 
     private fun resetData() {
@@ -98,10 +107,8 @@ class ProfileFragment : Fragment() {
 
     private fun navigateLogin() {
         view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
-        if(MainActivity.StaticData.isGoogleUser)
-        MainActivity.StaticData.mGoogleSignInClient!!.signOut()
+        if (MainActivity.StaticData.isGoogleUser)
+            MainActivity.StaticData.mGoogleSignInClient!!.signOut()
     }
-
-
 
 }

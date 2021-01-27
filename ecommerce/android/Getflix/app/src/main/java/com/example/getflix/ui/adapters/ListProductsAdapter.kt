@@ -36,11 +36,17 @@ class ListProductsAdapter(
 
         fun bind(listProduct: ListProductModel, position: Int) {
             binding.listproduct = listProduct
-            println(listProduct.toString())
-            binding.cartProductName.text = listProduct.id.toString()
+
+            if(listProduct.product.name.length>70)
+                binding.cartProductName.text = listProduct.product.name.subSequence(0,70)
+            else
+                binding.cartProductName.text = listProduct.product.name
             binding.cartProductPrice.text = listProduct.product.price.toString()+" TL"
 
             if(!listProduct.product.images.isNullOrEmpty())
+                if(listProduct.product.images[0].contains("/image/"))
+                    Picasso.get().load("http://3.134.80.26:8000" + listProduct.product.images[0]).into(binding.cartProductImage)
+                else
                 Picasso.get().load(listProduct.product.images[0]).into(binding.cartProductImage)
         }
 

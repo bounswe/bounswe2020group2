@@ -37,9 +37,6 @@ class NotificationFragment : Fragment() {
         val recView = binding?.notificationList as RecyclerView
         activity?.toolbar!!.btn_notification_check.visibility = View.VISIBLE
         viewModel.getNotifications()
-        viewModel.readAllNotifications()
-        viewModel.readNotification(1)
-
 
         activity?.toolbar!!.btn_notification_check.setOnClickListener {
             viewModel.readAllNotifications()

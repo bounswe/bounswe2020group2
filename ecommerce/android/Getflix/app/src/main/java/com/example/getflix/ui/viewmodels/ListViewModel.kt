@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.getflix.activities.MainActivity
+import com.example.getflix.activities.MainActivity.StaticData.isCustomer
 import com.example.getflix.models.ListModel
 import com.example.getflix.models.ListsModel
 import com.example.getflix.service.GetflixApi
@@ -30,18 +31,19 @@ class ListViewModel : ViewModel() {
 
 
     fun getCustomerLists() {
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val response = GetflixApi.getflixApiService.getLists("Bearer " + MainActivity.StaticData.user!!.token)
-            withContext(Dispatchers.Main + exceptionHandler) {
-                if (response.isSuccessful) {
-                    response.body().let { it ->
-                        _listOfLists.value = it
-                        println("aaaaa")
-                        println(_listOfLists.value.toString())
+        if(isCustomer){
+            job = CoroutineScope(Dispatchers.IO).launch {
+                val response = GetflixApi.getflixApiService.getLists("Bearer " + MainActivity.StaticData.user!!.token)
+                withContext(Dispatchers.Main + exceptionHandler) {
+                    if (response.isSuccessful) {
+                        response.body().let { it ->
+                            _listOfLists.value = it
+                        }
                     }
                 }
             }
         }
+
     }
 
     fun createList(createListRequest: CreateListRequest) {
@@ -58,8 +60,6 @@ class ListViewModel : ViewModel() {
                     call: Call<CreateListResponse>,
                     response: Response<CreateListResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
                     if (response.code() == 200)
                       getCustomerLists()
                 }
@@ -79,9 +79,7 @@ class ListViewModel : ViewModel() {
                     call: Call<AddProductToListResponse>,
                     response: Response<AddProductToListResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
-                    if (response.body()!!.status.succcesful)
+                    if (response.body()!!.status.successful)
                         println(response.body().toString())
                 }
             }
@@ -102,8 +100,6 @@ class ListViewModel : ViewModel() {
                     call: Call<ListDeleteResponse>,
                     response: Response<ListDeleteResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
                     getCustomerLists()
 
                 }
@@ -125,8 +121,6 @@ class ListViewModel : ViewModel() {
                     call: Call<DeleteProductInListResponse>,
                     response: Response<DeleteProductInListResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
                     getCustomerLists()
 
                 }

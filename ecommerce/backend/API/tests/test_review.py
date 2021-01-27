@@ -26,12 +26,18 @@ class ReviewTests(TestCase):
 
         u = User.objects.filter(username='testuser').first()
         self.uid = u.id
+        
+        user_v1 = User.objects.create(id=1000, username="testvendor1", email="test@mail.com", role = 2,
+                                            password_salt=salt, password_hash=password_hash, is_verified=True)
+        user_v2 = User.objects.create(id=1001, username="testvendor2", email="testq@mail.com", role = 2,
+                                            password_salt=salt, password_hash=password_hash, is_verified=True)
+
         c = Category.objects.create(id=4, name="Clothing")
         s = Subcategory.objects.create(id=10, category = c, name="Men's Fashion")
         a = Address.objects.create(id=1, user=u, address="istanbul")
         b = Brand.objects.create(id=1, name="Mavi")
-        v1 = Vendor.objects.create(id=1, user = u, first_name="omerfaruk", last_name="deniz")
-        v2 = Vendor.objects.create(id=2, user = u, first_name="umut", last_name="öksüz")
+        v1 = Vendor.objects.create(id=1, user = user_v1, first_name="omerfaruk", last_name="deniz")
+        v2 = Vendor.objects.create(id=2, user = user_v2, first_name="umut", last_name="öksüz")
         p1 = Product.objects.create(id=1, name = "Mavi T-shirt", price = 100, 
             creation_date = "2019-08-20T07:22:34Z", total_rating = 4, 
             rating_count = 20, stock_amount = 10, short_description = "yaza özel", subcategory = s, brand = b, vendor = v1)
@@ -93,7 +99,7 @@ class ReviewTests(TestCase):
         comment = {
             'user_id': self.uid,
             'product_id': None,
-            'vendor_id': 1,
+            'vendor_id': 1000,
             'rating': 5,
             'comment': "Awesome vendor!"
         }
@@ -105,7 +111,7 @@ class ReviewTests(TestCase):
         comment = {
             'user_id': self.uid,
             'product_id': None,
-            'vendor_id': 2,
+            'vendor_id': 1001,
             'rating': 5,
             'comment': "Awesome vendor!"
         }
@@ -118,7 +124,7 @@ class ReviewTests(TestCase):
         comment = {
             'user_id': self.uid,
             'product_id': None,
-            'vendor_id': 1,
+            'vendor_id': 1000,
             'rating': 5,
             'comment': "Awesome vendor!"
         }

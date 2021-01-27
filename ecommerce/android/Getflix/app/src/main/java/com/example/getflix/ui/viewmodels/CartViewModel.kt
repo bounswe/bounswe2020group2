@@ -29,6 +29,7 @@ class CartViewModel : ViewModel() {
 
     init {
         _cardPrices.value = CustomerCartPriceModel(0.0, 0.0, 0.0, 0.0)
+        _cardProducts.value = null
     }
 
     fun getCustomerCartPrice() {
@@ -122,8 +123,6 @@ class CartViewModel : ViewModel() {
                     call: Call<CardProDeleteResponse>,
                     response: Response<CardProDeleteResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
                     getCustomerCartProducts()
                     getCustomerCartPrice()
                 }

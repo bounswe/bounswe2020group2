@@ -12,7 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class VendorHomeViewModel: ViewModel() {
+class VendorHomeViewModel : ViewModel() {
 
     private val _productList = MutableLiveData<MutableList<ProductModel>>()
     val productList: LiveData<MutableList<ProductModel>>
@@ -36,12 +36,11 @@ class VendorHomeViewModel: ViewModel() {
                     call: Call<VendorProUpdateResponse>,
                     response: Response<VendorProUpdateResponse>
                 ) {
-                    if (response.code()==200) {
+                    if (response.code() == 200) {
                         _navigateBack.value = true
-                       println(response.body()!!.status.message)
-                    }
 
-                   // searchByVendor(3)
+                    }
+                    // searchByVendor(3)
                 }
             }
             )
@@ -86,9 +85,8 @@ class VendorHomeViewModel: ViewModel() {
                     call: Call<ProSearchByVendorResponse>,
                     response: Response<ProSearchByVendorResponse>
                 ) {
-                    println(response.body().toString())
-                    println(response.code())
-                    _productList.value = response.body()!!.data.products as MutableList<ProductModel>
+                    _productList.value =
+                        response.body()!!.data.products as MutableList<ProductModel>
 
                 }
             }

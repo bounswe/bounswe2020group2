@@ -10,11 +10,16 @@ import {
     cards,
     verifications,
     accounts,
+    notifications,
+    vendorDetails,
+    recommendations,
     conversations,
     vendorOrders,
+    productLists,
 } from './mocks'
 import { orderStatusMap } from '../utils'
 import * as moment from 'moment'
+import { min } from 'ramda'
 
 // preprend config.apiUrl
 const url = u => config.apiUrl + u
@@ -27,6 +32,15 @@ const url = u => config.apiUrl + u
 // comment the handler when done with it, DO NOT REMOVE IT
 
 export const handlers = [
+    // rest.get(url('/notifications'), (req, res, ctx) => {
+    //     return res(ctx.json(notifications))
+    // }),
+    // rest.get(url('/vendor/:id/details'), (req, res, ctx) => {
+    //     const { params } = req
+    //     const { id } = params
+    //     const minId = min(id, vendorDetails.length - 1) // If request vendorId=55 then get 4 (last element)
+    //     return res(ctx.json(vendorDetails[minId]))
+    // }),
     // url(...) is important here !!
     // rest.get(url('/example/user/:userId'), (req, res, ctx) => {
     //     const { params, body } = req
@@ -64,6 +78,11 @@ export const handlers = [
     //     const { params, body } = req
     //     const { token } = params
     //     return res(ctx.json({ data: { message: verifications[Math.floor(Math.random() * verifications.length)] } }))
+    // }),
+    // rest.get(url('/notifications'), (req, res, ctx) => {
+    //     return res(ctx.json(notifications))
+    // rest.get(url('/recommendations'), (req, res, ctx) => {
+    //     return res(ctx.json(recommendations))
     // }),
     // rest.get(url('/review'), (req, res, ctx) => {
     //     const id = req.url.searchParams.get('product')
@@ -168,6 +187,12 @@ export const handlers = [
     // rest.get(url('/vendor/order'), (req, res, ctx) => {
     //     return res(ctx.json({ status: { successful: true, message: '' }, orders: vendorOrders }))
     // }),
+    // rest.get(url('/lists'), (req, res, ctx) => {
+    //     return res(ctx.json({ status: { successful: true, message: '' }, lists: productLists }))
+    // }),
+    rest.put(url('/vendor/:id/details'), (req, res, ctx) => {
+        return res(ctx.json({ status: { successful: true, message: '' } }))
+    }),
 ]
 
 if (process.env.NODE_ENV === 'development') {

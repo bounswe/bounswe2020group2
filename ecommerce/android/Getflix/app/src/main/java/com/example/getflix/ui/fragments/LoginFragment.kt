@@ -2,24 +2,37 @@ package com.example.getflix.ui.fragments
 
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
+import com.example.getflix.activities.MainActivity.StaticData.auth
+import com.example.getflix.activities.MainActivity.StaticData.user
+import com.example.getflix.activities.MainActivity.StaticData.isAdmin
+import com.example.getflix.activities.MainActivity.StaticData.isCustomer
+import com.example.getflix.activities.MainActivity.StaticData.isVendor
+import com.example.getflix.activities.MainActivity.StaticData.isVisitor
 import com.example.getflix.databinding.FragmentLoginBinding
 import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToHomePageFragment
+import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToMailVerificationFragment
 import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToRegisterFragment
 import com.example.getflix.ui.fragments.LoginFragmentDirections.Companion.actionLoginFragmentToVendorHomeFragment
 import com.example.getflix.ui.viewmodels.LoginViewModel
@@ -44,20 +57,19 @@ class LoginFragment : Fragment() {
     private var prefs: SharedPreferences? = null
 
 
-
-
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
 
     ): View? {
 
         binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_login,
-                container, false
+            inflater, R.layout.fragment_login,
+            container, false
         )
-        MainActivity.StaticData.mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), MainActivity.StaticData.gso)
+        MainActivity.StaticData.mGoogleSignInClient =
+            GoogleSignIn.getClient(requireActivity(), MainActivity.StaticData.gso)
         MainActivity.StaticData.account = GoogleSignIn.getLastSignedInAccount(requireActivity())
 
         if (resources.configuration.locale.language == "tr") {
@@ -74,11 +86,12 @@ class LoginFragment : Fragment() {
         val savedUsername = prefs!!.getString("s_username", null)
         val savedPassword = prefs!!.getString("s_password", null)
         val savedChecked = prefs!!.getBoolean("s_checked", false)
-        if(savedUsername!=null) {
+        if (savedUsername != null) {
             binding.username.setText(savedUsername)
             binding.password.setText(savedPassword)
             binding.btnRemember.isChecked = savedChecked
         }
+
 
 
 
@@ -97,29 +110,42 @@ class LoginFragment : Fragment() {
         }
 
 
+
         binding.login.setOnClickListener {
-            activity?.loading_progress!!.visibility = View.VISIBLE
+            //activity?.loading_progress!!.visibility = View.VISIBLE
             if (binding.username.text.toString().isEmpty()) {
                 binding.username.error = getString(R.string.reg_error)
-                loginViewModel.setOnLogin(false)
-                activity?.loading_progress!!.visibility = View.GONE
             }
             if (binding.password.text.toString().isEmpty()) {
                 binding.password.error = getString(R.string.reg_error)
-                loginViewModel.setOnLogin(false)
-                activity?.loading_progress!!.visibility = View.GONE
+                // activity?.loading_progress!!.visibility = View.GONE
             }
-            if (binding.password.text.toString().isNotEmpty() && binding.username.text.toString().isNotEmpty()) {
+            if (binding.password.text.toString().isNotEmpty() && binding.username.text.toString()
+                    .isNotEmpty()
+            ) {
                 loginViewModel.setUser(
-                        this,
-                        binding.username.text.toString(),
-                        binding.password.text.toString()
+                    this,
+                    binding.username.text.toString(),
+                    binding.password.text.toString()
                 )
             }
         }
+        if (user != null) {
+            if (user!!.role != "CUSTOMER") {
+                (activity as MainActivity).decideBottomNav(true)
+                view?.findNavController()
+                    ?.navigate(actionLoginFragmentToVendorHomeFragment())
+            } else {
+                (activity as MainActivity).decideBottomNav(false)
+                view?.findNavController()
+                    ?.navigate(actionLoginFragmentToHomePageFragment())
+            }
+        }
+
 
         loginViewModel.user.observe(viewLifecycleOwner, Observer {
             if (it != null) {
+
                 MainActivity.StaticData.user = it
                 if (btn_remember.isChecked) {
                     prefs!!.edit().putString("s_username", binding.username.text.toString()).apply()
@@ -130,16 +156,28 @@ class LoginFragment : Fragment() {
                 }
 
                 if (it.role!="CUSTOMER") {
-                    println(it.toString())
+                    isCustomer = false
+                    isVisitor = false
+                    isVendor = true
+                    isAdmin = false
                     activity?.loading_progress!!.visibility = View.GONE
                     (activity as MainActivity).decideBottomNav(true)
                     view?.findNavController()?.navigate(actionLoginFragmentToVendorHomeFragment())
                 } else {
-                    println(it.toString())
+                    isCustomer = true
+                    isVisitor = false
+                    isVendor = false
+                    isAdmin = false
                     activity?.loading_progress!!.visibility = View.GONE
                     (activity as MainActivity).decideBottomNav(false)
                     view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
                 }
+                /*else {
+                        loginViewModel.onMailVerificationComplete()
+                        view?.findNavController()
+                            ?.navigate(actionLoginFragmentToMailVerificationFragment(it!!.email))
+
+                }*/
             }
         })
 
@@ -154,8 +192,52 @@ class LoginFragment : Fragment() {
 
         }
 
+        binding.forgotPassword.setOnClickListener {
+            var resetMail = EditText(it.context)
+            resetMail.inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+            var passwordResetDialog = AlertDialog.Builder(requireContext())
+            passwordResetDialog.setTitle("DO YOU WANT TO RESET PASSWORD?")
+            passwordResetDialog.setMessage("Please enter your email address to be received the reset link.")
+            passwordResetDialog.setView(resetMail)
+            passwordResetDialog.setPositiveButton(
+                "YES",
+                DialogInterface.OnClickListener { dialog, which ->
+                    val mail = resetMail.text.toString()
+                    auth.sendPasswordResetEmail(mail).addOnSuccessListener {
+                        Toast.makeText(
+                            requireContext(),
+                            "We just sent the reset link to your email address.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        //println("Login fragmentta password sent emaili atabildi")
+                    }.addOnFailureListener {
+                        Toast.makeText(
+                            requireContext(),
+                            "Sorry, we are not able to send the reset link now because " + it.message,
+                            Toast.LENGTH_LONG
+                        ).show()
+                        //println("Login fragmentta password sent emaili atamadı")
+                    }
+                })
+            passwordResetDialog.setNegativeButton(
+                "NO",
+                DialogInterface.OnClickListener { dialog, which ->
+                    Toast.makeText(
+                        requireContext(),
+                        "Of course, you can change your mind!",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    //println("Login fragmentta dialogda noya bastı")
+                })
+            //activity?.loading_progress!!.visibility = View.GONE
+            passwordResetDialog.create().show()
+
+        }
         binding.guestButton.setOnClickListener {
-            MainActivity.StaticData.isVisitor = true
+            isVisitor = true
+            isCustomer = false
+            isVendor = false
+            isAdmin = false
             (activity as MainActivity).decideBottomNav(false)
             view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
         }
@@ -169,10 +251,11 @@ class LoginFragment : Fragment() {
 
         if (requestCode == 11) {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-            if(resultCode != RESULT_CANCELED)
-            handleSignInResult(task)
+            if (resultCode != RESULT_CANCELED)
+                handleSignInResult(task)
         }
     }
+
     @RequiresApi(Build.VERSION_CODES.M)
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
@@ -185,9 +268,10 @@ class LoginFragment : Fragment() {
             view?.findNavController()?.navigate(actionLoginFragmentToHomePageFragment())
 
         } catch (e: ApiException) {
-    
+
         }
     }
+
 
     private fun setLocale(localeName: String) {
         var currentLanguage = ""
@@ -200,13 +284,11 @@ class LoginFragment : Fragment() {
             conf.setLocale(locale)
             res.updateConfiguration(conf, dm)
             val refresh = Intent(
-                    context,
-                    MainActivity::class.java
+                context,
+                MainActivity::class.java
             )
             refresh.putExtra(currentLang, localeName)
             startActivity(refresh)
-        } else {
-
         }
     }
 

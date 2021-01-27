@@ -121,6 +121,7 @@ export const orderStatusInvMap = {
 export function formatPurchase(purchase) {
     return {
         ...purchase,
+        purchase_date: moment.utc(purchase.purchase_date),
         product: formatProduct(purchase.product),
         status: orderStatusMap[purchase.status],
     }
@@ -141,7 +142,8 @@ export function formatOrder(order) {
     return {
         id: order.order_id,
         purchases: order.order_all_purchase.map(formatPurchase),
-        ...R.omit(['order_id', 'purchases'], order),
+        order_date: moment.utc((order.order_all_purchase.map(formatPurchase) || [])[0].purchase_date),
+        ...R.omit(['order_id', 'order_all_purchase'], order),
     } // temporary solution
 }
 
@@ -206,4 +208,31 @@ export const formatConversation = obj => {
 
 export const getRetroAvatarUrl = id => {
     return `http://www.gravatar.com/avatar/${id}?s=64&d=retro&r=PG`
+}
+
+export const formatList = ({ list_id, name, products }) => {
+    return {
+        id: list_id,
+        name,
+        products: products.map(entry => ({ ...entry, product: formatProduct(entry.product) })),
+    }
+}
+
+export const getVendorRatingLevel = rating => {
+    if (rating <= 5.0) return 'low'
+    if (rating <= 8.0) return 'medium'
+    return 'high'
+}
+
+export const formatVendorDetails = vendorHeader => ({
+    ...vendorHeader,
+    rating: vendorHeader.total_rating / vendorHeader.rating_count,
+})
+
+// source: https://stackoverflow.com/questions/149055/how-to-format-numbers-as-currency-string
+export const formatPrice = price => {
+    const pieces = parseFloat(price).toFixed(2).split('')
+    let ii = pieces.length - 3
+    while ((ii -= 3) > 0) pieces.splice(ii, 0, ',')
+    return pieces.join('')
 }

@@ -35,7 +35,6 @@ class UpdateCreditCardFragment : Fragment() {
         val args = UpdateCreditCardFragmentArgs.fromBundle(requireArguments())
         val creditCard = args.creditCard
 
-        println(creditCard.toString())
         binding.editableName.setText(creditCard.name)
         binding.editableExpirationmonth.setText(creditCard.expiration_data.month.toString())
         binding.editableExpirationyear.setText(creditCard.expiration_data.year.toString())

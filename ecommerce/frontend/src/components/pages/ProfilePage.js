@@ -8,7 +8,9 @@ import { Conversations } from '../messages/Conversations'
 import { CreditCardList } from '../cardlist/CreditCardList'
 import { OrdersList } from '../order/OrdersList'
 import { ProfileContent } from '../profile/ProfileContent'
+import { Notifications } from '../Notifications'
 import { ChatContextProvider } from '../../context/ChatContext'
+import { ProductLists } from '../product_list/ProductLists'
 
 const { TabPane } = Tabs
 
@@ -51,6 +53,13 @@ export const ProfilePage = props => {
                         <AddressList />
                     </Alert.ErrorBoundary>
                 </TabPane>
+                <TabPane tab="Notifications" key="notifications" forceRender>
+                    <Alert.ErrorBoundary>
+                        <div className="right-bar-profile-content">
+                            <Notifications key={user.id} user={user} />
+                        </div>
+                    </Alert.ErrorBoundary>
+                </TabPane>
                 <TabPane tab="Messages" key="messages" forceRender>
                     <Alert.ErrorBoundary>
                         <ChatContextProvider>
@@ -58,6 +67,13 @@ export const ProfilePage = props => {
                         </ChatContextProvider>
                     </Alert.ErrorBoundary>
                 </TabPane>
+                {user.type === 'customer' && (
+                    <TabPane tab="Lists" key="lists" forceRender>
+                        <Alert.ErrorBoundary>
+                            <ProductLists />
+                        </Alert.ErrorBoundary>
+                    </TabPane>
+                )}
             </Tabs>
         </div>
     )

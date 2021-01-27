@@ -63,8 +63,8 @@ class SubcategoryFragment : Fragment() {
             vendor?.toInt(),
             rating?.toDouble(),
             price?.toDouble(),
-            null,
-            null
+            "",
+            ""
         )
 
 
@@ -74,6 +74,7 @@ class SubcategoryFragment : Fragment() {
 
         val manager = GridLayoutManager(activity, 2)
         recView.layoutManager = manager
+
 
 
         viewModel.productList.observe(viewLifecycleOwner, Observer{

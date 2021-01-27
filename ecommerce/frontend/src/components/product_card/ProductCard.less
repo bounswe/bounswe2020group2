@@ -5,11 +5,11 @@
 }
 
 .whole-card {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 2px;
+    padding-right: 2px;
     background-color: white;
+    z-index: 1;
     transition: transform 0.2s; /* Animation */
-
     &:hover {
         transform: scale(1.02); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
     }
@@ -19,16 +19,16 @@
     display: flex;
     flex-direction: row;
     column-count: 3;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-left: 4px;
+    padding-right: 4px;
     padding-top: 4px;
     padding-bottom: 0px;
     height: 50px;
-    gap: 8px;
+    gap: 4px;
     margin-bottom: 8px;
 
     .ant-rate-star:not(:last-child) {
-        margin-right: 2px;
+        margin-right: 0px;
     }
 }
 
@@ -50,11 +50,11 @@
 }
 
 .card-new-price {
-    font-size: x-large;
+    font-size: large;
     color: @Eggplant;
     background-color: @Champagne;
     font-weight: bolder;
-    height: 35px;
+    height: 28px;
     padding: 0px 1px 1px 1px;
     box-shadow: 3px 3px 0px 0px @Eggplant;
 }
@@ -85,4 +85,13 @@
     display: flex;
     gap: 4px;
     padding-bottom: 20px;
+}
+.product-card-editable-icons {
+    padding: 16px 16px 0 16px;
+    top: 0;
+    left: 0;
+    display: flex;
+    gap: 8px;
+    flex-direction: row;
+    justify-content: flex-end;
 }
