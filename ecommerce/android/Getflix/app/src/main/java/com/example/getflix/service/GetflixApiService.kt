@@ -223,6 +223,9 @@ interface GetflixApiService {
     @POST("vendor/product")
     fun addProduct(@Header("Authorization") token: String, @Body proData: AddProductRequest): Call<AddProductResponse>
 
+    @Headers("Content-Type: application/json")
+    @DELETE("vendor/product/{product_id}")
+    fun deleteProduct(@Header("Authorization") token: String, @Path("product_id") proId: Int): Call<DeleteProductResponse>
 }
 
 object GetflixApi {

@@ -18,12 +18,10 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.getflix.R
+import com.example.getflix.*
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentProductBinding
 import com.example.getflix.doneAlert
-import com.example.getflix.hideKeyboard
-import com.example.getflix.infoAlert
 import com.example.getflix.service.requests.CreateListRequest
 import com.example.getflix.ui.adapters.CommentAdapter
 import com.example.getflix.ui.adapters.ImageAdapter
@@ -77,6 +75,7 @@ class ProductFragment : Fragment() {
 
         binding.buyNow.setOnClickListener {
             if(MainActivity.StaticData.user!!.role!="CUSTOMER") {
+                if(productViewModel.product.value!=null)
                 view?.findNavController()!!.navigate(actionProductFragmentToUpdateProductFragment(productViewModel.product.value!!))
             }
         }
@@ -184,7 +183,8 @@ class ProductFragment : Fragment() {
                     args.productId
                 )
             } else {
-                // deleete product
+                println("iddd " + args.productId)
+                productViewModel.deleteProduct(args.productId)
             }
         }
 
@@ -192,6 +192,13 @@ class ProductFragment : Fragment() {
             if(it) {
                 doneAlert(this, "Product is added to your shopping cart!", ::navigateBack)
                 productViewModel.resetNavigate()
+            }
+        })
+
+        productViewModel.deletePro.observe(viewLifecycleOwner, Observer{
+            if(it) {
+                doneAlert(this, "Product is deleted successfully!", ::navigateBack)
+                productViewModel.resetDeletePro()
             }
         })
 
