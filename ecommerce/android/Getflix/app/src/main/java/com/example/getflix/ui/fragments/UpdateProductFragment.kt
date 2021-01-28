@@ -52,17 +52,19 @@ class UpdateProductFragment : Fragment() {
 
 
         binding.btnAdd.setOnClickListener {
+            val images = listOf<String>()
             val updateRequest = VendorProUpdateRequest(binding.editableId.text.toString().toInt(),
                 binding.editableName.text.toString(),binding.editablePrice.text.toString().toDouble(),
                 binding.editableStockamount.text.toString().toInt(),binding.editableShortdescription.text.toString(),
                 binding.editableLongdescription.text.toString(),binding.editableDiscount.text.toString().toDouble(),
-                binding.editableBrandid.text.toString().toInt(),binding.editableSubcategoryid.text.toString().toInt())
+                binding.editableBrandid.text.toString().toInt(),binding.editableSubcategoryid.text.toString().toInt(),
+                images,images)
             viewModel.updateVendorProduct(updateRequest)
         }
 
         viewModel.navigateBack.observe(viewLifecycleOwner, Observer{
             if(it) {
-                doneAlert(this, "Address is updated successfully", ::navigateBack)
+                doneAlert(this, "Product is updated successfully", ::navigateBack)
                 viewModel.resetNavigate()
             }
         })

@@ -15,5 +15,7 @@ data class VendorProUpdateRequest(
     @SerializedName("long_description") val longDescription : String,
     @SerializedName("discount") val discount : Double,
     @SerializedName("brand_id") val brand_id : Int,
-    @SerializedName("subcategory_id") val subcategory_id : Int
+    @SerializedName("subcategory_id") val subcategory_id : Int,
+    @SerializedName("images") val images : List<String>,
+    @SerializedName("image_urls_delete") val imagesToDelete : List<String>
 ) : Parcelable

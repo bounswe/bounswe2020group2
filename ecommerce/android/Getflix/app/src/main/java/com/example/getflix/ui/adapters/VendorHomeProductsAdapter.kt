@@ -25,20 +25,27 @@ class VendorHomeProductsAdapter(
     class RowHolder(val binding: VendorProductBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: ProductModel, position: Int) {
-            if(product.images.isNotEmpty())
-
-                if(product.images[0].contains("/image/"))
-                    Picasso.get().load("http://3.134.80.26:8000" + product.images[0]).into(binding.productImage)
+            if (product.images.isNotEmpty()) {
+                if (product.images[0].contains("/image/"))
+                    Picasso.get().load("http://3.134.80.26:8000" + product.images[0])
+                        .into(binding.productImage)
                 else
-            Picasso.get().load(product.images[0]).into(binding.productImage)
-            binding.product = product
+                    Picasso.get().load(product.images[0]).into(binding.productImage)
+            }
+            if (product!!.name.length > 70) {
+                binding.productName.text = product.name.subSequence(0, 70)
+            } else {
+                binding.productName.text = product.name
+            }
+
             if (product.price.toString().length > 5) {
                 binding.oldProductPrice.text = product.price.toString().substring(0, 5) + " TL"
             } else {
                 binding.oldProductPrice.text = product.price.toString() + " TL"
 
             }
-            binding.oldProductPrice.paintFlags = binding.oldProductPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            binding.oldProductPrice.paintFlags =
+                binding.oldProductPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             if (product.priceDiscounted.toString().length > 5) {
                 binding.productPrice.text =
                     product.priceDiscounted.toString().substring(0, 5) + " TL"
@@ -73,7 +80,8 @@ class VendorHomeProductsAdapter(
             holder?.itemView!!.setOnClickListener {
                 fragment.findNavController().navigate(
                     VendorHomeFragmentDirections.actionVendorHomeToProductFragment(
-                        productList?.get(position)!!.id)
+                        productList?.get(position)!!.id
+                    )
                 )
             }
         }

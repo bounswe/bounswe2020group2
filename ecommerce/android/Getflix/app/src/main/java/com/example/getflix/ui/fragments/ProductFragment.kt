@@ -65,12 +65,24 @@ class ProductFragment : Fragment() {
         val imageAdapter = ImageAdapter()
         val commentAdapter = CommentAdapter()
 
-        if(MainActivity.StaticData.user!!.role!="CUSTOMER") {
+        if(MainActivity.StaticData.user!!.role=="VENDOR") {
             binding.addToCart.setImageResource(R.drawable.ic_delete_pro)
             binding.buyNow.text = "UPDATE"
+            binding.save.visibility = View.INVISIBLE
+            binding.recommendedProducts.visibility = View.GONE
+            binding.reviewSection.visibility=View.GONE
+            binding.increase.visibility = View.GONE
+            binding.amount.visibility = View.GONE
+            binding.decrease.visibility = View.GONE
         } else {
             binding.addToCart.setImageResource(R.drawable.ic_black_cart)
             binding.buyNow.text = "BUY NOW"
+            binding.save.visibility = View.VISIBLE
+            binding.recommendedProducts.visibility = View.VISIBLE
+            binding.reviewSection.visibility = View.VISIBLE
+            binding.increase.visibility = View.VISIBLE
+            binding.amount.visibility = View.VISIBLE
+            binding.decrease.visibility = View.VISIBLE
         }
 
         binding.buyNow.setOnClickListener {
@@ -167,8 +179,11 @@ class ProductFragment : Fragment() {
 
 
         binding.vendorDetail.setOnClickListener {
-            val vendor = productViewModel.product.value!!.vendor
-            view?.findNavController()!!.navigate(actionProductFragmentToVendorPageFragment(vendor))
+            if(MainActivity.StaticData.user!!.role!="VENDOR") {
+                val vendor = productViewModel.product.value!!.vendor
+                view?.findNavController()!!
+                    .navigate(actionProductFragmentToVendorPageFragment(vendor))
+            }
         }
 
         binding.increase.setOnClickListener {
