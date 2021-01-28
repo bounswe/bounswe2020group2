@@ -38,7 +38,7 @@ class VendorHomeProductsAdapter(
                 binding.oldProductPrice.text = product.price.toString() + " TL"
 
             }
-            binding.oldProductPrice.setPaintFlags(binding.oldProductPrice.getPaintFlags() or Paint.STRIKE_THRU_TEXT_FLAG)
+            binding.oldProductPrice.paintFlags = binding.oldProductPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             if (product.priceDiscounted.toString().length > 5) {
                 binding.productPrice.text =
                     product.priceDiscounted.toString().substring(0, 5) + " TL"
@@ -72,8 +72,8 @@ class VendorHomeProductsAdapter(
             holder.bind(it, position)
             holder?.itemView!!.setOnClickListener {
                 fragment.findNavController().navigate(
-                    VendorHomeFragmentDirections.actionVendorHomeToUpdateProductFragment(
-                        productList?.get(position)!!)
+                    VendorHomeFragmentDirections.actionVendorHomeToProductFragment(
+                        productList?.get(position)!!.id)
                 )
             }
         }

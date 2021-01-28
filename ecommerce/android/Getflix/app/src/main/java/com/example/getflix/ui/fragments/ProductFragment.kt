@@ -9,6 +9,7 @@ import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -27,6 +28,7 @@ import com.example.getflix.service.requests.CreateListRequest
 import com.example.getflix.ui.adapters.CommentAdapter
 import com.example.getflix.ui.adapters.ImageAdapter
 import com.example.getflix.ui.adapters.RecommenderAdapter
+import com.example.getflix.ui.fragments.ProductFragmentDirections.Companion.actionProductFragmentToUpdateProductFragment
 import com.example.getflix.ui.fragments.ProductFragmentDirections.Companion.actionProductFragmentToVendorPageFragment
 import com.example.getflix.ui.viewmodels.ListViewModel
 import com.example.getflix.ui.viewmodels.ProductViewModel
@@ -64,6 +66,20 @@ class ProductFragment : Fragment() {
         val recommenderAdapter = RecommenderAdapter()
         val imageAdapter = ImageAdapter()
         val commentAdapter = CommentAdapter()
+
+        if(MainActivity.StaticData.user!!.role!="CUSTOMER") {
+            binding.addToCart.setImageResource(R.drawable.ic_delete_pro)
+            binding.buyNow.text = "UPDATE"
+        } else {
+            binding.addToCart.setImageResource(R.drawable.ic_black_cart)
+            binding.buyNow.text = "BUY NOW"
+        }
+
+        binding.buyNow.setOnClickListener {
+            if(MainActivity.StaticData.user!!.role!="CUSTOMER") {
+                view?.findNavController()!!.navigate(actionProductFragmentToUpdateProductFragment(productViewModel.product.value!!))
+            }
+        }
 
         binding.lifecycleOwner = this
 
@@ -162,11 +178,13 @@ class ProductFragment : Fragment() {
         binding.addToCart.setOnClickListener {
             if(MainActivity.StaticData.isVisitor) {
                 infoAlert(this, "You should be logged in to add product to your shopping cart")
-            } else {
+            } else if(MainActivity.StaticData.user!!.role=="CUSTOMER"){
                 productViewModel.addCustomerCartProduct(
                     binding.amount.text.toString().toInt(),
                     args.productId
                 )
+            } else {
+                // deleete product
             }
         }
 

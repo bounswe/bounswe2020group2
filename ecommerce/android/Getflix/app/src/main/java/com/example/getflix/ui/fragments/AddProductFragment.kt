@@ -30,6 +30,7 @@ class AddProductFragment : Fragment() {
     private lateinit var binding: FragmentAddProductBinding
     private lateinit var bitmap: Bitmap
     private lateinit var viewModel: VendorHomeViewModel
+    var imageList = arrayListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,22 +43,31 @@ class AddProductFragment : Fragment() {
             container, false
         )
         activity?.toolbar!!.toolbar_title.text = "Add Product"
+
         binding.longDesc.setText("ThisisalongdescThisisalongdescThisisalongdescThisisalongdescThisisalongdescThisisalongdescThisisalongdescThisisalongdesc")
 
         viewModel = ViewModelProvider(this).get(VendorHomeViewModel::class.java)
         binding.image1.setOnClickListener {
             var intent = Intent()
             intent.type = "image/*"
-            intent.action = Intent.ACTION_PICK
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(intent, 20)
+        }
+        binding.image2.setOnClickListener {
+            var intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
             startActivityForResult(intent, 21)
+        }
+        binding.image3.setOnClickListener {
+            var intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(intent, 22)
         }
 
         binding.btnAdd.setOnClickListener {
-            var image = imageToString()
-            var list = arrayListOf<String>()
-            list.add(image)
-            println(image)
-            list.toList()
+            var list = imageList.toList()
             val addRequest = AddProductRequest(binding.name.text.toString(),
                 binding.price.text.toString().toInt(),
                 binding.stockAmount.text.toString().toInt(),binding.shortDesc.text.toString(),
@@ -77,11 +87,10 @@ class AddProductFragment : Fragment() {
         return binding.root
     }
 
-    private fun imageToString(): String {
+    private fun imageToString() {
         var stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.WEBP,100,stream)
-
-        return Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT)
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream)
+        imageList.add(Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT))
     }
 
     private fun navigateBack() {
@@ -91,14 +100,30 @@ class AddProductFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode==21 && resultCode == RESULT_OK && data!=null) {
+        if(requestCode==20 && resultCode == RESULT_OK && data!=null) {
             binding.image1.setImageURI(data.data)
            // var path = data.data
             println(data.data.toString())
             bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver,data.data)
+            imageToString()
+
+        } else if(requestCode==21 && resultCode == RESULT_OK && data!=null) {
+            binding.image2.setImageURI(data.data)
+            // var path = data.data
+            println(data.data.toString())
+            bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver,data.data)
+            imageToString()
+
+        } else if(requestCode==22 && resultCode == RESULT_OK && data!=null) {
+            binding.image3.setImageURI(data.data)
+            // var path = data.data
+            println(data.data.toString())
+            bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver,data.data)
+            imageToString()
 
 
         }
+
 
     }
 }
