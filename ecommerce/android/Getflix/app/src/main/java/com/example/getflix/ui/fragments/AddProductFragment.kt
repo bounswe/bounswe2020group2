@@ -44,7 +44,7 @@ class AddProductFragment : Fragment() {
         )
         activity?.toolbar!!.toolbar_title.text = "Add Product"
 
-        binding.longDesc.setText("ThisisalongdescThisisalongdescThisisalongdescThisisalongdescThisisalongdescThisisalongdescThisisalongdescThisisalongdesc")
+        //binding.longDesc.setText("ThisisalongdescThisisalongdescThisisalongdescThisisalongdescThisisalongdescThisisalongdescThisisalongdescThisisalongdesc")
 
         viewModel = ViewModelProvider(this).get(VendorHomeViewModel::class.java)
         binding.image1.setOnClickListener {
