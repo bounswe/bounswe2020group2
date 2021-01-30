@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         var vendor: String? = null
         var proNum: Int? = null
         var brandNum: Int? = null
+        var orderNum: Int? = 0
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
