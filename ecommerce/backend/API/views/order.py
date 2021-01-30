@@ -86,6 +86,16 @@ def vendor_orders(request):
 
         return Response({'status': {'successful': True, 'message':'Order status is successfully changed'}})
 
+
+
+'''
+This function control 'customer/orders' endpoint and give all orders of user with prices.
+@param
+request: includes information about user,, method
+@return
+Response(POST):  includes successfull serializer(successfull value and message) and all information about orders of given user
+with prices such as products_price, delivery_price, discount and total_price
+'''
 @api_view(['GET'])
 @permission_classes([permissions.AllowAnonymous]) 
 def customer_order(request):

@@ -11,7 +11,15 @@ from ..models import User, ShoppingCartItem, Product, Address, Order, Purchase, 
 from ..serializers.product_list_serializer import ProductListResponseSerializer
 from ..utils import authentication, order_status
 
-
+'''
+This function control 'lists' endpoint and if request method is 'GET', return all product list of user,
+otherwise add list with name to ProductList table.
+@param
+request: includes information about user, name(just for POST method), method
+@return
+Response(POST): includes successfull serializer(successfull value and message)
+Response(GET):  includes successfull serializer(successfull value and message), all lists of user
+'''
 @api_view(['POST', 'GET'])
 @permission_classes([permissions.AllowAnonymous])
 def product_list_create(request):
@@ -45,6 +53,14 @@ def product_list_create(request):
         return Response({'status': {'successful': True, 'message':'Product Lists are uccessfully sent'},'lists':response_product_list})
 
 
+'''
+This function control 'lists/<int:list_id>' endpoint and delete given 'list_id' from ProductList table.
+@param
+request: includes information about user, method
+list_id: id of list which want to be deleted
+@return
+Response(DELETE): includes successfull serializer(successfull value and message)
+'''
 @api_view(['DELETE'])
 @permission_classes([permissions.AllowAnonymous])
 def product_list_delete(request, list_id):
@@ -60,6 +76,18 @@ def product_list_delete(request, list_id):
     return Response({'status': { 'successful': True, 'message': "This product list is successfully deleted."}})
 
 
+
+'''
+This function control 'lists/<int:list_id>/product/<int:product_id>' endpoint and if request method is 'DELETE' delete given 'product_id' from 
+given 'list_id', otherwise add given 'product_id' to given 'list_id'
+@param
+request:    includes information about user, method
+list_id:    id of list which want to be deleted or added
+product_id: id of list which want to be deleted or added
+@return
+Response(DELETE): includes successfull serializer(successfull value and message)
+Response(POST):     includes successfull serializer(successfull value and message)
+'''
 @api_view(['POST', 'DELETE'])
 @permission_classes([permissions.AllowAnonymous])
 def manage_product_list_item(request, list_id, product_id):

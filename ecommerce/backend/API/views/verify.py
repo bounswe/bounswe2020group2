@@ -17,6 +17,12 @@ from ..utils import authentication, verify_email
 from django.http import JsonResponse
 
 
+'''
+This function control 'user/verify' endpoint and sends email to user to verify account.
+request: includes information about user, HTTP_REFERER, method
+@return
+Response(POST): includes successfull serializer(successfull value and message)
+'''
 @api_view(['POST'])
 @permission_classes([permissions.AllowAnonymous])
 def user_verify(request):
@@ -29,6 +35,15 @@ def user_verify(request):
     return Response({'status': {'successful': True, 
             'message': verify_message}})
 
+
+'''
+This function control 'email-verify/<uidb64>' endpoint and verify email if token is not expired and true.
+@param
+request: includes information about user, method
+uidb64:  token which is expired in 2 daysş
+@return
+Response: includes successfull serializer(successfull value and message)
+'''
 @renderer_classes((TemplateHTMLRenderer, JSONRenderer))
 def email_verify(request, uidb64):
     jwt = authentication.JWTAuthentication()

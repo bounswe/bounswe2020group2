@@ -12,6 +12,13 @@ from ..serializers import checkout_product_serializer, checkout_shopping_cart_se
 from ..utils import authentication, order_status
 
 
+'''
+This function control 'checkout/details' endpoint and sends information about prices in shopping cart.
+@param
+request: includes information about user, name(just for POST method), method
+@return
+Response(GET):  includes all prices such as products_price, delivery_price, discount and total_price in shopping cart
+'''
 @api_view(['GET'])
 @permission_classes([permissions.AllowAnonymous])
 def checkout_details(request):
@@ -54,6 +61,13 @@ def checkout_details(request):
     return Response(context)
 
 
+'''
+This function control 'checkout/payment' endpoint and add shopping cart items, card and address to Purchase table.
+@param
+request: includes information about user, address_id, method, card_id
+@return
+Response(POST):  includes successfull serializer(successfull value and message)
+'''
 @api_view(['POST'])
 @permission_classes([permissions.AllowAnonymous])
 def checkout_payment(request):
@@ -106,6 +120,14 @@ def checkout_payment(request):
     return Response({'status': { 'successful': True, 'message': "Payment process is successfully satisfied."}})
 
 
+'''
+This function control 'checkout/cancelorder/<int:id>' endpoint and change order_status to CANCELLED if it is ACCEPTED
+@param
+request: includes information about user, address_id, method, card_id
+id:     includes order id which want to be
+@return
+Response(POST):  includes successfull serializer(successfull value and message)
+'''
 @api_view(['POST'])
 @permission_classes([permissions.AllowAnonymous])
 def checkout_cancel_order(request, id):

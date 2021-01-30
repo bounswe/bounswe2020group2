@@ -60,6 +60,9 @@ class ProductListTest(TestCase):
         token_customer = response.data["user"]["token"]
         return token_customer
 
+    '''
+    Unit test for 'lists' endpoint and control whether list with name is added or not
+    '''
     def test_post_product_list(self):
         client.credentials(HTTP_AUTHORIZATION='Bearer {}'.format(self.login_credentials_settings()))
         
@@ -76,6 +79,9 @@ class ProductListTest(TestCase):
         ProductListItem.objects.create(product_list_id=list_id_for_test, product_id=product_id_for_test)
         ProductListItem.objects.create(product_list_id=list_id_for_test, product_id=product_2_id_for_test)
   
+    '''
+    Unit test for 'lists' endpoint and control whether list with duplicate name is added or not
+    '''
     def test_check_duplicate_list_name(self):
         self.product_list()
 
@@ -88,6 +94,9 @@ class ProductListTest(TestCase):
         self.assertEqual(response.data["status"]["successful"], False)
         self.assertEqual(response.data["status"]["message"], "User already has a list with that name.")
 
+    '''
+    Unit test for 'lists' endpoint and control whether all lists of user is returned or not
+    '''
     def test_get_product_list(self):
         self.product_list()
 
@@ -99,6 +108,9 @@ class ProductListTest(TestCase):
         self.assertEqual(int(response.data["lists"][0]["list_id"]), list_id_for_test)
         self.assertEqual(response.data["lists"][0]["name"], list_name)
 
+    '''
+    Unit test for 'lists/<int:list_id>' endpoint and control whether list of given id deleted or not
+    '''
     def test_delete_product_list(self):
         self.product_list()
 
@@ -117,6 +129,9 @@ class ProductListTest(TestCase):
     def just_product_list(self):
         ProductList.objects.create(id=list_id_for_test, user_id=customer_id_for_test, name=list_name)
 
+    '''
+    Unit test for 'lists/<int:list_id>/product/<int:product_id>' endpoint and control whether product with given id is added to list.
+    '''
     def test_add_product__to_list(self):
         self.just_product_list()
 
@@ -129,6 +144,9 @@ class ProductListTest(TestCase):
         self.assertEqual(response.data["status"]["successful"], True)
         self.assertEqual(len(product_list_items), 1)
 
+    '''
+    Unit test for 'lists/<int:list_id>/product/<int:product_id>' endpoint and control whether product with given duplicate id is added to list or not.
+    '''
     def test_duplicate_add_product_to_list(self):
         self.product_list()
 
@@ -141,6 +159,9 @@ class ProductListTest(TestCase):
         self.assertEqual(response.data["status"]["successful"], False)
         self.assertEqual(response.data["status"]["message"], f"Product with id={product_id_for_test} is already in the Product List with id={list_id_for_test}.")
 
+    '''
+    Unit test for 'lists/<int:list_id>/product/<int:product_id>' endpoint and control whether product with given duplicate id is deleted from list or not.
+    '''
     def test_delete_product_from_list(self):
         self.product_list()
 
