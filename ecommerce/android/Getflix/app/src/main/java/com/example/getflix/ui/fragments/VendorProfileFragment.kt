@@ -35,6 +35,7 @@ class VendorProfileFragment : Fragment() {
             binding.name.text = MainActivity.StaticData.vendor
             binding.brandNum.text = MainActivity.StaticData.brandNum.toString()
             binding.proNum.text = MainActivity.StaticData.proNum.toString()
+            binding.orderNum.text = MainActivity.StaticData.orderNum.toString()
         }
 
         binding.logout.setOnClickListener {

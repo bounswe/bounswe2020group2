@@ -218,6 +218,14 @@ interface GetflixApiService {
     @POST("notifications/seen/{notification_id}")
     fun readNotification(@Header("Authorization") token: String, @Path("notification_id") id: Int): Call<SeenResponse>
 
+
+    @Headers("Content-Type: application/json")
+    @POST("vendor/product")
+    fun addProduct(@Header("Authorization") token: String, @Body proData: AddProductRequest): Call<AddProductResponse>
+
+    @Headers("Content-Type: application/json")
+    @DELETE("vendor/product/{product_id}")
+    fun deleteProduct(@Header("Authorization") token: String, @Path("product_id") proId: Int): Call<DeleteProductResponse>
 }
 
 object GetflixApi {

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,7 @@ import com.example.getflix.service.requests.VendorProUpdateRequest
 import com.example.getflix.ui.adapters.SubCategoryAdapter
 import com.example.getflix.ui.adapters.VendorHomeBrandsAdapter
 import com.example.getflix.ui.adapters.VendorHomeProductsAdapter
+import com.example.getflix.ui.fragments.VendorHomeFragmentDirections.Companion.actionVendorHomeToAddProductFragment
 import com.example.getflix.ui.viewmodels.SubCategoryViewModel
 import com.example.getflix.ui.viewmodels.VendorHomeViewModel
 import com.example.getflix.ui.viewmodels.VendorOrdersViewModel
@@ -51,6 +53,10 @@ class VendorHomeFragment : Fragment() {
         viewModel.searchByVendor(MainActivity.StaticData.user!!.id)
 
 
+
+        binding.btnAdd.setOnClickListener {
+            view?.findNavController()!!.navigate(actionVendorHomeToAddProductFragment())
+        }
 
         val recView = binding?.productList as RecyclerView
         val brandsView = binding?.brandList as RecyclerView

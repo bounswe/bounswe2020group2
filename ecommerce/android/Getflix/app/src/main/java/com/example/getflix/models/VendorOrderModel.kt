@@ -10,8 +10,8 @@ data class VendorOrderModel (
     @SerializedName("amount") val amount : Int,
     @SerializedName("product") val product : ProductModel,
     @SerializedName("status") val status : String,
-    @SerializedName("unit_price") val unitPrice : Int,
-    @SerializedName("total_price") val totalPrice : Int,
+    @SerializedName("unit_price") val unitPrice : Double,
+    @SerializedName("total_price") val totalPrice : Double,
     @SerializedName("purchase_date") val purchaseDate : String,
     @SerializedName("address") val address : AddressModel
 ) :Parcelable

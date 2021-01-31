@@ -36,7 +36,10 @@ class NotificationAdapter(
             }
             var argument = notification.argument
             if(type=="order_status_change") {
-                Picasso.get().load(argument.product.imageURL).into(binding.productImage)
+                if(argument.product.imageURL.contains("/image/"))
+                    Picasso.get().load("http://3.134.80.26:8000" + argument.product.imageURL).into(binding.productImage)
+                else
+                    Picasso.get().load(argument.product.imageURL).into(binding.productImage)
                 if(argument.newStatus=="at_cargo") {
                     binding.notText.text = "Your order is now on the way."
                 } else if(argument.newStatus=="delivered") {
@@ -45,6 +48,9 @@ class NotificationAdapter(
                     binding.notText.text = "Your order is accepted."
                 }
             } else if(type=="price_change") {
+                if(argument.image_url.contains("/image/"))
+                    Picasso.get().load("http://3.134.80.26:8000" + argument.image_url).into(binding.productImage)
+                else
                 Picasso.get().load(argument.image_url).into(binding.productImage)
                 if(argument.new_price>argument.old_price) {
                     binding.notText.text = "Price of a product in your wishlist has changed."

@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getflix.R
+import com.example.getflix.activities.MainActivity
 import com.example.getflix.databinding.FragmentVendorOrdersBinding
 import com.example.getflix.ui.adapters.VendorOrderAdapter
 import com.example.getflix.ui.viewmodels.VendorOrdersViewModel
@@ -63,6 +64,7 @@ class VendorOrdersFragment : Fragment() {
 
         vendorOrdersViewModel.orders.observe(viewLifecycleOwner, Observer {
             vendorOrderAdapter.submitList(it)
+            MainActivity.StaticData.orderNum = it.size
         })
         vendorOrderAdapter.destination.observe(viewLifecycleOwner, Observer {
             if(it!=null) {

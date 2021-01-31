@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.getflix.R
 import com.example.getflix.activities.MainActivity
+import com.example.getflix.askAlert
 import com.example.getflix.databinding.FragmentProfileBinding
 import com.example.getflix.infoAlert
 import com.example.getflix.ui.fragments.ProfileFragmentDirections.Companion.actionProfileFragmentToAddressFragment
@@ -84,9 +85,9 @@ class ProfileFragment : Fragment() {
 
         binding.buttonLogout.setOnClickListener {
             if (!MainActivity.StaticData.isVisitor) {
-                //askAlert(this, getString(R.string.logout_warning), ::navigateLogin)
-                FirebaseAuth.getInstance().signOut()
-                view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
+                askAlert(this, getString(R.string.logout_warning), ::navigateLogin)
+                //FirebaseAuth.getInstance().signOut()
+                //view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
             } else {
                 resetData()
                 view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
@@ -106,6 +107,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun navigateLogin() {
+        FirebaseAuth.getInstance().signOut()
         view?.findNavController()?.navigate(actionProfileFragmentToLoginFragment())
         if (MainActivity.StaticData.isGoogleUser)
             MainActivity.StaticData.mGoogleSignInClient!!.signOut()
