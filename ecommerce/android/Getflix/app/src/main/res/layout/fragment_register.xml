@@ -195,7 +195,7 @@
 
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/phone2"
+                        android:id="@+id/phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="phone" />
@@ -278,8 +278,7 @@
                                     android:id="@+id/country_code"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:inputType="phone" />
+                                    android:layout_weight="1" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -298,7 +297,7 @@
                                 app:hintTextColor="@color/black">
 
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/phone"
+                                    android:id="@+id/phone2"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="phone" />
