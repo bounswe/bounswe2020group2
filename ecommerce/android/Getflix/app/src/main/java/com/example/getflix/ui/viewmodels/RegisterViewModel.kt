@@ -40,7 +40,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
 
     init {
         _canSignUp.value = null
-        isFirebaseUser.value = true
+        isFirebaseUser.value = false
     }
 
     private fun signUp() {
@@ -67,7 +67,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                             _signUpCredentials.value!!.password
                         )
                             .addOnCompleteListener {
-
+                                isFirebaseUser.value = true
                             }.addOnFailureListener {
                                 isFirebaseUser.value = false
                                 _canSignUp.value = null
