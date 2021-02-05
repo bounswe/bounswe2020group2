@@ -10,7 +10,7 @@ data class OrderPurchasedModel(
     @SerializedName("amount") val amount : Int,
     @SerializedName("product") val product : ProductModel,
     @SerializedName("status") val status : String,
-    @SerializedName("unit_price") val unit_price : Int,
+    @SerializedName("unit_price") val unit_price : Double,
     @SerializedName("purchase_date") val purchase_date : String,
     @SerializedName("vendor") val vendor : VendorModel,
     @SerializedName("address") val address : AddressModel

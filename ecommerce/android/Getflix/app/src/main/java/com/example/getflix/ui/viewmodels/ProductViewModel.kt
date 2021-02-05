@@ -8,7 +8,6 @@ import com.example.getflix.activities.MainActivity.StaticData.isCustomer
 import com.example.getflix.models.ProductModel
 import com.example.getflix.models.ProductReviewListModel
 import com.example.getflix.models.ReviewModel
-import com.example.getflix.models.Status
 import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.CardProAddRequest
 import com.example.getflix.service.requests.CardProUpdateRequest
@@ -16,6 +15,7 @@ import com.example.getflix.service.requests.ReviewRequest
 import com.example.getflix.service.responses.AddReviewResponse
 import com.example.getflix.service.responses.CardProAddResponse
 import com.example.getflix.service.responses.CardProUpdateResponse
+import com.example.getflix.service.responses.DeleteProductResponse
 import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -42,6 +42,10 @@ class ProductViewModel : ViewModel() {
     private val _navigateBack = MutableLiveData<Boolean>()
     val navigateBack: LiveData<Boolean>
         get() = _navigateBack
+
+    private val _deletePro = MutableLiveData<Boolean>()
+    val deletePro: LiveData<Boolean>
+        get() = _deletePro
 
     private val _isSaved = MutableLiveData<Boolean>()
     val isSaved: LiveData<Boolean>
@@ -238,11 +242,39 @@ class ProductViewModel : ViewModel() {
         })
     }
 
+    fun deleteProduct(proId: Int) {
+        GetflixApi.getflixApiService.deleteProduct(
+            "Bearer " + MainActivity.StaticData.user!!.token,proId
+        )
+            .enqueue(object :
+                Callback<DeleteProductResponse> {
+                override fun onFailure(call: Call<DeleteProductResponse>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<DeleteProductResponse>,
+                    response: Response<DeleteProductResponse>
+                ) {
+                    _deletePro.value = true
+                    println("aaaaa")
+                    println(response.code())
+                    println(response.message())
+                    println(response.body())
+                }
+            }
+            )
+    }
+
     fun resetOnCompleteReview(){
         _onCompleteReview.value = null
     }
 
     fun resetNavigate() {
         _navigateBack.value = false
+    }
+
+    fun resetDeletePro() {
+        _deletePro.value = false
     }
 }

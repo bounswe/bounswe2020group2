@@ -201,6 +201,8 @@
                     app:layout_constraintEnd_toStartOf="@+id/add_to_cart"
                     app:layout_constraintTop_toBottomOf="@+id/short_description" />
 
+
+
                 <ImageButton
                     android:id="@+id/add_to_cart"
                     android:layout_width="59dp"
@@ -212,6 +214,7 @@
                     app:layout_constraintTop_toTopOf="@+id/buy_now"
                     app:srcCompat="@drawable/ic_black_cart"
                     tools:ignore="VectorDrawableCompat" />
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recommended_products"
@@ -459,6 +462,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/subcategory_title" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/review_section"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="50dp"

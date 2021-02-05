@@ -6,14 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.ProductModel
 import com.example.getflix.service.GetflixApi
-import com.example.getflix.service.requests.CardProUpdateRequest
-import com.example.getflix.service.requests.ProSearchBySubcategoryRequest
-import com.example.getflix.service.requests.ProSearchByVendorRequest
-import com.example.getflix.service.requests.VendorProUpdateRequest
-import com.example.getflix.service.responses.CardProUpdateResponse
-import com.example.getflix.service.responses.ProSearchBySubcategoryResponse
-import com.example.getflix.service.responses.ProSearchByVendorResponse
-import com.example.getflix.service.responses.VendorProUpdateResponse
+import com.example.getflix.service.requests.*
+import com.example.getflix.service.responses.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,6 +40,33 @@ class VendorHomeViewModel : ViewModel() {
                         _navigateBack.value = true
 
                     }
+                    // searchByVendor(3)
+                }
+            }
+            )
+    }
+
+    fun addVendorProduct(addRequest: AddProductRequest) {
+        GetflixApi.getflixApiService.addProduct(
+            "Bearer " + MainActivity.StaticData.user!!.token, addRequest
+        )
+            .enqueue(object :
+                Callback<AddProductResponse> {
+                override fun onFailure(call: Call<AddProductResponse>, t: Throwable) {
+                    println("failure")
+                }
+
+                override fun onResponse(
+                    call: Call<AddProductResponse>,
+                    response: Response<AddProductResponse>
+                ) {
+                    println(response.code())
+                    println(response.body().toString())
+                    if (response.code()==200) {
+                        _navigateBack.value = true
+                        println(response.body()!!.status.message)
+                    }
+
                     // searchByVendor(3)
                 }
             }

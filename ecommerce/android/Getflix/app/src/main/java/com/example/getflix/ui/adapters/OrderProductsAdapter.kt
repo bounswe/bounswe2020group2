@@ -37,10 +37,12 @@ class OrderProductsAdapter(
 
         fun bind(orderPurchased: OrderPurchasedModel, position: Int) {
             binding.listproduct = orderPurchased
-            if(orderPurchased.product.name.length>70)
-            binding.cartProductName.text = orderPurchased.product.name.subSequence(0,70)
-            else
+            if(orderPurchased.product.name.length>70) {
+                binding.cartProductName.text = orderPurchased.product.name.subSequence(0, 70)
+            }
+            else {
                 binding.cartProductName.text = orderPurchased.product.name
+            }
             binding.cartProductPrice.text =
                 orderPurchased.product.price.toString() + " TL    (x" + orderPurchased.amount + ")"
             var status = orderPurchased.status
