@@ -57,8 +57,6 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                     call: Call<SignUpResponse>,
                     response: Response<SignUpResponse>
                 ) {
-                    _canSignUp.value = response.body()
-
 
                     if ((response.body() != null && response.body()!!.successful && response.body()!!.message.equals("Username is already in use")).not()) {
                         isFirebaseUser.value = true
@@ -68,11 +66,11 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                         )
                             .addOnCompleteListener {
                                 isFirebaseUser.value = true
+                                _canSignUp.value = response.body()
                             }.addOnFailureListener {
                                 isFirebaseUser.value = false
                                 _canSignUp.value = null
                             }
-
                     }
                 }
             })
