@@ -183,7 +183,7 @@ interface GetflixApiService {
 
     @Headers("Content-Type: application/json")
     @PUT("vendor/order")
-    fun updateOrderStatus(@Header("Authorization")token : String , @Body vendorOrderStatusRequest: VendorOrderStatusRequest): Call<Status>
+    fun updateOrderStatus(@Header("Authorization")token : String , @Body vendorOrderStatusRequest: VendorOrderStatusRequest): Call<VendorOrderStatusResponse>
 
     @GET("lists")
     suspend fun getLists(@Header("Authorization") token: String): Response<ListsModel>

@@ -145,7 +145,7 @@ class VendorOrderFragment : Fragment()
                     else -> OrderStatus.CANCELLED.status
                 }
                 if (currentOrder.status.equals(newStatus).not()) {
-                    vendorOrderViewModel.changeStatusOfOrder(currentOrder.id, currentOrder.status)
+                    vendorOrderViewModel.changeStatusOfOrder(currentOrder.id, newStatus)
                 }
             }
         }

@@ -138,7 +138,7 @@ class VendorOrderAdapter constructor(context: Context) :
                 }
                 if (order.status.equals(newStatus).not()) {
                     _selectedOrder.value = order.id
-                    _selectedStatus.value = order.status
+                    _selectedStatus.value = newStatus
                 }
             }
         }

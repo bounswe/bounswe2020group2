@@ -16,6 +16,7 @@ import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.VendorOrderStatusRequest
 import com.example.getflix.service.responses.LoginResponse
 import com.example.getflix.service.responses.VendorOrderResponse
+import com.example.getflix.service.responses.VendorOrderStatusResponse
 import com.example.getflix.service.responses.VendorProUpdateResponse
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
@@ -62,8 +63,8 @@ class VendorOrdersViewModel : ViewModel() {
             "Bearer " + MainActivity.StaticData.user!!.token, request
         )
             .enqueue(object :
-                Callback<Status> {
-                override fun onFailure(call: Call<Status>, t: Throwable) {
+                Callback<VendorOrderStatusResponse> {
+                override fun onFailure(call: Call<VendorOrderStatusResponse>, t: Throwable) {
                     Toast.makeText(
                         context,
                         "Oops! We could not change the status of your order...",
@@ -72,10 +73,9 @@ class VendorOrdersViewModel : ViewModel() {
                 }
 
                 override fun onResponse(
-                    call: Call<Status>,
-                    response: Response<Status>
+                    call: Call<VendorOrderStatusResponse>,
+                    response: Response<VendorOrderStatusResponse>
                 ) {
-
                 }
             }
             )
