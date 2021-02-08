@@ -72,16 +72,6 @@ class RegisterFragment : Fragment() {
             var checkFields = true
 
 
-            if(!customer) {
-                val request = VendorSignupRequest(binding.username.text.toString(),binding.mail.text.toString(),
-                    binding.password.text.toString(), binding.name.text.toString(), binding.surname.text.toString(),
-                    binding.phone.text.toString(), VendorAddressModel(binding.name2.text.toString(),
-                    PhoneModel(binding.countryCode.text.toString(),binding.phone2.text.toString()),
-                    binding.firstname.text.toString(), binding.surname2.text.toString(),
-                    binding.addressInfo.text.toString(), binding.province.text.toString(),
-                    binding.city.text.toString(),binding.country.text.toString(),binding.zipCode.text.toString()))
-                registerViewModel.vendorRegister(request)
-            } else {
 
                 //activity?.loading_progress!!.visibility = View.VISIBLE
 
@@ -146,67 +136,85 @@ class RegisterFragment : Fragment() {
                     binding.check.error = getString(R.string.reg_agree_err)
                 }
                 if (!customer) {
-
-                    if (!customer) {
-                        if (!binding.name2.text.toString().isEmpty()) {
+                        if (binding.name2.text.toString().isEmpty()) {
+                            checkFields = false
                             binding.name2.error = getString(R.string.reg_error)
                             activity?.loading_progress!!.visibility = View.GONE
                         }
-                        if (!binding.countryCode.text.toString().isEmpty()) {
+                        if (binding.countryCode.text.toString().isEmpty()) {
+                            checkFields = false
                             binding.countryCode.error = getString(R.string.reg_error)
                             activity?.loading_progress!!.visibility = View.GONE
                         }
-                        if (!binding.phone.text.toString().isEmpty()) {
+                        if (binding.phone2.text.toString().isEmpty()) {
+                            checkFields = false
                             binding.phone.error = getString(R.string.reg_error)
                             activity?.loading_progress!!.visibility = View.GONE
                         }
-                        if (!binding.firstname.text.toString().isEmpty()) {
+                        if (binding.firstname.text.toString().isEmpty()) {
+                            checkFields = false
                             binding.firstname.error = getString(R.string.reg_error)
                             activity?.loading_progress!!.visibility = View.GONE
                         }
-                        if (!binding.surname2.text.toString().isEmpty()) {
+                        if (binding.surname2.text.toString().isEmpty()) {
+                            checkFields = false
                             binding.surname2.error = getString(R.string.reg_error)
                             activity?.loading_progress!!.visibility = View.GONE
                         }
-                        if (!binding.addressInfo.text.toString().isEmpty()) {
+                        if (binding.addressInfo.text.toString().isEmpty()) {
+                            checkFields = false
                             binding.addressInfo.error = getString(R.string.reg_error)
                             activity?.loading_progress!!.visibility = View.GONE
                         }
-                        if (!binding.province.text.toString().isEmpty()) {
+                        if (binding.province.text.toString().isEmpty()) {
+                            checkFields = false
                             binding.province.error = getString(R.string.reg_error)
                             activity?.loading_progress!!.visibility = View.GONE
                         }
-                        if (!binding.city.text.toString().isEmpty()) {
+                        if (binding.city.text.toString().isEmpty()) {
+                            checkFields = false
                             binding.city.error = getString(R.string.reg_error)
                             activity?.loading_progress!!.visibility = View.GONE
                         }
-                        if (!binding.country.text.toString().isEmpty()) {
+                        if (binding.country.text.toString().isEmpty()) {
+                            checkFields = false
                             binding.country.error = getString(R.string.reg_error)
                             activity?.loading_progress!!.visibility = View.GONE
                         }
-                        if (!binding.zipCode.toString().isEmpty()) {
+                        if (binding.zipCode.toString().isEmpty()) {
+                            checkFields = false
                             binding.zipCode.error = getString(R.string.reg_error)
                             activity?.loading_progress!!.visibility = View.GONE
                         }
-                    }
-
                 }
                 if (checkFields && prevAlert.not()) {
-                    registerViewModel.setSignUpCredentials(
-                        this,
-                        binding.username.text.toString(),
-                        binding.mail.text.toString(),
-                        binding.password.text.toString(),
-                        binding.name.text.toString(),
-                        binding.surname.text.toString(),
-                        binding.phone.text.toString(),
-                        binding.conPassword.text.toString()
-                    )
-
-                } else {
+                    if(!customer){
+                        val request = VendorSignupRequest(binding.username.text.toString(),binding.mail.text.toString(),
+                            binding.password.text.toString(), binding.name.text.toString(), binding.surname.text.toString(),
+                            binding.phone.text.toString(), VendorAddressModel(binding.name2.text.toString(),
+                                PhoneModel(binding.countryCode.text.toString(),binding.phone2.text.toString()),
+                                binding.firstname.text.toString(), binding.surname2.text.toString(),
+                                binding.addressInfo.text.toString(), binding.province.text.toString(),
+                                binding.city.text.toString(),binding.country.text.toString(),binding.zipCode.text.toString()))
+                        registerViewModel.vendorRegister(request)
+                    }
+                    else {
+                        registerViewModel.setSignUpCredentials(
+                            this,
+                            binding.username.text.toString(),
+                            binding.mail.text.toString(),
+                            binding.password.text.toString(),
+                            binding.name.text.toString(),
+                            binding.surname.text.toString(),
+                            binding.phone.text.toString(),
+                            binding.conPassword.text.toString()
+                        )
+                    }
+                }
+                else {
                     requireActivity().loading_progress!!.visibility = View.GONE
                 }
-            }
+
 
         }
         registerViewModel.canSignUp.observe(viewLifecycleOwner, Observer {
@@ -225,6 +233,11 @@ class RegisterFragment : Fragment() {
                 } else {
                     navigateLogin()
                 }
+            }
+        })
+        registerViewModel.canSignUpVendor.observe(viewLifecycleOwner, Observer {
+            if(it!=null){
+                navigateLogin()
             }
         })
 
