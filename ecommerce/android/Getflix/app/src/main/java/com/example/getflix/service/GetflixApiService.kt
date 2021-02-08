@@ -226,6 +226,11 @@ interface GetflixApiService {
     @Headers("Content-Type: application/json")
     @DELETE("vendor/product/{product_id}")
     fun deleteProduct(@Header("Authorization") token: String, @Path("product_id") proId: Int): Call<DeleteProductResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("vendor/signup")
+    fun vendorSignup(@Body signUp: VendorSignupRequest): Call<VendorSignupResponse>
+
 }
 
 object GetflixApi {

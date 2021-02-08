@@ -5,10 +5,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.getflix.activities.MainActivity
 import com.example.getflix.activities.MainActivity.StaticData.auth
 import com.example.getflix.service.requests.SignUpRequest
 import com.example.getflix.service.responses.SignUpResponse
 import com.example.getflix.service.GetflixApi
+import com.example.getflix.service.requests.AddressAddRequest
+import com.example.getflix.service.requests.VendorSignupRequest
+import com.example.getflix.service.responses.AddressAddResponse
+import com.example.getflix.service.responses.VendorSignupResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -74,6 +79,25 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                     }
                 }
             })
+    }
+
+    fun vendorRegister(request: VendorSignupRequest) {
+        GetflixApi.getflixApiService.vendorSignup(request)
+            .enqueue(object :
+                Callback<VendorSignupResponse> {
+                override fun onFailure(call: Call<VendorSignupResponse>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<VendorSignupResponse>,
+                    response: Response<VendorSignupResponse>
+                ) {
+                    if (response.code() == 200)
+                       println("success")
+                }
+            }
+            )
     }
 
 }
