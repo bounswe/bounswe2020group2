@@ -10,6 +10,7 @@ import com.example.getflix.activities.MainActivity
 import com.example.getflix.models.Status
 import com.example.getflix.service.GetflixApi
 import com.example.getflix.service.requests.VendorOrderStatusRequest
+import com.example.getflix.service.responses.VendorOrderStatusResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,14 +28,14 @@ class VendorOrderViewModel :ViewModel() {
             "Bearer " + MainActivity.StaticData.user!!.token, request
         )
             .enqueue(object :
-                Callback<Status> {
-                override fun onFailure(call: Call<Status>, t: Throwable) {
+                Callback<VendorOrderStatusResponse> {
+                override fun onFailure(call: Call<VendorOrderStatusResponse>, t: Throwable) {
                     _onStatusChanged.value = false
                 }
 
                 override fun onResponse(
-                    call: Call<Status>,
-                    response: Response<Status>
+                    call: Call<VendorOrderStatusResponse>,
+                    response: Response<VendorOrderStatusResponse>
                 ) {
                     _onStatusChanged.value = true
                 }

@@ -183,7 +183,7 @@ interface GetflixApiService {
 
     @Headers("Content-Type: application/json")
     @PUT("vendor/order")
-    fun updateOrderStatus(@Header("Authorization")token : String , @Body vendorOrderStatusRequest: VendorOrderStatusRequest): Call<Status>
+    fun updateOrderStatus(@Header("Authorization")token : String , @Body vendorOrderStatusRequest: VendorOrderStatusRequest): Call<VendorOrderStatusResponse>
 
     @GET("lists")
     suspend fun getLists(@Header("Authorization") token: String): Response<ListsModel>
@@ -226,6 +226,11 @@ interface GetflixApiService {
     @Headers("Content-Type: application/json")
     @DELETE("vendor/product/{product_id}")
     fun deleteProduct(@Header("Authorization") token: String, @Path("product_id") proId: Int): Call<DeleteProductResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("vendor/signup")
+    fun vendorSignup(@Body signUp: VendorSignupRequest): Call<VendorSignupResponse>
+
 }
 
 object GetflixApi {

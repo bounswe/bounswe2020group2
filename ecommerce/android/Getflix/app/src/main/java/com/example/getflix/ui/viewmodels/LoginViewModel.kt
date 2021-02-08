@@ -42,6 +42,7 @@ class LoginViewModel : ViewModel() {
 
                     _user.value = null
                     _logReq.value = null
+                    println("failureda")
                 }
 
                 override fun onResponse(
@@ -49,9 +50,13 @@ class LoginViewModel : ViewModel() {
                     response: Response<LoginResponse>
 
                 ) {
+                    println("hryyy")
+                    println(response.body())
                     if (response.body() != null && response.body()!!.status.message == "Giriş başarılı") {
                         val currentUser = response.body()?.user!!
-
+                        if(currentUser.role=="VENDOR")
+                            _user.value = currentUser
+                        else {
 
                             auth.signInWithEmailAndPassword(
                                 currentUser.email,
@@ -63,6 +68,7 @@ class LoginViewModel : ViewModel() {
                                     _user.value = null
                                 }
                             }
+                        }
 
 
                     }

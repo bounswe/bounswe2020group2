@@ -85,8 +85,10 @@ class VendorHomeViewModel : ViewModel() {
                     call: Call<ProSearchByVendorResponse>,
                     response: Response<ProSearchByVendorResponse>
                 ) {
-                    _productList.value =
-                        response.body()!!.data.products as MutableList<ProductModel>
+                    if(response.body()!=null && response.body()!!.data.products.isNotEmpty()) {
+                        _productList.value =
+                            response.body()!!.data.products as MutableList<ProductModel>
+                    }
 
                 }
             }

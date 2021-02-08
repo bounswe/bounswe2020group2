@@ -76,7 +76,8 @@ class SubCategoryViewModel : ViewModel() {
                     call: Call<ProSearchBySubcategoryResponse>,
                     response: Response<ProSearchBySubcategoryResponse>
                 ) {
-                    _productList.value = response.body()!!.data.products as MutableList<ProductModel>
+                    if(response.body()!=null)
+                        _productList.value = response.body()!!.data.products as MutableList<ProductModel>
 
                 }
             }
