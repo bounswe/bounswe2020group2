@@ -24,6 +24,11 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     private val _canSignUp = MutableLiveData<SignUpResponse?>()
     val canSignUp: LiveData<SignUpResponse?>
         get() = _canSignUp
+
+    private val _canSignUpVendor = MutableLiveData<VendorSignupResponse?>()
+    val canSignUpVendor: LiveData<VendorSignupResponse?>
+        get() = _canSignUpVendor
+
     val isFirebaseUser = MutableLiveData<Boolean>()
 
     fun setSignUpCredentials(
@@ -94,7 +99,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                     response: Response<VendorSignupResponse>
                 ) {
                     if (response.code() == 200)
-                       println("success")
+                       _canSignUpVendor.value = response.body()
                 }
             }
             )
